@@ -42,3 +42,4 @@ MovementType = 0
 UsableWeapons = PackedStringArray("Axe")
 PromotesTo = PackedStringArray("warrior")
 IsPromoted = false
+MaxArmor = 1

@@ -53,6 +53,7 @@ Faction = 1
 Position = Vector2i(14, 1)
 Ai = 3
 IsBoss = true
+SpriteId = "boss_brigand_chief"
 
 [sub_resource type="Resource" id="SpawnDefinition_7"]
 script = ExtResource("2_spawn")

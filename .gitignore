@@ -7,3 +7,13 @@ obj/
 *.user
 tests/**/bin/
 tests/**/obj/
+
+# Secrets
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.json.tmp
+tools/art/STOP

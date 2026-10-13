@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/WeaponDefinition.cs" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+Id = "lyras_blade"
+Name = "Lyra's Blade"
+Type = 0
+Might = 11
+Hit = 95
+Crit = 15
+Weight = 4
+MinRange = 1
+MaxRange = 1
+Magic = false
+EffectiveAgainst = PackedStringArray()
+Price = 0
+Tier = 4
+PersonalTo = "rowan"

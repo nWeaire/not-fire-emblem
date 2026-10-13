@@ -20,6 +20,10 @@ public partial class SpawnDefinition : Resource
     [Export] public Vector2I Position { get; set; }
     [Export] public AiProfile Ai { get; set; } = AiProfile.Aggressive;
     [Export] public bool IsBoss { get; set; }
+    /// <summary>Art set id under assets/sprites/. Empty = derived from UnitId or "enemy_&lt;ClassId&gt;".</summary>
+    [Export] public string SpriteId { get; set; } = "";
+    /// <summary>Body armour for generic units (empty = none).</summary>
+    [Export] public string Armor { get; set; } = "";
 
     public SpawnDef ToDef() => new(
         string.IsNullOrEmpty(UnitId) ? null : UnitId,
@@ -30,5 +34,7 @@ public partial class SpawnDefinition : Resource
         Faction,
         new GridPos(Position.X, Position.Y),
         Ai,
-        IsBoss);
+        IsBoss,
+        string.IsNullOrEmpty(SpriteId) ? null : SpriteId,
+        string.IsNullOrEmpty(Armor) ? null : Armor);
 }

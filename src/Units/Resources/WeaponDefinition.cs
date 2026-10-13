@@ -20,7 +20,12 @@ public partial class WeaponDefinition : Resource
     /// <summary>MovementType names this weapon deals effective (×3 Might) damage against.</summary>
     [Export] public string[] EffectiveAgainst { get; set; } = Array.Empty<string>();
     [Export] public int Price { get; set; }
+    /// <summary>Gear tier, 1 (iron) to 4 (legendary). Used to stage shops by region.</summary>
+    [Export] public int Tier { get; set; } = 1;
+    /// <summary>Unit id for a unique weapon only that unit can wield; empty = anyone.</summary>
+    [Export] public string PersonalTo { get; set; } = "";
 
     public WeaponDef ToDef() =>
-        new(Id, Name, Type, Might, Hit, Crit, Weight, MinRange, MaxRange, Magic, EffectiveAgainst.ToArray(), Price);
+        new(Id, Name, Type, Might, Hit, Crit, Weight, MinRange, MaxRange, Magic, EffectiveAgainst.ToArray(), Price, Tier,
+            string.IsNullOrEmpty(PersonalTo) ? null : PersonalTo);
 }

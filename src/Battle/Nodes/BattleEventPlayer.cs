@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
+using NotFireEmblem.UI;
 using NotFireEmblem.Units;
 
 namespace NotFireEmblem.Battle;
@@ -51,6 +52,17 @@ public partial class BattleEventPlayer : Node
 
     private async Task PlayCombat(CombatResolved c)
     {
+        var state = Battle.State;
+        var attackerUnit = state.Unit(c.AttackerId);
+        var defenderUnit = state.Unit(c.DefenderId);
+        if (Battle.UseBattleScenes && BattleSceneView.CanShow(attackerUnit, defenderUnit))
+        {
+            await Battle.BattleScene.Play(state, c);
+            Battle.ViewOf(c.AttackerId)?.SetHp(c.Result.AttackerHpAfter, state.Stats(attackerUnit).HP);
+            Battle.ViewOf(c.DefenderId)?.SetHp(c.Result.DefenderHpAfter, state.Stats(defenderUnit).HP);
+            return;
+        }
+
         var attacker = Battle.ViewOf(c.AttackerId);
         var defender = Battle.ViewOf(c.DefenderId);
         if (attacker is null || defender is null)
@@ -60,7 +72,6 @@ public partial class BattleEventPlayer : Node
         defender.FaceToward(attacker.Position);
         Battle.Hud.ShowForecast(c.Forecast, "");
 
-        var state = Battle.State;
         int attackerMax = state.Stats(state.Unit(c.AttackerId)).HP;
         int defenderMax = state.Stats(state.Unit(c.DefenderId)).HP;
 

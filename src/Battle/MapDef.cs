@@ -19,7 +19,17 @@ public sealed record SpawnDef(
     Faction Faction,
     GridPos Pos,
     AiProfile Ai = AiProfile.Aggressive,
-    bool IsBoss = false);
+    bool IsBoss = false,
+    string? SpriteId = null,
+    string? Armor = null) // body armour for generic units (named units bring their own)
+{
+    /// <summary>
+    /// The art set this unit uses: an explicit SpriteId, else the named unit's id, else "enemy_&lt;classId&gt;"
+    /// (or "ally_"/"player_" for other factions).
+    /// </summary>
+    public string ResolveSpriteId() =>
+        SpriteId ?? UnitId ?? $"{Faction.ToString().ToLowerInvariant()}_{ClassId}";
+}
 
 public sealed record MapDef(
     string Id,
@@ -53,6 +63,8 @@ public sealed record MapDef(
             if (spawn.ClassId is not null && !db.Classes.ContainsKey(spawn.ClassId))
                 errors.Add($"{where} has unknown class '{spawn.ClassId}'.");
             errors.AddRange(spawn.Inventory.Where(i => !db.Weapons.ContainsKey(i)).Select(i => $"{where} carries unknown item '{i}'."));
+            if (spawn.Armor is not null && db.TryArmor(spawn.Armor) is not { Slot: ArmorSlot.Body })
+                errors.Add($"{where} wears unknown body armour '{spawn.Armor}'.");
             if (grid is not null && !grid.InBounds(spawn.Pos))
                 errors.Add($"{where} is outside the map.");
         }

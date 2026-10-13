@@ -45,3 +45,4 @@ MovementType = 0
 UsableWeapons = PackedStringArray("BlackMagic", "WhiteMagic")
 PromotesTo = PackedStringArray()
 IsPromoted = true
+MaxArmor = 0

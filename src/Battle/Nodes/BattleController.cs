@@ -20,6 +20,8 @@ public partial class BattleController : Node3D
     [Export] public string MapId { get; set; } = "ch1";
     /// <summary>0 = pick a random seed each battle.</summary>
     [Export] public ulong Seed { get; set; }
+    /// <summary>Play fights in the side-view battle screen (when both units have battle art). Toggled with B.</summary>
+    [Export] public bool UseBattleScenes { get; set; } = true;
 
     private readonly Dictionary<string, UnitView> _views = new();
 
@@ -32,6 +34,7 @@ public partial class BattleController : Node3D
     public GridCursor Cursor { get; private set; } = null!;
     public TacticsCamera Camera { get; private set; } = null!;
     public BattleHud Hud { get; private set; } = null!;
+    public BattleSceneView BattleScene { get; private set; } = null!;
     public BattleEventPlayer EventPlayer { get; private set; } = null!;
     public PlayerInputController PlayerInput { get; private set; } = null!;
     public Node3D UnitsRoot { get; private set; } = null!;
@@ -45,6 +48,7 @@ public partial class BattleController : Node3D
         Cursor = GetNode<GridCursor>("%Cursor");
         Camera = GetNode<TacticsCamera>("%Camera");
         Hud = GetNode<BattleHud>("%Hud");
+        BattleScene = GetNode<BattleSceneView>("%BattleScene");
         EventPlayer = GetNode<BattleEventPlayer>("%EventPlayer");
         PlayerInput = GetNode<PlayerInputController>("%PlayerInput");
         UnitsRoot = GetNode<Node3D>("%Units");

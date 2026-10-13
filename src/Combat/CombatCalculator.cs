@@ -17,7 +17,8 @@ public static class CombatCalculator
     public const int HeightHitBonus = 10;
 
     public static bool CanWield(ContentDatabase db, UnitState unit, WeaponDef weapon) =>
-        db.Class(unit.ClassId).Usable.Contains(weapon.Type) && weapon.Might > 0;
+        db.Class(unit.ClassId).Usable.Contains(weapon.Type) && weapon.Might > 0
+        && (weapon.PersonalTo is null || weapon.PersonalTo == unit.Def.Id);
 
     /// <summary>Weapons in the unit's inventory that its class can attack with.</summary>
     public static IEnumerable<WeaponDef> UsableWeapons(ContentDatabase db, UnitState unit) =>
@@ -47,8 +48,8 @@ public static class CombatCalculator
 
         var aStats = s.Stats(attacker);
         var dStats = s.Stats(defender);
-        int aAs = StatCalculator.AttackSpeed(aStats, attackWeapon);
-        int dAs = StatCalculator.AttackSpeed(dStats, counterWeapon);
+        int aAs = StatCalculator.AttackSpeed(aStats, attackWeapon, StatCalculator.ArmorWeight(s.Db, attacker.State));
+        int dAs = StatCalculator.AttackSpeed(dStats, counterWeapon, StatCalculator.ArmorWeight(s.Db, defender.State));
 
         var aSide = Side(s, true, attacker, aStats, attackWeapon, attackerPos, aAs, defender, dStats, counterWeapon, defender.Pos, dAs);
         var dSide = canCounter

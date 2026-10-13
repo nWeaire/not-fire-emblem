@@ -17,13 +17,15 @@ public static class ContentLoader
         foreach (var r in LoadAll<TerrainDefinition>("terrain")) db.Add(r.ToDef());
         foreach (var r in LoadAll<ClassDefinition>("classes")) db.Add(r.ToDef());
         foreach (var r in LoadAll<WeaponDefinition>("weapons")) db.Add(r.ToDef());
+        foreach (var r in LoadAll<ArmorDefinition>("armor")) db.Add(r.ToDef());
+        foreach (var r in LoadAll<ShopDefinition>("shops")) db.Add(r.ToDef());
         foreach (var r in LoadAll<UnitDefinition>("units")) db.Add(r.ToDef());
         foreach (var r in LoadAll<MapDefinition>("maps")) db.Add(r.ToDef());
 
         var errors = db.Validate();
         if (errors.Count > 0)
             throw new InvalidOperationException("Content validation failed:\n  " + string.Join("\n  ", errors));
-        GD.Print($"Content loaded: {db.Terrains.Count} terrain, {db.Classes.Count} classes, {db.Weapons.Count} weapons, {db.Units.Count} units, {db.Maps.Count} maps.");
+        GD.Print($"Content loaded: {db.Terrains.Count} terrain, {db.Classes.Count} classes, {db.Weapons.Count} weapons, {db.Armors.Count} armour, {db.Shops.Count} shops, {db.Units.Count} units, {db.Maps.Count} maps.");
         return db;
     }
 

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ArmorDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ArmorDefinition.cs" id="1_armor"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+Mag = 2
+Res = 6
+
+[resource]
+script = ExtResource("1_armor")
+Id = "sage_vestments"
+Name = "Sage's Vestments"
+Slot = 0
+Class = 0
+Weight = 0
+Price = 2800
+Tier = 3
+Bonuses = SubResource("StatsDefinition_1")

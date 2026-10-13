@@ -18,6 +18,8 @@ public partial class ClassDefinition : Resource
     /// <summary>Class ids this class can promote into.</summary>
     [Export] public string[] PromotesTo { get; set; } = Array.Empty<string>();
     [Export] public bool IsPromoted { get; set; }
+    /// <summary>Heaviest body armour the class can wear.</summary>
+    [Export] public ArmorClass MaxArmor { get; set; } = ArmorClass.Medium;
 
     public ClassDef ToDef() => new(
         Id,
@@ -28,5 +30,6 @@ public partial class ClassDefinition : Resource
         MovementType,
         UsableWeapons.Select(w => Enum.Parse<WeaponType>(w, true)).ToArray(),
         PromotesTo.ToArray(),
-        IsPromoted);
+        IsPromoted,
+        MaxArmor);
 }

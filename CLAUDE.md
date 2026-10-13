@@ -4,6 +4,8 @@ This file provides context, execution rules, and architectural guidelines for Cl
 
 See `GDD.md` for the game design and system architecture (core loop, systems, data flow, folder layout).
 See `IMPLEMENTATION.md` for the technical implementation plan and milestone build order (M0–M6).
+See `docs/NEXT_STEPS.md` first: where the last session stopped and how to resume.
+See `docs/story/` for the story canon: `STORY.md` (world, crests, characters, plot), `CHAPTERS.md` (every mission's map, objectives, units and triggers) and `DIALOGUE.md` (script format, character voices, scripts). New chapters, units and dialogue must follow these.
 
 ---
 
@@ -72,3 +74,9 @@ Use the `_console.exe` variant of the editor binary for headless runs so output 
 godot --path . --resolution 1280x720 -- --seed=123 --speed=4 --press=100:end_turn,500:confirm --screenshot=out.png --frames=900
 ```
 `--seed` fixes the battle RNG, `--speed` sets `Engine.TimeScale`, `--press` injects input actions at given frames, and `--screenshot` saves the viewport at `--frames` and quits. The battle prints one log line per `BattleEvent`.
+
+---
+
+## 5. Art Pipeline (PixelLab)
+
+Art is generated with the PixelLab API by `tools/art/generate.py` (prompts and asset list in `tools/art/manifest.py`). The token lives in a gitignored `pixellab.env` (or `.env`) (`PIXELLAB_API_TOKEN=...`, see `.env.example`). `tools/art/state.json` records every request so re-runs never pay twice; commit it. Run `plan` (free) before `run`, and pilot new prompts with `run --pilot` or `run --only <id>`. Output goes to `assets/sprites/units/<id>/` (map sprites), `assets/sprites/battle/<id>/` (side-view battle-screen sprites, `--set battle`, east-facing only and mirrored in game), `assets/portraits/` and `assets/textures/terrain/`. Each unit finds its art through `BattleUnit.SpriteCandidates()`: `<spriteId>_<classId>` first, then `<spriteId>` (where the sprite id is the spawn's `SpriteId`, else the unit id, else `enemy_<classId>`). Outfits follow class tier: playable characters start in plain country clothes and get grander per tier (`OUTFITS` in `tools/art/manifest.py`; higher tiers are marked `planned` until their classes exist).

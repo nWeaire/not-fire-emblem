@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/WeaponDefinition.cs" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+Id = "steel_axe"
+Name = "Steel Axe"
+Type = 2
+Might = 11
+Hit = 65
+Crit = 0
+Weight = 9
+MinRange = 1
+MaxRange = 1
+Magic = false
+EffectiveAgainst = PackedStringArray()
+Price = 1000
+Tier = 2

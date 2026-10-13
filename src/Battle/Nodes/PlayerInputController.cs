@@ -118,7 +118,13 @@ public partial class PlayerInputController : Node
         if (e.IsActionPressed(InputSetup.Cancel)) { OnCancel(); Handled(); return; }
         if (e.IsActionPressed(InputSetup.NextUnit)) { OnNext(); Handled(); return; }
         if (e.IsActionPressed(InputSetup.EndTurn) && _mode == Mode.Browse) { Submit(new EndPhaseCommand()); Handled(); return; }
-        if (e.IsActionPressed(InputSetup.ToggleDanger)) { _dangerShown = !_dangerShown; RefreshDanger(); Handled(); }
+        if (e.IsActionPressed(InputSetup.ToggleDanger)) { _dangerShown = !_dangerShown; RefreshDanger(); Handled(); return; }
+        if (e.IsActionPressed(InputSetup.ToggleBattleScenes))
+        {
+            _b.UseBattleScenes = !_b.UseBattleScenes;
+            _b.Hud.SetBattleScenes(_b.UseBattleScenes);
+            Handled();
+        }
     }
 
     private void Handled() => GetViewport().SetInputAsHandled();

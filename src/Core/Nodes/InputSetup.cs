@@ -22,6 +22,7 @@ public partial class InputSetup : Node
     public const string ToggleDanger = "toggle_danger";
     public const string NextUnit = "next_unit";
     public const string Info = "info";
+    public const string ToggleBattleScenes = "toggle_battle_scenes";
 
     public override void _EnterTree()
     {
@@ -39,6 +40,7 @@ public partial class InputSetup : Node
         Bind(ToggleDanger, Key(Godot.Key.G), Pad(JoyButton.Back));
         Bind(NextUnit, Key(Godot.Key.Tab), Pad(JoyButton.Y));
         Bind(Info, Key(Godot.Key.R), Pad(JoyButton.X));
+        Bind(ToggleBattleScenes, Key(Godot.Key.B), Pad(JoyButton.RightStick));
     }
 
     private static void Bind(string action, params InputEvent[] events)

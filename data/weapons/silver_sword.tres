@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/WeaponDefinition.cs" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+Id = "silver_sword"
+Name = "Silver Sword"
+Type = 0
+Might = 13
+Hit = 80
+Crit = 0
+Weight = 8
+MinRange = 1
+MaxRange = 1
+Magic = false
+EffectiveAgainst = PackedStringArray()
+Price = 2200
+Tier = 3

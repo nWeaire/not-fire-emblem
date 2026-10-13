@@ -28,8 +28,13 @@ public sealed record ClassDef(
     MovementType MovementType,
     IReadOnlyList<WeaponType> Usable,
     IReadOnlyList<string> PromotesTo,
-    bool IsPromoted);
+    bool IsPromoted,
+    ArmorClass MaxArmor = ArmorClass.Medium); // the heaviest body armour the class can wear
 
+/// <summary>
+/// Equipment never changes a unit's look (the class does); it only changes numbers.
+/// <see cref="Tier"/> is the gear tier (1 iron … 4 legendary) used to stage shops by region.
+/// </summary>
 public sealed record WeaponDef(
     string Id,
     string Name,
@@ -42,7 +47,26 @@ public sealed record WeaponDef(
     int MaxRange,
     bool Magic,
     IReadOnlyList<string> EffectiveAgainst, // movement type names, e.g. "Flying"
-    int Price);
+    int Price,
+    int Tier = 1,
+    string? PersonalTo = null); // unit id for unique weapons only that unit can wield
+
+public enum ArmorSlot { Body, Accessory }
+
+/// <summary>Body armour weight class. A class can wear its <see cref="ClassDef.MaxArmor"/> or anything lighter.</summary>
+public enum ArmorClass { Light, Medium, Heavy }
+
+/// <summary>Body armour or an accessory: flat stat bonuses, with weight that slows weaker wearers.</summary>
+public sealed record ArmorDef(
+    string Id,
+    string Name,
+    ArmorSlot Slot,
+    ArmorClass Class,          // ignored for accessories
+    StatBlock Bonuses,
+    int Weight,
+    int Price,
+    int Tier = 1,
+    string? PersonalTo = null);
 
 public sealed record UnitDef(
     string Id,
@@ -52,4 +76,14 @@ public sealed record UnitDef(
     StatBlock Bases,   // personal modifiers added on top of the class bases
     StatBlock Growths, // personal growths added to class growths
     IReadOnlyList<string> Inventory,
-    bool IsLord);
+    bool IsLord,
+    string? Armor = null,      // starting body armour id
+    string? Accessory = null); // starting accessory id
+
+/// <summary>A shop that opens when the story reaches a region. Its stock is what that region can supply.</summary>
+public sealed record ShopDef(
+    string Id,
+    string Name,
+    string Region,
+    int OpensAtChapter, // story order: 0 = prologue, 1 = Ch 1, ...
+    IReadOnlyList<string> Items);

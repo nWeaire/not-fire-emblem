@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ArmorDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ArmorDefinition.cs" id="1_armor"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+Def = 2
+
+[resource]
+script = ExtResource("1_armor")
+Id = "leather_jerkin"
+Name = "Leather Jerkin"
+Slot = 0
+Class = 0
+Weight = 1
+Price = 500
+Tier = 1
+Bonuses = SubResource("StatsDefinition_1")

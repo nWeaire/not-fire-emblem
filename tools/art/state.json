@@ -1,0 +1,3281 @@
+{
+  "battle": {
+    "kai_cavalier": {
+      "character_id": "203b73b7-eae7-4d8e-be97-242459c9fb22",
+      "job": "85665e92-37c4-4da7-b9b6-981947aff177",
+      "status": "processing",
+      "usage": null
+    },
+    "kai_soldier": {
+      "character_id": "eb9a6f72-d05a-47af-9b6f-24ffbc601cf0",
+      "job": "fe71c34f-2037-465d-8b92-64fc917316d3",
+      "status": "processing",
+      "usage": null
+    },
+    "rowan_lord": {
+      "character_id": "70f3d746-3511-4da8-aeb6-2dcbe5066b70",
+      "job": "d72779ef-c14b-44ee-8183-424256e3f2f6",
+      "status": "processing",
+      "usage": null
+    },
+    "rowan_youth": {
+      "character_id": "6a82c9e6-3ec9-4b09-bb2f-a312b328fd20",
+      "job": "a22ccfb4-c8ec-4581-8244-ae1a4386317e",
+      "status": "processing",
+      "usage": null
+    }
+  },
+  "characters": {
+    "boss_brigand_chief": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "e886a465-0011-407c-a0a7-fe9f3d35f49c",
+            "84d4ad60-5adc-4b8b-a281-61e891f04d09",
+            "a7a3c20a-461d-43c0-974c-0ec32f654e87",
+            "cfee0708-3a94-4b45-a893-20d5c6206b68"
+          ],
+          "group_id": "02fe5669-62ac-45db-8727-d3df37ed518a",
+          "jobs": [
+            "e886a465-0011-407c-a0a7-fe9f3d35f49c",
+            "84d4ad60-5adc-4b8b-a281-61e891f04d09",
+            "a7a3c20a-461d-43c0-974c-0ec32f654e87",
+            "cfee0708-3a94-4b45-a893-20d5c6206b68"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "989cab72-77b0-4888-99ed-f438351fd6c7",
+            "518f8bf3-013f-4232-a7c3-09b5bd6b463b",
+            "1db1d1ae-31ee-485e-a9bc-7202bdc79f5f",
+            "32e8b1bc-df8d-4dea-880b-a46e415f9acc"
+          ],
+          "group_id": "84bbeec1-8296-4c33-b9d0-b322d0096100",
+          "jobs": [
+            "989cab72-77b0-4888-99ed-f438351fd6c7",
+            "518f8bf3-013f-4232-a7c3-09b5bd6b463b",
+            "1db1d1ae-31ee-485e-a9bc-7202bdc79f5f",
+            "32e8b1bc-df8d-4dea-880b-a46e415f9acc"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "600d746d-5239-45f1-af06-f48341de986f",
+            "64edfe28-cc7b-4a1d-9f0e-2f0b02cc1019",
+            "5f592450-ca54-49c7-9029-71720ff6a174",
+            "1226084a-33d2-481a-bb2a-cd2a37bb12b2"
+          ],
+          "group_id": "ef343d66-de27-4e6b-9c17-4c89722d5d6d",
+          "jobs": [
+            "600d746d-5239-45f1-af06-f48341de986f",
+            "64edfe28-cc7b-4a1d-9f0e-2f0b02cc1019",
+            "5f592450-ca54-49c7-9029-71720ff6a174",
+            "1226084a-33d2-481a-bb2a-cd2a37bb12b2"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.013375933859083387
+            },
+            {
+              "type": "usd",
+              "usd": 0.014084244118796455
+            },
+            {
+              "type": "usd",
+              "usd": 0.011133179956012302
+            },
+            {
+              "type": "usd",
+              "usd": 0.011370881504482695
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "5ed1afe6-4307-4832-bdfa-0f520b9b6081",
+            "204c5481-9299-4793-936d-ef5a990f8021",
+            "68e6c1ed-2cdc-45fa-9d9d-56dbbd030db2",
+            "39d5b947-9fef-4fe6-bc6e-db6777a87544"
+          ],
+          "group_id": "e691332e-55dc-4ed7-b1f2-252da8a27458",
+          "jobs": [
+            "5ed1afe6-4307-4832-bdfa-0f520b9b6081",
+            "204c5481-9299-4793-936d-ef5a990f8021",
+            "68e6c1ed-2cdc-45fa-9d9d-56dbbd030db2",
+            "39d5b947-9fef-4fe6-bc6e-db6777a87544"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.00888134429189894
+            },
+            {
+              "type": "usd",
+              "usd": 0.008288893620173137
+            },
+            {
+              "type": "usd",
+              "usd": 0.008729539685779148
+            },
+            {
+              "type": "usd",
+              "usd": 0.011044601096047296
+            }
+          ]
+        }
+      },
+      "character_id": "6d618773-d8ac-4afb-81e7-7acbd0d94ca8",
+      "job": "c9090449-c1e5-4ded-a980-d955542c31e3",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "brann": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "0a1085bb-8b5e-4be4-ba17-6b9c757bdaa4",
+            "4ae6f15d-e3fa-4585-b7f7-7010230a823a",
+            "6ec043ad-4297-4bb3-8b16-b824ce8ab28d",
+            "aa35082a-63b8-4ef8-a1c3-9b1224184cf0"
+          ],
+          "group_id": "a33b40c5-0427-45c3-8650-d6eedd84825a",
+          "jobs": [
+            "0a1085bb-8b5e-4be4-ba17-6b9c757bdaa4",
+            "4ae6f15d-e3fa-4585-b7f7-7010230a823a",
+            "6ec043ad-4297-4bb3-8b16-b824ce8ab28d",
+            "aa35082a-63b8-4ef8-a1c3-9b1224184cf0"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "2a5b9058-9469-434d-bc01-1e64f94f8718",
+            "f91bc968-cd18-412e-a4d1-45f78d8e4642",
+            "d60f001f-653a-4841-aca8-bd4e58767734",
+            "3a509734-f939-4123-9462-f87ed47a49df"
+          ],
+          "group_id": "0f4cb149-9c3f-42b0-a5a3-6b5a27133b8f",
+          "jobs": [
+            "2a5b9058-9469-434d-bc01-1e64f94f8718",
+            "f91bc968-cd18-412e-a4d1-45f78d8e4642",
+            "d60f001f-653a-4841-aca8-bd4e58767734",
+            "3a509734-f939-4123-9462-f87ed47a49df"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "1c39e39b-f957-4cd9-9d16-d62d00c11bd6",
+            "63e45c0c-1b88-4d11-b55f-549d17a6a0e6",
+            "37c17fce-0683-4d63-b2f6-428e558c6007",
+            "c76a082b-37c7-4fdc-bd69-469a7b5fe6ab"
+          ],
+          "group_id": "acdbdd70-4743-48d1-831a-ffbeb90ba0ed",
+          "jobs": [
+            "1c39e39b-f957-4cd9-9d16-d62d00c11bd6",
+            "63e45c0c-1b88-4d11-b55f-549d17a6a0e6",
+            "37c17fce-0683-4d63-b2f6-428e558c6007",
+            "c76a082b-37c7-4fdc-bd69-469a7b5fe6ab"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.009468095196617975
+            },
+            {
+              "type": "usd",
+              "usd": 0.011713111215167576
+            },
+            {
+              "type": "usd",
+              "usd": 0.011981430451075237
+            },
+            {
+              "type": "usd",
+              "usd": 0.011393443849351672
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "8b2e0f77-dab4-42a9-bec9-77d04070bb19",
+            "931eb202-02d6-4588-bc47-64152faf999b",
+            "89e2b818-8bde-4f31-80f1-985a7467c256",
+            "741f29fb-b934-431a-857d-c665781f78ae"
+          ],
+          "group_id": "fbcf595a-3017-44d4-a291-fcb268fd1d74",
+          "jobs": [
+            "8b2e0f77-dab4-42a9-bec9-77d04070bb19",
+            "931eb202-02d6-4588-bc47-64152faf999b",
+            "89e2b818-8bde-4f31-80f1-985a7467c256",
+            "741f29fb-b934-431a-857d-c665781f78ae"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.013527836455239192
+            },
+            {
+              "type": "usd",
+              "usd": 0.009206091695361667
+            },
+            {
+              "type": "usd",
+              "usd": 0.009182952721913655
+            },
+            {
+              "type": "usd",
+              "usd": 0.009459083451165093
+            }
+          ]
+        }
+      },
+      "character_id": "1319722c-0bce-414f-9f2d-a603c19e0efd",
+      "job": "26a78fd4-6422-44ab-ab8a-4dcda8e248c9",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "brann_fighter": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "0577419a-ce15-407c-b1eb-adb6142eb3c6",
+            "bca4dccb-a77f-4de3-8fa1-83b3e0d07e02",
+            "37c4c45a-634c-45c5-9aa7-27306d705ef9",
+            "f4f44705-f3b2-4daa-98f0-585c3f335d2a"
+          ],
+          "group_id": "030a5a63-2a2c-49ee-92e3-519ec375c579",
+          "jobs": [
+            "0577419a-ce15-407c-b1eb-adb6142eb3c6",
+            "bca4dccb-a77f-4de3-8fa1-83b3e0d07e02",
+            "37c4c45a-634c-45c5-9aa7-27306d705ef9",
+            "f4f44705-f3b2-4daa-98f0-585c3f335d2a"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "ff2e59bf-40ed-4deb-b276-622edb8fad5c",
+            "48a7ef13-5872-4b97-81f5-023e76355186",
+            "3e8b5812-4648-4d20-89a2-bb6473a0de0a",
+            "5b3e6a7b-8ec8-4a9e-b344-7e501580bcdf"
+          ],
+          "group_id": "68c6234b-920f-4bae-9730-849921245fe6",
+          "jobs": [
+            "ff2e59bf-40ed-4deb-b276-622edb8fad5c",
+            "48a7ef13-5872-4b97-81f5-023e76355186",
+            "3e8b5812-4648-4d20-89a2-bb6473a0de0a",
+            "5b3e6a7b-8ec8-4a9e-b344-7e501580bcdf"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "f2ecb8e9-e48d-4a15-9bc0-279a12d33bfd",
+            "5afefe54-e22a-42ee-9f36-d13bf84f54ba",
+            "9ef6c607-3291-4db6-89d3-c08babcb5f2d",
+            "90dbf3b8-1528-4633-b911-fec4c040e9d7"
+          ],
+          "group_id": "a6f1c759-75f2-49e0-8c45-6e5f7108a42e",
+          "jobs": [
+            "f2ecb8e9-e48d-4a15-9bc0-279a12d33bfd",
+            "5afefe54-e22a-42ee-9f36-d13bf84f54ba",
+            "9ef6c607-3291-4db6-89d3-c08babcb5f2d",
+            "90dbf3b8-1528-4633-b911-fec4c040e9d7"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.008686518536673652
+            },
+            {
+              "type": "usd",
+              "usd": 0.008624779436323378
+            },
+            {
+              "type": "usd",
+              "usd": 0.013067286173502606
+            },
+            {
+              "type": "usd",
+              "usd": 0.01184038117196825
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "89bcd9a4-fe6b-487a-982a-6551c5fb6070",
+            "ebd0c11a-f10a-4a35-8580-5da9bbd6a06e",
+            "7f0c9f91-c843-4eab-9d78-c920cda15351",
+            "75e65664-e2eb-48a3-b1eb-8ff617077a9e"
+          ],
+          "group_id": "c0c5ab91-a562-4939-a34d-7c43be6dff47",
+          "jobs": [
+            "89bcd9a4-fe6b-487a-982a-6551c5fb6070",
+            "ebd0c11a-f10a-4a35-8580-5da9bbd6a06e",
+            "7f0c9f91-c843-4eab-9d78-c920cda15351",
+            "75e65664-e2eb-48a3-b1eb-8ff617077a9e"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.008898294501834447
+            },
+            {
+              "type": "usd",
+              "usd": 0.011976455105675592
+            },
+            {
+              "type": "usd",
+              "usd": 0.009116681893666587
+            },
+            {
+              "type": "usd",
+              "usd": 0.011993979321585762
+            }
+          ]
+        }
+      },
+      "character_id": "ee1b2ea7-2662-4b16-856c-92beb931d596",
+      "job": "2569a46d-8ab0-45d7-bd3e-1b0ff210eb01",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "elise": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "1111a411-d67c-48df-9d51-a36bb791da6e",
+            "92716a31-ff44-4fc7-9357-3be99f8424af",
+            "688a5f57-a9ad-42e9-ba55-c3b07b3c2b9c",
+            "3e9f5d85-1ec7-4b54-be10-50b3b951717d"
+          ],
+          "group_id": "d9650ef3-c7fc-4364-aee2-5139c288dde8",
+          "jobs": [
+            "1111a411-d67c-48df-9d51-a36bb791da6e",
+            "92716a31-ff44-4fc7-9357-3be99f8424af",
+            "688a5f57-a9ad-42e9-ba55-c3b07b3c2b9c",
+            "3e9f5d85-1ec7-4b54-be10-50b3b951717d"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "95993cb1-f70e-4178-915c-83d726e55cdc",
+            "819953c1-a83f-454d-bf78-daae289b2aa7",
+            "5cfc4caa-b356-44c3-972e-df66bcd3c0ad",
+            "88e49a8a-91b6-432b-b3fc-7fc9a97aa5b5"
+          ],
+          "group_id": "6166815b-9add-459b-9735-aa3478267ffb",
+          "jobs": [
+            "95993cb1-f70e-4178-915c-83d726e55cdc",
+            "819953c1-a83f-454d-bf78-daae289b2aa7",
+            "5cfc4caa-b356-44c3-972e-df66bcd3c0ad",
+            "88e49a8a-91b6-432b-b3fc-7fc9a97aa5b5"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "5ade6aba-2262-4da8-a6fb-d2e737d102af",
+            "47cd14bc-d7f0-4ee2-bf19-30782384450d",
+            "11a99a5f-6a92-4c4d-bc2d-8e37a6ccbd7f",
+            "54f0239a-4911-4d77-b298-0a6ece8868a7"
+          ],
+          "group_id": "99068041-24b5-4d17-b5dd-4706c3a08abe",
+          "jobs": [
+            "5ade6aba-2262-4da8-a6fb-d2e737d102af",
+            "47cd14bc-d7f0-4ee2-bf19-30782384450d",
+            "11a99a5f-6a92-4c4d-bc2d-8e37a6ccbd7f",
+            "54f0239a-4911-4d77-b298-0a6ece8868a7"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.012276731279161242
+            },
+            {
+              "type": "usd",
+              "usd": 0.009102256271574231
+            },
+            {
+              "type": "usd",
+              "usd": 0.008429495069715711
+            },
+            {
+              "type": "usd",
+              "usd": 0.011566908518473307
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "ee272a71-ab46-473e-881f-87cb6e30fa4a",
+            "3ec95c20-15da-4714-b4ec-735fbb392a78",
+            "e6dfc392-85ef-4443-b5ad-ff2a4b567526",
+            "a9bedd63-99c1-41ec-8f9e-7a62281f0f32"
+          ],
+          "group_id": "378dbd55-f20a-40ef-beec-15887bf33b7a",
+          "jobs": [
+            "ee272a71-ab46-473e-881f-87cb6e30fa4a",
+            "3ec95c20-15da-4714-b4ec-735fbb392a78",
+            "e6dfc392-85ef-4443-b5ad-ff2a4b567526",
+            "a9bedd63-99c1-41ec-8f9e-7a62281f0f32"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.009964803218841554
+            },
+            {
+              "type": "usd",
+              "usd": 0.013434234062830609
+            },
+            {
+              "type": "usd",
+              "usd": 0.01152777836057875
+            },
+            {
+              "type": "usd",
+              "usd": 0.010404094934463502
+            }
+          ]
+        }
+      },
+      "character_id": "955e1cb2-14a5-40a3-86f4-5b607f1a1db1",
+      "job": "9a648aa3-96fa-4911-ace1-96e5d0959ed6",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "elise_mage": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "31f9f1e0-9ddb-4554-9232-e0ed257d710f",
+            "2ab30e9c-634e-442b-86a0-91151cc31064",
+            "d829418f-c682-411b-8d70-66aa987c349c",
+            "a726d361-ce9b-40dc-8855-8938dafc302e"
+          ],
+          "group_id": "df71c3d5-bb39-466c-9b70-9720c3d865ca",
+          "jobs": [
+            "31f9f1e0-9ddb-4554-9232-e0ed257d710f",
+            "2ab30e9c-634e-442b-86a0-91151cc31064",
+            "d829418f-c682-411b-8d70-66aa987c349c",
+            "a726d361-ce9b-40dc-8855-8938dafc302e"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "ca172139-f0ca-4c8c-b9d4-71681a99f0f6",
+            "32fed28f-71dd-4014-8f0a-4ee814f96f5b",
+            "32949daf-14b0-4b68-a8d5-0c418bb1f6c4",
+            "e7d07e2c-cf66-472c-bd62-fecd3e67620c"
+          ],
+          "group_id": "6f221f8d-dea5-417d-b1df-1c14a065c95c",
+          "jobs": [
+            "ca172139-f0ca-4c8c-b9d4-71681a99f0f6",
+            "32fed28f-71dd-4014-8f0a-4ee814f96f5b",
+            "32949daf-14b0-4b68-a8d5-0c418bb1f6c4",
+            "e7d07e2c-cf66-472c-bd62-fecd3e67620c"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "2ca4c7bb-1b3b-4889-a48b-42ce1603aaf9",
+            "d60a6385-45be-4b8f-bfd5-f2a9d6dc003b",
+            "0fcb42f8-4b6b-4530-ab23-2141ace23feb",
+            "c7dd8885-f793-4e16-8ad7-c07cac137087"
+          ],
+          "group_id": "88f0218c-e384-4650-bb4b-63d311243df9",
+          "jobs": [
+            "2ca4c7bb-1b3b-4889-a48b-42ce1603aaf9",
+            "d60a6385-45be-4b8f-bfd5-f2a9d6dc003b",
+            "0fcb42f8-4b6b-4530-ab23-2141ace23feb",
+            "c7dd8885-f793-4e16-8ad7-c07cac137087"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.008859280029932658
+            },
+            {
+              "type": "usd",
+              "usd": 0.008780462476942275
+            },
+            {
+              "type": "usd",
+              "usd": 0.009117959711286757
+            },
+            {
+              "type": "usd",
+              "usd": 0.008808552821477255
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "1cfe99d0-de75-42ef-82c8-b9ed71f28bec",
+            "19bfe624-bdf9-459f-bb8f-9135225bb75a",
+            "738e67b4-17b3-4525-b260-020b08488914",
+            "76b32907-582c-4dc1-9c37-3665f4f5e8bc"
+          ],
+          "group_id": "496030de-5dc6-4daf-b6a1-de89b9b7ad02",
+          "jobs": [
+            "1cfe99d0-de75-42ef-82c8-b9ed71f28bec",
+            "19bfe624-bdf9-459f-bb8f-9135225bb75a",
+            "738e67b4-17b3-4525-b260-020b08488914",
+            "76b32907-582c-4dc1-9c37-3665f4f5e8bc"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.009495107465320164
+            },
+            {
+              "type": "usd",
+              "usd": 0.008135443554984198
+            },
+            {
+              "type": "usd",
+              "usd": 0.008805891593297322
+            },
+            {
+              "type": "usd",
+              "usd": 0.009042794121636284
+            }
+          ]
+        }
+      },
+      "character_id": "ecfe0c9d-a861-41e9-90be-0f4a199685e2",
+      "job": "1c4a29e4-0320-41dd-b3aa-aba9294946cf",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "enemy_archer": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "03102faa-bcf0-467e-9b22-8d4c86886d59",
+            "a4eb20bb-3f0e-4d5b-af0f-c1517b5970d8",
+            "e7441685-14d2-48c3-a5c1-2ef7ffbd629c",
+            "e9be5f9a-c558-4a6f-83c2-90b7e1a52486"
+          ],
+          "group_id": "b1fc383d-001f-43b7-b048-2d8a23e147dd",
+          "jobs": [
+            "03102faa-bcf0-467e-9b22-8d4c86886d59",
+            "a4eb20bb-3f0e-4d5b-af0f-c1517b5970d8",
+            "e7441685-14d2-48c3-a5c1-2ef7ffbd629c",
+            "e9be5f9a-c558-4a6f-83c2-90b7e1a52486"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "f8991d8e-2cbd-483e-99d6-3ea875e532e0",
+            "fe0831d5-cd50-442a-b046-e7052769300a",
+            "5c88cf52-a772-4739-a38d-90863e1324b7",
+            "d8c8eef4-0fc5-4b18-b824-a08eab01fece"
+          ],
+          "group_id": "a4eeb621-6717-4862-b882-1a07fbbca439",
+          "jobs": [
+            "f8991d8e-2cbd-483e-99d6-3ea875e532e0",
+            "fe0831d5-cd50-442a-b046-e7052769300a",
+            "5c88cf52-a772-4739-a38d-90863e1324b7",
+            "d8c8eef4-0fc5-4b18-b824-a08eab01fece"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "b9eb8f7c-dd4a-4ea0-b7ac-92abe380ebd8",
+            "7fdac873-8e1d-4d4d-a3d9-8ed454df9ad4",
+            "e22d803a-17b0-4dca-b0e6-1c1b0cf8e817",
+            "11952677-e6fd-4309-801d-791673431716"
+          ],
+          "group_id": "68b8c2bf-0abd-4fe3-aee5-0defcb7bb23b",
+          "jobs": [
+            "b9eb8f7c-dd4a-4ea0-b7ac-92abe380ebd8",
+            "7fdac873-8e1d-4d4d-a3d9-8ed454df9ad4",
+            "e22d803a-17b0-4dca-b0e6-1c1b0cf8e817",
+            "11952677-e6fd-4309-801d-791673431716"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.013634194215138753
+            },
+            {
+              "type": "usd",
+              "usd": 0.012240139722824096
+            },
+            {
+              "type": "usd",
+              "usd": 0.011632690005832249
+            },
+            {
+              "type": "usd",
+              "usd": 0.009168850183486938
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "ed127a05-81ea-4df5-b56b-1084e09f15ed",
+            "1c02fd51-3796-4baf-81c0-aa847d0cc726",
+            "052990c6-3676-428f-8d88-43b2322ba678",
+            "e009f8e0-aaa6-45f2-89d4-9a46d9fd6cb8"
+          ],
+          "group_id": "f561c3df-6a2c-47e6-907c-7e257b380850",
+          "jobs": [
+            "ed127a05-81ea-4df5-b56b-1084e09f15ed",
+            "1c02fd51-3796-4baf-81c0-aa847d0cc726",
+            "052990c6-3676-428f-8d88-43b2322ba678",
+            "e009f8e0-aaa6-45f2-89d4-9a46d9fd6cb8"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.009161283175150553
+            },
+            {
+              "type": "usd",
+              "usd": 0.011291200796763103
+            },
+            {
+              "type": "usd",
+              "usd": 0.009359642028808594
+            },
+            {
+              "type": "usd",
+              "usd": 0.009208670430713231
+            }
+          ]
+        }
+      },
+      "character_id": "89179eb0-8075-4405-9691-8b66d8bd33bb",
+      "job": "01db9f09-dbf7-4fc2-b85d-c5f75e1dd95a",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "enemy_fighter": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "0222ca97-0e42-4869-9de8-b49f33a1ceb3",
+            "815f9350-283e-4c76-9133-a43954a771f9",
+            "84f054a9-c491-47bc-9300-2cdbda67fab5",
+            "0da0e619-6a5f-4e50-af60-c23de1e53ae8"
+          ],
+          "group_id": "37a541a8-51fc-40c8-8ae4-2fc96ff164a0",
+          "jobs": [
+            "0222ca97-0e42-4869-9de8-b49f33a1ceb3",
+            "815f9350-283e-4c76-9133-a43954a771f9",
+            "84f054a9-c491-47bc-9300-2cdbda67fab5",
+            "0da0e619-6a5f-4e50-af60-c23de1e53ae8"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "6bfcc9f5-f88e-418a-aba5-7845ee1cbc28",
+            "64f8e5b9-17ab-4d1f-8096-c121be2b4ae4",
+            "5eaf92b8-ff83-4a09-b9cc-fc7ae4d0c8ba",
+            "de98fe1e-2c97-464b-979d-5dbf6c793ba3"
+          ],
+          "group_id": "909b3fa6-ce09-4eaf-8ea1-8de7a2a6cfb3",
+          "jobs": [
+            "6bfcc9f5-f88e-418a-aba5-7845ee1cbc28",
+            "64f8e5b9-17ab-4d1f-8096-c121be2b4ae4",
+            "5eaf92b8-ff83-4a09-b9cc-fc7ae4d0c8ba",
+            "de98fe1e-2c97-464b-979d-5dbf6c793ba3"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "a5c22052-9af9-4a8c-b9a9-d8fd1215c8c5",
+            "09ae7e59-2d0f-476b-8b2f-88ac762ff68a",
+            "c7a786e4-e912-4a8d-a44b-bb564d9839c6",
+            "319e8a31-4044-4227-a475-a31935cd62f2"
+          ],
+          "group_id": "cfd7aa4c-3cdd-47d6-9072-60e32413672a",
+          "jobs": [
+            "a5c22052-9af9-4a8c-b9a9-d8fd1215c8c5",
+            "09ae7e59-2d0f-476b-8b2f-88ac762ff68a",
+            "c7a786e4-e912-4a8d-a44b-bb564d9839c6",
+            "319e8a31-4044-4227-a475-a31935cd62f2"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.011011246707704331
+            },
+            {
+              "type": "usd",
+              "usd": 0.008973024633195666
+            },
+            {
+              "type": "usd",
+              "usd": 0.012325451215108236
+            },
+            {
+              "type": "usd",
+              "usd": 0.01057090327474806
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "0f3fa543-67f6-49fe-bcf3-96a4726c9d55",
+            "b3e9c647-ed5c-4f12-9c87-1c36659928eb",
+            "8f7f8bf5-f92b-4c10-b4fd-c4b263dce0ec",
+            "1118339f-45d0-459d-9ed9-190ef65af37e"
+          ],
+          "group_id": "9d0fefd3-10f9-48d8-9f20-00926c5c2368",
+          "jobs": [
+            "0f3fa543-67f6-49fe-bcf3-96a4726c9d55",
+            "b3e9c647-ed5c-4f12-9c87-1c36659928eb",
+            "8f7f8bf5-f92b-4c10-b4fd-c4b263dce0ec",
+            "1118339f-45d0-459d-9ed9-190ef65af37e"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.012757622480392456
+            },
+            {
+              "type": "usd",
+              "usd": 0.01365026256773207
+            },
+            {
+              "type": "usd",
+              "usd": 0.009390278922186957
+            },
+            {
+              "type": "usd",
+              "usd": 0.011288987186219956
+            }
+          ]
+        }
+      },
+      "character_id": "add20637-6597-42ea-a595-283441e48f6c",
+      "job": "24aa4963-11c4-404c-a145-5571c18e5f80",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "enemy_mage": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "3f42a8f5-8fcc-4524-9176-389911cc0ad7",
+            "3c3246e0-bfab-4532-b659-8e59b46dd37e",
+            "ce35eea7-a06a-4f92-a4fc-f4903e1e1fcd",
+            "e789d29d-5740-425d-8050-d83267b03181"
+          ],
+          "group_id": "e644f01d-78e0-473a-bb36-ab8840ef0a85",
+          "jobs": [
+            "3f42a8f5-8fcc-4524-9176-389911cc0ad7",
+            "3c3246e0-bfab-4532-b659-8e59b46dd37e",
+            "ce35eea7-a06a-4f92-a4fc-f4903e1e1fcd",
+            "e789d29d-5740-425d-8050-d83267b03181"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "0c4a8528-b874-44d1-acd5-51420e9e7c45",
+            "7142700c-4db9-40b4-b9d3-ef47a87494ff",
+            "15683349-2ec2-4d29-9985-b9e8c803b78e",
+            "71fbd1e7-8b4f-48d1-bf33-d3a682d3ac5a"
+          ],
+          "group_id": "3b2e36d7-5aef-40c1-9770-fedcfb6c05b6",
+          "jobs": [
+            "0c4a8528-b874-44d1-acd5-51420e9e7c45",
+            "7142700c-4db9-40b4-b9d3-ef47a87494ff",
+            "15683349-2ec2-4d29-9985-b9e8c803b78e",
+            "71fbd1e7-8b4f-48d1-bf33-d3a682d3ac5a"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "dbe0ca82-994b-4834-b7ac-0c45ac6400d4",
+            "b696f8c7-d931-4cbb-adde-c22509370464",
+            "4ef084cb-a4a3-4467-a4ae-fa5a6fc7f7d9",
+            "c33d8d32-2b10-4214-8887-d11ec8345360"
+          ],
+          "group_id": "2205084e-11f8-477a-9ad2-b44d49e9ffab",
+          "jobs": [
+            "dbe0ca82-994b-4834-b7ac-0c45ac6400d4",
+            "b696f8c7-d931-4cbb-adde-c22509370464",
+            "4ef084cb-a4a3-4467-a4ae-fa5a6fc7f7d9",
+            "c33d8d32-2b10-4214-8887-d11ec8345360"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.009419191784328885
+            },
+            {
+              "type": "usd",
+              "usd": 0.010981767627927993
+            },
+            {
+              "type": "usd",
+              "usd": 0.011294995731777616
+            },
+            {
+              "type": "usd",
+              "usd": 0.008858198404312134
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "eb790c4b-47f9-4506-bcd5-5c009531988a",
+            "0d016682-9864-45d6-a8cc-380a41a0461a",
+            "67b22ee1-20bd-435d-ba8f-a93896367bff",
+            "b8d2925a-7372-4fbc-8be0-ae9e2facf72f"
+          ],
+          "group_id": "9feca704-f6ea-48b0-8d19-0f4106d7653b",
+          "jobs": [
+            "eb790c4b-47f9-4506-bcd5-5c009531988a",
+            "0d016682-9864-45d6-a8cc-380a41a0461a",
+            "67b22ee1-20bd-435d-ba8f-a93896367bff",
+            "b8d2925a-7372-4fbc-8be0-ae9e2facf72f"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.009846991035673353
+            },
+            {
+              "type": "usd",
+              "usd": 0.008135152445899116
+            },
+            {
+              "type": "usd",
+              "usd": 0.009569279220369127
+            },
+            {
+              "type": "usd",
+              "usd": 0.008865159935421415
+            }
+          ]
+        }
+      },
+      "character_id": "1e85312b-9274-4ded-ba18-62b3529f34c9",
+      "job": "76685f2f-e041-4614-99c8-ee09e5971960",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "enemy_myrmidon": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "002271e1-0bbd-4de3-b57b-7d4746f01050",
+            "241db5b2-ec39-4d01-af2d-ac157d3d6927",
+            "5af42a25-f4b1-40cb-b71a-a9f6e1379ebe",
+            "ccf3f36a-69f2-493f-8f4d-1f1b045ca1bc"
+          ],
+          "group_id": "c9fb6c0f-f060-4857-9f6b-a97b75ee3faa",
+          "jobs": [
+            "002271e1-0bbd-4de3-b57b-7d4746f01050",
+            "241db5b2-ec39-4d01-af2d-ac157d3d6927",
+            "5af42a25-f4b1-40cb-b71a-a9f6e1379ebe",
+            "ccf3f36a-69f2-493f-8f4d-1f1b045ca1bc"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "1c78dac0-7f4f-4474-8196-3843027ddefb",
+            "250ed719-bbf6-4162-855f-9248aa48714e",
+            "50ca3472-9453-4fb3-978f-92313c4567c0",
+            "31af1a1a-8e8a-400f-8a9c-e2c357434421"
+          ],
+          "group_id": "b537c91c-8548-4c4e-a89f-f150db690c62",
+          "jobs": [
+            "1c78dac0-7f4f-4474-8196-3843027ddefb",
+            "250ed719-bbf6-4162-855f-9248aa48714e",
+            "50ca3472-9453-4fb3-978f-92313c4567c0",
+            "31af1a1a-8e8a-400f-8a9c-e2c357434421"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "ea2b8209-cc72-4be0-9cc6-f1decdc9a45b",
+            "a20681b5-e6ed-4551-aeb3-f43a704db692",
+            "f38eb2d7-afc5-4874-8892-cb0fbaffa000",
+            "15421ed6-3c15-44bd-9efb-fc6b19f30113"
+          ],
+          "group_id": "3852863b-c3e9-4376-8b4b-be8a93250b28",
+          "jobs": [
+            "ea2b8209-cc72-4be0-9cc6-f1decdc9a45b",
+            "a20681b5-e6ed-4551-aeb3-f43a704db692",
+            "f38eb2d7-afc5-4874-8892-cb0fbaffa000",
+            "15421ed6-3c15-44bd-9efb-fc6b19f30113"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.010656190739737618
+            },
+            {
+              "type": "usd",
+              "usd": 0.012549545605977376
+            },
+            {
+              "type": "usd",
+              "usd": 0.010037652730941773
+            },
+            {
+              "type": "usd",
+              "usd": 0.009347876760694717
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "50c76e6f-0a8c-4300-9a0f-1f8277c373a4",
+            "0eda656d-4958-4577-92c6-4672ce1fca5c",
+            "a48aa593-2fa0-4edb-9eff-c30270f50bd9",
+            "1b3f90fe-8a01-411d-823c-bd8e19cbecbf"
+          ],
+          "group_id": "b678a4d9-cfcb-4b02-870a-e7197121d922",
+          "jobs": [
+            "50c76e6f-0a8c-4300-9a0f-1f8277c373a4",
+            "0eda656d-4958-4577-92c6-4672ce1fca5c",
+            "a48aa593-2fa0-4edb-9eff-c30270f50bd9",
+            "1b3f90fe-8a01-411d-823c-bd8e19cbecbf"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.010399098290337458
+            },
+            {
+              "type": "usd",
+              "usd": 0.01260044354862637
+            },
+            {
+              "type": "usd",
+              "usd": 0.008895449346966214
+            },
+            {
+              "type": "usd",
+              "usd": 0.009295004394319323
+            }
+          ]
+        }
+      },
+      "character_id": "59d43ede-e74f-4276-a144-aa146211b29e",
+      "job": "f4ea6c99-06fa-4fef-b7dc-53dac107fe33",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "enemy_pegasus_knight": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "98c7ed4e-13b0-4057-bd51-d75aec845286",
+            "52c9e9f7-1e6f-4d89-a5ed-1fa45867b9f0",
+            "de7907d7-be34-4228-8c48-e82f36445265",
+            "fffc27d1-a870-4a97-80b9-c74b44a6293a"
+          ],
+          "group_id": "73e4fc3f-da04-474a-a083-a4f4adc19aa0",
+          "jobs": [
+            "98c7ed4e-13b0-4057-bd51-d75aec845286",
+            "52c9e9f7-1e6f-4d89-a5ed-1fa45867b9f0",
+            "de7907d7-be34-4228-8c48-e82f36445265",
+            "fffc27d1-a870-4a97-80b9-c74b44a6293a"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "955ae32e-b808-45ac-8a95-fc502068d5f4",
+            "1e690fab-fd42-413d-994d-2fa807f99ffd",
+            "68c37986-faf1-4695-988e-93e6db0397db",
+            "6e299182-04ca-4a15-ad06-75172bef47c9"
+          ],
+          "group_id": "7ac377cc-c8a4-4737-9346-c98feaebce29",
+          "jobs": [
+            "955ae32e-b808-45ac-8a95-fc502068d5f4",
+            "1e690fab-fd42-413d-994d-2fa807f99ffd",
+            "68c37986-faf1-4695-988e-93e6db0397db",
+            "6e299182-04ca-4a15-ad06-75172bef47c9"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "58da3002-f0af-42e8-8534-c76bb49806a7",
+            "035285b9-9e53-4baf-8faf-bb315bb5a874",
+            "edaffef2-c8dc-44d1-a057-a82f2b19041e",
+            "0d23c3a2-85d8-4500-8389-8494e9790c44"
+          ],
+          "group_id": "9fdcb7f4-35a5-4ff1-b30b-bd819f08540f",
+          "jobs": [
+            "58da3002-f0af-42e8-8534-c76bb49806a7",
+            "035285b9-9e53-4baf-8faf-bb315bb5a874",
+            "edaffef2-c8dc-44d1-a057-a82f2b19041e",
+            "0d23c3a2-85d8-4500-8389-8494e9790c44"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "fe53a99f-7635-4d35-b80e-9be71232ce7b",
+            "c05ca28b-545c-411e-b158-f84de6e97ba0",
+            "1db336e0-c2f7-485e-9995-8143f9cda12b",
+            "5071e135-0ef7-48c4-8dbb-35db758ed03a"
+          ],
+          "group_id": "8881c82d-e86d-4579-98cb-aac6aba83732",
+          "jobs": [
+            "fe53a99f-7635-4d35-b80e-9be71232ce7b",
+            "c05ca28b-545c-411e-b158-f84de6e97ba0",
+            "1db336e0-c2f7-485e-9995-8143f9cda12b",
+            "5071e135-0ef7-48c4-8dbb-35db758ed03a"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
+      "character_id": "34a29a32-1f58-4c47-84a4-ce4fe43497e5",
+      "job": "5f6e6401-31cd-4996-8754-101e31e3dec5",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "enemy_soldier": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "7a6a03d7-d7b5-46b7-a551-94db1fc3c970",
+            "fb5ca08e-3389-4743-912e-4afef1a32ae9",
+            "1b153956-d5a2-45a6-b91d-63ebfd06c239",
+            "15fb304f-cdd0-48b4-85cd-ec4355040857"
+          ],
+          "group_id": "fa2c043e-6482-4aa1-9db5-47f6d1766069",
+          "jobs": [
+            "7a6a03d7-d7b5-46b7-a551-94db1fc3c970",
+            "fb5ca08e-3389-4743-912e-4afef1a32ae9",
+            "1b153956-d5a2-45a6-b91d-63ebfd06c239",
+            "15fb304f-cdd0-48b4-85cd-ec4355040857"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "d621f456-178c-44b7-a987-5f34c89c31d2",
+            "c5583ca6-f104-4077-9952-667ca766efb1",
+            "e69c54fe-8b17-4651-b617-718ef6955f4f",
+            "be8e8480-0f83-42db-a926-a2f2778b3c8d"
+          ],
+          "group_id": "7c18aa26-12cc-4c25-a625-61c54e1ec9d3",
+          "jobs": [
+            "d621f456-178c-44b7-a987-5f34c89c31d2",
+            "c5583ca6-f104-4077-9952-667ca766efb1",
+            "e69c54fe-8b17-4651-b617-718ef6955f4f",
+            "be8e8480-0f83-42db-a926-a2f2778b3c8d"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "d3de89ca-f2a8-4b35-bc9f-cfe33147fe4f",
+            "06e26032-0f85-4860-9a63-6a9aefceef8b",
+            "74749255-fbff-42b6-905b-37b76fcab45a",
+            "a183d1d0-eebf-4765-b55d-e573d4a838dd"
+          ],
+          "group_id": "ba85055c-bcea-4dd7-a67d-93174d8e5df9",
+          "jobs": [
+            "d3de89ca-f2a8-4b35-bc9f-cfe33147fe4f",
+            "06e26032-0f85-4860-9a63-6a9aefceef8b",
+            "74749255-fbff-42b6-905b-37b76fcab45a",
+            "a183d1d0-eebf-4765-b55d-e573d4a838dd"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.010782905048794218
+            },
+            {
+              "type": "usd",
+              "usd": 0.00915380448765225
+            },
+            {
+              "type": "usd",
+              "usd": 0.0093941560321384
+            },
+            {
+              "type": "usd",
+              "usd": 0.012172550837198894
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "b6343468-3102-4a26-bf97-190f1cc40c47",
+            "54619a95-c782-46e5-b62a-0099c62384f9",
+            "16d95d5d-f041-4cb0-8b34-5c1c8be4deea",
+            "ea24c9a7-84e9-43a6-8371-e1c1b58826d4"
+          ],
+          "group_id": "ff905c87-21f0-4072-8b38-f3a8995da9a5",
+          "jobs": [
+            "b6343468-3102-4a26-bf97-190f1cc40c47",
+            "54619a95-c782-46e5-b62a-0099c62384f9",
+            "16d95d5d-f041-4cb0-8b34-5c1c8be4deea",
+            "ea24c9a7-84e9-43a6-8371-e1c1b58826d4"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.009564790725708008
+            },
+            {
+              "type": "usd",
+              "usd": 0.012072993463940092
+            },
+            {
+              "type": "usd",
+              "usd": 0.01210923022694058
+            },
+            {
+              "type": "usd",
+              "usd": 0.008791213830312092
+            }
+          ]
+        }
+      },
+      "character_id": "9495836e-5c33-458b-9ac8-c1defad25cdb",
+      "job": "559c188b-a1a3-4e67-aa1b-6d086c2f52c0",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "kai": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "7c5a80fc-2513-46a8-82d8-f152dfe708b6",
+            "94e7c2fe-d89b-40fc-ae1e-d5b80553d92e",
+            "ca187507-28a1-4b6c-b1c4-6941e1e76597",
+            "e2d76b3f-c1db-4b56-9a0f-1dbc377eaca4"
+          ],
+          "group_id": "f70bc81c-951c-4438-bad7-18fa603d7f27",
+          "jobs": [
+            "7c5a80fc-2513-46a8-82d8-f152dfe708b6",
+            "94e7c2fe-d89b-40fc-ae1e-d5b80553d92e",
+            "ca187507-28a1-4b6c-b1c4-6941e1e76597",
+            "e2d76b3f-c1db-4b56-9a0f-1dbc377eaca4"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "d6b28a84-9880-43f6-916a-3d5c91dbf91f",
+            "3e104e5d-2a31-4bae-a857-76ce098db001",
+            "8f14e819-6e86-4969-9d81-c321318ad20c",
+            "13c75e6d-eaa4-4649-803b-4b1ca54522f2"
+          ],
+          "group_id": "add975f4-d725-48f3-b551-db4b68d7476e",
+          "jobs": [
+            "d6b28a84-9880-43f6-916a-3d5c91dbf91f",
+            "3e104e5d-2a31-4bae-a857-76ce098db001",
+            "8f14e819-6e86-4969-9d81-c321318ad20c",
+            "13c75e6d-eaa4-4649-803b-4b1ca54522f2"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "8921f33e-3f8a-4b27-b477-d5efad00a012",
+            "8ee00924-a38e-4fe0-9370-c917ea899f1c",
+            "4171ed20-4ada-4109-9640-5f95d34bce96",
+            "b8ff1872-87b5-4206-9fb7-d1d9380d4077"
+          ],
+          "group_id": "b36b2227-f8c2-4b91-8fd9-3beb0738b41e",
+          "jobs": [
+            "8921f33e-3f8a-4b27-b477-d5efad00a012",
+            "8ee00924-a38e-4fe0-9370-c917ea899f1c",
+            "4171ed20-4ada-4109-9640-5f95d34bce96",
+            "b8ff1872-87b5-4206-9fb7-d1d9380d4077"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "99fa82f3-bbe2-445b-91d8-20502c6259fa",
+            "03ff2b65-0629-47c1-87c9-769bf4e8191b",
+            "e0063e11-1296-4fd4-adca-bdb90adf43b0",
+            "7eb341e8-066d-4493-b851-9579b71fc2d7"
+          ],
+          "group_id": "ba573e26-b308-4cd5-8b7c-76d1081a1d0e",
+          "jobs": [
+            "99fa82f3-bbe2-445b-91d8-20502c6259fa",
+            "03ff2b65-0629-47c1-87c9-769bf4e8191b",
+            "e0063e11-1296-4fd4-adca-bdb90adf43b0",
+            "7eb341e8-066d-4493-b851-9579b71fc2d7"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
+      "character_id": "3b5cec76-6211-4b3d-a22f-da7241c80942",
+      "job": "0de1a3e6-9e4c-4e19-9187-9c3f463b544d",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "kai_cavalier": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "f584e950-eae2-4954-9e4e-bdafd5987195",
+            "43e4d229-1444-457b-8353-1c4638f3d040",
+            "decb2fff-b76c-4034-bb92-a46ac4c103d3",
+            "ada885b7-7939-4501-9940-88f6bcfce9cd"
+          ],
+          "group_id": "14070176-9bbb-4d38-b10b-7f7d905e7feb",
+          "jobs": [
+            "f584e950-eae2-4954-9e4e-bdafd5987195",
+            "43e4d229-1444-457b-8353-1c4638f3d040",
+            "decb2fff-b76c-4034-bb92-a46ac4c103d3",
+            "ada885b7-7939-4501-9940-88f6bcfce9cd"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "d981639f-dd9e-4661-98dc-2715b6d1c124",
+            "91987bbe-55c5-424f-b71d-e4e60a305366",
+            "e7ffd4a2-ef42-456d-9a6f-27696cc34800",
+            "56efa0dd-babb-4ccb-a28f-bd86af038814"
+          ],
+          "group_id": "f3db5488-3986-4042-9274-341e18e96a93",
+          "jobs": [
+            "d981639f-dd9e-4661-98dc-2715b6d1c124",
+            "91987bbe-55c5-424f-b71d-e4e60a305366",
+            "e7ffd4a2-ef42-456d-9a6f-27696cc34800",
+            "56efa0dd-babb-4ccb-a28f-bd86af038814"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "1db75a8b-ad5c-4188-a66a-315f5ebe1d2c",
+            "fe88deed-31ab-4928-9c32-001d886b1d09",
+            "f654b71c-c7c8-4936-aa8b-375d3eda6d32",
+            "8958236a-ca8a-467e-9537-b8371c42e013"
+          ],
+          "group_id": "63c84dd1-309f-48b1-8200-ad96fab4ffb8",
+          "jobs": [
+            "1db75a8b-ad5c-4188-a66a-315f5ebe1d2c",
+            "fe88deed-31ab-4928-9c32-001d886b1d09",
+            "f654b71c-c7c8-4936-aa8b-375d3eda6d32",
+            "8958236a-ca8a-467e-9537-b8371c42e013"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "2c132cb0-72d1-4c28-8960-5d2fe3b3366e",
+            "15012daa-46a1-4e53-8467-1c554d1743b6",
+            "5c2d153d-91ff-4e18-97aa-b61c5016cdff",
+            "1c11b7d7-047f-46f0-aee1-69cd1a426a94"
+          ],
+          "group_id": "6196f258-4cd5-4a74-b903-e8cca2824291",
+          "jobs": [
+            "2c132cb0-72d1-4c28-8960-5d2fe3b3366e",
+            "15012daa-46a1-4e53-8467-1c554d1743b6",
+            "5c2d153d-91ff-4e18-97aa-b61c5016cdff",
+            "1c11b7d7-047f-46f0-aee1-69cd1a426a94"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
+      "character_id": "b6378abb-ecb9-4f19-92c4-682281fccea5",
+      "job": "f25f6275-b88c-4dcc-aed3-96bfa2ed73e4",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "kai_soldier": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "9545d40d-39ab-41fc-b342-b5ed0ed6055b",
+            "c35a1c3b-a152-45e9-b42e-a7409470b689",
+            "f99d8300-f0ce-4391-9e16-b6fcd00468e8",
+            "cd22855d-0773-475a-845f-0b499b3eb83f"
+          ],
+          "group_id": "bfb0484d-bd13-4649-8979-4484437a7471",
+          "jobs": [
+            "9545d40d-39ab-41fc-b342-b5ed0ed6055b",
+            "c35a1c3b-a152-45e9-b42e-a7409470b689",
+            "f99d8300-f0ce-4391-9e16-b6fcd00468e8",
+            "cd22855d-0773-475a-845f-0b499b3eb83f"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "53432c62-1f52-4bcb-a5f2-cd178546a056",
+            "520aed3f-0517-4a24-8c93-93bd8ba0905d",
+            "689a9b42-9be8-4415-ac4f-74910386655a",
+            "235d43f8-bd91-404f-80de-40795bb5c969"
+          ],
+          "group_id": "9c7c96ae-189f-4b6c-8ed6-bdf43af2dcac",
+          "jobs": [
+            "53432c62-1f52-4bcb-a5f2-cd178546a056",
+            "520aed3f-0517-4a24-8c93-93bd8ba0905d",
+            "689a9b42-9be8-4415-ac4f-74910386655a",
+            "235d43f8-bd91-404f-80de-40795bb5c969"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "b13f2208-8097-4dcf-a067-5f0a2dc141d6",
+            "c3e8d1bd-6c61-4f2e-8c80-87ecd565d48f",
+            "53bdb0a8-dbec-48cc-b5bc-d646b0063ed5",
+            "89054e78-1bbd-4418-a3fe-573a16033175"
+          ],
+          "group_id": "983ae3ce-cfd2-4c8c-88d8-0f93106954b6",
+          "jobs": [
+            "b13f2208-8097-4dcf-a067-5f0a2dc141d6",
+            "c3e8d1bd-6c61-4f2e-8c80-87ecd565d48f",
+            "53bdb0a8-dbec-48cc-b5bc-d646b0063ed5",
+            "89054e78-1bbd-4418-a3fe-573a16033175"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.008497783899307252
+            },
+            {
+              "type": "usd",
+              "usd": 0.011692121982574463
+            },
+            {
+              "type": "usd",
+              "usd": 0.012909932586881851
+            },
+            {
+              "type": "usd",
+              "usd": 0.010420728153652616
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "cc080bfd-e012-4b66-8e16-184ce5a88425",
+            "ff67d185-d296-42dc-913d-86e85622bc87",
+            "573dc6b3-2072-4372-9754-d6c2abac506c",
+            "e613806a-c32a-47c1-a955-79e5d2f2cf9a"
+          ],
+          "group_id": "846b4d00-7738-4cb5-aee0-3537a8d79e2e",
+          "jobs": [
+            "cc080bfd-e012-4b66-8e16-184ce5a88425",
+            "ff67d185-d296-42dc-913d-86e85622bc87",
+            "573dc6b3-2072-4372-9754-d6c2abac506c",
+            "e613806a-c32a-47c1-a955-79e5d2f2cf9a"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.009495465887917413
+            },
+            {
+              "type": "usd",
+              "usd": 0.01068770964940389
+            },
+            {
+              "type": "usd",
+              "usd": 0.01462863776418898
+            },
+            {
+              "type": "usd",
+              "usd": 0.008596940941280789
+            }
+          ]
+        }
+      },
+      "character_id": "2a0fcdd9-99b2-4712-bd8a-0b55da620d77",
+      "job": "b3ba5fc5-09c6-4a40-a5c4-2b7864d1b2c0",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "mira": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "c6c7339d-abfa-4ec7-b603-beb3fb0f48fe",
+            "c689ca17-40ee-418b-a293-3aef5b2302ae",
+            "fc8361ed-0efb-4138-b64c-0538af1f7ed3",
+            "bba6ca82-9308-41af-ba4f-715f39a64743"
+          ],
+          "group_id": "4afe8b6f-77dd-4670-9fb6-2f280bd6ce05",
+          "jobs": [
+            "c6c7339d-abfa-4ec7-b603-beb3fb0f48fe",
+            "c689ca17-40ee-418b-a293-3aef5b2302ae",
+            "fc8361ed-0efb-4138-b64c-0538af1f7ed3",
+            "bba6ca82-9308-41af-ba4f-715f39a64743"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "3aac1d26-a915-4d44-8ad8-3b369066de25",
+            "fdacadbd-8da8-4576-b3b8-15e7d2e16e17",
+            "0cf63f90-54e6-4b5d-ab11-6023c4efeb30",
+            "916b975b-2267-4382-921a-4a0793d00c14"
+          ],
+          "group_id": "6a80cf43-62fb-48a6-8978-f4f4e33feddf",
+          "jobs": [
+            "3aac1d26-a915-4d44-8ad8-3b369066de25",
+            "fdacadbd-8da8-4576-b3b8-15e7d2e16e17",
+            "0cf63f90-54e6-4b5d-ab11-6023c4efeb30",
+            "916b975b-2267-4382-921a-4a0793d00c14"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "180dab1f-670b-427c-a8b4-6a43262573ff",
+            "566f6079-b3b1-4691-a235-285781650bdc",
+            "3e13a83b-5565-4304-86c3-aa262a8cb861",
+            "541188cc-7b7c-44f7-8fdc-ee36eef63607"
+          ],
+          "group_id": "aebb8216-8b7d-4c40-a376-f8a30e317556",
+          "jobs": [
+            "180dab1f-670b-427c-a8b4-6a43262573ff",
+            "566f6079-b3b1-4691-a235-285781650bdc",
+            "3e13a83b-5565-4304-86c3-aa262a8cb861",
+            "541188cc-7b7c-44f7-8fdc-ee36eef63607"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.011169421672821044
+            },
+            {
+              "type": "usd",
+              "usd": 0.013041213141547308
+            },
+            {
+              "type": "usd",
+              "usd": 0.010662575827704536
+            },
+            {
+              "type": "usd",
+              "usd": 0.012759427044126723
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "d019e142-5607-4131-a04e-62ee18f33d21",
+            "0e732376-ca1c-4201-bd34-720e6c483823",
+            "4175158f-6dab-49d5-9b13-a00093807261",
+            "3c5dfefa-0140-4ce1-a11a-ac0a64cf7a38"
+          ],
+          "group_id": "e44c6ac7-1166-4c2b-bcaf-f10bf9531447",
+          "jobs": [
+            "d019e142-5607-4131-a04e-62ee18f33d21",
+            "0e732376-ca1c-4201-bd34-720e6c483823",
+            "4175158f-6dab-49d5-9b13-a00093807261",
+            "3c5dfefa-0140-4ce1-a11a-ac0a64cf7a38"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.009573628531561958
+            },
+            {
+              "type": "usd",
+              "usd": 0.010164090077082317
+            },
+            {
+              "type": "usd",
+              "usd": 0.01139446963204278
+            },
+            {
+              "type": "usd",
+              "usd": 0.011686595122019451
+            }
+          ]
+        }
+      },
+      "character_id": "c05aa42c-764f-4a7d-ad02-4d051f4a0708",
+      "job": "5e78853e-1785-42aa-948f-4be685be02a2",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "mira_acolyte": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "3a282d4a-92bf-4c7f-8820-d60e49ef76cb",
+            "393201dc-34ba-4ce1-83fc-393332598eba",
+            "8116b135-ce04-4751-9112-82658dc2aeea",
+            "eb944bab-cf44-4639-b5c6-8c07e9a19609"
+          ],
+          "group_id": "f668bea6-e98b-4098-99ad-8952c47072fe",
+          "jobs": [
+            "3a282d4a-92bf-4c7f-8820-d60e49ef76cb",
+            "393201dc-34ba-4ce1-83fc-393332598eba",
+            "8116b135-ce04-4751-9112-82658dc2aeea",
+            "eb944bab-cf44-4639-b5c6-8c07e9a19609"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "19491cd3-a9e4-478d-8185-2b468c297e7e",
+            "7ed2adfe-2f1d-428d-806e-48caab788839",
+            "1c0396f6-3b8c-4301-84a0-5ad9610437e6",
+            "00dff693-0e45-47b2-958f-8e2279686dc5"
+          ],
+          "group_id": "c1943d4d-d65c-4c0b-bc82-ef284fe89de6",
+          "jobs": [
+            "19491cd3-a9e4-478d-8185-2b468c297e7e",
+            "7ed2adfe-2f1d-428d-806e-48caab788839",
+            "1c0396f6-3b8c-4301-84a0-5ad9610437e6",
+            "00dff693-0e45-47b2-958f-8e2279686dc5"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "6d6e3857-322a-469b-963e-fad383c401d3",
+            "411bce2b-1ee2-41c1-8c78-7a5742addf71",
+            "90c74887-5c76-4d03-84a3-d65ae41448be",
+            "c7502f23-14d3-4fdd-b13c-22e7f32ff361"
+          ],
+          "group_id": "80616671-c967-47d1-9c71-22eb888cf8ac",
+          "jobs": [
+            "6d6e3857-322a-469b-963e-fad383c401d3",
+            "411bce2b-1ee2-41c1-8c78-7a5742addf71",
+            "90c74887-5c76-4d03-84a3-d65ae41448be",
+            "c7502f23-14d3-4fdd-b13c-22e7f32ff361"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.009194075081083511
+            },
+            {
+              "type": "usd",
+              "usd": 0.008657995462417602
+            },
+            {
+              "type": "usd",
+              "usd": 0.009517774528927273
+            },
+            {
+              "type": "usd",
+              "usd": 0.009458193143208822
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "ab89e3bb-2af3-4f8b-995e-cb5ede099756",
+            "afee16cb-a71b-42df-9b6c-6cf40c1a111a",
+            "b9c116da-e306-4338-9bef-026ebd3b3ac7",
+            "a072d142-3b8e-49a5-a110-eafa18d268b3"
+          ],
+          "group_id": "aec1f5ed-6ad4-44da-9c7c-e9e161030f83",
+          "jobs": [
+            "ab89e3bb-2af3-4f8b-995e-cb5ede099756",
+            "afee16cb-a71b-42df-9b6c-6cf40c1a111a",
+            "b9c116da-e306-4338-9bef-026ebd3b3ac7",
+            "a072d142-3b8e-49a5-a110-eafa18d268b3"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.008422922478781807
+            },
+            {
+              "type": "usd",
+              "usd": 0.015963225735558403
+            },
+            {
+              "type": "usd",
+              "usd": 0.009211461067199708
+            },
+            {
+              "type": "usd",
+              "usd": 0.010898130814234415
+            }
+          ]
+        }
+      },
+      "character_id": "e8e29130-4a38-45c3-a4d7-2bb1e113315e",
+      "job": "611470a2-eb56-4f15-a680-ea166301dde8",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "rowan": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "c76e0d6b-7ba7-4845-a3eb-3a4ef134dfef",
+            "83a7cdd6-3301-406c-8f7a-a8ef4ecd0b54",
+            "55dfd41a-24ee-4500-8681-7b6223e0f5d6",
+            "d177e674-9c39-4d65-a00f-d2607f376f0d"
+          ],
+          "group_id": "a90f35b4-fdf0-4942-9d9c-2cf730221e80",
+          "jobs": [
+            "c76e0d6b-7ba7-4845-a3eb-3a4ef134dfef",
+            "83a7cdd6-3301-406c-8f7a-a8ef4ecd0b54",
+            "55dfd41a-24ee-4500-8681-7b6223e0f5d6",
+            "d177e674-9c39-4d65-a00f-d2607f376f0d"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "40898009-4735-48f4-b764-920c6d243d32",
+            "fb7a832e-e919-41e5-bb66-b83778b14fb7",
+            "6608dc43-21b1-4ec1-8bfe-dbc73d4d13f9",
+            "7749a009-134c-4802-b91a-1e3db152c599"
+          ],
+          "group_id": "cfc82d3f-027a-4647-8432-1a1577e0fdd1",
+          "jobs": [
+            "40898009-4735-48f4-b764-920c6d243d32",
+            "fb7a832e-e919-41e5-bb66-b83778b14fb7",
+            "6608dc43-21b1-4ec1-8bfe-dbc73d4d13f9",
+            "7749a009-134c-4802-b91a-1e3db152c599"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "3a9bb1bf-b626-4bf8-aa80-fe9e3883ea6b",
+            "3931cf7a-4fe6-4bbf-882c-dd4f6b5acafb",
+            "b707035d-73a4-48fa-bf1a-03ec1c5b2fe3",
+            "3dd97bec-df43-42a4-a9c5-35fb755b074a"
+          ],
+          "group_id": "8ef2c14b-a913-4407-8603-dfe70284cea2",
+          "jobs": [
+            "3a9bb1bf-b626-4bf8-aa80-fe9e3883ea6b",
+            "3931cf7a-4fe6-4bbf-882c-dd4f6b5acafb",
+            "b707035d-73a4-48fa-bf1a-03ec1c5b2fe3",
+            "3dd97bec-df43-42a4-a9c5-35fb755b074a"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.008516109466552735
+            },
+            {
+              "type": "usd",
+              "usd": 0.012846619923909505
+            },
+            {
+              "type": "usd",
+              "usd": 0.008818801720937092
+            },
+            {
+              "type": "usd",
+              "usd": 0.008863939258787368
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "50336dfc-cbbe-401b-894a-0048b8956cbd",
+            "07facf07-e751-4a8c-93a6-ad29081d1ea4",
+            "bddae00b-b82b-434e-87b3-07c993e6a9bd",
+            "c75a384e-0f1f-4b52-8d57-da92c2af82a5"
+          ],
+          "group_id": "8b46cb57-49cf-4779-a02b-4ef9efc446a9",
+          "jobs": [
+            "50336dfc-cbbe-401b-894a-0048b8956cbd",
+            "07facf07-e751-4a8c-93a6-ad29081d1ea4",
+            "bddae00b-b82b-434e-87b3-07c993e6a9bd",
+            "c75a384e-0f1f-4b52-8d57-da92c2af82a5"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.015411308500501847
+            },
+            {
+              "type": "usd",
+              "usd": 0.00838030211130778
+            },
+            {
+              "type": "usd",
+              "usd": 0.008559012121624417
+            },
+            {
+              "type": "usd",
+              "usd": 0.00838147317038642
+            }
+          ]
+        }
+      },
+      "character_id": "c0c7a627-fb25-4a52-974d-ce20cb0b8708",
+      "job": "e32bc0ae-9b5c-4052-8f94-fbf29d7a2411",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "rowan_lord": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "e222c4ba-6635-4f10-a583-11955f032f42",
+            "97eedcdd-2d22-4dc3-8cfa-acb4ea8a032d",
+            "aa96775a-58e7-4854-8cd5-b3996ef77f10",
+            "57e67dfe-dfbd-43d1-8223-ca3b637cb4e5"
+          ],
+          "group_id": "e11df313-46ae-4183-983f-c886e845e870",
+          "jobs": [
+            "e222c4ba-6635-4f10-a583-11955f032f42",
+            "97eedcdd-2d22-4dc3-8cfa-acb4ea8a032d",
+            "aa96775a-58e7-4854-8cd5-b3996ef77f10",
+            "57e67dfe-dfbd-43d1-8223-ca3b637cb4e5"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "15eca958-2098-4f7a-9ddc-e20b6eca09c2",
+            "676d5b6c-6a7d-4cf5-836b-4013cd38125e",
+            "a10d45c2-b41a-46f0-830d-6398f5ec0fa9",
+            "16d204ab-3d90-4db9-b9f2-2572f0a2dd64"
+          ],
+          "group_id": "e67db6bb-43ed-4c8e-a399-765b9c53f5a6",
+          "jobs": [
+            "15eca958-2098-4f7a-9ddc-e20b6eca09c2",
+            "676d5b6c-6a7d-4cf5-836b-4013cd38125e",
+            "a10d45c2-b41a-46f0-830d-6398f5ec0fa9",
+            "16d204ab-3d90-4db9-b9f2-2572f0a2dd64"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "0020887a-fced-4c39-8114-b2b518f722f9",
+            "82e9a33e-ba37-4967-997e-f62102a69735",
+            "43847cf3-fefb-4734-8c43-811cfb2df51f",
+            "42d91e33-2cd8-4547-9ce5-5eaa6fd1ba5d"
+          ],
+          "group_id": "95ee3b81-5aa2-45b7-afda-9cedc8c38ea7",
+          "jobs": [
+            "0020887a-fced-4c39-8114-b2b518f722f9",
+            "82e9a33e-ba37-4967-997e-f62102a69735",
+            "43847cf3-fefb-4734-8c43-811cfb2df51f",
+            "42d91e33-2cd8-4547-9ce5-5eaa6fd1ba5d"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.01079065195719401
+            },
+            {
+              "type": "usd",
+              "usd": 0.009650985267427234
+            },
+            {
+              "type": "usd",
+              "usd": 0.008974066019058228
+            },
+            {
+              "type": "usd",
+              "usd": 0.007901533868577745
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "87e4cb72-22b9-4e96-b959-525e97b04e4d",
+            "251e9f89-edd0-4132-ad2e-0dcc9f49342e",
+            "3bd06e42-eef9-4d5c-b335-b84c94ea8307",
+            "9368f452-f894-4aeb-9389-220f51d008a1"
+          ],
+          "group_id": "97531275-c43e-43a0-a4ac-11038dff3bcb",
+          "jobs": [
+            "87e4cb72-22b9-4e96-b959-525e97b04e4d",
+            "251e9f89-edd0-4132-ad2e-0dcc9f49342e",
+            "3bd06e42-eef9-4d5c-b335-b84c94ea8307",
+            "9368f452-f894-4aeb-9389-220f51d008a1"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.008534183555179172
+            },
+            {
+              "type": "usd",
+              "usd": 0.008922190109888713
+            },
+            {
+              "type": "usd",
+              "usd": 0.008791384352578058
+            },
+            {
+              "type": "usd",
+              "usd": 0.011088995377222698
+            }
+          ]
+        }
+      },
+      "character_id": "188d9f89-e017-4763-9f30-ad6b64d890ff",
+      "job": "1a68bb12-f1e5-4ba7-9b74-997b7e06a8bc",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    },
+    "rowan_youth": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "fe3bfc0e-b4bc-4780-bd44-acee5dceb42d",
+            "140fb444-aebf-46f1-8462-8e3c85cac558",
+            "370b5bf1-5378-4501-a3f9-c11e1bb4e20c",
+            "1d2f0928-7a92-4f76-a95b-17ecfc32e1d0"
+          ],
+          "group_id": "71081020-1c1a-4d2e-94a3-05b5b03953f8",
+          "jobs": [
+            "fe3bfc0e-b4bc-4780-bd44-acee5dceb42d",
+            "140fb444-aebf-46f1-8462-8e3c85cac558",
+            "370b5bf1-5378-4501-a3f9-c11e1bb4e20c",
+            "1d2f0928-7a92-4f76-a95b-17ecfc32e1d0"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "768d32c3-20f2-4a8f-b2b0-c3281f003963",
+            "0af070f8-bab1-4ce2-ae03-37549518f359",
+            "fa7021f1-7930-4965-9b8c-bf5b93a0e381",
+            "84df1f99-e92d-4aaf-a9d1-58e41b7b9721"
+          ],
+          "group_id": "4323f750-fde6-4dd4-864b-cdb718cf9b51",
+          "jobs": [
+            "768d32c3-20f2-4a8f-b2b0-c3281f003963",
+            "0af070f8-bab1-4ce2-ae03-37549518f359",
+            "fa7021f1-7930-4965-9b8c-bf5b93a0e381",
+            "84df1f99-e92d-4aaf-a9d1-58e41b7b9721"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            },
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "5cf42b9c-d4b2-401e-bfab-cacc3ee6fed3",
+            "4963ecae-b180-4434-b274-cb0db0117cba",
+            "37c31f1e-e216-496f-8e9e-6c89b412e6c5",
+            "ac6c1acf-ae04-4776-8194-f7b94d7baace"
+          ],
+          "group_id": "fd7b3da0-7cc6-42ba-b4e7-9bc03e837131",
+          "jobs": [
+            "5cf42b9c-d4b2-401e-bfab-cacc3ee6fed3",
+            "4963ecae-b180-4434-b274-cb0db0117cba",
+            "37c31f1e-e216-496f-8e9e-6c89b412e6c5",
+            "ac6c1acf-ae04-4776-8194-f7b94d7baace"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.009768959336810643
+            },
+            {
+              "type": "usd",
+              "usd": 0.011556357383728028
+            },
+            {
+              "type": "usd",
+              "usd": 0.013745442893770006
+            },
+            {
+              "type": "usd",
+              "usd": 0.009140158600277372
+            }
+          ]
+        },
+        "walk": {
+          "directions": [
+            "south",
+            "east",
+            "north",
+            "west"
+          ],
+          "done_jobs": [
+            "d7395a78-befc-4e0d-85de-93d057e9ed2d",
+            "2bedad4b-5725-4c5d-bf75-dc0159c5cde1",
+            "7132656a-0bab-41d6-b34e-40de87bc516b",
+            "03e7ef2c-df88-4eef-827f-b6cd76ed0472"
+          ],
+          "group_id": "d3bdf650-6532-4daf-9ec9-1a26fdc1084b",
+          "jobs": [
+            "d7395a78-befc-4e0d-85de-93d057e9ed2d",
+            "2bedad4b-5725-4c5d-bf75-dc0159c5cde1",
+            "7132656a-0bab-41d6-b34e-40de87bc516b",
+            "03e7ef2c-df88-4eef-827f-b6cd76ed0472"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "type": "usd",
+              "usd": 0.011923738400141399
+            },
+            {
+              "type": "usd",
+              "usd": 0.009207382016711764
+            },
+            {
+              "type": "usd",
+              "usd": 0.01001589404212104
+            },
+            {
+              "type": "usd",
+              "usd": 0.012302297645144993
+            }
+          ]
+        }
+      },
+      "character_id": "a07c88ba-1d64-4d84-9575-0c0e2c562dc0",
+      "job": "705cd515-b813-42a8-8c29-c81880804797",
+      "status": "completed",
+      "usage": {
+        "generations": 2.0,
+        "type": "generations"
+      }
+    }
+  },
+  "portraits": {},
+  "tiles": {}
+}

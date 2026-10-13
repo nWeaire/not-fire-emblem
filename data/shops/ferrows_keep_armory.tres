@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ShopDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ShopDefinition.cs" id="1_shop"]
+
+[resource]
+script = ExtResource("1_shop")
+Id = "ferrows_keep_armory"
+Name = "Ferrow's Keep Armoury"
+Region = "thornvale"
+OpensAtChapter = 5
+Items = PackedStringArray("steel_sword", "steel_lance", "steel_axe", "chainmail", "iron_plate")

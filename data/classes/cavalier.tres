@@ -45,3 +45,4 @@ MovementType = 2
 UsableWeapons = PackedStringArray("Sword", "Lance")
 PromotesTo = PackedStringArray("paladin")
 IsPromoted = false
+MaxArmor = 1

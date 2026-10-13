@@ -33,3 +33,4 @@ Bases = SubResource("StatsDefinition_1")
 Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray("iron_lance", "iron_sword")
 IsLord = false
+Armor = "padded_gambeson"

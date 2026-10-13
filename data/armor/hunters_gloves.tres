@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ArmorDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ArmorDefinition.cs" id="1_armor"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+Dex = 3
+
+[resource]
+script = ExtResource("1_armor")
+Id = "hunters_gloves"
+Name = "Hunter's Gloves"
+Slot = 1
+Class = 0
+Weight = 0
+Price = 600
+Tier = 1
+Bonuses = SubResource("StatsDefinition_1")

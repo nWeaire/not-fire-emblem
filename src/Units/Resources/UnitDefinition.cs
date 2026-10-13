@@ -18,7 +18,12 @@ public partial class UnitDefinition : Resource
     /// <summary>Item ids.</summary>
     [Export] public string[] Inventory { get; set; } = Array.Empty<string>();
     [Export] public bool IsLord { get; set; }
+    /// <summary>Starting body armour id (empty = none).</summary>
+    [Export] public string Armor { get; set; } = "";
+    /// <summary>Starting accessory id (empty = none).</summary>
+    [Export] public string Accessory { get; set; } = "";
 
     public UnitDef ToDef() => new(
-        Id, Name, ClassId, Level, StatsDefinition.ToBlock(Bases), StatsDefinition.ToBlock(Growths), Inventory.ToArray(), IsLord);
+        Id, Name, ClassId, Level, StatsDefinition.ToBlock(Bases), StatsDefinition.ToBlock(Growths), Inventory.ToArray(), IsLord,
+        string.IsNullOrEmpty(Armor) ? null : Armor, string.IsNullOrEmpty(Accessory) ? null : Accessory);
 }

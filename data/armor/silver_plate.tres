@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ArmorDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ArmorDefinition.cs" id="1_armor"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+Def = 9
+Res = 2
+
+[resource]
+script = ExtResource("1_armor")
+Id = "silver_plate"
+Name = "Silver Plate"
+Slot = 0
+Class = 2
+Weight = 7
+Price = 3200
+Tier = 3
+Bonuses = SubResource("StatsDefinition_1")

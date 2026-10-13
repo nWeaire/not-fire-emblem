@@ -14,6 +14,10 @@ public sealed class UnitState
     public StatBlock Gains { get; set; }
     public List<string> Inventory { get; } = new();
     public int EquippedIndex { get; set; } = -1;
+    /// <summary>Equipped body armour (separate from the 5-slot inventory). Never changes the unit's look.</summary>
+    public string? ArmorId { get; set; }
+    /// <summary>Equipped accessory (ring, charm, boots...).</summary>
+    public string? AccessoryId { get; set; }
     public UnitStatus Status { get; set; } = UnitStatus.Active;
 
     public string? EquippedItemId =>
@@ -21,7 +25,10 @@ public sealed class UnitState
 
     public static UnitState FromDef(UnitDef def, StatBlock gains = default)
     {
-        var state = new UnitState { Def = def, ClassId = def.ClassId, Level = def.Level, Gains = gains };
+        var state = new UnitState
+        {
+            Def = def, ClassId = def.ClassId, Level = def.Level, Gains = gains, ArmorId = def.Armor, AccessoryId = def.Accessory,
+        };
         state.Inventory.AddRange(def.Inventory);
         return state;
     }

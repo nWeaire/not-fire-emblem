@@ -105,7 +105,7 @@ public partial class BattleHud : CanvasLayer
         // Controls hint (bottom-centre)
         var hint = new Label
         {
-            Text = "Z / LMB: select   X / RMB: back   WASD / arrows: cursor   Q / E: rotate   wheel / +/-: zoom   Tab: next unit   G: danger zone   T: end turn",
+            Text = "Z / LMB: select   X / RMB: back   WASD / arrows: cursor   Q / E: rotate   wheel / +/-: zoom   Tab: next unit   G: danger zone   B: battle scenes   T: end turn",
             Modulate = new Color(1, 1, 1, 0.65f),
             HorizontalAlignment = HorizontalAlignment.Center,
             MouseFilter = Control.MouseFilterEnum.Ignore,
@@ -210,7 +210,10 @@ public partial class BattleHud : CanvasLayer
             string marker = i == unit.State.EquippedIndex ? "▶ " : "   ";
             return w is null ? marker + name : $"{marker}{name}  Mt {w.Might} Hit {w.Hit} Rng {RangeText(w)}";
         });
-        _unitItems.Text = unit.State.Inventory.Count == 0 ? "(no items)" : string.Join("\n", items);
+        var worn = new[] { db.TryArmor(unit.State.ArmorId), db.TryArmor(unit.State.AccessoryId) }.OfType<ArmorDef>()
+            .Select(a => $"   {a.Name}  {BonusText(a.Bonuses)}");
+        var lines = items.Concat(worn).ToList();
+        _unitItems.Text = lines.Count == 0 ? "(no items)" : string.Join("\n", lines);
     }
 
     public void ShowTerrain(BattleState s, GridPos p)
@@ -221,6 +224,9 @@ public partial class BattleHud : CanvasLayer
         var t = cell.Terrain;
         _terrainText.Text = $"{t.Name}  (height {cell.Height})\nAvo +{t.Avoid}  Def +{t.Def}" + (t.HealPercent > 0 ? $"  Heal {t.HealPercent}%" : "");
     }
+
+    private static string BonusText(StatBlock bonuses) =>
+        string.Join(" ", StatBlock.All.Where(s => bonuses[s] != 0).Select(s => $"{s} {bonuses[s]:+0;-0}"));
 
     private static string RangeText(WeaponDef w) => w.MinRange == w.MaxRange ? $"{w.MinRange}" : $"{w.MinRange}-{w.MaxRange}";
 
@@ -301,6 +307,9 @@ public partial class BattleHud : CanvasLayer
     }
 
     public void HideForecast() => _forecastPanel.Visible = false;
+
+    public void SetBattleScenes(bool on) =>
+        _ = ShowBanner(on ? "Battle scenes: ON" : "Battle scenes: OFF", Colors.White, 0.4f);
 
     // ------------------------------------------------------------------ banners and effects
 

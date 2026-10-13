@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ShopDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ShopDefinition.cs" id="1_shop"]
+
+[resource]
+script = ExtResource("1_shop")
+Id = "brookhollow_trader"
+Name = "Brookhollow Trader"
+Region = "thornvale"
+OpensAtChapter = 1
+Items = PackedStringArray("iron_sword", "iron_lance", "iron_axe", "iron_bow", "fire", "padded_gambeson", "leather_jerkin", "apprentice_robe", "lucky_charm")

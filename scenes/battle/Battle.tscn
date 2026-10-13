@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://src/Battle/Nodes/BattleController.cs" id="1_ctrl"]
 [ext_resource type="Script" path="res://src/Grid/Nodes/MapView.cs" id="2_map"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://src/UI/Nodes/BattleHud.cs" id="6_hud"]
 [ext_resource type="Script" path="res://src/Battle/Nodes/BattleEventPlayer.cs" id="7_events"]
 [ext_resource type="Script" path="res://src/Battle/Nodes/PlayerInputController.cs" id="8_input"]
+[ext_resource type="Script" path="res://src/UI/Nodes/BattleSceneView.cs" id="9_scene"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat"]
 sky_top_color = Color(0.33, 0.52, 0.82, 1)
@@ -76,3 +77,7 @@ script = ExtResource("7_events")
 [node name="PlayerInput" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("8_input")
+
+[node name="BattleScene" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("9_scene")

@@ -16,3 +16,4 @@ MaxRange = 1
 Magic = false
 EffectiveAgainst = PackedStringArray()
 Price = 1000
+Tier = 2

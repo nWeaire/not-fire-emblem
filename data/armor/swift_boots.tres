@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ArmorDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ArmorDefinition.cs" id="1_armor"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+Mov = 1
+
+[resource]
+script = ExtResource("1_armor")
+Id = "swift_boots"
+Name = "Swift Boots"
+Slot = 1
+Class = 0
+Weight = 0
+Price = 4000
+Tier = 3
+Bonuses = SubResource("StatsDefinition_1")

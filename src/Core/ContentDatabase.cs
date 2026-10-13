@@ -14,14 +14,22 @@ public sealed class ContentDatabase
     public Dictionary<string, WeaponDef> Weapons { get; } = new();
     public Dictionary<string, UnitDef> Units { get; } = new();
     public Dictionary<string, MapDef> Maps { get; } = new();
+    public Dictionary<string, ArmorDef> Armors { get; } = new();
+    public Dictionary<string, ShopDef> Shops { get; } = new();
 
     public TerrainDef Terrain(string id) => Get(Terrains, id, "terrain");
     public ClassDef Class(string id) => Get(Classes, id, "class");
     public WeaponDef Weapon(string id) => Get(Weapons, id, "weapon");
     public UnitDef Unit(string id) => Get(Units, id, "unit");
     public MapDef Map(string id) => Get(Maps, id, "map");
+    public ArmorDef Armor(string id) => Get(Armors, id, "armour");
+    public ShopDef Shop(string id) => Get(Shops, id, "shop");
 
     public WeaponDef? TryWeapon(string? id) => id is not null && Weapons.TryGetValue(id, out var w) ? w : null;
+    public ArmorDef? TryArmor(string? id) => id is not null && Armors.TryGetValue(id, out var a) ? a : null;
+
+    /// <summary>Any purchasable or holdable item id: weapons and armour/accessories.</summary>
+    public bool IsItem(string id) => Weapons.ContainsKey(id) || Armors.ContainsKey(id);
 
     public TerrainDef TerrainBySymbol(char symbol) =>
         Terrains.Values.FirstOrDefault(t => t.Symbol == symbol)
@@ -32,6 +40,8 @@ public sealed class ContentDatabase
     public void Add(WeaponDef w) => Weapons[w.Id] = w;
     public void Add(UnitDef u) => Units[u.Id] = u;
     public void Add(MapDef m) => Maps[m.Id] = m;
+    public void Add(ArmorDef a) => Armors[a.Id] = a;
+    public void Add(ShopDef s) => Shops[s.Id] = s;
 
     /// <summary>Checks every cross-reference. Returns a list of problems (empty when the content is valid).</summary>
     public List<string> Validate()
@@ -48,9 +58,19 @@ public sealed class ContentDatabase
                 errors.Add($"Unit '{u.Id}' has unknown class '{u.ClassId}'.");
             foreach (var item in u.Inventory.Where(i => !Weapons.ContainsKey(i)))
                 errors.Add($"Unit '{u.Id}' carries unknown item '{item}'.");
+            if (u.Armor is not null && TryArmor(u.Armor) is not { Slot: ArmorSlot.Body })
+                errors.Add($"Unit '{u.Id}' starts in unknown body armour '{u.Armor}'.");
+            if (u.Accessory is not null && TryArmor(u.Accessory) is not { Slot: ArmorSlot.Accessory })
+                errors.Add($"Unit '{u.Id}' starts with unknown accessory '{u.Accessory}'.");
         }
         foreach (var m in Maps.Values)
             errors.AddRange(m.Validate(this));
+        foreach (var shop in Shops.Values)
+            foreach (var item in shop.Items.Where(i => !IsItem(i)))
+                errors.Add($"Shop '{shop.Id}' sells unknown item '{item}'.");
+        foreach (var personal in Weapons.Values.Select(w => (w.Id, w.PersonalTo)).Concat(Armors.Values.Select(a => (a.Id, a.PersonalTo))))
+            if (personal.PersonalTo is not null && !Units.ContainsKey(personal.PersonalTo))
+                errors.Add($"Item '{personal.Id}' is personal to unknown unit '{personal.PersonalTo}'.");
         return errors;
     }
 

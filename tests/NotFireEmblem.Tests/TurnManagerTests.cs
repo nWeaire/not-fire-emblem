@@ -21,6 +21,18 @@ public class TurnManagerTests
         .Unit(Faction.Enemy, "merc", 6, 0, "sword");
 
     [Fact]
+    public void SpriteIds_ResolveFromSpriteIdThenUnitIdThenFactionAndClass()
+    {
+        Assert.Equal("boss", new SpawnDef("x", "fighter", null, 1, Array.Empty<string>(), Faction.Enemy, default, SpriteId: "boss").ResolveSpriteId());
+        Assert.Equal("rowan", new SpawnDef("rowan", null, null, 1, Array.Empty<string>(), Faction.Player, default).ResolveSpriteId());
+        Assert.Equal("enemy_fighter", new SpawnDef(null, "fighter", null, 1, Array.Empty<string>(), Faction.Enemy, default).ResolveSpriteId());
+        var (s, _) = Start(TwoVsOne());
+        Assert.Equal("lord", s.Unit("u0").SpriteId);
+        Assert.Equal("enemy_merc", s.Unit("u2").SpriteId);
+        Assert.Equal(new[] { "lord_merc", "lord" }, s.Unit("u0").SpriteCandidates());
+    }
+
+    [Fact]
     public void Battle_StartsOnPlayerPhaseTurnOne()
     {
         var (s, _) = Start(TwoVsOne());

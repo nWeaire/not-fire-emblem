@@ -35,7 +35,8 @@ public static class BattleSetup
         {
             var cls = db.Class(spawn.ClassId!);
             int level = System.Math.Max(1, spawn.Level);
-            var def = new UnitDef($"generic_{cls.Id}", spawn.Name ?? cls.Name, cls.Id, level, default, GenericGrowths, spawn.Inventory, false);
+            var def = new UnitDef($"generic_{cls.Id}", spawn.Name ?? cls.Name, cls.Id, level, default, GenericGrowths, spawn.Inventory, false,
+                spawn.Armor);
             unitState = UnitState.FromDef(def, StatCalculator.GenericGains(cls, GenericGrowths, level));
         }
 
@@ -58,6 +59,7 @@ public static class BattleSetup
             CurrentHp = StatCalculator.Effective(db, unitState).HP,
             AiProfile = spawn.Ai,
             IsBoss = spawn.IsBoss,
+            SpriteId = spawn.ResolveSpriteId(),
         };
     }
 }

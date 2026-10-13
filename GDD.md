@@ -42,7 +42,7 @@ HP, Str, Mag, Dex, Spd, Lck, Def, Res, Mov (plus Cha reserved for future use).
 ### Combat formulas
 | Value | Formula |
 |---|---|
-| Attack Speed (AS) | `Spd − max(0, WeaponWt − Str/5)` |
+| Attack Speed (AS) | `Spd − max(0, WeaponWt + ArmorWt − Str/5)` |
 | Attack | `Str` (physical) or `Mag` (magic) `+ Might` `± triangle` |
 | Damage | `Attack − Def` (physical) or `Attack − Res` (magic), min 0 |
 | Hit | `Dex×2 + Lck/2 + WeaponHit + triangle + support` |
@@ -73,6 +73,23 @@ HP, Str, Mag, Dex, Spd, Lck, Def, Res, Mov (plus Cha reserved for future use).
 - 100 EXP per level. EXP gained depends on the level difference and the action: a hit, a kill, or healing.
 - On level up, each stat rolls against `unit growth + class growth`.
 - **Promotion:** at Lv10 or higher, a promotion item moves the unit to an advanced class. The unit gets the class's base stat bonuses and may gain a new movement type and new weapon types.
+
+### Equipment (separate from class and looks)
+**A unit's class sets its look and tier; its equipment sets its numbers.** Gear never changes a sprite, so the two progress independently: an outfit upgrade comes from a promotion, and stats come from buying and finding better gear.
+- **Weapons:** carried in the 5-slot inventory. Each has a **tier**: 1 Iron, 2 Steel, 3 Silver/Killer, 4 Legendary. **Unique weapons** are personal to one character (e.g. Lyra's Blade for Rowan, Merrow's Pride for Kai) and come from the story, never shops.
+- **Body armour:** one slot, outside the inventory. It gives flat stat bonuses (mostly Def/Res, some HP/Mag) and has **weight**, which adds to weapon weight in the AS formula, so strong units carry heavy gear better. Armour comes in **Light / Medium / Heavy**, and each class has a maximum (`ClassDef.MaxArmor`): mages wear robes, knights wear plate. A class change that lowers the limit takes the armour off.
+- **Accessory:** one slot: charms, rings and boots (Lck, Dex, Def, even +1 Mov).
+- **Equipment bonuses apply after class caps**, so gear can push a capped unit further.
+- **Regional shops:** each `ShopDefinition` belongs to a story region and opens at a chapter. Its stock is what that region can supply: village leatherwork in the Thornvale, garrison steel at Ferrow's Keep, city goods in Calder, silver and luxury enchantments in Solmere, imperial plate in Dravenhold. The schedule is in `docs/story/CHAPTERS.md`.
+- Equipping happens in prep and at the hub (M6), not during battle. There is still **no durability**.
+
+### Crests (story-driven progression)
+Crests are the game's central power system and the spine of progression. Rowan's crest grows in tiers by absorbing the crests of the crest-bearing bosses he defeats.
+- Each tier gates the next class tier (promotion needs Lv 10 + seal + crest tier) and unlocks a crest skill (Ward, Rally, Mend, Dawn).
+- Rowan's radiant crest gives nearby allies an aura.
+- Enemy crest-bearers project **Dominion** over nearby troops. Killing them **severs** those troops: beasts are stunned, and dominated soldiers surrender.
+
+The full rules and lore are in `docs/story/STORY.md` §4.
 
 ### Modes & difficulty
 - **Classic:** fallen units are permanently lost. **Casual:** fallen units retreat and return after the battle.

@@ -44,3 +44,4 @@ MovementType = 0
 UsableWeapons = PackedStringArray("Lance")
 PromotesTo = PackedStringArray()
 IsPromoted = false
+MaxArmor = 1

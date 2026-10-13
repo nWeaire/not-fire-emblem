@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/UnitDefinition.cs" id="1_unit"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+HP = 1
+Mag = 1
+Spd = 1
+Lck = 3
+Res = 2
+
+[sub_resource type="Resource" id="StatsDefinition_2"]
+script = ExtResource("2_stats")
+HP = 40
+Str = 10
+Mag = 45
+Dex = 35
+Spd = 40
+Lck = 55
+Def = 15
+Res = 50
+
+[resource]
+script = ExtResource("1_unit")
+Id = "mira"
+Name = "Mira"
+ClassId = "priest"
+Level = 1
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Inventory = PackedStringArray()
+IsLord = false

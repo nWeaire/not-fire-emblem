@@ -96,7 +96,7 @@ Maps are **text grids inside `MapDefinition`**, not painted GridMaps. This makes
 ```
 TerrainRows = ["PPPFFPPP", "PPFFMMPP", ...]   # one char per cell
 HeightRows  = ["00011000", "00112100", ...]   # 0–9
-Legend      = { 'P': plain.tres, 'F': forest.tres, 'M': mountain.tres, 'W': wall.tres, ... }
+(no per-map legend: each TerrainDefinition has a one-character Symbol — P plain, F forest, M mountain, W wall, T fort, ~ water, B bridge)
 Spawns, DeploySlots, Objectives, Triggers, FogEnabled, VisionBonus, PlayerStartCamera
 ```
 `MapView` builds the 3D terrain procedurally from this: one box mesh per cell, colored or textured from `TerrainDefinition`, with height in steps. It also adds a collision shape on each cell for mouse picking. Hand-painted GridMap maps can be added later as an import path.
@@ -319,6 +319,7 @@ Each milestone is meant to be one prompt, e.g. *"Build Milestone 2 from IMPLEMEN
 - **Done when:** you can rotate and zoom around a 16×12 height map and move units with the mouse or keyboard.
 
 ### M2 — Units, Turns & Combat
+- *As built:* offensive tomes (Fire, Thunder, Wind) are `WeaponDefinition`s with `Magic = true` and no uses; the separate `SpellDef` with uses-per-battle arrives in M5.
 - Unit resources and records, `UnitState`, `BattleUnit`, `StatCalculator`, `Rng`.
 - `CombatCalculator` (weapons + offensive spells, triangle, follow-ups, 2RN), `BattleState`, `TurnManager`, `ActCommand` (Wait/Attack), `EndPhaseCommand`, `BattleEventPlayer`.
 - HUD: `UnitInfoPanel`, `ActionMenu`, `ForecastPanel`, `PhaseBanner`, attack range overlays.
@@ -327,6 +328,7 @@ Each milestone is meant to be one prompt, e.g. *"Build Milestone 2 from IMPLEMEN
 - **Done when:** the player can fight through a full Player phase, the phases cycle, and units die.
 
 ### M3 — AI
+- *As built:* `GuardRegion` wakes when a hostile unit is attackable from its reach (spawns have no region data until M4); `TargetUnit`/`TargetCell`/`Healer` currently behave as Aggressive.
 - `AiController`, the profiles, `ActionScorer`, the danger zone (logic + overlay toggle), AI turns playing one at a time with the camera following.
 - **Tests:** the AI scenario suite (§5.6).
 - **Done when:** Chapter 1 is a winnable fight against enemies that make sensible choices.

@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="ClassDefinition" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ClassDefinition.cs" id="1_class"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+HP = 25
+Str = 9
+Mag = 1
+Dex = 9
+Spd = 9
+Lck = 5
+Def = 9
+Res = 5
+Mov = 8
+
+[sub_resource type="Resource" id="StatsDefinition_2"]
+script = ExtResource("2_stats")
+HP = 10
+Str = 5
+Dex = 5
+Spd = 5
+Def = 5
+Res = 5
+
+[sub_resource type="Resource" id="StatsDefinition_3"]
+script = ExtResource("2_stats")
+HP = 80
+Str = 40
+Mag = 40
+Dex = 40
+Spd = 40
+Lck = 40
+Def = 40
+Res = 40
+Mov = 12
+
+[resource]
+script = ExtResource("1_class")
+Id = "paladin"
+Name = "Paladin"
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Caps = SubResource("StatsDefinition_3")
+MovementType = 2
+UsableWeapons = PackedStringArray("Sword", "Lance", "Axe")
+PromotesTo = PackedStringArray()
+IsPromoted = true

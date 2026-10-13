@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/UnitDefinition.cs" id="1_unit"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+HP = 1
+Str = 1
+Dex = 1
+Spd = 1
+Lck = 1
+Def = 1
+
+[sub_resource type="Resource" id="StatsDefinition_2"]
+script = ExtResource("2_stats")
+HP = 55
+Str = 45
+Mag = 5
+Dex = 40
+Spd = 40
+Lck = 30
+Def = 35
+Res = 15
+
+[resource]
+script = ExtResource("1_unit")
+Id = "kai"
+Name = "Kai"
+ClassId = "cavalier"
+Level = 1
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Inventory = PackedStringArray("iron_lance", "iron_sword")
+IsLord = false

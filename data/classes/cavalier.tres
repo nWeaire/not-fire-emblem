@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="ClassDefinition" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ClassDefinition.cs" id="1_class"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+HP = 19
+Str = 6
+Dex = 6
+Spd = 6
+Lck = 3
+Def = 6
+Res = 2
+Mov = 7
+
+[sub_resource type="Resource" id="StatsDefinition_2"]
+script = ExtResource("2_stats")
+HP = 10
+Str = 5
+Dex = 5
+Spd = 5
+Def = 5
+
+[sub_resource type="Resource" id="StatsDefinition_3"]
+script = ExtResource("2_stats")
+HP = 60
+Str = 30
+Mag = 30
+Dex = 30
+Spd = 30
+Lck = 30
+Def = 30
+Res = 30
+Mov = 10
+
+[resource]
+script = ExtResource("1_class")
+Id = "cavalier"
+Name = "Cavalier"
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Caps = SubResource("StatsDefinition_3")
+MovementType = 2
+UsableWeapons = PackedStringArray("Sword", "Lance")
+PromotesTo = PackedStringArray("paladin")
+IsPromoted = false

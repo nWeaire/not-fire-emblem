@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/UnitDefinition.cs" id="1_unit"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+HP = 4
+Str = 2
+Lck = 1
+Def = 1
+
+[sub_resource type="Resource" id="StatsDefinition_2"]
+script = ExtResource("2_stats")
+HP = 70
+Str = 50
+Dex = 30
+Spd = 30
+Lck = 30
+Def = 30
+Res = 10
+
+[resource]
+script = ExtResource("1_unit")
+Id = "brann"
+Name = "Brann"
+ClassId = "fighter"
+Level = 1
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Inventory = PackedStringArray("iron_axe", "hand_axe")
+IsLord = false

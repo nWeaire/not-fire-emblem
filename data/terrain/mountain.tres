@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TerrainDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/TerrainDefinition.cs" id="1_terrain"]
+
+[resource]
+script = ExtResource("1_terrain")
+Id = "mountain"
+Name = "Mountain"
+Symbol = "M"
+CostInfantry = 3
+CostArmored = 0
+CostCavalry = 0
+CostFlying = 1
+Avoid = 30
+Def = 2
+HealPercent = 0
+BlocksSight = false
+Color = Color(0.561, 0.498, 0.388, 1)

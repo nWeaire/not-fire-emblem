@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/WeaponDefinition.cs" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+Id = "steel_sword"
+Name = "Steel Sword"
+Type = 0
+Might = 8
+Hit = 85
+Crit = 0
+Weight = 6
+MinRange = 1
+MaxRange = 1
+Magic = false
+EffectiveAgainst = PackedStringArray()
+Price = 1000

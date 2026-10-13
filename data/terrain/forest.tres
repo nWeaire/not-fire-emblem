@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TerrainDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/TerrainDefinition.cs" id="1_terrain"]
+
+[resource]
+script = ExtResource("1_terrain")
+Id = "forest"
+Name = "Forest"
+Symbol = "F"
+CostInfantry = 2
+CostArmored = 2
+CostCavalry = 3
+CostFlying = 1
+Avoid = 20
+Def = 1
+HealPercent = 0
+BlocksSight = false
+Color = Color(0.247, 0.490, 0.227, 1)

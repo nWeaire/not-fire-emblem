@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TerrainDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/TerrainDefinition.cs" id="1_terrain"]
+
+[resource]
+script = ExtResource("1_terrain")
+Id = "wall"
+Name = "Wall"
+Symbol = "W"
+CostInfantry = 0
+CostArmored = 0
+CostCavalry = 0
+CostFlying = 0
+Avoid = 0
+Def = 0
+HealPercent = 0
+BlocksSight = true
+Color = Color(0.431, 0.416, 0.400, 1)

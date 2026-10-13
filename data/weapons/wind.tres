@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/WeaponDefinition.cs" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+Id = "wind"
+Name = "Wind"
+Type = 5
+Might = 4
+Hit = 95
+Crit = 0
+Weight = 1
+MinRange = 1
+MaxRange = 2
+Magic = true
+EffectiveAgainst = PackedStringArray("Flying")
+Price = 700

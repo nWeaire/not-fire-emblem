@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TerrainDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/TerrainDefinition.cs" id="1_terrain"]
+
+[resource]
+script = ExtResource("1_terrain")
+Id = "plain"
+Name = "Plain"
+Symbol = "P"
+CostInfantry = 1
+CostArmored = 1
+CostCavalry = 1
+CostFlying = 1
+Avoid = 0
+Def = 0
+HealPercent = 0
+BlocksSight = false
+Color = Color(0.486, 0.702, 0.353, 1)

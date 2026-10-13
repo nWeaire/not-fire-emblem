@@ -110,7 +110,7 @@ Godot node scripts are a thin layer over **pure C# logic**. Rules (grid, combat,
 | `Pathfinder` (pure C#) | `GetReachable(unit)` uses Dijkstra over move cost per movement type, with zones of control. `GetPath(unit, target)` uses A*. |
 | `RangeService` | Attack/heal/art range = cells the unit can move to plus the weapon/art range band. Used for overlays and the AI. |
 | `FogOfWar` | Vision mask per faction, recomputed after every move. |
-| `MapView` (Node3D) | A `GridMap` for the visible terrain, plus cell overlays (move, attack, path, danger zone). |
+| `MapView` (Node3D) | Procedural terrain built from the map's text grid (one block per cell, stepped by height), plus cell overlays (move, attack, path, danger zone). |
 | `TacticsCamera` | Tilted camera with 90° rotation steps, zoom, follow/focus on a unit. Turns screen input into grid input relative to the camera. |
 
 ### 4.3 Turn / Phase Manager — `src/Battle`
@@ -124,7 +124,7 @@ Godot node scripts are a thin layer over **pure C# logic**. Rules (grid, combat,
       CommandResult Execute(BattleState s); // mutates state, returns what happened
   }
   ```
-  The commands are `MoveCommand`, `AttackCommand`, `ArtCommand`, `SpellCommand`, `ItemCommand`, `TradeCommand`, `WaitCommand`, `SeizeCommand` and `EscapeCommand`. Every executed command goes into a **command log**. The log makes replays and debugging possible, and later a Divine Pulse–style rewind.
+  The main command is an atomic `ActCommand(unit, path, action)` that moves a unit and then acts (Wait, Attack with a weapon/art/spell, Heal, Item, Seize, Escape), so cancelling a move needs no undo. `TradeCommand` commits a move and leaves the unit able to act; `EndPhaseCommand` ends the phase. Every executed command goes into a **command log**. The log makes replays and debugging possible, and later a Divine Pulse–style rewind.
 - **`ObjectiveEvaluator`** checks the map's victory and defeat conditions after each command and at each phase change.
 - **`EventDirector`** runs the map's scripted triggers: reinforcement spawns, dialogue, and changes to objectives.
 
@@ -139,7 +139,7 @@ Godot node scripts are a thin layer over **pure C# logic**. Rules (grid, combat,
 | `WeaponDefinition` | Type, Might, Hit, Crit, Weight, range, effectiveness, physical or magic |
 | `ArtDefinition` / `SpellDefinition` | Weapon type or school, modifiers, range, uses per battle, effect |
 | `TerrainDefinition` | Move costs per movement type, Avoid, Def, healing |
-| `MapDefinition` | Grid layout, deploy slots, enemy spawns + AI profiles, objectives, triggers, fog flag |
+| `MapDefinition` | Grid layout as text rows (terrain chars + heights 0–9), deploy slots, enemy spawns + AI profiles, objectives, triggers, fog flag |
 
 **Runtime state** is plain C#:
 - **`UnitState`** holds a reference to its definition, class, level, EXP, current HP, stat gains, inventory, equipped weapon, known arts and spells, remaining uses, support points, faction, position, and action state.
@@ -221,7 +221,7 @@ CombatResult   Resolve(CombatForecast forecast, IRng rng);
 ### Walkthrough: a player attack
 1. **UI:** the player selects a unit with the cursor. `Pathfinder.GetReachable` and `RangeService` return cells, which `MapView` draws as overlays.
 2. **UI:** the player picks a destination and a target. `CombatCalculator.Forecast` fills the forecast panel.
-3. **UI:** on confirm, it builds `MoveCommand` + `AttackCommand` and passes them to `TurnManager`.
+3. **UI:** on confirm, it builds an `ActCommand` (path + Attack) and passes it to `TurnManager`.
 4. **TurnManager:** validates the commands, then executes them. `AttackCommand` calls `CombatCalculator.Resolve` and applies the `CombatResult` to both `UnitState`s (HP, uses, EXP, support points).
 5. **EventBus:** publishes `UnitMoved`, `CombatResolved`, `UnitDied` and `LevelUp`.
 6. **Subscribers:** UI plays the movement and combat animations and the level-up popup. `FogOfWar` recomputes vision. `ObjectiveEvaluator` checks for victory or defeat. `EventDirector` checks its triggers and may queue dialogue or reinforcements.

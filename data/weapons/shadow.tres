@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/WeaponDefinition.cs" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+Id = "shadow"
+Name = "Shadow"
+Type = 5
+Might = 6
+Hit = 80
+Crit = 5
+Weight = 3
+MinRange = 1
+MaxRange = 2
+Magic = true
+EffectiveAgainst = PackedStringArray()
+Price = 0
+Tier = 1

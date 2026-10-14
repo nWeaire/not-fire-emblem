@@ -276,4 +276,4 @@ These are additions the story needs. They extend the M4–M6 milestones and are 
 - **Ally phase:** green units at scale (Ch 1, Ch 23).
 - **Unique classes:** Youth, Warden, Acolyte, and the Crestbound third tier.
 - **Youth → Lord:** a story class change in `hub_intro`. Same stats and growths; it is a visual and narrative step that also unlocks the hub's Promotion screen.
-- **Rowan's Youth and Lord classes:** both must allow **Sword and Bow**; the current `lord.tres` allows Sword only, and `youth` does not exist yet.
+- **Rowan's Youth and Lord classes:** both allow **Sword and Bow** (`data/classes/youth.tres`, `lord.tres`).

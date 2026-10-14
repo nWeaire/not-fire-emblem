@@ -1,27 +1,1470 @@
 {
   "battle": {
+    "boss_brigand_chief": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "a1ff5520-71ec-4c5c-960e-e6a5d6fa6c74"
+          ],
+          "group_id": "1d37aa3f-de2b-4a5b-bc8b-86f01d296e17",
+          "jobs": [
+            "a1ff5520-71ec-4c5c-960e-e6a5d6fa6c74"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "f5c42ab0-f3f7-441e-a5a8-c2c7aa78f7d1"
+          ],
+          "group_id": "de23a1f3-b41c-4c88-a0ce-c8212f0e11ef",
+          "jobs": [
+            "f5c42ab0-f3f7-441e-a5a8-c2c7aa78f7d1"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 4.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "b9329f02-f120-4321-8025-17825076b0c3"
+          ],
+          "group_id": "2b8871f4-a40e-473f-a2b8-2584b73da60f",
+          "jobs": [
+            "b9329f02-f120-4321-8025-17825076b0c3"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "4fa84367-891e-4ba9-91d4-03a400926427"
+          ],
+          "group_id": "e059cbe0-e3ed-4728-ab0b-9cc7ab0be1e6",
+          "jobs": [
+            "4fa84367-891e-4ba9-91d4-03a400926427"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "869ca5b4-21ff-4f76-ac58-511cb8c06321"
+          ],
+          "group_id": "89f36365-87dd-49ff-b93b-208ec001db43",
+          "jobs": [
+            "869ca5b4-21ff-4f76-ac58-511cb8c06321"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
+      "character_id": "6f15c571-f1c9-4ecd-9b13-93e78dbf7a72",
+      "job": "7eec6f73-6619-4d4b-8af5-850f25fbd053",
+      "status": "completed",
+      "usage": {
+        "generations": 3.0,
+        "type": "generations"
+      }
+    },
+    "brann_fighter": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "a4e12661-8619-4c6a-806a-821d8e7f94b6"
+          ],
+          "group_id": "0cb5ffcf-0540-4b65-9738-6d35231c679e",
+          "jobs": [
+            "a4e12661-8619-4c6a-806a-821d8e7f94b6"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "1e53ab97-b002-4bf2-ad0a-632f6f42d904"
+          ],
+          "group_id": "75e5950a-5e93-4393-9bf3-6d6337716da8",
+          "jobs": [
+            "1e53ab97-b002-4bf2-ad0a-632f6f42d904"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 4.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "72a64702-30e1-45ae-b475-a748f4ef78dc"
+          ],
+          "group_id": "1d8d7aa0-070e-4708-b9bb-810557563243",
+          "jobs": [
+            "72a64702-30e1-45ae-b475-a748f4ef78dc"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "be97aa93-ef69-4125-8f5a-85d4d7bd2a70"
+          ],
+          "group_id": "123e78a2-3845-4cdf-bebf-19823aa16bff",
+          "jobs": [
+            "be97aa93-ef69-4125-8f5a-85d4d7bd2a70"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "ae144dab-e122-456c-900a-3e03bf3e4db4"
+          ],
+          "group_id": "34a9754b-c956-4c64-8494-9248ef8aa4b8",
+          "jobs": [
+            "ae144dab-e122-456c-900a-3e03bf3e4db4"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
+      "character_id": "82c34b43-2631-4d34-9623-2938da6e1be4",
+      "job": "2f883138-53c2-4663-8591-41e19bddd676",
+      "status": "completed",
+      "usage": {
+        "generations": 3.0,
+        "type": "generations"
+      }
+    },
+    "elise_mage": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "d27977e4-d511-47cb-8bd9-df110dccc566"
+          ],
+          "group_id": "41c104fe-8015-49fb-89a1-080b39c253f9",
+          "jobs": [
+            "d27977e4-d511-47cb-8bd9-df110dccc566"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "b270d120-20f4-4691-b18b-2804d39b76a8"
+          ],
+          "group_id": "d7e56562-664b-4cb8-9fbb-5fe35e56e9c2",
+          "jobs": [
+            "b270d120-20f4-4691-b18b-2804d39b76a8"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 4.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "f16a1646-980f-43e7-8943-21347618cd23"
+          ],
+          "group_id": "07d32012-1b67-43c6-b0b9-7026f8c5f041",
+          "jobs": [
+            "f16a1646-980f-43e7-8943-21347618cd23"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "8d9e5876-5281-4c7b-98a6-6bae00ffa52d"
+          ],
+          "group_id": "180c7814-8b13-46e7-9315-b942851c3f2d",
+          "jobs": [
+            "8d9e5876-5281-4c7b-98a6-6bae00ffa52d"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "d1e2bc83-6fb9-4c8c-8718-2db6f0b9af08"
+          ],
+          "group_id": "8e009e0d-d1c3-4f16-bb71-333ecfa78550",
+          "jobs": [
+            "d1e2bc83-6fb9-4c8c-8718-2db6f0b9af08"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
+      "character_id": "dd03e338-266e-4a01-9bdf-da24fdf74ce7",
+      "job": "26094abf-3091-4402-929e-8bc34ee192b6",
+      "status": "completed",
+      "usage": {
+        "generations": 3.0,
+        "type": "generations"
+      }
+    },
+    "enemy_archer": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "6bc99e5f-e6ac-411b-a222-a0c447bb5338"
+          ],
+          "group_id": "9a9a0fe9-c8a1-4190-a420-519534437670",
+          "jobs": [
+            "6bc99e5f-e6ac-411b-a222-a0c447bb5338"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "69119ea3-9fec-4c8d-bed7-daadc1f15bd7"
+          ],
+          "group_id": "deada98a-ac0f-45f0-8cb3-e196d83b9d53",
+          "jobs": [
+            "69119ea3-9fec-4c8d-bed7-daadc1f15bd7"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "512c0075-6735-4bc9-ba67-6bbb1f462dee"
+          ],
+          "group_id": "2808ec6e-013d-4782-8f53-e68f17a2fb2d",
+          "jobs": [
+            "512c0075-6735-4bc9-ba67-6bbb1f462dee"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "3f67024c-b9e8-47fe-83e6-52fa5b2e767d"
+          ],
+          "group_id": "3ef46fc6-e155-4c76-a660-275746cad290",
+          "jobs": [
+            "3f67024c-b9e8-47fe-83e6-52fa5b2e767d"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "1b804738-701f-4896-91ab-c128ec2ab933"
+          ],
+          "group_id": "5a9907bd-f374-43ca-935c-9ae172d01e9b",
+          "jobs": [
+            "1b804738-701f-4896-91ab-c128ec2ab933"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
+      "character_id": "eb49e6f8-db7d-4ee3-a1d0-5418df2d12e7",
+      "job": "c8270e20-90e5-43a9-9bb2-36ee86aef8b0",
+      "status": "completed",
+      "usage": {
+        "generations": 3.0,
+        "type": "generations"
+      }
+    },
+    "enemy_fighter": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "6d41681b-65b7-451a-bfbd-71be6c0f9589"
+          ],
+          "group_id": "f975cbcf-fa14-4c55-b00a-0d26a1447ffc",
+          "jobs": [
+            "6d41681b-65b7-451a-bfbd-71be6c0f9589"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "6c50c56e-7f62-4d42-bc7d-4320e6dc6047"
+          ],
+          "group_id": "3eddeb8c-435a-4ef2-be51-4eba113eb7af",
+          "jobs": [
+            "6c50c56e-7f62-4d42-bc7d-4320e6dc6047"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "1587dd02-353c-4096-bbfa-f351147654ae"
+          ],
+          "group_id": "ef493e8d-b9f5-4c28-91f6-e6c730384c2d",
+          "jobs": [
+            "1587dd02-353c-4096-bbfa-f351147654ae"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "52194e96-ff71-4465-91a3-4df4fb83ac43"
+          ],
+          "group_id": "77b57b09-a9f1-4eb7-ba9c-c7126db2fdf9",
+          "jobs": [
+            "52194e96-ff71-4465-91a3-4df4fb83ac43"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "79c8eef2-fc76-4c44-81df-c690c90b303a"
+          ],
+          "group_id": "6477881c-bc82-46d8-886c-f4aa8ac42985",
+          "jobs": [
+            "79c8eef2-fc76-4c44-81df-c690c90b303a"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
+      "character_id": "6b6e1e87-4a7b-46f1-8707-086dbaddfa53",
+      "job": "b5ab9614-9fb8-440b-a5e2-d9072e6ae445",
+      "status": "completed",
+      "usage": {
+        "generations": 3.0,
+        "type": "generations"
+      }
+    },
+    "enemy_mage": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "68dc9eb9-6a44-4ab5-844b-c27e9281ce5b"
+          ],
+          "group_id": "ee971a67-fb5c-4d44-a111-9c82b5e57f2f",
+          "jobs": [
+            "68dc9eb9-6a44-4ab5-844b-c27e9281ce5b"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "297305ec-afc9-45dd-a980-bcba0cf95eac"
+          ],
+          "group_id": "8c32b32e-7d00-4dac-ba13-430b6eef5265",
+          "jobs": [
+            "297305ec-afc9-45dd-a980-bcba0cf95eac"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "9350b8e5-1ce2-4c1e-8309-ecf33a5def88"
+          ],
+          "group_id": "5c08f83e-ae1d-4df5-bd60-87d430c645c0",
+          "jobs": [
+            "9350b8e5-1ce2-4c1e-8309-ecf33a5def88"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "61d8508c-0041-433e-87c0-f13a3c074a98"
+          ],
+          "group_id": "4505407f-8dcd-4949-93d9-8e9c816a599a",
+          "jobs": [
+            "61d8508c-0041-433e-87c0-f13a3c074a98"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "5a977cb4-44cb-4f48-8491-25c72f289c90"
+          ],
+          "group_id": "9a0953a4-9946-45d4-84b1-9d0425848673",
+          "jobs": [
+            "5a977cb4-44cb-4f48-8491-25c72f289c90"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
+      "character_id": "f356ec27-76a4-40e9-98f7-a648289f6f6e",
+      "job": "3c85a21e-f7eb-4133-93d3-2713ba4aa058",
+      "status": "completed",
+      "usage": {
+        "generations": 3.0,
+        "type": "generations"
+      }
+    },
+    "enemy_myrmidon": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "9f095d38-509d-4111-9809-3bfbe37237fd"
+          ],
+          "group_id": "77f47dc8-562b-4667-8635-ebf2cad8fc0c",
+          "jobs": [
+            "9f095d38-509d-4111-9809-3bfbe37237fd"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "3ceba54a-561a-49c0-858c-026f57013394"
+          ],
+          "group_id": "69dd2eef-ebb1-47c1-8896-efb4862c73e3",
+          "jobs": [
+            "3ceba54a-561a-49c0-858c-026f57013394"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 4.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "6c7af7b3-5045-4cc3-88c1-ff8308ce57c7"
+          ],
+          "group_id": "7bcaec08-06be-440e-950c-0e1aec11b3aa",
+          "jobs": [
+            "6c7af7b3-5045-4cc3-88c1-ff8308ce57c7"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "643305d4-3ec7-48a7-b737-b61de7788745"
+          ],
+          "group_id": "c69a15cf-21fb-4d49-868d-fc7dc37ac7f1",
+          "jobs": [
+            "643305d4-3ec7-48a7-b737-b61de7788745"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "73b23015-21e7-4ae4-a312-1ef448d47ea8"
+          ],
+          "group_id": "7095956c-ad33-4759-9d2c-7599f3fdf612",
+          "jobs": [
+            "73b23015-21e7-4ae4-a312-1ef448d47ea8"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
+      "character_id": "a413b7bc-4911-4304-847d-4fc67eb8de88",
+      "job": "99194db3-8e62-4067-8fa3-f9d052d7e368",
+      "status": "completed",
+      "usage": {
+        "generations": 3.0,
+        "type": "generations"
+      }
+    },
+    "enemy_pegasus_knight": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "19e8a286-200a-4f3c-95e3-05f10cb429b7"
+          ],
+          "group_id": "a7474086-a4c1-4fa6-819e-0575229f14f3",
+          "jobs": [
+            "19e8a286-200a-4f3c-95e3-05f10cb429b7"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "23411765-cd69-41d9-ae9f-9d71ec4c535f"
+          ],
+          "group_id": "04d2b174-ea47-4149-adaf-5fe428408b56",
+          "jobs": [
+            "23411765-cd69-41d9-ae9f-9d71ec4c535f"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 4.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "c18db3ae-1fc4-4e17-b3d7-55c20089ef0a"
+          ],
+          "group_id": "5adc6a59-f7bd-4224-ac73-f346fb67378e",
+          "jobs": [
+            "c18db3ae-1fc4-4e17-b3d7-55c20089ef0a"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "999a250e-c738-43c4-93c2-d859fe0a7c8f"
+          ],
+          "group_id": "4bfe8a93-6c29-464c-831e-4aa0c51de121",
+          "jobs": [
+            "999a250e-c738-43c4-93c2-d859fe0a7c8f"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "215a81f1-d807-4e82-a381-62c1ffc5082c"
+          ],
+          "group_id": "66374476-c340-4c21-9b2b-163311915e11",
+          "jobs": [
+            "215a81f1-d807-4e82-a381-62c1ffc5082c"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
+      "character_id": "ba8e3ae7-366e-4546-8f74-ab83788746b8",
+      "job": "34bcaa7c-63af-46bc-8659-4b4886f70737",
+      "status": "completed",
+      "usage": {
+        "generations": 3.0,
+        "type": "generations"
+      }
+    },
+    "enemy_soldier": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "f2d692f4-64ce-4674-b2b4-f42505f96b70"
+          ],
+          "group_id": "eca6aea4-1a23-4331-a73b-f2c14ff86c62",
+          "jobs": [
+            "f2d692f4-64ce-4674-b2b4-f42505f96b70"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "a2cccdd2-068b-460e-9c16-03a953ffc272"
+          ],
+          "group_id": "3b42029b-2447-470e-a3f3-2bd6ea5b6cf0",
+          "jobs": [
+            "a2cccdd2-068b-460e-9c16-03a953ffc272"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "eb6b1764-05c4-404f-ab2f-556391d6e27e"
+          ],
+          "group_id": "a69e965b-34fe-48da-ba97-99268ce26de1",
+          "jobs": [
+            "eb6b1764-05c4-404f-ab2f-556391d6e27e"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "b474f834-b3a9-4d81-a9d6-32f8108df3eb"
+          ],
+          "group_id": "b9085221-62ef-4328-af7a-5a68212b9af0",
+          "jobs": [
+            "b474f834-b3a9-4d81-a9d6-32f8108df3eb"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "65948feb-b307-4ba7-8680-783741f46d8c"
+          ],
+          "group_id": "0438e102-d2df-44e8-8337-e21a0607b481",
+          "jobs": [
+            "65948feb-b307-4ba7-8680-783741f46d8c"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
+      "character_id": "f5d7bfe7-e69f-4cef-b2ca-aae05e8d2380",
+      "job": "2347bf72-11fe-4f42-b68a-c23daa88b8e1",
+      "status": "completed",
+      "usage": {
+        "generations": 3.0,
+        "type": "generations"
+      }
+    },
     "kai_cavalier": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "583dd507-6b9d-4eda-aac3-f3a6f15ebb61"
+          ],
+          "group_id": "43cd0a20-a968-40ea-b560-b7bfa5168e0e",
+          "jobs": [
+            "583dd507-6b9d-4eda-aac3-f3a6f15ebb61"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "f977dc3d-f9a7-4903-bbb0-1f7ed39b24a7"
+          ],
+          "group_id": "d34603e6-d965-4af3-a473-661730a6e9fc",
+          "jobs": [
+            "f977dc3d-f9a7-4903-bbb0-1f7ed39b24a7"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "1eb5723e-7713-4297-a2a7-c39075f5bdd2"
+          ],
+          "group_id": "09121f8b-a9ee-4c2b-9175-22ddd7a90af9",
+          "jobs": [
+            "1eb5723e-7713-4297-a2a7-c39075f5bdd2"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "68bb9c1c-fc81-4e46-96fe-ef05b0fc9759"
+          ],
+          "group_id": "307a88f3-6817-4846-959c-08a1a3d157f2",
+          "jobs": [
+            "68bb9c1c-fc81-4e46-96fe-ef05b0fc9759"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "7add6de3-3d76-4383-bf89-14a9530bb775"
+          ],
+          "group_id": "9fc38ea7-f4be-49a8-b6f2-fb2b46de0bbf",
+          "jobs": [
+            "7add6de3-3d76-4383-bf89-14a9530bb775"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
       "character_id": "203b73b7-eae7-4d8e-be97-242459c9fb22",
       "job": "85665e92-37c4-4da7-b9b6-981947aff177",
-      "status": "processing",
+      "status": "completed",
       "usage": null
     },
     "kai_soldier": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "5e92f8b4-0145-465d-9048-ab1b95d2d253"
+          ],
+          "group_id": "87ed5ca0-f3ae-4ad2-9e60-57a42071d394",
+          "jobs": [
+            "5e92f8b4-0145-465d-9048-ab1b95d2d253"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "da518dac-9486-433d-b336-1fc0258260cc"
+          ],
+          "group_id": "0ce1a4b1-0e8a-48ad-9a27-d122c5f5bbee",
+          "jobs": [
+            "da518dac-9486-433d-b336-1fc0258260cc"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 4.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "7c8bda46-ac4e-41cb-a7ee-42631a440b66"
+          ],
+          "group_id": "bf8bcb8f-4a4c-4033-b0ab-e56a3a998c3f",
+          "jobs": [
+            "7c8bda46-ac4e-41cb-a7ee-42631a440b66"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "d55e969d-593c-4447-9446-bda9af34ce08"
+          ],
+          "group_id": "1f209d59-417a-4230-9e28-6a9735badd93",
+          "jobs": [
+            "d55e969d-593c-4447-9446-bda9af34ce08"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "812977b8-2183-4ffa-9662-d04f04bfe6c9"
+          ],
+          "group_id": "6672d716-2ba5-484b-90fd-e6d5828afb6b",
+          "jobs": [
+            "812977b8-2183-4ffa-9662-d04f04bfe6c9"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
       "character_id": "eb9a6f72-d05a-47af-9b6f-24ffbc601cf0",
       "job": "fe71c34f-2037-465d-8b92-64fc917316d3",
-      "status": "processing",
+      "status": "completed",
       "usage": null
     },
+    "mira_acolyte": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "d0ab7561-82e0-4a6d-ac09-e3e2d3add7c5"
+          ],
+          "group_id": "baa12b0e-cd6f-4382-bf3d-dc06a9ad9a54",
+          "jobs": [
+            "d0ab7561-82e0-4a6d-ac09-e3e2d3add7c5"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "5a262654-7982-45bc-93c6-a86d77da9044"
+          ],
+          "group_id": "064ef0d6-3c16-4e95-83e8-65719e5107a0",
+          "jobs": [
+            "5a262654-7982-45bc-93c6-a86d77da9044"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "2b8bf975-e05b-484a-b596-ce14b79c876f"
+          ],
+          "group_id": "30c648ff-adc6-40ec-a87d-2a9ca6f47428",
+          "jobs": [
+            "2b8bf975-e05b-484a-b596-ce14b79c876f"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "11aa70a9-2757-4d91-8613-0fb2a793da57"
+          ],
+          "group_id": "9f548a71-0c42-43c0-a8f6-0bf1189aca99",
+          "jobs": [
+            "11aa70a9-2757-4d91-8613-0fb2a793da57"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "2f3f6dd6-913c-4e3b-998f-f01b31e75335"
+          ],
+          "group_id": "3a13e0a8-492f-4262-99d3-5b5b50c511c7",
+          "jobs": [
+            "2f3f6dd6-913c-4e3b-998f-f01b31e75335"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 1.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
+      "character_id": "f1852904-819e-496a-a691-fd9fa815aef0",
+      "status": "completed"
+    },
     "rowan_lord": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "a2f6120b-6e4a-4ca8-92d6-faa8bccff6dc"
+          ],
+          "group_id": "877b7a0c-755c-428a-8930-fbcba1e34648",
+          "jobs": [
+            "a2f6120b-6e4a-4ca8-92d6-faa8bccff6dc"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "63b8195d-4de3-4e1b-b180-556ce87403d4"
+          ],
+          "group_id": "583f7562-287a-4d16-9d78-69122e9c34c3",
+          "jobs": [
+            "63b8195d-4de3-4e1b-b180-556ce87403d4"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 4.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "83ce18db-5efd-45ff-94b3-ebda739b6816"
+          ],
+          "group_id": "86281696-3959-44ed-8d77-fbf43473b92e",
+          "jobs": [
+            "83ce18db-5efd-45ff-94b3-ebda739b6816"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "60b45af3-ff54-4e63-aab3-62bdb9aee164"
+          ],
+          "group_id": "f40fe841-3b9e-4682-917c-5cbe2536459c",
+          "jobs": [
+            "60b45af3-ff54-4e63-aab3-62bdb9aee164"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "b9ea2518-5dd4-47a7-ae10-05161e69d285"
+          ],
+          "group_id": "1ba59a51-1328-4db4-9f59-8ed41487a652",
+          "jobs": [
+            "b9ea2518-5dd4-47a7-ae10-05161e69d285"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
       "character_id": "70f3d746-3511-4da8-aeb6-2dcbe5066b70",
       "job": "d72779ef-c14b-44ee-8183-424256e3f2f6",
-      "status": "processing",
+      "status": "completed",
       "usage": null
     },
     "rowan_youth": {
+      "animations": {
+        "attack": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "4e71afb2-da20-47f4-a617-184b065e14b3"
+          ],
+          "group_id": "0991a630-0cf9-4f43-b5c6-e82de73f11e5",
+          "jobs": [
+            "4e71afb2-da20-47f4-a617-184b065e14b3"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 3.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "critical": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "6f3de8a3-8448-4999-938f-ede80ef4e240"
+          ],
+          "group_id": "99e07610-0906-4981-b146-e1774bec831a",
+          "jobs": [
+            "6f3de8a3-8448-4999-938f-ede80ef4e240"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 4.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "dodge": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "a893ba4b-b4f8-4bd1-863a-0bcb2ebc1fb0"
+          ],
+          "group_id": "faed93dd-5fa7-408c-9cc2-efe840aac29f",
+          "jobs": [
+            "a893ba4b-b4f8-4bd1-863a-0bcb2ebc1fb0"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "hit": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "488dae3e-defb-4df8-8e98-617593108ede"
+          ],
+          "group_id": "3a9bd10b-b847-4ba8-adc0-58fcbe50d470",
+          "jobs": [
+            "488dae3e-defb-4df8-8e98-617593108ede"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        },
+        "idle": {
+          "directions": [
+            "east"
+          ],
+          "done_jobs": [
+            "f40b3779-fece-4cef-85c5-fd29df6b679e"
+          ],
+          "group_id": "064b8c1c-1056-4d6e-b9c7-f6e445dcc9ad",
+          "jobs": [
+            "f40b3779-fece-4cef-85c5-fd29df6b679e"
+          ],
+          "status": "completed",
+          "usage": [
+            {
+              "generations": 2.0,
+              "type": "generations"
+            }
+          ]
+        }
+      },
       "character_id": "6a82c9e6-3ec9-4b09-bb2f-a312b328fd20",
       "job": "a22ccfb4-c8ec-4581-8244-ae1a4386317e",
-      "status": "processing",
+      "status": "completed",
       "usage": null
     }
   },
@@ -3276,6 +4719,64 @@
       }
     }
   },
-  "portraits": {},
-  "tiles": {}
+  "portraits": {
+    "boss_brigand_chief": {
+      "status": "completed",
+      "usage": {
+        "generations": 1.0,
+        "type": "generations"
+      }
+    },
+    "brann": {
+      "status": "completed",
+      "usage": {
+        "generations": 1.0,
+        "type": "generations"
+      }
+    },
+    "elise": {
+      "status": "completed",
+      "usage": {
+        "generations": 1.0,
+        "type": "generations"
+      }
+    },
+    "kai": {
+      "status": "completed",
+      "usage": {
+        "generations": 1.0,
+        "type": "generations"
+      }
+    },
+    "mira": {
+      "status": "completed",
+      "usage": {
+        "generations": 1.0,
+        "type": "generations"
+      }
+    },
+    "osmund": {
+      "status": "completed",
+      "usage": {
+        "generations": 1.0,
+        "type": "generations"
+      }
+    },
+    "rowan": {
+      "status": "completed",
+      "usage": {
+        "generations": 1.0,
+        "type": "generations"
+      }
+    }
+  },
+  "tiles": {
+    "job": "8bf5700d-0d1a-4218-aa3d-6a4a1df0ed17",
+    "status": "completed",
+    "tile_id": "70699f0d-661b-40ee-bf53-880e83103e3c",
+    "usage": {
+      "generations": 10.0,
+      "type": "generations"
+    }
+  }
 }

@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/UnitDefinition.cs" id="1_unit"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+HP = 2
+Str = 1
+Dex = 2
+Spd = 1
+Lck = 1
+Def = 1
+Res = 1
+
+[sub_resource type="Resource" id="StatsDefinition_2"]
+script = ExtResource("2_stats")
+HP = 30
+Str = 20
+Mag = 5
+Dex = 25
+Spd = 15
+Lck = 20
+Def = 20
+Res = 15
+
+[resource]
+script = ExtResource("1_unit")
+Id = "aldric"
+Name = "Aldric"
+ClassId = "warden"
+Level = 5
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Inventory = PackedStringArray("steel_sword")
+IsLord = false
+Armor = "wardens_hide"

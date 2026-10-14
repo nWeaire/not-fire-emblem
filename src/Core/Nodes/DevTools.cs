@@ -11,6 +11,7 @@ namespace NotFireEmblem.Core;
 ///   --frames=&lt;n&gt;            frame to capture on
 ///   --press=&lt;f:action,...&gt;   inject action presses at frames, e.g. --press=60:confirm,70:cursor_right
 ///   --speed=&lt;x&gt;             Engine.TimeScale multiplier (animations and timers run faster)
+/// BattleController also reads --seed=&lt;n&gt; (battle RNG) and --map=&lt;id&gt; (e.g. prologue, ch1, test_ford).
 /// </summary>
 public partial class DevTools : Node
 {

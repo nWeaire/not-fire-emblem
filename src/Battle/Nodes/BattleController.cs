@@ -17,7 +17,7 @@ namespace NotFireEmblem.Battle;
 /// </summary>
 public partial class BattleController : Node3D
 {
-    [Export] public string MapId { get; set; } = "ch1";
+    [Export] public string MapId { get; set; } = "prologue";
     /// <summary>0 = pick a random seed each battle.</summary>
     [Export] public ulong Seed { get; set; }
     /// <summary>Play fights in the side-view battle screen (when both units have battle art). Toggled with B.</summary>
@@ -56,8 +56,12 @@ public partial class BattleController : Node3D
         var db = GameSessionNode.Instance.Content;
         ulong seed = Seed;
         foreach (var arg in OS.GetCmdlineUserArgs())
+        {
             if (arg.StartsWith("--seed=", StringComparison.Ordinal))
                 seed = ulong.Parse(arg["--seed=".Length..]);
+            else if (arg.StartsWith("--map=", StringComparison.Ordinal))
+                MapId = arg["--map=".Length..];
+        }
         if (seed == 0)
             seed = ((ulong)GD.Randi() << 32) | GD.Randi();
         State = BattleSetup.Create(db, db.Map(MapId), seed);
@@ -98,7 +102,7 @@ public partial class BattleController : Node3D
         var view = new UnitView();
         UnitsRoot.AddChild(view);
         var cls = State.Db.Class(unit.State.ClassId);
-        view.Setup(unit.Id, unit.Name, cls.Name, unit.Faction, unit.IsBoss, unit.CurrentHp, State.Stats(unit).HP);
+        view.Setup(unit.Id, unit.Name, cls.Name, unit.Faction, unit.IsBoss, unit.CurrentHp, State.Stats(unit).HP, SpriteLibrary.Map(unit));
         view.Position = CellWorld(unit.Pos);
         view.FaceToward(view.Position + (unit.Faction == Faction.Player ? Vector3.Forward : Vector3.Back));
         _views[unit.Id] = view;

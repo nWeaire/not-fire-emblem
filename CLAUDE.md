@@ -73,7 +73,7 @@ Use the `_console.exe` variant of the editor binary for headless runs so output 
 ```
 godot --path . --resolution 1280x720 -- --seed=123 --speed=4 --press=100:end_turn,500:confirm --screenshot=out.png --frames=900
 ```
-`--seed` fixes the battle RNG, `--speed` sets `Engine.TimeScale`, `--press` injects input actions at given frames, and `--screenshot` saves the viewport at `--frames` and quits. The battle prints one log line per `BattleEvent`.
+`--map=<id>` picks the battle map (`prologue` by default; also `ch1` and the systems test map `test_ford`), `--seed` fixes the battle RNG, `--speed` sets `Engine.TimeScale`, `--press` injects input actions at given frames, and `--screenshot` saves the viewport at `--frames` and quits. The battle prints one log line per `BattleEvent`.
 
 ---
 

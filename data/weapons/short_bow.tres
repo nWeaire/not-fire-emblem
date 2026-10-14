@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/WeaponDefinition.cs" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+Id = "short_bow"
+Name = "Short Bow"
+Type = 3
+Might = 4
+Hit = 90
+Crit = 0
+Weight = 1
+MinRange = 2
+MaxRange = 2
+Magic = false
+EffectiveAgainst = PackedStringArray("Flying")
+Price = 400
+Tier = 1

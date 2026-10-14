@@ -162,10 +162,17 @@ def run(client: PixelLab, state: dict, selected: list[str], args) -> None:
             entry = chars.get(sid, {})
             if "character_id" in entry and entry.get("status") != "completed":
                 print(f"[{sid}] waiting for character {entry['character_id']}")
+                job = None
                 if entry.get("job"):
-                    job = client.wait_for_job(entry["job"])
-                    entry["usage"] = job.get("usage") or entry.get("usage")
-                else:
+                    try:
+                        job = client.wait_for_job(entry["job"])
+                        entry["usage"] = job.get("usage") or entry.get("usage")
+                    except PixelLabError as e:
+                        if "-> 404" not in str(e):
+                            raise
+                        # Old job records expire server-side; the character itself still says whether it's done.
+                        print(f"[{sid}] job {entry['job']} expired; polling the character instead")
+                if job is None:
                     while client.get(f"/characters/{entry['character_id']}").get("status") == "pending":
                         time.sleep(8)
                 entry["status"] = "completed"

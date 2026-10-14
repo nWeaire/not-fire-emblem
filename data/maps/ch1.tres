@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapDefinition" load_steps=17 format=3]
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=24 format=3]
 
 [ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
 [ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
@@ -8,137 +8,192 @@ script = ExtResource("2_spawn")
 UnitId = "rowan"
 Level = 1
 Faction = 0
-Position = Vector2i(1, 10)
+Position = Vector2i(6, 11)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_2"]
 script = ExtResource("2_spawn")
-UnitId = "brann"
+UnitId = "aldric"
 Level = 1
 Faction = 0
-Position = Vector2i(2, 11)
+Position = Vector2i(7, 11)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_3"]
 script = ExtResource("2_spawn")
-UnitId = "elise"
+UnitId = "mira"
 Level = 1
 Faction = 0
-Position = Vector2i(0, 11)
+Position = Vector2i(14, 5)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_4"]
 script = ExtResource("2_spawn")
 UnitId = "kai"
 Level = 1
-Faction = 0
-Position = Vector2i(3, 10)
-Ai = 0
+Faction = 2
+Position = Vector2i(6, 5)
+Ai = 1
 
 [sub_resource type="Resource" id="SpawnDefinition_5"]
 script = ExtResource("2_spawn")
-UnitId = "mira"
+ClassId = "villager"
+Name = "Villager"
 Level = 1
-Faction = 0
-Position = Vector2i(0, 9)
-Ai = 0
+Faction = 2
+Position = Vector2i(2, 3)
+Ai = 1
 
 [sub_resource type="Resource" id="SpawnDefinition_6"]
 script = ExtResource("2_spawn")
-ClassId = "fighter"
-Name = "Brigand Chief"
-Level = 5
-Inventory = PackedStringArray("iron_axe", "hand_axe")
-Faction = 1
-Position = Vector2i(14, 1)
-Ai = 3
-IsBoss = true
-SpriteId = "boss_brigand_chief"
+ClassId = "villager"
+Name = "Villager"
+Level = 1
+Faction = 2
+Position = Vector2i(10, 3)
+Ai = 1
 
 [sub_resource type="Resource" id="SpawnDefinition_7"]
 script = ExtResource("2_spawn")
-ClassId = "archer"
-Name = "Brigand Archer"
+ClassId = "villager"
+Name = "Villager"
 Level = 1
-Inventory = PackedStringArray("iron_bow")
-Faction = 1
-Position = Vector2i(11, 1)
+Faction = 2
+Position = Vector2i(2, 7)
 Ai = 1
 
 [sub_resource type="Resource" id="SpawnDefinition_8"]
 script = ExtResource("2_spawn")
-ClassId = "soldier"
-Name = "Brigand"
-Level = 2
-Inventory = PackedStringArray("iron_lance")
-Faction = 1
-Position = Vector2i(9, 3)
-Ai = 0
+ClassId = "villager"
+Name = "Villager"
+Level = 1
+Faction = 2
+Position = Vector2i(10, 8)
+Ai = 1
 
 [sub_resource type="Resource" id="SpawnDefinition_9"]
 script = ExtResource("2_spawn")
-ClassId = "fighter"
-Name = "Brigand"
-Level = 2
-Inventory = PackedStringArray("iron_axe")
-Faction = 1
-Position = Vector2i(11, 3)
-Ai = 0
+ClassId = "villager"
+Name = "Elder Wenna"
+Level = 1
+Faction = 2
+Position = Vector2i(4, 11)
+Ai = 1
 
 [sub_resource type="Resource" id="SpawnDefinition_10"]
 script = ExtResource("2_spawn")
-ClassId = "fighter"
-Name = "Brigand"
+ClassId = "gloam_hound"
 Level = 1
-Inventory = PackedStringArray("iron_axe")
+Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
-Position = Vector2i(10, 6)
+Position = Vector2i(3, 1)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_11"]
 script = ExtResource("2_spawn")
-ClassId = "myrmidon"
-Name = "Sellsword"
-Level = 2
-Inventory = PackedStringArray("iron_sword")
+ClassId = "gloam_hound"
+Level = 1
+Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
-Position = Vector2i(12, 7)
+Position = Vector2i(5, 1)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_12"]
 script = ExtResource("2_spawn")
-ClassId = "soldier"
-Name = "Brigand"
+ClassId = "gloam_hound"
 Level = 1
-Inventory = PackedStringArray("javelin")
+Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
-Position = Vector2i(14, 6)
+Position = Vector2i(8, 1)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_13"]
 script = ExtResource("2_spawn")
-ClassId = "mage"
-Name = "Hedge Mage"
+ClassId = "gloam_hound"
 Level = 1
-Inventory = PackedStringArray("fire")
+Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
-Position = Vector2i(13, 9)
+Position = Vector2i(13, 1)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_14"]
 script = ExtResource("2_spawn")
-ClassId = "pegasus_knight"
-Name = "Sky Raider"
-Level = 2
-Inventory = PackedStringArray("iron_lance")
+ClassId = "gloam_hound"
+Level = 1
+Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
-Position = Vector2i(15, 10)
+Position = Vector2i(4, 4)
 Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_15"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_hound"
+Level = 1
+Inventory = PackedStringArray("gloam_fangs")
+Faction = 1
+Position = Vector2i(8, 4)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_16"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_brute"
+Level = 2
+Inventory = PackedStringArray("gloam_claws")
+Faction = 1
+Position = Vector2i(6, 2)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_17"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_brute"
+Level = 2
+Inventory = PackedStringArray("gloam_claws")
+Faction = 1
+Position = Vector2i(7, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_18"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_brute"
+Level = 2
+Inventory = PackedStringArray("gloam_claws")
+Faction = 1
+Position = Vector2i(13, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_19"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_stalker"
+Level = 2
+Inventory = PackedStringArray("bone_spikes")
+Faction = 1
+Position = Vector2i(1, 5)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_20"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_stalker"
+Level = 2
+Inventory = PackedStringArray("bone_spikes")
+Faction = 1
+Position = Vector2i(13, 7)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_21"]
+script = ExtResource("2_spawn")
+ClassId = "binder"
+Name = "Sennet"
+Level = 4
+Inventory = PackedStringArray("shadow")
+Faction = 1
+Position = Vector2i(7, 0)
+Ai = 3
+IsBoss = true
 
 [resource]
 script = ExtResource("1_map")
 Id = "ch1"
-Name = "Chapter 1: Brigands at the Ford"
-TerrainRows = PackedStringArray("MMMPPPPP~PPPPWWW", "MMPPFFPP~PPFPWTW", "MPPPFPPP~PPFFPPP", "PPPPPPPPBPPPPPPP", "PPFFPPPP~PPPMMPP", "PPFPPPPP~PPPMPPP", "PPPPPMMP~PPPPPFF", "PPPPPMPPPPPFPPPF", "PFFPPPPPPPFFPPPP", "PPFPPTPPPPPPPPPP", "PPPPPPPPFFPPPPPP", "PPPPPPPPFPPPPPPP")
-HeightRows = PackedStringArray("3221000000001333", "2210000000001313", "1100000000001111", "0000000000000000", "0000000000002100", "0000000000001000", "0000021000000000", "0000010000000000", "0000000000000000", "0000000000000000", "0000000000000000", "0000000000000000")
-Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14")])
+Name = "Chapter 1: Brookhollow Burns"
+TerrainRows = PackedStringArray("FFWWWPPTPPW~PFFF", "FPPPPPPPPPP~PPFF", "PWWPPPPPPWW~PPPF", "PWTPPPPPPWTBPPPP", "PPPPPPPPPPP~PWWW", "PPPPPPTPPPP~PWTW", "PWWPPPPPPPP~PPPP", "PWTPPPPPPWW~PPPF", "PPPPPPPPPWT~PPFF", "FPPPPPPPPPPBPPPP", "FFPWWPPPPPP~PPPF", "FFPWTPPPPPP~PPFF")
+HeightRows = PackedStringArray("0000000000000000", "0000000000000000", "0000000000000000", "0000000000000000", "0000000000000000", "0000000000000000", "0000000000000000", "0000000000000000", "0000000000000000", "0000000000000000", "0000000000000000", "0000000000000000")
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21")])

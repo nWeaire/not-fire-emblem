@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/WeaponDefinition.cs" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+Id = "gloam_claws"
+Name = "Claws"
+Type = 4
+Might = 5
+Hit = 70
+Crit = 0
+Weight = 0
+MinRange = 1
+MaxRange = 1
+Magic = false
+EffectiveAgainst = PackedStringArray()
+Price = 0
+Tier = 1

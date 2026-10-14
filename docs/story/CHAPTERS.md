@@ -279,7 +279,11 @@ Enemies follow the same tiers: Act I bandits carry iron and leather, Halvric's g
 - **Act II side map, "The Old Warden Vault":** Aldric and Rowan find Lyra's sword; it is Rowan's personal weapon from Ch 15 on.
 
 ## Mapping to current content
-- The current `data/maps/ch1.tres` ("Brigands at the Ford", with Brann and Elise in the starting party) is a **systems test map**. It is *not* story Chapter 1. When M4 adds real chapters, the Prologue and Ch 1 above replace it. Brann and Elise keep their ids and join at Ch 2 and Ch 4.
+- `data/maps/prologue.tres` and `data/maps/ch1.tres` are the story maps above. The battle starts on the Prologue by default.
+  - Built with today's rules only. Both use **Rout**: the Prologue's Defeat Boss, Ch 1's villager loss condition, Aldric's T2 reveal, Kai joining when reached, Mira gaining Fire on T3, the T4 fire tiles and reinforcements, and Wenna's Visit all need M4.
+  - Until then Kai and the five villagers are **Ally** units on Stationary AI, and Mira starts with Fire (move it to the `ch01_mira_fire` event in M4).
+- The old systems test map ("Brigands at the Ford", with Brann and Elise) is now `data/maps/test_ford.tres` (`--map=test_ford`). Brann and Elise keep their ids and join at Ch 2 and Ch 4.
+- Opening content in `data/`: classes `youth`, `warden`, `acolyte`, `villager`, `gloam_hound`, `gloam_brute`, `gloam_stalker` and `binder` (Youth and Lord both use Sword + Bow); unit `aldric` (Warden Lv 5, Steel Sword, Warden's Hide); weapons `short_bow`, `shadow`, `gloam_fangs`, `gloam_claws` and `bone_spikes` (range 2). Rowan starts as `youth`, Kai as `soldier` and Mira as `acolyte`.
 - **Art follows class:** sprite ids are `<unitId>_<classId>`. The starting outfits are being generated: `rowan_youth`, `rowan_lord`, `kai_soldier`, `kai_cavalier`, `mira_acolyte`, `brann_fighter` and `elise_mage`. Higher-tier outfits are written in the manifest as `planned`.
 - The first generic-id sprites (`rowan`, `kai`, `mira`, `brann`, `elise`) are superseded. They stay only as a fallback for the test map (e.g. Mira's current `priest` class has no outfit yet).
 - Art still needed:

@@ -279,9 +279,8 @@ Enemies follow the same tiers: Act I bandits carry iron and leather, Halvric's g
 - **Act II side map, "The Old Warden Vault":** Aldric and Rowan find Lyra's sword; it is Rowan's personal weapon from Ch 15 on.
 
 ## Mapping to current content
-- `data/maps/prologue.tres` and `data/maps/ch1.tres` are the story maps above. The battle starts on the Prologue by default.
-  - Built with today's rules only. Both use **Rout**: the Prologue's Defeat Boss, Ch 1's villager loss condition, Aldric's T2 reveal, Kai joining when reached, Mira gaining Fire on T3, the T4 fire tiles and reinforcements, and Wenna's Visit all need M4.
-  - Until then Kai and the five villagers are **Ally** units on Stationary AI, and Mira starts with Fire (move it to the `ch01_mira_fire` event in M4).
+- **Built so far:** `data/maps/prologue.tres`, `ch1.tres`, `ch2.tres` and `ch3.tres`, with the objectives, triggers, recruitments, visits and Dominion described above, chained by `data/campaign/main.txt`. Their scenes are in `data/dialogue/`.
+  - Simplifications: Aldric starts as an Ally on Stationary AI and joins on turn 2. Ch 2's "Brann takes damage" is a single turn-3 event. Crest fragments aren't tracked yet.
 - The old systems test map ("Brigands at the Ford", with Brann and Elise) is now `data/maps/test_ford.tres` (`--map=test_ford`). Brann and Elise keep their ids and join at Ch 2 and Ch 4.
 - Opening content in `data/`: classes `youth`, `warden`, `acolyte`, `villager`, `gloam_hound`, `gloam_brute`, `gloam_stalker` and `binder` (Youth and Lord both use Sword + Bow); unit `aldric` (Warden Lv 5, Steel Sword, Warden's Hide); weapons `short_bow`, `shadow`, `gloam_fangs`, `gloam_claws` and `bone_spikes` (range 2). Rowan starts as `youth`, Kai as `soldier` and Mira as `acolyte`.
 - **Art follows class:** sprite ids are `<unitId>_<classId>`. The starting outfits are being generated: `rowan_youth`, `rowan_lord`, `kai_soldier`, `kai_cavalier`, `mira_acolyte`, `brann_fighter` and `elise_mage`. Higher-tier outfits are written in the manifest as `planned`.

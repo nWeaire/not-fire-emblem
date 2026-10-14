@@ -20,6 +20,14 @@ public partial class ClassDefinition : Resource
     [Export] public bool IsPromoted { get; set; }
     /// <summary>Heaviest body armour the class can wear.</summary>
     [Export] public ArmorClass MaxArmor { get; set; } = ArmorClass.Medium;
+    /// <summary>1 base, 2 advanced, 3 crestbound, 4 final. Promotion needs Rowan's crest tier ≥ this.</summary>
+    [Export] public int Tier { get; set; } = 1;
+    /// <summary>Class traits, e.g. "Beast" (effective damage targets, severed beasts are stunned).</summary>
+    [Export] public string[] Traits { get; set; } = Array.Empty<string>();
+    /// <summary>Combat art ids every unit of this class knows.</summary>
+    [Export] public string[] Arts { get; set; } = Array.Empty<string>();
+    /// <summary>Spell ids every unit of this class knows.</summary>
+    [Export] public string[] Spells { get; set; } = Array.Empty<string>();
 
     public ClassDef ToDef() => new(
         Id,
@@ -31,5 +39,9 @@ public partial class ClassDefinition : Resource
         UsableWeapons.Select(w => Enum.Parse<WeaponType>(w, true)).ToArray(),
         PromotesTo.ToArray(),
         IsPromoted,
-        MaxArmor);
+        MaxArmor,
+        Tier,
+        Traits.ToArray(),
+        Arts.ToArray(),
+        Spells.ToArray());
 }

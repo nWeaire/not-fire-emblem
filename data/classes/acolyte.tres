@@ -47,3 +47,4 @@ UsableWeapons = PackedStringArray("WhiteMagic", "BlackMagic")
 PromotesTo = PackedStringArray("sage")
 IsPromoted = false
 MaxArmor = 0
+Spells = PackedStringArray("heal")

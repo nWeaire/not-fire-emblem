@@ -11,6 +11,10 @@ public partial class CellOverlay : MultiMeshInstance3D
     public static readonly Color HealColor = new(0.3f, 0.9f, 0.4f, 0.45f);
     public static readonly Color DangerColor = new(0.6f, 0.1f, 0.9f, 0.4f);
     public static readonly Color PathColor = new(1f, 1f, 1f, 0.8f);
+    public static readonly Color FogColor = new(0.0f, 0.0f, 0.04f, 0.78f);
+    public static readonly Color ObjectiveColor = new(1f, 0.8f, 0.15f, 0.75f);
+    public static readonly Color VisitColor = new(0.3f, 0.9f, 1f, 0.6f);
+    public static readonly Color TalkColor = new(0.3f, 1f, 0.6f, 0.6f);
 
     /// <summary>Gap left around each quad, as a fraction of the cell.</summary>
     [Export] public float Inset { get; set; } = 0.06f;

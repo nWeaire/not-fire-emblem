@@ -6,7 +6,7 @@ namespace NotFireEmblem.Grid;
 
 public readonly record struct Cell(TerrainDef Terrain, int Height);
 
-/// <summary>The battle map's static terrain and heights. Immutable after load; occupancy lives in BattleState.</summary>
+/// <summary>The battle map terrain and heights. Occupancy lives in BattleState; terrain changes only via map events.</summary>
 public sealed class BattleGrid
 {
     public const int MaxHeight = 9;
@@ -24,6 +24,9 @@ public sealed class BattleGrid
     }
 
     public Cell this[GridPos p] => _cells[p.X, p.Y];
+
+    /// <summary>Terrain only changes through map events (e.g. burning houses clearing).</summary>
+    public void SetTerrain(GridPos p, TerrainDef terrain) => _cells[p.X, p.Y] = _cells[p.X, p.Y] with { Terrain = terrain };
 
     public bool InBounds(GridPos p) => p.X >= 0 && p.Y >= 0 && p.X < Width && p.Y < Height;
 

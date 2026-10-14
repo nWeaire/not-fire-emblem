@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SpellDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/SpellDefinition.cs" id="1_spell"]
+
+[resource]
+script = ExtResource("1_spell")
+Id = "heal"
+Name = "Heal"
+Power = 10
+MinRange = 1
+MaxRange = 1
+Uses = 4

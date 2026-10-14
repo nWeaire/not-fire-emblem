@@ -33,6 +33,18 @@ public sealed class UnitState
         return state;
     }
 
+    /// <summary>A deep copy: battles work on copies so a lost battle leaves the roster untouched.</summary>
+    public UnitState Clone()
+    {
+        var copy = new UnitState
+        {
+            Def = Def, ClassId = ClassId, Level = Level, Exp = Exp, Gains = Gains, EquippedIndex = EquippedIndex,
+            ArmorId = ArmorId, AccessoryId = AccessoryId, Status = Status,
+        };
+        copy.Inventory.AddRange(Inventory);
+        return copy;
+    }
+
     /// <summary>Equips the first inventory slot holding this item. Returns false if it isn't carried.</summary>
     public bool Equip(string itemId)
     {

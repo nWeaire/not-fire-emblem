@@ -1,0 +1,44 @@
+# The campaign, in story order (see docs/story/CHAPTERS.md). One step per line; parsed by CampaignParser.
+#   chapter N TITLE · scene ID · battle MAP [deploy N] [force a,b] · join/leave UNIT · class UNIT CLASS
+#   crest N · gold N · item ID · flag NAME · unlock FEATURE · hub [BRIEFING_SCENE] · end TEXT
+# Units who join mid-battle (Aldric, Kai, Mira, Brann, Tamsin) enter the roster when the battle is won.
+
+chapter 0 Prologue: Embers at Ashford Farm
+join rowan
+scene pro_opening
+scene pro_dogs
+battle prologue
+scene pro_smoke
+crest 1
+
+chapter 1 Chapter 1: Brookhollow Burns
+scene ch01_pre
+battle ch1
+scene ch01_post
+gold 800
+
+chapter 1 Interlude: The Steward
+scene hub_intro
+scene hub_outfit
+class rowan lord
+scene hub_osmund_aldric
+unlock shop
+unlock supports
+unlock promotion
+hub hub_briefing_ch02
+
+chapter 2 Chapter 2: The Millbrook Road
+scene ch02_pre
+battle ch2 deploy 5 force rowan
+scene ch02_post
+unlock smithy
+scene hub_smithy
+hub hub_briefing_ch03
+
+chapter 3 Chapter 3: Thornwood Hunt
+scene ch03_pre
+battle ch3 deploy 6 force rowan
+scene ch03_post
+item vulnerary
+hub
+end To be continued in Chapter 4: The Scholar of Calder.

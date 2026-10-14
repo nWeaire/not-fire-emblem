@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ItemDefinition.cs" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+Id = "spirit_dust"
+Name = "Spirit Dust"
+Kind = 1
+Amount = 2
+Stat = 2
+Price = 2500
+Tier = 1

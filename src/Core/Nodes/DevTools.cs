@@ -11,10 +11,18 @@ namespace NotFireEmblem.Core;
 ///   --frames=&lt;n&gt;            frame to capture on
 ///   --press=&lt;f:action,...&gt;   inject action presses at frames, e.g. --press=60:confirm,70:cursor_right
 ///   --speed=&lt;x&gt;             Engine.TimeScale multiplier (animations and timers run faster)
-/// BattleController also reads --seed=&lt;n&gt; (battle RNG) and --map=&lt;id&gt; (e.g. prologue, ch1, test_ford).
+///   --autoplay               the AI also plays the player's side (soak tests)
+///   --skipdialogue           dialogue scenes end at once
+///   --autoadvance            prep, results and hub screens continue on their own
+///   --newgame / --load=N     (title screen) start a campaign at once
+/// BattleController also reads --seed=&lt;n&gt; (battle RNG); Boot reads --map=&lt;id&gt; (e.g. prologue, ch1, test_ford).
 /// </summary>
 public partial class DevTools : Node
 {
+    public static bool Autoplay { get; private set; }
+    public static bool SkipDialogue { get; private set; }
+    public static bool AutoAdvance { get; private set; }
+
     private string? _screenshotPath;
     private int _captureFrame = 90;
     private readonly List<(int Frame, string Action)> _presses = new();
@@ -24,6 +32,9 @@ public partial class DevTools : Node
     {
         foreach (var arg in OS.GetCmdlineUserArgs())
         {
+            Autoplay |= arg == "--autoplay";
+            SkipDialogue |= arg == "--skipdialogue";
+            AutoAdvance |= arg == "--autoadvance";
             var parts = arg.Split('=', 2);
             if (parts.Length != 2)
                 continue;

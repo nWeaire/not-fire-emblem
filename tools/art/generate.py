@@ -279,14 +279,12 @@ def run(client: PixelLab, state: dict, selected: list[str], args) -> None:
             client.wait_for_job(tiles["job"])
             result = client.get(f"/tiles-pro/{tiles['tile_id']}")
             urls = result.get("storage_urls", {})
-            for i, (terrain_id, _) in enumerate(M.TERRAIN_TILES):
-                url = urls.get(f"tile_{i}")
-                if url:
-                    client.download(url, TILES / f"{terrain_id}.png")
-                else:
-                    print(f"    ! no tile_{i} for {terrain_id} (got {len(urls)} tiles)")
-            for key, url in urls.items():  # keep any extra variations too
+            # PixelLab returns several variations per prompt, grouped (e.g. tiles 0-3 are all "plain"), so the
+            # tile index does not map to a terrain. Save them raw; the named <terrain>[_N].png files the game
+            # uses are picked from variations/ by hand.
+            for key, url in urls.items():
                 client.download(url, TILES / "variations" / f"{key}.png")
+            print(f"    {len(urls)} tiles saved to {TILES / 'variations'}; copy the right ones to <terrain>[_N].png")
             tiles.update(status="completed", usage=result.get("usage"))
             save_state(state)
 

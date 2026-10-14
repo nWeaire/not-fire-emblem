@@ -11,17 +11,13 @@ using NotFireEmblem.Units;
 namespace NotFireEmblem.Battle;
 
 /// <summary>
-/// The player-phase UI state machine: Browse → MoveSelect → (Moving) → ActionMenu → TargetSelect, plus MapMenu.
-/// It previews moves visually and only touches game state by building a command and handing it to the BattleController.
+/// The player-phase UI state machine: Browse → MoveSelect → (Moving) → ActionMenu → TargetSelect / PickUnit /
+/// SubMenu, plus MapMenu. It previews moves visually and only touches game state by building a command and handing
+/// it to the BattleController. The action menu only offers what <see cref="ActionRules"/> allows from that cell.
 /// </summary>
 public partial class PlayerInputController : Node
 {
-    private enum Mode { Disabled, Browse, MoveSelect, Moving, ActionMenu, TargetSelect, MapMenu }
-
-    private const string AttackOption = "Attack";
-    private const string WaitOption = "Wait";
-    private const string EndTurnOption = "End Turn";
-    private const string CancelOption = "Cancel";
+    private enum Mode { Disabled, Browse, MoveSelect, Moving, ActionMenu, TargetSelect, PickUnit, SubMenu, MapMenu }
 
     private BattleController _b = null!;
     private Mode _mode = Mode.Disabled;
@@ -31,13 +27,20 @@ public partial class PlayerInputController : Node
     private GridPos _dest;
     private BattleUnit? _inspected;
 
-    private readonly List<string> _menu = new();
+    private readonly List<(string Label, Action Choose)> _menu = new();
     private int _menuIndex;
+    /// <summary>What Cancel does from the current sub-menu or unit pick.</summary>
+    private Action? _back;
 
+    // Attack targeting
     private readonly List<BattleUnit> _targets = new();
     private int _targetIndex;
-    private readonly List<WeaponDef> _weapons = new();
-    private int _weaponIndex;
+    private readonly List<ActionChoice> _choices = new();
+    private int _choiceIndex;
+
+    // Generic unit picking (heal, talk, trade, crest)
+    private Action<BattleUnit>? _pickAction;
+    private Func<BattleUnit, string>? _pickPreview;
 
     private GridPos? _lastMouseCell;
     private bool _dangerShown;
@@ -70,10 +73,10 @@ public partial class PlayerInputController : Node
         RefreshDanger();
         _mode = Mode.Browse;
 
-        var atCursor = S.UnitAt(_b.Cursor.Pos);
-        bool cursorOnReadyUnit = atCursor is { Faction: Faction.Player, ActionState: ActionState.Ready };
+        var atCursor = VisibleUnitAt(_b.Cursor.Pos);
+        bool cursorOnActiveUnit = atCursor is { Faction: Faction.Player } && atCursor.ActionState != ActionState.Done;
         var firstReady = ReadyUnits().FirstOrDefault();
-        if (!cursorOnReadyUnit && firstReady is not null)
+        if (!cursorOnActiveUnit && firstReady is not null)
             MoveCursor(firstReady.Pos);
         else
             RefreshHover();
@@ -90,7 +93,7 @@ public partial class PlayerInputController : Node
 
     public override void _UnhandledInput(InputEvent e)
     {
-        if (_mode is Mode.Disabled or Mode.Moving)
+        if (_mode is Mode.Disabled or Mode.Moving || _b.Hud.Dialogue.IsPlaying)
             return;
 
         if (e.IsActionPressed(InputSetup.CamRotateLeft)) { _b.Camera.RotateStep(1); Handled(); return; }
@@ -106,7 +109,7 @@ public partial class PlayerInputController : Node
         if (e is InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Left } click)
         {
             // Make sure the cursor is on the clicked cell before the confirm below.
-            if (_mode is Mode.Browse or Mode.MoveSelect or Mode.TargetSelect)
+            if (_mode is Mode.Browse or Mode.MoveSelect or Mode.TargetSelect or Mode.PickUnit)
             {
                 _lastMouseCell = null;
                 OnMouseMove(click.Position);
@@ -157,6 +160,14 @@ public partial class PlayerInputController : Node
                     UpdateTarget();
                 }
                 break;
+            case Mode.PickUnit:
+                int pick = _targets.FindIndex(t => t.Pos == cell);
+                if (pick >= 0 && pick != _targetIndex)
+                {
+                    _targetIndex = pick;
+                    UpdatePick();
+                }
+                break;
         }
     }
 
@@ -182,6 +193,7 @@ public partial class PlayerInputController : Node
                 break;
             case Mode.ActionMenu:
             case Mode.MapMenu:
+            case Mode.SubMenu:
                 if (screenDir.Y != 0 && _menu.Count > 0)
                 {
                     _menuIndex = (_menuIndex + screenDir.Y + _menu.Count) % _menu.Count;
@@ -189,9 +201,13 @@ public partial class PlayerInputController : Node
                 }
                 break;
             case Mode.TargetSelect:
+            case Mode.PickUnit:
                 int step = screenDir == GridPos.Right || screenDir == GridPos.Down ? 1 : -1;
                 _targetIndex = (_targetIndex + step + _targets.Count) % _targets.Count;
-                UpdateTarget();
+                if (_mode == Mode.TargetSelect)
+                    UpdateTarget();
+                else
+                    UpdatePick();
                 break;
         }
     }
@@ -208,12 +224,14 @@ public partial class PlayerInputController : Node
                 break;
             case Mode.ActionMenu:
             case Mode.MapMenu:
+            case Mode.SubMenu:
                 ChooseMenu(_menuIndex);
                 break;
             case Mode.TargetSelect:
-                var target = _targets[_targetIndex];
-                var weapon = _weapons[_weaponIndex];
-                Submit(new ActCommand(_selected!.Id, _dest, new AttackAction(target.Id, new WeaponAttack(weapon.Id))));
+                Submit(new ActCommand(_selected!.Id, _dest, new AttackAction(_targets[_targetIndex].Id, _choices[_choiceIndex])));
+                break;
+            case Mode.PickUnit:
+                _pickAction!(_targets[_targetIndex]);
                 break;
         }
     }
@@ -235,16 +253,30 @@ public partial class PlayerInputController : Node
                 MoveCursor(unit.Pos);
                 break;
             case Mode.ActionMenu:
-                var view = _b.ViewOf(_selected!.Id);
+                _b.Hud.HideMenu();
+                if (_selected!.ActionState == ActionState.Moved)
+                {
+                    // Already committed to this cell by a trade: back to browsing.
+                    Begin();
+                    break;
+                }
+                var view = _b.ViewOf(_selected.Id);
                 if (view is not null)
                     view.Position = _b.CellWorld(_selected.Pos);
-                _b.Hud.HideMenu();
                 Select(_selected);
                 MoveCursor(_dest);
                 break;
             case Mode.TargetSelect:
+            case Mode.PickUnit:
+            case Mode.SubMenu:
                 _b.Hud.HideForecast();
-                OpenActionMenu();
+                _b.Hud.HideMenu();
+                var back = _back;
+                _back = null;
+                if (back is not null)
+                    back();
+                else
+                    OpenActionMenu();
                 break;
             case Mode.MapMenu:
                 _b.Hud.HideMenu();
@@ -264,16 +296,16 @@ public partial class PlayerInputController : Node
             int current = ready.FindIndex(u => u.Pos == _b.Cursor.Pos);
             MoveCursor(ready[(current + 1) % ready.Count].Pos);
         }
-        else if (_mode == Mode.TargetSelect && _weapons.Count > 1)
+        else if (_mode == Mode.TargetSelect && _choices.Count > 1)
         {
-            _weaponIndex = (_weaponIndex + 1) % _weapons.Count;
+            _choiceIndex = (_choiceIndex + 1) % _choices.Count;
             UpdateTarget();
         }
     }
 
     private void OnMenuClicked(int index)
     {
-        if (_mode is not (Mode.ActionMenu or Mode.MapMenu) || index < 0 || index >= _menu.Count)
+        if (_mode is not (Mode.ActionMenu or Mode.MapMenu or Mode.SubMenu) || index < 0 || index >= _menu.Count)
             return;
         _menuIndex = index;
         ChooseMenu(index);
@@ -281,12 +313,23 @@ public partial class PlayerInputController : Node
 
     // ------------------------------------------------------------------ browse & move
 
+    private BattleUnit? VisibleUnitAt(GridPos p) =>
+        S.UnitAt(p) is { } u && S.CanSee(Faction.Player, u) ? u : null;
+
     private void ConfirmBrowse()
     {
-        var unit = S.UnitAt(_b.Cursor.Pos);
+        var unit = VisibleUnitAt(_b.Cursor.Pos);
         if (unit is { Faction: Faction.Player, ActionState: ActionState.Ready })
         {
             Select(unit);
+        }
+        else if (unit is { Faction: Faction.Player, ActionState: ActionState.Moved })
+        {
+            // Traded already: act from where it stands.
+            _selected = unit;
+            _reach = null;
+            _dest = unit.Pos;
+            OpenActionMenu();
         }
         else if (unit is not null && unit.Faction != Faction.Player)
         {
@@ -298,7 +341,11 @@ public partial class PlayerInputController : Node
         }
         else if (unit is null)
         {
-            OpenMenu(Mode.MapMenu, new[] { EndTurnOption, CancelOption });
+            OpenMenu(Mode.MapMenu, new List<(string, Action)>
+            {
+                ("End Turn", () => Submit(new EndPhaseCommand())),
+                ("Cancel", OnCancel),
+            });
         }
     }
 
@@ -322,7 +369,7 @@ public partial class PlayerInputController : Node
             return;
         }
         // Clicking an enemy in range: walk to the cheapest cell that can hit it, then go straight to targeting.
-        var target = S.UnitAt(cell);
+        var target = VisibleUnitAt(cell);
         if (target is not null && target.Faction.IsHostileTo(unit.Faction) && BestStandCell(target) is { } stand)
             Run(() => MoveThen(stand, target));
     }
@@ -339,7 +386,7 @@ public partial class PlayerInputController : Node
         if (_mode != Mode.Moving)
             return;
         MoveCursor(dest);
-        if (target is not null && TargetsFrom(unit, dest).Contains(target))
+        if (target is not null && ActionRules.AttackTargets(S, unit, dest).Contains(target))
             OpenTargetSelect(target);
         else
             OpenActionMenu();
@@ -348,13 +395,13 @@ public partial class PlayerInputController : Node
     private GridPos? BestStandCell(BattleUnit target)
     {
         var unit = _selected!;
-        var weapons = CombatCalculator.UsableWeapons(S.Db, unit.State).ToList();
+        var choices = CombatCalculator.AttackChoices(S.Db, unit).ToList();
         GridPos? best = null;
         int bestCost = int.MaxValue;
         foreach (var cell in _reach!.StopCells)
         {
             int distance = cell.DistanceTo(target.Pos);
-            if (!weapons.Any(w => CombatCalculator.InRange(w, distance)))
+            if (!choices.Any(c => CombatCalculator.InRange(S.Db, c, distance)))
                 continue;
             int cost = _reach.CostTo(cell);
             if (cost < bestCost)
@@ -366,59 +413,137 @@ public partial class PlayerInputController : Node
         return best;
     }
 
-    // ------------------------------------------------------------------ menus & targeting
+    // ------------------------------------------------------------------ the action menu
 
     private void OpenActionMenu()
     {
-        var options = new List<string>();
-        if (TargetsFrom(_selected!, _dest).Any())
-            options.Add(AttackOption);
-        options.Add(WaitOption);
+        var unit = _selected!;
+        var from = _dest;
+        var options = new List<(string, Action)>();
+        if (ActionRules.AttackTargets(S, unit, from).Any())
+            options.Add(("Attack", () => OpenTargetSelect(null)));
+        var healSpells = ActionRules.ReadySpells(S, unit).Where(sp => ActionRules.HealTargets(S, unit, from, sp.Id).Any()).ToList();
+        if (healSpells.Count > 0)
+            options.Add(("Heal", () => OpenHeal(healSpells)));
+        var talk = EventDirector.TalkTargets(S, unit, from).ToList();
+        if (talk.Count > 0)
+            options.Add(("Talk", () => OpenPick(talk, t => $"Talk to {t.Name}", t => Submit(new ActCommand(unit.Id, from, new TalkAction(t.Id))))));
+        if (ActionRules.CanVisit(S, unit, from))
+            options.Add(("Visit", () => Submit(new ActCommand(unit.Id, from, new VisitAction()))));
+        if (ActionRules.CanSeize(S, unit, from))
+            options.Add(("Seize", () => Submit(new ActCommand(unit.Id, from, new SeizeAction()))));
+        if (ActionRules.CanEscape(S, unit, from))
+            options.Add(("Escape", () => Submit(new ActCommand(unit.Id, from, new EscapeAction()))));
+        var crest = ActionRules.ReadyCrestSkills(S, unit, from).ToList();
+        if (crest.Count > 0)
+            options.Add(("Crest", () => OpenCrest(crest)));
+        var items = ActionRules.UsableItems(S, unit).ToList();
+        if (items.Count > 0)
+            options.Add(("Item", () => OpenItems(items)));
+        var partners = ActionRules.TradePartners(S, unit, from).ToList();
+        if (partners.Count > 0)
+            options.Add(("Trade", () => OpenPick(partners, p => $"Trade with {p.Name}", OpenTrade)));
+        options.Add(("Wait", () => Submit(new ActCommand(unit.Id, from, new WaitAction()))));
+
+        _back = null;
         OpenMenu(Mode.ActionMenu, options);
-        ShowAttackRangeFrom(_selected!, _dest);
-        _b.Hud.ShowUnit(S, _selected);
+        ShowAttackRangeFrom(unit, from);
+        _b.Hud.ShowUnit(S, unit);
     }
 
-    private void OpenMenu(Mode mode, IReadOnlyList<string> options)
+    private void OpenMenu(Mode mode, IReadOnlyList<(string Label, Action Choose)> options)
     {
         _menu.Clear();
         _menu.AddRange(options);
         _menuIndex = 0;
         _mode = mode;
-        _b.Hud.ShowMenu(_menu, _menuIndex);
+        _b.Hud.ShowMenu(_menu.Select(m => m.Label).ToList(), _menuIndex);
     }
 
-    private void ChooseMenu(int index)
+    private void OpenSubMenu(IReadOnlyList<(string Label, Action Choose)> options, Action back)
     {
-        switch (_menu[index])
-        {
-            case AttackOption:
-                _b.Hud.HideMenu();
-                OpenTargetSelect(null);
-                break;
-            case WaitOption:
-                Submit(new ActCommand(_selected!.Id, _dest, new WaitAction()));
-                break;
-            case EndTurnOption:
-                Submit(new EndPhaseCommand());
-                break;
-            case CancelOption:
-                OnCancel();
-                break;
-        }
+        _b.Hud.HideMenu();
+        OpenMenu(Mode.SubMenu, options);
+        _back = back;
     }
+
+    private void ChooseMenu(int index) => _menu[index].Choose();
+
+    private void OpenHeal(List<SpellDef> spells)
+    {
+        var unit = _selected!;
+        void PickFor(SpellDef spell) => OpenPick(ActionRules.HealTargets(S, unit, _dest, spell.Id).ToList(),
+            t => $"{spell.Name} {t.Name}: +{System.Math.Min(spell.Power + S.Stats(unit).Mag / 2, S.Stats(t).HP - t.CurrentHp)} HP   (uses {unit.UsesLeft.GetValueOrDefault(spell.Id)})",
+            t => Submit(new ActCommand(unit.Id, _dest, new HealAction(t.Id, spell.Id))));
+        if (spells.Count == 1)
+            PickFor(spells[0]);
+        else
+            OpenSubMenu(spells.Select(sp => ($"{sp.Name} ({unit.UsesLeft.GetValueOrDefault(sp.Id)})", (Action)(() => PickFor(sp)))).ToList(), OpenActionMenu);
+    }
+
+    private void OpenItems(List<ItemDef> items)
+    {
+        var unit = _selected!;
+        OpenSubMenu(items.Select(i => (i.Kind == ItemKind.Heal ? $"{i.Name} (heal {(i.Amount > 0 ? i.Amount : 99)})" : $"{i.Name} ({i.Stat} +{i.Amount})",
+            (Action)(() => Submit(new ActCommand(unit.Id, _dest, new UseItemAction(i.Id)))))).ToList(), OpenActionMenu);
+    }
+
+    private void OpenCrest(List<CrestSkill> skills)
+    {
+        var unit = _selected!;
+        var options = new List<(string, Action)>();
+        foreach (var skill in skills)
+        {
+            string label = $"{skill} ({unit.UsesLeft.GetValueOrDefault(CrestSkills.UseKey(skill))})";
+            options.Add((label, () =>
+            {
+                _b.Hud.Toast(CrestSkills.Describe(skill), new Color(1f, 1f, 0.85f));
+                if (skill is CrestSkill.Rally or CrestSkill.Mend)
+                {
+                    Submit(new ActCommand(unit.Id, _dest, new CrestAction(skill, null)));
+                    return;
+                }
+                var targets = ActionRules.CrestTargets(S, unit, _dest, skill) ?? new List<BattleUnit>();
+                OpenPick(targets, t => $"{skill}: {t.Name}", t => Submit(new ActCommand(unit.Id, _dest, new CrestAction(skill, t.Id))),
+                    () => OpenCrest(skills));
+            }));
+        }
+        OpenSubMenu(options, OpenActionMenu);
+    }
+
+    private void OpenTrade(BattleUnit partner)
+    {
+        var unit = _selected!;
+        var options = new List<(string, Action)>();
+        bool myRoom = unit.State.Inventory.Count < UnitState.MaxInventory;
+        bool theirRoom = partner.State.Inventory.Count < UnitState.MaxInventory;
+        foreach (var item in unit.State.Inventory.Distinct())
+            if (theirRoom)
+                options.Add(($"Give {S.Db.ItemName(item)}", () => Submit(new TradeCommand(unit.Id, _dest, partner.Id, new[] { item }, Array.Empty<string>()))));
+        foreach (var item in partner.State.Inventory.Distinct())
+            if (myRoom)
+                options.Add(($"Take {S.Db.ItemName(item)}", () => Submit(new TradeCommand(unit.Id, _dest, partner.Id, Array.Empty<string>(), new[] { item }))));
+        if (unit.State.Inventory.Count > 0 && partner.State.Inventory.Count > 0)
+            options.Add(($"Swap {S.Db.ItemName(unit.State.Inventory[0])} ↔ {S.Db.ItemName(partner.State.Inventory[0])}",
+                () => Submit(new TradeCommand(unit.Id, _dest, partner.Id, new[] { unit.State.Inventory[0] }, new[] { partner.State.Inventory[0] }))));
+        options.Add(("Cancel", OpenActionMenu));
+        OpenSubMenu(options, OpenActionMenu);
+    }
+
+    // ------------------------------------------------------------------ attack targeting
 
     private void OpenTargetSelect(BattleUnit? preferred)
     {
         _targets.Clear();
-        _targets.AddRange(TargetsFrom(_selected!, _dest).OrderBy(t => t.Pos.X).ThenBy(t => t.Pos.Y));
+        _targets.AddRange(ActionRules.AttackTargets(S, _selected!, _dest).OrderBy(t => t.Pos.X).ThenBy(t => t.Pos.Y));
         if (_targets.Count == 0)
         {
             OpenActionMenu();
             return;
         }
         _targetIndex = preferred is null ? 0 : Math.Max(0, _targets.IndexOf(preferred));
-        _weapons.Clear();
+        _choices.Clear();
+        _back = null;
         _mode = Mode.TargetSelect;
         _b.Hud.HideMenu();
         _b.RangeOverlay.ShowCells(_targets.Select(t => (t.Pos, CellOverlay.AttackColor)).ToList());
@@ -429,26 +554,57 @@ public partial class PlayerInputController : Node
     {
         var unit = _selected!;
         var target = _targets[_targetIndex];
-        var previous = _weapons.Count > 0 ? _weapons[_weaponIndex] : null;
+        var previous = _choices.Count > 0 ? _choices[_choiceIndex] : null;
         int distance = _dest.DistanceTo(target.Pos);
-        _weapons.Clear();
-        _weapons.AddRange(CombatCalculator.UsableWeapons(S.Db, unit.State).Where(w => CombatCalculator.InRange(w, distance)));
+        _choices.Clear();
+        _choices.AddRange(CombatCalculator.AttackChoices(S.Db, unit).Where(c => CombatCalculator.InRange(S.Db, c, distance)));
         string? equipped = unit.State.EquippedItemId;
-        _weaponIndex = Math.Max(0, previous is not null && _weapons.Contains(previous)
-            ? _weapons.IndexOf(previous)
-            : _weapons.FindIndex(w => w.Id == equipped));
+        _choiceIndex = Math.Max(0, previous is not null && _choices.Contains(previous)
+            ? _choices.IndexOf(previous)
+            : _choices.FindIndex(c => c is WeaponAttack && c.WeaponId == equipped));
 
         _b.Cursor.MoveTo(target.Pos);
         _b.Camera.Focus((_b.CellWorld(_dest) + _b.CellWorld(target.Pos)) / 2f);
         _b.ViewOf(unit.Id)?.FaceToward(_b.CellWorld(target.Pos));
-        var forecast = CombatCalculator.Forecast(S, unit, _dest, target, new WeaponAttack(_weapons[_weaponIndex].Id));
-        string hint = (_weapons.Count > 1 ? "Tab: switch weapon   " : "") + (_targets.Count > 1 ? "Arrows: switch target   " : "") + "Z: attack   X: back";
+        var choice = _choices[_choiceIndex];
+        var forecast = CombatCalculator.Forecast(S, unit, _dest, target, choice);
+        string uses = choice is ArtAttack art ? $"   ({unit.UsesLeft.GetValueOrDefault(art.ArtId)} uses left)" : "";
+        string hint = (_choices.Count > 1 ? "Tab: switch weapon / art   " : "") + (_targets.Count > 1 ? "Arrows: switch target   " : "") + "Z: attack   X: back" + uses;
         _b.Hud.ShowForecast(forecast, hint);
         _b.Hud.ShowUnit(S, target);
         _b.Hud.ShowTerrain(S, target.Pos);
     }
 
-    private IEnumerable<BattleUnit> TargetsFrom(BattleUnit unit, GridPos from) => BattleQueries.TargetsFrom(S, unit, from);
+    // ------------------------------------------------------------------ generic unit picking
+
+    private void OpenPick(List<BattleUnit> targets, Func<BattleUnit, string> preview, Action<BattleUnit> action, Action? back = null)
+    {
+        if (targets.Count == 0)
+        {
+            OpenActionMenu();
+            return;
+        }
+        _targets.Clear();
+        _targets.AddRange(targets.OrderBy(t => t.Pos.X).ThenBy(t => t.Pos.Y));
+        _targetIndex = 0;
+        _pickAction = action;
+        _pickPreview = preview;
+        _back = back ?? OpenActionMenu;
+        _mode = Mode.PickUnit;
+        _b.Hud.HideMenu();
+        _b.RangeOverlay.ShowCells(_targets.Select(t => (t.Pos, CellOverlay.HealColor)).ToList());
+        UpdatePick();
+    }
+
+    private void UpdatePick()
+    {
+        var target = _targets[_targetIndex];
+        _b.Cursor.MoveTo(target.Pos);
+        _b.Camera.Focus(_b.CellWorld(target.Pos));
+        _b.ViewOf(_selected!.Id)?.FaceToward(_b.CellWorld(target.Pos));
+        _b.Hud.ShowPreview(_pickPreview!(target) + (_targets.Count > 1 ? "\nArrows: switch   Z: confirm   X: back" : "\nZ: confirm   X: back"));
+        _b.Hud.ShowUnit(S, target);
+    }
 
     private void Submit(IBattleCommand command)
     {
@@ -456,13 +612,14 @@ public partial class PlayerInputController : Node
         _b.Hud.HideForecast();
         ClearOverlays();
         _mode = Mode.Disabled;
+        _back = null;
         _b.SubmitPlayerCommand(command);
     }
 
     // ------------------------------------------------------------------ cursor, hover & overlays
 
     private IEnumerable<BattleUnit> ReadyUnits() =>
-        S.LivingOf(Faction.Player).Where(u => u.ActionState == ActionState.Ready).OrderBy(u => u.Id);
+        S.LivingOf(Faction.Player).Where(u => u.ActionState != ActionState.Done).OrderBy(u => u.Id);
 
     private void MoveCursor(GridPos p, bool follow = true)
     {
@@ -480,13 +637,13 @@ public partial class PlayerInputController : Node
         _b.Hud.ShowTerrain(S, cell);
         if (_mode == Mode.Browse)
         {
-            _b.Hud.ShowUnit(S, S.UnitAt(cell));
+            _b.Hud.ShowUnit(S, VisibleUnitAt(cell));
         }
         else if (_mode == Mode.MoveSelect && _selected is not null && _reach is not null)
         {
-            _b.Hud.ShowUnit(S, S.UnitAt(cell) ?? _selected);
+            _b.Hud.ShowUnit(S, VisibleUnitAt(cell) ?? _selected);
             GridPos? end = _reach.CanStop(cell) ? cell
-                : S.UnitAt(cell) is { } t && t.Faction.IsHostileTo(_selected.Faction) ? BestStandCell(t) : null;
+                : VisibleUnitAt(cell) is { } t && t.Faction.IsHostileTo(_selected.Faction) ? BestStandCell(t) : null;
             if (end is { } e && e != _selected.Pos)
                 _b.PathOverlay.ShowCells(_reach.PathTo(e).Select(p => (p, CellOverlay.PathColor)).ToList());
             else
@@ -507,7 +664,9 @@ public partial class PlayerInputController : Node
     private void ShowAttackRangeFrom(BattleUnit unit, GridPos from)
     {
         var (min, max) = BattleQueries.WeaponRange(S, unit);
-        var cells = RangeService.CellsInRange(S.Grid, from, Math.Max(1, min), max).Select(p => (p, CellOverlay.AttackColor)).ToList();
+        var cells = max <= 0
+            ? new List<(GridPos, Color)>()
+            : RangeService.CellsInRange(S.Grid, from, Math.Max(1, min), max).Select(p => (p, CellOverlay.AttackColor)).ToList();
         _b.RangeOverlay.ShowCells(cells);
         _b.PathOverlay.Clear();
     }

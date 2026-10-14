@@ -45,3 +45,4 @@ UsableWeapons = PackedStringArray("Sword")
 PromotesTo = PackedStringArray()
 IsPromoted = false
 MaxArmor = 0
+Arts = PackedStringArray("swift_cut")

@@ -2,61 +2,64 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-14 (end of session 2)._
+_Last updated: 2026-10-14 (end of session 3)._
 
 ---
 
 ## Where things stand
 
-### Built and committed
-- **M0–M3** (see `IMPLEMENTATION.md`): grid, pathfinding and camera; turns, combat with exact forecasts, and enemy AI.
-- **Battle cut-in screen** (`src/UI/Nodes/BattleSceneView.cs`): plays when both units have battle art, otherwise fights use on-map animations. **B** toggles it.
-- **Outfit system:** art follows class. `BattleUnit.SpriteCandidates()` tries `<unitId>_<classId>` first, then `<unitId>`.
-- **Equipment system** (stats only): weapon tiers, unique weapons, body armour, accessories, regional shops. `EquipmentService` holds the rules. No shop/equip UI yet (M6).
-- **Story canon** in `docs/story/` (`STORY.md`, `CHAPTERS.md`, `DIALOGUE.md`).
+**The game is playable end to end with placeholder art:** Title → Prologue → Ch 1 → hub interlude → Ch 2 → hub → Ch 3 → "To be continued". Milestones M0–M6 from `IMPLEMENTATION.md` are built (see the *As built* notes there). Art still missing is listed in **`docs/ART_NEEDED.md`**. Session 3 added no new art.
 
-### Session 2
-- **Map sprites:** `UnitView` is now an `AnimatedSprite3D` billboard built by `SpriteLibrary.Map()` from `assets/sprites/units/<id>/`.
-  - The frame direction (south/east/north/west) comes from the unit's facing relative to the camera, so rotating the camera turns the art.
-  - Animations: idle (default), walk (moving), attack (lunge), hit (taking damage, plus a red flash). Done units are tinted grey.
-  - Units without map art (Aldric, Gloamkin, villagers) still use the old faction-coloured capsule.
-- **Opening story data:**
-  - New classes: `youth`, `warden`, `acolyte`, `villager`, `gloam_hound`, `gloam_brute`, `gloam_stalker`, `binder`. Youth and Lord both use Sword + Bow.
-  - New unit: `aldric` (Warden Lv 5, Steel Sword, Warden's Hide).
-  - New weapons: `short_bow`, `shadow`, `gloam_fangs`, `gloam_claws`, `bone_spikes`.
-  - Rowan now starts as `youth`, Kai as `soldier` and Mira as `acolyte` (with Fire).
-- **Maps:**
-  - `prologue` (now the default battle) and story `ch1`, both built from `CHAPTERS.md`.
-  - The old test map is now `test_ford`. Choose a map with the `--map=<id>` dev flag.
-  - Both story maps use **Rout** until M4. Kai and the villagers are Ally units on Stationary AI; the Ally phase already works.
-- **Art tool fix:** `generate.py` no longer crashes when an old PixelLab job has expired (404). It polls the character instead.
-- **Tests:** 63 passing.
+### Systems (session 3)
+- **Map rules (M4):**
+  - **Objectives:** Rout, Defeat Boss, Seize, Survive, Escape. **Loss conditions:** lord dies, `die KEY`, `protect TAG N` (Defend), turn limits.
+  - **Triggers:** turn, defeated, enter region, adjacent, flag, enemy count, HP, talk, visit, and a pre-combat boss quote. **Effects:** scene, spawn group, flag, join/faction, give item, gold, terrain change, damage, win/lose. Maps declare them as text lines (grammar on `MapScript` in `src/Battle/MapRules.cs`).
+  - **Actions:** Talk, Visit, Seize, Escape.
+  - **Fog of war:** logic, rendering and AI filtering.
+  - **Crest Dominion and Severance:** +2 Str/Def near the bearer. When the bearer dies, beasts are stunned and humans surrender.
+  - **Reinforcement groups** and Hard-only spawns.
+- **Dialogue:** scripts in the DIALOGUE.md format (`data/dialogue/*.txt`, 50 scenes) and a dialogue box with portraits (placeholder initials when there's no portrait), typewriter text, camera `@focus`, and skip.
+- **Progression and abilities (M5):**
+  - FE7-style EXP, level-ups with a popup, combat arts (uses per map, no-counter, range, effectiveness vs Beast), healing spells and Healer AI, items (vulneraries, stat boosters, seals), and Trade.
+  - Crest skills (Ward, Rally, Mend, Dawn) and Rowan's crest aura.
+  - Promotion gated by level 10, a seal and crest tier.
+  - Supports: points from fighting side by side and from surviving battles together, ranks C/B/A, combat bonuses, 15 support conversations.
+- **Campaign (M6):**
+  - `GameSession`, a campaign script (`data/campaign/main.txt`), Classic/Casual and Normal/Hard.
+  - Screens: Title (New Game, Continue, Load, Battle Select), Story, Prep (deployment), Results, and the hub with Osmund (Party/equip/convoy, Shop, Smithy, Promotion, Supports, Save).
+  - JSON saves in `user://saves/`, with an autosave whenever you reach the hub.
+  - Battles use copies of roster units, so a lost battle can be retried cleanly. Each retry uses a new seed.
+- **Content:**
+  - Maps: Prologue, Ch 1, and new Ch 2 (Seize the mill, recruit Brann by Talk, two village Visits) and Ch 3 (fog, Defeat Varga, recruit Tamsin by Talk). Plus the old `test_ford` skirmish.
+  - New data: Tamsin; 12 items, 8 arts, 3 spells; tier 2 classes Crest Knight, Sniper and Warden Lord; a fire terrain.
+  - Ch 2 and Ch 3 dialogue are new writing, in the documented voices. The Prologue, Ch 1 and hub scripts are canon from DIALOGUE.md.
+- **Dev flags:** `--autoplay` (the AI plays your side), `--skipdialogue`, `--autoadvance`, `--newgame`, `--load=N`. See CLAUDE.md §4. A full autoplay run of the campaign finished with zero errors.
+- **Tests:** 101 passing (map rules, progression, campaign and saves, and checks that the real dialogue and campaign files parse and reference existing scenes).
+
+### Balance changes from autoplay runs
+- Prologue: Gloam Brute Str 9→8 and Claws Mt 5→4; the Binder is level 2.
+- Ch 1: villagers are sturdier (20 HP, Def 3), and the enemies that started next to Mira's chapel moved west of the river.
+- Ch 2: the enemies that started next to Brann's forge moved away, so he can't die before you reach him.
+- These are first passes. Nothing has been balanced by a human playthrough yet.
+
+### Known gaps
+- **Not built:** crest fragments / crest EXP, suspend saves, a settings menu, audio playback (`@music`/`@sfx` are parsed and ignored), and story background images (`@bg` shows a tinted gradient).
+- **Autoplay** never uses Talk, so automated runs skip optional recruits. Talk is covered by unit tests.
+- **Ch 2's "Brann pressed" event** fires on turn 3 even if he has already joined.
+- **Exported builds** need `*.txt` in the export filter so `data/dialogue/` and `data/campaign/` ship.
 
 ### Art (PixelLab)
-| Set | Status |
-|---|---|
-| Map sprites: 7 outfits + 6 enemy classes + Brigand Chief | ✅ Done, and now shown in game |
-| Old first-pass `rowan`, `kai`, `mira`, `brann`, `elise` map sprites | Superseded. Nothing uses them now that all five have class outfits (`brann_fighter`, `elise_mage` on the test map). Safe to delete. |
-| Portraits (7, incl. Osmund) | ✅ Done (`assets/portraits/`). **Not used in game yet** (needed by M4 dialogue). Elise's portrait reads as a modern hoodie; consider regenerating. |
-| Terrain tiles | ✅ Done (`assets/textures/terrain/`). **Not applied** to `MapView` yet. |
-| Battle sprites (`--set battle`, 14 characters) | ✅ Done: all 14 with idle, attack, critical, dodge and hit; the cut-in screen uses them. The Prologue and Ch 1 enemies have no battle art yet, so fights there stay on the map. |
-| Aldric, Gloamkin (Hound, Brute, Stalker), Binder, villagers | ❌ Not in `tools/art/manifest.py` yet. Add specs, then `run --only <id>`. |
-
-- **Budget:** 1,407 generations left this month (2,000 per month on Tier 1). Session 2 spent 202: 17 on portraits and 185 on the battle set.
-- Pause generation by creating `tools/art/STOP` (gitignored).
+- **Done:** map sprites, battle sprites, 7 portraits and terrain tiles for the original cast and test enemies (session 2).
+- **Needed:** everything else; see `docs/ART_NEEDED.md`. P1 items: Aldric, Tamsin, the Gloamkin, the Binder, villagers, the missing portraits, and story backgrounds.
+- **Budget:** 1,407 generations were left at the end of session 2. Pause generation with `tools/art/STOP`.
 
 ---
 
 ## Next development tasks (in order)
-1. **Art wiring:**
-   - apply the terrain textures in `MapView`
-   - add manifest entries and generate Aldric, the Gloamkin, the Binder and villagers (map + battle sets)
-2. **M4** (objectives, events, fog, dialogue), using `docs/story/DIALOGUE.md`. The Prologue and Ch 1 need:
-   - objectives: Defeat Boss, Defend (villagers), extra loss units (Aldric in the Prologue)
-   - `EventDirector` triggers: Aldric's T2 reveal, Kai switching from Ally to Player when Rowan is adjacent, Mira gaining Fire on T3 (then remove Fire from `mira.tres`), T4 fire tiles clearing and reinforcements
-   - the Talk and Visit commands (Elder Wenna's house), and dialogue scenes with the new portraits
-   - crest Dominion and Severance
-3. **M5/M6:** progression, crest tiers, the hub (Osmund, shop/equip screens, smithy) and saves.
+1. **Playtest the campaign by hand** and tune balance (enemy levels, villager durability, the Ch 3 fog pace).
+2. **Art pass** once the style is settled: work through `docs/ART_NEEDED.md` P1, then switch `BattleController.MapId` (the scene default) to `prologue` if wanted.
+3. **More chapters** from `docs/story/CHAPTERS.md`, starting with Ch 4 (Escape with Elise), Ch 5 (Survive at Ferrow's Keep) and Ch 6 (marsh terrain, Rusk's Dominion). The systems they need already exist.
+4. **Polish backlog:** crest fragments, audio, settings, a UI theme, and suspend saves.
 
 ---
 
@@ -70,3 +73,5 @@ _Last updated: 2026-10-14 (end of session 2)._
 - **PixelLab job ids expire** after about a day (`GET /background-jobs/<id>` returns 404). Characters stay; poll `/characters/<id>` instead.
 - **Python output is buffered** when redirected to a file. Use `python -u` for background runs so the log updates live.
 - **`git mv -f` after a script has already moved a file** overwrites the destination. Check `git status` before moving files by hand.
+- **Autoplay soak runs** (`--newgame --autoplay --skipdialogue --autoadvance --speed=10`) are the quickest way to catch runtime errors across the campaign. A map that can't be won prints `AUTOPLAY STUCK` and quits.
+- **Story maps with only deploy slots** (Ch 2, Ch 3) need a roster. Battle Select gives them a default party (`BattleController.SkirmishParty`).

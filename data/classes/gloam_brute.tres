@@ -5,8 +5,8 @@
 
 [sub_resource type="Resource" id="StatsDefinition_1"]
 script = ExtResource("2_stats")
-HP = 26
-Str = 9
+HP = 24
+Str = 8
 Dex = 3
 Spd = 2
 Def = 6
@@ -42,3 +42,4 @@ UsableWeapons = PackedStringArray("Fist")
 PromotesTo = PackedStringArray()
 IsPromoted = false
 MaxArmor = 0
+Traits = PackedStringArray("Beast")

@@ -15,6 +15,28 @@ public partial class MapDefinition : Resource
     [Export] public string[] TerrainRows { get; set; } = Array.Empty<string>();
     [Export] public string[] HeightRows { get; set; } = Array.Empty<string>();
     [Export] public Godot.Collections.Array<SpawnDefinition> Spawns { get; set; } = new();
+    /// <summary>rout | boss KEY | seize X,Y | survive N | escape CELLS [KEY...]  (see MapScript).</summary>
+    [Export] public string Victory { get; set; } = "rout";
+    /// <summary>Extra loss conditions: "die KEY", "protect TAG N", "turns N". Losing the lord always loses.</summary>
+    [Export] public string[] Defeat { get; set; } = Array.Empty<string>();
+    /// <summary>Scripted events, one per line: "CONDITION => EFFECT; EFFECT" (see MapScript).</summary>
+    [Export] public string[] Triggers { get; set; } = Array.Empty<string>();
+    [Export] public bool Fog { get; set; }
+    [Export] public int VisionBonus { get; set; }
+    /// <summary>Cells for deployed units without a fixed spawn, e.g. "1,10 2,10 1,11".</summary>
+    [Export] public string DeploySlots { get; set; } = "";
 
-    public MapDef ToDef() => new(Id, Name, TerrainRows.ToArray(), HeightRows.ToArray(), Spawns.Select(s => s.ToDef()).ToArray());
+    public MapDef ToDef()
+    {
+        try
+        {
+            return new MapDef(Id, Name, TerrainRows.ToArray(), HeightRows.ToArray(), Spawns.Select(s => s.ToDef()).ToArray(),
+                MapScript.ParseObjectives(Victory, Defeat), MapScript.ParseTriggers(Triggers), Fog, VisionBonus,
+                string.IsNullOrWhiteSpace(DeploySlots) ? null : MapScript.Cells(DeploySlots.Split(' ', StringSplitOptions.RemoveEmptyEntries), DeploySlots));
+        }
+        catch (FormatException e)
+        {
+            throw new FormatException($"Map '{Id}': {e.Message}");
+        }
+    }
 }

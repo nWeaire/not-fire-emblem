@@ -8,4 +8,4 @@ Id = "ferrows_keep_armory"
 Name = "Ferrow's Keep Armoury"
 Region = "thornvale"
 OpensAtChapter = 5
-Items = PackedStringArray("steel_sword", "steel_lance", "steel_axe", "chainmail", "iron_plate")
+Items = PackedStringArray("steel_sword", "steel_lance", "steel_axe", "vulnerary", "chainmail", "iron_plate")

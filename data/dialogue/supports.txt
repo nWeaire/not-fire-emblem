@@ -1,0 +1,117 @@
+# Support conversations (GDD section 5). Ids: support_<a>_<b>_<C|B|A>, unit ids sorted alphabetically.
+# Themes follow docs/story/DIALOGUE.md section 6. Watched in the hub; each one raises the pair's rank.
+
+### support_kai_rowan_C
+KAI [smile]: Seven.
+ROWAN [neutral]: Seven what?
+KAI [smile]: Gloamkin. Today. You?
+ROWAN [neutral]: I wasn't counting.
+KAI [laugh]: That means fewer than seven.
+ROWAN [smile]: It means I was busy keeping you alive, which should count for about twelve.
+
+### support_kai_rowan_B
+KAI [neutral]: Rowan. When this is over, you're going to have a castle or something, aren't you.
+ROWAN [surprised]: I'm going to have goats.
+KAI [worried]: You've got a steward. Stewards don't follow goats around.
+KAI [sad]: I just... I don't want to be the friend who used to know you.
+ROWAN [neutral]: You'll be the friend who tells me when I'm being an idiot.
+KAI [smile]: That's a full-time job.
+
+### support_kai_rowan_A
+KAI [neutral]: You know what I'm actually scared of? Not the beasts.
+KAI [worried]: That one day you'll go somewhere I can't follow. And I'll just be... here.
+ROWAN [determined]: Then I'll come back.
+KAI [neutral]: You don't know that.
+ROWAN [neutral]: I know I'd come back for you. That's enough to be going on with.
+KAI [smile]: ...Bet I get more Gloamkin than you tomorrow.
+ROWAN [smile]: You're on.
+
+### support_mira_rowan_C
+ROWAN [neutral]: How long have you been able to do that? The fire.
+MIRA [smile]: Since spring. There was a book in the chapel cellar that nobody was supposed to read.
+ROWAN [neutral]: So you read it.
+MIRA [smile]: Twice. The first time I set my apron alight.
+ROWAN [smile]: And the second time?
+MIRA [determined]: The second time I didn't. That's what practice is, Rowan.
+
+### support_mira_rowan_B
+MIRA [worried]: Your hand. Let me see.
+ROWAN [neutral]: It's fine.
+MIRA [cold]: You keep rubbing it when you think no one's looking. Hold still. This will sting, and you'll deserve it.
+ROWAN [worried]: ...It hums. At night. Like it wants something.
+MIRA [neutral]: Then we'll find out what it wants. Together. Not you, alone, at night, rubbing it.
+
+### support_mira_rowan_A
+MIRA [neutral]: What will you do after? When it's all over.
+ROWAN [neutral]: Fix the south fence. Properly this time.
+MIRA [smile]: That's all?
+ROWAN [worried]: ...Maybe build a schoolhouse. For the village. With a cellar full of books nobody's allowed to read.
+MIRA [laugh]: I'd teach there.
+ROWAN [smile]: I know. That's why I'd build it.
+
+### support_kai_mira_C
+KAI [angry]: You could have warned me! About the fire!
+MIRA [cold]: You'd have told the whole village by lunch.
+KAI [angry]: I would not!
+MIRA [cold]: Kai. You told the whole village about Rowan's goat falling in the well before the goat was out of the well.
+KAI [neutral]: ...That was important news.
+
+### support_kai_mira_B
+KAI [worried]: Mira. That brute. If you hadn't burned it, it'd have had me.
+MIRA [neutral]: I know.
+KAI [sad]: I always thought I'd be the one looking after you. Big stupid spear and all.
+MIRA [smile]: You still can. We'll take turns.
+
+### support_kai_mira_A
+KAI [neutral]: I'm going to say something and you're not allowed to laugh.
+MIRA [smile]: I promise nothing.
+KAI [determined]: Whatever happens out here, I'll make sure you get home. To the chapel. To your books.
+MIRA [neutral]: ...Only if you come home too. That's the deal.
+KAI [smile]: Deal.
+
+### support_aldric_rowan_C
+ALDRIC [neutral]: You're gripping too hard. Blade's like a plough. It goes where you put your weight, not your fist.
+ROWAN [neutral]: You never taught me that on the farm.
+ALDRIC [cold]: On the farm you were killing wolves. Wolves don't parry.
+ROWAN [worried]: ...Who taught you?
+ALDRIC [neutral]: Eat first. Questions after.
+
+### support_aldric_rowan_B
+ROWAN [neutral]: The armour. The sword. The way you move. You were a soldier.
+ALDRIC [neutral]: Something like.
+ROWAN [cold]: That's not an answer.
+ALDRIC [sad]: No. It isn't. One day it will be. When knowing won't get you killed.
+ROWAN [worried]: And until then?
+ALDRIC [smile]: Until then, stay on my left.
+
+### support_aldric_rowan_A
+ALDRIC [neutral]: Your mother had the same habit. Rubbing her hand when she was thinking.
+ROWAN [surprised]: You never talk about her.
+ALDRIC [sad]: She'd have liked you. Stubborn. Quiet when it matters. She was...
+@wait 0.8
+ALDRIC [neutral]: ...Another time. Fetch your bow. The light's going.
+ROWAN [neutral]: ...Right.
+
+### support_brann_tamsin_C
+BRANN [neutral]: Your bowstring's frayed. And the limb's got a crack, here.
+TAMSIN [cold]: I know. I'll fix it.
+BRANN [smile]: Already did. Wrapped it in sinew. Should hold another season.
+TAMSIN [angry]: I didn't ask you to.
+BRANN [neutral]: No. You didn't. Steady now, old girl.
+TAMSIN [surprised]: ...Was that to me or the bow?
+
+### support_brann_tamsin_B
+TAMSIN [neutral]: Here.
+BRANN [surprised]: That's a stag.
+TAMSIN [cold]: For the bowstring. Now I don't owe you.
+BRANN [smile]: You didn't owe me before.
+TAMSIN [cold]: I did. I hate owing. Eat your stag.
+
+### support_brann_tamsin_A
+BRANN [neutral]: Made you something. Arrowheads. Proper ones. They'll go through a brute's hide like butter.
+TAMSIN [neutral]: ...Why?
+BRANN [smile]: Because you're good. And good folk should have good tools.
+TAMSIN [neutral]: ...
+TAMSIN [smile]: Thank you, Brann.
+BRANN [surprised]: Well. Never thought I'd hear that.
+TAMSIN [cold]: Don't make it a thing.

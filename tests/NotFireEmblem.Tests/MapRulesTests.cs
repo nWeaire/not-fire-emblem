@@ -1,0 +1,261 @@
+using NotFireEmblem.AI;
+using NotFireEmblem.Battle;
+using NotFireEmblem.Combat;
+using NotFireEmblem.Dialogue;
+using NotFireEmblem.Grid;
+using NotFireEmblem.Units;
+
+namespace NotFireEmblem.Tests;
+
+/// <summary>M4: objectives, triggers, talk/visit/seize/escape, fog, Dominion and Severance, and the script parsers.</summary>
+public class MapRulesTests
+{
+    private static (BattleState s, TurnManager tm) Start(TestBattle builder)
+    {
+        var s = builder.Build();
+        var tm = new TurnManager(s);
+        tm.StartBattle();
+        return (s, tm);
+    }
+
+    private static BattleUnit ByKey(BattleState s, string key) => s.ByKey(key)!;
+
+    private static void EndPhase(TurnManager tm) => Assert.True(tm.Submit(new EndPhaseCommand()).Ok);
+
+    // ------------------------------------------------------------------ parsers
+
+    [Fact]
+    public void MapScript_ParsesObjectivesAndTriggers()
+    {
+        var o = MapScript.ParseObjectives("escape 7,15-8,15 elise", new[] { "die aldric", "protect villager 3", "turns 20" });
+        Assert.Equal(VictoryKind.Escape, o.Victory);
+        Assert.Equal(new[] { new GridPos(7, 15), new GridPos(8, 15) }, o.Cells);
+        Assert.Equal(new[] { "elise" }, o.EscapeKeys);
+        Assert.Equal(new[] { "aldric" }, o.MustSurvive);
+        Assert.Equal(new ProtectRule("villager", 3), o.Protect.Single());
+        Assert.Equal(20, o.TurnLimit);
+
+        var t = MapScript.ParseTriggers(new[] { "turn 4 enemy => spawn north; scene ch01_reinforcements; terrain 1,1-2,1 P", "talk any brann => join brann" });
+        Assert.Equal(new TurnStartCondition(4, Faction.Enemy), t[0].Condition);
+        Assert.Equal(3, t[0].Effects.Count);
+        Assert.Equal(new[] { new GridPos(1, 1), new GridPos(2, 1) }, ((TerrainEffect)t[0].Effects[2]).Cells);
+        Assert.Equal('P', ((TerrainEffect)t[0].Effects[2]).Symbol);
+        Assert.Equal(new TalkCondition("any", "brann"), t[1].Condition);
+        Assert.Throws<FormatException>(() => MapScript.ParseTriggers(new[] { "sometimes => win" }));
+    }
+
+    [Fact]
+    public void DialogueParser_ReadsTheScriptFormat()
+    {
+        var scenes = DialogueParser.Parse("""
+            # intro text is ignored
+            ### pro_opening
+            @bg farm_evening          ; background image
+            ROWAN [smile]: You should be impressed; really.
+            NARRATOR: The dogs had been quiet.
+            ???: There you are.
+            @wait 0.6
+            @focus 7,4
+            @flag aldric_revealed
+
+            ### pro_binder_battle (boss battle quote)
+            BINDER [cold]: The quiet is coming.
+            """);
+        Assert.Equal(new[] { "pro_opening", "pro_binder_battle" }, scenes.Select(s => s.Id));
+        var lines = scenes[0].Lines;
+        Assert.Equal(new BackgroundLine("farm_evening"), lines[0]);
+        Assert.Equal(new SpeakLine("rowan", "smile", "You should be impressed; really."), lines[1]);
+        Assert.True(((SpeakLine)lines[2]).IsNarrator);
+        Assert.Equal("???", ((SpeakLine)lines[3]).Speaker);
+        Assert.Equal(new WaitLine(0.6), lines[4]);
+        Assert.Equal(new FocusLine(new GridPos(7, 4)), lines[5]);
+        Assert.Equal(new[] { "aldric_revealed" }, scenes[0].Flags);
+        Assert.Equal(new[] { "rowan" }, scenes[0].Speakers);
+    }
+
+    // ------------------------------------------------------------------ objectives
+
+    [Fact]
+    public void DefeatBoss_WinsWhenTheBossFalls_EvenWithEnemiesLeft()
+    {
+        var (s, tm) = Start(new TestBattle(".....").Lord(0, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 1, 0, "sword").With(sp => sp with { Tag = "boss" })
+            .Unit(Faction.Enemy, "merc", 4, 0, "sword")
+            .Victory("boss boss"));
+        ByKey(s, "boss").CurrentHp = 5;
+        var r = tm.Submit(new ActCommand("u0", new GridPos(0, 0), new AttackAction(ByKey(s, "boss").Id, new WeaponAttack("sword"))));
+        Assert.True(r.Ok, r.Error);
+        Assert.Equal(BattleOutcome.Victory, s.Outcome);
+    }
+
+    [Fact]
+    public void Seize_OnlyTheLordOnTheMarkedTile()
+    {
+        var (s, tm) = Start(new TestBattle(".....", ".....").Lord(0, 0, "sword")
+            .Unit(Faction.Player, "merc", 0, 1, "sword")
+            .Unit(Faction.Enemy, "merc", 4, 1, "sword")
+            .Victory("seize 2,0"));
+        Assert.False(tm.Submit(new ActCommand("u1", new GridPos(1, 1), new SeizeAction())).Ok);
+        Assert.False(tm.Submit(new ActCommand("u0", new GridPos(1, 0), new SeizeAction())).Ok);
+        Assert.True(tm.Submit(new ActCommand("u0", new GridPos(2, 0), new SeizeAction())).Ok);
+        Assert.Equal(BattleOutcome.Victory, s.Outcome);
+    }
+
+    [Fact]
+    public void Survive_WinsWhenThePlayerPhaseAfterTheLastTurnBegins()
+    {
+        var (s, tm) = Start(new TestBattle("........").Lord(0, 0, "sword").Unit(Faction.Enemy, "merc", 7, 0).Victory("survive 2"));
+        EndPhase(tm); // T1 player
+        EndPhase(tm); // T1 enemy
+        Assert.Equal(BattleOutcome.InProgress, s.Outcome);
+        EndPhase(tm); // T2 player
+        EndPhase(tm); // T2 enemy -> T3 player begins
+        Assert.Equal(BattleOutcome.Victory, s.Outcome);
+    }
+
+    [Fact]
+    public void Escape_WinsWhenTheLordLeaves()
+    {
+        var (s, tm) = Start(new TestBattle(".....").Lord(1, 0, "sword").Unit(Faction.Enemy, "merc", 4, 0).Victory("escape 3,0"));
+        Assert.True(tm.Submit(new ActCommand("u0", new GridPos(3, 0), new EscapeAction())).Ok);
+        Assert.Equal(MapExit.Escaped, s.Unit("u0").Exit);
+        Assert.Equal(BattleOutcome.Victory, s.Outcome);
+    }
+
+    [Fact]
+    public void Protect_LosesWhenTooManyTaggedUnitsFall()
+    {
+        var (s, tm) = Start(new TestBattle(".....").Lord(4, 0, "sword")
+            .Unit(Faction.Ally, "merc", 1, 0).With(sp => sp with { Tag = "villager" })
+            .Unit(Faction.Enemy, "merc", 2, 0, "sword")
+            .Defeat("protect villager 1"));
+        ByKey(s, "villager").CurrentHp = 1;
+        EndPhase(tm);
+        var r = tm.Submit(new ActCommand("u2", new GridPos(2, 0), new AttackAction("u1", new WeaponAttack("sword"))));
+        Assert.True(r.Ok, r.Error);
+        Assert.Equal(BattleOutcome.Defeat, s.Outcome);
+    }
+
+    [Fact]
+    public void MustSurvive_LosesWhenThatUnitDies()
+    {
+        var (s, tm) = Start(new TestBattle(".....").Lord(4, 0, "sword")
+            .Named("aldric", Faction.Player, "merc", 1, 0)
+            .Unit(Faction.Enemy, "merc", 2, 0, "sword")
+            .Defeat("die aldric"));
+        ByKey(s, "aldric").CurrentHp = 1;
+        EndPhase(tm);
+        tm.Submit(new ActCommand("u2", new GridPos(2, 0), new AttackAction("u1", new WeaponAttack("sword"))));
+        Assert.Equal(BattleOutcome.Defeat, s.Outcome);
+    }
+
+    // ------------------------------------------------------------------ triggers
+
+    [Fact]
+    public void TurnTrigger_SpawnsReinforcementsOnTheNearestFreeCell()
+    {
+        var (s, tm) = Start(new TestBattle(".....", ".....").Lord(0, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 4, 1, "sword")
+            .Unit(Faction.Enemy, "merc", 0, 0, "sword").With(sp => sp with { Group = "reinf" })
+            .Triggers("turn 2 => spawn reinf; flag arrived"));
+        Assert.Equal(2, s.Units.Count);
+        EndPhase(tm);
+        var r = tm.Submit(new EndPhaseCommand());
+        Assert.Contains(r.Events, e => e is UnitSpawned);
+        Assert.Contains("arrived", s.Flags);
+        var spawned = s.Units[^1];
+        Assert.NotEqual(new GridPos(0, 0), spawned.Pos);
+        Assert.Equal(1, spawned.Pos.DistanceTo(new GridPos(0, 0)));
+    }
+
+    [Fact]
+    public void Talk_RecruitsAndPlaysTheScene()
+    {
+        var (s, tm) = Start(new TestBattle(".....").Lord(0, 0, "sword")
+            .Named("kai", Faction.Ally, "soldier", 1, 0, "lance")
+            .Unit(Faction.Enemy, "merc", 4, 0)
+            .Triggers("talk lord kai => scene scene_a; join kai"));
+        var lord = s.Unit("u0");
+        var kai = ByKey(s, "kai");
+        Assert.Single(EventDirector.TalkTargets(s, lord, lord.Pos));
+        var r = tm.Submit(new ActCommand("u0", lord.Pos, new TalkAction(kai.Id)));
+        Assert.True(r.Ok, r.Error);
+        Assert.Equal(Faction.Player, kai.Faction);
+        Assert.Contains(r.Events, e => e is DialogueRequested { SceneId: "scene_a" });
+        Assert.Contains("met", s.Flags);
+        Assert.Empty(EventDirector.TalkTargets(s, lord, lord.Pos));
+    }
+
+    [Fact]
+    public void Visit_GivesItemsAndGoldOnce()
+    {
+        var (s, tm) = Start(new TestBattle(".....", ".....").Lord(0, 0, "sword")
+            .Unit(Faction.Player, "merc", 0, 1, "sword")
+            .Unit(Faction.Enemy, "merc", 4, 1)
+            .Triggers("visit 2,0 => give actor vulnerary; gold 100"));
+        Assert.True(tm.Submit(new ActCommand("u0", new GridPos(2, 0), new VisitAction())).Ok);
+        Assert.Contains("vulnerary", s.Unit("u0").State.Inventory);
+        Assert.Equal(100, s.GoldGained);
+        Assert.False(ActionRules.CanVisit(s, s.Unit("u1"), new GridPos(2, 0)));
+    }
+
+    [Fact]
+    public void DefeatedTrigger_CanChangeTerrain_AndBossQuotesPlayBeforeTheFight()
+    {
+        var (s, tm) = Start(new TestBattle(".....", ".....").Lord(0, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 1, 0, "sword").With(sp => sp with { Tag = "boss" })
+            .Unit(Faction.Enemy, "merc", 4, 1)
+            .Triggers("combat boss => scene scene_a", "defeated boss => terrain 3,0-3,1 #"));
+        ByKey(s, "boss").CurrentHp = 1;
+        var r = tm.Submit(new ActCommand("u0", new GridPos(0, 0), new AttackAction(ByKey(s, "boss").Id, new WeaponAttack("sword"))));
+        var order = r.Events.Select(e => e.GetType().Name).ToList();
+        Assert.True(order.IndexOf(nameof(DialogueRequested)) < order.IndexOf(nameof(CombatResolved)));
+        Assert.Contains(r.Events, e => e is TerrainChanged);
+        Assert.Equal("wall", s.Grid[new GridPos(3, 0)].Terrain.Id);
+    }
+
+    // ------------------------------------------------------------------ fog
+
+    [Fact]
+    public void Fog_HidesDistantUnits_AndTheAiOnlyAttacksWhatItSees()
+    {
+        var (s, tm) = Start(new TestBattle(".........").Lord(0, 0, "sword").Unit(Faction.Enemy, "merc", 5, 0, "sword").Fog());
+        Assert.False(s.CanSee(Faction.Player, s.Unit("u1")));
+        Assert.Contains(new GridPos(3, 0), s.VisibleCells(Faction.Player));
+        Assert.DoesNotContain(new GridPos(4, 0), s.VisibleCells(Faction.Player));
+        Assert.Empty(BattleQueries.DangerZone(s, Faction.Player));
+        EndPhase(tm);
+        var decision = AiController.Decide(s, s.Unit("u1"));
+        Assert.Null(decision.AttackScore); // could reach the lord, but can't see him
+    }
+
+    // ------------------------------------------------------------------ Dominion and Severance
+
+    [Fact]
+    public void Dominion_BuffsHeldUnits_AndSeveranceStunsBeastsAndRemovesHumans()
+    {
+        var (s, tm) = Start(new TestBattle("........", "........").Lord(4, 1, "sword")
+            .Unit(Faction.Enemy, "merc", 5, 1, "sword").With(sp => sp with { Tag = "binder", CrestBearer = true })
+            .Unit(Faction.Enemy, "beast", 3, 0, "claws").With(sp => sp with { DominatedBy = "binder" })
+            .Unit(Faction.Enemy, "merc", 7, 1, "sword").With(sp => sp with { DominatedBy = "binder" }));
+        var beast = s.Unit("u2");
+        var human = s.Unit("u3");
+        Assert.Equal(12, s.Stats(beast).Str);
+        Assert.Equal(7, s.Stats(beast).Def);
+
+        s.Unit("u1").CurrentHp = 1;
+        var r = tm.Submit(new ActCommand("u0", new GridPos(4, 1), new AttackAction("u1", new WeaponAttack("sword"))));
+        var severed = r.Events.OfType<CrestSevered>().Single();
+        Assert.Equal(new[] { "u2" }, severed.Stunned);
+        Assert.Equal(new[] { "u3" }, severed.Surrendered);
+        Assert.Equal(MapExit.Surrendered, human.Exit);
+        Assert.Equal(10, s.Stats(beast).Str);
+
+        // The lord was the last to act, so the enemy phase ran at once: the stunned beast lost it,
+        // and play passed straight back to the player.
+        Assert.Contains(r.Events, e => e is UnitStunnedSkip { UnitId: "u2" });
+        Assert.Equal(Faction.Player, s.Phase);
+        Assert.Equal(2, s.Turn);
+        Assert.Equal(0, beast.StunnedPhases);
+    }
+}

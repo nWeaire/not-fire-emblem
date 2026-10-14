@@ -44,6 +44,6 @@ Growths = SubResource("StatsDefinition_2")
 Caps = SubResource("StatsDefinition_3")
 MovementType = 0
 UsableWeapons = PackedStringArray("Sword", "Bow")
-PromotesTo = PackedStringArray()
+PromotesTo = PackedStringArray("crest_knight")
 IsPromoted = false
 MaxArmor = 1

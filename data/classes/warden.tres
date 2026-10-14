@@ -44,6 +44,6 @@ Growths = SubResource("StatsDefinition_2")
 Caps = SubResource("StatsDefinition_3")
 MovementType = 0
 UsableWeapons = PackedStringArray("Sword")
-PromotesTo = PackedStringArray()
+PromotesTo = PackedStringArray("warden_lord")
 IsPromoted = true
 MaxArmor = 1

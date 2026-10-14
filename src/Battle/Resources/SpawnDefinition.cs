@@ -24,6 +24,16 @@ public partial class SpawnDefinition : Resource
     [Export] public string SpriteId { get; set; } = "";
     /// <summary>Body armour for generic units (empty = none).</summary>
     [Export] public string Armor { get; set; } = "";
+    /// <summary>Key for objectives and triggers (defaults to the UnitId). Also the Defend tag, e.g. "villager".</summary>
+    [Export] public string Tag { get; set; } = "";
+    /// <summary>Reinforcement group: spawned by a "spawn GROUP" trigger instead of at the start.</summary>
+    [Export] public string Group { get; set; } = "";
+    /// <summary>Key of the crest-bearer whose Dominion holds this unit.</summary>
+    [Export] public string DominatedBy { get; set; } = "";
+    /// <summary>Projects Dominion over the units it dominates; its death severs them.</summary>
+    [Export] public bool CrestBearer { get; set; }
+    /// <summary>Only placed on Hard difficulty.</summary>
+    [Export] public bool HardOnly { get; set; }
 
     public SpawnDef ToDef() => new(
         string.IsNullOrEmpty(UnitId) ? null : UnitId,
@@ -36,5 +46,10 @@ public partial class SpawnDefinition : Resource
         Ai,
         IsBoss,
         string.IsNullOrEmpty(SpriteId) ? null : SpriteId,
-        string.IsNullOrEmpty(Armor) ? null : Armor);
+        string.IsNullOrEmpty(Armor) ? null : Armor,
+        string.IsNullOrEmpty(Tag) ? null : Tag,
+        string.IsNullOrEmpty(Group) ? null : Group,
+        string.IsNullOrEmpty(DominatedBy) ? null : DominatedBy,
+        CrestBearer,
+        HardOnly);
 }

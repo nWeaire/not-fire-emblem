@@ -35,3 +35,4 @@ Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray("steel_sword")
 IsLord = false
 Armor = "wardens_hide"
+Arts = PackedStringArray("wardens_edge")

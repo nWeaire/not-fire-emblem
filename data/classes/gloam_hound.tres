@@ -42,3 +42,4 @@ UsableWeapons = PackedStringArray("Fist")
 PromotesTo = PackedStringArray()
 IsPromoted = false
 MaxArmor = 0
+Traits = PackedStringArray("Beast")

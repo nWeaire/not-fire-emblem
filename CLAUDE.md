@@ -55,6 +55,11 @@ When editing C# code, ALWAYS verify compilation with `dotnet build` before compl
 - No `System.Random` and no `DateTime` in logic. All randomness goes through `BattleState.Rng`.
 - Content is referenced by string `Id`, never by resource path, in logic and in saves.
 - Input actions are registered in code by the `InputSetup` autoload, not in `project.godot`.
+- Content lives in `data/`: `.tres` resources per type (`classes/ units/ weapons/ armor/ items/ arts/ spells/ shops/ terrain/ maps/`), plus two plain-text formats parsed by pure code:
+  - `data/dialogue/*.txt`: scenes in the `docs/story/DIALOGUE.md` script format (`DialogueParser`).
+  - `data/campaign/main.txt`: the story as ordered steps: scene, battle, join, crest, hub, end (`CampaignParser`).
+- Map objectives and events are text lines in each `MapDefinition`: `Victory`, `Defeat` and `Triggers`, e.g. `turn 2 => scene pro_aldric_reveal; join aldric`. The grammar is documented on `MapScript` in `src/Battle/MapRules.cs`. Unit keys are a spawn's `Tag`, else its `UnitId`.
+- Art still needed (placeholders today) is listed in `docs/ART_NEEDED.md`.
 
 ---
 
@@ -73,7 +78,11 @@ Use the `_console.exe` variant of the editor binary for headless runs so output 
 ```
 godot --path . --resolution 1280x720 -- --seed=123 --speed=4 --press=100:end_turn,500:confirm --screenshot=out.png --frames=900
 ```
-`--map=<id>` picks the battle map (`prologue` by default; also `ch1` and the systems test map `test_ford`), `--seed` fixes the battle RNG, `--speed` sets `Engine.TimeScale`, `--press` injects input actions at given frames, and `--screenshot` saves the viewport at `--frames` and quits. The battle prints one log line per `BattleEvent`.
+`--map=<id>` jumps straight into a single battle (`test_ford`, `prologue`, `ch1`, `ch2`, `ch3`), `--seed` fixes the battle RNG, `--speed` sets `Engine.TimeScale`, `--press` injects input actions at given frames, and `--screenshot` saves the viewport at `--frames` and quits. The battle prints one log line per `BattleEvent`.
+Campaign flags: `--newgame` / `--load=N` start from the title screen; `--skipdialogue`, `--autoadvance` (prep, results and hub continue by themselves) and `--autoplay` (the AI plays the player's side). Together they soak-test the whole campaign:
+```
+godot --path . -- --newgame --autoplay --skipdialogue --autoadvance --speed=10     # prints AUTOPLAY RESULT lines and CAMPAIGN COMPLETE
+```
 
 ---
 

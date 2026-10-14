@@ -34,3 +34,5 @@ Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray("iron_lance")
 IsLord = false
 Armor = "padded_gambeson"
+Arts = PackedStringArray("spear_rush")
+Supports = PackedStringArray("mira:8,20,35")

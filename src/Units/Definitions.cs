@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 
 namespace NotFireEmblem.Units;
@@ -29,7 +30,14 @@ public sealed record ClassDef(
     IReadOnlyList<WeaponType> Usable,
     IReadOnlyList<string> PromotesTo,
     bool IsPromoted,
-    ArmorClass MaxArmor = ArmorClass.Medium); // the heaviest body armour the class can wear
+    ArmorClass MaxArmor = ArmorClass.Medium, // the heaviest body armour the class can wear
+    int Tier = 1,                            // 1 base, 2 advanced, 3 crestbound, 4 final; promotion needs crest tier ≥ this
+    IReadOnlyList<string>? Traits = null,    // e.g. "Beast" (effective damage, severed beasts are stunned)
+    IReadOnlyList<string>? Arts = null,      // combat arts every unit of this class knows
+    IReadOnlyList<string>? Spells = null)    // spells every unit of this class knows
+{
+    public bool HasTrait(string trait) => Traits is not null && Traits.Contains(trait);
+}
 
 /// <summary>
 /// Equipment never changes a unit's look (the class does); it only changes numbers.
@@ -78,7 +86,52 @@ public sealed record UnitDef(
     IReadOnlyList<string> Inventory,
     bool IsLord,
     string? Armor = null,      // starting body armour id
-    string? Accessory = null); // starting accessory id
+    string? Accessory = null,  // starting accessory id
+    IReadOnlyList<string>? Arts = null,
+    IReadOnlyList<string>? Spells = null,
+    IReadOnlyList<SupportDef>? Supports = null);
+
+/// <summary>A support pairing seen from one unit: the points needed for ranks C, B and A.</summary>
+public sealed record SupportDef(string PartnerId, int C, int B, int A)
+{
+    public int Threshold(int rank) => rank switch { 1 => C, 2 => B, 3 => A, _ => int.MaxValue };
+}
+
+public enum ItemKind { Heal, StatBoost, Seal }
+
+/// <summary>A consumable or key item carried in the 5-slot inventory. Used up when used.</summary>
+public sealed record ItemDef(
+    string Id,
+    string Name,
+    ItemKind Kind,
+    int Amount,          // HP healed (0 = full), or stat points gained
+    Stat Stat,           // for StatBoost
+    int Price,
+    int Tier = 1);       // for Seal: the class tier it promotes into
+
+/// <summary>
+/// A combat art: a special attack with a weapon of <see cref="Type"/>. Uses refill after every map (GDD §3).
+/// </summary>
+public sealed record ArtDef(
+    string Id,
+    string Name,
+    WeaponType Type,
+    int MightMod,
+    int HitMod,
+    int CritMod,
+    int RangeBonus,       // added to the weapon's max range
+    int Uses,
+    bool NoCounter = false,
+    IReadOnlyList<string>? EffectiveAgainst = null); // movement types or class traits
+
+/// <summary>A healing spell (staff-style). Offensive tomes are weapons. Uses refill after every map.</summary>
+public sealed record SpellDef(
+    string Id,
+    string Name,
+    int Power,            // HP healed = Power + Mag / 2
+    int MinRange,
+    int MaxRange,
+    int Uses);
 
 /// <summary>A shop that opens when the story reaches a region. Its stock is what that region can supply.</summary>
 public sealed record ShopDef(

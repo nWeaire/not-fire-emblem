@@ -12,18 +12,23 @@ using NotFireEmblem.Units;
 namespace NotFireEmblem.Battle;
 
 /// <summary>
-/// Battle scene root. Builds the BattleState from the map, owns the TurnManager, and runs the phase loop:
-/// player phases hand control to PlayerInputController, AI phases submit one unit's command at a time.
+/// Battle scene root. Builds the BattleState (from the campaign's pending battle, a skirmish map, or MapId), owns
+/// the TurnManager, and runs the phase loop: player phases hand control to PlayerInputController, AI phases submit
+/// one unit's command at a time. At the end it hands a won campaign battle back to CampaignFlow.
 /// </summary>
 public partial class BattleController : Node3D
 {
-    [Export] public string MapId { get; set; } = "prologue";
+    [Export] public string MapId { get; set; } = "test_ford";
     /// <summary>0 = pick a random seed each battle.</summary>
     [Export] public ulong Seed { get; set; }
     /// <summary>Play fights in the side-view battle screen (when both units have battle art). Toggled with B.</summary>
     [Export] public bool UseBattleScenes { get; set; } = true;
 
+    /// <summary>Who single-map battles deploy when the map has deploy slots, in order.</summary>
+    private static readonly string[] SkirmishParty = { "rowan", "aldric", "kai", "mira", "brann", "tamsin", "elise" };
+
     private readonly Dictionary<string, UnitView> _views = new();
+    private AiWeights _aiWeights = AiWeights.Default;
 
     public BattleState State { get; private set; } = null!;
     public TurnManager Turns { get; private set; } = null!;
@@ -31,6 +36,8 @@ public partial class BattleController : Node3D
     public CellOverlay RangeOverlay { get; private set; } = null!;
     public CellOverlay PathOverlay { get; private set; } = null!;
     public CellOverlay DangerOverlay { get; private set; } = null!;
+    public CellOverlay FogOverlay { get; private set; } = null!;
+    public CellOverlay MarkerOverlay { get; private set; } = null!;
     public GridCursor Cursor { get; private set; } = null!;
     public TacticsCamera Camera { get; private set; } = null!;
     public BattleHud Hud { get; private set; } = null!;
@@ -38,6 +45,8 @@ public partial class BattleController : Node3D
     public BattleEventPlayer EventPlayer { get; private set; } = null!;
     public PlayerInputController PlayerInput { get; private set; } = null!;
     public Node3D UnitsRoot { get; private set; } = null!;
+    /// <summary>True when this battle belongs to the campaign (results are written back on victory).</summary>
+    public bool IsCampaign { get; private set; }
 
     public override void _Ready()
     {
@@ -45,6 +54,8 @@ public partial class BattleController : Node3D
         RangeOverlay = GetNode<CellOverlay>("%RangeOverlay");
         PathOverlay = GetNode<CellOverlay>("%PathOverlay");
         DangerOverlay = GetNode<CellOverlay>("%DangerOverlay");
+        FogOverlay = GetNode<CellOverlay>("%FogOverlay");
+        MarkerOverlay = GetNode<CellOverlay>("%MarkerOverlay");
         Cursor = GetNode<GridCursor>("%Cursor");
         Camera = GetNode<TacticsCamera>("%Camera");
         Hud = GetNode<BattleHud>("%Hud");
@@ -53,25 +64,44 @@ public partial class BattleController : Node3D
         PlayerInput = GetNode<PlayerInputController>("%PlayerInput");
         UnitsRoot = GetNode<Node3D>("%Units");
 
-        var db = GameSessionNode.Instance.Content;
-        ulong seed = Seed;
-        foreach (var arg in OS.GetCmdlineUserArgs())
+        var node = GameSessionNode.Instance;
+        var db = node.Content;
+        if (node.PendingBattle is { } launch)
         {
-            if (arg.StartsWith("--seed=", StringComparison.Ordinal))
-                seed = ulong.Parse(arg["--seed=".Length..]);
-            else if (arg.StartsWith("--map=", StringComparison.Ordinal))
-                MapId = arg["--map=".Length..];
+            IsCampaign = true;
+            State = BattleSetup.Create(db, launch.Map, launch.Seed, launch.Roster, launch.Options, launch.Deployed);
+            GD.Print($"Battle '{launch.Map.Id}' (campaign) seed {launch.Seed}");
         }
-        if (seed == 0)
-            seed = ((ulong)GD.Randi() << 32) | GD.Randi();
-        State = BattleSetup.Create(db, db.Map(MapId), seed);
+        else
+        {
+            ulong seed = Seed;
+            string mapId = node.SkirmishMapId ?? MapId;
+            foreach (var arg in OS.GetCmdlineUserArgs())
+            {
+                if (arg.StartsWith("--seed=", StringComparison.Ordinal))
+                    seed = ulong.Parse(arg["--seed=".Length..]);
+                else if (arg.StartsWith("--map=", StringComparison.Ordinal))
+                    mapId = arg["--map=".Length..];
+            }
+            if (seed == 0)
+                seed = ((ulong)GD.Randi() << 32) | GD.Randi();
+            // Single maps outside the campaign: Rowan has the Kindled Crest except in the Prologue.
+            var options = new BattleOptions(CrestTier: mapId == "prologue" ? 0 : 1);
+            var map = db.Map(mapId);
+            // Maps that rely on deployment get a default party, fresh from the unit definitions.
+            var spawned = map.Spawns.Select(sp => sp.UnitId).OfType<string>().ToHashSet();
+            var party = SkirmishParty.Where(id => db.Units.ContainsKey(id) && !spawned.Contains(id)).Take(map.Slots.Count).ToList();
+            var roster = party.ToDictionary(id => id, id => UnitState.FromDef(db.Unit(id)));
+            State = BattleSetup.Create(db, map, seed, roster, options, party);
+            GD.Print($"Battle '{mapId}' seed {seed}");
+        }
+        if (State.Options.Difficulty == Difficulty.Hard)
+            _aiWeights = AiWeights.Aggressive;
         Turns = new TurnManager(State);
-        GD.Print($"Battle '{MapId}' seed {seed}");
 
         MapView.Build(State.Grid);
-        RangeOverlay.Init(State.Grid);
-        PathOverlay.Init(State.Grid);
-        DangerOverlay.Init(State.Grid);
+        foreach (var overlay in new[] { RangeOverlay, PathOverlay, DangerOverlay, FogOverlay, MarkerOverlay })
+            overlay.Init(State.Grid);
         Cursor.Init(State.Grid);
         foreach (var unit in State.Living)
             SpawnView(unit);
@@ -81,11 +111,12 @@ public partial class BattleController : Node3D
         Camera.Focus(CellWorld(lord.Pos), instant: true);
         Hud.UpdateObjective(State);
         Hud.ShowTerrain(State, lord.Pos);
-        Hud.RestartRequested += () => GetTree().ReloadCurrentScene();
         PlayerInput.Init(this);
+        RefreshMapState();
 
         Run(async () =>
         {
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
             await EventPlayer.Play(Turns.StartBattle());
             await ContinueUntilPlayerInput();
         });
@@ -97,7 +128,7 @@ public partial class BattleController : Node3D
 
     public void RemoveView(string unitId) => _views.Remove(unitId);
 
-    private void SpawnView(BattleUnit unit)
+    public UnitView SpawnView(BattleUnit unit)
     {
         var view = new UnitView();
         UnitsRoot.AddChild(view);
@@ -106,6 +137,28 @@ public partial class BattleController : Node3D
         view.Position = CellWorld(unit.Pos);
         view.FaceToward(view.Position + (unit.Faction == Faction.Player ? Vector3.Forward : Vector3.Back));
         _views[unit.Id] = view;
+        return view;
+    }
+
+    /// <summary>Re-applies fog (hidden cells and enemy views) and the objective/visit markers.</summary>
+    public void RefreshMapState()
+    {
+        if (State.Map.Fog)
+        {
+            var visible = State.VisibleCells(Faction.Player);
+            FogOverlay.ShowCells(State.Grid.AllPositions().Where(p => !visible.Contains(p)).Select(p => (p, CellOverlay.FogColor)).ToList());
+        }
+        foreach (var unit in State.Living)
+            ViewOf(unit.Id)?.SetHidden(!State.CanSee(Faction.Player, unit));
+
+        var markers = new List<(GridPos, Color)>();
+        var goals = State.Map.Goals;
+        if (goals.Victory is VictoryKind.Seize or VictoryKind.Escape)
+            markers.AddRange(goals.Cells.Select(c => (c, CellOverlay.ObjectiveColor)));
+        foreach (var trigger in State.Map.AllTriggers.Where(t => !State.FiredTriggers.Contains(t.Id)))
+            if (trigger.Condition is VisitCondition v)
+                markers.Add((v.Cell, CellOverlay.VisitColor));
+        MarkerOverlay.ShowCells(markers);
     }
 
     /// <summary>Called by the player input controller once the player has confirmed a command.</summary>
@@ -142,19 +195,19 @@ public partial class BattleController : Node3D
             if (State.Outcome != BattleOutcome.InProgress)
             {
                 PlayerInput.Disable();
-                Hud.ShowResult(State.Outcome);
+                await EndBattle();
                 return;
             }
-            if (State.Phase == Faction.Player)
+            if (State.Phase == Faction.Player && !DevTools.Autoplay)
             {
                 PlayerInput.Begin();
                 return;
             }
 
-            var decision = AiController.NextDecision(State);
-            if (decision is not null)
+            var decision = State.Phase == Faction.Player ? AutoplayDecision() : AiController.NextDecision(State, _aiWeights);
+            if (decision is not null && State.CanSee(Faction.Player, decision.Unit))
             {
-                // Show who is about to act before they move.
+                // Show who is about to act before they move (unless they're hidden in the fog).
                 Cursor.MoveTo(decision.Unit.Pos);
                 Camera.Focus(CellWorld(decision.Unit.Pos));
                 await ToSignal(GetTree().CreateTimer(0.3), SceneTreeTimer.SignalName.Timeout);
@@ -165,12 +218,109 @@ public partial class BattleController : Node3D
         }
     }
 
+    /// <summary>
+    /// Dev autoplay for the player's side: seize or escape when the lord can, talk to recruits in reach,
+    /// otherwise act like the enemy AI.
+    /// </summary>
+    private AiDecision? AutoplayDecision()
+    {
+        if (State.Turn > 60)
+        {
+            GD.PrintErr($"AUTOPLAY STUCK on '{State.Map.Id}' at turn {State.Turn}");
+            GetTree().Quit();
+            return null;
+        }
+        foreach (var unit in State.LivingOf(Faction.Player).Where(u => u.ActionState != ActionState.Done).OrderBy(u => u.Id))
+        {
+            var reach = unit.ActionState == ActionState.Moved ? null : State.Reach(unit);
+            var cells = reach?.StopCells ?? (IEnumerable<GridPos>)new[] { unit.Pos };
+            foreach (var cell in cells.OrderBy(c => c.Y).ThenBy(c => c.X))
+            {
+                if (ActionRules.CanSeize(State, unit, cell))
+                    return new AiDecision(unit, new ActCommand(unit.Id, cell, new SeizeAction()), null);
+                if (ActionRules.CanEscape(State, unit, cell))
+                    return new AiDecision(unit, new ActCommand(unit.Id, cell, new EscapeAction()), null);
+                if (EventDirector.TalkTargets(State, unit, cell).FirstOrDefault() is { } talk)
+                    return new AiDecision(unit, new ActCommand(unit.Id, cell, new TalkAction(talk.Id)), null);
+            }
+        }
+        // Everyone else fights like the enemy AI; the lord is far more careful (losing him loses the map).
+        var decisions = State.LivingOf(Faction.Player).Where(u => u.ActionState != ActionState.Done)
+            .Select(u => u.IsLord ? LordDecision(u) : AiController.Decide(State, u, AutoplayWeights)).ToList();
+        return decisions.Where(d => d.AttackScore is not null).OrderByDescending(d => d.AttackScore).FirstOrDefault()
+               ?? decisions.FirstOrDefault(d => !d.Unit.IsLord) ?? decisions.FirstOrDefault();
+    }
+
+    private AiDecision LordDecision(BattleUnit lord)
+    {
+        var d = AiController.Decide(State, lord, LordWeights);
+        if (d.AttackScore is > 0)
+            return d;
+        // Seize/Escape maps: once the way is fairly clear, walk toward the objective.
+        var goals = State.Map.Goals;
+        if (goals.Victory is VictoryKind.Seize or VictoryKind.Escape && State.LivingOf(Faction.Enemy).Count() <= 3)
+        {
+            var reach = State.Reach(lord);
+            var goal = goals.Cells[0];
+            var path = Pathfinder.FindPath(State.Grid, lord.Pos, goal, State.MoveType(lord));
+            if (path is not null)
+                for (int i = path.Count - 1; i > 0; i--)
+                    if (reach.CanStop(path[i]))
+                        return new AiDecision(lord, new ActCommand(lord.Id, path[i], new WaitAction()), null);
+        }
+        return new AiDecision(lord, new ActCommand(lord.Id, lord.Pos, new WaitAction()), null);
+    }
+
+    private static readonly AiWeights AutoplayWeights = new(CounterDamage: 1.2, SelfDeath: 200.0, Danger: 3.0);
+    private static readonly AiWeights LordWeights = new(CounterDamage: 2.0, SelfDeath: 500.0, Danger: 12.0);
+
+    private async Task EndBattle()
+    {
+        var node = GameSessionNode.Instance;
+        if (IsCampaign && State.Outcome == BattleOutcome.Victory)
+        {
+            await Hud.ShowBanner("Victory!", UiKit.Accent, 1.2f);
+            CampaignFlow.BattleWon(State);
+            return;
+        }
+        var buttons = new List<(string, Action)>();
+        if (IsCampaign)
+        {
+            buttons.Add(("Retry Battle", () =>
+            {
+                var runner = node.Runner!;
+                // A new seed per attempt, so a retry isn't a replay of the same rolls.
+                runner.Session.BattleCount++;
+                node.PendingBattle = runner.Launch(node.PendingBattleStep!, node.PendingBattle!.Deployed);
+                GetTree().ReloadCurrentScene();
+            }));
+        }
+        else
+        {
+            buttons.Add(("Play Again", () => GetTree().ReloadCurrentScene()));
+        }
+        buttons.Add(("Title Screen", () =>
+        {
+            node.EndSession();
+            node.SkirmishMapId = null;
+            node.GoTo(GameSessionNode.TitleScene);
+        }));
+        Hud.ShowResult(State.Outcome, buttons);
+        if (DevTools.Autoplay)
+        {
+            GD.Print($"AUTOPLAY RESULT: {State.Outcome} on turn {State.Turn}");
+            if (DevTools.AutoAdvance)
+                GetTree().CreateTimer(0.5).Timeout += buttons[0].Item2;
+        }
+    }
+
     private string Describe(BattleEvent e) => e switch
     {
         UnitMoved m => $"{NameOf(m.UnitId)} moves {m.Path[0]} -> {m.Path[^1]}",
         CombatResolved c => $"{NameOf(c.AttackerId)} attacks {NameOf(c.DefenderId)}: " + string.Join(" ", c.Result.Strikes.Select(x =>
             $"{(x.ByAttacker ? "A" : "D")}:{(x.Hit ? (x.Crit ? "CRIT" : "hit") : "miss")}({x.Damage})")) + $" -> HP {c.Result.AttackerHpAfter}/{c.Result.DefenderHpAfter}",
         UnitDefeated d => $"{NameOf(d.UnitId)} is defeated",
+        ExpGained x => $"{NameOf(x.UnitId)} +{x.Amount} EXP" + string.Concat(x.LevelUps.Select(l => $" -> Lv {l.Level}")),
         _ => e.ToString(),
     };
 

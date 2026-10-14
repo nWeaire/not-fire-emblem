@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ItemDefinition.cs" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+Id = "energy_drop"
+Name = "Energy Drop"
+Kind = 1
+Amount = 2
+Stat = 1
+Price = 2500
+Tier = 1

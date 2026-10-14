@@ -22,8 +22,24 @@ public partial class UnitDefinition : Resource
     [Export] public string Armor { get; set; } = "";
     /// <summary>Starting accessory id (empty = none).</summary>
     [Export] public string Accessory { get; set; } = "";
+    /// <summary>Personal combat art ids.</summary>
+    [Export] public string[] Arts { get; set; } = Array.Empty<string>();
+    /// <summary>Personal spell ids.</summary>
+    [Export] public string[] Spells { get; set; } = Array.Empty<string>();
+    /// <summary>Support pairs as "partner:C,B,A" point thresholds, e.g. "kai:10,25,45".</summary>
+    [Export] public string[] Supports { get; set; } = Array.Empty<string>();
 
     public UnitDef ToDef() => new(
         Id, Name, ClassId, Level, StatsDefinition.ToBlock(Bases), StatsDefinition.ToBlock(Growths), Inventory.ToArray(), IsLord,
-        string.IsNullOrEmpty(Armor) ? null : Armor, string.IsNullOrEmpty(Accessory) ? null : Accessory);
+        string.IsNullOrEmpty(Armor) ? null : Armor, string.IsNullOrEmpty(Accessory) ? null : Accessory,
+        Arts.ToArray(), Spells.ToArray(), Supports.Select(ParseSupport).ToArray());
+
+    private SupportDef ParseSupport(string text)
+    {
+        var parts = text.Split(':');
+        var t = parts.Length == 2 ? parts[1].Split(',') : Array.Empty<string>();
+        if (t.Length != 3)
+            throw new FormatException($"Unit '{Id}' support '{text}' should look like 'partner:10,25,45'.");
+        return new SupportDef(parts[0].Trim(), int.Parse(t[0]), int.Parse(t[1]), int.Parse(t[2]));
+    }
 }

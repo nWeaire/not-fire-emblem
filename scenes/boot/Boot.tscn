@@ -4,4 +4,4 @@
 
 [node name="Boot" type="Node"]
 script = ExtResource("1_boot")
-NextScene = "res://scenes/battle/Battle.tscn"
+NextScene = "res://scenes/title/Title.tscn"

@@ -334,6 +334,7 @@ Each milestone is meant to be one prompt, e.g. *"Build Milestone 2 from IMPLEMEN
 - **Done when:** Chapter 1 is a winnable fight against enemies that make sensible choices.
 
 ### M4 — Map Rules, Events, Fog & Dialogue
+- *As built:* objectives and triggers are text lines in each `MapDefinition` (`Victory`, `Defeat`, `Triggers`), parsed by `MapScript` (`src/Battle/MapRules.cs`) instead of `ObjectiveDefinition`/`TriggerDefinition` resources. Extra story mechanics landed here too: Talk, Visit, Seize and Escape actions, Defend (`protect TAG N`), crest Dominion and Severance (`CrestBearer`, `DominatedBy`, Beast trait), reinforcement groups and Hard-only spawns. Dialogue scripts are plain text in the DIALOGUE.md format (`data/dialogue/*.txt`, `DialogueParser`). The playable chapters are the Prologue and Ch 1–3 from `docs/story/CHAPTERS.md`.
 - `ObjectiveEvaluator` (all win/loss types), `EventDirector` (triggers, reinforcements), `FogOfWar` (logic, rendering, AI filtering).
 - `DialogueScene` + `DialoguePlayer`, Classic/Casual death handling, victory and defeat screens.
 - Create the Ch1–Ch3 maps.
@@ -341,12 +342,14 @@ Each milestone is meant to be one prompt, e.g. *"Build Milestone 2 from IMPLEMEN
 - **Done when:** all three chapters can be played on their own with their objectives, and Ch2's reinforcements and fog work.
 
 ### M5 — Progression & Abilities
+- *As built:* combat arts are `ArtDefinition`s used with a weapon (`ArtAttack`); healing spells are `SpellDefinition`s; consumables, boosters and seals are `ItemDefinition`s. Crest skills (Ward, Rally, Mend, Dawn), Rowan's crest aura and crest-tier promotion gates follow STORY §4.3. Trade is one item (or one swap) per command and leaves the unit able to act.
 - `ExpCalculator`, `LevelUpService` + popup, combat arts (uses, effects), healing spells + Healer AI, items (vulneraries, stat boosters), `TradeCommand`.
 - `PromotionService`, `SupportService` points and combat bonuses.
 - **Tests:** EXP table, growth rolls with a scripted RNG, promotion rules, uses refilled per battle, support thresholds and bonuses.
 - **Done when:** units level up, use arts and spells within their limits, heal, and get support bonuses in a full chapter.
 
 ### M6 — Campaign Loop
+- *As built:* the story is a step script (`data/campaign/main.txt`, `CampaignParser`, `CampaignRunner`). Battles work on clones of roster units and write back only on victory. Scene routing is `CampaignFlow` plus a fade in the `GameSessionNode` autoload (no separate SceneRouter). The hub is one screen with tabs (Party/convoy/equip, Shop, Smithy, Promotion, Supports, Save) and Osmund. The game autosaves on reaching the hub.
 - `GameSession`, `SaveData` + `SaveService`, `SceneRouter` flow (Title → Story → Prep → Battle → Results → Hub → next).
 - Hub screens: Party, Convoy/Shop, Promotion, Supports viewer, Save. Mode and difficulty selection on New Game; Hard difficulty modifiers.
 - Chain Ch1–Ch3 with story dialogue.

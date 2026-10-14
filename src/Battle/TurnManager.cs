@@ -27,6 +27,7 @@ public sealed class TurnManager
         State.Turn = 1;
         var events = new List<BattleEvent>();
         BeginPhase(Faction.Player, events);
+        CheckOutcome(events);
         return events;
     }
 
@@ -40,14 +41,17 @@ public sealed class TurnManager
 
         var events = new List<BattleEvent>(command.Execute(State));
         State.CommandLog.Add(command);
+        EventDirector.AfterCommand(State, events);
 
         if (CheckOutcome(events))
             return new CommandResult(true, null, events);
 
-        if (State.LivingOf(State.Phase).All(u => u.ActionState == ActionState.Done))
+        // Keep advancing while a phase has nobody able to act (e.g. every unit stunned).
+        for (int guard = 0; guard < 6 && State.LivingOf(State.Phase).All(u => u.ActionState == ActionState.Done); guard++)
         {
             AdvancePhase(events);
-            CheckOutcome(events);
+            if (CheckOutcome(events))
+                break;
         }
         return new CommandResult(true, null, events);
     }
@@ -62,7 +66,7 @@ public sealed class TurnManager
         return true;
     }
 
-    /// <summary>Player → Enemy → Ally → (Turn+1) Player. Phases with no living units are skipped.</summary>
+    /// <summary>Player → Enemy → Ally → (Turn+1) Player. Phases with no units on the map are skipped.</summary>
     private void AdvancePhase(List<BattleEvent> events)
     {
         int index = System.Array.IndexOf(PhaseOrder, State.Phase);
@@ -72,7 +76,7 @@ public sealed class TurnManager
             if (next == 0)
                 State.Turn++;
             var faction = PhaseOrder[next];
-            if (State.LivingOf(faction).Any())
+            if (State.LivingOf(faction).Any() || next == 0)
             {
                 BeginPhase(faction, events);
                 return;
@@ -80,11 +84,40 @@ public sealed class TurnManager
         }
     }
 
+    /// <summary>
+    /// Phase start: the faction's crest buffs expire, everyone is Ready except stunned units (who skip this
+    /// phase), forts heal, then turn triggers fire. Survive objectives complete when the player phase after the
+    /// last turn begins.
+    /// </summary>
     private void BeginPhase(Faction faction, List<BattleEvent> events)
     {
         State.Phase = faction;
-        foreach (var unit in State.LivingOf(faction))
-            unit.ActionState = ActionState.Ready;
+        var goals = State.Map.Goals;
+        if (faction == Faction.Player && goals.Victory == VictoryKind.Survive && State.Turn > goals.Turns)
+            State.SurviveComplete = true;
         events.Add(new PhaseChanged(faction, State.Turn));
+
+        foreach (var unit in State.LivingOf(faction).ToList())
+        {
+            unit.TempBonus = default;
+            unit.TempBonusSource = null;
+            if (unit.StunnedPhases > 0)
+            {
+                unit.StunnedPhases--;
+                unit.ActionState = ActionState.Done;
+                events.Add(new UnitStunnedSkip(unit.Id));
+                events.Add(new UnitActionStateChanged(unit.Id, ActionState.Done));
+                continue;
+            }
+            unit.ActionState = ActionState.Ready;
+            int healPercent = State.Grid[unit.Pos].Terrain.HealPercent;
+            if (healPercent > 0)
+            {
+                int amount = BattleProgress.RestoreHp(State, unit, State.Stats(unit).HP * healPercent / 100);
+                if (amount > 0)
+                    events.Add(new UnitHealed(unit.Id, unit.Id, amount, unit.CurrentHp, State.Grid[unit.Pos].Terrain.Name));
+            }
+        }
+        EventDirector.OnPhaseStart(State, events);
     }
 }

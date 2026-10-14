@@ -48,3 +48,4 @@ UsableWeapons = PackedStringArray("Sword", "Lance", "Axe")
 PromotesTo = PackedStringArray()
 IsPromoted = true
 MaxArmor = 2
+Tier = 2

@@ -35,16 +35,54 @@ public static class CombatCalculator
 
     public static bool InRange(WeaponDef weapon, int distance) => distance >= weapon.MinRange && distance <= weapon.MaxRange;
 
+    /// <summary>
+    /// The weapon as the choice uses it: an art adds its Might/Hit/Crit/range and effectiveness to the weapon.
+    /// The result keeps the weapon's id; its name becomes the art's name.
+    /// </summary>
+    public static WeaponDef EffectiveWeapon(ContentDatabase db, ActionChoice choice)
+    {
+        var weapon = db.Weapon(choice.WeaponId);
+        if (choice is not ArtAttack a)
+            return weapon;
+        var art = db.Art(a.ArtId);
+        return weapon with
+        {
+            Name = art.Name,
+            Might = weapon.Might + art.MightMod,
+            Hit = weapon.Hit + art.HitMod,
+            Crit = weapon.Crit + art.CritMod,
+            MaxRange = weapon.MaxRange + art.RangeBonus,
+            EffectiveAgainst = weapon.EffectiveAgainst.Concat(art.EffectiveAgainst ?? Array.Empty<string>()).ToArray(),
+        };
+    }
+
+    /// <summary>
+    /// Everything the unit could attack with right now: each usable weapon, and each known art (with uses left)
+    /// with each matching weapon.
+    /// </summary>
+    public static IEnumerable<ActionChoice> AttackChoices(ContentDatabase db, BattleUnit unit)
+    {
+        var weapons = UsableWeapons(db, unit.State).ToList();
+        foreach (var w in weapons)
+            yield return new WeaponAttack(w.Id);
+        foreach (var art in Abilities.Arts(db, unit.State))
+        {
+            if (unit.UsesLeft.GetValueOrDefault(art.Id) <= 0)
+                continue;
+            foreach (var w in weapons.Where(w => w.Type == art.Type))
+                yield return new ArtAttack(art.Id, w.Id);
+        }
+    }
+
+    public static bool InRange(ContentDatabase db, ActionChoice choice, int distance) => InRange(EffectiveWeapon(db, choice), distance);
+
     public static CombatForecast Forecast(BattleState s, BattleUnit attacker, GridPos attackerPos, BattleUnit defender, ActionChoice choice)
     {
-        var attackWeapon = choice switch
-        {
-            WeaponAttack w => s.Db.Weapon(w.WeaponId),
-            _ => throw new NotSupportedException($"Action choice {choice} is not supported yet."),
-        };
+        var attackWeapon = EffectiveWeapon(s.Db, choice);
+        bool noCounter = choice is ArtAttack art && s.Db.Art(art.ArtId).NoCounter;
         var counterWeapon = CounterWeapon(s.Db, defender.State);
         int distance = attackerPos.DistanceTo(defender.Pos);
-        bool canCounter = counterWeapon is not null && InRange(counterWeapon, distance);
+        bool canCounter = !noCounter && counterWeapon is not null && InRange(counterWeapon, distance);
 
         var aStats = s.Stats(attacker);
         var dStats = s.Stats(defender);
@@ -89,19 +127,24 @@ public static class CombatCalculator
         int damage = Math.Max(0, attack - defense);
 
         int heightBonus = s.Grid[myPos].Height > s.Grid[theirPos].Height ? HeightHitBonus : 0;
-        int hit = myStats.Dex * 2 + myStats.Lck / 2 + myWeapon.Hit + tri * WeaponTriangle.HitBonus + heightBonus;
-        int avoid = theirAs * 2 + theirStats.Lck / 2 + terrainAvoid;
+        var myBonus = s.CombatBonus(me, myPos);
+        var theirBonus = s.CombatBonus(them, theirPos);
+        int hit = myStats.Dex * 2 + myStats.Lck / 2 + myWeapon.Hit + tri * WeaponTriangle.HitBonus + heightBonus + myBonus.Hit;
+        int avoid = theirAs * 2 + theirStats.Lck / 2 + terrainAvoid + theirBonus.Avoid;
         int displayedHit = Math.Clamp(hit - avoid, 0, 100);
 
-        int crit = Math.Clamp((myStats.Dex + myStats.Lck) / 2 + myWeapon.Crit - theirStats.Lck, 0, 100);
+        int crit = Math.Clamp((myStats.Dex + myStats.Lck) / 2 + myWeapon.Crit + myBonus.Crit - theirStats.Lck, 0, 100);
 
         return new PlannedStrike(byAttacker, damage, displayedHit, crit);
     }
 
+    /// <summary>Effective against the target's movement type ("Flying") or one of its class traits ("Beast").</summary>
     private static bool IsEffective(BattleState s, WeaponDef weapon, BattleUnit target)
     {
         var moveType = StatCalculator.MovementTypeOf(s.Db, target.State).ToString();
-        return weapon.EffectiveAgainst.Contains(moveType, StringComparer.OrdinalIgnoreCase);
+        var cls = s.Db.Class(target.State.ClassId);
+        return weapon.EffectiveAgainst.Any(e =>
+            string.Equals(e, moveType, StringComparison.OrdinalIgnoreCase) || cls.HasTrait(e));
     }
 
     private static CombatantForecast Summary(

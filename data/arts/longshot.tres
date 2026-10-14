@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ArtDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ArtDefinition.cs" id="1_art"]
+
+[resource]
+script = ExtResource("1_art")
+Id = "longshot"
+Name = "Longshot"
+Type = 3
+MightMod = 0
+HitMod = -10
+CritMod = 0
+RangeBonus = 1
+Uses = 2
+NoCounter = false
+EffectiveAgainst = PackedStringArray()

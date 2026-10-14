@@ -8,4 +8,4 @@ Id = "brookhollow_trader"
 Name = "Brookhollow Trader"
 Region = "thornvale"
 OpensAtChapter = 1
-Items = PackedStringArray("iron_sword", "iron_lance", "iron_axe", "iron_bow", "fire", "padded_gambeson", "leather_jerkin", "apprentice_robe", "lucky_charm")
+Items = PackedStringArray("iron_sword", "iron_lance", "iron_axe", "iron_bow", "fire", "vulnerary", "padded_gambeson", "leather_jerkin", "apprentice_robe", "lucky_charm")

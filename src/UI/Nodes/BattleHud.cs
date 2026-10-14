@@ -40,11 +40,17 @@ public partial class BattleHud : CanvasLayer
     private ColorRect _flash = null!;
     private Control _result = null!;
     private Label _resultLabel = null!;
+    private VBoxContainer _resultButtons = null!;
+    private Label _unitStatus = null!;
+    private PanelContainer _levelPanel = null!;
+    private Label _levelText = null!;
+    private VBoxContainer _toasts = null!;
 
     /// <summary>Raised when a menu entry is clicked with the mouse.</summary>
     public event Action<int>? MenuClicked;
 
-    public event Action? RestartRequested;
+    /// <summary>Plays story scenes requested by map triggers.</summary>
+    public DialogueBox Dialogue { get; private set; } = null!;
 
     public override void _Ready()
     {
@@ -77,6 +83,9 @@ public partial class BattleHud : CanvasLayer
         _unitItems = new Label();
         _unitItems.AddThemeFontSizeOverride("font_size", 14);
         unitBox.AddChild(_unitItems);
+        _unitStatus = new Label { Modulate = new Color(0.75f, 0.9f, 1f) };
+        _unitStatus.AddThemeFontSizeOverride("font_size", 13);
+        unitBox.AddChild(_unitStatus);
         _unitPanel.Visible = false;
 
         // Terrain (bottom-right)
@@ -105,7 +114,7 @@ public partial class BattleHud : CanvasLayer
         // Controls hint (bottom-centre)
         var hint = new Label
         {
-            Text = "Z / LMB: select   X / RMB: back   WASD / arrows: cursor   Q / E: rotate   wheel / +/-: zoom   Tab: next unit   G: danger zone   B: battle scenes   T: end turn",
+            Text = "Z / LMB: select   X / RMB: back   WASD / arrows: cursor   Q / E: rotate   wheel / +/-: zoom   Tab: next unit / weapon   G: danger zone   B: battle scenes   T: end turn",
             Modulate = new Color(1, 1, 1, 0.65f),
             HorizontalAlignment = HorizontalAlignment.Center,
             MouseFilter = Control.MouseFilterEnum.Ignore,
@@ -141,9 +150,26 @@ public partial class BattleHud : CanvasLayer
         _resultLabel = new Label { HorizontalAlignment = HorizontalAlignment.Center };
         _resultLabel.AddThemeFontSizeOverride("font_size", 64);
         resultBox.AddChild(_resultLabel);
-        var restart = new Button { Text = "Play Again", SizeFlagsHorizontal = Control.SizeFlags.ShrinkCenter, CustomMinimumSize = new Vector2(200, 44) };
-        restart.Pressed += () => RestartRequested?.Invoke();
-        resultBox.AddChild(restart);
+        _resultButtons = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ShrinkCenter };
+        _resultButtons.AddThemeConstantOverride("separation", 8);
+        resultBox.AddChild(_resultButtons);
+
+        // Level-up panel (centre)
+        _levelPanel = Panel(root, Control.LayoutPreset.Center, Vector2.Zero);
+        _levelText = new Label();
+        _levelText.AddThemeFontSizeOverride("font_size", 18);
+        _levelPanel.AddChild(_levelText);
+        _levelPanel.Visible = false;
+
+        // Toasts (top-right): items, gold, joins
+        _toasts = new VBoxContainer { MouseFilter = Control.MouseFilterEnum.Ignore };
+        root.AddChild(_toasts);
+        _toasts.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.TopRight);
+        _toasts.GrowHorizontal = Control.GrowDirection.Begin;
+        _toasts.Position += new Vector2(-16, 16);
+
+        Dialogue = new DialogueBox();
+        root.AddChild(Dialogue);
     }
 
     private static PanelContainer Panel(Control parent, Control.LayoutPreset preset, Vector2 offset)
@@ -178,8 +204,7 @@ public partial class BattleHud : CanvasLayer
 
     public void UpdateObjective(BattleState s)
     {
-        int enemies = s.LivingOf(Faction.Enemy).Count();
-        _objective.Text = $"{s.Map.Name}\nTurn {s.Turn} · {s.Phase} Phase\nGoal: Rout the enemy ({enemies} left)";
+        _objective.Text = $"{s.Map.Name}\nTurn {s.Turn} · {s.Phase} Phase" + (s.Map.Fog ? " · Fog" : "") + $"\nGoal: {ObjectiveEvaluator.Describe(s)}";
     }
 
     // ------------------------------------------------------------------ unit / terrain info
@@ -214,6 +239,26 @@ public partial class BattleHud : CanvasLayer
             .Select(a => $"   {a.Name}  {BonusText(a.Bonuses)}");
         var lines = items.Concat(worn).ToList();
         _unitItems.Text = lines.Count == 0 ? "(no items)" : string.Join("\n", lines);
+
+        var status = new List<string>();
+        if (unit.IsRosterUnit)
+            status.Add($"EXP {unit.State.Exp}/100");
+        if (s.IsDominated(unit))
+            status.Add("Dominion: +2 Str/Def");
+        if (unit.CrestBearer)
+            status.Add("Crest-bearer (Dominion 3)");
+        if (unit.StunnedPhases > 0)
+            status.Add("Stunned");
+        if (unit.TempBonusSource is { } buff)
+            status.Add($"{buff}: {BonusText(unit.TempBonus)}");
+        var uses = Abilities.Arts(db, unit.State).Select(a => $"{a.Name} {unit.UsesLeft.GetValueOrDefault(a.Id)}/{a.Uses}")
+            .Concat(Abilities.Spells(db, unit.State).Select(sp => $"{sp.Name} {unit.UsesLeft.GetValueOrDefault(sp.Id)}/{sp.Uses}"))
+            .Concat(unit.UsesLeft.Where(kv => kv.Key.StartsWith("crest:")).Select(kv => $"{kv.Key[6..]} {kv.Value}"))
+            .ToList();
+        if (uses.Count > 0)
+            status.Add(string.Join("  ", uses));
+        _unitStatus.Text = string.Join("\n", status);
+        _unitStatus.Visible = status.Count > 0;
     }
 
     public void ShowTerrain(BattleState s, GridPos p)
@@ -308,6 +353,16 @@ public partial class BattleHud : CanvasLayer
 
     public void HideForecast() => _forecastPanel.Visible = false;
 
+    /// <summary>A plain text preview in the forecast panel (heal amounts, talk and trade targets...).</summary>
+    public void ShowPreview(string text)
+    {
+        foreach (var child in _forecastGrid.GetChildren())
+            child.QueueFree();
+        _forecastHint.Text = text;
+        _forecastHint.Visible = true;
+        _forecastPanel.Visible = true;
+    }
+
     public void SetBattleScenes(bool on) =>
         _ = ShowBanner(on ? "Battle scenes: ON" : "Battle scenes: OFF", Colors.White, 0.4f);
 
@@ -332,10 +387,46 @@ public partial class BattleHud : CanvasLayer
         CreateTween().TweenProperty(_flash, "color:a", 0f, 0.25f);
     }
 
-    public void ShowResult(BattleOutcome outcome)
+    public void ShowResult(BattleOutcome outcome, IReadOnlyList<(string Label, Action OnPressed)> buttons)
     {
         _resultLabel.Text = outcome == BattleOutcome.Victory ? "Victory!" : "Defeat";
         _resultLabel.Modulate = outcome == BattleOutcome.Victory ? Accent : new Color(1f, 0.4f, 0.35f);
+        foreach (var child in _resultButtons.GetChildren())
+            child.QueueFree();
+        foreach (var (label, onPressed) in buttons)
+            _resultButtons.AddChild(UiKit.Button(label, onPressed, 220));
         _result.Visible = true;
+        if (_resultButtons.GetChildCount() > 0)
+            _resultButtons.GetChild<Button>(0).CallDeferred(Control.MethodName.GrabFocus);
+    }
+
+    /// <summary>A short message in the top-right corner that fades out.</summary>
+    public void Toast(string text, Color? color = null)
+    {
+        var label = new Label { Text = text, HorizontalAlignment = HorizontalAlignment.Right, Modulate = color ?? Colors.White };
+        label.AddThemeFontSizeOverride("font_size", 18);
+        label.AddThemeConstantOverride("outline_size", 6);
+        label.AddThemeColorOverride("font_outline_color", Colors.Black);
+        _toasts.AddChild(label);
+        var tween = label.CreateTween();
+        tween.TweenInterval(2.2f);
+        tween.TweenProperty(label, "modulate:a", 0f, 0.5f);
+        tween.TweenCallback(Callable.From(label.QueueFree));
+    }
+
+    /// <summary>Shows the stats gained on a level-up for a moment.</summary>
+    public async Task ShowLevelUp(string name, string className, LevelUp level, StatBlock statsAfter)
+    {
+        var rows = StatBlock.All.Where(st => st is not (Stat.Mov or Stat.Cha))
+            .Select(st => $"{st,-4}{statsAfter[st],3}" + (level.Gains[st] > 0 ? $"  +{level.Gains[st]}" : ""));
+        _levelText.Text = $"LEVEL UP!   {name} — {className} Lv {level.Level}\n\n" + string.Join("\n", rows);
+        _levelPanel.Visible = true;
+        _levelPanel.Modulate = Colors.White with { A = 0f };
+        var tween = CreateTween();
+        tween.TweenProperty(_levelPanel, "modulate:a", 1f, 0.15f);
+        tween.TweenInterval(1.6f);
+        tween.TweenProperty(_levelPanel, "modulate:a", 0f, 0.25f);
+        await ToSignal(tween, Tween.SignalName.Finished);
+        _levelPanel.Visible = false;
     }
 }

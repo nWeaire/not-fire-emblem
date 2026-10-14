@@ -42,6 +42,6 @@ Growths = SubResource("StatsDefinition_2")
 Caps = SubResource("StatsDefinition_3")
 MovementType = 0
 UsableWeapons = PackedStringArray("Bow")
-PromotesTo = PackedStringArray()
+PromotesTo = PackedStringArray("sniper")
 IsPromoted = false
 MaxArmor = 0

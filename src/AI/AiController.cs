@@ -20,7 +20,8 @@ public sealed record AiWeights(
     double HealerTarget = 8.0,
     double NoCounterBonus = 4.0,
     double TerrainAvoid = 0.1,
-    double TerrainDef = 1.0)
+    double TerrainDef = 1.0,
+    double ArtCost = 3.0)
 {
     public static readonly AiWeights Default = new();
     public static readonly AiWeights Aggressive = new(CounterDamage: 0.3, SelfDeath: 25.0, Danger: 0.5);
@@ -68,17 +69,35 @@ public static class AiController
         // Stationary and Boss units hold position; Guard units stay asleep until something comes within reach.
         if (unit.AiProfile is AiProfile.Stationary or AiProfile.Boss or AiProfile.GuardRegion)
             return Wait(unit);
+        if (unit.AiProfile == AiProfile.Healer && BestHeal(s, unit, reach) is { } heal)
+            return new AiDecision(unit, heal, null);
         return new AiDecision(unit, new ActCommand(unit.Id, ApproachCell(s, unit, reach), new WaitAction()), null);
+    }
+
+    /// <summary>Healer profile: heal the most injured friend it can reach.</summary>
+    private static IBattleCommand? BestHeal(BattleState s, BattleUnit unit, ReachMap reach)
+    {
+        foreach (var spell in ActionRules.ReadySpells(s, unit))
+        {
+            var best = reach.StopCells.OrderBy(c => c.Y).ThenBy(c => c.X)
+                .SelectMany(c => ActionRules.HealTargets(s, unit, c, spell.Id).Select(t => (Cell: c, Target: t)))
+                .OrderBy(x => x.Target.CurrentHp * 100 / System.Math.Max(1, s.Stats(x.Target).HP))
+                .FirstOrDefault();
+            if (best.Target is not null)
+                return new ActCommand(unit.Id, best.Cell, new HealAction(best.Target.Id, spell.Id));
+        }
+        return null;
     }
 
     private static AiDecision Wait(BattleUnit unit) => new(unit, new ActCommand(unit.Id, unit.Pos, new WaitAction()), null);
 
     private static (IBattleCommand Command, double Score)? BestAttack(BattleState s, BattleUnit unit, IEnumerable<GridPos> cells, AiWeights w)
     {
-        var weapons = CombatCalculator.UsableWeapons(s.Db, unit.State).ToList();
-        if (weapons.Count == 0)
+        var choices = CombatCalculator.AttackChoices(s.Db, unit).ToList();
+        if (choices.Count == 0)
             return null;
-        var hostiles = s.Living.Where(t => t.Faction.IsHostileTo(unit.Faction)).ToList();
+        // Under fog, the AI only attacks what its side can see.
+        var hostiles = s.Living.Where(t => t.Faction.IsHostileTo(unit.Faction) && s.CanSee(unit.Faction, t)).ToList();
         var danger = new Lazy<Dictionary<GridPos, int>>(() => ThreatCounts(s, unit.Faction));
 
         (IBattleCommand Command, double Score)? best = null;
@@ -88,11 +107,13 @@ public static class AiController
             foreach (var target in hostiles)
             {
                 int distance = cell.DistanceTo(target.Pos);
-                foreach (var weapon in weapons.Where(x => CombatCalculator.InRange(x, distance)))
+                foreach (var choice in choices.Where(c => CombatCalculator.InRange(s.Db, c, distance)))
                 {
-                    var choice = new WeaponAttack(weapon.Id);
                     var forecast = CombatCalculator.Forecast(s, unit, cell, target, choice);
                     double score = Score(s, unit, target, cell, forecast, w, danger);
+                    // Arts are limited: only spend one when it is clearly better than a plain attack.
+                    if (choice is ArtAttack)
+                        score -= w.ArtCost;
                     if (best is null || score > best.Value.Score + 1e-9)
                         best = (new ActCommand(unit.Id, cell, new AttackAction(target.Id, choice)), score);
                 }
@@ -145,7 +166,10 @@ public static class AiController
         var moveType = s.MoveType(unit);
         IReadOnlyList<GridPos>? bestPath = null;
         BattleUnit? goal = null;
-        foreach (var target in s.Living.Where(t => t.Faction.IsHostileTo(unit.Faction)).OrderBy(t => t.Id, StringComparer.Ordinal))
+        // Prefer targets the side can see; under fog with nothing in sight, head for the nearest anyway.
+        var hostiles = s.Living.Where(t => t.Faction.IsHostileTo(unit.Faction)).ToList();
+        var seen = hostiles.Where(t => s.CanSee(unit.Faction, t)).ToList();
+        foreach (var target in (seen.Count > 0 ? seen : hostiles).OrderBy(t => t.Id, StringComparer.Ordinal))
         {
             var path = Pathfinder.FindPath(s.Grid, unit.Pos, target.Pos, moveType);
             if (path is not null && (bestPath is null || path.Count < bestPath.Count))

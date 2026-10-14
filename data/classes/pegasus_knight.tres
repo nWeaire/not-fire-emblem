@@ -46,3 +46,4 @@ UsableWeapons = PackedStringArray("Lance")
 PromotesTo = PackedStringArray()
 IsPromoted = false
 MaxArmor = 0
+Arts = PackedStringArray("sky_lance")

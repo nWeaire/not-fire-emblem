@@ -2,10 +2,22 @@ using System.Collections.Generic;
 
 namespace NotFireEmblem.Combat;
 
-/// <summary>What the attacker uses. Arts and spells are added in M5.</summary>
-public abstract record ActionChoice;
+/// <summary>What the attacker uses: a plain weapon attack, or a combat art performed with a weapon.</summary>
+public abstract record ActionChoice
+{
+    public abstract string WeaponId { get; }
+}
 
-public sealed record WeaponAttack(string WeaponId) : ActionChoice;
+public sealed record WeaponAttack(string WeaponId) : ActionChoice
+{
+    public override string WeaponId { get; } = WeaponId;
+}
+
+/// <summary>A combat art (uses one of its per-map uses) performed with <see cref="WeaponId"/>.</summary>
+public sealed record ArtAttack(string ArtId, string WeaponId) : ActionChoice
+{
+    public override string WeaponId { get; } = WeaponId;
+}
 
 /// <summary>One side's numbers in a forecast. Displayed values are the exact values the game uses.</summary>
 public sealed record CombatantForecast(

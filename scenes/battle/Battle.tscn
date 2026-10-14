@@ -48,6 +48,18 @@ unique_name_in_owner = true
 script = ExtResource("3_overlay")
 Lift = 0.01
 
+[node name="MarkerOverlay" type="MultiMeshInstance3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_overlay")
+Inset = 0.3
+Lift = 0.015
+
+[node name="FogOverlay" type="MultiMeshInstance3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_overlay")
+Inset = 0.0
+Lift = 0.32
+
 [node name="RangeOverlay" type="MultiMeshInstance3D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("3_overlay")

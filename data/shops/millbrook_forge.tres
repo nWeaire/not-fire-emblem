@@ -8,4 +8,4 @@ Id = "millbrook_forge"
 Name = "Millbrook Forge"
 Region = "thornvale"
 OpensAtChapter = 2
-Items = PackedStringArray("javelin", "hand_axe", "wind", "travelers_cloak", "hunters_gloves")
+Items = PackedStringArray("javelin", "hand_axe", "wind", "vulnerary", "travelers_cloak", "hunters_gloves")

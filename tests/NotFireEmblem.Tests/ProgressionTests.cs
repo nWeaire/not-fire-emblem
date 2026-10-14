@@ -1,0 +1,207 @@
+using NotFireEmblem.Battle;
+using NotFireEmblem.Campaign;
+using NotFireEmblem.Combat;
+using NotFireEmblem.Core;
+using NotFireEmblem.Grid;
+using NotFireEmblem.Units;
+
+namespace NotFireEmblem.Tests;
+
+/// <summary>M5: EXP and level-ups, arts, healing, items, trade, crest skills and supports.</summary>
+public class ProgressionTests
+{
+    private static (BattleState s, TurnManager tm) Start(TestBattle builder)
+    {
+        var s = builder.Build();
+        var tm = new TurnManager(s);
+        tm.StartBattle();
+        return (s, tm);
+    }
+
+    // ------------------------------------------------------------------ EXP and level-ups
+
+    [Fact]
+    public void CombatExp_FollowsTheFe7StyleFormula()
+    {
+        var db = TestContent.Create();
+        UnitState Unit(string cls, int level) => UnitState.FromDef(new UnitDef("x", "x", cls, level, default, default, Array.Empty<string>(), false));
+        var me = Unit("merc", 1);
+        Assert.Equal(10, ExpCalculator.CombatExp(db, me, Unit("merc", 1), dealtDamage: true, killed: false, foeIsBoss: false));
+        Assert.Equal(1, ExpCalculator.CombatExp(db, me, Unit("merc", 1), dealtDamage: false, killed: false, foeIsBoss: false));
+        Assert.Equal(30, ExpCalculator.CombatExp(db, me, Unit("merc", 1), dealtDamage: true, killed: true, foeIsBoss: false));
+        Assert.Equal(70, ExpCalculator.CombatExp(db, me, Unit("merc", 1), dealtDamage: true, killed: true, foeIsBoss: true));
+        Assert.Equal(12, ExpCalculator.CombatExp(db, me, Unit("merc", 6), dealtDamage: true, killed: false, foeIsBoss: false));
+        Assert.Equal(17, ExpCalculator.CombatExp(db, me, Unit("hero", 1), dealtDamage: true, killed: false, foeIsBoss: false));
+        Assert.Equal(0, ExpCalculator.CombatExp(db, Unit("merc", 20), me, true, true, false));
+    }
+
+    [Fact]
+    public void LevelUp_RollsEachStatAgainstGrowths()
+    {
+        var db = TestContent.Create();
+        var def = new UnitDef("x", "x", "merc", 1, default, new StatBlock(0, 100, 0, 0, 50, 0, 0, 0, 0), Array.Empty<string>(), false);
+        var unit = UnitState.FromDef(def);
+        unit.Exp = 60;
+        var levels = LevelUpService.AddExp(db, unit, 50, new ScriptedRng(99, 99, 99, 99, 10, 99, 99, 99));
+        var level = Assert.Single(levels);
+        Assert.Equal(2, level.Level);
+        Assert.Equal(2, unit.Level);
+        Assert.Equal(10, unit.Exp);
+        Assert.Equal(1, level.Gains.Str);
+        Assert.Equal(1, level.Gains.Spd);
+        Assert.Equal(0, level.Gains.HP);
+        Assert.Equal(level.Gains, unit.Gains);
+    }
+
+    [Fact]
+    public void Combat_GivesExpToRosterUnitsOnly()
+    {
+        var (s, tm) = Start(new TestBattle(".....").Lord(0, 0, "sword").Unit(Faction.Enemy, "merc", 1, 0, "sword").Unit(Faction.Enemy, "merc", 4, 0));
+        var r = tm.Submit(new ActCommand("u0", new GridPos(0, 0), new AttackAction("u1", new WeaponAttack("sword"))));
+        var exp = r.Events.OfType<ExpGained>().Single();
+        Assert.Equal("u0", exp.UnitId);
+        Assert.Equal(10, exp.Amount);
+        Assert.Equal(10, s.Unit("u0").State.Exp);
+    }
+
+    // ------------------------------------------------------------------ arts
+
+    [Fact]
+    public void Arts_ModifyTheWeapon_UseUpUses_AndCanPreventCounters()
+    {
+        var b = new TestBattle(".....").Named("hero", Faction.Player, "merc", 0, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 1, 0, "sword").Unit(Faction.Enemy, "beast", 4, 0, "claws");
+        b.Db.Add(b.Db.Unit("hero") with { Arts = new[] { "smash", "quiet_cut", "long_reach", "beastbane" } });
+        var (s, tm) = Start(b);
+        var hero = s.Unit("u0");
+        Assert.Equal(2, hero.UsesLeft["smash"]);
+
+        var smash = CombatCalculator.Forecast(s, hero, hero.Pos, s.Unit("u1"), new ArtAttack("smash", "sword"));
+        Assert.Equal(13, smash.Attacker.Damage);
+        Assert.Equal("Smash", smash.Attacker.WeaponName);
+        var quiet = CombatCalculator.Forecast(s, hero, hero.Pos, s.Unit("u1"), new ArtAttack("quiet_cut", "sword"));
+        Assert.False(quiet.Defender.CanStrike);
+        Assert.True(CombatCalculator.InRange(s.Db, new ArtAttack("long_reach", "sword"), 2));
+        var bane = CombatCalculator.Forecast(s, hero, new GridPos(3, 0), s.Unit("u2"), new ArtAttack("beastbane", "sword"));
+        Assert.True(bane.Attacker.Effective);
+        Assert.Equal(20, bane.Attacker.Damage); // 10 Str + 5×3 Mt - 5 Def
+
+        Assert.True(tm.Submit(new ActCommand("u0", hero.Pos, new AttackAction("u1", new ArtAttack("smash", "sword")))).Ok);
+        Assert.Equal(1, hero.UsesLeft["smash"]);
+    }
+
+    // ------------------------------------------------------------------ healing, items, trade
+
+    [Fact]
+    public void Heal_RestoresHpUsesASpellAndGivesExp()
+    {
+        var (s, tm) = Start(new TestBattle(".....").Lord(0, 0, "sword")
+            .Named("mira", Faction.Player, "healer", 1, 0).Unit(Faction.Enemy, "merc", 4, 0));
+        var lord = s.Unit("u0");
+        lord.CurrentHp = 3;
+        var mira = s.Unit("u1");
+        Assert.Equal(3, mira.UsesLeft["heal"]);
+        var r = tm.Submit(new ActCommand("u1", mira.Pos, new HealAction("u0", "heal")));
+        Assert.True(r.Ok, r.Error);
+        Assert.Equal(18, lord.CurrentHp); // 10 + Mag 10 / 2
+        Assert.Equal(2, mira.UsesLeft["heal"]);
+        Assert.Equal(ExpCalculator.HealExp, r.Events.OfType<ExpGained>().Single().Amount);
+    }
+
+    [Fact]
+    public void Vulnerary_HealsAndIsUsedUp()
+    {
+        var (s, tm) = Start(new TestBattle(".....").Lord(0, 0, "sword", "vulnerary").Unit(Faction.Enemy, "merc", 4, 0));
+        var lord = s.Unit("u0");
+        Assert.Empty(ActionRules.UsableItems(s, lord)); // full HP
+        lord.CurrentHp = 5;
+        Assert.True(tm.Submit(new ActCommand("u0", lord.Pos, new UseItemAction("vulnerary"))).Ok);
+        Assert.Equal(15, lord.CurrentHp);
+        Assert.DoesNotContain("vulnerary", lord.State.Inventory);
+        Assert.Equal("sword", lord.State.EquippedItemId);
+    }
+
+    [Fact]
+    public void Trade_SwapsItems_AndTheUnitCanStillActInPlace()
+    {
+        var (s, tm) = Start(new TestBattle(".....", ".....").Lord(0, 0, "sword", "vulnerary")
+            .Unit(Faction.Player, "merc", 2, 0, "killer").Unit(Faction.Enemy, "merc", 4, 1));
+        var r = tm.Submit(new TradeCommand("u0", new GridPos(1, 0), "u1", new[] { "vulnerary" }, new[] { "killer" }));
+        Assert.True(r.Ok, r.Error);
+        Assert.Equal(new[] { "sword", "killer" }, s.Unit("u0").State.Inventory);
+        Assert.Equal(new[] { "vulnerary" }, s.Unit("u1").State.Inventory);
+        Assert.Equal(ActionState.Moved, s.Unit("u0").ActionState);
+        Assert.False(tm.Submit(new ActCommand("u0", new GridPos(1, 1), new WaitAction())).Ok);
+        Assert.True(tm.Submit(new ActCommand("u0", new GridPos(1, 0), new WaitAction())).Ok);
+    }
+
+    // ------------------------------------------------------------------ crest skills
+
+    [Fact]
+    public void CrestSkills_WardLastsUntilTheNextPlayerPhase_AndDawnRefreshes()
+    {
+        var (s, tm) = Start(new TestBattle(".......", ".......").Lord(0, 0, "sword")
+            .Unit(Faction.Player, "merc", 1, 0, "sword").Unit(Faction.Player, "merc", 0, 1, "sword")
+            .Unit(Faction.Enemy, "merc", 6, 1).Options(new BattleOptions(CrestTier: 4)));
+        var lord = s.Unit("u0");
+        // Dawn needs an ally who has already acted.
+        Assert.Equal(new[] { CrestSkill.Ward, CrestSkill.Rally, CrestSkill.Mend }, ActionRules.ReadyCrestSkills(s, lord, lord.Pos).ToArray());
+
+        // u2 acts first so Dawn has someone to refresh.
+        Assert.True(tm.Submit(new ActCommand("u2", new GridPos(0, 1), new WaitAction())).Ok);
+        Assert.True(tm.Submit(new ActCommand("u0", lord.Pos, new CrestAction(CrestSkill.Dawn, "u2"))).Ok);
+        Assert.Equal(ActionState.Ready, s.Unit("u2").ActionState);
+
+        Assert.True(tm.Submit(new ActCommand("u1", new GridPos(1, 0), new WaitAction())).Ok);
+        // Ward needs the lord to act, so start a new turn first.
+        tm.Submit(new EndPhaseCommand());
+        tm.Submit(new EndPhaseCommand());
+        Assert.Equal(2, s.Turn);
+        Assert.True(tm.Submit(new ActCommand("u0", lord.Pos, new CrestAction(CrestSkill.Ward, "u1"))).Ok);
+        Assert.Equal(9, s.Stats(s.Unit("u1")).Def);
+        Assert.Equal(1, lord.UsesLeft[CrestSkills.UseKey(CrestSkill.Ward)]);
+        tm.Submit(new EndPhaseCommand());
+        tm.Submit(new EndPhaseCommand());
+        Assert.Equal(5, s.Stats(s.Unit("u1")).Def);
+    }
+
+    [Fact]
+    public void CrestSkills_NeedTheCrestTier()
+    {
+        var (s, _) = Start(new TestBattle("...").Lord(0, 0, "sword").Unit(Faction.Player, "merc", 1, 0).Unit(Faction.Enemy, "merc", 2, 0)
+            .Options(new BattleOptions(CrestTier: 1)));
+        Assert.Equal(new[] { CrestSkill.Ward }, ActionRules.ReadyCrestSkills(s, s.Unit("u0"), new GridPos(0, 0)).ToArray());
+        Assert.False(ActionRules.Validate(s, s.Unit("u0"), new GridPos(0, 0), new CrestAction(CrestSkill.Rally, null)).Ok);
+    }
+
+    // ------------------------------------------------------------------ supports and the aura
+
+    [Fact]
+    public void Supports_EarnPointsNextToPartners_AndGiveBonuses()
+    {
+        var b = new TestBattle(".....", ".....").Lord(0, 0, "sword")
+            .Named("partner", Faction.Player, "merc", 0, 1, "sword")
+            .Unit(Faction.Enemy, "merc", 1, 0, "sword");
+        b.Db.Add(b.Db.Unit("lord") with { Supports = new[] { new SupportDef("partner", 10, 20, 30) } });
+        b.Options(new BattleOptions(SupportRank: (x, y) => 1));
+        var (s, tm) = Start(b);
+        var lord = s.Unit("u0");
+        Assert.Equal((5, 5, 0), s.CombatBonus(lord, lord.Pos));
+        Assert.Equal((0, 0, 0), s.CombatBonus(lord, new GridPos(3, 0)));
+        tm.Submit(new ActCommand("u0", lord.Pos, new AttackAction("u2", new WeaponAttack("sword"))));
+        Assert.Equal(1, s.SupportPoints[Supports.PairKey("lord", "partner")]);
+        Assert.Equal(1, Supports.Unlocked(s.Db, "lord", "partner", 10, 0));
+        Assert.Null(Supports.Unlocked(s.Db, "lord", "partner", 9, 0));
+        Assert.Equal("support_lord_partner_C", Supports.SceneId("partner", "lord", 1));
+    }
+
+    [Fact]
+    public void CrestAura_HelpsAlliesNearTheLord()
+    {
+        var (s, _) = Start(new TestBattle("......").Lord(0, 0, "sword").Unit(Faction.Player, "merc", 2, 0)
+            .Unit(Faction.Enemy, "merc", 5, 0).Options(new BattleOptions(CrestTier: 2)));
+        Assert.Equal((10, 10, 0), s.CombatBonus(s.Unit("u1"), new GridPos(2, 0)));
+        Assert.Equal((0, 0, 0), s.CombatBonus(s.Unit("u1"), new GridPos(3, 0)));
+        Assert.Equal((0, 0, 0), s.CombatBonus(s.Unit("u0"), new GridPos(0, 0)));
+    }
+}

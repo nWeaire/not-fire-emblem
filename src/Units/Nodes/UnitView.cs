@@ -29,11 +29,15 @@ public partial class UnitView : Node3D
     private Color _tint = Colors.White;
     private string _name = "";
     private string _title = "";
+    private string _status = "";
+    private int _hp;
+    private int _maxHp;
     private Vector3 _facing = Vector3.Back;
     private string _anim = "idle";
     private string _dir = "south";
 
     public string UnitId { get; private set; } = "";
+    public bool IsHidden { get; private set; }
 
     public static Color ColorFor(Faction faction) => faction switch
     {
@@ -166,9 +170,55 @@ public partial class UnitView : Node3D
 
     public void SetHp(int hp, int maxHp)
     {
+        _hp = hp;
+        _maxHp = maxHp;
         float ratio = maxHp > 0 ? hp / (float)maxHp : 0f;
-        _label.Text = $"{_name}\n{hp}/{maxHp}";
+        _label.Text = $"{_name}\n{hp}/{maxHp}" + (_status.Length > 0 ? $"\n{_status}" : "");
         _label.Modulate = ratio > 0.5f ? Colors.White : ratio > 0.25f ? new Color(1f, 0.85f, 0.3f) : new Color(1f, 0.4f, 0.35f);
+    }
+
+    /// <summary>A short status shown under the HP (e.g. "Stunned", "Ward").</summary>
+    public void SetStatus(string status)
+    {
+        _status = status;
+        SetHp(_hp, _maxHp);
+    }
+
+    /// <summary>Fog of war: hide units the player can't see.</summary>
+    public void SetHidden(bool hidden)
+    {
+        IsHidden = hidden;
+        Visible = !hidden;
+    }
+
+    /// <summary>A unit joined another side (Talk, story events): recolour it.</summary>
+    public void SetFaction(Faction faction)
+    {
+        _baseColor = ColorFor(faction);
+        if (_material is not null)
+            _material.AlbedoColor = _baseColor;
+    }
+
+    /// <summary>Reinforcements fade in from above.</summary>
+    public async Task Appear()
+    {
+        var end = Position;
+        Position = end + new Vector3(0f, 1.2f, 0f);
+        Scale = new Vector3(0.6f, 0.6f, 0.6f);
+        var tween = CreateTween();
+        tween.TweenProperty(this, "position", end, 0.35f).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
+        tween.Parallel().TweenProperty(this, "scale", Vector3.One, 0.35f);
+        await ToSignal(tween, Tween.SignalName.Finished);
+    }
+
+    /// <summary>The unit leaves the map alive (escaped or surrendered).</summary>
+    public async Task Leave()
+    {
+        var tween = CreateTween();
+        tween.TweenProperty(this, "scale", new Vector3(0.1f, 0.1f, 0.1f), 0.4f);
+        tween.Parallel().TweenProperty(this, "position", Position + new Vector3(0f, 0.8f, 0f), 0.4f);
+        await ToSignal(tween, Tween.SignalName.Finished);
+        QueueFree();
     }
 
     public void SetDone(bool done)

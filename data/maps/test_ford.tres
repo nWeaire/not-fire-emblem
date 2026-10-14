@@ -138,7 +138,7 @@ Ai = 0
 [resource]
 script = ExtResource("1_map")
 Id = "test_ford"
-Name = "Test Map: Brigands at the Ford"
+Name = "Skirmish: Brigands at the Ford"
 TerrainRows = PackedStringArray("MMMPPPPP~PPPPWWW", "MMPPFFPP~PPFPWTW", "MPPPFPPP~PPFFPPP", "PPPPPPPPBPPPPPPP", "PPFFPPPP~PPPMMPP", "PPFPPPPP~PPPMPPP", "PPPPPMMP~PPPPPFF", "PPPPPMPPPPPFPPPF", "PFFPPPPPPPFFPPPP", "PPFPPTPPPPPPPPPP", "PPPPPPPPFFPPPPPP", "PPPPPPPPFPPPPPPP")
 HeightRows = PackedStringArray("3221000000001333", "2210000000001313", "1100000000001111", "0000000000000000", "0000000000002100", "0000000000001000", "0000021000000000", "0000010000000000", "0000000000000000", "0000000000000000", "0000000000000000", "0000000000000000")
 Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14")])

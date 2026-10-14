@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapDefinition" load_steps=12 format=3]
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
 [ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
@@ -15,13 +15,15 @@ Ai = 0
 script = ExtResource("2_spawn")
 UnitId = "aldric"
 Level = 1
-Faction = 0
+Faction = 2
 Position = Vector2i(3, 6)
-Ai = 0
+Ai = 1
 
 [sub_resource type="Resource" id="SpawnDefinition_3"]
 script = ExtResource("2_spawn")
 ClassId = "gloam_hound"
+DominatedBy = "binder"
+SpriteId = "enemy_gloam_hound"
 Level = 1
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
@@ -31,6 +33,8 @@ Ai = 0
 [sub_resource type="Resource" id="SpawnDefinition_4"]
 script = ExtResource("2_spawn")
 ClassId = "gloam_hound"
+DominatedBy = "binder"
+SpriteId = "enemy_gloam_hound"
 Level = 1
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
@@ -40,6 +44,8 @@ Ai = 0
 [sub_resource type="Resource" id="SpawnDefinition_5"]
 script = ExtResource("2_spawn")
 ClassId = "gloam_hound"
+DominatedBy = "binder"
+SpriteId = "enemy_gloam_hound"
 Level = 1
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
@@ -49,6 +55,8 @@ Ai = 0
 [sub_resource type="Resource" id="SpawnDefinition_6"]
 script = ExtResource("2_spawn")
 ClassId = "gloam_hound"
+DominatedBy = "binder"
+SpriteId = "enemy_gloam_hound"
 Level = 1
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
@@ -58,6 +66,8 @@ Ai = 0
 [sub_resource type="Resource" id="SpawnDefinition_7"]
 script = ExtResource("2_spawn")
 ClassId = "gloam_brute"
+DominatedBy = "binder"
+SpriteId = "enemy_gloam_brute"
 Level = 2
 Inventory = PackedStringArray("gloam_claws")
 Faction = 1
@@ -67,6 +77,8 @@ Ai = 0
 [sub_resource type="Resource" id="SpawnDefinition_8"]
 script = ExtResource("2_spawn")
 ClassId = "gloam_brute"
+DominatedBy = "binder"
+SpriteId = "enemy_gloam_brute"
 Level = 2
 Inventory = PackedStringArray("gloam_claws")
 Faction = 1
@@ -75,14 +87,29 @@ Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_9"]
 script = ExtResource("2_spawn")
+ClassId = "gloam_hound"
+DominatedBy = "binder"
+SpriteId = "enemy_gloam_hound"
+Level = 1
+Inventory = PackedStringArray("gloam_fangs")
+Faction = 1
+Position = Vector2i(11, 0)
+Ai = 0
+HardOnly = true
+
+[sub_resource type="Resource" id="SpawnDefinition_10"]
+script = ExtResource("2_spawn")
 ClassId = "binder"
 Name = "The Binder"
-Level = 3
+Tag = "binder"
+SpriteId = "enemy_binder"
+Level = 2
 Inventory = PackedStringArray("shadow")
 Faction = 1
 Position = Vector2i(7, 1)
 Ai = 3
 IsBoss = true
+CrestBearer = true
 
 [resource]
 script = ExtResource("1_map")
@@ -90,4 +117,9 @@ Id = "prologue"
 Name = "Prologue: Embers at Ashford Farm"
 TerrainRows = PackedStringArray("FFFFFPFFFFPFFF", "FFPFFPPFFPPFPF", "PFPPPPPPPPPPPP", "PPPPPPPPPPPPFP", "PPPPPPPPPWWWPP", "PPWWWPPPPWTWPP", "PPWTWPPPPPPPPP", "PPPPPPPPPPPPFP", "FPPPPPPPPPPPFF", "FFPPPPPPPPPPFF")
 HeightRows = PackedStringArray("11111111111111", "00000000000000", "00000000000000", "00000000000000", "00000000000000", "01111100000000", "01111100000000", "01111100000000", "00000000000000", "00000000000000")
-Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9")])
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10")])
+Victory = "boss binder"
+Defeat = PackedStringArray("die aldric")
+Triggers = PackedStringArray("turn 1 => scene pro_tutorial_move", "turn 2 => scene pro_aldric_reveal; join aldric", "enemies 6 => scene pro_tutorial_dominion", "combat binder => scene pro_binder_battle", "defeated binder => scene pro_crest_awakens")
+Fog = false
+DeploySlots = ""

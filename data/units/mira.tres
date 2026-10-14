@@ -30,5 +30,5 @@ ClassId = "acolyte"
 Level = 1
 Bases = SubResource("StatsDefinition_1")
 Growths = SubResource("StatsDefinition_2")
-Inventory = PackedStringArray("fire")
+Inventory = PackedStringArray()
 IsLord = false

@@ -1,0 +1,132 @@
+{
+  "battle_gloam_brute": {
+    "character_id": "8b7dbc04-688c-4f8e-9aea-655613e6853a",
+    "job": "cc9b2c0c-735b-4f4f-99b6-48d5dc58f2bd",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "map_gloam_brute": {
+    "character_id": "2026ac6e-13b9-46c2-b5ef-23b4fa5fd0bc",
+    "job": "25ff37eb-75bb-42a7-ac8c-6e8489e7b2ce",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "battle_rowan": {
+    "character_id": "5eb8d2fa-9269-4968-92b8-f6fa3b432954",
+    "job": "4a63b82c-64bd-424d-a7e6-fb41edea0c33",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "map_rowan": {
+    "character_id": "cc3f5f68-665d-49f3-bd00-71690f384851",
+    "job": "c2de3533-4aed-4138-a0f4-e04d0437a922",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "battle_kai": {
+    "character_id": "42d39467-c587-4c5e-9aaf-01c081463d9c",
+    "job": "3c3ed224-510c-468e-b717-4120efedb85e",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "map_kai": {
+    "character_id": "871ef5a9-69bd-49ca-9697-b1ad6177a22d",
+    "job": "1f833a57-89d5-4384-8ce6-855e9932dfaa",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "battle_mira": {
+    "character_id": "5970379e-05fc-4ff2-a524-77f82a9e825d",
+    "job": "c60e4001-e56d-4f22-8358-8ce29b68184d",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "map_mira": {
+    "character_id": "87180fa6-c885-41fd-9b8a-0742d3c2f4bd",
+    "job": "bdf41bf3-5906-448d-8ff4-2138828fa145",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "battle_binder": {
+    "character_id": "161aff36-fadb-4623-88a2-85e3952c559c",
+    "job": "20e4c625-4af6-487c-9002-0c7fca9fcc9d",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "map_binder": {
+    "character_id": "60f8de6c-34b6-4e55-8d77-3b6d56c5dee8",
+    "job": "fbff38d7-96a2-4cd7-98a7-b3c372de644a",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "rowan_crit": {
+    "job": "b52ba734-011c-497a-9f78-349ead4eb607",
+    "group": "cc10b57c-b088-424b-b007-2a2a9aad6036",
+    "char": "battle_rowan",
+    "usage": {
+      "type": "generations",
+      "generations": 2.0
+    },
+    "done": true
+  },
+  "rowan_attack": {
+    "job": "40584b98-e4a5-44d0-b217-9899f4c97d8b",
+    "group": "1daca7ce-1007-4809-b9e9-febfd8b16994",
+    "char": "battle_rowan",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "done": true
+  },
+  "brute_attack": {
+    "job": "c76989e1-8cd3-4f10-8f08-9ff45060804a",
+    "group": "504effbe-2ab2-48e9-b275-88735b41a7c7",
+    "char": "battle_gloam_brute",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "done": true
+  },
+  "binder_cast": {
+    "job": "f7673665-289c-4d20-b391-a8d434eeba99",
+    "group": "8c06d659-aa67-4924-b8a4-d537b942a3d3",
+    "char": "battle_binder",
+    "usage": {
+      "type": "generations",
+      "generations": 2.0
+    },
+    "done": true
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "map_rowan": {
+    "character_id": "a2d083cc-21d9-4ae1-8d1e-a1236547ddb8",
+    "job": "b9c6b811-746a-4859-beec-7bc5b1efb909",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "map_brigand": {
+    "character_id": "77c2caa1-5b6a-4eca-bf5d-3946b69fe361",
+    "job": "45b6d31a-151b-472e-947d-3009eb0b9c56",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "battle_rowan": {
+    "character_id": "50b5b25f-de63-406a-b19e-ed78d3f5b0d0",
+    "job": "a27cf1ac-4658-4cf5-953c-1af151898c56",
+    "usage": {
+      "type": "generations",
+      "generations": 15.0
+    },
+    "done": true
+  },
+  "battle_brigand": {
+    "character_id": "31593d09-8a44-4e00-b7c7-97919883afed",
+    "job": "1e42338c-330c-4868-a85b-a0b01e697f42",
+    "usage": {
+      "type": "generations",
+      "generations": 15.0
+    },
+    "done": true
+  },
+  "portrait_rowan": {
+    "job": "d49c82a7-d47a-4549-b9ba-2ee35fe3a3ba",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "portrait_brigand": {
+    "job": "68afbc90-a40b-4965-b0ac-23e7391e8b50",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "vfx_slash": {
+    "job": "d76b4811-1978-46ad-81b0-98f9107acbdf",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "vfx_impact": {
+    "job": "08c31190-0d8b-4bbf-a762-1fc366ebad9f",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "tiles": {
+    "tile_id": "2bb60350-b996-47b0-8fa1-176183ad119d",
+    "job": "d7b0b7fa-5f3e-4349-a22f-03404b5fa6a0",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "rowan_crit": {
+    "job": "c9a9b529-64cf-44da-bb91-1653a9500654",
+    "group": "27ea20b5-3bfc-47bf-be15-69ddf51ea5be",
+    "char": "battle_rowan",
+    "done": true,
+    "usage": {
+      "type": "generations",
+      "generations": 3.0
+    }
+  },
+  "rowan_attack": {
+    "job": "a111c30a-44b6-4849-ba5a-78698775b952",
+    "group": "e8767fa9-435b-4a94-bf4a-d5cc798479a7",
+    "char": "battle_rowan",
+    "done": true,
+    "usage": {
+      "type": "generations",
+      "generations": 3.0
+    }
+  },
+  "brigand_crit": {
+    "job": "c1ed68f7-e5cd-4ef2-bcb1-7460c1c341c5",
+    "group": "62e7ae99-332e-4686-b6c0-031ff2d55639",
+    "char": "battle_brigand",
+    "done": true,
+    "usage": {
+      "type": "generations",
+      "generations": 4.0
+    }
+  }
+}

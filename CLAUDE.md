@@ -5,6 +5,7 @@ This file provides context, execution rules, and architectural guidelines for Cl
 See `GDD.md` for the game design and system architecture (core loop, systems, data flow, folder layout).
 See `IMPLEMENTATION.md` for the technical implementation plan and milestone build order (M0–M6).
 See `docs/NEXT_STEPS.md` first: where the last session stopped and how to resume.
+See `docs/ART_DIRECTION.md` for the approved art style (GBA look, sizes, PixelLab recipes, battle effects, crests). New art must follow it.
 See `docs/story/` for the story canon: `STORY.md` (world, crests, characters, plot), `CHAPTERS.md` (every mission's map, objectives, units and triggers) and `DIALOGUE.md` (script format, character voices, scripts). New chapters, units and dialogue must follow these.
 
 ---

@@ -1,7 +1,11 @@
 # Art Needed
 
-Everything the game currently shows as a placeholder, and where the game looks for the real file. Nothing here has
-been generated yet. Settle the art style first; the ids and paths below don't depend on it.
+Everything the game currently shows as a placeholder, and where the game looks for the real file. The art style was
+settled in session 4: generate everything here following **`docs/ART_DIRECTION.md`**. Approved samples for Rowan,
+Kai, Mira, the Gloam Brute and the Binder are in `tools/art/approved/` but are not in `assets/` yet.
+
+**Sizes changed by the art direction:** battle-screen sprites are now **64 px** (not 96), terrain tiles **16 px**
+(not 32), and battle backgrounds are 240×135 GBA-style images (the cut-in needs code to show them).
 
 **How placeholders work today**
 - **Map units** without art are capsules in the faction colour.
@@ -79,7 +83,8 @@ Folder: `assets/textures/terrain/<terrainId>[_N].png` (32 px top-down; `_N` are 
 |---|---|
 | P2 | A UI theme: panel frames, buttons, a pixel font (screens use a placeholder style in `src/UI/Nodes/UiKit.cs`) |
 | P2 | Icons: weapon types (sword, lance, axe, bow, tome, staff, fist), items (vulnerary, boosters, seals), stats |
-| P2 | Crest emblems for each tier (Unmarked → Sovereign), shown in the hub and on Rowan's HUD |
+| Done | Crest emblems: `assets/crests/rowan/t1..t4` plus 18 library lines for other bearers (session 4). Still to do: show them in the hub and on Rowan's HUD. |
+| P2 | Clean UI theme: approved panel, name plate and font are in `tools/art/approved/ui_clean/` and `fonts/` |
 | P3 | Title logo; grid cursor and selection arrow art |
 
 ## 7. Effects

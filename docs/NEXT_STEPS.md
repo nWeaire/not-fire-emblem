@@ -2,9 +2,44 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-14 (end of session 3)._
+_Last updated: 2026-10-14 (end of session 4)._
 
 ---
+
+## Session 4: art direction settled (read this first)
+
+Session 4 changed no game code. It settled the art style with the user through three review rounds of PixelLab
+samples and mockups. Everything decided is in **`docs/ART_DIRECTION.md`**, and the approved samples are in
+`tools/art/approved/`.
+
+- **Look:** GBA Fire Emblem pixel art. Characters match the two fighters painted into the approved GBA forest
+  background: small, chunky and earthy. Map sprites are 48 px and battle sprites 64 px side view.
+- **Terrain:** 16 px GBA tiles. **Battle backgrounds:** GBA level (240×135). **UI:** the Clean style (charcoal panels,
+  thin light borders) with the Pixelify Sans font.
+- **Portraits:** Rowan take #1 and brigand chief take #4 set the style.
+- **Battle drama** comes from screen effects: dim, CRITICAL! banner, lunge-to-contact, white-out, impact burst,
+  shake, hit flash, knockback and damage pop. The spec is in ART_DIRECTION §4. Hits must land at the weapon's
+  contact point on the target's body.
+- **Crests are done as assets:** `assets/crests/` holds Rowan's four tiers and an 18-motif library (4 tiers each), in
+  Radiant white and Shrouded purple. Bearer assignments are a suggestion awaiting the user's confirmation
+  (ART_DIRECTION §5).
+- **Approved samples, not yet in the game:** Rowan, Kai, Mira, Gloam Brute and Binder (map and battle) plus four
+  attack animations. The game still uses the session-2 art.
+- **Budget:** 564 PixelLab generations left this month (843 were used in session 4).
+
+### Next: the art pass (in order)
+1. **Confirm with the user:** the crest bearer list, and whether the crests are ready to use.
+2. **Pipeline:** switch `tools/art/generate.py` and `manifest.py` to the approved style. That means
+   `create-character-pro` with `approved/refs/gba_clean_fighters.png`, 48 px map and 64 px battle sprites, and the
+   "keeps facing right" animation suffix. Add sets for 16 px terrain, GBA backgrounds and portraits.
+3. **Promote the approved samples** into `assets/sprites/units|battle/` (`rowan_youth`, `kai_soldier`,
+   `mira_acolyte`, `enemy_gloam_brute`, `enemy_binder`), and add the missing animations (idle/walk/hit/dodge) to them
+   using the character ids in `approved/pixellab_state/round3_characters.json`.
+4. **Engine work:** load battle background images and handle 64 px battle sprites in `BattleSceneView`, build the
+   §4 effects there, build the Clean UI theme in `src/UI/Nodes/UiKit.cs` with the font, show the crest on Rowan's HUD
+   and in the hub, and swap in the 16 px terrain set (ART_DIRECTION §2 has the tile mapping).
+5. **Generate the rest** from `docs/ART_NEEDED.md` P1 in the new style. Budget it: about 20 gens per character
+   (map and battle) plus 1–2 per animation, 10 per portrait batch and 10 per background.
 
 ## Where things stand
 
@@ -51,13 +86,14 @@ _Last updated: 2026-10-14 (end of session 3)._
 ### Art (PixelLab)
 - **Done:** map sprites, battle sprites, 7 portraits and terrain tiles for the original cast and test enemies (session 2).
 - **Needed:** everything else; see `docs/ART_NEEDED.md`. P1 items: Aldric, Tamsin, the Gloamkin, the Binder, villagers, the missing portraits, and story backgrounds.
-- **Budget:** 1,407 generations were left at the end of session 2. Pause generation with `tools/art/STOP`.
+- **Budget:** 564 generations were left at the end of session 4. Pause generation with `tools/art/STOP`.
+- **Style:** the session-2 art is superseded by the session-4 direction in `docs/ART_DIRECTION.md`.
 
 ---
 
 ## Next development tasks (in order)
 1. **Playtest the campaign by hand** and tune balance (enemy levels, villager durability, the Ch 3 fog pace).
-2. **Art pass** once the style is settled: work through `docs/ART_NEEDED.md` P1, then switch `BattleController.MapId` (the scene default) to `prologue` if wanted.
+2. **Art pass:** the style is now settled (session 4). Follow *Next: the art pass* above, then switch `BattleController.MapId` (the scene default) to `prologue` if wanted.
 3. **More chapters** from `docs/story/CHAPTERS.md`, starting with Ch 4 (Escape with Elise), Ch 5 (Survive at Ferrow's Keep) and Ch 6 (marsh terrain, Rusk's Dominion). The systems they need already exist.
 4. **Polish backlog:** crest fragments, audio, settings, a UI theme, and suspend saves.
 
@@ -74,4 +110,6 @@ _Last updated: 2026-10-14 (end of session 3)._
 - **Python output is buffered** when redirected to a file. Use `python -u` for background runs so the log updates live.
 - **`git mv -f` after a script has already moved a file** overwrites the destination. Check `git status` before moving files by hand.
 - **Autoplay soak runs** (`--newgame --autoplay --skipdialogue --autoadvance --speed=10`) are the quickest way to catch runtime errors across the campaign. A map that can't be won prints `AUTOPLAY STUCK` and quits.
+- **PixelLab art gotchas** (a style reference with a background leaks it, "hand" draws hands, crests drift to gold badges, 8 concurrent jobs at most) are in `docs/ART_DIRECTION.md` §3.
+- **Previewing art in the real game without committing it:** back up the target files, swap the new PNGs in, run `godot --headless --path . --import`, take a `--screenshot`, restore, then import again. A unit with no `animations/idle/` falls back to `rotations/<dir>.png`.
 - **Story maps with only deploy slots** (Ch 2, Ch 3) need a roster. Battle Select gives them a default party (`BattleController.SkirmishParty`).

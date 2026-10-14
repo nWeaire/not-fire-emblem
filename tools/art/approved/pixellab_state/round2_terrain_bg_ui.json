@@ -1,0 +1,164 @@
+{
+  "t1_gba": {
+    "job": "12047b39-0ff2-4d50-b305-9e0db5b9ba87",
+    "tile_id": "aed9e194-bb3c-438a-8482-92ea66890669",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "t2_mid": {
+    "job": "2312c2e4-4cf7-4f57-b66e-e6467607cc57",
+    "tile_id": "9a4ece1b-3fb7-4b5b-86cf-463027038236",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "t3_rich": {
+    "job": "29a9a7e0-c0f0-4583-8d99-5c3d866ebd85",
+    "tile_id": "6686db58-ff69-4a8a-8b71-a8387b6f177b",
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "t4_high": {
+    "job": "540cc714-706c-439d-ba43-28ce8a53994b",
+    "tile_id": "2595d1cc-e1e6-4fe3-a4a5-5c9f2c2f98f9",
+    "usage": {
+      "type": "generations",
+      "generations": 15.0
+    },
+    "done": true
+  },
+  "b1_gba_plains": {
+    "job": "46fa78dd-b2a8-460d-b87c-e34147f0b16d",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "b1_gba_forest": {
+    "job": "e6ef3c89-ef56-4f1d-8509-be700e1bb2fb",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "b2_mid_plains": {
+    "job": "3ef508a2-48a7-4fc3-b5e8-2c57a52b4576",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "b2_mid_forest": {
+    "job": "6cff003b-56bb-406a-960d-c394bc9058b9",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "b3_high_plains": {
+    "job": "9982bddd-24e9-4b12-9fd4-917291b6bf3b",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 25.0
+    },
+    "done": true
+  },
+  "b3_high_forest": {
+    "job": "29834c95-5896-4c26-bcf8-cc12eabba157",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 25.0
+    },
+    "done": true
+  },
+  "u1_classic_panel": {
+    "job": "966c1c92-397f-4bd6-8d43-0e10bfa60a3f",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "u1_classic_plate": {
+    "job": "196a8940-e943-4ad9-9764-e12fdb89f8d8",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "u2_parchment_panel": {
+    "job": "9b0d2d96-6f65-4b1e-991a-af24ec2f479a",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "u2_parchment_plate": {
+    "job": "234c56da-9e43-45ef-b8d1-d87e715c7620",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "u3_crest_panel": {
+    "job": "b273588d-8381-4722-9346-1e153d8a5c83",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "u3_crest_plate": {
+    "job": "730b2d00-cb9c-49eb-b273-a62d96eb90e3",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "u4_clean_panel": {
+    "job": "84386e80-82f2-4854-b2ff-2244241cb246",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  },
+  "u4_clean_plate": {
+    "job": "83eaee51-db4d-42cd-8163-5b2bbe7bb110",
+    "tile_id": null,
+    "usage": {
+      "type": "generations",
+      "generations": 10.0
+    },
+    "done": true
+  }
+}

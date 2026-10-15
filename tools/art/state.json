@@ -4719,6 +4719,1330 @@
       }
     }
   },
+  "gba": {
+    "backgrounds": {},
+    "characters": {
+      "battle:aldric_warden": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "e28a1c80-3b4b-4292-81f2-ca1657959807",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "critical": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "a5324ae5-e475-4ff2-ad88-bfc854b9f49c",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 2.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "dodge": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "4758b5c2-06e7-4c92-96f8-915617a19c22",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "hit": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "aecf7c5e-688f-4580-abf0-1859481a4496",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "idle": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "6360f466-75fa-4457-bd36-e4a2f271971c",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          }
+        },
+        "character_id": "4aac16a1-be9a-4bb2-a063-0c045fe04a3b",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "battle:enemy_binder": {
+        "adopted": true,
+        "animations": {
+          "attack": {
+            "adopted": true,
+            "directions": [
+              "east"
+            ],
+            "group_id": "8c06d659-aa67-4924-b8a4-d537b942a3d3",
+            "status": "completed"
+          },
+          "critical": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "c0d5afe0-8274-478e-a06f-625145c96c1e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 2.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "dodge": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "1d5776e8-d690-42f5-b81f-6a88e74e329b",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "hit": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "398e5ce2-daf6-4d3f-975d-40d4545e935e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "idle": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "0e457082-101e-4492-b8f2-3ec2cfc893a6",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          }
+        },
+        "character_id": "161aff36-fadb-4623-88a2-85e3952c559c",
+        "status": "completed"
+      },
+      "battle:enemy_gloam_brute": {
+        "adopted": true,
+        "animations": {
+          "attack": {
+            "adopted": true,
+            "directions": [
+              "east"
+            ],
+            "group_id": "504effbe-2ab2-48e9-b275-88735b41a7c7",
+            "status": "completed"
+          },
+          "critical": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "ecf35231-6e84-49b5-9537-8803df60af46",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 2.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "dodge": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "5a89efb5-49c2-464b-9ad8-d48f1afa3b13",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "hit": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "36d8b52b-904b-4222-bd30-047414c83ffd",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "idle": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "31266906-032a-4d22-9bd4-2ee9443cb84a",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          }
+        },
+        "character_id": "8b7dbc04-688c-4f8e-9aea-655613e6853a",
+        "status": "completed"
+      },
+      "battle:enemy_gloam_hound": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "770817e0-09c6-49b7-805b-08bf62cd331e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "critical": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "89aa8ed5-99c6-4798-a1ba-7de8805bb38e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 2.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "dodge": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "1fd6f9e1-3585-48af-8068-4f34db33309b",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "hit": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "2e35e4e9-56a6-4438-897f-b77bc7a59c91",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "idle": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "3de8e2cf-3aa3-4e9c-8be3-5a8f468f7a3e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          }
+        },
+        "character_id": "499e6dbb-4c20-4399-8785-df127f7af932",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "battle:enemy_gloam_stalker": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "6a80e3ea-85b7-4d0e-a12b-2add02cf086c",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "critical": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "c6f5629d-a820-4cd1-9fbd-2c5419b90ec2",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 2.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "dodge": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "712a64ed-e509-4b1b-b71a-e616ad3b8ba0",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "hit": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "828f4831-c29d-444c-923e-4018689dd48e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "idle": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "4258746a-b0f9-46f5-b525-2f2229403bcc",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          }
+        },
+        "character_id": "70389199-994a-4eac-8a6e-ff0af8e1e6a0",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "battle:kai_soldier": {
+        "adopted": true,
+        "animations": {
+          "attack": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "e9a8f7dc-f17a-4499-8a73-3d088d8d26e9",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "critical": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "c7c847a8-a595-4c3a-8098-9e763fd447ce",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 2.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "dodge": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "51c80229-7c69-4065-9315-40e3485aaac6",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "hit": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "c68497b6-29d7-4a4b-8c85-b93550d75dd0",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "idle": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "ade532ea-a6da-414c-ad31-20d0404286b6",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          }
+        },
+        "character_id": "42d39467-c587-4c5e-9aaf-01c081463d9c",
+        "status": "completed"
+      },
+      "battle:mira_acolyte": {
+        "adopted": true,
+        "animations": {
+          "attack": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "182f5024-54a5-4b0f-891c-6fae7c8f1cad",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "critical": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "31c17f0e-c73b-4092-b3f4-662e741deb42",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 2.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "dodge": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "d0d9dbd0-fff5-40b3-8835-350c73232f2f",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "hit": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "ef45e2cb-a195-4c27-ba13-4d9da81e4cfc",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "idle": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "bb0dcb9d-3ef4-4f54-b3e0-45c319530362",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          }
+        },
+        "character_id": "5970379e-05fc-4ff2-a524-77f82a9e825d",
+        "status": "completed"
+      },
+      "battle:rowan_youth": {
+        "adopted": true,
+        "animations": {
+          "attack": {
+            "adopted": true,
+            "directions": [
+              "east"
+            ],
+            "group_id": "1daca7ce-1007-4809-b9e9-febfd8b16994",
+            "status": "completed"
+          },
+          "critical": {
+            "adopted": true,
+            "directions": [
+              "east"
+            ],
+            "group_id": "cc10b57c-b088-424b-b007-2a2a9aad6036",
+            "status": "completed"
+          },
+          "dodge": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "e6cc3eb5-7c26-47bb-be9b-d1ba0092438e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "hit": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "df11fff8-1596-450a-9990-058dd39634f0",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "idle": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "5132ce84-e63b-42e2-8dc6-4d6b23e95594",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          }
+        },
+        "character_id": "5eb8d2fa-9269-4968-92b8-f6fa3b432954",
+        "status": "completed"
+      },
+      "battle:tamsin_archer": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "62059533-47a8-4df6-abeb-1565e23ba4b2",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "critical": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "0d77f706-ef83-4351-ba3e-0d8e1ea05aac",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 2.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "dodge": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "2453985e-a899-4fd7-ab3e-65a2cf752aa6",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "hit": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "f8594a9d-a885-4cf6-8375-374821ab85c3",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "idle": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "126f9fad-97e4-4f72-8442-0eb9b10dc83e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          }
+        },
+        "character_id": "c0465ecf-5378-4332-9bfd-9c84a840ee67",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:aldric_warden": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "90f3bbbb-c55b-47fc-aa1f-af44020356cc",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "0084331f-5d5c-4f55-a81c-6e6b472b7836",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.010704183578491212
+              },
+              {
+                "type": "usd",
+                "usd": 0.012408937401241726
+              },
+              {
+                "type": "usd",
+                "usd": 0.008990611288282607
+              },
+              {
+                "type": "usd",
+                "usd": 0.009556428803337945
+              }
+            ]
+          }
+        },
+        "character_id": "09f61b53-491c-4ae0-bffc-8f5f8eab0053",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:ally_villager": {
+        "animations": {
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "e7071cbf-a007-41a1-b191-1e34e108b381",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008618980222278172
+              },
+              {
+                "type": "usd",
+                "usd": 0.01613064511617025
+              },
+              {
+                "type": "usd",
+                "usd": 0.01186801995171441
+              },
+              {
+                "type": "usd",
+                "usd": 0.00872885905371772
+              }
+            ]
+          }
+        },
+        "character_id": "0d920e25-fab4-431f-aced-64e131bca61e",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:enemy_binder": {
+        "adopted": true,
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "97f978ec-526e-406e-b3d5-6098fff7b6e2",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "4e0b4245-ad05-4ab2-9f49-8421db7b0eff",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01041575566927592
+              },
+              {
+                "type": "usd",
+                "usd": 0.010029961850908067
+              },
+              {
+                "type": "usd",
+                "usd": 0.009143641206953261
+              },
+              {
+                "type": "usd",
+                "usd": 0.010385018136766223
+              }
+            ]
+          }
+        },
+        "character_id": "60f8de6c-34b6-4e55-8d77-3b6d56c5dee8",
+        "status": "completed"
+      },
+      "map:enemy_gloam_brute": {
+        "adopted": true,
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "106e4e00-c3fb-4c23-832a-470a3f71de4d",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "19a4a998-b63a-4d68-ab37-57701d0bc764",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008928531911638048
+              },
+              {
+                "type": "usd",
+                "usd": 0.011669628673129612
+              },
+              {
+                "type": "usd",
+                "usd": 0.008856900321112738
+              },
+              {
+                "type": "usd",
+                "usd": 0.00885318480597602
+              }
+            ]
+          }
+        },
+        "character_id": "2026ac6e-13b9-46c2-b5ef-23b4fa5fd0bc",
+        "status": "completed"
+      },
+      "map:enemy_gloam_hound": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "df99294a-877c-42b7-a5da-7d57e5b10bc6",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "9aedafd8-620d-4183-88fd-f359b4f0bac7",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009143039650387236
+              },
+              {
+                "type": "usd",
+                "usd": 0.009508856667412652
+              },
+              {
+                "type": "usd",
+                "usd": 0.009328036546707153
+              },
+              {
+                "type": "usd",
+                "usd": 0.01194438428348965
+              }
+            ]
+          }
+        },
+        "character_id": "7d34819d-0a2f-4e3e-b9ac-f84b95efe57c",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:enemy_gloam_stalker": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "c2cf8bf9-2f94-42f9-af8b-684e5d5fe38b",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "bc1fe5b3-f6fb-4c8c-b5b9-d4b6a70f4102",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01279266431596544
+              },
+              {
+                "type": "usd",
+                "usd": 0.014537936396068998
+              },
+              {
+                "type": "usd",
+                "usd": 0.009283698002497356
+              },
+              {
+                "type": "usd",
+                "usd": 0.009107981390423245
+              }
+            ]
+          }
+        },
+        "character_id": "54e2f67f-f1ba-4654-8348-715657176c80",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:kai_soldier": {
+        "adopted": true,
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "6e49ee24-eda1-4ec1-bdef-8578aa367515",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "58e18bb4-b7aa-47ed-a039-2b1384092972",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008980635325113933
+              },
+              {
+                "type": "usd",
+                "usd": 0.010070282750659519
+              },
+              {
+                "type": "usd",
+                "usd": 0.008989593982696532
+              },
+              {
+                "type": "usd",
+                "usd": 0.009336846192677816
+              }
+            ]
+          }
+        },
+        "character_id": "871ef5a9-69bd-49ca-9697-b1ad6177a22d",
+        "status": "completed"
+      },
+      "map:mira_acolyte": {
+        "adopted": true,
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "c7578303-f151-4b22-8b08-b1a42f23430e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "0e60bb06-afa0-43f2-b513-dd9df3794b27",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009408515320883857
+              },
+              {
+                "type": "usd",
+                "usd": 0.010141484260559082
+              },
+              {
+                "type": "usd",
+                "usd": 0.011287862936655681
+              },
+              {
+                "type": "usd",
+                "usd": 0.00860372895664639
+              }
+            ]
+          }
+        },
+        "character_id": "87180fa6-c885-41fd-9b8a-0742d3c2f4bd",
+        "status": "completed"
+      },
+      "map:rowan_youth": {
+        "adopted": true,
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "4d5a769b-bea9-45d1-83cd-2b65a8321bf2",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "40c20e37-b8e2-4677-95be-63dc7b7a0af5",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01350286020172967
+              },
+              {
+                "type": "usd",
+                "usd": 0.009193686617745294
+              },
+              {
+                "type": "usd",
+                "usd": 0.009323690017064413
+              },
+              {
+                "type": "usd",
+                "usd": 0.01030696349673801
+              }
+            ]
+          }
+        },
+        "character_id": "cc3f5f68-665d-49f3-bd00-71690f384851",
+        "status": "completed"
+      },
+      "map:tamsin_archer": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "728b4b85-b166-4b45-ac60-1a5ebaa51d48",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "bf87d179-cac8-4bf7-b30c-ae024e998542",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.010455041646957399
+              },
+              {
+                "type": "usd",
+                "usd": 0.011854725493325127
+              },
+              {
+                "type": "usd",
+                "usd": 0.014342264784706963
+              },
+              {
+                "type": "usd",
+                "usd": 0.011114601532618205
+              }
+            ]
+          }
+        },
+        "character_id": "593c7cd3-92c4-40e6-a20e-7998cbb263a7",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      }
+    },
+    "portraits": {},
+    "tiles": {}
+  },
   "portraits": {
     "boss_brigand_chief": {
       "status": "completed",

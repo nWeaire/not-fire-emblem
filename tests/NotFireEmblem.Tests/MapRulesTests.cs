@@ -169,6 +169,22 @@ public class MapRulesTests
     }
 
     [Fact]
+    public void UnlessGuard_HoldsTheTriggerBackOnceTheUnitHasJoined()
+    {
+        var parsed = MapScript.ParseTriggers(new[] { "turn 2 enemy unless joined kai unless flag done => flag pressed" });
+        Assert.Equal(new[] { new TriggerGuard("joined", "kai"), new TriggerGuard("flag", "done") }, parsed[0].Unless);
+        Assert.Throws<FormatException>(() => MapScript.ParseTriggers(new[] { "turn 2 unless maybe => win" }));
+
+        var (s, tm) = Start(new TestBattle(".....").Lord(0, 0, "sword")
+            .Named("kai", Faction.Ally, "soldier", 1, 0, "lance")
+            .Unit(Faction.Enemy, "merc", 4, 0)
+            .Triggers("talk lord kai => join kai", "turn 1 enemy unless joined kai => flag pressed"));
+        Assert.True(tm.Submit(new ActCommand("u0", new GridPos(0, 0), new TalkAction(ByKey(s, "kai").Id))).Ok);
+        EndPhase(tm);
+        Assert.DoesNotContain("pressed", s.Flags);
+    }
+
+    [Fact]
     public void Talk_RecruitsAndPlaysTheScene()
     {
         var (s, tm) = Start(new TestBattle(".....").Lord(0, 0, "sword")

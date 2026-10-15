@@ -2,11 +2,37 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-14 (end of session 4)._
+_Last updated: 2026-10-16 (end of session 5)._
 
 ---
 
-## Session 4: art direction settled (read this first)
+## Session 5: the art pass, steps 1-4 done (read this first)
+
+- **Crest bearers confirmed** (ART_DIRECTION §5, `CrestEmblem.Bearers`). `src/UI/Nodes/CrestEmblem.cs` draws a crest
+  with its glow; Rowan's shows in the hub and on his unit panel, and enemy bearers show theirs.
+- **Pipeline switched** to the GBA style: `generate.py` commands `chars | portraits | backgrounds | tiles | download`
+  (see CLAUDE.md §5). State lives under `"gba"` in `state.json`. Session-2 art is parked in `tools/art/superseded/`.
+- **New art in the game:** 48 px map and 64 px battle sprites with animations for Rowan (youth), Kai (soldier), Mira
+  (acolyte), Aldric, Tamsin, the Gloam Brute, Hound and Stalker, and the Binder; a map sprite for the villager; the
+  16 px terrain set; `forest` and `plains` battle/story backgrounds; Pixelify Sans and Silkscreen fonts; UI panel art.
+- **Engine:** `BattleSceneView` loads background pictures, handles 64 px sprites and plays the §4 effects (dim,
+  CRITICAL!, lunge, white-out, burst, shake, flash, knockback, damage pop). The Clean UI theme is in `UiKit` and is
+  applied by the `UiThemeSetup` autoload. `StoryScreen` shows `@bg` pictures, and variants like `farm_night_smoke`
+  fall back to `farm` with a tint. Map units bob a pixel while idle. Battle idles play as a short forward-back loop.
+  `DevTools --shotevery=N` saves a screenshot every N frames.
+- **Fix:** trigger guards (`... unless joined KEY | unless flag NAME => ...`). Ch 2's "Brann pressed" no longer fires
+  after he joins.
+- **Verified:** build clean, 102 tests pass, and a full autoplay campaign completes with no errors.
+- **Budget:** 349 PixelLab generations left (as of 2026-10-16).
+
+### Next: finish the art pass
+1. `python tools/art/generate.py plan` lists what remains (~221 gens): `rowan_lord` and `brann_fighter` (map and
+   battle), 7 portraits (aldric, tamsin, wenna, binder, sennet, varga, elise; pick a take each), 7 story backgrounds
+   (farm, village, farmhouse_interior, village_hall, river_road, mill, thornwood), and the `village` tile set.
+2. `docs/ART_NEEDED.md` still describes the old sizes (96 px battle sprites); bring it in line with ART_DIRECTION.
+3. Then switch `BattleController.MapId` to `prologue` if wanted, and playtest by hand.
+
+## Session 4: art direction settled
 
 Session 4 changed no game code. It settled the art style with the user through three review rounds of PixelLab
 samples and mockups. Everything decided is in **`docs/ART_DIRECTION.md`**, and the approved samples are in
@@ -80,7 +106,6 @@ samples and mockups. Everything decided is in **`docs/ART_DIRECTION.md`**, and t
 ### Known gaps
 - **Not built:** crest fragments / crest EXP, suspend saves, a settings menu, audio playback (`@music`/`@sfx` are parsed and ignored), and story background images (`@bg` shows a tinted gradient).
 - **Autoplay** never uses Talk, so automated runs skip optional recruits. Talk is covered by unit tests.
-- **Ch 2's "Brann pressed" event** fires on turn 3 even if he has already joined.
 - **Exported builds** need `*.txt` in the export filter so `data/dialogue/` and `data/campaign/` ship.
 
 ### Art (PixelLab)

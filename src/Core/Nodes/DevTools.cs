@@ -9,6 +9,7 @@ namespace NotFireEmblem.Core;
 /// Development hooks driven by user command-line args (after "--"):
 ///   --screenshot=&lt;path&gt;     save the viewport to a PNG after --frames (default 90) frames, then quit
 ///   --frames=&lt;n&gt;            frame to capture on
+///   --shotevery=&lt;n&gt;         also save &lt;path&gt;_&lt;frame&gt;.png every n frames until then (checking animations)
 ///   --press=&lt;f:action,...&gt;   inject action presses at frames, e.g. --press=60:confirm,70:cursor_right
 ///   --speed=&lt;x&gt;             Engine.TimeScale multiplier (animations and timers run faster)
 ///   --autoplay               the AI also plays the player's side (soak tests)
@@ -25,6 +26,7 @@ public partial class DevTools : Node
 
     private string? _screenshotPath;
     private int _captureFrame = 90;
+    private int _shotEvery;
     private readonly List<(int Frame, string Action)> _presses = new();
     private int _frame;
 
@@ -42,6 +44,9 @@ public partial class DevTools : Node
             {
                 case "--screenshot":
                     _screenshotPath = parts[1];
+                    break;
+                case "--shotevery":
+                    _shotEvery = int.Parse(parts[1]);
                     break;
                 case "--frames":
                     _captureFrame = int.Parse(parts[1]);
@@ -69,6 +74,8 @@ public partial class DevTools : Node
             Input.ParseInputEvent(new InputEventAction { Action = action, Pressed = true });
             Input.ParseInputEvent(new InputEventAction { Action = action, Pressed = false });
         }
+        if (_screenshotPath is not null && _shotEvery > 0 && _frame % _shotEvery == 0 && _frame < _captureFrame)
+            GetViewport().GetTexture().GetImage().SavePng(_screenshotPath.Replace(".png", $"_{_frame:D5}.png"));
         if (_screenshotPath is not null && _frame == _captureFrame)
         {
             GetViewport().GetTexture().GetImage().SavePng(_screenshotPath);

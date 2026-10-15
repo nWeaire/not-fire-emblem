@@ -35,6 +35,7 @@ public partial class UnitView : Node3D
     private Vector3 _facing = Vector3.Back;
     private string _anim = "idle";
     private string _dir = "south";
+    private double _bobTime;
 
     public string UnitId { get; private set; } = "";
     public bool IsHidden { get; private set; }
@@ -131,6 +132,7 @@ public partial class UnitView : Node3D
     {
         if (_sprite is null)
             return;
+        Bob(delta);
         string dir = DirectionFromCamera();
         if (dir != _dir)
         {
@@ -141,6 +143,24 @@ public partial class UnitView : Node3D
             _sprite.Play($"{_anim}_{_dir}");
             _sprite.SetFrameAndProgress(frame, progress);
         }
+    }
+
+    /// <summary>
+    /// GBA map sprites step up and down a pixel while they stand. Units whose idle is a single still frame (the
+    /// rotation image) get that step in code; each unit's phase comes from its id so they don't bob in unison.
+    /// </summary>
+    private void Bob(double delta)
+    {
+        if (_anim != "idle" || _sprite!.SpriteFrames.GetFrameCount(_sprite.Animation) > 1)
+        {
+            _sprite!.Offset = _sprite.Offset with { Y = 24f - SpriteFootPadding };
+            return;
+        }
+        if (_bobTime == 0)
+            _bobTime = (UnitId.GetHashCode() & 0xFF) / 255.0;
+        _bobTime += delta;
+        bool up = (int)(_bobTime / 0.45) % 2 == 1;
+        _sprite.Offset = _sprite.Offset with { Y = 24f - SpriteFootPadding + (up ? 1f : 0f) };
     }
 
     /// <summary>Which art direction shows the unit's facing from the current camera (south = facing the camera).</summary>

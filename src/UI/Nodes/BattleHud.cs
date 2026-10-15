@@ -17,8 +17,7 @@ namespace NotFireEmblem.UI;
 /// </summary>
 public partial class BattleHud : CanvasLayer
 {
-    private static readonly Color PanelBg = new(0.08f, 0.09f, 0.13f, 0.85f);
-    private static readonly Color Accent = new(1f, 0.85f, 0.35f);
+    private static readonly Color Accent = UiKit.Accent;
 
     private Label _objective = null!;
     private PanelContainer _unitPanel = null!;
@@ -42,6 +41,7 @@ public partial class BattleHud : CanvasLayer
     private Label _resultLabel = null!;
     private VBoxContainer _resultButtons = null!;
     private Label _unitStatus = null!;
+    private HBoxContainer _unitCrest = null!;
     private PanelContainer _levelPanel = null!;
     private Label _levelText = null!;
     private VBoxContainer _toasts = null!;
@@ -65,8 +65,13 @@ public partial class BattleHud : CanvasLayer
 
         // Unit info (bottom-left)
         _unitPanel = Panel(root, Control.LayoutPreset.BottomLeft, new Vector2(16, -34));
+        var unitRow = new HBoxContainer();
+        unitRow.AddThemeConstantOverride("separation", 10);
+        _unitPanel.AddChild(unitRow);
+        _unitCrest = new HBoxContainer();
+        unitRow.AddChild(_unitCrest);
         var unitBox = new VBoxContainer();
-        _unitPanel.AddChild(unitBox);
+        unitRow.AddChild(unitBox);
         _unitTitle = new Label();
         _unitTitle.AddThemeFontSizeOverride("font_size", 20);
         unitBox.AddChild(_unitTitle);
@@ -175,12 +180,7 @@ public partial class BattleHud : CanvasLayer
     private static PanelContainer Panel(Control parent, Control.LayoutPreset preset, Vector2 offset)
     {
         var panel = new PanelContainer { MouseFilter = Control.MouseFilterEnum.Ignore };
-        panel.AddThemeStyleboxOverride("panel", new StyleBoxFlat
-        {
-            BgColor = PanelBg,
-            CornerRadiusTopLeft = 6, CornerRadiusTopRight = 6, CornerRadiusBottomLeft = 6, CornerRadiusBottomRight = 6,
-            ContentMarginLeft = 12, ContentMarginRight = 12, ContentMarginTop = 8, ContentMarginBottom = 8,
-        });
+        panel.AddThemeStyleboxOverride("panel", UiKit.PanelStyle(margin: 10));
         parent.AddChild(panel);
         panel.SetAnchorsAndOffsetsPreset(preset);
         // Grow away from the anchored edge so content never spills off-screen.
@@ -259,6 +259,14 @@ public partial class BattleHud : CanvasLayer
             status.Add(string.Join("  ", uses));
         _unitStatus.Text = string.Join("\n", status);
         _unitStatus.Visible = status.Count > 0;
+
+        foreach (var child in _unitCrest.GetChildren())
+            child.QueueFree();
+        if (unit.State.Def.Id == "rowan" && s.Options.CrestTier > 0)
+            _unitCrest.AddChild(new CrestEmblem("rowan", s.Options.CrestTier, radiant: true, size: 64));
+        else if (unit.CrestBearer && CrestEmblem.BearerCrest(unit.Name) is { } crest)
+            _unitCrest.AddChild(new CrestEmblem(crest.Motif, crest.Tier, radiant: false, size: 64));
+        _unitCrest.Visible = _unitCrest.GetChildCount() > 0;
     }
 
     public void ShowTerrain(BattleState s, GridPos p)

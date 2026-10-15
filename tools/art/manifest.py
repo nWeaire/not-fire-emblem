@@ -1,289 +1,188 @@
-"""What art to request from PixelLab, in a GBA Fire Emblem style.
+"""What art to request from PixelLab, in the approved GBA style (docs/ART_DIRECTION.md).
 
-Edit this file to add units, tweak prompts or change animations; generate.py only submits what
-is not already recorded in state.json, so re-running never pays twice for the same asset.
+Edit this file to add units, tweak prompts or change animations. generate.py only submits what is not
+already recorded in state.json (under "gba"), so re-running never pays twice for the same asset.
 """
+from pathlib import Path
 
-# ------------------------------------------------------------------ shared style
+APPROVED = Path(__file__).with_name("approved")
 
-STYLE = (
-    "in the style of Game Boy Advance Fire Emblem map sprites, 16-bit GBA era pixel art, "
-    "limited palette, clean dark outline, bold readable silhouette, slightly chibi proportions"
-)
-PORTRAIT_STYLE = (
-    "Game Boy Advance Fire Emblem dialogue portrait, anime style bust, shoulders up, three-quarter view, "
-    "16-bit GBA era pixel art, limited palette with soft cel shading, clean dark outline"
-)
-ENEMY = "red and dark brown colour scheme"
+# ------------------------------------------------------------------ characters
+# create-character-pro, create_with_style, with the cut-out GBA fighters as the style reference (ART_DIRECTION §2).
 
-SPRITE_SIZE = 48          # character body size in px (canvas is larger to leave room for motion)
-VIEW = "low top-down"     # matches the tilted tactics camera
-DIRECTIONS = ["south", "east", "north", "west"]  # the camera rotates in 90° steps, so 4 are enough
+STYLE_REF = APPROVED / "refs" / "gba_clean_fighters.png"
+CHAR_STYLE = ("small chunky 16-bit pixel art sprite like the fighters in a Game Boy Advance battle scene, muted earthy "
+              "palette, 2-3 tone flat shading per material, dark outline, low detail, bold readable silhouette")
 
-# ------------------------------------------------------------------ animations
-# kind "template": PixelLab skeleton template (cheap, humanoids only).
-# kind "v3": custom motion from text (works for any body, including mounts).
+MAP = {"size": 48, "view": "low top-down", "directions": ["south", "east", "north", "west"],
+       "out": "assets/sprites/units"}
+BATTLE = {"size": 64, "view": "side", "directions": ["east"], "out": "assets/sprites/battle"}
 
-IDLE = {"kind": "template", "template": "breathing-idle"}
-WALK = {"kind": "template", "template": "walking-4-frames"}
-HIT = {"kind": "v3", "action": "flinches backwards from a hit, then recovers", "frames": 4}
+# Battle actions must say this or about half of them spin toward the camera mid-swing.
+FACE = "keeps facing right the whole time, side view, never turns toward the camera"
 
-
-def attack(action: str, frames: int = 6) -> dict:
-    return {"kind": "v3", "action": action, "frames": frames}
-
-
-def mounted(motion: str, frames: int = 4) -> dict:
-    return {"kind": "v3", "action": motion, "frames": frames}
-
-
-SWORD = attack("steps forward and slashes a sword in a quick arc, then returns to stance")
-LANCE = attack("thrusts a lance forward in a powerful stab, then pulls back")
-AXE = attack("raises an axe overhead and chops down hard, then returns to stance")
-BOW = attack("draws the bow, aims and releases an arrow, then lowers the bow")
-FIRE = attack("raises a hand and casts a burst of fire magic from an open spellbook")
-HEAL = attack("raises a staff as soft white healing light glows from its tip")
-
-HUMANOID = {"template_id": "mannequin"}
-HORSE = {"template_id": "horse"}
-
-
-def humanoid_anims(attack_anim: dict) -> dict:
-    return {"idle": IDLE, "walk": WALK, "attack": attack_anim, "hit": HIT}
-
-
-def mount_anims(attack_anim: dict, gait: str) -> dict:
-    return {
-        "idle": mounted("idle, the mount shifts its weight and breathes, rider sits ready"),
-        "walk": mounted(gait),
-        "attack": attack_anim,
-        "hit": HIT,
-    }
-
-
-# ------------------------------------------------------------------ outfits (playable characters)
-# A playable character's look follows their CLASS: sprite id = "<unitId>_<classId>" (the game falls back
-# to "<unitId>"). The cast starts as 18-year-old country kids in plain, boring gear; every class tier
-# makes them visibly grander, ending in gold-trimmed armour and fancy robes.
-#   tier 0 = country (no armour) · 1 = first real kit · 2 = proper steel / good robes · 3 = gold trim, ornate
-# "planned": True entries are written down now but only generated when that class exists in the game.
-
-COUNTRY = "plain worn country clothes, muted earthy colours, no armour, no jewellery"
-
-OUTFITS = [
-    # --- Rowan: farm boy -> lord -> sovereign
-    dict(id="rowan_youth", tier=0, weapon="sword", body=HUMANOID,
-         desc=f"18 year old country farm boy, messy dark blue hair, freckles, homespun off-white linen shirt with rolled "
-              f"sleeves, brown leather vest, patched brown trousers, worn boots, short hunting bow on his back, "
-              f"plain iron sword, {COUNTRY}"),
-    dict(id="rowan_lord", tier=1, weapon="sword", body=HUMANOID,
-         desc="18 year old young man newly dressed as a village lord, messy dark blue hair, fitted dark blue wool "
-              "doublet with a few silver buttons, simple grey travelling cloak, leather bracers, belt with a small "
-              "crest buckle, hunting bow on his back, iron sword, modest but clearly noble"),
-    dict(id="rowan_crest_knight", tier=2, weapon="sword", body=HUMANOID, planned=True,
-         desc="young knight-lord, messy dark blue hair, steel breastplate over a dark blue tunic, short blue cape "
-              "with silver trim, steel sword, bow on his back"),
-    dict(id="rowan_high_lord", tier=3, weapon="sword", body=HUMANOID, planned=True,
-         desc="young high lord, dark blue hair, polished plate armour with gold trim, long white cape, fine longsword"),
-    dict(id="rowan_sovereign", tier=4, weapon="sword", body=HUMANOID, planned=True,
-         desc="young king, dark blue hair, radiant white and gold regal armour, flowing white cape with gold "
-              "embroidery, slim gold circlet, glowing white sigil on his hand, gleaming sword"),
-
-    # --- Kai: ranch boy with a farm spear -> knight
-    dict(id="kai_soldier", tier=0, weapon="lance", body=HUMANOID,
-         desc=f"18 year old country ranch boy, shaggy sandy blond hair, sun-tanned, cocky grin, padded cloth "
-              f"gambeson over a work shirt, rope belt, dented old iron cap, long wooden farm spear with an iron tip, {COUNTRY}"),
-    dict(id="kai_cavalier", tier=1, weapon="lance", body=HORSE,
-         desc="18 year old ranch boy riding a sturdy brown farm horse, shaggy sandy blond hair, boiled leather armour "
-              "over a work shirt, plain iron lance, simple saddle"),
-    dict(id="kai_paladin", tier=2, weapon="lance", body=HORSE, planned=True,
-         desc="young knight in steel plate armour with a blue tabard and silver trim, sandy blond hair, riding an "
-              "armoured grey warhorse, steel lance"),
-    dict(id="kai_vanguard", tier=3, weapon="lance", body=HORSE, planned=True,
-         desc="young champion knight in ornate steel plate with gold trim, plumed helm, riding a barded white "
-              "warhorse with a gold caparison, gleaming silver lance"),
-
-    # --- Mira: healer's apprentice -> sage -> oracle
-    dict(id="mira_acolyte", tier=0, weapon="staff", body=HUMANOID,
-         desc=f"18 year old village healer's apprentice girl, long blonde hair in a single braid, plain grey-green wool "
-              f"dress with a white apron, leather healer's satchel, simple wooden walking staff, {COUNTRY}"),
-    dict(id="mira_sage", tier=2, weapon="fire", body=HUMANOID, planned=True,
-         desc="young sage woman, blonde braid, white and blue robes with silver embroidery, ornate silver staff, "
-              "spell tome at her hip"),
-    dict(id="mira_oracle", tier=3, weapon="fire", body=HUMANOID, planned=True,
-         desc="young oracle, blonde hair, flowing white and gold robes, gilded staff topped with a glowing crystal, "
-              "delicate gold circlet"),
-
-    # --- Brann: village blacksmith -> warrior -> ironheart
-    dict(id="brann_fighter", tier=0, weapon="axe", body=HUMANOID,
-         desc=f"big young village blacksmith, short brown beard, soot on his face, scorched leather apron over a "
-              f"plain shirt, bare muscular arms, heavy iron wood-cutting axe, {COUNTRY}"),
-    dict(id="brann_warrior", tier=2, weapon="axe", body=HUMANOID, planned=True,
-         desc="burly warrior, brown beard, chainmail with a fur mantle, iron gauntlets, steel battleaxe"),
-    dict(id="brann_ironheart", tier=3, weapon="axe", body=HUMANOID, planned=True,
-         desc="burly smith-warrior in heavy self-forged plate armour with gold trim and rivets, huge ornate greataxe"),
-
-    # --- Elise: travelling scholar -> sage -> crestscribe
-    dict(id="elise_mage", tier=0, weapon="fire", body=HUMANOID,
-         desc="young travelling scholar woman, long auburn hair, ink-stained fingers, worn grey travelling robe, "
-              "satchel stuffed with books and scrolls, plain leather spell tome"),
-    dict(id="elise_sage", tier=2, weapon="fire", body=HUMANOID, planned=True,
-         desc="young sage, auburn hair, deep blue robes with gold embroidery, hovering spell tome"),
-    dict(id="elise_crestscribe", tier=3, weapon="fire", body=HUMANOID, planned=True,
-         desc="young crest scholar, auburn hair, ornate midnight blue and gold robes covered in glowing sigils, "
-              "floating open grimoire"),
-]
-
-ACTIVE_OUTFITS = [o for o in OUTFITS if not o.get("planned")]
-
-_MAP_ATTACK = {"sword": SWORD, "lance": LANCE, "axe": AXE, "bow": BOW, "fire": FIRE, "staff": HEAL}
-
-
-def _map_anims(outfit: dict) -> dict:
-    attack_anim = _MAP_ATTACK[outfit["weapon"]]
-    if outfit["body"] is HORSE:
-        return mount_anims(attack_anim, "the horse trots forward with the rider bobbing")
-    return humanoid_anims(attack_anim)
-
-
-# ------------------------------------------------------------------ characters (map sprites)
-# Order is priority: when the monthly budget runs short, earlier entries are generated first.
-# Keys are sprite ids: playable outfits are "<unitId>_<classId>"; generic enemies use "enemy_<classId>".
-
-ENEMIES = {
-    "enemy_fighter": {
-        "description": f"bandit brigand, red bandana, shirtless with leather straps, iron axe, {ENEMY}",
-        "body": HUMANOID, "animations": humanoid_anims(AXE),
-    },
-    "enemy_archer": {
-        "description": f"bandit archer, red hood, leather armour, wooden bow and quiver, {ENEMY}",
-        "body": HUMANOID, "animations": humanoid_anims(BOW),
-    },
-    "enemy_soldier": {
-        "description": f"foot soldier, red steel helmet, red tabard over chainmail, iron lance, {ENEMY}",
-        "body": HUMANOID, "animations": humanoid_anims(LANCE),
-    },
-    "enemy_myrmidon": {
-        "description": f"lean mercenary swordsman, spiky dark hair, red sash and light garb, curved sword, {ENEMY}",
-        "body": HUMANOID, "animations": humanoid_anims(SWORD),
-    },
-    "enemy_mage": {
-        "description": f"hedge mage, dark red hooded robe, shadowed face, glowing spellbook, {ENEMY}",
-        "body": HUMANOID, "animations": humanoid_anims(FIRE),
-    },
-    "enemy_pegasus_knight": {
-        "description": f"pegasus knight riding a white winged horse, red armour, rider holding a lance, {ENEMY}",
-        "body": HORSE, "animations": mount_anims(LANCE, "the pegasus flaps its wings and hovers forward"),
-    },
-    "boss_brigand_chief": {
-        "description": f"hulking brigand chief, horned iron helmet, red fur cape, scarred bare chest, huge battle axe, {ENEMY}",
-        "body": HUMANOID, "animations": humanoid_anims(AXE),
-    },
+MAP_WALK = {"kind": "template", "template": "walking-4-frames"}
+MAP_ATTACKS = {
+    "sword": "steps forward and slashes a sword in a quick arc, then returns to stance",
+    "lance": "thrusts a spear forward in a powerful stab, then pulls back",
+    "axe": "raises an axe overhead and chops down hard, then returns to stance",
+    "bow": "draws the bow, aims and releases an arrow, then lowers the bow",
+    "staff": "raises the staff as soft light glows from its tip",
+    "dark": "thrusts a glowing purple hand forward, releasing a burst of shadow magic",
+    "claws": "lunges forward and rakes with its claws, then recoils",
+    "spikes": "rears back and hurls a bone spike forward, then recovers",
 }
-
-CHARACTERS = {
-    **{o["id"]: {"description": o["desc"], "body": o["body"], "animations": _map_anims(o)} for o in ACTIVE_OUTFITS},
-    **ENEMIES,
-}
-
-# Animations are requested in this order across all characters, so every unit can at least walk
-# and fight before any budget goes on hit reactions.
-ANIMATION_PRIORITY = ["idle", "walk", "attack", "hit"]
-
-# ------------------------------------------------------------------ dialogue portraits
-# One portrait per character, drawn in their starting (country) look.
-
-PORTRAIT_SIZE = 96
-PORTRAITS = {
-    "rowan": "18 year old country farm boy, messy dark blue hair, freckles, earnest steady eyes, off-white linen "
-             "shirt and brown leather vest",
-    "kai": "18 year old ranch boy, shaggy sandy blond hair, sun-tanned, big cocky grin, padded cloth gambeson",
-    "mira": "18 year old village healer's apprentice girl, long blonde hair in a braid, kind but determined eyes, "
-            "grey-green wool dress with a white apron collar",
-    "osmund": "elderly former royal steward, neatly trimmed grey beard, small round spectacles, high-collared dark "
-              "green coat with brass buttons, quill tucked behind one ear, dry knowing expression",
-    "brann": "big young village blacksmith, short brown beard, soot-smudged cheerful face, scorched leather apron",
-    "elise": "young travelling scholar woman, long auburn hair, curious green eyes, worn grey travelling hood, "
-             "ink smudge on her cheek",
-    "boss_brigand_chief": "menacing brigand chief, horned iron helmet, scarred face, wild black beard, red fur cape",
-}
-
-# ------------------------------------------------------------------ terrain tiles (top faces of the 3D map blocks)
-
-TERRAIN_TILE_SIZE = 32
-TERRAIN_TILES = [
-    # (terrain id, prompt) — order matters: PixelLab returns tiles in the numbered order
-    ("plain", "lush green grass field"),
-    ("forest", "dense forest floor with small bushes and dark green undergrowth"),
-    ("mountain", "rocky brown mountain stone with cracks"),
-    ("wall", "grey castle stone brick wall top"),
-    ("fort", "packed earth courtyard floor with stone border"),
-    ("water", "clear blue river water with small ripples"),
-    ("bridge", "wooden plank bridge running north to south"),
-]
-TERRAIN_STYLE = "Game Boy Advance Fire Emblem map tile, 16-bit GBA era pixel art, limited palette, seamless top-down"
-
-# ------------------------------------------------------------------ battle sprites (side-view cut-in)
-# Full-body side-view sprites for the Fire Emblem style battle screen. Only "east" (facing right) is
-# generated: the game mirrors it for whoever stands on the right, so each animation costs one job.
-
-BATTLE_STYLE = (
-    "in the style of Game Boy Advance Fire Emblem battle animation sprites, side view, full body, "
-    "16-bit GBA era pixel art, limited palette, clean dark outline, detailed cel shading"
-)
-BATTLE_SIZE = 96
-BATTLE_VIEW = "side"
-BATTLE_DIRECTIONS = ["east"]
-
-BATTLE_IDLE = {"kind": "v3", "action": "stands in a battle-ready stance, weapon at the ready, subtle breathing", "frames": 4}
-BATTLE_DODGE = {"kind": "v3", "action": "quickly leaps backward to dodge an attack, then returns to stance", "frames": 6}
-BATTLE_HIT = {"kind": "v3", "action": "staggers backward from a heavy blow, then recovers", "frames": 4}
-
 BATTLE_ATTACKS = {
-    # weapon: (standard attack, critical attack)
-    "sword": ("dashes forward and slashes the sword in a fast arc, then hops back to stance",
-              "spins the sword overhead, blade gleaming, leaps forward and delivers a devastating double slash"),
-    "lance": ("steps forward and thrusts the lance in a powerful stab, then pulls back",
-              "twirls the lance, charges forward and drives it in a mighty, glowing piercing thrust"),
-    "axe": ("charges forward and swings the axe down in a heavy chop, then returns",
-            "hurls the axe into a spinning arc, leaps high and slams it down with a crushing overhead blow"),
+    # weapon: (standard attack, critical)
+    "axe": ("charges forward and swings the axe down in a heavy chop, then returns to stance",
+            "raises the axe high overhead, leaps forward and slams it down in a crushing blow"),
+    "sword": ("quick attack: steps forward and slashes the sword in a fast arc, then returns to stance",
+              "over-the-top critical: crouches low, sword gleams, then dashes forward in a huge lunge with a wide "
+              "sweeping slash, dramatic follow-through"),
+    "lance": ("steps forward and thrusts the spear in a powerful stab, then pulls back",
+              "twirls the spear, crouches, then lunges forward in a mighty piercing thrust with full body behind it"),
     "bow": ("draws the bow and looses an arrow forward, then lowers the bow",
-            "kneels, draws the bow to full tension with a glint, and fires a powerful glowing arrow"),
-    "fire": ("raises an open spellbook and launches a fireball forward",
-             "spellbook glows as flames swirl around the caster, then unleashes a huge roaring fire blast"),
+            "kneels, draws the bow to full tension with a glint, and fires a powerful arrow"),
     "staff": ("raises the staff and swings it forward in a light strike",
-              "raises the staff as bright holy light gathers, then strikes forward in a radiant burst"),
+              "raises the staff as bright light gathers at its tip, then strikes forward in a radiant burst"),
+    "dark": ("raises the glowing purple hand, dark energy swirls, then thrusts it forward releasing a burst of purple "
+             "magic", "dark energy swirls wildly around the caster, then a huge purple blast is hurled forward"),
+    "claws": ("rears back and swipes both clawed arms forward in a savage rake, then recovers",
+              "crouches, leaps forward and slashes both claws down in a frenzied double rake"),
+    "spikes": ("rears back and hurls a bone spike forward, then recovers",
+               "rips two bone spikes from its back and hurls them forward in a vicious double throw"),
 }
-BATTLE_PRIORITY = ["idle", "attack", "hit", "dodge", "critical"]
+BATTLE_IDLE = "stands in a battle-ready stance, weapon at the ready, subtle breathing"
+BATTLE_HIT = "staggers backward from a heavy blow, then recovers"
+BATTLE_DODGE = "quickly leans and hops backward to dodge an attack, then returns to stance"
 
-_BATTLE_WEAPON = {
-    **{o["id"]: o["weapon"] for o in ACTIVE_OUTFITS},
-    "enemy_fighter": "axe", "enemy_archer": "bow", "enemy_soldier": "lance", "enemy_myrmidon": "sword",
-    "enemy_mage": "fire", "enemy_pegasus_knight": "lance", "boss_brigand_chief": "axe",
+
+def v3(action: str, frames: int, battle: bool) -> dict:
+    return {"kind": "v3", "action": f"{action}. {FACE}" if battle else action, "frames": frames}
+
+
+def map_anims(weapon: str) -> dict:
+    if weapon == "none":  # villagers never attack
+        return {"walk": MAP_WALK}
+    return {"walk": MAP_WALK, "attack": v3(MAP_ATTACKS[weapon], 6, False)}
+
+
+def battle_anims(weapon: str) -> dict:
+    attack, crit = BATTLE_ATTACKS[weapon]
+    return {"idle": v3(BATTLE_IDLE, 4, True), "attack": v3(attack, 8, True), "critical": v3(crit, 12, True),
+            "hit": v3(BATTLE_HIT, 4, True), "dodge": v3(BATTLE_DODGE, 6, True)}
+
+
+# Order is priority. Keys are sprite ids: playable outfits are "<unitId>_<classId>"; enemies "enemy_<classId>".
+# "adopt" reuses a PixelLab character that already exists (the approved session-4 samples), so only the
+# missing animations are paid for; "done_anims" maps animation names to existing PixelLab animation groups.
+CHARACTERS = {
+    "rowan_youth": dict(weapon="sword", sets=("map", "battle"),
+        desc="18 year old farm boy hero, messy dark blue hair, off-white linen shirt, brown leather vest, brown "
+             "trousers, boots, plain iron sword",
+        adopt={"map": "cc3f5f68-665d-49f3-bd00-71690f384851", "battle": "5eb8d2fa-9269-4968-92b8-f6fa3b432954"},
+        done_anims={"battle": {"critical": "cc10b57c-b088-424b-b007-2a2a9aad6036",
+                               "attack": "1daca7ce-1007-4809-b9e9-febfd8b16994"}}),
+    "kai_soldier": dict(weapon="lance", sets=("map", "battle"),
+        desc="18 year old ranch boy, shaggy sandy blond hair, padded tan cloth gambeson, dented iron cap, long wooden "
+             "spear with an iron tip",
+        adopt={"map": "871ef5a9-69bd-49ca-9697-b1ad6177a22d", "battle": "42d39467-c587-4c5e-9aaf-01c081463d9c"}),
+    "mira_acolyte": dict(weapon="staff", sets=("map", "battle"),
+        desc="18 year old village healer girl, long blonde braid, grey-green wool dress with white apron, wooden staff",
+        adopt={"map": "87180fa6-c885-41fd-9b8a-0742d3c2f4bd", "battle": "5970379e-05fc-4ff2-a524-77f82a9e825d"}),
+    "enemy_gloam_brute": dict(weapon="claws", sets=("map", "battle"),
+        desc="hulking hunched humanoid beast from a dark fairy tale, ash-grey and violet hide, long arms with big "
+             "claws, tattered rags, small glowing pale eyes",
+        adopt={"map": "2026ac6e-13b9-46c2-b5ef-23b4fa5fd0bc", "battle": "8b7dbc04-688c-4f8e-9aea-655613e6853a"},
+        done_anims={"battle": {"attack": "504effbe-2ab2-48e9-b275-88735b41a7c7"}}),
+    "enemy_binder": dict(weapon="dark", sets=("map", "battle"),
+        desc="sinister cloaked dark mage, tattered deep purple hooded cloak, shadowed face, one hand glowing with a "
+             "purple sigil, dark tome",
+        adopt={"map": "60f8de6c-34b6-4e55-8d77-3b6d56c5dee8", "battle": "161aff36-fadb-4623-88a2-85e3952c559c"},
+        done_anims={"battle": {"attack": "8c06d659-aa67-4924-b8a4-d537b942a3d3"}}),
+    "aldric_warden": dict(weapon="sword", sets=("map", "battle"),
+        desc="gruff 50 year old swordsman, short grey-streaked dark hair and beard, black leather armour stitched "
+             "with faint silver sigils, dark grey cloak, steel sword"),
+    "tamsin_archer": dict(weapon="bow", sets=("map", "battle"),
+        desc="lean young woman forest hunter, short messy auburn hair, green hood, brown leather jerkin with a fur "
+             "collar, quiver on her back, wooden hunting bow"),
+    "enemy_gloam_hound": dict(weapon="claws", sets=("map", "battle"),
+        desc="lean feral wolf-like humanoid beast from a dark fairy tale, hunched low and fast, long snout, ash-grey "
+             "and violet fur, bony spine, small glowing pale eyes, sharp claws"),
+    "enemy_gloam_stalker": dict(weapon="spikes", sets=("map", "battle"),
+        desc="spindly tall thin humanoid beast from a dark fairy tale, ash-grey and violet hide, long thin limbs, bone "
+             "spikes growing from its back and shoulders, small glowing pale eyes"),
+    "rowan_lord": dict(weapon="sword", sets=("map", "battle"),
+        desc="18 year old young lord, messy dark blue hair, fitted dark blue wool doublet with a few silver buttons, "
+             "short grey travelling cloak, leather bracers, brown trousers, boots, plain iron sword"),
+    "brann_fighter": dict(weapon="axe", sets=("map", "battle"),
+        desc="big burly young village blacksmith, short brown beard, scorched leather apron over a plain shirt, bare "
+             "muscular arms, heavy iron wood-cutting axe"),
+    "ally_villager": dict(weapon="none", sets=("map",),
+        desc="plain village farmer man, brown hair, beige linen shirt, green wool vest, brown trousers, no weapon"),
 }
 
-
-def _battle_anims(weapon: str) -> dict:
-    attack_text, crit_text = BATTLE_ATTACKS[weapon]
-    return {
-        "idle": BATTLE_IDLE,
-        "attack": {"kind": "v3", "action": attack_text, "frames": 8},
-        "critical": {"kind": "v3", "action": crit_text, "frames": 12},
-        "dodge": BATTLE_DODGE,
-        "hit": BATTLE_HIT,
-    }
-
-
-BATTLE_CHARACTERS = {
-    sid: {"description": CHARACTERS[sid]["description"], "body": CHARACTERS[sid]["body"], "animations": _battle_anims(w)}
-    for sid, w in _BATTLE_WEAPON.items()
+# Tier 2+ outfits for later (ART_NEEDED P2). Not generated until moved into CHARACTERS.
+PLANNED = {
+    "rowan_crest_knight": "young knight-lord, messy dark blue hair, steel breastplate over a dark blue tunic, short "
+                          "blue cape with silver trim, steel sword",
+    "aldric_warden_lord": "grizzled 50 year old lord-knight, grey-streaked beard, black leather armour with silver "
+                          "plates and sigils, long black cloak, steel greatsword",
+    "tamsin_sniper": "young woman sniper, auburn hair, dark green hooded cloak, leather armour, longbow",
+    "brann_warrior": "burly warrior, brown beard, chainmail with a fur mantle, iron gauntlets, steel battleaxe",
+    "kai_paladin": "young knight in steel plate with a blue tabard, sandy blond hair, riding an armoured grey horse",
+    "mira_sage": "young sage woman, blonde braid, white and blue robes with silver embroidery, ornate silver staff",
 }
 
-# ------------------------------------------------------------------ art sets (generate.py --set)
+# ------------------------------------------------------------------ portraits (generate-image-v2, 4 takes at 96 px)
 
-SETS = {
-    "map": {"specs": CHARACTERS, "size": SPRITE_SIZE, "view": VIEW, "directions": DIRECTIONS,
-            "priority": ANIMATION_PRIORITY, "style": STYLE, "out": "assets/sprites/units", "state_key": "characters"},
-    "battle": {"specs": BATTLE_CHARACTERS, "size": BATTLE_SIZE, "view": BATTLE_VIEW, "directions": BATTLE_DIRECTIONS,
-               "priority": BATTLE_PRIORITY, "style": BATTLE_STYLE, "out": "assets/sprites/battle", "state_key": "battle"},
+PORTRAIT_STYLE = ("Game Boy Advance Fire Emblem dialogue portrait, anime bust shoulders up, facing left in "
+                  "three-quarter view, 16-bit GBA pixel art, about 16 colours, hard cel shading, bold dark outline, "
+                  "no gradients, like Fire Emblem: The Blazing Blade")
+PORTRAITS = {
+    "aldric": "gruff 50 year old man, short grey-streaked dark hair, short grey-streaked beard, weathered stern face, "
+              "black leather armour collar with faint silver stitched sigils, dark grey cloak",
+    "tamsin": "sardonic young woman hunter, short messy auburn hair, sharp green eyes, green hood down, brown leather "
+              "jerkin with a fur collar",
+    "wenna": "kindly but shrewd old village elder woman, white hair in a bun, wrinkled face, plain brown shawl over "
+             "a green wool dress",
+    "binder": "sinister hooded dark mage, deep purple hooded cloak, face mostly in shadow, pale chin, glowing purple "
+              "eyes",
+    "sennet": "cold thin middle-aged man, gaunt face, slicked black hair, deep purple high-collared coat, faint "
+              "purple glow of a thorny sigil at his throat",
+    "varga": "fierce scarred woman with a shaved head, tattoos, dark purple leather armour, cruel grin",
+    "elise": "young travelling scholar woman, long auburn hair, curious green eyes, worn grey travelling hood, plain "
+             "grey travelling cloak, ink smudge on her cheek",
+}
+
+# ------------------------------------------------------------------ backgrounds (generate-image-v2, 240x135)
+# One image per location: the Story screen tints it for the time of day (farm_evening, farm_night, ...), and the
+# battle screen uses the same images behind the fighters. No people, ground in the lower half.
+
+BG_STYLE = ("Game Boy Advance Fire Emblem battle background, 16-bit GBA pixel art, flat simple shading, no people, "
+            "no characters")
+BG_SIZE = (240, 135)
+BACKGROUNDS = {
+    "farm": "a small farmstead in the countryside, wooden farmhouse with a thatched roof, fence and haystacks, "
+            "fields and a dark treeline behind, open dirt yard in the lower half",
+    "village": "a small medieval village square, timber and thatch cottages, stone well, little chapel, cobbled "
+               "ground in the lower half",
+    "farmhouse_interior": "inside a humble farmhouse, wooden beams, stone hearth with a fire, wooden table, "
+                          "plank floor in the lower half",
+    "village_hall": "inside a village hall, long wooden tables, banners, timber pillars, plank floor in the lower half",
+    "river_road": "a dirt road beside a river with a wooden bridge, grassy banks, distant hills, road in the lower half",
+    "mill": "a riverside watermill with a big wooden wheel, stone millhouse, grassy ground in the lower half",
+    "thornwood": "a dark thorny old forest, twisted trees, brambles, mist, mossy ground in the lower half",
+}
+
+# ------------------------------------------------------------------ terrain (create-tiles-pro, 16 px)
+# Extra tiles beyond the approved set (approved/terrain_gba16). Mapping of the 16 results is chosen by hand.
+
+TILE_STYLE = ("Game Boy Advance Fire Emblem map tile, flat bright colours, very limited palette, simple shapes, "
+              "seamless top-down")
+TILESETS = {
+    "village": [("fire", "burning house roof with orange flames"),
+                ("house", "red tiled cottage roof"),
+                ("chapel", "grey slate chapel roof"),
+                ("cliff", "brown earth cliff face with stones")],
 }

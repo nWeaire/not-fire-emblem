@@ -25,6 +25,7 @@ public partial class HubScreen : Control
     private Label _status = null!;
     private Label _osmund = null!;
     private Label _header = null!;
+    private HBoxContainer _crestRow = null!;
     private HBoxContainer _tabs = null!;
 
     public override void _Ready()
@@ -65,6 +66,9 @@ public partial class HubScreen : Control
         _osmund.AutowrapMode = TextServer.AutowrapMode.WordSmart;
         _osmund.CustomMinimumSize = new Vector2(250, 0);
         left.AddChild(_osmund);
+        _crestRow = new HBoxContainer();
+        _crestRow.AddThemeConstantOverride("separation", 12);
+        left.AddChild(_crestRow);
         _header = UiKit.Label("", 15, UiKit.Muted);
         _header.AutowrapMode = TextServer.AutowrapMode.WordSmart;
         _header.CustomMinimumSize = new Vector2(250, 0);
@@ -102,7 +106,14 @@ public partial class HubScreen : Control
 
     private void Refresh()
     {
-        _header.Text = $"{S.ChapterTitle}\nGold: {S.Gold}\nCrest: {CrestName(S.CrestTier)}\nConvoy: {S.Convoy.Count}/{GameSession.ConvoyCapacity}\n{S.Mode} · {S.Difficulty}";
+        foreach (var child in _crestRow.GetChildren())
+            child.QueueFree();
+        if (S.CrestTier > 0)
+            _crestRow.AddChild(new CrestEmblem("rowan", S.CrestTier, radiant: true, size: 72));
+        var crestLabel = UiKit.Label(CrestName(S.CrestTier), 18, S.CrestTier > 0 ? UiKit.Text : UiKit.Muted);
+        crestLabel.SizeFlagsVertical = SizeFlags.ShrinkCenter;
+        _crestRow.AddChild(crestLabel);
+        _header.Text = $"{S.ChapterTitle}\nGold: {S.Gold}\nConvoy: {S.Convoy.Count}/{GameSession.ConvoyCapacity}\n{S.Mode} · {S.Difficulty}";
         _osmund.Text = OsmundLine();
         foreach (var child in _tabs.GetChildren())
             child.QueueFree();

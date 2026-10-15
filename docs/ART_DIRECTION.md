@@ -116,7 +116,9 @@ Effect sprites: `approved/vfx/` (impact burst, cut streak, claw rake).
 - **Library:** 18 lines × 4 tiers in `assets/crests/<motif>/t<N>_{radiant,shrouded}.png`. The motifs are horns,
   thorns, feathers, flames, crescent, serpent, star, sword, tree, claws, antlers, spire, rose, lightning, sun, fins,
   skull and eye. Sources are in `tools/art/approved/crests/`; rebuild with `python tools/art/crest_recolor.py --build`.
-- **Suggested bearers** (first pass, not yet confirmed by the user): the Binder serpent (t1), Sennet thorns (t1),
+- **Bearers** (accepted in session 5; in code as `CrestEmblem.Bearers`): the Binder serpent (t1), Sennet thorns (t1),
   Varga tree (t1), Rusk claws (t1), Halvric sword (t2), Castellan rose (t3), Vossk skull (t3), Ilse flames (t3),
   Morvane eye (t4).
+- **In game:** `src/UI/Nodes/CrestEmblem.cs` draws a crest with its pulsing glow. Rowan's (radiant) shows in the hub
+  and on his unit panel; an enemy crest-bearer's (shrouded) shows on theirs.
 - Glow is a runtime effect (an additive blurred copy that can pulse), not baked into the PNGs.

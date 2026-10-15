@@ -167,6 +167,6 @@ HeightRows = PackedStringArray("000011000000000000", "000000000000000000", "0000
 Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15")])
 Victory = "seize 16,2"
 Defeat = PackedStringArray()
-Triggers = PackedStringArray("talk rowan brann => scene ch02_brann; join brann", "turn 3 enemy => scene ch02_brann_pressed; damage brann 5", "turn 3 => spawn ambush", "combat gorran => scene ch02_boss", "visit 8,8 => scene ch02_house_a; give actor vulnerary", "visit 10,1 => scene ch02_house_b; gold 600; give actor energy_drop")
+Triggers = PackedStringArray("talk rowan brann => scene ch02_brann; join brann", "turn 3 enemy unless joined brann => scene ch02_brann_pressed; damage brann 5", "turn 3 => spawn ambush", "combat gorran => scene ch02_boss", "visit 8,8 => scene ch02_house_a; give actor vulnerary", "visit 10,1 => scene ch02_house_b; gold 600; give actor energy_drop")
 Fog = false
 DeploySlots = "0,8 1,8 0,9 1,9 0,10 1,10"

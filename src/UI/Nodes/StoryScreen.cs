@@ -5,12 +5,12 @@ using NotFireEmblem.Core;
 namespace NotFireEmblem.UI;
 
 /// <summary>
-/// Plays a full-screen story scene: placeholder backdrop (named after the scene's @bg id until background art
-/// exists), the chapter title, and the dialogue box. Also shows the end card.
+/// Plays a full-screen story scene: the @bg background picture (assets/backgrounds/), the chapter title, and the
+/// dialogue box. Also shows the end card.
 /// </summary>
 public partial class StoryScreen : Control
 {
-    private TextureRect _backdrop = null!;
+    private Control _backdrop = null!;
     private Label _bgName = null!;
     private Label _chapter = null!;
     private DialogueBox _dialogue = null!;
@@ -54,18 +54,66 @@ public partial class StoryScreen : Control
         }
     }
 
-    /// <summary>Placeholder backgrounds: a gradient tinted from the background id.</summary>
+    /// <summary>
+    /// Shows assets/backgrounds/&lt;id&gt;.png. Variants without their own picture reuse the location's picture with a
+    /// time-of-day tint: "farm_night_smoke" falls back to "farm_night", then "farm", tinted for night with a smoke
+    /// haze. Ids with no picture at all get a gradient tinted from the id.
+    /// </summary>
     private void SetBackground(string id)
     {
-        var tint = UiKit.HashColor(id, 0.35f, 0.35f);
-        if (id.Contains("night") || id.Contains("smoke"))
-            tint = tint.Darkened(0.5f);
+        Control next;
+        var (baseId, tint, haze) = ResolveBackground(id);
+        if (baseId is not null && UiKit.Picture(baseId) is { } picture)
+        {
+            picture.Modulate = tint;
+            next = picture;
+            if (haze.A > 0f)
+                picture.AddChild(UiKit.Fill(new ColorRect { Color = haze, MouseFilter = MouseFilterEnum.Ignore }));
+            _bgName.Text = "";
+        }
+        else
+        {
+            var color = UiKit.HashColor(id, 0.35f, 0.35f);
+            if (id.Contains("night") || id.Contains("smoke"))
+                color = color.Darkened(0.5f);
+            next = UiKit.Backdrop(color.Lightened(0.15f), color.Darkened(0.6f));
+            _bgName.Text = $"[background: {id}]";
+        }
         RemoveChild(_backdrop);
         _backdrop.QueueFree();
-        _backdrop = UiKit.Backdrop(tint.Lightened(0.15f), tint.Darkened(0.6f));
+        _backdrop = next;
         AddChild(_backdrop);
         MoveChild(_backdrop, 0);
-        _bgName.Text = $"[background: {id}]";
+    }
+
+    /// <summary>The picture to use for a background id, its tint and a haze colour laid over it.</summary>
+    public static (string? BaseId, Color Tint, Color Haze) ResolveBackground(string id)
+    {
+        var tint = Colors.White;
+        var haze = new Color(0, 0, 0, 0);
+        foreach (var word in id.Split('_'))
+        {
+            switch (word)
+            {
+                case "evening": tint *= new Color(1f, 0.8f, 0.62f); break;
+                case "dusk": tint *= new Color(0.92f, 0.7f, 0.66f); break;
+                case "night": tint *= new Color(0.4f, 0.44f, 0.72f); break;
+                case "dawn": tint *= new Color(1f, 0.86f, 0.8f); break;
+                case "morning": tint *= new Color(1f, 0.98f, 0.9f); break;
+                case "smoke": haze = new Color(0.35f, 0.2f, 0.18f, 0.35f); break;
+                case "burning": tint *= new Color(1f, 0.62f, 0.45f); haze = new Color(0.8f, 0.25f, 0.05f, 0.18f); break;
+            }
+        }
+        string candidate = id;
+        while (true)
+        {
+            if (UiKit.Background(candidate) is not null)
+                return (candidate, tint, haze);
+            int cut = candidate.LastIndexOf('_');
+            if (cut <= 0)
+                return (null, tint, haze);
+            candidate = candidate[..cut];
+        }
     }
 
     private void ShowEnd(string text)

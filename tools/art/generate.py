@@ -1,24 +1,23 @@
-"""Requests the game's art from PixelLab and downloads it into assets/.
+"""Requests the game's art from PixelLab in the approved GBA style (docs/ART_DIRECTION.md) and downloads it.
 
 Usage (from the repo root):
-    python tools/art/generate.py balance              # check the token and remaining credits
-    python tools/art/generate.py plan                 # list what would be requested (no spending)
-    python tools/art/generate.py download             # fetch finished art only; never submits (or spends) anything
-    python tools/art/generate.py run --pilot          # one character with all its animations, to check the style
-    python tools/art/generate.py run                  # everything not yet generated
-    python tools/art/generate.py run --only rowan kai # just these sprite ids (characters/portraits)
-    python tools/art/generate.py run --skip-animations / --skip-portraits / --skip-tiles
-    python tools/art/generate.py run --reserve 100    # stop submitting when fewer generations remain (default 50)
-    python tools/art/generate.py run --set battle     # side-view battle-screen sprites instead of map sprites
+    python tools/art/generate.py balance                       # token check and generations left
+    python tools/art/generate.py plan                          # what would be requested and roughly what it costs
+    python tools/art/generate.py chars [--only ID ...] [--set map|battle] [--no-anims]
+    python tools/art/generate.py portraits [--only ID ...]     # 4 takes each into tools/art/takes/portraits/
+    python tools/art/generate.py backgrounds [--only ID ...]   # assets/backgrounds/<id>.png
+    python tools/art/generate.py tiles [--only SET ...]        # 16 tiles each into tools/art/takes/tiles/<set>/
+    python tools/art/generate.py download [--only ID ...]      # re-fetch finished characters; never spends
 
-Create an empty tools/art/STOP file to stop new runs from starting (e.g. to pause a queued batch).
-
-Progress is recorded in tools/art/state.json after every step, so an interrupted run resumes
-without re-submitting (and re-paying for) anything that was already requested.
+Every request is recorded in tools/art/state.json under "gba" as soon as it is submitted, so an interrupted run
+resumes without paying again. Create tools/art/STOP to stop new submissions. --reserve N (default 50) stops
+submitting when fewer generations remain.
 """
 from __future__ import annotations
 
 import argparse
+import base64
+import io
 import json
 import os
 import sys
@@ -29,19 +28,20 @@ import manifest as M
 from pixellab_client import REPO_ROOT, PixelLab, PixelLabError, RateLimited, save_base64_image
 
 STATE_PATH = Path(__file__).with_name("state.json")
-# The active art set (manifest.SETS[...]); chosen by --set in main().
-S: dict = M.SETS["map"]
-PORTRAITS = REPO_ROOT / "assets" / "portraits"
-TILES = REPO_ROOT / "assets" / "textures" / "terrain"
-PILOT = "rowan"
+STOP = Path(__file__).with_name("STOP")
+TAKES = Path(__file__).with_name("takes")
+SETS = {"map": M.MAP, "battle": M.BATTLE}
+MAX_JOBS = 8  # PixelLab Tier 1 concurrency
 
 
 # ------------------------------------------------------------------ state
 
 def load_state() -> dict:
-    if STATE_PATH.exists():
-        return json.loads(STATE_PATH.read_text(encoding="utf-8"))
-    return {"characters": {}, "portraits": {}, "tiles": {}}
+    state = json.loads(STATE_PATH.read_text(encoding="utf-8")) if STATE_PATH.exists() else {}
+    state.setdefault("gba", {})
+    for key in ("characters", "portraits", "backgrounds", "tiles"):
+        state["gba"].setdefault(key, {})
+    return state
 
 
 def save_state(state: dict) -> None:
@@ -60,329 +60,360 @@ def save_state(state: dict) -> None:
             time.sleep(1 + attempt)
 
 
-# ------------------------------------------------------------------ request bodies
-
-def character_name(sprite_id: str) -> str:
-    return sprite_id if S is M.SETS["map"] else f"{sprite_id}_battle"
+def b64(path: Path) -> str:
+    return base64.b64encode(path.read_bytes()).decode()
 
 
-def find_existing_character(client: PixelLab, name: str) -> str | None:
-    """A character created on PixelLab but never recorded (e.g. a crash before the state was saved)."""
-    listing = client.get("/characters?limit=100")
-    items = listing.get("characters", []) if isinstance(listing, dict) else listing
-    for item in items:
-        if item.get("name") == name and item.get("status") != "failed":
-            return item.get("id")
-    return None
+def image_size(path: Path) -> dict:
+    from PIL import Image
+    with Image.open(path) as im:
+        return {"width": im.width, "height": im.height}
 
 
-def character_body(sprite_id: str, spec: dict) -> dict:
-    return {
-        "description": f"{spec['description']}, {S['style']}",
-        "name": character_name(sprite_id),
-        "image_size": {"width": S["size"], "height": S["size"]},
-        "view": S["view"],
-        "template_id": spec["body"]["template_id"],
-        "no_background": True,
-        "outline": "single color black outline",
-        "detail": "medium detail",
-    }
+# ------------------------------------------------------------------ job runner
+
+class Runner:
+    """Submits jobs, keeping at most MAX_JOBS in flight, and waits for them. Each job has an on_done callback."""
+
+    def __init__(self, client: PixelLab, state: dict, args):
+        self.client, self.state, self.args = client, state, args
+        self.running: list[tuple[str, callable]] = []  # (job id, on_done(job))
+
+    def check_budget(self, what: str) -> None:
+        if STOP.exists():
+            raise SystemExit(f"{STOP.name} present; stopping before {what}")
+        bal = self.client.balance()
+        left = (bal.get("subscription") or {}).get("generations") or 0
+        if (bal.get("credits") or {}).get("usd", 0) <= 0 and left < self.args.reserve:
+            raise SystemExit(f"stopping before {what}: {left:.0f} generations left (reserve {self.args.reserve})")
+
+    def submit(self, what: str, endpoint: str, body: dict) -> dict:
+        self.check_budget(what)
+        while True:
+            if len(self.running) >= MAX_JOBS:
+                self.wait_oldest()
+            try:
+                response = self.client.post(endpoint, body)
+                print(f"submitted {what}")
+                return response
+            except RateLimited:
+                if not self.running:
+                    time.sleep(20)
+                else:
+                    self.wait_oldest()
+
+    def track(self, job_id: str, on_done) -> None:
+        self.running.append((job_id, on_done))
+
+    def wait_oldest(self) -> None:
+        job_id, on_done = self.running.pop(0)
+        try:
+            job = self.client.wait_for_job(job_id, poll_seconds=6)
+        except PixelLabError as e:
+            if "-> 404" not in str(e):
+                print(f"  ! job {job_id}: {e}")
+                on_done(None)
+                save_state(self.state)
+                return
+            job = {"status": "expired"}
+        on_done(job)
+        save_state(self.state)
+
+    def drain(self) -> None:
+        while self.running:
+            self.wait_oldest()
 
 
-def animation_body(character_id: str, name: str, anim: dict, directions: list[str], group_id: str | None) -> dict:
-    body = {"character_id": character_id, "animation_name": name, "directions": directions}
-    if group_id:
-        body["animation_group_id"] = group_id
-    if anim["kind"] == "template":
-        body.update(mode="template", template_animation_id=anim["template"])
-    else:
-        body.update(mode="v3", action_description=anim["action"], frame_count=anim["frames"])
-    return body
+# ------------------------------------------------------------------ characters
+
+def char_key(set_name: str, sid: str) -> str:
+    return f"{set_name}:{sid}"
+
+
+def run_characters(r: Runner, ids: list[str], sets: list[str], anims: bool) -> None:
+    chars = r.state["gba"]["characters"]
+    ref = {"type": "base64", "base64": b64(M.STYLE_REF), "format": "png"}
+
+    # 1. Characters (adopted or created).
+    for sid in ids:
+        spec = M.CHARACTERS[sid]
+        for set_name in sets:
+            if set_name not in spec["sets"]:
+                continue
+            key = char_key(set_name, sid)
+            entry = chars.setdefault(key, {})
+            if "character_id" in entry:
+                continue
+            adopt = spec.get("adopt", {}).get(set_name)
+            if adopt:
+                entry.update(character_id=adopt, status="completed", adopted=True)
+                for name, group in spec.get("done_anims", {}).get(set_name, {}).items():
+                    entry.setdefault("animations", {})[name] = {"group_id": group, "status": "completed",
+                                                                "adopted": True, "directions": ["east"]}
+                save_state(r.state)
+                continue
+            s = SETS[set_name]
+            response = r.submit(f"{key} character", "/create-character-pro", {
+                "description": f"{spec['desc']}. {M.CHAR_STYLE}",
+                "image_size": {"width": s["size"], "height": s["size"]}, "method": "create_with_style",
+                "view": s["view"], "template_id": spec.get("template", "mannequin"), "reference_image": ref,
+                "style_description": M.CHAR_STYLE, "no_background": True})
+            entry.update(character_id=response["character_id"], status="processing", usage=response.get("usage"))
+            save_state(r.state)
+
+            def done(job, entry=entry, key=key):
+                entry["status"] = "completed" if job else "failed"
+                if job:
+                    entry["usage"] = job.get("usage") or entry.get("usage")
+                print(f"  {key}: {entry['status']} {entry.get('usage')}")
+            r.track(response["background_job_id"], done)
+    r.drain()
+
+    # 2. Animations, east-facing first across everyone so each unit can fight before extras are bought.
+    if anims:
+        for sid in ids:
+            spec = M.CHARACTERS[sid]
+            for set_name in sets:
+                if set_name not in spec["sets"]:
+                    continue
+                entry = chars.get(char_key(set_name, sid), {})
+                if entry.get("status") != "completed":
+                    print(f"  {sid} {set_name}: character not ready; skipping animations")
+                    continue
+                wanted = M.map_anims(spec["weapon"]) if set_name == "map" else M.battle_anims(spec["weapon"])
+                for name, anim in wanted.items():
+                    request_animation(r, entry, f"{char_key(set_name, sid)}/{name}", name, anim,
+                                      SETS[set_name]["directions"])
+        r.drain()
+
+    # 3. Download.
+    for sid in ids:
+        for set_name in sets:
+            entry = chars.get(char_key(set_name, sid))
+            if entry and entry.get("status") == "completed":
+                download_character(r.client, set_name, sid, entry)
+
+
+def request_animation(r: Runner, entry: dict, what: str, name: str, anim: dict, directions: list[str]) -> None:
+    a = entry.setdefault("animations", {}).setdefault(name, {"directions": [], "jobs": {}})
+    missing = [d for d in directions if d not in a.get("directions", [])]
+    for direction in missing:
+        body = {"character_id": entry["character_id"], "animation_name": name, "directions": [direction]}
+        if a.get("group_id"):
+            body["animation_group_id"] = a["group_id"]
+        if anim["kind"] == "template":
+            body.update(mode="template", template_animation_id=anim["template"])
+        else:
+            body.update(mode="v3", action_description=anim["action"], frame_count=anim["frames"])
+        try:
+            response = r.submit(f"{what} {direction}", "/characters/animations", body)
+        except PixelLabError as e:
+            print(f"  ! {what} {direction}: {e}")
+            continue
+        a["group_id"] = a.get("group_id") or response.get("animation_group_id")
+        a.setdefault("directions", []).append(direction)
+        a["status"] = "processing"
+        save_state(r.state)
+
+        def done(job, a=a, direction=direction, what=what):
+            if job is None:
+                a["directions"].remove(direction)  # failed: ask again next run
+                a["status"] = "partial"
+                return
+            a.setdefault("usage", []).append(job.get("usage"))
+            a["status"] = "completed"
+            print(f"  {what} {direction}: done {job.get('usage')}")
+        r.track(response["background_job_ids"][0], done)
+
+
+def download_character(client: PixelLab, set_name: str, sid: str, entry: dict) -> None:
+    s = SETS[set_name]
+    out = REPO_ROOT / s["out"] / sid
+    detail = client.get(f"/characters/{entry['character_id']}")
+    for direction, url in (detail.get("rotation_urls") or {}).items():
+        if url and direction in s["directions"]:
+            client.download(url, out / "rotations" / f"{direction}.png")
+    names = {a.get("group_id"): n for n, a in entry.get("animations", {}).items()}
+    for group in detail.get("animations", []):
+        name = names.get(group.get("animation_group_id"))
+        if not name:
+            continue
+        for d in group.get("directions", []):
+            if d["direction"] not in s["directions"]:
+                continue
+            for i, url in enumerate(d.get("frames", [])):
+                for attempt in range(4):
+                    try:
+                        client.download(url, out / "animations" / name / d["direction"] / f"frame_{i:03d}.png")
+                        break
+                    except Exception as e:  # storage sometimes answers 525; the asset is fine
+                        if attempt == 3:
+                            raise
+                        print(f"    retry download ({e})")
+                        time.sleep(3)
+    print(f"  downloaded {set_name}:{sid} -> {out.relative_to(REPO_ROOT)}")
+
+
+# ------------------------------------------------------------------ images (portraits, backgrounds)
+
+def save_images(job: dict, dests: list[Path]) -> int:
+    lr = job.get("last_response") or {}
+    images = lr.get("images") or ([lr["image"]] if lr.get("image") else [])
+    for img, dest in zip(images, dests):
+        save_base64_image(img if isinstance(img, dict) else {"base64": img}, dest)
+    return len(images)
+
+
+def run_portraits(r: Runner, ids: list[str]) -> None:
+    done_map = r.state["gba"]["portraits"]
+    style = M.APPROVED / "portraits" / "rowan.png"
+    for pid in ids:
+        if done_map.get(pid, {}).get("status") == "completed":
+            continue
+        response = r.submit(f"portrait {pid}", "/generate-image-v2", {
+            "description": f"{M.PORTRAITS[pid]}. {M.PORTRAIT_STYLE}", "image_size": {"width": 96, "height": 96},
+            "no_background": True, "target_palette": {"max_colors": 20},
+            "style_image": {"image": {"type": "base64", "base64": b64(style)}, "size": image_size(style)},
+            "style_options": {"color_palette": False, "outline": True, "detail": True, "shading": True}})
+        done_map[pid] = {"status": "processing"}
+        save_state(r.state)
+
+        def done(job, pid=pid):
+            if not job or job.get("status") != "completed":
+                done_map[pid] = {"status": "failed"}
+                return
+            n = save_images(job, [TAKES / "portraits" / f"{pid}_{i}.png" for i in range(9)])
+            done_map[pid] = {"status": "completed", "usage": job.get("usage"), "takes": n}
+            print(f"  portrait {pid}: {n} takes {job.get('usage')}")
+        r.track(response["background_job_id"], done)
+    r.drain()
+
+
+def run_backgrounds(r: Runner, ids: list[str]) -> None:
+    done_map = r.state["gba"]["backgrounds"]
+    style = M.APPROVED / "battle_bg" / "forest_gba_clean.png"
+    w, h = M.BG_SIZE
+    for bid in ids:
+        if done_map.get(bid, {}).get("status") == "completed":
+            continue
+        response = r.submit(f"background {bid}", "/generate-image-v2", {
+            "description": f"{M.BACKGROUNDS[bid]}. {M.BG_STYLE}", "image_size": {"width": w, "height": h},
+            "no_background": False, "target_palette": {"max_colors": 32},
+            "style_image": {"image": {"type": "base64", "base64": b64(style)}, "size": image_size(style)},
+            "style_options": {"color_palette": False, "outline": True, "detail": True, "shading": True}})
+        done_map[bid] = {"status": "processing"}
+        save_state(r.state)
+
+        def done(job, bid=bid):
+            if not job or job.get("status") != "completed":
+                done_map[bid] = {"status": "failed"}
+                return
+            save_images(job, [REPO_ROOT / "assets" / "backgrounds" / f"{bid}.png"])
+            done_map[bid] = {"status": "completed", "usage": job.get("usage")}
+            print(f"  background {bid}: {job.get('usage')}")
+        r.track(response["background_job_id"], done)
+    r.drain()
+
+
+def run_tiles(r: Runner, ids: list[str]) -> None:
+    done_map = r.state["gba"]["tiles"]
+    style_dir = M.APPROVED / "terrain_gba16"
+    styles = [style_dir / f"tile_{i}.png" for i in (0, 2, 6, 10)]
+    for tid in ids:
+        if done_map.get(tid, {}).get("status") == "completed":
+            continue
+        numbered = " ".join(f"{i + 1}). {p} tile" for i, (_, p) in enumerate(M.TILESETS[tid]))
+        response = r.submit(f"tiles {tid}", "/create-tiles-pro", {
+            "description": f"{numbered}. {M.TILE_STYLE}", "tile_type": "square_topdown", "tile_size": 16,
+            "tile_view": "top-down", "outline_mode": "segmentation",
+            "style_images": [{"base64": b64(p), **image_size(p)} for p in styles if p.exists()]})
+        done_map[tid] = {"status": "processing", "tile_id": response["tile_id"]}
+        save_state(r.state)
+
+        def done(job, tid=tid):
+            entry = done_map[tid]
+            if not job:
+                entry["status"] = "failed"
+                return
+            result = r.client.get(f"/tiles-pro/{entry['tile_id']}")
+            for k, url in (result.get("storage_urls") or {}).items():
+                r.client.download(url, TAKES / "tiles" / tid / f"{k}.png")
+            entry.update(status="completed", usage=(job or {}).get("usage"))
+            print(f"  tiles {tid}: saved to {TAKES / 'tiles' / tid}")
+        r.track(response["background_job_id"], done)
+    r.drain()
 
 
 # ------------------------------------------------------------------ plan
 
-def plan(selected: list[str], args) -> None:
-    gens_per_char = 1 + -(-S['size'] * S['size'] * 8 // 65536)
-    total_template = total_v3 = 0
-    print(f"Characters ({len(selected)}), {S['size']}px, view '{S['view']}', directions {S['directions']}:")
-    for sid in selected:
-        spec = S['specs'][sid]
-        anims = [] if args.skip_animations else list(spec["animations"].items())
-        kinds = ", ".join(f"{n}({a['kind']})" for n, a in anims)
-        print(f"  {sid:22} ~{gens_per_char} gens + animations: {kinds}")
-        for _, a in anims:
-            if a["kind"] == "template":
-                total_template += len(S['directions'])
-            else:
-                total_v3 += len(S['directions'])
-    if S is not M.SETS["map"]:
-        args.skip_portraits = args.skip_tiles = True
-    portraits = [] if args.skip_portraits else [p for p in M.PORTRAITS if p in selected or not args.only]
-    print(f"Portraits ({len(portraits)}), {M.PORTRAIT_SIZE}px: {', '.join(portraits)}")
-    print(f"Terrain tiles: {'skipped' if args.skip_tiles or args.only else ', '.join(t for t, _ in M.TERRAIN_TILES)}")
-    print()
-    print("Estimated cost (PixelLab generations):")
-    print(f"  characters      ~{gens_per_char * len(selected)}")
-    print(f"  template anims  ~{total_template} (1 per direction)")
-    print(f"  v3 anims        {total_v3} direction jobs (cost per job is reported after the pilot run)")
-    print(f"  portraits       ~{len(portraits)}")
-    print("Run `generate.py run --pilot` first to check the style and the real per-job cost.")
-
-
-# ------------------------------------------------------------------ budget
-
-class BudgetExhausted(Exception):
-    pass
-
-
-def remaining_generations(client: PixelLab) -> float:
-    balance = client.balance()
-    gens = (balance.get("subscription") or {}).get("generations") or 0
-    usd = (balance.get("credits") or {}).get("usd") or 0
-    return gens + (1e9 if usd > 0 else 0)  # paid credits mean no hard generation cap
-
-
-def check_budget(client: PixelLab, args, what: str) -> None:
-    left = remaining_generations(client)
-    if left < args.reserve:
-        raise BudgetExhausted(f"stopping before {what}: {left:.0f} generations left (reserve {args.reserve})")
-
-
-# ------------------------------------------------------------------ run
-
-def run(client: PixelLab, state: dict, selected: list[str], args) -> None:
-    chars = state.setdefault(S["state_key"], {})
-    if S is not M.SETS["map"]:
-        args.skip_portraits = args.skip_tiles = True
-
-    # 1. Submit missing characters (waiting for running ones when throttled), then wait for all of them.
-    def wait_characters() -> None:
-        for sid in selected:
-            entry = chars.get(sid, {})
-            if "character_id" in entry and entry.get("status") != "completed":
-                print(f"[{sid}] waiting for character {entry['character_id']}")
-                job = None
-                if entry.get("job"):
-                    try:
-                        job = client.wait_for_job(entry["job"])
-                        entry["usage"] = job.get("usage") or entry.get("usage")
-                    except PixelLabError as e:
-                        if "-> 404" not in str(e):
-                            raise
-                        # Old job records expire server-side; the character itself still says whether it's done.
-                        print(f"[{sid}] job {entry['job']} expired; polling the character instead")
-                if job is None:
-                    while client.get(f"/characters/{entry['character_id']}").get("status") == "pending":
-                        time.sleep(8)
-                entry["status"] = "completed"
-                save_state(state)
-
-    for sid in selected:
-        entry = chars.setdefault(sid, {})
-        for attempt in range(5):
-            if "character_id" in entry:
-                break
-            existing = find_existing_character(client, character_name(sid))
-            if existing:
-                print(f"[{sid}] adopting unrecorded character {existing}")
-                entry.update(character_id=existing, status="adopted")
-                save_state(state)
-                break
-            check_budget(client, args, f"character {sid}")
-            print(f"[{sid}] creating character")
-            try:
-                response = client.post("/create-character-v3", character_body(sid, S["specs"][sid]))
-            except RateLimited:
-                print("    throttled; waiting for running characters before retrying")
-                wait_characters()
-                continue
-            entry.update(character_id=response["character_id"], job=response["background_job_id"], status="processing",
-                         usage=response.get("usage"))
-            save_state(state)
-    wait_characters()
-
-    # 2. Animations, in priority order. PixelLab caps concurrent jobs, so when a request is throttled or
-    #    only some directions are accepted, wait for the running jobs and then ask for the missing ones.
-    if not args.skip_animations:
-        queue = [(name, sid) for name in S["priority"] for sid in selected
-                 if name in S["specs"][sid]["animations"]]
-        for name, sid in queue:
-            for attempt in range(8):
-                anim = chars[sid].setdefault("animations", {}).setdefault(name, {"jobs": [], "directions": []})
-                anim.setdefault("directions", [])
-                missing = [d for d in S["directions"] if d not in anim["directions"]]
-                if not missing:
-                    break
-                check_budget(client, args, f"{sid} '{name}' animation")
-                print(f"[{sid}] requesting '{name}' {missing}")
-                try:
-                    response = client.post("/characters/animations", animation_body(
-                        chars[sid]["character_id"], name, S["specs"][sid]["animations"][name], missing, anim.get("group_id")))
-                except RateLimited:
-                    response = None
-                if response:
-                    anim["group_id"] = anim.get("group_id") or response.get("animation_group_id")
-                    anim["jobs"] += response["background_job_ids"]
-                    anim["directions"] += response.get("directions") or missing[:len(response["background_job_ids"])]
-                    anim["status"] = "processing"
-                    save_state(state)
-                if [d for d in S["directions"] if d not in anim["directions"]]:
-                    print("    throttled; waiting for running jobs before retrying")
-                    wait_for_animations(client, state, chars)
-        wait_for_animations(client, state, chars)
-
-    # 3. Download rotations and animation frames.
-    for sid in selected:
-        download_character(client, sid, chars[sid])
-
-    # 4. Portraits (synchronous endpoint).
-    if not args.skip_portraits:
-        for sid, prompt in M.PORTRAITS.items():
-            if args.only and sid not in selected:
-                continue
-            if args.pilot and sid != PILOT:
-                continue
-            if state["portraits"].get(sid, {}).get("status") == "completed":
-                continue
-            check_budget(client, args, f"{sid} portrait")
-            print(f"[{sid}] portrait")
-            response = client.post("/create-image-pixen", {
-                "description": f"{prompt}, {M.PORTRAIT_STYLE}",
-                "image_size": {"width": M.PORTRAIT_SIZE, "height": M.PORTRAIT_SIZE},
-                "no_background": True,
-                "outline": "single color black outline",
-                "detail": "highly detailed",
-            })
-            save_base64_image(response["image"], PORTRAITS / f"{sid}.png")
-            state["portraits"][sid] = {"status": "completed", "usage": response.get("usage")}
-            save_state(state)
-
-    # 5. Terrain tiles (one request for all terrain types).
-    if not args.skip_tiles and not args.only and not args.pilot:
-        tiles = state.setdefault("tiles", {})
-        if "tile_id" not in tiles:
-            check_budget(client, args, "terrain tiles")
-            print("[terrain] requesting tiles")
-            numbered = " ".join(f"{i + 1}). {prompt} tile" for i, (_, prompt) in enumerate(M.TERRAIN_TILES))
-            response = client.post("/create-tiles-pro", {
-                "description": f"{numbered}. {M.TERRAIN_STYLE}",
-                "tile_type": "square_topdown",
-                "tile_size": M.TERRAIN_TILE_SIZE,
-                "tile_view": "top-down",
-                "outline_mode": "segmentation",
-            })
-            tiles.update(tile_id=response["tile_id"], job=response["background_job_id"], status="processing")
-            save_state(state)
-        if tiles.get("status") != "completed":
-            print("[terrain] waiting for tiles")
-            client.wait_for_job(tiles["job"])
-            result = client.get(f"/tiles-pro/{tiles['tile_id']}")
-            urls = result.get("storage_urls", {})
-            # PixelLab returns several variations per prompt, grouped (e.g. tiles 0-3 are all "plain"), so the
-            # tile index does not map to a terrain. Save them raw; the named <terrain>[_N].png files the game
-            # uses are picked from variations/ by hand.
-            for key, url in urls.items():
-                client.download(url, TILES / "variations" / f"{key}.png")
-            print(f"    {len(urls)} tiles saved to {TILES / 'variations'}; copy the right ones to <terrain>[_N].png")
-            tiles.update(status="completed", usage=result.get("usage"))
-            save_state(state)
-
-    print("Done. Spent so far (per asset) is recorded in tools/art/state.json.")
-    print("Balance:", json.dumps(client.balance()))
-
-
-def wait_for_animations(client: PixelLab, state: dict, chars: dict) -> None:
-    for sid, entry in chars.items():
-        for name, anim in entry.get("animations", {}).items():
-            done = anim.setdefault("done_jobs", [])
-            for job_id in anim.get("jobs", []):
-                if job_id in done:
-                    continue
-                try:
-                    job = client.wait_for_job(job_id)
-                    anim.setdefault("usage", []).append(job.get("usage"))
-                except PixelLabError as e:
-                    print(f"    ! [{sid}] '{name}': {e}")
-                    # Forget the failed direction so the next run requests it again.
-                    i = anim["jobs"].index(job_id)
-                    if i < len(anim.get("directions", [])):
-                        anim["directions"].pop(i)
-                    anim["jobs"].remove(job_id)
-                    save_state(state)
-                    continue
-                done.append(job_id)
-                save_state(state)
-            complete = all(d in anim.get("directions", []) for d in S["directions"]) and len(done) == len(anim.get("jobs", []))
-            anim["status"] = "completed" if complete else "partial"
-    save_state(state)
-
-
-def download_character(client: PixelLab, sid: str, entry: dict) -> None:
-    detail = client.get(f"/characters/{entry['character_id']}")
-    out = REPO_ROOT / S["out"] / sid
-    for direction, url in (detail.get("rotation_urls") or {}).items():
-        if url and direction in S["directions"]:
-            client.download(url, out / "rotations" / f"{direction}.png")
-    names_by_group = {a.get("group_id"): n for n, a in entry.get("animations", {}).items()}
-    for group in detail.get("animations", []):
-        name = names_by_group.get(group.get("animation_group_id")) or group.get("display_name") or group.get("animation_type")
-        for d in group.get("directions", []):
-            for i, url in enumerate(d.get("frames", [])):
-                client.download(url, out / "animations" / name / d["direction"] / f"frame_{i:03d}.png")
-    print(f"[{sid}] downloaded to {out.relative_to(REPO_ROOT)}")
+def plan(state: dict) -> None:
+    g = state["gba"]
+    total = 0
+    print("Characters (10 per new character; template 1/dir; v3 ~1/dir at 48 px, 1-2 at 64 px):")
+    for sid, spec in M.CHARACTERS.items():
+        for set_name in spec["sets"]:
+            entry = g["characters"].get(char_key(set_name, sid), {})
+            cost = 0 if (entry.get("character_id") or spec.get("adopt", {}).get(set_name)) else 10
+            wanted = M.map_anims(spec["weapon"]) if set_name == "map" else M.battle_anims(spec["weapon"])
+            have = dict(entry.get("animations", {}))
+            have.update({n: {"directions": ["east"]} for n in spec.get("done_anims", {}).get(set_name, {})})
+            todo = [n for n in wanted if not have.get(n, {}).get("directions")]
+            dirs = len(SETS[set_name]["directions"])
+            cost += sum(dirs * (1 if wanted[n]["kind"] == "template" or set_name == "map" else 1.5) for n in todo)
+            total += cost
+            print(f"  {set_name:6} {sid:22} ~{cost:>4.0f}  anims to do: {', '.join(todo) or '-'}")
+    for kind, items, each in (("portraits", M.PORTRAITS, 10), ("backgrounds", M.BACKGROUNDS, 10),
+                              ("tiles", M.TILESETS, 10)):
+        todo = [i for i in items if g[kind].get(i, {}).get("status") != "completed"]
+        total += each * len(todo)
+        print(f"{kind}: {len(todo)} x ~{each} = ~{each * len(todo)}  ({', '.join(todo) or '-'})")
+    print(f"Estimated total: ~{total:.0f} generations")
 
 
 # ------------------------------------------------------------------ main
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("command", choices=["balance", "plan", "run", "download"])
-    parser.add_argument("--set", choices=list(M.SETS), default="map", help="which art set to generate")
-    parser.add_argument("--only", nargs="*", default=[], help="sprite ids to process")
-    parser.add_argument("--pilot", action="store_true", help=f"only '{PILOT}', with animations and portrait")
-    parser.add_argument("--skip-animations", action="store_true")
-    parser.add_argument("--skip-portraits", action="store_true")
-    parser.add_argument("--skip-tiles", action="store_true")
-    parser.add_argument("--reserve", type=float, default=50, help="generations to keep in hand")
+    parser.add_argument("command", choices=["balance", "plan", "chars", "portraits", "backgrounds", "tiles", "download"])
+    parser.add_argument("--only", nargs="*", default=[])
+    parser.add_argument("--set", choices=list(SETS), action="append")
+    parser.add_argument("--no-anims", action="store_true")
+    parser.add_argument("--reserve", type=float, default=50)
     args = parser.parse_args()
-
-    global S
-    S = M.SETS[args.set]
-    selected = [PILOT] if args.pilot else (args.only or list(S["specs"]))
-    unknown = [x for x in selected if x not in S["specs"]]
-    if unknown:
-        parser.error(f"unknown sprite ids: {unknown}. Known: {list(S['specs'])}")
+    state = load_state()
 
     if args.command == "plan":
-        plan(selected, args)
+        plan(state)
         return 0
+    catalog = {"chars": M.CHARACTERS, "download": M.CHARACTERS, "portraits": M.PORTRAITS,
+               "backgrounds": M.BACKGROUNDS, "tiles": M.TILESETS}.get(args.command, {})
+    ids = args.only or list(catalog)
+    unknown = [i for i in ids if i not in catalog]
+    if unknown:
+        parser.error(f"unknown ids {unknown}; known: {list(catalog)}")
+    sets = args.set or list(SETS)
     try:
         client = PixelLab()
         if args.command == "balance":
             print(json.dumps(client.balance(), indent=2))
             return 0
         if args.command == "download":
-            state = load_state()
-            for sid in selected:
-                entry = state.get(S["state_key"], {}).get(sid, {})
-                if entry.get("status") == "completed":
-                    download_character(client, sid, entry)
-                elif entry:
-                    print(f"[{sid}] not finished on PixelLab yet ({entry.get('status')}); skipped")
+            for sid in ids:
+                for set_name in sets:
+                    entry = state["gba"]["characters"].get(char_key(set_name, sid))
+                    if entry and entry.get("status") == "completed":
+                        download_character(client, set_name, sid, entry)
             return 0
-        stop_file = Path(__file__).with_name("STOP")
-        if stop_file.exists():
-            print(f"{stop_file.name} file present; not starting. Delete it to resume generation.")
-            return 0
-        state = load_state()
+        r = Runner(client, state, args)
         try:
-            run(client, state, selected, args)
-        except BudgetExhausted as e:
-            print(f"budget: {e}")
-            for sid in selected:  # still fetch whatever finished
-                if state.get(S["state_key"], {}).get(sid, {}).get("status") == "completed":
-                    download_character(client, sid, state[S["state_key"]][sid])
+            {"chars": lambda: run_characters(r, ids, sets, not args.no_anims),
+             "portraits": lambda: run_portraits(r, ids),
+             "backgrounds": lambda: run_backgrounds(r, ids),
+             "tiles": lambda: run_tiles(r, ids)}[args.command]()
+        finally:
+            r.drain()
+            save_state(state)
+        print("Balance:", (client.balance().get("subscription") or {}).get("generations"))
         return 0
     except PixelLabError as e:
         print(f"error: {e}", file=sys.stderr)

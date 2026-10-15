@@ -43,8 +43,8 @@ public static class SpriteLibrary
         unit.SpriteCandidates().Select(Battle).FirstOrDefault(f => f is not null);
 
     /// <summary>
-    /// Side-view battle frames (facing east) for a sprite id, or null if it has no idle and attack art yet.
-    /// Missing optional animations fall back: critical → attack, dodge/hit → idle.
+    /// Side-view battle frames (facing east) for a sprite id, or null if it has no attack art yet.
+    /// Missing animations fall back: idle → the east rotation, critical → attack, dodge/hit → idle.
     /// </summary>
     public static SpriteFrames? Battle(string spriteId)
     {
@@ -59,6 +59,10 @@ public static class SpriteLibrary
             if (textures.Count > 0)
                 loaded[name] = textures;
         }
+        // Without an idle animation, stand in the still east-facing rotation.
+        string still = $"{BattleRoot}/{spriteId}/rotations/east.png";
+        if (!loaded.ContainsKey("idle") && ResourceLoader.Exists(still))
+            loaded["idle"] = new List<Texture2D> { ResourceLoader.Load<Texture2D>(still) };
 
         SpriteFrames? frames = null;
         if (loaded.ContainsKey("idle") && loaded.ContainsKey("attack"))
@@ -69,6 +73,8 @@ public static class SpriteLibrary
             {
                 var textures = loaded.GetValueOrDefault(name)
                                ?? (name == "critical" ? loaded["attack"] : loaded["idle"]);
+                if (name == "idle")
+                    textures = BreathingLoop(textures);
                 frames.AddAnimation(name);
                 frames.SetAnimationSpeed(name, fps);
                 frames.SetAnimationLoopMode(name, loop ? SpriteFrames.LoopMode.Linear : SpriteFrames.LoopMode.None);
@@ -128,6 +134,18 @@ public static class SpriteLibrary
         }
         Cache[key] = frames;
         return frames;
+    }
+
+    /// <summary>
+    /// Generated idle clips drift (the weapon ends somewhere else than it started), so looping the whole clip pops.
+    /// The first few frames stay close to the stance; play them forward and back instead.
+    /// </summary>
+    private static List<Texture2D> BreathingLoop(List<Texture2D> textures)
+    {
+        if (textures.Count <= 2)
+            return textures;
+        var head = textures.Take(3).ToList();
+        return head.Concat(head.Skip(1).Take(1)).ToList();
     }
 
     private static List<Texture2D> LoadFrames(string dir)

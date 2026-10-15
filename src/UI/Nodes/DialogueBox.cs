@@ -26,6 +26,7 @@ public partial class DialogueBox : Control
     private ColorRect _placeholder = null!;
     private Label _placeholderText = null!;
     private Label _name = null!;
+    private PanelContainer _namePlate = null!;
     private RichTextLabel _text = null!;
     private Label _more = null!;
 
@@ -46,7 +47,7 @@ public partial class DialogueBox : Control
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         Visible = false;
 
-        _box = UiKit.Panel(new Color(0.06f, 0.07f, 0.11f, 0.94f));
+        _box = UiKit.Panel();
         _box.MouseFilter = MouseFilterEnum.Stop;
         AddChild(_box);
         _box.AnchorLeft = 0.08f;
@@ -82,8 +83,15 @@ public partial class DialogueBox : Control
 
         var column = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         row.AddChild(column);
-        _name = UiKit.Label("", 22, UiKit.Accent);
-        column.AddChild(_name);
+        // The speaker's name sits on a Clean name plate overlapping the top edge of the box, GBA style.
+        _name = UiKit.Label("", 24, UiKit.Text);
+        _namePlate = UiKit.Plate(_name);
+        AddChild(_namePlate);
+        _namePlate.AnchorLeft = _namePlate.AnchorRight = 0.08f;
+        _namePlate.AnchorTop = _namePlate.AnchorBottom = 1f;
+        _namePlate.OffsetLeft = 186;
+        _namePlate.OffsetTop = -226;
+        _namePlate.CustomMinimumSize = new Vector2(220, 0);
         _text = new RichTextLabel
         {
             BbcodeEnabled = true,
@@ -174,6 +182,7 @@ public partial class DialogueBox : Control
         bool narrator = line.IsNarrator;
         _portraitFrame.Visible = !narrator && line.Speaker != "???";
         _name.Text = narrator ? "" : SpeakerName(line.Speaker, db);
+        _namePlate.Visible = !narrator;
         if (_portraitFrame.Visible)
         {
             var texture = Portrait(line.Speaker, line.Expression);

@@ -81,7 +81,14 @@ public static class EventDirector
     // ------------------------------------------------------------------ internals
 
     private static IEnumerable<TriggerDef> Pending(BattleState s) =>
-        s.Map.AllTriggers.Where(t => !s.FiredTriggers.Contains(t.Id));
+        s.Map.AllTriggers.Where(t => !s.FiredTriggers.Contains(t.Id) && !t.Unless.Any(g => GuardHolds(s, g)));
+
+    private static bool GuardHolds(BattleState s, TriggerGuard guard) => guard.Kind switch
+    {
+        "flag" => s.Flags.Contains(guard.Arg),
+        "joined" => s.ByKey(guard.Arg) is { Faction: Faction.Player },
+        _ => false,
+    };
 
     private static bool StateConditionMet(BattleState s, TriggerCondition condition, out BattleUnit? who)
     {

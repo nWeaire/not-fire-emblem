@@ -61,16 +61,24 @@ public sealed record TerrainEffect(IReadOnlyList<GridPos> Cells, char Symbol) : 
 public sealed record DamageEffect(string Key, int Amount) : TriggerEffect;
 public sealed record EndEffect(BattleOutcome Outcome) : TriggerEffect;
 
-public sealed record TriggerDef(string Id, TriggerCondition Condition, IReadOnlyList<TriggerEffect> Effects);
+/// <summary>A guard that holds a trigger back while it is true: "flag NAME" or "joined KEY" (KEY is on the player's side).</summary>
+public sealed record TriggerGuard(string Kind, string Arg);
+
+public sealed record TriggerDef(string Id, TriggerCondition Condition, IReadOnlyList<TriggerEffect> Effects)
+{
+    /// <summary>The trigger does not fire while any of these holds.</summary>
+    public IReadOnlyList<TriggerGuard> Unless { get; init; } = Array.Empty<TriggerGuard>();
+}
 
 /// <summary>
 /// Parses the small text language maps use for objectives and triggers, so maps stay readable text.
 /// <code>
 /// Victory: rout | boss KEY | seize X,Y | survive N | escape CELLS [KEY...]
 /// Defeat:  die KEY | protect TAG N | turns N
-/// Trigger: CONDITION => EFFECT; EFFECT; ...
+/// Trigger: CONDITION [unless GUARD] => EFFECT; EFFECT; ...
 ///   conditions: turn N [player|enemy|ally] · defeated KEY · enter WHO CELLS · adjacent A B · flag NAME
 ///               enemies N (at most N left) · hp KEY PERCENT (below) · talk ACTOR TARGET · visit X,Y · combat KEY
+///   guards:     flag NAME · joined KEY (KEY is on the player's side), e.g. "turn 3 enemy unless joined brann => ..."
 ///   effects:    scene ID · spawn GROUP · flag NAME · join KEY · faction KEY player|enemy|ally · give KEY ITEM
 ///               gold N · terrain CELLS SYMBOL · damage KEY N · win · lose
 /// CELLS: "x,y" or a rectangle "x1,y1-x2,y2", several separated by spaces.
@@ -129,12 +137,22 @@ public static class MapScript
             var halves = line.Split("=>", 2);
             if (halves.Length != 2)
                 throw new FormatException($"Trigger '{line}' needs 'CONDITION => EFFECTS'.");
-            var condition = ParseCondition(halves[0].Trim(), line);
+            var parts = halves[0].Split(" unless ", StringSplitOptions.TrimEntries);
+            var condition = ParseCondition(parts[0], line);
+            var guards = parts.Skip(1).Select(g => ParseGuard(g, line)).ToArray();
             var effects = halves[1].Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
                 .Select(e => ParseEffect(e, line)).ToArray();
-            triggers.Add(new TriggerDef($"t{index++}", condition, effects));
+            triggers.Add(new TriggerDef($"t{index++}", condition, effects) { Unless = guards });
         }
         return triggers;
+    }
+
+    private static TriggerGuard ParseGuard(string text, string line)
+    {
+        var t = Tokens(text);
+        return t[0] is "flag" or "joined"
+            ? new TriggerGuard(t[0], Arg(t, 1, line))
+            : throw new FormatException($"Unknown trigger guard '{text}' in '{line}'.");
     }
 
     private static TriggerCondition ParseCondition(string text, string line)

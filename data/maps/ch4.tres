@@ -1,0 +1,198 @@
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
+[ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
+
+[sub_resource type="Resource" id="SpawnDefinition_1"]
+script = ExtResource("2_spawn")
+UnitId = "elise"
+Level = 4
+Faction = 2
+Position = Vector2i(8, 10)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_2"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Dain Hall Soldier"
+SpriteId = "enemy_soldier"
+Armor = "padded_gambeson"
+Level = 4
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(7, 1)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_3"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Dain Hall Soldier"
+SpriteId = "enemy_soldier"
+Armor = "padded_gambeson"
+Level = 4
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(8, 2)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_4"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Dain Hall Soldier"
+SpriteId = "enemy_soldier"
+Armor = "padded_gambeson"
+Level = 5
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(10, 1)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_5"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Dain Hall Archer"
+SpriteId = "enemy_archer"
+Level = 4
+Inventory = PackedStringArray("iron_bow")
+Faction = 1
+Position = Vector2i(5, 1)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_6"]
+script = ExtResource("2_spawn")
+ClassId = "cavalier"
+Name = "Dain Hall Cavalier"
+SpriteId = "enemy_cavalier"
+Level = 5
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(8, 0)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_7"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Dain Hall Soldier"
+SpriteId = "enemy_soldier"
+Armor = "padded_gambeson"
+Level = 5
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(6, 1)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_8"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Dain Hall Soldier"
+Group = "north2"
+SpriteId = "enemy_soldier"
+Armor = "padded_gambeson"
+Level = 4
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(7, 0)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_9"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Dain Hall Soldier"
+Group = "north2"
+SpriteId = "enemy_soldier"
+Armor = "padded_gambeson"
+Level = 4
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(8, 0)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_10"]
+script = ExtResource("2_spawn")
+ClassId = "cavalier"
+Name = "Dain Hall Cavalier"
+Group = "north3"
+SpriteId = "enemy_cavalier"
+Level = 5
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(8, 0)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_11"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Dain Hall Archer"
+Group = "north3"
+SpriteId = "enemy_archer"
+Level = 4
+Inventory = PackedStringArray("iron_bow")
+Faction = 1
+Position = Vector2i(7, 0)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_12"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Dain Hall Soldier"
+Group = "north4"
+SpriteId = "enemy_soldier"
+Armor = "padded_gambeson"
+Level = 5
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(7, 0)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_13"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Dain Hall Soldier"
+Group = "north4"
+SpriteId = "enemy_soldier"
+Armor = "padded_gambeson"
+Level = 5
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(8, 0)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_14"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Dain Hall Soldier"
+Group = "north5"
+SpriteId = "enemy_soldier"
+Armor = "padded_gambeson"
+Level = 5
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(7, 0)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_15"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Dain Hall Archer"
+Group = "north5"
+SpriteId = "enemy_archer"
+Level = 4
+Inventory = PackedStringArray("iron_bow")
+Faction = 1
+Position = Vector2i(8, 0)
+Ai = 0
+HardOnly = true
+
+[resource]
+script = ExtResource("1_map")
+Id = "ch4"
+Name = "Chapter 4: The Scholar of Calder"
+TerrainRows = PackedStringArray("MMMFFPP==PPFFMMM", "MMFFPPP==PPPFFMM", "MFFWWWW==WWWWFFM", "FFP,,PP==PPP,,FF", "FPP,,PP==PPP,,PF", "PPPFFPP==PFFPPPP", "PP,FFP==PPFF,PPP", "P,,PPP==PPPP,,PP", "PPFF,PP==P,,FFPP", "PFFF,,P==PP,,FFP", "PPF,,PP==PPP,PPP", "PP,,PPP==PFFF,PP", "FFPPP,P==PFFT,PP", "FFP,,PP==PPPPTTF", "MFFPPPP==PPPPPFM", "MMFPPPP==PPPPFMM")
+HeightRows = PackedStringArray("2221110000011222", "2211000000001122", "2110000000000112", "1100000000000011", "1000000000000001", "1000000000000001", "0000000000000000", "0000000000000000", "0000000000000000", "1000000000000001", "1000000000000001", "0000000000000000", "1100000000000000", "1100000000000011", "2110000000000112", "2211000000001122")
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15")])
+Victory = "escape 6,15-9,15 elise rowan"
+Defeat = PackedStringArray("die elise")
+Triggers = PackedStringArray("turn 1 => scene ch04_start", "talk rowan elise => scene ch04_elise; join elise", "turn 2 => spawn north2", "turn 3 => spawn north3; scene ch04_soldiers", "turn 4 => spawn north4", "turn 5 => spawn north5", "enter player 12,12-14,13 => scene ch04_waystation")
+Fog = false
+DeploySlots = "11,10 12,10 11,11 12,11 13,11 12,9"
+Background = "hill_road"

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TerrainDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/TerrainDefinition.cs" id="1_terrain"]
+
+[resource]
+script = ExtResource("1_terrain")
+Id = "stilt"
+Name = "Stilt House"
+Symbol = "h"
+CostInfantry = 1
+CostArmored = 1
+CostCavalry = 1
+CostFlying = 1
+Avoid = 10
+Def = 1
+HealPercent = 10
+BlocksSight = false
+Color = Color(0.50, 0.38, 0.24, 1)

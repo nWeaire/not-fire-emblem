@@ -1,0 +1,57 @@
+# Chapter 5: Ferrow's Keep
+# Written for the built map (data/maps/ch5.tres). Voices follow docs/story/DIALOGUE.md section 2.
+
+### ch05_pre
+@bg ferrows_keep
+@music battle_urgent
+NARRATOR: Ferrow's Keep had watched the eastern border for two hundred years. It had never been asked to watch this.
+NARRATOR: The Gloamkin came out of the east at dusk, more of them than anyone had counted, and they did not stop.
+KAI [surprised]: That's not a raid. That's the whole forest walking.
+ELISE [worried]: There'll be a Binder behind them. There always is. Someone has to be holding the leash.
+ROWAN [determined]: Then we hold the walls until dawn, and we look for the one holding the leash.
+
+### ch05_dorran
+@focus 11,7
+DORRAN [cold]: You're late. And you're not the King's men.
+ROWAN [neutral]: We're from Brookhollow. We came to help.
+DORRAN [neutral]: Captain Dorran Kell. Retired. They forgot to tell the Gloamkin. Hold the courtyard, my lord.
+ROWAN [surprised]: I'm not—
+DORRAN [smile]: You've a crest and a steward's habits about you. "My lord" will do.
+DORRAN [neutral]: That armour, sir. Black hide, silver stitching.
+ALDRIC [cold]: It's warm.
+DORRAN [neutral]: ...So it is. Keep the gate, then. I'll keep my questions.
+
+### ch05_gate
+@focus 12,7
+@sfx gloam_roar
+NARRATOR: Something huge hit the gate, and the gate gave way.
+DORRAN [determined]: The gate's down! Close the gap! Lines are what keep villages!
+BRANN [determined]: Steady now, old girl. Steady.
+
+### ch05_alpha
+@sfx gloam_roar
+NARRATOR: The Alpha stood twice as tall as the brutes around it. A crown of bone grew out of its skull.
+ROWAN [determined]: Don't trade blows with it. Wear it down.
+
+### ch05_hollin
+@sfx crest_rise
+HOLLIN [hurt]: We were... so close. The quiet was so close...
+NARRATOR: The Binder's crest rose from his hand and burned out in the air. The beasts screamed and fled east.
+DORRAN [surprised]: They're running. In two hundred years this keep has never seen Gloamkin run.
+ROWAN [neutral]: Cut off the hand, and the rest come loose.
+
+### ch05_post
+@bg ferrows_keep_dawn
+@music aftermath
+NARRATOR: By dawn the courtyard was quiet. The keep still stood, which was more than anyone had expected.
+DORRAN [neutral]: You held. I've seen veterans break on less.
+ROWAN [neutral]: We had help.
+DORRAN [smile]: You had a lord who stood in the gap with them. That's not nothing, my lord.
+@wait 0.6
+NARRATOR: Later, on the walls, Dorran found Aldric alone.
+DORRAN [neutral]: I thought the Wardens all burned.
+ALDRIC [cold]: Most of them did.
+DORRAN [neutral]: Then I never saw you. And when the boy asks, it isn't my story to tell.
+ALDRIC [sad]: ...Thank you, Captain.
+DORRAN [neutral]: I'm coming with you. My keep's safe. Yours isn't.
+

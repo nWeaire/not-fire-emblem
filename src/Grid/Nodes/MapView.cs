@@ -37,7 +37,7 @@ public partial class MapView : Node3D
     private static readonly HashSet<string> NoEarthSides = new() { "water", "bridge" };
 
     /// <summary>Terrains whose tiles look the same turned any way round, so cells can rotate them to hide repeats.</summary>
-    private static readonly HashSet<string> Rotatable = new() { "plain", "forest", "mountain", "water", "fort", "road", "meadow", "square" };
+    private static readonly HashSet<string> Rotatable = new() { "plain", "forest", "mountain", "water", "fort", "road", "meadow", "square", "shallows", "reeds" };
 
     private readonly Dictionary<string, StandardMaterial3D> _materials = new();
     private readonly Dictionary<string, List<Texture2D>> _tiles = new();
@@ -145,6 +145,13 @@ public partial class MapView : Node3D
                 return;
             // Small ground decorations, standing up like the trees. They sit toward the cell's corners so the unit
             // in the middle stays clear, and are small enough to read as ground cover.
+            case "stilt" when Props("stilt_house").Count > 0:
+                AddBillboard(Props("stilt_house")[(int)(Hash(p, 80) % (uint)Props("stilt_house").Count)], top);
+                return;
+            case "reeds":
+                for (int i = 0; i < 2; i++)
+                    AddDecor("reed", p, 81 + i, top + Corner(p, 83 + i, 0.33f));
+                return;
             case "plain":
             {
                 uint roll = Hash(p, 50) % 20;

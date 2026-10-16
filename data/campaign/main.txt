@@ -40,5 +40,27 @@ scene ch03_pre
 battle ch3 deploy 6 force rowan
 scene ch03_post
 item vulnerary
+hub hub_briefing_ch04
+
+chapter 4 Chapter 4: The Scholar of Calder
+scene ch04_pre
+battle ch4 deploy 6 force rowan
+scene ch04_post
+scene ch04_lore
+hub hub_briefing_ch05
+
+chapter 5 Chapter 5: Ferrow's Keep
+scene ch05_pre
+battle ch5 deploy 7 force rowan
+scene ch05_post
+scene hub_merrow_horses
+class kai cavalier
+hub hub_briefing_ch06
+
+chapter 6 Chapter 6: The Bandit King of Greyfen
+scene ch06_pre
+battle ch6 deploy 8 force rowan
+scene ch06_post
+gold 1500
 hub
-end To be continued in Chapter 4: The Scholar of Calder.
+end To be continued in Chapter 7: Storm over Dain Hall.

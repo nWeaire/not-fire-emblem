@@ -49,7 +49,8 @@ public sealed record MapDef(
     IReadOnlyList<TriggerDef>? Triggers = null,
     bool Fog = false,
     int VisionBonus = 0,
-    IReadOnlyList<GridPos>? DeploySlots = null) // where deployed roster units without a fixed spawn start
+    IReadOnlyList<GridPos>? DeploySlots = null, // where deployed roster units without a fixed spawn start
+    string? Background = null)                  // the battle screen's backdrop for open ground (assets/backgrounds/)
 {
     public IReadOnlyList<GridPos> Slots => DeploySlots ?? System.Array.Empty<GridPos>();
 

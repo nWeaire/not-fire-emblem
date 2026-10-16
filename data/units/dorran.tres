@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/UnitDefinition.cs" id="1_unit"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+HP = 4
+Str = 2
+Dex = 2
+Spd = 1
+Lck = 2
+Def = 2
+Res = 1
+
+[sub_resource type="Resource" id="StatsDefinition_2"]
+script = ExtResource("2_stats")
+HP = 60
+Str = 40
+Mag = 0
+Dex = 35
+Spd = 20
+Lck = 25
+Def = 45
+Res = 15
+
+[resource]
+script = ExtResource("1_unit")
+Id = "dorran"
+Name = "Dorran"
+ClassId = "knight"
+Level = 8
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Inventory = PackedStringArray("steel_lance", "javelin")
+IsLord = false
+Armor = "iron_plate"

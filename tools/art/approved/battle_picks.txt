@@ -24,3 +24,8 @@ brann_warrior 1 axe
 kai_paladin 2 lance
 mira_sage 2 staff
 elise_sage 4 anima
+dorran_knight 4 lance
+sable_myrmidon 4 sword
+enemy_cavalier 1 lance
+enemy_gloam_alpha 3 claws
+boss_rusk 3 axe

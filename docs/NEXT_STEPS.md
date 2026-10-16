@@ -77,6 +77,11 @@ _Last updated: 2026-10-16 (end of session 5)._
   cells use the cobble tile under the cottage.
 - **EXP on the battle screen:** an EXP bar under HP fills after the fight and level-ups show there before the map.
   `--exp=N` starts player units with N EXP for testing.
+- **Chapters 4–6 built** (see CHAPTERS.md "Mapping to current content"): maps from `tools/maps/act1_ch4_6.py`,
+  scripts in `data/dialogue/ch04–ch06.txt` plus hub briefings, the Knight class, Dorran and Sable, marsh terrain,
+  and art (Dorran, Sable, Rusk, Dain Hall cavalier, Gloam Alpha; three portraits; hill_road, ferrows_keep and
+  greyfen backgrounds; marsh tiles, reeds and stilt houses). Maps can set `Background` for the battle screen.
+  Autoplay now runs for the exit on escape maps and plays "die KEY" / escape units as carefully as the lord.
 - **Settings** (title screen "Settings", hub tab "Settings"): music and sound volumes, text speed, battle scenes
   on/off. Saved to `user://settings.cfg` by `src/Core/Nodes/Settings.cs`; `AudioDirector` routes music and effects
   through "Music" and "SFX" buses so the volumes are independent; the B key in battle updates the saved setting.
@@ -205,7 +210,7 @@ samples and mockups. Everything decided is in **`docs/ART_DIRECTION.md`**, and t
 ## Next development tasks (in order)
 1. **Playtest the campaign by hand** and tune balance (enemy levels, villager durability, the Ch 3 fog pace).
 2. **Art pass:** the style is now settled (session 4). Follow *Next: the art pass* above, then switch `BattleController.MapId` (the scene default) to `prologue` if wanted.
-3. **More chapters** from `docs/story/CHAPTERS.md`, starting with Ch 4 (Escape with Elise), Ch 5 (Survive at Ferrow's Keep) and Ch 6 (marsh terrain, Rusk's Dominion). The systems they need already exist.
+3. **More chapters** from `docs/story/CHAPTERS.md`: Ch 7 (Storm over Dain Hall, Wren, Halvric, the Knight's Crest) ends Act I.
 4. **Polish backlog:** crest fragments, audio, settings, a UI theme, and suspend saves.
 
 ---

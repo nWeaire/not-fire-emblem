@@ -174,6 +174,22 @@ CHARACTERS = {
     "elise_sage": dict(weapon="anima", sets=("map",),
         desc="young scholar sage woman, long auburn hair, green eyes, grey and deep blue hooded robes with silver "
              "embroidery, satchel of papers, glowing red tome, flame above her free hand"),
+    # Chapters 4-6 (CHAPTERS.md): Dorran (Ch 5), Sable (Ch 6), Halvric's cavalry (Ch 4), the Alpha (Ch 5), Rusk (Ch 6).
+    "dorran_knight": dict(weapon="lance", sets=("map",),
+        desc="stocky 60 year old knight, short white hair, thick grey moustache, weathered stern face, heavy dented "
+             "steel plate armour over a faded green tabard, steel lance"),
+    "sable_myrmidon": dict(weapon="sword", sets=("map",),
+        desc="confident young woman mercenary swordswoman, short black hair with a red headband, scar on one cheek, "
+             "fitted black leather armour, red sash, slim curved sword"),
+    "enemy_cavalier": dict(weapon="lance", sets=("map",), template="horse",
+        desc="soldier knight riding a brown warhorse, steel helmet hiding the face, dark purple tabard over chainmail, "
+             "faint purple glow in the eyes, steel lance"),
+    "enemy_gloam_alpha": dict(weapon="claws", sets=("map",),
+        desc="huge hulking alpha beast from a dark fairy tale, much bigger than the others, ash-grey hide with glowing "
+             "violet cracks, a crown of bone spikes on its head, long arms with massive claws"),
+    "boss_rusk": dict(weapon="axe", sets=("map",),
+        desc="burly bandit king, shaved head, thick red beard, gold earrings, patched marsh-green leather coat over "
+             "armour, a stolen glowing purple crest sigil on the back of his hand, heavy steel axe"),
     "ally_villager": dict(weapon="none", sets=("map",),
         desc="plain village farmer man, brown hair, beige linen shirt, green wool vest, brown trousers, no weapon"),
 }
@@ -200,6 +216,12 @@ PORTRAITS = {
     "varga": "fierce scarred woman with a shaved head, tattoos, dark purple leather armour, cruel grin",
     "elise": "young travelling scholar woman, long auburn hair, curious green eyes, worn grey travelling hood, plain "
              "grey travelling cloak, ink smudge on her cheek",
+    "dorran": "stern old knight captain, about 60, short white hair, thick grey moustache, weathered face, steel "
+              "gorget and plate collar over a faded green tabard",
+    "sable": "confident young woman mercenary, short black hair with a red headband, a scar on one cheek, sly smile, "
+             "black leather collar and red sash",
+    "rusk": "burly bandit king, shaved head, thick red beard, gold earrings, cruel grin, marsh-green leather coat, a "
+            "faint purple glow from a sigil on his neck",
 }
 
 # ------------------------------------------------------------------ backgrounds (generate-image-v2, 240x135)
@@ -210,6 +232,12 @@ BG_STYLE = ("Game Boy Advance Fire Emblem battle background, 16-bit GBA pixel ar
             "no characters")
 BG_SIZE = (240, 135)
 BACKGROUNDS = {
+    "hill_road": "a winding dirt road over grassy hills, a wooden toll gate in the distance, a stone milestone, "
+                 "open road in the lower half",
+    "ferrows_keep": "the courtyard of an old stone border fort, grey walls and a gatehouse, wooden walkways, banners, "
+                    "packed earth ground in the lower half",
+    "greyfen": "a misty marsh at dusk, reeds and shallow pools, wooden stilt houses on poles, boardwalk in the lower "
+               "half",
     "farm": "a small farmstead in the countryside, wooden farmhouse with a thatched roof, fence and haystacks, "
             "fields and a dark treeline behind, open dirt yard in the lower half",
     "village": "a small medieval village square, timber and thatch cottages, stone well, little chapel, cobbled "
@@ -245,6 +273,8 @@ PROPS = {
 }
 # Smaller versions for one shared pixel scale (1 art pixel = 1/32 of a cell, the tiles' density): mockup B.
 PROPS.update({
+    "reed_s": "one small clump of tall brown and green marsh reeds",
+    "stilt_house_s": "one small wooden marsh hut standing on stilt poles, thatched roof",
     "tuft_s": "one tiny clump of green grass blades",
     "flowers_s": "one tiny clump of white and yellow wildflowers",
     "crop_s": "one small young cabbage plant",
@@ -253,9 +283,14 @@ PROPS.update({
     "peak_s": "one small rocky grey-brown mountain peak with a little snow on top",
 })
 PROP_SIZE = {"tuft": 32, "flowers": 32, "crop": 32, "bush": 32,
-             "tuft_s": 16, "flowers_s": 16, "crop_s": 16, "bush_s": 24, "cottage_s": 32, "peak_s": 32}  # others are 64
+             "tuft_s": 16, "flowers_s": 16, "crop_s": 16, "bush_s": 24, "cottage_s": 32, "peak_s": 32, "reed_s": 16, "stilt_house_s": 32}  # others are 64
 
 TILESETS = {
+    # Greyfen marsh (Ch 6): shallow water (slow) and reed beds (cover). Picked by hand like the other sets.
+    "marsh": [("shallows", "shallow murky green marsh water with small lily pads"),
+              ("reeds", "dense tall marsh reeds over shallow water"),
+              ("mud", "dark wet marsh mud with puddles"),
+              ("boards", "wooden boardwalk planks")],
     # GBA-style top-down tiles with the object drawn into the tile (mockup A, the references' look).
     "objects": [("forest", "cluster of three round green treetops seen from directly above, grass showing between them"),
                 ("mountain", "rocky brown mountain peak seen from above, grass around its base"),

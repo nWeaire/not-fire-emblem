@@ -1,0 +1,253 @@
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=23 format=3]
+
+[ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
+[ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
+
+[sub_resource type="Resource" id="SpawnDefinition_1"]
+script = ExtResource("2_spawn")
+UnitId = "dorran"
+Level = 8
+Faction = 2
+Position = Vector2i(11, 7)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_2"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_hound"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_hound"
+Level = 4
+Inventory = PackedStringArray("gloam_fangs")
+Faction = 1
+Position = Vector2i(14, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_3"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_hound"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_hound"
+Level = 4
+Inventory = PackedStringArray("gloam_fangs")
+Faction = 1
+Position = Vector2i(14, 9)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_4"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_stalker"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_stalker"
+Level = 4
+Inventory = PackedStringArray("bone_spikes")
+Faction = 1
+Position = Vector2i(15, 5)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_5"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_stalker"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_stalker"
+Level = 4
+Inventory = PackedStringArray("bone_spikes")
+Faction = 1
+Position = Vector2i(15, 10)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_6"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_brute"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_brute"
+Level = 4
+Inventory = PackedStringArray("gloam_claws")
+Faction = 1
+Position = Vector2i(15, 7)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_7"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_brute"
+Name = "Gloam Alpha"
+Tag = "alpha"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_alpha"
+Level = 8
+Inventory = PackedStringArray("gloam_claws")
+Faction = 1
+Position = Vector2i(14, 7)
+Ai = 3
+IsBoss = true
+
+[sub_resource type="Resource" id="SpawnDefinition_8"]
+script = ExtResource("2_spawn")
+ClassId = "binder"
+Name = "Binder Hollin"
+Tag = "hollin"
+SpriteId = "enemy_binder"
+Level = 6
+Inventory = PackedStringArray("shadow")
+Faction = 1
+Position = Vector2i(17, 1)
+Ai = 1
+CrestBearer = true
+
+[sub_resource type="Resource" id="SpawnDefinition_9"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_hound"
+Group = "wave2"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_hound"
+Level = 4
+Inventory = PackedStringArray("gloam_fangs")
+Faction = 1
+Position = Vector2i(17, 4)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_10"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_hound"
+Group = "wave2"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_hound"
+Level = 4
+Inventory = PackedStringArray("gloam_fangs")
+Faction = 1
+Position = Vector2i(17, 9)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_11"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_stalker"
+Group = "wave2"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_stalker"
+Level = 4
+Inventory = PackedStringArray("bone_spikes")
+Faction = 1
+Position = Vector2i(17, 6)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_12"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_brute"
+Group = "wave3"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_brute"
+Level = 4
+Inventory = PackedStringArray("gloam_claws")
+Faction = 1
+Position = Vector2i(17, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_13"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_hound"
+Group = "wave3"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_hound"
+Level = 4
+Inventory = PackedStringArray("gloam_fangs")
+Faction = 1
+Position = Vector2i(17, 7)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_14"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_hound"
+Group = "wave3"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_hound"
+Level = 4
+Inventory = PackedStringArray("gloam_fangs")
+Faction = 1
+Position = Vector2i(17, 10)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_15"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_hound"
+Group = "wave4"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_hound"
+Level = 4
+Inventory = PackedStringArray("gloam_fangs")
+Faction = 1
+Position = Vector2i(17, 2)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_16"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_stalker"
+Group = "wave4"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_stalker"
+Level = 4
+Inventory = PackedStringArray("bone_spikes")
+Faction = 1
+Position = Vector2i(17, 8)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_17"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_brute"
+Group = "wave4"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_brute"
+Level = 4
+Inventory = PackedStringArray("gloam_claws")
+Faction = 1
+Position = Vector2i(17, 11)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_18"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_hound"
+Group = "wave6"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_hound"
+Level = 4
+Inventory = PackedStringArray("gloam_fangs")
+Faction = 1
+Position = Vector2i(17, 5)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_19"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_hound"
+Group = "wave6"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_hound"
+Level = 4
+Inventory = PackedStringArray("gloam_fangs")
+Faction = 1
+Position = Vector2i(17, 9)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_20"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_brute"
+Group = "wave6"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_brute"
+Level = 4
+Inventory = PackedStringArray("gloam_claws")
+Faction = 1
+Position = Vector2i(17, 7)
+Ai = 0
+HardOnly = true
+
+[resource]
+script = ExtResource("1_map")
+Id = "ch5"
+Name = "Chapter 5: Ferrow's Keep"
+TerrainRows = PackedStringArray("PPWWWWWWWWWWWPPFFF", "PP######T###WPPPFF", "PP#T########WPPFFF", "PP##########WPPPPP", "PP##########WPPFPP", "PP##########WP,PPP", "PP########T#WPPPPP", "PP##########WPPPPP", "PP##########WPP,PP", "PP##########WPPFPP", "PP#T########WPPPPP", "PP##########PPPFFF", "PP######T###WPPPFF", "PPWWWWWWWWWWWPPFFF")
+HeightRows = PackedStringArray("001111111111100000", "000000000000100000", "000000000000100000", "000000000000100000", "000000000000100000", "000000000000100000", "000000000000100000", "000000000000100000", "000000000000100000", "000000000000100000", "000000000000100000", "000000000000000000", "000000000000100000", "001111111111100000")
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20")])
+Victory = "survive 8"
+Defeat = PackedStringArray("die dorran")
+Triggers = PackedStringArray("turn 1 => scene ch05_dorran; join dorran", "turn 2 enemy => spawn wave2", "turn 3 enemy => spawn wave3", "turn 4 enemy => spawn wave4", "turn 5 => terrain 12,6-12,7 #; scene ch05_gate", "turn 6 enemy => spawn wave6", "combat alpha => scene ch05_alpha", "defeated hollin => scene ch05_hollin; gold 500; win")
+Fog = false
+DeploySlots = "8,5 9,5 8,7 9,7 7,6 9,6 8,8"
+Background = "ferrows_keep"

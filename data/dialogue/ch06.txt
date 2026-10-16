@@ -1,0 +1,63 @@
+# Chapter 6: The Bandit King of Greyfen
+# Written for the built map (data/maps/ch6.tres). Voices follow docs/story/DIALOGUE.md section 2.
+
+### ch06_pre
+@bg greyfen
+@music forest_tension
+NARRATOR: Greyfen was half marsh and half rumour: reed beds, black pools, and houses standing on stilts above the mud.
+NARRATOR: The rumour said a bandit king ruled it now, and that his men did whatever he wanted, the moment he wanted it.
+DORRAN [neutral]: Mind the shallows, my lord. Plate and marsh water don't get on.
+ELISE [worried]: If the rumour's true, he's holding them the way the Binders hold the Gloamkin. But he's no Binder.
+ROWAN [determined]: Then where did he get a crest?
+
+### ch06_start
+@focus 10,6
+KAI [surprised]: Hang on. The swordswoman on the stilt house. Red headband. That's Sable!
+ROWAN [neutral]: You know her?
+KAI [smile]: She grew up two farms over. She still owes me eight silver. Let me talk to her.
+
+### ch06_sable
+SABLE [smile]: Kai Merrow. You still owe me eight silver.
+KAI [surprised]: I owe you? You owe me! The horse race! You cheated!
+SABLE [laugh]: I won. That's different. What are you doing in a swamp with a lord and a scholar?
+KAI [determined]: Stopping your boss. Have you seen his men? They don't blink. They don't even talk.
+SABLE [cold]: ...I've seen. I took his coin before he got that thing on his hand. Now I don't like what I'm paid for.
+SABLE [smile]: Fine. I'm switching sides. You can owe me sixteen.
+
+### ch06_scouts
+@focus 10,0
+@sfx gloam_howl
+NARRATOR: Wings beat overhead. Three riders on white pegasi, in Dain Hall green, circled once and turned north.
+TAMSIN [cold]: Scouts. Counting us.
+ALDRIC [cold]: Halvric knows where we are now. Good. Let him count.
+
+### ch06_house
+NARRATOR: An old marsh-woman lowered a rope ladder from her stilt house and passed down a stoppered flask.
+NARRATOR: "Rusk took my nephew. Bring him back, or bring that one down. Either will do."
+
+### ch06_boss
+RUSK [cold]: A farm boy with a white hand. You know what this is, boy? This is power. I took it, and it fit.
+ROWAN [cold]: It's not yours.
+RUSK [laugh]: It is now. That's how crests work.
+
+### ch06_rusk
+@focus 17,2
+@sfx crest_rise
+RUSK [hurt]: No... it was mine... I took it fair...
+NARRATOR: The purple crest tore free of Rusk's hand, hung in the air, and drifted toward Rowan. It burned white.
+NARRATOR: All across the marsh, Rusk's men dropped their weapons and blinked as if waking.
+KAI [surprised]: Crests can be stolen?
+ELISE [worried]: Crests can be *taken*. Whoever ends a bearer takes the crest. That's the rule. I'd hoped it was only a theory.
+ROWAN [worried]: Then anyone who wants one just has to kill for it.
+ALDRIC [cold]: Now you see why the old lords were careful who they made enemies of.
+
+### ch06_post
+@bg greyfen_dawn
+@music aftermath
+NARRATOR: The bandits who woke up went home. Most of them didn't remember why they'd left.
+SABLE [neutral]: Rusk got that crest from a reeve in the next valley. Killed him on the road last spring.
+SABLE [cold]: And the man who told him where the reeve would be wore Dain Hall green.
+ROWAN [cold]: Halvric again. The soldiers, the gate, the scouts. Every road leads back to Dain Hall.
+DORRAN [neutral]: Then that's where we go, my lord.
+ROWAN [determined]: Right. We go now.
+

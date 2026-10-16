@@ -121,11 +121,16 @@ public partial class BattleSceneView : CanvasLayer
     public static bool CanShow(BattleUnit a, BattleUnit b) =>
         SpriteLibrary.Battle(a) is not null && SpriteLibrary.Battle(b) is not null;
 
-    /// <summary>The battle background for the terrain the defender stands on (assets/backgrounds/).</summary>
-    public static string BackgroundFor(string terrainId) => terrainId switch
+    /// <summary>
+    /// The battle background for the terrain the defender stands on (assets/backgrounds/). Forest and water keep
+    /// their own; elsewhere a map's own backdrop (MapDef.Background, e.g. the keep or the marsh) wins.
+    /// </summary>
+    public static string BackgroundFor(string terrainId, string? mapBackground = null) => terrainId switch
     {
         "forest" => "forest",
-        "water" or "bridge" or "shallows" => "river_road",
+        "water" or "bridge" => "river_road",
+        "shallows" or "reeds" or "stilt" => mapBackground ?? "greyfen",
+        _ when mapBackground is not null => mapBackground,
         "fort" or "wall" or "house" or "chapel" or "fire" or "village" => "village",
         _ => "plains",
     };
@@ -146,7 +151,7 @@ public partial class BattleSceneView : CanvasLayer
         var leftForecast = attackerOnRight ? c.Forecast.Defender : c.Forecast.Attacker;
 
         var terrain = s.Grid[defender.Pos].Terrain;
-        var bg = UiKit.Background(BackgroundFor(terrain.Id)) ?? UiKit.Background("plains");
+        var bg = UiKit.Background(BackgroundFor(terrain.Id, s.Map.Background)) ?? UiKit.Background("plains");
         _bg.Texture = bg;
         _bg.Visible = bg is not null;
         _bg.Modulate = terrain.Id == "fire" ? new Color(1f, 0.72f, 0.6f) : Colors.White;

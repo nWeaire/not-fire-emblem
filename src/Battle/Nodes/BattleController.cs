@@ -27,7 +27,7 @@ public partial class BattleController : Node3D
     public bool UseBattleScenes { get => Settings.BattleScenes; set => Settings.BattleScenes = value; }
 
     /// <summary>Who single-map battles deploy when the map has deploy slots, in order.</summary>
-    private static readonly string[] SkirmishParty = { "rowan", "aldric", "kai", "mira", "brann", "tamsin", "elise" };
+    private static readonly string[] SkirmishParty = { "rowan", "aldric", "kai", "mira", "brann", "tamsin", "elise", "dorran", "sable" };
 
     private readonly Dictionary<string, UnitView> _views = new();
     private AiWeights _aiWeights = AiWeights.Default;
@@ -243,7 +243,9 @@ public partial class BattleController : Node3D
             {
                 if (ActionRules.CanSeize(State, unit, cell))
                     return new AiDecision(unit, new ActCommand(unit.Id, cell, new SeizeAction()), null);
-                if (ActionRules.CanEscape(State, unit, cell))
+                // The lord leaves last: once he's gone, the others can't be escorted out.
+                if (ActionRules.CanEscape(State, unit, cell)
+                    && (!unit.IsLord || State.Map.Goals.EscapeKeys.All(k => State.ByKey(k) is not { IsOnMap: true } other || other == unit)))
                     return new AiDecision(unit, new ActCommand(unit.Id, cell, new EscapeAction()), null);
                 if (EventDirector.TalkTargets(State, unit, cell).FirstOrDefault() is { } talk)
                     return new AiDecision(unit, new ActCommand(unit.Id, cell, new TalkAction(talk.Id)), null);
@@ -265,28 +267,38 @@ public partial class BattleController : Node3D
         {
             var reach = State.Reach(unit);
             var care = CarefulAi.Heal(State, unit, reach)
-                       ?? CarefulAi.Recover(State, unit, reach, unit.IsLord ? 0.5 : 0.35, needsItem: !unit.IsLord);
+                       ?? CarefulAi.Recover(State, unit, reach, IsVital(unit) || MustSurvive(unit) ? 0.5 : 0.35, needsItem: !IsVital(unit));
             if (care is not null && care.Validate(State).Ok)
                 return new AiDecision(unit, care, null);
         }
-        // Everyone else fights like the enemy AI; the lord is far more careful (losing him loses the map).
+        // Everyone else fights like the enemy AI; vital units (the lord, and anyone who must escape) are far more
+        // careful. Units that only must survive still fight, but pull back sooner (above).
         var decisions = State.LivingOf(Faction.Player).Where(u => u.ActionState != ActionState.Done)
-            .Select(u => u.IsLord ? LordDecision(u) : AiController.Decide(State, u, AutoplayWeights)).ToList();
+            .Select(u => IsVital(u) ? LordDecision(u) : AiController.Decide(State, u, AutoplayWeights)).ToList();
         return decisions.Where(d => d.AttackScore is not null).OrderByDescending(d => d.AttackScore).FirstOrDefault()
-               ?? decisions.FirstOrDefault(d => !d.Unit.IsLord) ?? decisions.FirstOrDefault();
+               ?? decisions.FirstOrDefault(d => !IsVital(d.Unit)) ?? decisions.FirstOrDefault();
     }
+
+    /// <summary>The lord, and units the map's escape objective names.</summary>
+    private bool IsVital(BattleUnit unit) =>
+        unit.IsLord || State.Map.Goals.EscapeKeys.Any(key => State.ByKey(key) == unit);
+
+    /// <summary>Units whose death loses the map ("die KEY").</summary>
+    private bool MustSurvive(BattleUnit unit) => State.Map.Goals.MustSurvive.Any(key => State.ByKey(key) == unit);
 
     private AiDecision LordDecision(BattleUnit lord)
     {
-        var d = AiController.Decide(State, lord, LordWeights);
-        if (d.AttackScore is > 0)
-            return d;
-        // Seize/Escape maps: once the way is fairly clear, walk toward the objective.
         var goals = State.Map.Goals;
-        if (goals.Victory is VictoryKind.Seize or VictoryKind.Escape && State.LivingOf(Faction.Enemy).Count() <= 3)
+        bool escaping = goals.Victory == VictoryKind.Escape && goals.EscapeKeys.Any(k => State.ByKey(k) == lord || lord.IsLord);
+        var d = AiController.Decide(State, lord, LordWeights);
+        // On an escape map the units who must leave just run; elsewhere they fight when it's safe.
+        if (d.AttackScore is > 0 && !escaping)
+            return d;
+        // Seize/Escape maps: walk toward the objective (seize once the way is fairly clear; escape at once).
+        if (escaping || goals.Victory == VictoryKind.Seize && State.LivingOf(Faction.Enemy).Count() <= 3)
         {
             var reach = State.Reach(lord);
-            var goal = goals.Cells[0];
+            var goal = goals.Cells.OrderBy(c => c.DistanceTo(lord.Pos)).First();
             var path = Pathfinder.FindPath(State.Grid, lord.Pos, goal, State.MoveType(lord));
             if (path is not null)
                 for (int i = path.Count - 1; i > 0; i--)

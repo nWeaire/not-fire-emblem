@@ -40,6 +40,9 @@ ATTACKS = {  # weapon: attack ending back in stance (the critical keeps the mani
     # "from high behind" drew a second sword behind Aldric: name a single blade and keep it in his hands.
     "sword": "raises his one sword overhead with both hands, steps forward to the RIGHT and slashes it down in front in a "
              "wide fast arc, then returns to the same stance. Only one sword, always held in the hands",
+    # The model drew fireballs for a plain "swipes ... in a savage rake": say it's melee, with nothing thrown.
+    "claws": "lunges to the RIGHT and rakes both clawed hands down through the air in front, a melee swipe with "
+             "nothing thrown and no fire, then returns to the same stance",
     "anima": "thrusts the free hand to the RIGHT and hurls a ball of fire that flies off to the right, then returns "
              "to the same stance",
 }

@@ -25,6 +25,8 @@ public partial class MapDefinition : Resource
     [Export] public int VisionBonus { get; set; }
     /// <summary>Cells for deployed units without a fixed spawn, e.g. "1,10 2,10 1,11".</summary>
     [Export] public string DeploySlots { get; set; } = "";
+    /// <summary>Battle-screen backdrop for open ground on this map (forest and water keep their own), e.g. "greyfen".</summary>
+    [Export] public string Background { get; set; } = "";
 
     public MapDef ToDef()
     {
@@ -32,7 +34,8 @@ public partial class MapDefinition : Resource
         {
             return new MapDef(Id, Name, TerrainRows.ToArray(), HeightRows.ToArray(), Spawns.Select(s => s.ToDef()).ToArray(),
                 MapScript.ParseObjectives(Victory, Defeat), MapScript.ParseTriggers(Triggers), Fog, VisionBonus,
-                string.IsNullOrWhiteSpace(DeploySlots) ? null : MapScript.Cells(DeploySlots.Split(' ', StringSplitOptions.RemoveEmptyEntries), DeploySlots));
+                string.IsNullOrWhiteSpace(DeploySlots) ? null : MapScript.Cells(DeploySlots.Split(' ', StringSplitOptions.RemoveEmptyEntries), DeploySlots),
+                string.IsNullOrWhiteSpace(Background) ? null : Background);
         }
         catch (FormatException e)
         {

@@ -1,0 +1,194 @@
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
+[ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
+
+[sub_resource type="Resource" id="SpawnDefinition_1"]
+script = ExtResource("2_spawn")
+UnitId = "sable"
+Level = 6
+Faction = 1
+Position = Vector2i(10, 6)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_2"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Rusk"
+Tag = "rusk"
+SpriteId = "boss_rusk"
+Armor = "chainmail"
+Level = 9
+Inventory = PackedStringArray("steel_axe", "hand_axe")
+Faction = 1
+Position = Vector2i(17, 2)
+Ai = 3
+IsBoss = true
+CrestBearer = true
+
+[sub_resource type="Resource" id="SpawnDefinition_3"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Greyfen Bandit"
+DominatedBy = "rusk"
+SpriteId = "enemy_fighter"
+Armor = "leather_jerkin"
+Level = 5
+Inventory = PackedStringArray("iron_axe")
+Faction = 1
+Position = Vector2i(6, 4)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_4"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Greyfen Bandit"
+DominatedBy = "rusk"
+SpriteId = "enemy_fighter"
+Armor = "leather_jerkin"
+Level = 5
+Inventory = PackedStringArray("iron_axe")
+Faction = 1
+Position = Vector2i(9, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_5"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Greyfen Bandit"
+DominatedBy = "rusk"
+SpriteId = "enemy_fighter"
+Armor = "leather_jerkin"
+Level = 5
+Inventory = PackedStringArray("iron_axe")
+Faction = 1
+Position = Vector2i(12, 7)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_6"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Greyfen Bandit"
+DominatedBy = "rusk"
+SpriteId = "enemy_fighter"
+Armor = "leather_jerkin"
+Level = 6
+Inventory = PackedStringArray("iron_axe")
+Faction = 1
+Position = Vector2i(14, 4)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_7"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Greyfen Bandit"
+DominatedBy = "rusk"
+SpriteId = "enemy_fighter"
+Armor = "leather_jerkin"
+Level = 5
+Inventory = PackedStringArray("iron_axe")
+Faction = 1
+Position = Vector2i(13, 9)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_8"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Greyfen Bandit"
+DominatedBy = "rusk"
+SpriteId = "enemy_fighter"
+Armor = "leather_jerkin"
+Level = 6
+Inventory = PackedStringArray("iron_axe")
+Faction = 1
+Position = Vector2i(16, 4)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_9"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Greyfen Bandit"
+DominatedBy = "rusk"
+SpriteId = "enemy_fighter"
+Armor = "leather_jerkin"
+Level = 6
+Inventory = PackedStringArray("iron_axe")
+Faction = 1
+Position = Vector2i(18, 4)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_10"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Greyfen Archer"
+DominatedBy = "rusk"
+SpriteId = "enemy_archer"
+Level = 5
+Inventory = PackedStringArray("iron_bow")
+Faction = 1
+Position = Vector2i(2, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_11"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Greyfen Archer"
+DominatedBy = "rusk"
+SpriteId = "enemy_archer"
+Level = 5
+Inventory = PackedStringArray("iron_bow")
+Faction = 1
+Position = Vector2i(13, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_12"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Greyfen Archer"
+DominatedBy = "rusk"
+SpriteId = "enemy_archer"
+Level = 6
+Inventory = PackedStringArray("iron_bow")
+Faction = 1
+Position = Vector2i(15, 1)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_13"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Greyfen Sellsword"
+DominatedBy = "rusk"
+SpriteId = "enemy_myrmidon"
+Level = 6
+Inventory = PackedStringArray("iron_sword")
+Faction = 1
+Position = Vector2i(19, 6)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_14"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Greyfen Bandit"
+DominatedBy = "rusk"
+SpriteId = "enemy_fighter"
+Armor = "leather_jerkin"
+Level = 6
+Inventory = PackedStringArray("iron_axe")
+Faction = 1
+Position = Vector2i(19, 3)
+Ai = 0
+HardOnly = true
+
+[resource]
+script = ExtResource("1_map")
+Id = "ch6"
+Name = "Chapter 6: The Bandit King of Greyfen"
+TerrainRows = PackedStringArray("~~ssrrPPsshh~~ssrrPP", "~ssrrPPsss~h~ssrrPPh", "ssrPPPsBs~~~ssrPPhhP", "srPPPsss~ss~srPPPPPP", "rPPhPss~~ssrrPPrrPPP", "PPPPsss~rPPPPss~~rrP", "PPrssr~~PPhPPsss~~rP", "PrrssBBsPPPPrrss~srr", "PrsssrrsssPPPrsss~sP", "PPssr~~rrrsPPhPPsBsr", "PPPsr~~ssPPPPPPrsss~", "PPPrss~sssrrPPPrrss~", "PPPPssBsrrPPhPPrrs~~", "PPPPrssssrPPPPPrss~~")
+HeightRows = PackedStringArray("00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000")
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14")])
+Victory = "boss rusk"
+Defeat = PackedStringArray()
+Triggers = PackedStringArray("talk kai sable => scene ch06_sable; join sable", "turn 1 => scene ch06_start", "turn 5 => scene ch06_scouts", "visit 3,4 => scene ch06_house; give actor elixir", "combat rusk => scene ch06_boss", "defeated rusk => scene ch06_rusk")
+Fog = false
+DeploySlots = "1,10 2,10 1,11 2,11 1,12 2,12 1,13 2,13"
+Background = "greyfen"

@@ -72,3 +72,48 @@ ALDRIC [cold]: Something's herding Gloamkin out of the deep wood. Same as Brookh
 KAI [determined]: Then we go in and find whoever's doing the herding.
 OSMUND [neutral]: It is thick forest. You will see very little until you are standing right on top of it.
 ROWAN [neutral]: Stay close. Nobody wanders.
+
+### hub_briefing_ch04
+@bg village_hall
+OSMUND [neutral]: Varga's orders, my lord. "Intercept the archive scholar on the south road."
+OSMUND [neutral]: The royal archive sends a scholar to the Thornvale perhaps once a generation. This one was expected at Dain Hall.
+ALDRIC [cold]: And Halvric's men were told to grab her before she got there.
+ROWAN [determined]: Then we get to her first. The south road, over the hills.
+
+### ch04_lore
+@bg village_hall
+@music calm_farm
+ELISE [smile]: Right. Crests. I'll be quick. I won't be quick, but I'll try.
+ELISE [neutral]: Every ruler in Aldmere bears one. Reeves, lords, kings. The crest is the right to rule, made visible.
+ELISE [neutral]: They grow. A Kindled Crest, a Knight's Crest, a Lord's Crest, and above that, the old royal ones.
+ELISE [neutral]: And they take the colour of the heart that carries them. Radiant or shrouded. White or purple.
+OSMUND [neutral]: Purple is the colour of every Binder you have killed, my lord.
+ELISE [worried]: And of a good many lords lately. Shrouded crests are spreading. Faster every year. That's the disturbance.
+ELISE [surprised]: Yours is radiant. I've only ever read about radiant ones. May I— no. Later. I'll draw it later.
+ROWAN [neutral]: Why does it matter what colour it is?
+ELISE [neutral]: A radiant crest lifts the people around it. A shrouded one holds them. That's the difference between leading and owning.
+ALDRIC [neutral]: Remember that one.
+
+### hub_briefing_ch05
+@bg village_hall
+OSMUND [worried]: A rider from Ferrow's Keep, my lord. The eastern border. The Gloamkin are massing against its walls.
+OSMUND [neutral]: The garrison is a retired captain and whoever he could find. Captain Dorran Kell. A sensible man.
+ELISE [worried]: If the Binders are pushing that many at once, they want the keep down before winter.
+ROWAN [determined]: Then we hold it with him. Tell the rider we're coming.
+
+### hub_merrow_horses
+@bg farm_yard
+@music calm_farm
+NARRATOR: Kai's family's ranch had come through the summer with its fences broken and its horses whole.
+KAI [laugh]: Rowan! Look who my mum's been hiding! Thistle. Fastest mare in the Thornvale.
+ROWAN [smile]: You're going to ride into battle.
+KAI [smile]: I'm going to ride into battle *faster than you*. Bet I get more Gloamkin from up here.
+DORRAN [neutral]: Keep your lance low and your heels down, lad. The horse does the hard part.
+NARRATOR: Kai became a Cavalier.
+
+### hub_briefing_ch06
+@bg village_hall
+OSMUND [neutral]: The Greyfen marsh, my lord. A bandit called Rusk has made himself king of it.
+OSMUND [cold]: His men are said to move as one, and to obey before he's finished speaking. You'll recognise the description.
+ELISE [worried]: That's Dominion. He has a crest. A shrouded one. And no right to it whatsoever.
+ROWAN [determined]: Then we find out where he got it. And we take it back.

@@ -19,6 +19,9 @@ public partial class TitleScreen : Control
         ("ch1", "Chapter 1: Brookhollow Burns"),
         ("ch2", "Chapter 2: The Millbrook Road"),
         ("ch3", "Chapter 3: Thornwood Hunt"),
+        ("ch4", "Chapter 4: The Scholar of Calder"),
+        ("ch5", "Chapter 5: Ferrow's Keep"),
+        ("ch6", "Chapter 6: The Bandit King of Greyfen"),
     };
 
     private VBoxContainer _menu = null!;

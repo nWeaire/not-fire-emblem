@@ -50,11 +50,15 @@ _Last updated: 2026-10-16 (end of session 5)._
   was checked frame by frame; effect frames were filtered out and Brann's dodge, Aldric's hit and Rowan's
   attack/hit/dodge were redone. The 64 px session-4 battle art is parked in `tools/art/superseded/battle_s4/`.
 - Map sprites are unchanged (48 px session-4 look).
+- **Bandits and human enemies restyled** (Fighter, Archer, Myrmidon, Gorran/`boss_brigand_chief`, Soldier, Mage): new
+  48 px map sprites from `generate.py` and E-look battle sprites. Session-2 art parked in `tools/art/superseded/*_s2/`.
+  New `anima` (fire) weapon animations in the manifest. The effect filter only catches white or growing effects:
+  orange sparks and thin slashes still need checking by eye (the Mage's and Myrmidon's hits were cleaned by hand).
 
 ### Next
 1. User review of the new battle cast in game; swap any still pick for ~7 gens (`animate_still.py`).
-2. Remaining P1 art in `docs/ART_NEEDED.md`: bandit/human enemies still use session-2 art (96 px battle sprites, now
-   visibly smaller and duller than the cast), and `gorran.png`. Do them in the E look.
+2. Remaining art in `docs/ART_NEEDED.md`: `gorran.png` (P1), and Elise, Kai's Cavalier and the Pegasus Knight, which
+   still use session-2 art.
 3. Switch `BattleController.MapId` to `prologue` if wanted, and playtest by hand.
 
 ## Session 4: art direction settled

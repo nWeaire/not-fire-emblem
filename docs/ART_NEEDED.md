@@ -29,9 +29,9 @@ Folder: `assets/sprites/units/<spriteId>/`. Units find art through `BattleUnit.S
 
 | Priority | Sprite id | Who / what | Used in |
 |---|---|---|---|
-| P1 | `enemy_fighter`, `enemy_archer`, `enemy_soldier`, `enemy_mage`, `enemy_myrmidon`, `boss_brigand_chief` | Bandits and human enemies still use session-2 art (not GBA style) | Ch 2, test map |
+| P2 | `enemy_pegasus_knight` | Still session-2 art (map and battle); a flying mount | Test map |
 | P2 | `boss_sennet`, `boss_varga`, `boss_gorran` | Distinct looks for named bosses (set the spawn `SpriteId`) | Ch 1–3 |
-| P2 | `elise_mage`, `kai_cavalier` | Session-2 art; regenerate in GBA style | Later chapters / promotion |
+| P2 | `elise_mage`, `kai_cavalier` | Session-2 art (map and battle); regenerate in the current styles. Elise shows in Battle Select's default party | Ch 4+, promotion |
 | P2 | `aldric_warden_lord`, `tamsin_sniper`, `brann_warrior`, `kai_paladin`, `mira_sage`, `rowan_crest_knight` | Tier 2 outfits (`PLANNED` in `tools/art/manifest.py`) | After promotion |
 
 ## 2. Battle-screen sprites (the "E" look: 84 px stills animated on 128×84, east only, `idle` `attack` `critical` `dodge` `hit`)

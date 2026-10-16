@@ -39,6 +39,8 @@ ACTIONS = {
 ATTACKS = {  # weapon: attack ending back in stance (the critical keeps the manifest's text and ends mid-strike)
     "sword": "steps forward to the RIGHT and swings the sword in a wide fast slash from high behind to low in front, "
              "then returns to the same stance",
+    "anima": "thrusts the free hand to the RIGHT and hurls a ball of fire that flies off to the right, then returns "
+             "to the same stance",
 }
 RIGHT = "faces right the whole time, side view, never turns toward the camera"
 CLEAN = "no effects, no particles, no motion lines, no dust"  # the battle screen draws hit flashes itself

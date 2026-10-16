@@ -31,6 +31,7 @@ MAP_ATTACKS = {
     "dark": "thrusts a glowing purple hand forward, releasing a burst of shadow magic",
     "claws": "lunges forward and rakes with its claws, then recoils",
     "spikes": "rears back and hurls a bone spike forward, then recovers",
+    "anima": "thrusts the tome forward and hurls a ball of fire",
 }
 BATTLE_ATTACKS = {
     # weapon: (standard attack, critical)
@@ -51,6 +52,8 @@ BATTLE_ATTACKS = {
               "crouches, leaps forward and slashes both claws down in a frenzied double rake"),
     "spikes": ("rears back and hurls a bone spike forward, then recovers",
                "rips two bone spikes from its back and hurls them forward in a vicious double throw"),
+    "anima": ("holds the tome forward and hurls a ball of fire from the free hand, then lowers it",
+              "the tome blazes as flames swirl around the caster, then a huge fireball is hurled forward"),
 }
 BATTLE_IDLE = "stands in a battle-ready stance, weapon at the ready, subtle breathing"
 BATTLE_HIT = "staggers backward from a heavy blow, then recovers"
@@ -119,6 +122,25 @@ CHARACTERS = {
     "brann_fighter": dict(weapon="axe", sets=("map",),
         desc="big burly young village blacksmith, short brown beard, scorched leather apron over a plain shirt, bare "
              "muscular arms, heavy iron wood-cutting axe"),
+    # Act I bandits and generic human enemies ("iron and leather", CHAPTERS.md). Gorran uses boss_brigand_chief.
+    "enemy_fighter": dict(weapon="axe", sets=("map",),
+        desc="rough bandit brigand, scruffy dark hair, stubble, red bandana, patched brown leather vest over a dirty "
+             "shirt, bare arms, iron hand axe"),
+    "enemy_archer": dict(weapon="bow", sets=("map",),
+        desc="lean bandit archer, brown hooded cloak, red scarf over the lower face, leather jerkin, quiver, short "
+             "wooden bow"),
+    "enemy_myrmidon": dict(weapon="sword", sets=("map",),
+        desc="wiry mercenary swordsman, long dark ponytail, dark red wrapped tunic, leather bracers and belt, slim "
+             "curved iron sword"),
+    "boss_brigand_chief": dict(weapon="axe", sets=("map",),
+        desc="hulking bandit chieftain, dented iron helmet with two short horns, thick black beard, scarred face, "
+             "red fur mantle over dark leather armour, heavy iron axe"),
+    "enemy_soldier": dict(weapon="lance", sets=("map",),
+        desc="garrison soldier, iron kettle helmet, chainmail shirt under a faded red tabard, brown trousers, iron "
+             "spear"),
+    "enemy_mage": dict(weapon="anima", sets=("map",),
+        desc="rogue fire mage, young man with ragged dark hair, dark red hooded robe with a rope belt, holding a "
+             "red tome, small flame flickering above the free hand"),
     "ally_villager": dict(weapon="none", sets=("map",),
         desc="plain village farmer man, brown hair, beige linen shirt, green wool vest, brown trousers, no weapon"),
 }

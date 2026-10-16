@@ -5800,6 +5800,74 @@
           "type": "generations"
         }
       },
+      "map:boss_brigand_chief": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "6100b3c0-1dc0-460b-8ee3-7e57339985c7",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "3d423583-4fca-4777-98da-d6378a4540f4",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011425839874479506
+              },
+              {
+                "type": "usd",
+                "usd": 0.009034067842695448
+              },
+              {
+                "type": "usd",
+                "usd": 0.008950044684939915
+              },
+              {
+                "type": "usd",
+                "usd": 0.011221835904651218
+              }
+            ]
+          }
+        },
+        "character_id": "682be9d4-9031-470b-9682-4783066a3afa",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "map:brann_fighter": {
         "animations": {
           "attack": {
@@ -5862,6 +5930,74 @@
           }
         },
         "character_id": "95e64509-e294-4b25-b9c5-a9a724ea07be",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:enemy_archer": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "507e6e29-8915-4d56-ba14-2f85fc09e6b6",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "8faeb6b0-b1bd-47be-8c1c-8e84de355d6d",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009370122326744928
+              },
+              {
+                "type": "usd",
+                "usd": 0.008469832791222466
+              },
+              {
+                "type": "usd",
+                "usd": 0.008248668962054784
+              },
+              {
+                "type": "usd",
+                "usd": 0.009294567584991455
+              }
+            ]
+          }
+        },
+        "character_id": "558258be-0d04-4764-a659-f7850c431609",
         "status": "completed",
         "usage": {
           "generations": 10.0,
@@ -5932,6 +6068,74 @@
         },
         "character_id": "60f8de6c-34b6-4e55-8d77-3b6d56c5dee8",
         "status": "completed"
+      },
+      "map:enemy_fighter": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "062460fe-c2e8-459e-ba27-85fd41e4fa80",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "972f5ee8-7122-474e-931c-6faefdb56f29",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009249728785620796
+              },
+              {
+                "type": "usd",
+                "usd": 0.010961331473456489
+              },
+              {
+                "type": "usd",
+                "usd": 0.010446968767378065
+              },
+              {
+                "type": "usd",
+                "usd": 0.010263379017512004
+              }
+            ]
+          }
+        },
+        "character_id": "da527b09-9a07-4767-80ed-98fc837f59af",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
       },
       "map:enemy_gloam_brute": {
         "adopted": true,
@@ -6128,6 +6332,210 @@
           }
         },
         "character_id": "54e2f67f-f1ba-4654-8348-715657176c80",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:enemy_mage": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "773f6177-9758-4bd6-9232-ab2e25b407dd",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "8f2a9a26-c54b-4f12-92e6-2e12eacdcbfe",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008395610729853313
+              },
+              {
+                "type": "usd",
+                "usd": 0.009689587195714316
+              },
+              {
+                "type": "usd",
+                "usd": 0.008707774506674874
+              },
+              {
+                "type": "usd",
+                "usd": 0.013916242599487306
+              }
+            ]
+          }
+        },
+        "character_id": "5dbe9ad7-514f-489a-ade5-ffe2d87e7831",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:enemy_myrmidon": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "a72156a1-39ca-4f08-b713-03fc74d36316",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "38839757-2f32-4ddc-b25e-1eb4e64fafd1",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009097331179512872
+              },
+              {
+                "type": "usd",
+                "usd": 0.011069895717832777
+              },
+              {
+                "type": "usd",
+                "usd": 0.011495025025473702
+              },
+              {
+                "type": "usd",
+                "usd": 0.010835033814112346
+              }
+            ]
+          }
+        },
+        "character_id": "1f5cf5e3-eecc-4e51-8deb-600996f1004b",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:enemy_soldier": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "97a8347f-6a6a-41ab-9a94-d3a463a4f03d",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "225d7ac9-59cb-414a-b28b-c3f42ffaad0e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.010181944105360243
+              },
+              {
+                "type": "usd",
+                "usd": 0.010780145751105415
+              },
+              {
+                "type": "usd",
+                "usd": 0.01031319202317132
+              },
+              {
+                "type": "usd",
+                "usd": 0.010969453785154555
+              }
+            ]
+          }
+        },
+        "character_id": "4308045f-d17e-4f23-a74e-082b11b1ac27",
         "status": "completed",
         "usage": {
           "generations": 10.0,
@@ -6534,6 +6942,15 @@
           "type": "generations"
         }
       },
+      "boss_brigand_chief": {
+        "job": "ca661713-e432-4509-9342-92708ec7859e",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
       "brann_fighter": {
         "job": "560e5255-cd62-42aa-875a-60191302c57b",
         "status": "completed",
@@ -6543,8 +6960,26 @@
           "type": "generations"
         }
       },
+      "enemy_archer": {
+        "job": "bdf210c9-c39a-4be1-a95a-fd39982a9fc9",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
       "enemy_binder": {
         "job": "c90f6874-de82-4ae6-b181-069619d09bc3",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "enemy_fighter": {
+        "job": "5d4359cd-f2ae-4aaf-84fa-876e116f6d46",
         "status": "completed",
         "takes": 9,
         "usage": {
@@ -6572,6 +7007,33 @@
       },
       "enemy_gloam_stalker": {
         "job": "b6032c63-8ac9-4afc-8259-7818af9b11d1",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "enemy_mage": {
+        "job": "36157512-a387-495b-abd6-533a71e35cf0",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "enemy_myrmidon": {
+        "job": "07df2a5c-e710-486e-a1b9-788a0799877e",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "enemy_soldier": {
+        "job": "f9e939a3-7579-405f-b297-390638f5ea32",
         "status": "completed",
         "takes": 9,
         "usage": {
@@ -6669,6 +7131,58 @@
           }
         }
       },
+      "boss_brigand_chief": {
+        "attack": {
+          "frames": 9,
+          "job": "24ef638e-0e83-4cf2-8d16-73cad8adf030",
+          "status": "completed",
+          "still": "approved/refs/boss_brigand_chief_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "0e2798c3-af90-47c0-a3c1-f66aa6c966e0",
+          "status": "completed",
+          "still": "approved/refs/boss_brigand_chief_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "5f8a6b4f-111c-4815-b7b5-169f1ce441a5",
+          "status": "completed",
+          "still": "approved/refs/boss_brigand_chief_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 3,
+          "job": "0d1e9c75-7831-449e-bba7-4de2b803c626",
+          "status": "completed",
+          "still": "approved/refs/boss_brigand_chief_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "3bf72e64-4459-4ff7-8ed5-e9a73e0466b1",
+          "status": "completed",
+          "still": "approved/refs/boss_brigand_chief_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
       "brann_fighter": {
         "attack": {
           "frames": 9,
@@ -6721,6 +7235,58 @@
           }
         }
       },
+      "enemy_archer": {
+        "attack": {
+          "frames": 9,
+          "job": "0a3fa6a7-7f0c-44d3-b1d3-836420833865",
+          "status": "completed",
+          "still": "approved/refs/enemy_archer_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "da1f68a9-4f99-4845-bb59-29db2a12959f",
+          "status": "completed",
+          "still": "approved/refs/enemy_archer_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "d8438176-50ab-4d52-a44d-cd333e36328a",
+          "status": "completed",
+          "still": "approved/refs/enemy_archer_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "922f282a-8958-41e5-b37a-59cc9100731c",
+          "status": "completed",
+          "still": "approved/refs/enemy_archer_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "9346f754-d0ca-427c-ad5a-3cce4c33a20b",
+          "status": "completed",
+          "still": "approved/refs/enemy_archer_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
       "enemy_binder": {
         "attack": {
           "frames": 9,
@@ -6767,6 +7333,58 @@
           "job": "b689e129-60cf-4487-bff9-42e493c5219b",
           "status": "completed",
           "still": "approved/refs/enemy_binder_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "enemy_fighter": {
+        "attack": {
+          "frames": 9,
+          "job": "1e97067e-2732-49c4-96b1-bec96136b2c9",
+          "status": "completed",
+          "still": "approved/refs/enemy_fighter_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "c2f4d4f7-56aa-4e7e-86c1-5e740cfe014a",
+          "status": "completed",
+          "still": "approved/refs/enemy_fighter_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "bb73ef3b-f292-4f88-884e-c189d62d4202",
+          "status": "completed",
+          "still": "approved/refs/enemy_fighter_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "19c415bf-53a3-4d05-a4ef-86b21df6c17d",
+          "status": "completed",
+          "still": "approved/refs/enemy_fighter_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "ee538730-82fe-46f7-9e23-fd5c2cc4caf9",
+          "status": "completed",
+          "still": "approved/refs/enemy_fighter_battle.png",
           "usage": {
             "generations": 1.0,
             "type": "generations"
@@ -6923,6 +7541,162 @@
           "job": "746900d3-752f-4e6d-ba9c-82824b7ccc9b",
           "status": "completed",
           "still": "approved/refs/enemy_gloam_stalker_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "enemy_mage": {
+        "attack": {
+          "frames": 9,
+          "job": "682bcdf5-7350-4e81-bf8d-df151ae3d92d",
+          "status": "completed",
+          "still": "approved/refs/enemy_mage_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "c2914e9b-2203-4b73-bc70-f0b7b27ed189",
+          "status": "completed",
+          "still": "approved/refs/enemy_mage_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "bf341b3a-3fbb-4c0d-8fb5-36e1068db099",
+          "status": "completed",
+          "still": "approved/refs/enemy_mage_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "c4042b05-fd7b-45db-97d9-2218aace5319",
+          "status": "completed",
+          "still": "approved/refs/enemy_mage_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "1f264cea-02dc-4902-b64d-cbb3cbde837a",
+          "status": "completed",
+          "still": "approved/refs/enemy_mage_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "enemy_myrmidon": {
+        "attack": {
+          "frames": 9,
+          "job": "db50889f-f296-4f1b-9afc-613b9b8f214c",
+          "status": "completed",
+          "still": "approved/refs/enemy_myrmidon_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "cd50ad22-d9e7-4b22-8c3f-be2a3521c3e7",
+          "status": "completed",
+          "still": "approved/refs/enemy_myrmidon_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "753919c1-6ff0-4716-b6d3-9f1c63dcc854",
+          "status": "completed",
+          "still": "approved/refs/enemy_myrmidon_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "717ea9f7-6d83-4c36-a880-8b79a75045c1",
+          "status": "completed",
+          "still": "approved/refs/enemy_myrmidon_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "5ca9f4a0-c57e-4f30-a1c0-69c564386c78",
+          "status": "completed",
+          "still": "approved/refs/enemy_myrmidon_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "enemy_soldier": {
+        "attack": {
+          "frames": 9,
+          "job": "d1a48b55-9ac9-4d59-ae22-54173b7149b4",
+          "status": "completed",
+          "still": "approved/refs/enemy_soldier_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "b5ba0dfb-fb3c-4da2-9af3-3214800cc81d",
+          "status": "completed",
+          "still": "approved/refs/enemy_soldier_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "301e1f02-0538-4432-8147-3363e261b8f8",
+          "status": "completed",
+          "still": "approved/refs/enemy_soldier_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 3,
+          "job": "e90e34cb-c459-4c27-9032-eebdcf95f8e7",
+          "status": "completed",
+          "still": "approved/refs/enemy_soldier_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "75d0966a-fa91-422e-9fb0-fc7440012ab3",
+          "status": "completed",
+          "still": "approved/refs/enemy_soldier_battle.png",
           "usage": {
             "generations": 1.0,
             "type": "generations"

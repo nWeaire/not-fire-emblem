@@ -8,3 +8,9 @@ enemy_gloam_hound 2 claws
 enemy_gloam_brute 1 claws
 enemy_gloam_stalker 2 spikes
 enemy_binder 1 dark
+enemy_fighter 7 axe
+enemy_archer 1 bow
+enemy_myrmidon 2 sword
+boss_brigand_chief 1 axe
+enemy_soldier 1 lance
+enemy_mage 2 anima

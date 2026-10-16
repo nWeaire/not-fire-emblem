@@ -38,6 +38,7 @@ public partial class AudioDirector : Node
         // Release everything audio holds, or Godot reports the playing track as leaked at exit. A quick quit can land
         // mid-fade, so stop the fades, free the players outright (that releases their playbacks), then drop C#'s
         // own handles on the cached streams.
+        Settings.Changed -= ApplyVolumes;
         if (GetTree() is { } tree)
             foreach (var tween in tree.GetProcessedTweens())
                 tween.Kill();
@@ -59,19 +60,48 @@ public partial class AudioDirector : Node
             Instance = null;
     }
 
+    public const string MusicBus = "Music";
+    public const string SfxBus = "SFX";
+
     public override void _Ready()
     {
         ProcessMode = ProcessModeEnum.Always;
+        // Separate buses so the settings can set music and effects volumes independently.
+        EnsureBus(MusicBus);
+        EnsureBus(SfxBus);
         for (int i = 0; i < 2; i++)
         {
-            _music[i] = new AudioStreamPlayer { VolumeDb = -80f };
+            _music[i] = new AudioStreamPlayer { VolumeDb = -80f, Bus = MusicBus };
             AddChild(_music[i]);
         }
         for (int i = 0; i < SfxVoices; i++)
         {
-            var player = new AudioStreamPlayer { VolumeDb = SfxDb };
+            var player = new AudioStreamPlayer { VolumeDb = SfxDb, Bus = SfxBus };
             AddChild(player);
             _sfx.Add(player);
+        }
+        ApplyVolumes();
+        Settings.Changed += ApplyVolumes;
+    }
+
+    private static void EnsureBus(string name)
+    {
+        if (AudioServer.GetBusIndex(name) >= 0)
+            return;
+        AudioServer.AddBus();
+        int index = AudioServer.BusCount - 1;
+        AudioServer.SetBusName(index, name);
+        AudioServer.SetBusSend(index, "Master");
+    }
+
+    /// <summary>Settings volumes are 0–100; 0 mutes the bus.</summary>
+    private static void ApplyVolumes()
+    {
+        foreach (var (bus, volume) in new[] { (MusicBus, Settings.MusicVolume), (SfxBus, Settings.SfxVolume) })
+        {
+            int index = AudioServer.GetBusIndex(bus);
+            AudioServer.SetBusMute(index, volume <= 0);
+            AudioServer.SetBusVolumeDb(index, Mathf.LinearToDb(Mathf.Max(volume, 1) / 100f));
         }
     }
 

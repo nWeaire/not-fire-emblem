@@ -77,6 +77,12 @@ _Last updated: 2026-10-16 (end of session 5)._
   cells use the cobble tile under the cottage.
 - **EXP on the battle screen:** an EXP bar under HP fills after the fight and level-ups show there before the map.
   `--exp=N` starts player units with N EXP for testing.
+- **Settings** (title screen "Settings", hub tab "Settings"): music and sound volumes, text speed, battle scenes
+  on/off. Saved to `user://settings.cfg` by `src/Core/Nodes/Settings.cs`; `AudioDirector` routes music and effects
+  through "Music" and "SFX" buses so the volumes are independent; the B key in battle updates the saved setting.
+- **Exports:** `export_presets.cfg` has a "Windows Desktop" preset that includes `*.txt` (dialogue and campaign
+  scripts) and leaves out tools/, docs/, tests/ and the reference images. Exporting needs Godot's export templates
+  (Editor > Manage Export Templates > Download); output goes to the gitignored `build/`.
 - **Ground decorations** stand up like the trees: grass tufts and bushes on plain cells, flower clumps on meadows, a
   2×2 crop grid on fields (`tuft`, `bush`, `flowers`, `crop` props; 32 px takes via `PROP_SIZE`). They sit toward the
   cell corners so units stay clear.
@@ -187,7 +193,6 @@ samples and mockups. Everything decided is in **`docs/ART_DIRECTION.md`**, and t
   vulneraries below 35% HP (the lord below 50%) and retreat to the safest tile; three campaign runs then finished with
   no losses. Still seen in every run: **Brann dies on Ch 2 turn 3** before anyone reaches him (the "pressed" damage plus
   bandits), and autoplay **kills Tamsin** in Ch 3 instead of recruiting her. Check both in the hand playtest. It still never uses Talk, so automated runs skip optional recruits. Talk is covered by unit tests.
-- **Exported builds** need `*.txt` in the export filter so `data/dialogue/` and `data/campaign/` ship.
 
 ### Art (PixelLab)
 - **Done:** map sprites, battle sprites, 7 portraits and terrain tiles for the original cast and test enemies (session 2).

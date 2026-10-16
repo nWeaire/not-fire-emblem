@@ -17,3 +17,6 @@ tests/**/obj/
 __pycache__/
 *.json.tmp
 tools/art/STOP
+
+# Exported game builds
+/build/

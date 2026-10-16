@@ -77,6 +77,7 @@ public partial class TitleScreen : Control
         _menu.AddChild(UiKit.Button("Continue", () => CampaignFlow.Continue(latest[0]), 280, latest.Count > 0));
         _menu.AddChild(UiKit.Button("Load", ShowLoad, 280, latest.Count > 0));
         _menu.AddChild(UiKit.Button("Battle Select", ShowBattles, 280));
+        _menu.AddChild(UiKit.Button("Settings", ShowSettings, 280));
         _menu.AddChild(UiKit.Button("Quit", () => GetTree().Quit(), 280));
         Focus();
     }
@@ -100,6 +101,15 @@ public partial class TitleScreen : Control
         _menu.AddChild(UiKit.Label("Difficulty", 14, UiKit.Muted));
         _menu.AddChild(difficulty);
         _menu.AddChild(UiKit.Button("Begin", StartNew, 280));
+        _menu.AddChild(UiKit.Button("Back", ShowMain, 280));
+        Focus();
+    }
+
+    private void ShowSettings()
+    {
+        Clear();
+        _menu.AddChild(UiKit.Title("Settings", 24));
+        _menu.AddChild(new SettingsPanel());
         _menu.AddChild(UiKit.Button("Back", ShowMain, 280));
         Focus();
     }

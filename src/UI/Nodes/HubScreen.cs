@@ -15,7 +15,7 @@ namespace NotFireEmblem.UI;
 /// </summary>
 public partial class HubScreen : Control
 {
-    private enum Tab { Party, Shop, Smithy, Promotion, Supports, Save }
+    private enum Tab { Party, Shop, Smithy, Promotion, Supports, Save, Settings }
 
     private ContentDatabase Db => GameSessionNode.Instance.Content;
     private GameSession S => GameSessionNode.Instance.Session!;
@@ -150,6 +150,7 @@ public partial class HubScreen : Control
             case Tab.Promotion: BuildPromotion(); break;
             case Tab.Supports: BuildSupports(); break;
             case Tab.Save: BuildSave(); break;
+            case Tab.Settings: _content.AddChild(new SettingsPanel()); break;
         }
     }
 

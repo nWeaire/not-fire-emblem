@@ -20,7 +20,6 @@ namespace NotFireEmblem.UI;
 public partial class DialogueBox : Control
 {
     public const string PortraitRoot = "res://assets/portraits";
-    private const float CharsPerSecond = 55f;
 
     private PanelContainer _box = null!;
     private Control _portraitFrame = null!;
@@ -220,7 +219,7 @@ public partial class DialogueBox : Control
         _text.VisibleRatio = 0f;
         _typing?.Kill();
         _typing = CreateTween();
-        _typing.TweenProperty(_text, "visible_ratio", 1f, Math.Max(0.15f, line.Text.Length / CharsPerSecond));
+        _typing.TweenProperty(_text, "visible_ratio", 1f, Math.Max(0.15f, line.Text.Length / Settings.CharsPerSecond));
     }
 
     public static string SpeakerName(string speaker, ContentDatabase db) =>

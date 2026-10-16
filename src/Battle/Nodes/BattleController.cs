@@ -23,7 +23,8 @@ public partial class BattleController : Node3D
     /// <summary>0 = pick a random seed each battle.</summary>
     [Export] public ulong Seed { get; set; }
     /// <summary>Play fights in the side-view battle screen (when both units have battle art). Toggled with B.</summary>
-    [Export] public bool UseBattleScenes { get; set; } = true;
+    /// <summary>Show fights on the side-view battle screen; follows (and the B key updates) the saved setting.</summary>
+    public bool UseBattleScenes { get => Settings.BattleScenes; set => Settings.BattleScenes = value; }
 
     /// <summary>Who single-map battles deploy when the map has deploy slots, in order.</summary>
     private static readonly string[] SkirmishParty = { "rowan", "aldric", "kai", "mira", "brann", "tamsin", "elise" };

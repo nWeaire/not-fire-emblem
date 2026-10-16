@@ -104,7 +104,9 @@ public partial class BattleController : Node3D
                 unit.State.Exp = Math.Clamp(startExp, 0, ExpCalculator.ExpPerLevel - 1);
         Turns = new TurnManager(State);
 
-        MapView.Build(State.Grid);
+        MapView.Build(State.Grid, State.Map.ArtSet);
+        if (State.Map.Lighting == "night")
+            AddNightTint();
         foreach (var overlay in new[] { RangeOverlay, PathOverlay, DangerOverlay, FogOverlay, MarkerOverlay })
             overlay.Init(State.Grid);
         Cursor.Init(State.Grid);
@@ -126,6 +128,20 @@ public partial class BattleController : Node3D
             await EventPlayer.Play(Turns.StartBattle());
             await ContinueUntilPlayerInput();
         });
+    }
+
+    /// <summary>Night battles: the map is multiplied by a moonlit blue (the HUD sits on its own layer above).</summary>
+    private void AddNightTint()
+    {
+        var layer = new CanvasLayer { Layer = 0, Name = "NightTint" };
+        var shader = new Shader
+        {
+            Code = "shader_type canvas_item; render_mode blend_mul; void fragment() { COLOR = vec4(0.45, 0.52, 0.82, 1.0); }",
+        };
+        var rect = new ColorRect { Material = new ShaderMaterial { Shader = shader }, MouseFilter = Control.MouseFilterEnum.Ignore };
+        rect.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+        layer.AddChild(rect);
+        AddChild(layer);
     }
 
     public Vector3 CellWorld(GridPos p) => GridMetrics.CellCenter(State.Grid, p);

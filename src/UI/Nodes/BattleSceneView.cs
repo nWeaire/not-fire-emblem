@@ -154,7 +154,8 @@ public partial class BattleSceneView : CanvasLayer
         var bg = UiKit.Background(BackgroundFor(terrain.Id, s.Map.Background)) ?? UiKit.Background("plains");
         _bg.Texture = bg;
         _bg.Visible = bg is not null;
-        _bg.Modulate = terrain.Id == "fire" ? new Color(1f, 0.72f, 0.6f) : Colors.White;
+        _bg.Modulate = terrain.Id == "fire" ? new Color(1f, 0.72f, 0.6f)
+            : s.Map.Lighting == "night" ? new Color(0.5f, 0.56f, 0.85f) : Colors.White;
         _dim.Color = DimColor with { A = 0f };
         _whiteout.Color = Colors.White with { A = 0f };
         _stage.Position = _origin;

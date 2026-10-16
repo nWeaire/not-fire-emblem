@@ -21,6 +21,9 @@ public partial class BattleHud : CanvasLayer
 
     private Label _objective = null!;
     private PanelContainer _unitPanel = null!;
+    private Control _unitPortrait = null!;
+    private AnimatedSprite2D _unitPortraitSprite = null!;
+    private Vector2 _portraitOffset;
     private Label _unitTitle = null!;
     private ProgressBar _unitHp = null!;
     private Label _unitHpText = null!;
@@ -68,6 +71,15 @@ public partial class BattleHud : CanvasLayer
         var unitRow = new HBoxContainer();
         unitRow.AddThemeConstantOverride("separation", 10);
         _unitPanel.AddChild(unitRow);
+        // The unit's battle-screen sprite, so it's clear who's under the cursor.
+        _unitPortrait = new Control { CustomMinimumSize = new Vector2(112, 112), ClipContents = true };
+        _unitPortraitSprite = new AnimatedSprite2D
+        {
+            Position = new Vector2(56, 56),
+            TextureFilter = CanvasItem.TextureFilterEnum.Nearest,
+        };
+        _unitPortrait.AddChild(_unitPortraitSprite);
+        unitRow.AddChild(_unitPortrait);
         _unitCrest = new HBoxContainer();
         unitRow.AddChild(_unitCrest);
         var unitBox = new VBoxContainer();
@@ -222,6 +234,7 @@ public partial class BattleHud : CanvasLayer
         _unitPanel.Visible = true;
         _unitTitle.Text = $"{unit.Name}{(unit.IsBoss ? " (Boss)" : "")} — {cls.Name} Lv {unit.State.Level}";
         _unitTitle.Modulate = UnitView.ColorFor(unit.Faction).Lightened(0.35f);
+        ShowPortrait(unit);
         _unitHp.MaxValue = stats.HP;
         _unitHp.Value = unit.CurrentHp;
         _unitHpText.Text = $"  HP {unit.CurrentHp}/{stats.HP}";
@@ -267,6 +280,28 @@ public partial class BattleHud : CanvasLayer
         else if (unit.CrestBearer && CrestEmblem.BearerCrest(unit.Name) is { } crest)
             _unitCrest.AddChild(new CrestEmblem(crest.Motif, crest.Tier, radiant: false, size: 64));
         _unitCrest.Visible = _unitCrest.GetChildCount() > 0;
+    }
+
+    /// <summary>Plays the unit's battle-screen idle in the unit panel (enemies face right, the player's side left).</summary>
+    private void ShowPortrait(BattleUnit unit)
+    {
+        var frames = SpriteLibrary.Battle(unit);
+        _unitPortrait.Visible = frames is not null;
+        if (frames is null)
+            return;
+        if (_unitPortraitSprite.SpriteFrames != frames)
+        {
+            _unitPortraitSprite.SpriteFrames = frames;
+            _unitPortraitSprite.Play("idle");
+            // Fit the drawn pixels (not the padded frame) into the box, centred, in whole-pixel steps.
+            var texture = frames.GetFrameTexture("idle", 0);
+            var used = texture.GetImage().GetUsedRect();
+            float scale = Mathf.Max(1f, Mathf.Floor(104f / Mathf.Max(used.Size.X, used.Size.Y) * 2f) / 2f);
+            _unitPortraitSprite.Scale = new Vector2(scale, scale);
+            _portraitOffset = texture.GetSize() / 2f - ((Vector2)used.Position + (Vector2)used.Size / 2f);
+        }
+        _unitPortraitSprite.FlipH = unit.Faction == Faction.Player;
+        _unitPortraitSprite.Offset = _portraitOffset with { X = _unitPortraitSprite.FlipH ? -_portraitOffset.X : _portraitOffset.X };
     }
 
     public void ShowTerrain(BattleState s, GridPos p)

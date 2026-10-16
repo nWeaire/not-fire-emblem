@@ -38,6 +38,8 @@ public partial class UnitView : Node3D
     private string _anim = "idle";
     private string _dir = "south";
     private double _bobTime;
+    /// <summary>The sprite's offset at rest; the idle bob lifts it one pixel from here.</summary>
+    private float _restOffsetY = 24f - SpriteFootPadding;
 
     public string UnitId { get; private set; } = "";
     public bool IsHidden { get; private set; }
@@ -86,6 +88,12 @@ public partial class UnitView : Node3D
             OutlineRenderPriority = 0,
         };
         AddChild(_label);
+        if (NotFireEmblem.Grid.GridMetrics.Flat)
+        {
+            // Seen from above, "up" on screen is -Z: put the name just above the sprite's head, smaller.
+            _label.FontSize = 30;
+            _label.Position = new Vector3(0f, 0.3f, -0.62f);
+        }
         SetHp(hp, maxHp);
     }
 
@@ -110,6 +118,24 @@ public partial class UnitView : Node3D
                 PlayAnim("idle");
         };
         _model.AddChild(_sprite);
+        if (NotFireEmblem.Grid.GridMetrics.Flat)
+        {
+            // Flat SNES map: the sprite lies on the ground facing the camera above, its feet near the bottom of the
+            // cell and its head reaching into the cell above, like SNES tactics sprites.
+            _sprite.Billboard = BaseMaterial3D.BillboardModeEnum.Disabled;
+            _sprite.Axis = Vector3.Axis.Y;
+            _sprite.Centered = true;
+            // SNES map sprites are 16 px: one sprite pixel per map art pixel, one sprite per cell. Taller (older)
+            // art is scaled to a cell and a half.
+            var texture = frames.GetFrameTexture(frames.GetAnimationNames()[0], 0);
+            _sprite.PixelSize = texture.GetHeight() <= 24 ? 1f / NotFireEmblem.Grid.FlatTerrain.TilePixels : 1.5f / texture.GetHeight();
+            // Centred on the cell: a 16 px sprite exactly fills its tile.
+            _sprite.Offset = Vector2.Zero;
+            _restOffsetY = 0f;
+            _sprite.Position = new Vector3(0f, 0.05f, 0f);
+            PlayAnim("idle");
+            return;
+        }
         // A soft shadow on the ground marks the unit's tile: the sprite is 1.5 cells tall and drawn pulled toward the
         // camera, so without it units read as floating above and behind their cell.
         _model.AddChild(new MeshInstance3D
@@ -152,7 +178,13 @@ public partial class UnitView : Node3D
         if (_sprite is null)
             return;
         Bob(delta);
-        PullToCamera();
+        if (NotFireEmblem.Grid.GridMetrics.Flat)
+        {
+            // Lower rows draw over the row above (heads overlap the cell behind, as on SNES maps).
+            _sprite.Position = _sprite.Position with { Y = 0.05f + GlobalPosition.Z * 0.002f };
+        }
+        else
+            PullToCamera();
         string dir = DirectionFromCamera();
         if (dir != _dir)
         {
@@ -182,14 +214,14 @@ public partial class UnitView : Node3D
     {
         if (_anim != "idle" || _sprite!.SpriteFrames.GetFrameCount(_sprite.Animation) > 1)
         {
-            _sprite!.Offset = _sprite.Offset with { Y = 24f - SpriteFootPadding };
+            _sprite!.Offset = _sprite.Offset with { Y = _restOffsetY };
             return;
         }
         if (_bobTime == 0)
             _bobTime = (UnitId.GetHashCode() & 0xFF) / 255.0;
         _bobTime += delta;
         bool up = (int)(_bobTime / 0.45) % 2 == 1;
-        _sprite.Offset = _sprite.Offset with { Y = 24f - SpriteFootPadding + (up ? 1f : 0f) };
+        _sprite.Offset = _sprite.Offset with { Y = _restOffsetY + (up ? 1f : 0f) };
     }
 
     /// <summary>Which art direction shows the unit's facing from the current camera (south = facing the camera).</summary>
@@ -200,6 +232,8 @@ public partial class UnitView : Node3D
             return _dir;
         var basis = camera.GlobalBasis;
         var forward = (-basis.Z with { Y = 0f }).Normalized();
+        if (forward.LengthSquared() < 0.01f)
+            forward = (basis.Y with { Y = 0f }).Normalized(); // looking straight down: screen-up is "forward"
         var right = (basis.X with { Y = 0f }).Normalized();
         float along = _facing.Dot(forward);
         float across = _facing.Dot(right);

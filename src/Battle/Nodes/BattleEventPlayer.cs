@@ -218,7 +218,7 @@ public partial class BattleEventPlayer : Node
 
     private async Task PlayTerrain()
     {
-        Battle.MapView.Build(Battle.State.Grid);
+        Battle.MapView.Build(Battle.State.Grid, Battle.State.Map.ArtSet);
         await Wait(0.2f);
     }
 

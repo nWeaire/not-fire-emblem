@@ -123,3 +123,5 @@ Defeat = PackedStringArray("die aldric")
 Triggers = PackedStringArray("turn 1 => scene pro_tutorial_move", "turn 2 => scene pro_aldric_reveal; join aldric", "enemies 6 => scene pro_tutorial_dominion", "combat binder => scene pro_binder_battle", "defeated binder => scene pro_crest_awakens")
 Fog = false
 DeploySlots = ""
+ArtSet = "farm"
+Lighting = "night"

@@ -27,6 +27,10 @@ public partial class MapDefinition : Resource
     [Export] public string DeploySlots { get; set; } = "";
     /// <summary>Battle-screen backdrop for open ground on this map (forest and water keep their own), e.g. "greyfen".</summary>
     [Export] public string Background { get; set; } = "";
+    /// <summary>Flat-map art variant: "farm" draws walls as hedges and houses as farmhouses.</summary>
+    [Export] public string ArtSet { get; set; } = "";
+    /// <summary>"night" tints the map and the battle screen for a night battle.</summary>
+    [Export] public string Lighting { get; set; } = "";
 
     public MapDef ToDef()
     {
@@ -35,7 +39,9 @@ public partial class MapDefinition : Resource
             return new MapDef(Id, Name, TerrainRows.ToArray(), HeightRows.ToArray(), Spawns.Select(s => s.ToDef()).ToArray(),
                 MapScript.ParseObjectives(Victory, Defeat), MapScript.ParseTriggers(Triggers), Fog, VisionBonus,
                 string.IsNullOrWhiteSpace(DeploySlots) ? null : MapScript.Cells(DeploySlots.Split(' ', StringSplitOptions.RemoveEmptyEntries), DeploySlots),
-                string.IsNullOrWhiteSpace(Background) ? null : Background);
+                string.IsNullOrWhiteSpace(Background) ? null : Background,
+                string.IsNullOrWhiteSpace(ArtSet) ? null : ArtSet,
+                string.IsNullOrWhiteSpace(Lighting) ? null : Lighting);
         }
         catch (FormatException e)
         {

@@ -42,20 +42,24 @@ public partial class MapView : Node3D
     private readonly Dictionary<string, StandardMaterial3D> _materials = new();
     private readonly Dictionary<string, List<Texture2D>> _tiles = new();
     private PlaneMesh? _topMesh;
+    private string? _artSet;
     /// <summary>Every prop billboard and the ground point it stands on, re-pulled toward the camera as it moves.</summary>
     private readonly List<(Sprite3D Sprite, Vector3 Ground)> _billboards = new();
     private Transform3D _lastCamera;
 
     public BattleGrid? Grid { get; private set; }
 
-    public void Build(BattleGrid grid)
+    public void Build(BattleGrid grid, string? artSet = null)
     {
+        _artSet = artSet;
         Grid = grid;
         foreach (var child in GetChildren())
             child.QueueFree();
         _billboards.Clear();
         _lastCamera = default;
         _topMesh = new PlaneMesh { Size = new Vector2(GridMetrics.CellSize, GridMetrics.CellSize) };
+        if (GridMetrics.Flat && BuildFlat(grid))
+            return;
 
         foreach (var p in grid.AllPositions())
         {
@@ -228,6 +232,38 @@ public partial class MapView : Node3D
                 }
                 break;
         }
+    }
+
+    /// <summary>
+    /// The flat SNES-style map: one plane carrying the painted ground (FlatTerrain), plus a thin collider per cell
+    /// for mouse picking. Returns false (and builds nothing) when no flat art is installed.
+    /// </summary>
+    private bool BuildFlat(BattleGrid grid)
+    {
+        if (FlatTerrain.Paint(grid, _artSet) is not { } image)
+            return false;
+        float cs = GridMetrics.CellSize;
+        AddChild(new MeshInstance3D
+        {
+            Mesh = new PlaneMesh { Size = new Vector2(grid.Width * cs, grid.Height * cs) },
+            MaterialOverride = new StandardMaterial3D
+            {
+                AlbedoTexture = ImageTexture.CreateFromImage(image),
+                TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
+                ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
+            },
+            // Cells are centred on whole numbers, so the map spans -0.5 .. size - 0.5.
+            Position = new Vector3((grid.Width - 1) * cs / 2f, 0f, (grid.Height - 1) * cs / 2f),
+            Name = "FlatGround",
+        });
+        foreach (var p in grid.AllPositions())
+        {
+            var body = new StaticBody3D { Position = new Vector3(p.X * cs, -0.05f, p.Y * cs) };
+            body.SetMeta(CellMeta, new Vector2I(p.X, p.Y));
+            body.AddChild(new CollisionShape3D { Shape = new BoxShape3D { Size = new Vector3(cs, 0.1f, cs) } });
+            AddChild(body);
+        }
+        return true;
     }
 
     /// <summary>An upright pixel-art prop standing on <paramref name="ground"/>, facing the camera like the units.</summary>

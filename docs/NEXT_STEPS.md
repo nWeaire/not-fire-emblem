@@ -2,7 +2,61 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-16 (end of session 5)._
+_Last updated: 2026-10-17 (end of session 6)._
+
+---
+
+## Session 6: back to 2.5D (read this first)
+
+The user explored a fully flat 2D map style this session, then **decided to stay with the 2.5D view and its art**.
+The game is back on the 2.5D blocks with the session-5 art.
+
+**In the game (committed):**
+- Rowan's crest shows on his sprite once it awakens (`_crest` sprite candidates, `BattleController.UpdateCrestSprites`,
+  art from `tools/art/add_crest.py`). Rowan is sword-only (no bow on Youth/Lord/Crest Knight).
+- Units have a ground shadow and a smaller camera pull, so trees in front hide them; crops sit inside their cell.
+- **Hover sprite:** the unit panel (bottom left) shows the unit's battle-screen sprite, animated, whenever the cursor
+  or mouse is over a unit (`BattleHud.ShowPortrait`).
+- **Map options** on `MapDefinition`: `Lighting = "night"` tints the map and the battle screen (the prologue uses it);
+  `ArtSet` (e.g. `"farm"`) only affects the parked flat renderer.
+
+**Parked, not deleted:** the flat 2D renderer. `GridMetrics.Flat = false` switches it off; `FlatTerrain.cs`,
+`MapView.BuildFlat`, the straight-down camera in `TacticsCamera` and the flat sprite path in `UnitView`/
+`SpriteLibrary.Field` stay dormant. Its art is in `tools/art/takes/flat_parked/` (not imported or committed). All
+the style rounds (pilots, mockups, scripts) are in `tools/art/takes/{snes,thracia,fe32,gba,styles2}/`.
+
+**What the reference work taught us** (worth applying to 2.5D, see Next):
+- The user's references are in `assets/ExampleFiles/` (not committed): `battlemap.png` (a real GBA map at 1×),
+  `Tilemap samples.png` (GBA tiles), two Switch NSO screenshots, `Style1-4.png` (GBA-style battle sprites, the target
+  for character detail), and two GBA battle-screen captures. Use them only as references; never ship cut-up tiles.
+- Measured GBA rules: 16 px tiles reused heavily (1,026 cells, 90 tiles); grass is every pixel picked at random
+  from ~9 weighted greens (only 8% match their neighbour), not smooth noise; trees are separate small stippled
+  pines with a blue-grey outline; paths are pale yellow sand with a stippled edge and no outline; houses have
+  straw roofs in vertical streaks, a red ridge, white walls and a dark olive outline (not black). Palettes are in
+  `tools/art/takes/gba/gba_mock.py`.
+- Character detail the user wants (from the NSO shots): big heads, thick black outlines, a few bold colours,
+  bright highlights. PixelLab follows a real reference image (`style_image`) far better than text like "GBA style".
+- Our smooth, low-contrast textures were the user's main complaint ("too clean", "too smooth").
+
+**Budget:** PixelLab is at about 0 generations; the user is buying more on 2026-10-18.
+
+### Next (plan for session 7)
+1. **Hand-check the 2.5D state** with the user (Rowan's crest switch, sword-only Rowan, shadows, the hover sprite,
+   the night prologue). Their earlier 2.5D complaints were floating sprites, units drawn over trees and crops on
+   cell corners; the fixes for these are in but not yet seen by them.
+2. **Bring the GBA lessons into 2.5D, free first (code):**
+   - Repaint the 32 px top tiles for plain/meadow/road in code to the measured rules (per-pixel weighted grass,
+     pale stippled paths), so the ground stops looking smooth. Keep the old tiles to compare.
+   - Recolour props toward the references (pines with a blue-grey outline and stipple, cottages with a streaked straw
+     roof, red ridge and olive outline) by palette-mapping the existing prop PNGs.
+3. **With new PixelLab credits** (use the references as `style_image`, pilot 1 take before any batch):
+   - Map sprites at NSO detail for the cast (48 px, or test 32 px), team-coloured if the user still wants it
+     (blue army, red enemies); then their walk/attack/hit animations.
+   - Battle sprites matched to `Style1-4.png`; GBA-style trees, cottages and peaks as props.
+   - Remaining `docs/ART_NEEDED.md` P2/P3 (named Binder looks, tier-2 outfits, expressions, roof/cliff tiles).
+4. **Game work not blocked on art:** the user's deferred hand-playtest notes; Ch 7 (Storm over Dain Hall, ends
+   Act I); crest fragments / crest EXP; suspend saves; installing export templates for a Windows build.
+5. **Docs:** fold the GBA rules above into `docs/ART_DIRECTION.md`; refresh `docs/ART_NEEDED.md` after the art pass.
 
 ---
 

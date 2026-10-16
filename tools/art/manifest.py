@@ -243,9 +243,24 @@ PROPS = {
     "crop": "one young leafy green cabbage plant growing in soil",
     "bush": "one small round leafy green bush",
 }
-PROP_SIZE = {"tuft": 32, "flowers": 32, "crop": 32, "bush": 32}  # others are 64
+# Smaller versions for one shared pixel scale (1 art pixel = 1/32 of a cell, the tiles' density): mockup B.
+PROPS.update({
+    "tuft_s": "one tiny clump of green grass blades",
+    "flowers_s": "one tiny clump of white and yellow wildflowers",
+    "crop_s": "one small young cabbage plant",
+    "bush_s": "one small round green bush",
+    "cottage_s": "one small village cottage with a red tiled roof, cream plaster walls and a wooden door",
+    "peak_s": "one small rocky grey-brown mountain peak with a little snow on top",
+})
+PROP_SIZE = {"tuft": 32, "flowers": 32, "crop": 32, "bush": 32,
+             "tuft_s": 16, "flowers_s": 16, "crop_s": 16, "bush_s": 24, "cottage_s": 32, "peak_s": 32}  # others are 64
 
 TILESETS = {
+    # GBA-style top-down tiles with the object drawn into the tile (mockup A, the references' look).
+    "objects": [("forest", "cluster of three round green treetops seen from directly above, grass showing between them"),
+                ("mountain", "rocky brown mountain peak seen from above, grass around its base"),
+                ("fort", "small village cottage with a red tiled roof seen from above, grass around it"),
+                ("plain", "green grass with a few tiny flowers")],
     # Grass detail for plain cells (the base plain tile is flat): the main tile plus subtle variants.
     "grass": [("plain", "short green grass with small darker grass tufts"),
               ("plain", "green grass with a few tiny pebbles"),

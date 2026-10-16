@@ -16,8 +16,8 @@ public partial class UnitView : Node3D
     public static readonly Color EnemyColor = new(0.9f, 0.25f, 0.2f);
     public static readonly Color AllyColor = new(0.3f, 0.8f, 0.35f);
 
-    /// <summary>World size of one sprite pixel: a 48px frame stands about 1.2 cells tall.</summary>
-    private const float SpritePixelSize = 0.025f;
+    /// <summary>World size of one sprite pixel: the map's shared art pixel (a 48 px frame stands 1.5 cells tall).</summary>
+    private const float SpritePixelSize = NotFireEmblem.Grid.MapView.ArtPixelSize;
     /// <summary>Transparent rows below the feet in PixelLab frames.</summary>
     private const float SpriteFootPadding = 2f;
 
@@ -57,7 +57,7 @@ public partial class UnitView : Node3D
 
         _model = new Node3D();
         AddChild(_model);
-        float scale = isBoss ? 1.15f : 1f;
+        float scale = 1f;
         if (mapFrames is not null)
             BuildSprite(mapFrames, scale);
         else
@@ -68,7 +68,7 @@ public partial class UnitView : Node3D
             {
                 Mesh = new TorusMesh { InnerRadius = 0.08f, OuterRadius = 0.16f },
                 MaterialOverride = new StandardMaterial3D { AlbedoColor = new Color(1f, 0.8f, 0.15f), Metallic = 0.6f },
-                Position = new Vector3(0f, mapFrames is not null ? 1.5f : 1.15f, 0f),
+                Position = new Vector3(0f, mapFrames is not null ? 1.75f : 1.15f, 0f),
             });
         }
 
@@ -79,7 +79,7 @@ public partial class UnitView : Node3D
             FontSize = 40,
             OutlineSize = 10,
             PixelSize = 0.006f,
-            Position = new Vector3(0f, (mapFrames is not null ? 1.65f : 1.3f) * (isBoss ? 1.15f : 1f), 0f),
+            Position = new Vector3(0f, mapFrames is not null ? (isBoss ? 1.95f : 1.8f) : 1.3f, 0f),
             RenderPriority = 1,
             OutlineRenderPriority = 0,
         };

@@ -7621,9 +7621,25 @@
           "type": "generations"
         }
       },
+      "bush_s": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "cottage": {
         "status": "completed",
         "takes": 16,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "cottage_s": {
+        "status": "completed",
+        "takes": 64,
         "usage": {
           "generations": 10.0,
           "type": "generations"
@@ -7637,7 +7653,23 @@
           "type": "generations"
         }
       },
+      "crop_s": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "flowers": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "flowers_s": {
         "status": "completed",
         "takes": 64,
         "usage": {
@@ -7661,6 +7693,14 @@
           "type": "generations"
         }
       },
+      "peak_s": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "pine": {
         "status": "completed",
         "takes": 16,
@@ -7670,6 +7710,14 @@
         }
       },
       "tuft": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "tuft_s": {
         "status": "completed",
         "takes": 64,
         "usage": {
@@ -9332,6 +9380,14 @@
       "ground": {
         "status": "completed",
         "tile_id": "04845663-a215-471a-9275-15e13cc69e56",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "objects": {
+        "status": "completed",
+        "tile_id": "e75f12fa-7882-4e6c-83a5-b56c13f26a34",
         "usage": {
           "generations": 10.0,
           "type": "generations"

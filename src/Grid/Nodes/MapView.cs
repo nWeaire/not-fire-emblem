@@ -16,8 +16,12 @@ public partial class MapView : Node3D
     private const float BlockBottom = -1.5f;
     public const string PropRoot = "res://assets/sprites/props";
     public const string SideTexture = "res://assets/textures/cliff_side.png";
-    /// <summary>World units per prop pixel: a little finer than units (0.025) so a tree stays smaller than a fighter.</summary>
-    private const float PropPixelSize = 0.019f;
+    /// <summary>
+    /// World units per art pixel for everything on the map: the terrain tiles' density (32 px per cell), shared by
+    /// props and unit sprites (UnitView.SpritePixelSize) so all the art reads as one set. Size props by their art,
+    /// never by scaling, or their pixels stop matching.
+    /// </summary>
+    public const float ArtPixelSize = 1f / 32f;
     /// <summary>Terrains whose block sides stay their flat colour (water and bridges aren't earth).</summary>
     private static readonly HashSet<string> NoEarthSides = new() { "water", "bridge" };
 
@@ -113,15 +117,15 @@ public partial class MapView : Node3D
                     if (kind.Count == 0)
                         kind = Props("pine").Count > 0 ? Props("pine") : Props("oak");
                     var offset = new Vector3(Jitter(i) * 0.5f, 0f, Jitter(i + 7) * 0.5f);
-                    AddBillboard(kind[(int)(Hash(p, 20 + i) % (uint)kind.Count)], top + offset, i == 0 ? 1f : 0.8f);
+                    AddBillboard(kind[(int)(Hash(p, 20 + i) % (uint)kind.Count)], top + offset);
                 }
                 return;
             case "mountain" when Props("peak").Count > 0:
                 AddBillboard(Props("peak")[(int)(Hash(p, 30) % (uint)Props("peak").Count)],
-                    top + new Vector3(Jitter(1) * 0.15f, 0f, Jitter(2) * 0.15f), 1.1f);
+                    top + new Vector3(Jitter(1) * 0.15f, 0f, Jitter(2) * 0.15f));
                 return;
             case "fort" when Props("cottage").Count > 0:
-                AddBillboard(Props("cottage")[(int)(Hash(p, 40) % (uint)Props("cottage").Count)], top, 1f);
+                AddBillboard(Props("cottage")[(int)(Hash(p, 40) % (uint)Props("cottage").Count)], top);
                 return;
             // Small ground decorations, standing up like the trees. They sit toward the cell's corners so the unit
             // in the middle stays clear, and are small enough to read as ground cover.
@@ -129,21 +133,21 @@ public partial class MapView : Node3D
             {
                 uint roll = Hash(p, 50) % 20;
                 if (roll < 3)
-                    AddDecor("bush", p, 51, top + Corner(p, 52, 0.3f), 0.75f);
+                    AddDecor("bush", p, 51, top + Corner(p, 52, 0.36f));
                 else if (roll < 11)
-                    AddDecor("tuft", p, 53, top + Corner(p, 54, 0.3f), 0.55f);
+                    AddDecor("tuft", p, 53, top + Corner(p, 54, 0.36f));
                 if (roll % 4 == 0)
-                    AddDecor("tuft", p, 55, top + Corner(p, 56, 0.33f), 0.45f);
+                    AddDecor("tuft", p, 55, top + Corner(p, 56, 0.38f));
                 return;
             }
             case "meadow":
                 for (int i = 0; i < 2 + (int)(Hash(p, 60) % 2); i++)
-                    AddDecor("flowers", p, 61 + i, top + Corner(p, 64 + i, 0.3f), 0.55f);
+                    AddDecor("flowers", p, 61 + i, top + Corner(p, 64 + i, 0.36f));
                 return;
             case "field":
                 // A planted 2×2 grid; the crops line up with the furrows on the field tile.
                 for (int i = 0; i < 4; i++)
-                    AddDecor("crop", p, 70 + i, top + new Vector3(i % 2 == 0 ? -0.24f : 0.24f, 0f, i < 2 ? -0.24f : 0.24f), 0.55f);
+                    AddDecor("crop", p, 70 + i, top + new Vector3(i % 2 == 0 ? -0.34f : 0.34f, 0f, i < 2 ? -0.34f : 0.34f));
                 return;
         }
         switch (terrainId)
@@ -204,7 +208,7 @@ public partial class MapView : Node3D
     }
 
     /// <summary>An upright pixel-art prop standing on <paramref name="ground"/>, facing the camera like the units.</summary>
-    private void AddBillboard(Texture2D texture, Vector3 ground, float scale)
+    private void AddBillboard(Texture2D texture, Vector3 ground)
     {
         AddChild(new Sprite3D
         {
@@ -213,18 +217,18 @@ public partial class MapView : Node3D
             TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
             AlphaCut = SpriteBase3D.AlphaCutMode.Discard,
             Shaded = false,
-            PixelSize = PropPixelSize * scale,
+            PixelSize = ArtPixelSize,
             Offset = new Vector2(0f, texture.GetHeight() / 2f), // the art is cropped, so this stands it on the ground
             Position = ground,
         });
     }
 
     /// <summary>One variant of a decoration prop (picked by the cell hash), if that prop has art.</summary>
-    private void AddDecor(string id, GridPos p, int salt, Vector3 ground, float scale)
+    private void AddDecor(string id, GridPos p, int salt, Vector3 ground)
     {
         var art = Props(id);
         if (art.Count > 0)
-            AddBillboard(art[(int)(Hash(p, salt) % (uint)art.Count)], ground, scale);
+            AddBillboard(art[(int)(Hash(p, salt) % (uint)art.Count)], ground);
     }
 
     /// <summary>A point toward one of the cell's four corners (chosen by the hash), jittered a little.</summary>

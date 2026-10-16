@@ -69,6 +69,14 @@ _Last updated: 2026-10-16 (end of session 5)._
   in forests, peaks on mountains, cottages on forts (`assets/sprites/props/<id>_N.png`, cropped so they stand on the
   ground; `generate.py props` makes 16 takes each). Props use full billboards like units (upright-only ones looked
   squashed under the high camera).
+- **One pixel scale on the map** (the user chose "unified 2.5D" over a flat GBA map; mockups:
+  https://claude.ai/artifact/CpzoeijhXG9QqLrSZfGpVa). Every map sprite is drawn at `MapView.ArtPixelSize` = 1/32
+  cell per art pixel, the terrain tiles' density: units (now 1.5 cells tall per 48 px frame), trees, peaks,
+  cottages and ground decor. Props are sized by their art, never scaled; bosses no longer get a bigger sprite.
+  Cottages and peaks were redrawn at 32 px, decor at 16–24 px (larger versions in `approved/props/large/`). Fort
+  cells use the cobble tile under the cottage.
+- **EXP on the battle screen:** an EXP bar under HP fills after the fight and level-ups show there before the map.
+  `--exp=N` starts player units with N EXP for testing.
 - **Ground decorations** stand up like the trees: grass tufts and bushes on plain cells, flower clumps on meadows, a
   2×2 crop grid on fields (`tuft`, `bush`, `flowers`, `crop` props; 32 px takes via `PROP_SIZE`). They sit toward the
   cell corners so units stay clear.

@@ -237,7 +237,13 @@ PROPS = {
     "oak": "one round leafy green oak tree with a brown trunk",
     "cottage": "one small village cottage with a red tiled roof, cream plaster walls and a wooden door",
     "peak": "one rocky grey-brown mountain peak boulder with a little snow on top",
+    # Small ground decorations (32 px canvas, so they share the trees' pixel scale): plain, meadow and field cells.
+    "tuft": "one small clump of tall green grass blades",
+    "flowers": "one small clump of wildflowers, white and yellow blossoms on short green stems",
+    "crop": "one young leafy green cabbage plant growing in soil",
+    "bush": "one small round leafy green bush",
 }
+PROP_SIZE = {"tuft": 32, "flowers": 32, "crop": 32, "bush": 32}  # others are 64
 
 TILESETS = {
     # Grass detail for plain cells (the base plain tile is flat): the main tile plus subtle variants.

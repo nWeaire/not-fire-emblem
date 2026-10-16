@@ -69,6 +69,9 @@ _Last updated: 2026-10-16 (end of session 5)._
   in forests, peaks on mountains, cottages on forts (`assets/sprites/props/<id>_N.png`, cropped so they stand on the
   ground; `generate.py props` makes 16 takes each). Props use full billboards like units (upright-only ones looked
   squashed under the high camera).
+- **Ground decorations** stand up like the trees: grass tufts and bushes on plain cells, flower clumps on meadows, a
+  2×2 crop grid on fields (`tuft`, `bush`, `flowers`, `crop` props; 32 px takes via `PROP_SIZE`). They sit toward the
+  cell corners so units stay clear.
 - **Music and sound:** `tools/audio/` synthesizes GBA-style sampled-orchestra music and effects (numpy +
   soundfile; `pip install -r tools/audio/requirements.txt`, then `python tools/audio/build.py`). 14 tracks (title,
   hub, prep, player/enemy phase, the 7 story cues, victory, defeat) and 27 effects (menus, swings per weapon, hit,

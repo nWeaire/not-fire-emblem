@@ -7613,9 +7613,33 @@
       }
     },
     "props": {
+      "bush": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "cottage": {
         "status": "completed",
         "takes": 16,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "crop": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "flowers": {
+        "status": "completed",
+        "takes": 64,
         "usage": {
           "generations": 10.0,
           "type": "generations"
@@ -7640,6 +7664,14 @@
       "pine": {
         "status": "completed",
         "takes": 16,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "tuft": {
+        "status": "completed",
+        "takes": 64,
         "usage": {
           "generations": 10.0,
           "type": "generations"

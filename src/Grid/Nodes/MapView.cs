@@ -123,6 +123,28 @@ public partial class MapView : Node3D
             case "fort" when Props("cottage").Count > 0:
                 AddBillboard(Props("cottage")[(int)(Hash(p, 40) % (uint)Props("cottage").Count)], top, 1f);
                 return;
+            // Small ground decorations, standing up like the trees. They sit toward the cell's corners so the unit
+            // in the middle stays clear, and are small enough to read as ground cover.
+            case "plain":
+            {
+                uint roll = Hash(p, 50) % 20;
+                if (roll < 3)
+                    AddDecor("bush", p, 51, top + Corner(p, 52, 0.3f), 0.75f);
+                else if (roll < 11)
+                    AddDecor("tuft", p, 53, top + Corner(p, 54, 0.3f), 0.55f);
+                if (roll % 4 == 0)
+                    AddDecor("tuft", p, 55, top + Corner(p, 56, 0.33f), 0.45f);
+                return;
+            }
+            case "meadow":
+                for (int i = 0; i < 2 + (int)(Hash(p, 60) % 2); i++)
+                    AddDecor("flowers", p, 61 + i, top + Corner(p, 64 + i, 0.3f), 0.55f);
+                return;
+            case "field":
+                // A planted 2×2 grid; the crops line up with the furrows on the field tile.
+                for (int i = 0; i < 4; i++)
+                    AddDecor("crop", p, 70 + i, top + new Vector3(i % 2 == 0 ? -0.24f : 0.24f, 0f, i < 2 ? -0.24f : 0.24f), 0.55f);
+                return;
         }
         switch (terrainId)
         {
@@ -195,6 +217,24 @@ public partial class MapView : Node3D
             Offset = new Vector2(0f, texture.GetHeight() / 2f), // the art is cropped, so this stands it on the ground
             Position = ground,
         });
+    }
+
+    /// <summary>One variant of a decoration prop (picked by the cell hash), if that prop has art.</summary>
+    private void AddDecor(string id, GridPos p, int salt, Vector3 ground, float scale)
+    {
+        var art = Props(id);
+        if (art.Count > 0)
+            AddBillboard(art[(int)(Hash(p, salt) % (uint)art.Count)], ground, scale);
+    }
+
+    /// <summary>A point toward one of the cell's four corners (chosen by the hash), jittered a little.</summary>
+    private static Vector3 Corner(GridPos p, int salt, float reach)
+    {
+        uint h = Hash(p, salt);
+        float x = (h & 1) == 0 ? -reach : reach;
+        float z = (h & 2) == 0 ? -reach : reach;
+        float jx = (h >> 4 & 0xff) / 255f * 0.1f - 0.05f, jz = (h >> 12 & 0xff) / 255f * 0.1f - 0.05f;
+        return new Vector3(x + jx, 0f, z + jz);
     }
 
     private readonly Dictionary<string, List<Texture2D>> _props = new();

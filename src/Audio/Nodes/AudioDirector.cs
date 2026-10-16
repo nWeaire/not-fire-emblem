@@ -35,17 +35,26 @@ public partial class AudioDirector : Node
 
     public override void _ExitTree()
     {
-        // Release the cached streams, or Godot reports them as leaked at exit.
-        foreach (var player in GetChildren())
-            if (player is AudioStreamPlayer p)
+        // Release everything audio holds, or Godot reports the playing track as leaked at exit. A quick quit can land
+        // mid-fade, so stop the fades, free the players outright (that releases their playbacks), then drop C#'s
+        // own handles on the cached streams.
+        if (GetTree() is { } tree)
+            foreach (var tween in tree.GetProcessedTweens())
+                tween.Kill();
+        foreach (var child in GetChildren())
+            if (child is AudioStreamPlayer p)
             {
                 p.Stop();
                 p.Stream = null;
+                RemoveChild(p);
+                p.Free();
             }
-        // C# holds its own handle on each cached stream until the garbage collector runs; release them now.
+        _sfx.Clear();
         foreach (var stream in _cache.Values)
             stream?.Dispose();
         _cache.Clear();
+        System.GC.Collect();
+        System.GC.WaitForPendingFinalizers();
         if (Instance == this)
             Instance = null;
     }

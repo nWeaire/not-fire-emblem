@@ -7915,6 +7915,34 @@
         }
       }
     },
+    "crest_edits": {
+      "battle:rowan_lord:attack:0": "completed",
+      "battle:rowan_lord:critical:0": "completed",
+      "battle:rowan_lord:critical:12": "completed",
+      "battle:rowan_lord:critical:4": "completed",
+      "battle:rowan_lord:critical:8": "completed",
+      "battle:rowan_lord:dodge:0": "completed",
+      "battle:rowan_lord:hit:0": "completed",
+      "battle:rowan_lord:idle:0": "completed",
+      "battle:rowan_lord:rotations:0": "completed",
+      "battle:rowan_youth:attack:0": "completed",
+      "battle:rowan_youth:critical:0": "completed",
+      "battle:rowan_youth:critical:12": "completed",
+      "battle:rowan_youth:critical:4": "completed",
+      "battle:rowan_youth:critical:8": "completed",
+      "battle:rowan_youth:dodge:0": "completed",
+      "battle:rowan_youth:hit:0": "completed",
+      "battle:rowan_youth:idle:0": "completed",
+      "battle:rowan_youth:rotations:0": "completed",
+      "map:rowan_lord:attack:0": "completed",
+      "map:rowan_lord:attack:16": "completed",
+      "map:rowan_lord:rotations:0": "completed",
+      "map:rowan_lord:walk:0": "completed",
+      "map:rowan_youth:attack:0": "completed",
+      "map:rowan_youth:attack:16": "completed",
+      "map:rowan_youth:rotations:0": "completed",
+      "map:rowan_youth:walk:0": "completed"
+    },
     "portraits": {
       "aldric": {
         "status": "completed",

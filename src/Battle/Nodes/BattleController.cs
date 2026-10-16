@@ -108,6 +108,7 @@ public partial class BattleController : Node3D
         foreach (var overlay in new[] { RangeOverlay, PathOverlay, DangerOverlay, FogOverlay, MarkerOverlay })
             overlay.Init(State.Grid);
         Cursor.Init(State.Grid);
+        UpdateCrestSprites(rebuild: false);
         foreach (var unit in State.Living)
             SpawnView(unit);
 
@@ -145,9 +146,27 @@ public partial class BattleController : Node3D
         return view;
     }
 
+    /// <summary>
+    /// Rowan's crest shows on his sprite from the moment it awakens: a crest tier from the campaign, or the
+    /// prologue's crest_tier_1 flag mid-battle. Rebuilds his view when that changes.
+    /// </summary>
+    private void UpdateCrestSprites(bool rebuild)
+    {
+        bool awake = State.Options.CrestTier > 0 || State.Flags.Contains("crest_tier_1");
+        foreach (var unit in State.Living.Where(u => u.IsLord && u.Faction == Faction.Player && u.ShowsCrest != awake))
+        {
+            unit.ShowsCrest = awake;
+            if (!rebuild || ViewOf(unit.Id) is not { } old)
+                continue;
+            old.QueueFree();
+            SpawnView(unit);
+        }
+    }
+
     /// <summary>Re-applies fog (hidden cells and enemy views) and the objective/visit markers.</summary>
     public void RefreshMapState()
     {
+        UpdateCrestSprites(rebuild: true);
         if (State.Map.Fog)
         {
             var visible = State.VisibleCells(Faction.Player);

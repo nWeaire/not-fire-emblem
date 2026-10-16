@@ -60,7 +60,7 @@ ALDRIC [neutral]: You left the south gate open again.
 ROWAN [neutral]: I closed it.
 ALDRIC [neutral]: Then the goats have learned latches. Should I be worried?
 ROWAN [smile]: You should be impressed.
-ALDRIC [smile]: Fetch your bow and check the fence line before dark. Something's been at the hens.
+ALDRIC [smile]: Take the old sword and check the fence line before dark. Something's been at the hens.
 ROWAN [neutral]: Foxes?
 ALDRIC [worried]: ...Probably.
 @wait 0.6
@@ -74,7 +74,7 @@ NARRATOR: Neither of them said it out loud.
 ROWAN [surprised]: That's not a fox.
 ROWAN [worried]: Father, there's something in the treeline. It's walking on two legs.
 ALDRIC [determined]: Inside. Now.
-ROWAN [determined]: I've got my bow.
+ROWAN [determined]: I've got the sword.
 ALDRIC [angry]: Rowan. *Inside.*
 @sfx gloam_howl
 ???: There you are. We have been looking for a very long time.
@@ -88,7 +88,7 @@ ROWAN [surprised]: ...Where did you get that?
 ALDRIC [cold]: Under the floor. Where I left it.
 ROWAN [surprised]: That's not farm armour.
 ALDRIC [neutral]: No. It isn't.
-ALDRIC [determined]: Stay on my left. Shoot what I can't reach. Don't follow them into the trees.
+ALDRIC [determined]: Stay on my left. Take what gets past me. Don't follow them into the trees.
 ROWAN [determined]: ...Right.
 @flag aldric_revealed
 

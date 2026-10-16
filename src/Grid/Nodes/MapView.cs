@@ -29,10 +29,10 @@ public partial class MapView : Node3D
     /// </summary>
     public const float BillboardPull = 1.1f;
     /// <summary>
-    /// Units are pulled further than props, so a unit always draws in front of scenery near it: seen from above,
-    /// a tree on raised ground one row back sits slightly nearer the camera than a unit on the row below.
+    /// Units are pulled a little further than props: enough to stay in front of a tree on raised ground one row back
+    /// (it sits about 0.2 nearer the camera), but not so far that they draw over the trees in front of them.
     /// </summary>
-    public const float UnitPull = 2f;
+    public const float UnitPull = 1.5f;
     /// <summary>Terrains whose block sides stay their flat colour (water and bridges aren't earth).</summary>
     private static readonly HashSet<string> NoEarthSides = new() { "water", "bridge" };
 
@@ -168,9 +168,9 @@ public partial class MapView : Node3D
                     AddDecor("flowers", p, 61 + i, top + Corner(p, 64 + i, 0.36f));
                 return;
             case "field":
-                // A planted 2×2 grid; the crops line up with the furrows on the field tile.
+                // A planted 2×2 grid inside the cell (±0.2 keeps each cabbage clear of the cell's edges).
                 for (int i = 0; i < 4; i++)
-                    AddDecor("crop", p, 70 + i, top + new Vector3(i % 2 == 0 ? -0.34f : 0.34f, 0f, i < 2 ? -0.34f : 0.34f));
+                    AddDecor("crop", p, 70 + i, top + new Vector3(i % 2 == 0 ? -0.2f : 0.2f, 0f, i < 2 ? -0.2f : 0.2f));
                 return;
         }
         switch (terrainId)

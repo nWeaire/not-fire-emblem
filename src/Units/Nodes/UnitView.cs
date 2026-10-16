@@ -110,6 +110,21 @@ public partial class UnitView : Node3D
                 PlayAnim("idle");
         };
         _model.AddChild(_sprite);
+        // A soft shadow on the ground marks the unit's tile: the sprite is 1.5 cells tall and drawn pulled toward the
+        // camera, so without it units read as floating above and behind their cell.
+        _model.AddChild(new MeshInstance3D
+        {
+            Mesh = new CylinderMesh { TopRadius = 0.3f, BottomRadius = 0.3f, Height = 0.01f, RadialSegments = 24 },
+            MaterialOverride = new StandardMaterial3D
+            {
+                AlbedoColor = new Color(0f, 0f, 0f, 0.35f),
+                Transparency = BaseMaterial3D.TransparencyEnum.Alpha,
+                ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
+            },
+            Scale = new Vector3(1f, 1f, 0.7f),
+            Position = new Vector3(0f, 0.012f, 0f),
+            CastShadow = GeometryInstance3D.ShadowCastingSetting.Off,
+        });
         PlayAnim("idle");
     }
 

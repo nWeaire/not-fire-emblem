@@ -53,8 +53,16 @@ public sealed class BattleUnit
     /// Art ids to try, best first. Outfits follow the class, so "&lt;spriteId&gt;_&lt;classId&gt;" (e.g. rowan_lord)
     /// wins over the plain "&lt;spriteId&gt;"; promoting a unit swaps its art with no extra data.
     /// </summary>
+    /// <summary>The lord's crest is awake: his sprite shows it ("_crest" art variants, when they exist).</summary>
+    public bool ShowsCrest { get; set; }
+
     public IEnumerable<string> SpriteCandidates()
     {
+        if (ShowsCrest)
+        {
+            yield return $"{SpriteId}_{State.ClassId}_crest";
+            yield return $"{SpriteId}_crest";
+        }
         yield return $"{SpriteId}_{State.ClassId}";
         yield return SpriteId;
     }

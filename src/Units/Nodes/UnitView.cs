@@ -18,12 +18,8 @@ public partial class UnitView : Node3D
 
     /// <summary>World size of one sprite pixel: the map's shared art pixel (a 48 px frame stands 1.5 cells tall).</summary>
     private const float SpritePixelSize = NotFireEmblem.Grid.MapView.ArtPixelSize;
-    /// <summary>
-    /// How far the sprite is pulled along the line to the camera. A camera-facing sprite leans back over the cell
-    /// behind it, so a raised block there would cut through its upper half; pulling it toward the camera keeps it
-    /// in front without moving it on screen.
-    /// </summary>
-    private const float PullTowardCamera = 1.1f;
+    /// <summary>How far the sprite is pulled toward the camera so raised terrain behind it can't cut through it.</summary>
+    private const float PullTowardCamera = NotFireEmblem.Grid.MapView.UnitPull;
     /// <summary>Transparent rows below the feet in PixelLab frames.</summary>
     private const float SpriteFootPadding = 2f;
 

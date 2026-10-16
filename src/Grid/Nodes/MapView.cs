@@ -22,6 +22,17 @@ public partial class MapView : Node3D
     /// never by scaling, or their pixels stop matching.
     /// </summary>
     public const float ArtPixelSize = 1f / 32f;
+    /// <summary>
+    /// How far camera-facing sprites (props here, units in UnitView) are pulled along the line to the camera. They
+    /// lean back over the cell behind them, so a raised block there would cut through their upper half; the pull
+    /// keeps them in front without moving them on screen.
+    /// </summary>
+    public const float BillboardPull = 1.1f;
+    /// <summary>
+    /// Units are pulled further than props, so a unit always draws in front of scenery near it: seen from above,
+    /// a tree on raised ground one row back sits slightly nearer the camera than a unit on the row below.
+    /// </summary>
+    public const float UnitPull = 2f;
     /// <summary>Terrains whose block sides stay their flat colour (water and bridges aren't earth).</summary>
     private static readonly HashSet<string> NoEarthSides = new() { "water", "bridge" };
 
@@ -31,6 +42,9 @@ public partial class MapView : Node3D
     private readonly Dictionary<string, StandardMaterial3D> _materials = new();
     private readonly Dictionary<string, List<Texture2D>> _tiles = new();
     private PlaneMesh? _topMesh;
+    /// <summary>Every prop billboard and the ground point it stands on, re-pulled toward the camera as it moves.</summary>
+    private readonly List<(Sprite3D Sprite, Vector3 Ground)> _billboards = new();
+    private Transform3D _lastCamera;
 
     public BattleGrid? Grid { get; private set; }
 
@@ -39,6 +53,8 @@ public partial class MapView : Node3D
         Grid = grid;
         foreach (var child in GetChildren())
             child.QueueFree();
+        _billboards.Clear();
+        _lastCamera = default;
         _topMesh = new PlaneMesh { Size = new Vector2(GridMetrics.CellSize, GridMetrics.CellSize) };
 
         foreach (var p in grid.AllPositions())
@@ -210,7 +226,7 @@ public partial class MapView : Node3D
     /// <summary>An upright pixel-art prop standing on <paramref name="ground"/>, facing the camera like the units.</summary>
     private void AddBillboard(Texture2D texture, Vector3 ground)
     {
-        AddChild(new Sprite3D
+        var sprite = new Sprite3D
         {
             Texture = texture,
             Billboard = BaseMaterial3D.BillboardModeEnum.Enabled, // like the units: FixedY squashed props under the high camera
@@ -220,7 +236,24 @@ public partial class MapView : Node3D
             PixelSize = ArtPixelSize,
             Offset = new Vector2(0f, texture.GetHeight() / 2f), // the art is cropped, so this stands it on the ground
             Position = ground,
-        });
+            // Pulled toward the camera (see _Process), its shadow would land away from its base.
+            CastShadow = GeometryInstance3D.ShadowCastingSetting.Off,
+        };
+        AddChild(sprite);
+        _billboards.Add((sprite, ground));
+    }
+
+    public override void _Process(double delta)
+    {
+        // Pull every prop toward the camera (BillboardPull) so raised terrain behind it can't cut through it.
+        // Only when the camera has moved: there can be a few hundred props.
+        var camera = GetViewport()?.GetCamera3D();
+        if (camera is null || camera.GlobalTransform.IsEqualApprox(_lastCamera))
+            return;
+        _lastCamera = camera.GlobalTransform;
+        var eye = ToLocal(camera.GlobalPosition);
+        foreach (var (sprite, ground) in _billboards)
+            sprite.Position = ground + (eye - ground).Normalized() * BillboardPull;
     }
 
     /// <summary>One variant of a decoration prop (picked by the cell hash), if that prop has art.</summary>

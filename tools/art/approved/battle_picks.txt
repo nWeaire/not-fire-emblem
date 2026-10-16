@@ -1,0 +1,10 @@
+kai_soldier 2 lance
+mira_acolyte 2 staff
+aldric_warden 2 sword
+tamsin_archer 2 bow
+brann_fighter 1 axe
+rowan_lord 2 sword
+enemy_gloam_hound 2 claws
+enemy_gloam_brute 1 claws
+enemy_gloam_stalker 2 spikes
+enemy_binder 1 dark

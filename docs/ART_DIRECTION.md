@@ -19,9 +19,9 @@ User's reference images: `assets/ExampleFiles/` (GBA Fire Emblem map-sprite clas
 | Overall | GBA Fire Emblem pixel art. More detail than the original GBA games is fine. | `assets/ExampleFiles/` |
 | Characters | The style of the two fighters painted into the GBA forest background: small and chunky, muted earthy palette, 2–3 tones per material, dark outline | `approved/refs/gba_clean_fighters.png`, `approved/characters/` |
 | Map sprites | 48 px canvas (~32 px body), `low top-down`, 8 rotations (the game uses 4) | `approved/characters/map_*` |
-| Battle sprites | 64 px canvas, `side` view, facing east (mirrored for the right-hand side) | `approved/characters/battle_*` |
+| Battle sprites | **Session 5: the brighter "E" look** for the whole battle cast: 84 px tall stills on a 128×84 canvas, more saturated, anime proportions, dynamic stance. Facing east (mirrored for the right-hand side). | `approved/refs/*_battle.png`, `rowan_battle_E1.png` |
 | Attacks | Restrained sprite motion. The over-the-top feel comes from screen effects (§4). | `approved/animations/` |
-| Terrain | GBA level: 16 px tiles, flat bright colours (option 1 of 4) | `approved/terrain_gba16/` |
+| Terrain | GBA level, 32 px tiles (switched from 16 px in session 5), flat bright colours | `approved/terrain_gba32/` |
 | Battle backgrounds | GBA level: 240×135, 32 colours, with no people in them | `approved/battle_bg/` |
 | UI | Clean: flat charcoal panels, thin warm-white border with corner ticks | `approved/ui_clean/` |
 | Font | Pixelify Sans for text, Silkscreen for small caps labels (both OFL) | `approved/fonts/` |
@@ -49,16 +49,31 @@ The working script is `tools/art/approved/scripts/pilot3.py`. Its PixelLab chara
 `approved/pixellab_state/round3_characters.json`, so more animations (walk, hit, dodge) can be added to the five
 approved characters without paying to recreate them.
 
+### Battle sprites in the "E" look: still takes, then `tools/art/animate_still.py`
+1. Get still takes: `POST /generate-image-v2`, 84×84, `no_background`, `target_palette {max_colors: 16}`, description
+   `"<who>, full body, side view. Game Boy Advance Fire Emblem battle animation sprite, like Fire Emblem: The Blazing
+   Blade, bright saturated colours, anime proportions, 3-tone cel shading, crisp dark outline, clean readable pixels"`
+   (15 gens for 9 takes; the script is `tools/art/takes/pilot5/pilot5.py`, grid "E"). Pick a ready-stance take.
+2. `python tools/art/animate_still.py <take.png> <sprite_id> --weapon <w>` animates that still directly
+   (`/animate-with-text-v3`, about 7 gens for idle/attack/critical/hit/dodge) onto a 128×84 canvas.
+   **Don't** build a character from the still (`create-character-pro` `create_from_concept`): it redrew Rowan as a
+   big-headed chibi. The battle screen draws art up to 84 px tall 1:1 (`MaxNativeHeight` in `BattleSceneView`).
+3. Check every animation frame by frame. The model paints effects (splashes, slashes) into hit frames even when told
+   not to, so the tool drops idle/hit/dodge frames whose area grows >12% or that gain >30 new near-white pixels
+   (`--clean-only` re-runs that filter for free). "Backward" is ambiguous for a right-facing still: say "to the LEFT".
+   Weapons can vanish mid-animation (Brann's dodge did); redo those with `--only <anim> --redo <anim>`.
+
 ### Animations: `POST /characters/animations`, mode `v3`, east only (1–2 gens each)
 End every action with: *"keeps facing right the whole time, side view, never turns toward the camera"*. Without it,
 about half the attacks spun toward the camera mid-swing. 8–12 frames is enough.
 
 ### Terrain: `POST /create-tiles-pro` (10 gens per set)
-`tile_size 16, tile_type square_topdown, tile_view top-down, outline_mode segmentation`, numbered prompts
+`tile_size 32, tile_type square_topdown, tile_view top-down, outline_mode segmentation`, numbered prompts
 (`"1). lush green grass field tile 2). …"`) plus *"Game Boy Advance Fire Emblem map tile, flat bright colours, very
 limited palette, simple shapes, seamless top-down"*. It returns 16 tiles grouped by prompt, not one per prompt. The
-approved set maps as: plain 0,1 · forest 2,3 · mountain 4,5 · wall 6,7 · fort 8 · water 10,11 · bridge 12
-(`approved/scripts/swap.py`). The game samples tiles with nearest filtering, so 16 px works on the 3D blocks.
+approved 32 px set (`approved/terrain_gba32/T_terrain32`) maps as: plain 0,1,2 · forest 3,4 · mountain 5,6 · wall 7,8 ·
+fort 9,10 · water 11,12 · bridge 13,14; fire is `V_village32` 0–3. **Don't pass 16 px style images**: they force
+16 px output. The game samples tiles with nearest filtering. (The earlier 16 px set is in `approved/terrain_gba16/`.)
 
 ### Battle backgrounds: `POST /generate-image-v2` (10 gens at 240×135)
 `target_palette: {max_colors: 32}`, *"… Game Boy Advance Fire Emblem battle background, 16-bit GBA pixel art, flat

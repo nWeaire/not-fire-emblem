@@ -1,49 +1,41 @@
 # Art Needed
 
-Everything the game currently shows as a placeholder, and where the game looks for the real file. The art style was
-settled in session 4: generate everything here following **`docs/ART_DIRECTION.md`**. Approved samples for Rowan,
-Kai, Mira, the Gloam Brute and the Binder are in `tools/art/approved/` but are not in `assets/` yet.
-
-**Sizes changed by the art direction:** battle-screen sprites are now **64 px** (not 96), terrain tiles **16 px**
-(not 32), and battle backgrounds are 240×135 GBA-style images (the cut-in needs code to show them).
+Everything the game still shows as a placeholder, and where the game looks for the real file. Generate new art
+following **`docs/ART_DIRECTION.md`** with `tools/art/generate.py` (CLAUDE.md §5). Sizes: map sprites 48 px, battle
+sprites in the "E" look (84 px tall), portraits 96 px, terrain tiles 32 px, backgrounds 240×135.
 
 **How placeholders work today**
 - **Map units** without art are capsules in the faction colour.
 - **Fights** fall back to on-map animations unless *both* units have battle sprites.
 - **Portraits:** characters without one get a coloured square with their initials.
-- **Story backgrounds** are tinted gradients labelled `[background: id]`.
+- **Story backgrounds** without a picture are tinted gradients labelled `[background: id]`. Variants reuse their
+  location's picture with a tint (`farm_night_smoke` → `farm`), so only locations need pictures.
 - **Music and sound** commands (`@music`, `@sfx`) are parsed but play nothing.
 
 Priority: **P1** is seen in the playable story (Prologue to Ch 3). **P2** is needed for upcoming chapters and promotions. **P3** is polish.
 
+**Done in the GBA style (session 5):** map + battle sprites for `rowan_youth`, `rowan_lord`, `kai_soldier`,
+`mira_acolyte`, `brann_fighter`, `aldric_warden`, `tamsin_archer`, `enemy_gloam_hound`, `enemy_gloam_brute`,
+`enemy_gloam_stalker`, `enemy_binder`, and the `ally_villager` map sprite. Portraits `aldric`, `tamsin`, `wenna`,
+`binder`, `sennet`, `varga`, `elise` (other takes in `tools/art/takes/portraits/`). Backgrounds `farm`, `village`,
+`farmhouse_interior`, `village_hall`, `river_road`, `mill`, `thornwood`, `forest`, `plains`. The 32 px terrain set and
+`fire` tiles. Clean UI panel, name plate and fonts.
+
 ---
 
-## 1. Map sprites (48 px, 4 directions, `idle` `walk` `attack` `hit`)
-Folder: `assets/sprites/units/<spriteId>/` (same layout as the existing sets). Units find art through
-`BattleUnit.SpriteCandidates()`: `<spriteId>_<classId>` first, then `<spriteId>`.
+## 1. Map sprites (48 px, 4 directions, `walk` `attack`; idle falls back to the still rotation)
+Folder: `assets/sprites/units/<spriteId>/`. Units find art through `BattleUnit.SpriteCandidates()`:
+`<spriteId>_<classId>` first, then `<spriteId>`.
 
 | Priority | Sprite id | Who / what | Used in |
 |---|---|---|---|
-| P1 | `aldric_warden` | Aldric, Warden: black Warden's hide with silver sigils, steel sword, ~50, grey-streaked beard | Prologue onward |
-| P1 | `tamsin_archer` | Tamsin, Archer: Thornwood hunter, sardonic, leather and furs, hunting bow | Ch 3 onward |
-| P1 | `enemy_gloam_hound` | Gloam Hound: fast, lean beast-thing, "out of old fairy tales" | Prologue, Ch 1, Ch 3 (most common enemy) |
-| P1 | `enemy_gloam_brute` | Gloam Brute: hulking, heavy claws | Prologue, Ch 1, Ch 3 |
-| P1 | `enemy_gloam_stalker` | Gloam Stalker: spindly, throws bone spikes (range 2) | Ch 1, Ch 3 |
-| P1 | `enemy_binder` | Binder: cloaked crest-bearer, purple glowing hand, shadow magic | All three Binders (The Binder, Sennet, Varga) |
-| P1 | `ally_villager` | Brookhollow villager: plain country clothes (green NPCs) | Ch 1 |
-| P2 | `boss_sennet`, `boss_varga` | Distinct looks for the named Binders (set the spawn `SpriteId` once they exist) | Ch 1, Ch 3 |
-| P2 | `rowan_crest_knight` | Tier 2 outfit (already specced as `planned` in `tools/art/manifest.py`) | After promotion |
-| P2 | `aldric_warden_lord`, `tamsin_sniper`, `brann_warrior`, `kai_paladin`, `mira_sage` | Tier 2 outfits for the classes that now exist | After promotion |
-| P3 | Old `rowan`, `kai`, `mira`, `brann`, `elise` sets | Superseded first-pass art; nothing uses them now. Delete. | — |
+| P1 | `enemy_fighter`, `enemy_archer`, `enemy_soldier`, `enemy_mage`, `enemy_myrmidon`, `boss_brigand_chief` | Bandits and human enemies still use session-2 art (not GBA style) | Ch 2, test map |
+| P2 | `boss_sennet`, `boss_varga`, `boss_gorran` | Distinct looks for named bosses (set the spawn `SpriteId`) | Ch 1–3 |
+| P2 | `elise_mage`, `kai_cavalier` | Session-2 art; regenerate in GBA style | Later chapters / promotion |
+| P2 | `aldric_warden_lord`, `tamsin_sniper`, `brann_warrior`, `kai_paladin`, `mira_sage`, `rowan_crest_knight` | Tier 2 outfits (`PLANNED` in `tools/art/manifest.py`) | After promotion |
 
-## 2. Battle-screen sprites (96 px side view, east only, `idle` `attack` `critical` `dodge` `hit`)
-Folder: `assets/sprites/battle/<spriteId>/`. The cut-in only plays when **both** fighters have these, so the
-Prologue and Ch 1 currently never show it.
-
-| Priority | Sprite ids |
-|---|---|
-| P1 | `aldric_warden`, `tamsin_archer`, `enemy_gloam_hound`, `enemy_gloam_brute`, `enemy_gloam_stalker`, `enemy_binder` |
-| P2 | `ally_villager` (rarely fights), `boss_sennet`, `boss_varga`, and the tier 2 outfits listed above |
+## 2. Battle-screen sprites (the "E" look: 84 px stills animated on 128×84, east only, `idle` `attack` `critical` `dodge` `hit`)
+Folder: `assets/sprites/battle/<spriteId>/`. Same ids as §1; `ally_villager` has none (rarely fights).
 
 ## 3. Portraits (96 px; base portrait first, then expressions)
 Folder: `assets/portraits/`. The dialogue box looks for `<speaker>_<expression>.png`, then `<speaker>.png`.
@@ -51,40 +43,29 @@ Expressions used by the scripts: `neutral smile laugh surprised worried sad angr
 
 | Priority | File | Notes |
 |---|---|---|
-| P1 | `aldric.png` | Main cast; speaks in nearly every scene |
-| P1 | `tamsin.png` | Joins in Ch 3 |
-| P1 | `wenna.png` | Elder Wenna (Ch 1, hub intro) |
-| P1 | `binder.png`, `sennet.png`, `varga.png` | Boss quotes. `binder` covers the Prologue's unnamed Binder. |
-| P1 | `gorran.png` | Ch 2 bandit leader (could reuse `boss_brigand_chief.png` by copying it) |
-| P1 | `elise.png` (regenerate) | The current one reads as a modern hoodie; she should wear a worn grey travelling hood |
-| P2 | Expression sets for `rowan`, `aldric`, `kai`, `mira`, `brann`, `tamsin`, `osmund` | e.g. `rowan_worried.png`. Without them the base portrait is used for every expression. |
+| P1 | `gorran.png` | Ch 2 bandit leader (could reuse `boss_brigand_chief.png`) |
+| P2 | `rowan`, `kai`, `mira`, `brann`, `osmund`, `boss_brigand_chief` | Session-2 portraits; check against the GBA style, regenerate if they clash |
+| P2 | Expression sets for the main cast | e.g. `rowan_worried.png`. Without them the base portrait is used for every expression. |
 
-## 4. Story backgrounds (`@bg` ids)
-Not wired to files yet. The Story screen would load `assets/backgrounds/<id>.png`; that's a one-line change in
-`StoryScreen.SetBackground` once the images exist. Suggested size: 1280×720 or 640×360 pixel art.
-
+## 4. Story backgrounds (`assets/backgrounds/<id>.png`)
 | Priority | Ids |
 |---|---|
-| P1 | `farm_evening`, `farm_night`, `farm_night_smoke`, `village_burning`, `village_dawn`, `farm_morning`, `farmhouse_interior`, `farm_yard`, `village_hall`, `river_road`, `mill_dusk`, `thornwood`, `thornwood_dawn` |
-| P2 | Hub backdrop (the Brookhollow village hall, behind the hub menus); title screen illustration |
+| P2 | Hub backdrop (behind the hub menus); title screen illustration; locations for Ch 4+ |
 
 ## 5. Terrain
 Folder: `assets/textures/terrain/<terrainId>[_N].png` (32 px top-down; `_N` are random alternates).
 
 | Priority | Tile | Notes |
 |---|---|---|
-| P1 | `fire.png` | Burning houses in Ch 1 (terrain `fire`, symbol `^`); currently a flat orange block |
-| P2 | Separate house / chapel / mill tiles | Villages currently reuse `fort` (T) and `wall` (W) |
-| P2 | Block side texture (dirt/stone cliff) | The sides of raised cells are plain darkened colour |
+| P2 | House / chapel roofs | Generated (`tools/art/takes/tiles/village/` tiles 1/5/9/13 and 2/6/10/14) but need new terrain types; villages reuse `fort` (T) and `wall` (W) |
+| P2 | Block side texture | Generated (cliff, tiles 3/7/11/15); needs code to texture the sides of raised cells |
 | P3 | Marsh / reeds / shallow water | Needed by Ch 6 (Greyfen) |
 
 ## 6. UI
 | Priority | Item |
 |---|---|
-| P2 | A UI theme: panel frames, buttons, a pixel font (screens use a placeholder style in `src/UI/Nodes/UiKit.cs`) |
 | P2 | Icons: weapon types (sword, lance, axe, bow, tome, staff, fist), items (vulnerary, boosters, seals), stats |
-| Done | Crest emblems: `assets/crests/rowan/t1..t4` plus 18 library lines for other bearers (session 4). Still to do: show them in the hub and on Rowan's HUD. |
-| P2 | Clean UI theme: approved panel, name plate and font are in `tools/art/approved/ui_clean/` and `fonts/` |
+| Done | Crest emblems (`assets/crests/`), shown in the hub and unit panel; the Clean UI theme and fonts |
 | P3 | Title logo; grid cursor and selection arrow art |
 
 ## 7. Effects

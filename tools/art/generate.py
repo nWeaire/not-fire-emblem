@@ -317,16 +317,13 @@ def run_backgrounds(r: Runner, ids: list[str]) -> None:
 
 def run_tiles(r: Runner, ids: list[str]) -> None:
     done_map = r.state["gba"]["tiles"]
-    style_dir = M.APPROVED / "terrain_gba16"
-    styles = [style_dir / f"tile_{i}.png" for i in (0, 2, 6, 10)]
     for tid in ids:
         if done_map.get(tid, {}).get("status") == "completed":
             continue
         numbered = " ".join(f"{i + 1}). {p} tile" for i, (_, p) in enumerate(M.TILESETS[tid]))
         response = r.submit(f"tiles {tid}", "/create-tiles-pro", {
-            "description": f"{numbered}. {M.TILE_STYLE}", "tile_type": "square_topdown", "tile_size": 16,
-            "tile_view": "top-down", "outline_mode": "segmentation",
-            "style_images": [{"base64": b64(p), **image_size(p)} for p in styles if p.exists()]})
+            "description": f"{numbered}. {M.TILE_STYLE}", "tile_type": "square_topdown", "tile_size": 32,
+            "tile_view": "top-down", "outline_mode": "segmentation"})  # no style images: 16 px ones force 16 px output
         done_map[tid] = {"status": "processing", "tile_id": response["tile_id"]}
         save_state(r.state)
 

@@ -4720,7 +4720,57 @@
     }
   },
   "gba": {
-    "backgrounds": {},
+    "backgrounds": {
+      "farm": {
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "farmhouse_interior": {
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "mill": {
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "river_road": {
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "thornwood": {
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "village": {
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "village_hall": {
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      }
+    },
     "characters": {
       "battle:aldric_warden": {
         "animations": {
@@ -4796,6 +4846,86 @@
           }
         },
         "character_id": "4aac16a1-be9a-4bb2-a063-0c045fe04a3b",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "battle:brann_fighter": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "22d918d6-99c2-4206-b45a-5ad641ff52df",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "critical": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "49a9c342-8ad0-4470-8bf2-1c62caf992cc",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 2.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "dodge": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "61fa1d73-5d2b-40e3-86a1-744d8dbe2a38",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "hit": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "f4a85949-1d9d-4215-86b5-6642db74fe94",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "idle": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "e5eac230-c512-4680-ad42-c653fce98fb1",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          }
+        },
+        "character_id": "116ceae0-9c4c-43b4-a026-24cf5cb3f07b",
         "status": "completed",
         "usage": {
           "generations": 10.0,
@@ -5258,7 +5388,167 @@
         "character_id": "5970379e-05fc-4ff2-a524-77f82a9e825d",
         "status": "completed"
       },
-      "battle:rowan_youth": {
+      "battle:rowan_lord": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "e9b39ef4-ba7c-4571-94a6-7dbc22b794fe",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "critical": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "22e391d3-b792-401f-9d16-7a636757d08b",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 2.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "dodge": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "c2599855-5572-4055-8149-8fbc8ff1f198",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "hit": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "d018d6f5-01e5-4ff5-96de-92ec50495904",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "idle": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "e384530c-1228-4543-a2a3-6862bec65702",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          }
+        },
+        "character_id": "d2d6fdd4-8076-4ae6-a7a0-a07a47332773",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "battle:rowan_youth_concept_rejected": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "dc304307-159a-4e2b-ad8c-0f388af09a4f",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "critical": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "ad0c7cff-47f3-4da3-87d4-a40a730df979",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 2.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "dodge": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "480c33f0-9878-4237-8abf-e5d510942d0c",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "hit": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "ad3e9d59-8140-4f9c-8fc0-e76370bfc1ec",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "idle": {
+            "directions": [
+              "east"
+            ],
+            "group_id": "b738a396-9c4f-40a8-aa4d-265355510981",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          }
+        },
+        "character_id": "25dae608-ff62-4475-9a4b-829420e0d7fc",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "battle:rowan_youth_session4": {
         "adopted": true,
         "animations": {
           "attack": {
@@ -5504,6 +5794,74 @@
           }
         },
         "character_id": "0d920e25-fab4-431f-aced-64e131bca61e",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:brann_fighter": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "595462b6-a231-4be2-9c9e-ba5698eedb22",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "6468cd9a-fa07-4443-bcfb-0e670ad95439",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.012143253750271268
+              },
+              {
+                "type": "usd",
+                "usd": 0.010862935940424602
+              },
+              {
+                "type": "usd",
+                "usd": 0.008799832344055175
+              },
+              {
+                "type": "usd",
+                "usd": 0.010251618782679241
+              }
+            ]
+          }
+        },
+        "character_id": "95e64509-e294-4b25-b9c5-a9a724ea07be",
         "status": "completed",
         "usage": {
           "generations": 10.0,
@@ -5906,6 +6264,74 @@
         "character_id": "87180fa6-c885-41fd-9b8a-0742d3c2f4bd",
         "status": "completed"
       },
+      "map:rowan_lord": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "2b62a7ca-6976-48d4-a449-6b825c3f0f40",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "8adb82f6-0bea-4c4d-beb2-e7dc9632a37f",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008155060211817423
+              },
+              {
+                "type": "usd",
+                "usd": 0.0081344399717119
+              },
+              {
+                "type": "usd",
+                "usd": 0.009131920523113676
+              },
+              {
+                "type": "usd",
+                "usd": 0.016548189216189915
+              }
+            ]
+          }
+        },
+        "character_id": "8208351e-30e6-4141-a944-038fb66b7f7d",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "map:rowan_youth": {
         "adopted": true,
         "animations": {
@@ -6040,8 +6466,740 @@
         }
       }
     },
-    "portraits": {},
-    "tiles": {}
+    "portraits": {
+      "aldric": {
+        "status": "completed",
+        "takes": 4,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "binder": {
+        "status": "completed",
+        "takes": 4,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "elise": {
+        "status": "completed",
+        "takes": 4,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "sennet": {
+        "status": "completed",
+        "takes": 4,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "tamsin": {
+        "status": "completed",
+        "takes": 4,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "varga": {
+        "status": "completed",
+        "takes": 4,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "wenna": {
+        "status": "completed",
+        "takes": 4,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      }
+    },
+    "still_takes": {
+      "aldric_warden": {
+        "job": "6937da95-c9c9-4d33-af58-a44203f945c9",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "brann_fighter": {
+        "job": "560e5255-cd62-42aa-875a-60191302c57b",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "enemy_binder": {
+        "job": "c90f6874-de82-4ae6-b181-069619d09bc3",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "enemy_gloam_brute": {
+        "job": "e0781500-8ba8-491a-b3ba-aeb61315538a",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "enemy_gloam_hound": {
+        "job": "9f3c52dd-543b-4079-b619-5b46791bb124",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "enemy_gloam_stalker": {
+        "job": "b6032c63-8ac9-4afc-8259-7818af9b11d1",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "kai_soldier": {
+        "job": "2c4e4c04-b6dc-48f8-bb3d-9c5184c2fe32",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "mira_acolyte": {
+        "job": "63297dd9-ef03-4a83-aef5-5a1153ebbb2e",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "rowan_lord": {
+        "job": "37091dab-5122-4dee-b1f0-00b17e1e48d1",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "tamsin_archer": {
+        "job": "f69b536d-24cb-4ed7-a45a-e988d7ed091e",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      }
+    },
+    "stills": {
+      "aldric_warden": {
+        "attack": {
+          "frames": 9,
+          "job": "94c70926-ddb0-4dd0-81e1-8403818005d2",
+          "status": "completed",
+          "still": "approved/refs/aldric_warden_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "74cf3aa1-3d34-4def-8be3-eec60ab91e15",
+          "status": "completed",
+          "still": "approved/refs/aldric_warden_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "3f7fbeb9-1b39-4da1-8ad3-2a49b791679d",
+          "status": "completed",
+          "still": "approved/refs/aldric_warden_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "d940a793-dbed-4be6-a461-20c9ff5f9b5e",
+          "status": "completed",
+          "still": "approved/refs/aldric_warden_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "73fdf9a8-75cc-4404-9ea1-edeeef49222c",
+          "status": "completed",
+          "still": "approved/refs/aldric_warden_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "brann_fighter": {
+        "attack": {
+          "frames": 9,
+          "job": "5e7f0ccd-43e0-43e2-aefc-3fe12077e2fd",
+          "status": "completed",
+          "still": "approved/refs/brann_fighter_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "f49978ba-75de-49b9-9ec6-3e42f960e981",
+          "status": "completed",
+          "still": "approved/refs/brann_fighter_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "0801d1dc-982f-41bd-b611-16ef3fa3ba4c",
+          "status": "completed",
+          "still": "approved/refs/brann_fighter_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "3b1b7f76-ca5f-4024-9738-7b41373fe1dc",
+          "status": "completed",
+          "still": "approved/refs/brann_fighter_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "4fa1c201-0778-4409-bd7f-a5af9c2381fe",
+          "status": "completed",
+          "still": "approved/refs/brann_fighter_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "enemy_binder": {
+        "attack": {
+          "frames": 9,
+          "job": "bda265d3-fc28-464e-aa9c-87413b5b66c4",
+          "status": "completed",
+          "still": "approved/refs/enemy_binder_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "3c77b353-077d-47c6-9b6a-a98a7e532ccf",
+          "status": "completed",
+          "still": "approved/refs/enemy_binder_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "3d030d4d-1be7-45e4-9902-c18dc010d603",
+          "status": "completed",
+          "still": "approved/refs/enemy_binder_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "2b1ee475-f515-436e-a395-640ecce9c9db",
+          "status": "completed",
+          "still": "approved/refs/enemy_binder_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "b689e129-60cf-4487-bff9-42e493c5219b",
+          "status": "completed",
+          "still": "approved/refs/enemy_binder_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "enemy_gloam_brute": {
+        "attack": {
+          "frames": 9,
+          "job": "5426235b-b84a-4032-ac14-13ea5b893dd1",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_brute_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "65c31b13-710a-4079-beb8-8a6985468c40",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_brute_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "8ecb2f32-9724-4510-86d8-0b83547c7d41",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_brute_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "6d8d7456-3625-47c3-93c4-ab65f43e8c55",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_brute_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "e43cada9-dc16-4dd1-918b-cfc8adddf003",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_brute_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "enemy_gloam_hound": {
+        "attack": {
+          "frames": 9,
+          "job": "82b109ad-99dc-4445-b960-dcf97137f1e2",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_hound_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "70ca82b7-fe9e-4da3-87fd-a3b7d6289f7d",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_hound_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "3cc51034-ce83-4f3b-819a-79209db9a2ad",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_hound_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "ac087ac7-4b37-41d8-ab5f-a49eaac716b3",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_hound_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "5739e13c-673d-4ad8-ae11-6ca0d2da3387",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_hound_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "enemy_gloam_stalker": {
+        "attack": {
+          "frames": 9,
+          "job": "13c86381-c435-49ed-b3ea-979ba0539868",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_stalker_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "982b82dd-1fb8-41f9-91bd-ce93c084b7ce",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_stalker_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "538c648f-4809-424d-9352-3293e9d7c3e9",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_stalker_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "07d2df71-eb82-4449-a7bd-f643dc721e4c",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_stalker_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "746900d3-752f-4e6d-ba9c-82824b7ccc9b",
+          "status": "completed",
+          "still": "approved/refs/enemy_gloam_stalker_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "kai_soldier": {
+        "attack": {
+          "frames": 9,
+          "job": "4b00b937-c115-492c-a381-7dd8d03d15f0",
+          "status": "completed",
+          "still": "approved/refs/kai_soldier_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "fcb09cde-55f1-4f23-99b2-9047ebadf4a8",
+          "status": "completed",
+          "still": "approved/refs/kai_soldier_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "434f9582-96c0-4a39-8f5e-234f9a200c7a",
+          "status": "completed",
+          "still": "approved/refs/kai_soldier_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "2cbfe1fb-d21e-4a9d-a743-6c3b320ade12",
+          "status": "completed",
+          "still": "approved/refs/kai_soldier_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "016df900-e108-4f04-a957-6944652ac379",
+          "status": "completed",
+          "still": "approved/refs/kai_soldier_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "mira_acolyte": {
+        "attack": {
+          "frames": 9,
+          "job": "902808fe-5299-4eb4-9231-d768bd794f87",
+          "status": "completed",
+          "still": "approved/refs/mira_acolyte_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "2c578eef-9e36-4cbe-999e-fba0faf957a6",
+          "status": "completed",
+          "still": "approved/refs/mira_acolyte_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "83358559-1b77-43db-9fa9-39b960313b0d",
+          "status": "completed",
+          "still": "approved/refs/mira_acolyte_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "b2d900e9-f6f6-4ee5-9067-a9bf1762b1ee",
+          "status": "completed",
+          "still": "approved/refs/mira_acolyte_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "1710f745-b309-41ae-b3b8-346ce7954fa4",
+          "status": "completed",
+          "still": "approved/refs/mira_acolyte_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "rowan_lord": {
+        "attack": {
+          "frames": 9,
+          "job": "1ea21521-d2a2-47e7-9b99-1cbc92c3ca32",
+          "status": "completed",
+          "still": "approved/refs/rowan_lord_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "046e4d77-be2b-42fc-9de5-1341f7facc77",
+          "status": "completed",
+          "still": "approved/refs/rowan_lord_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "a5fb8608-a34a-4dbc-8a4d-746a17b2685e",
+          "status": "completed",
+          "still": "approved/refs/rowan_lord_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "1cfe5cf9-f586-4a6f-9ed3-dc1d2f2e16ea",
+          "status": "completed",
+          "still": "approved/refs/rowan_lord_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "c31bb8ae-c1ac-40b5-8893-75eb8fc82772",
+          "status": "completed",
+          "still": "approved/refs/rowan_lord_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "rowan_youth": {
+        "attack": {
+          "frames": 9,
+          "job": "10dd823d-3b58-42c5-b8b4-068ee9562eb0",
+          "status": "completed",
+          "still": "approved/refs/rowan_battle_E1.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "451d108c-2f76-4ca6-a694-53c40c1b6771",
+          "status": "completed",
+          "still": "approved/refs/rowan_battle_E1.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "c38dd03c-a99f-497e-ab20-5bc883be589d",
+          "status": "completed",
+          "still": "approved/refs/rowan_battle_E1.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "1ed47034-96c7-42d6-9616-42247dc6ec9e",
+          "status": "completed",
+          "still": "approved/refs/rowan_battle_E1.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "f3e19f7c-bf4f-49ad-8572-ba99ba34fa5e",
+          "status": "completed",
+          "still": "approved/refs/rowan_battle_E1.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "tamsin_archer": {
+        "attack": {
+          "frames": 9,
+          "job": "9fe959cb-47a4-4953-b831-f0cd6a1d5b11",
+          "status": "completed",
+          "still": "approved/refs/tamsin_archer_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "cbdd30cd-6696-475c-b9db-6235d716e659",
+          "status": "completed",
+          "still": "approved/refs/tamsin_archer_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "82b8bee8-d684-4c5f-ad60-20e216b95a29",
+          "status": "completed",
+          "still": "approved/refs/tamsin_archer_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "cc2475c9-7ebb-4af7-939f-80be65166a1e",
+          "status": "completed",
+          "still": "approved/refs/tamsin_archer_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "92ea932d-9802-4c59-bba8-ace5b628b618",
+          "status": "completed",
+          "still": "approved/refs/tamsin_archer_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      }
+    },
+    "tiles": {
+      "village": {
+        "status": "completed",
+        "tile_id": "8469c502-fc89-437a-b1ac-6e5d71e57a10",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      }
+    }
   },
   "portraits": {
     "boss_brigand_chief": {

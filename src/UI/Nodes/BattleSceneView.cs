@@ -24,7 +24,8 @@ public partial class BattleSceneView : CanvasLayer
     private const float FeetY = 101f;
     private const float LeftX = 64f;
     private const float RightX = 176f;
-    private const float ArtHeight = 64f; // battle sprites are drawn at this canvas size; bigger legacy art is scaled down
+    private const float ArtHeight = 64f; // legacy art taller than MaxNativeHeight is scaled down to this canvas size
+    private const float MaxNativeHeight = 84f; // battle art up to this size (64 px, and the 84 px "E" style) draws 1:1
 
     private static readonly Color DimColor = new(12 / 255f, 8 / 255f, 28 / 255f);
 
@@ -424,7 +425,7 @@ public partial class BattleSceneView : CanvasLayer
             Weapon = weapon;
             _strikes.Clear();
             var idle = Sprite.SpriteFrames.GetFrameTexture("idle", 0).GetImage();
-            _artScale = Math.Min(1f, ArtHeight / idle.GetHeight());
+            _artScale = idle.GetHeight() <= MaxNativeHeight ? 1f : ArtHeight / idle.GetHeight();
             var used = idle.GetUsedRect();
             float anchorX = used.Position.X + used.Size.X / 2f;
             Sprite.Offset = new Vector2(-anchorX, -used.End.Y);

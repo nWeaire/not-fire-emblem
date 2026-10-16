@@ -73,49 +73,50 @@ def battle_anims(weapon: str) -> dict:
             "hit": v3(BATTLE_HIT, 4, True), "dodge": v3(BATTLE_DODGE, 6, True)}
 
 
+# Battle sprites are no longer made here: they are the "E" look, from battle_stills.py + animate_still.py
+# (approved/refs/<id>_battle.png). These entries make the 48 px map sprites.
 # Order is priority. Keys are sprite ids: playable outfits are "<unitId>_<classId>"; enemies "enemy_<classId>".
 # "adopt" reuses a PixelLab character that already exists (the approved session-4 samples), so only the
 # missing animations are paid for; "done_anims" maps animation names to existing PixelLab animation groups.
 CHARACTERS = {
-    "rowan_youth": dict(weapon="sword", sets=("map", "battle"),
+    # Battle art comes from the chosen still "E1" (approved/refs/rowan_battle_E1.png) via animate_still.py.
+    "rowan_youth": dict(weapon="sword", sets=("map",),
         desc="18 year old farm boy hero, messy dark blue hair, off-white linen shirt, brown leather vest, brown "
              "trousers, boots, plain iron sword",
-        adopt={"map": "cc3f5f68-665d-49f3-bd00-71690f384851", "battle": "5eb8d2fa-9269-4968-92b8-f6fa3b432954"},
-        done_anims={"battle": {"critical": "cc10b57c-b088-424b-b007-2a2a9aad6036",
-                               "attack": "1daca7ce-1007-4809-b9e9-febfd8b16994"}}),
-    "kai_soldier": dict(weapon="lance", sets=("map", "battle"),
+        adopt={"map": "cc3f5f68-665d-49f3-bd00-71690f384851"}),
+    "kai_soldier": dict(weapon="lance", sets=("map",),
         desc="18 year old ranch boy, shaggy sandy blond hair, padded tan cloth gambeson, dented iron cap, long wooden "
              "spear with an iron tip",
         adopt={"map": "871ef5a9-69bd-49ca-9697-b1ad6177a22d", "battle": "42d39467-c587-4c5e-9aaf-01c081463d9c"}),
-    "mira_acolyte": dict(weapon="staff", sets=("map", "battle"),
+    "mira_acolyte": dict(weapon="staff", sets=("map",),
         desc="18 year old village healer girl, long blonde braid, grey-green wool dress with white apron, wooden staff",
         adopt={"map": "87180fa6-c885-41fd-9b8a-0742d3c2f4bd", "battle": "5970379e-05fc-4ff2-a524-77f82a9e825d"}),
-    "enemy_gloam_brute": dict(weapon="claws", sets=("map", "battle"),
+    "enemy_gloam_brute": dict(weapon="claws", sets=("map",),
         desc="hulking hunched humanoid beast from a dark fairy tale, ash-grey and violet hide, long arms with big "
              "claws, tattered rags, small glowing pale eyes",
         adopt={"map": "2026ac6e-13b9-46c2-b5ef-23b4fa5fd0bc", "battle": "8b7dbc04-688c-4f8e-9aea-655613e6853a"},
         done_anims={"battle": {"attack": "504effbe-2ab2-48e9-b275-88735b41a7c7"}}),
-    "enemy_binder": dict(weapon="dark", sets=("map", "battle"),
+    "enemy_binder": dict(weapon="dark", sets=("map",),
         desc="sinister cloaked dark mage, tattered deep purple hooded cloak, shadowed face, one hand glowing with a "
              "purple sigil, dark tome",
         adopt={"map": "60f8de6c-34b6-4e55-8d77-3b6d56c5dee8", "battle": "161aff36-fadb-4623-88a2-85e3952c559c"},
         done_anims={"battle": {"attack": "8c06d659-aa67-4924-b8a4-d537b942a3d3"}}),
-    "aldric_warden": dict(weapon="sword", sets=("map", "battle"),
+    "aldric_warden": dict(weapon="sword", sets=("map",),
         desc="gruff 50 year old swordsman, short grey-streaked dark hair and beard, black leather armour stitched "
              "with faint silver sigils, dark grey cloak, steel sword"),
-    "tamsin_archer": dict(weapon="bow", sets=("map", "battle"),
+    "tamsin_archer": dict(weapon="bow", sets=("map",),
         desc="lean young woman forest hunter, short messy auburn hair, green hood, brown leather jerkin with a fur "
              "collar, quiver on her back, wooden hunting bow"),
-    "enemy_gloam_hound": dict(weapon="claws", sets=("map", "battle"),
+    "enemy_gloam_hound": dict(weapon="claws", sets=("map",),
         desc="lean feral wolf-like humanoid beast from a dark fairy tale, hunched low and fast, long snout, ash-grey "
              "and violet fur, bony spine, small glowing pale eyes, sharp claws"),
-    "enemy_gloam_stalker": dict(weapon="spikes", sets=("map", "battle"),
+    "enemy_gloam_stalker": dict(weapon="spikes", sets=("map",),
         desc="spindly tall thin humanoid beast from a dark fairy tale, ash-grey and violet hide, long thin limbs, bone "
              "spikes growing from its back and shoulders, small glowing pale eyes"),
-    "rowan_lord": dict(weapon="sword", sets=("map", "battle"),
+    "rowan_lord": dict(weapon="sword", sets=("map",),
         desc="18 year old young lord, messy dark blue hair, fitted dark blue wool doublet with a few silver buttons, "
              "short grey travelling cloak, leather bracers, brown trousers, boots, plain iron sword"),
-    "brann_fighter": dict(weapon="axe", sets=("map", "battle"),
+    "brann_fighter": dict(weapon="axe", sets=("map",),
         desc="big burly young village blacksmith, short brown beard, scorched leather apron over a plain shirt, bare "
              "muscular arms, heavy iron wood-cutting axe"),
     "ally_villager": dict(weapon="none", sets=("map",),
@@ -175,8 +176,8 @@ BACKGROUNDS = {
     "thornwood": "a dark thorny old forest, twisted trees, brambles, mist, mossy ground in the lower half",
 }
 
-# ------------------------------------------------------------------ terrain (create-tiles-pro, 16 px)
-# Extra tiles beyond the approved set (approved/terrain_gba16). Mapping of the 16 results is chosen by hand.
+# ------------------------------------------------------------------ terrain (create-tiles-pro, 32 px)
+# Extra tiles beyond the approved set (approved/terrain_gba32). Mapping of the 16 results is chosen by hand.
 
 TILE_STYLE = ("Game Boy Advance Fire Emblem map tile, flat bright colours, very limited palette, simple shapes, "
               "seamless top-down")

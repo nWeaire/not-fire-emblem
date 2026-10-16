@@ -90,7 +90,7 @@ public partial class DialogueBox : Control
         _namePlate.AnchorLeft = _namePlate.AnchorRight = 0.08f;
         _namePlate.AnchorTop = _namePlate.AnchorBottom = 1f;
         _namePlate.OffsetLeft = 186;
-        _namePlate.OffsetTop = -226;
+        _namePlate.OffsetTop = _namePlate.OffsetBottom = -226; // grows down to fit the name, over the box's top edge
         _namePlate.CustomMinimumSize = new Vector2(220, 0);
         _text = new RichTextLabel
         {

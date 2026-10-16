@@ -25,12 +25,37 @@ _Last updated: 2026-10-16 (end of session 5)._
 - **Verified:** build clean, 102 tests pass, and a full autoplay campaign completes with no errors.
 - **Budget:** 349 PixelLab generations left (as of 2026-10-16).
 
-### Next: finish the art pass
-1. `python tools/art/generate.py plan` lists what remains (~221 gens): `rowan_lord` and `brann_fighter` (map and
-   battle), 7 portraits (aldric, tamsin, wenna, binder, sennet, varga, elise; pick a take each), 7 story backgrounds
-   (farm, village, farmhouse_interior, village_hall, river_road, mill, thornwood), and the `village` tile set.
-2. `docs/ART_NEEDED.md` still describes the old sizes (96 px battle sprites); bring it in line with ART_DIRECTION.
-3. Then switch `BattleController.MapId` to `prologue` if wanted, and playtest by hand.
+### Art generated at the end of session 5
+- `rowan_lord` and `brann_fighter` (map + battle), 7 portraits, 7 story backgrounds, and the village tile set (218
+  gens; **131 left**). Recommended portrait takes are installed (aldric #0, tamsin #2, wenna #0, binder #2,
+  sennet #0, varga #0, elise #2), with the light bar some takes have along the bottom edge removed. The user can swap
+  them from `tools/art/takes/portraits/`. Fire tiles are installed; roof and cliff tiles wait for code (ART_NEEDED §5).
+- Fixed the dialogue name plate stretching to the bottom of the screen.
+
+### Later in session 5 (user review)
+- **Portraits:** the user's picks are installed (elise #3, aldric #0, tamsin #2, wenna #3, binder #1, sennet #3,
+  varga #2, counting the sheet's #0–#3 labels).
+- **Terrain is now 32 px** (`approved/terrain_gba32/`; the 16 px set stays in `approved/terrain_gba16/`).
+- **Rowan's battle sprite** is the user's pick "E" (brighter, more GBA FE): `approved/refs/rowan_battle_E1.png`,
+  animated with the new `tools/art/animate_still.py`. Pilots and review sheets are in `tools/art/takes/pilot5/` and
+  `tools/art/takes/review/` (not committed).
+- Wasted gens worth knowing about: 16 px style images force 16 px tiles (20 gens), `create_from_concept` made a chibi
+  (16), and a "probe" request with an invalid `template_id` was accepted and charged (10). Read the API schema at
+  `https://api.pixellab.ai/v2/openapi.json` instead of probing.
+- Budget: the user bought more credits (about 2,700 generations as of 2026-10-16).
+
+- **The whole battle cast is now in the "E" look** (Rowan, Rowan Lord, Kai, Mira, Aldric, Tamsin, Brann, Gloam Hound,
+  Brute and Stalker, Binder). Stills: `tools/art/battle_stills.py` (takes in `takes/stills/`, picks in
+  `approved/battle_picks.txt` and `approved/refs/<id>_battle.png`); animations: `tools/art/animate_still.py`. Every animation
+  was checked frame by frame; effect frames were filtered out and Brann's dodge, Aldric's hit and Rowan's
+  attack/hit/dodge were redone. The 64 px session-4 battle art is parked in `tools/art/superseded/battle_s4/`.
+- Map sprites are unchanged (48 px session-4 look).
+
+### Next
+1. User review of the new battle cast in game; swap any still pick for ~7 gens (`animate_still.py`).
+2. Remaining P1 art in `docs/ART_NEEDED.md`: bandit/human enemies still use session-2 art (96 px battle sprites, now
+   visibly smaller and duller than the cast), and `gorran.png`. Do them in the E look.
+3. Switch `BattleController.MapId` to `prologue` if wanted, and playtest by hand.
 
 ## Session 4: art direction settled
 

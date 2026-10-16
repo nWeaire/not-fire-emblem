@@ -17,3 +17,10 @@ enemy_mage 2 anima
 elise_mage 2 anima
 kai_cavalier 3 lance
 enemy_pegasus_knight 3 lance
+rowan_crest_knight 1 sword
+aldric_warden_lord 1 sword
+tamsin_sniper 7 bow
+brann_warrior 1 axe
+kai_paladin 2 lance
+mira_sage 2 staff
+elise_sage 4 anima

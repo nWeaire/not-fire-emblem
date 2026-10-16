@@ -4,13 +4,13 @@
 ### pro_opening
 @bg farm_evening
 @music calm_farm
-NARRATOR: The Thornvale. A week's ride from anywhere that matters.
-NARRATOR: Which suited the Ashfords just fine.
+NARRATOR: The Thornvale lay a week's ride from anywhere that mattered.
+NARRATOR: That suited the Ashfords just fine.
 ALDRIC [neutral]: You left the south gate open again.
 ROWAN [neutral]: I closed it.
 ALDRIC [neutral]: Then the goats have learned latches. Should I be worried?
 ROWAN [smile]: You should be impressed.
-ALDRIC [smile]: Fetch your bow. The fence-line, before it's dark. Something's been at the hens.
+ALDRIC [smile]: Fetch your bow and check the fence line before dark. Something's been at the hens.
 ROWAN [neutral]: Foxes?
 ALDRIC [worried]: ...Probably.
 @wait 0.6
@@ -22,7 +22,7 @@ NARRATOR: Neither of them said it out loud.
 @music tension_low
 @sfx gloam_howl
 ROWAN [surprised]: That's not a fox.
-ROWAN [worried]: Father — there's something in the treeline. Walking on two legs.
+ROWAN [worried]: Father, there's something in the treeline. It's walking on two legs.
 ALDRIC [determined]: Inside. Now.
 ROWAN [determined]: I've got my bow.
 ALDRIC [angry]: Rowan. *Inside.*
@@ -60,9 +60,9 @@ ROWAN [hurt]: Agh— It's— it's *in* my hand—
 @wait 0.8
 ALDRIC [sad]: ...No. No, not you. Not yet.
 ROWAN [worried]: What is it? You know what it is.
-ALDRIC [neutral]: It's a crest. A crest of the lords.
-ALDRIC [neutral]: Every ruler in Aldmere carries one. Reeves. Lords. Kings. It's what makes them rulers.
-ALDRIC [neutral]: It lets you reach the people around you. Strengthen them. Shield them. Heal them.
+ALDRIC [neutral]: It's a crest, the mark of a lord.
+ALDRIC [neutral]: Every ruler in Aldmere carries one: reeves, lords, kings. It's what makes them rulers.
+ALDRIC [neutral]: It lets you reach the people around you, to strengthen them, shield them and heal them.
 ALDRIC [cold]: Or reach into them and *make them kneel*. You saw what his did to those creatures.
 ROWAN [worried]: Why did it come to me?
 ALDRIC [neutral]: A crest goes to whoever ends its bearer. And it takes the colour of the heart that holds it.
@@ -75,7 +75,7 @@ ALDRIC [neutral]: Later.
 @bg farm_night_smoke
 @music tension_high
 ROWAN [worried]: Father. The sky over Brookhollow.
-ALDRIC [determined]: Kai. Mira. The whole village.
+ALDRIC [determined]: Kai and Mira are down there. The whole village is.
 ALDRIC [determined]: Get your sword. We run.
 
 
@@ -83,14 +83,15 @@ ALDRIC [determined]: Get your sword. We run.
 
 ### pro_tutorial_move
 @focus 5,7
-NARRATOR: Select Rowan and choose where to move. Blue tiles are in reach; red tiles are what he could strike.
-NARRATOR: Hold the danger zone key (G) to see where the enemy can reach next turn.
+NARRATOR: Select Rowan and choose where to move. Blue tiles show where he can go; red tiles show what he can hit.
+NARRATOR: Press G to show every tile the enemy can reach next turn. Press it again to hide them.
 ROWAN [determined]: Bow first. Let them come to me.
-NARRATOR: Move next to an enemy, or within bow range, and choose Attack. The forecast shows damage, hit and crit exactly.
+NARRATOR: Move next to an enemy, or within bow range, and choose Attack.
+NARRATOR: Before you commit, the forecast shows the exact damage, hit chance and critical chance.
 
 ### pro_tutorial_dominion
 @focus 7,1
 ALDRIC [cold]: See how they move? Like hands on one arm.
-ALDRIC [determined]: The cloaked one's holding them. Close to him, they hit harder and they don't run.
+ALDRIC [determined]: The cloaked one is holding them. Near him, they hit harder and they don't run.
 ROWAN [neutral]: So we cut off the hand.
 ALDRIC [neutral]: Kill the holder and the rest come loose. Remember that.

@@ -7,18 +7,18 @@
 NARRATOR: Brookhollow had forty houses, a chapel, a well, and no walls.
 NARRATOR: Nobody had ever needed walls.
 ROWAN [worried]: They're everywhere.
-ALDRIC [determined]: Then we're busy. The well square first. Someone's still fighting there.
+ALDRIC [determined]: Then we'll be busy. Make for the well square. Someone's still fighting there.
 ROWAN [surprised]: That's Kai's spear.
 ALDRIC [neutral]: Of course it is.
 
 ### ch01_kai_joins
-KAI [laugh]: Rowan! Took your time!
+KAI [laugh]: Rowan! You took your time!
 ROWAN [neutral]: You're bleeding.
-KAI [smile]: Some of it's mine. Bet I've got more of them than you.
+KAI [smile]: Some of it's mine. I bet I've got more of them than you.
 ROWAN [smile]: You started first.
-KAI [surprised]: Mr Ashford — is that *armour*? Since when does your dad have—
+KAI [surprised]: Mr. Ashford, is that *armour*? Since when does your dad have—
 ALDRIC [cold]: Since now. Fight.
-KAI [determined]: Yes sir!
+KAI [determined]: Yes, sir!
 
 ### ch01_mira_fire
 @focus 14,5
@@ -26,7 +26,7 @@ MIRA [worried]: Stay behind me. All of you, behind the pews—
 @sfx gloam_roar
 MIRA [determined]: ...No. Not in my chapel.
 @sfx fire_cast
-NARRATOR: The brute caught fire from the inside of its own shadow.
+NARRATOR: The brute caught fire from inside its own shadow.
 KAI [surprised]: MIRA?!
 MIRA [smile]: I've been practising.
 KAI [surprised]: Practising *what*? Since *when*?
@@ -39,7 +39,7 @@ ROWAN [smile]: ...Well. That's three of us.
 @sfx gloam_howl
 ALDRIC [determined]: More from the north road. Someone's herding them here.
 ROWAN [determined]: The one in the cloak. There's always one in a cloak.
-ALDRIC [neutral]: Learning fast.
+ALDRIC [neutral]: You're learning fast.
 
 ### ch01_boss_sennet (boss battle quote)
 SENNET [cold]: You wear a stolen light, child. It will go dark like all the others.
@@ -51,26 +51,26 @@ ROWAN [determined]: Not while you're the one holding the lamp.
 NARRATOR: By dawn the fires were out. The village had lost two barns, a mill wheel, and old Teodor's prize goat.
 NARRATOR: It had lost no one else.
 WENNA [neutral]: Rowan Ashford. Show me your hand.
-ROWAN [worried]: It's... It's nothing, Elder—
+ROWAN [worried]: It's... it's nothing, Elder—
 WENNA [sad]: It's a crest, boy. I'm old, not blind.
 WENNA [neutral]: The last reeve this village had died forty years ago. We've done without since.
-WENNA [smile]: Seems the village has a protector again, whether it wants one or not.
+WENNA [smile]: It seems the village has a protector again, whether it wants one or not.
 WENNA [neutral]: I'll send for Osmund in the morning. A crest-bearer who knows nothing about crests is a danger to everyone.
 ROWAN [neutral]: I'm a farmer.
 ALDRIC [neutral]: So was I.
 KAI [laugh]: Lord Rowan of the Goats.
 MIRA [smile]: Kai.
 KAI [smile]: What? He's earned it.
-ROWAN [determined]: ...If they hit Brookhollow, they'll hit Millbrook. And the Thornwood villages. And the Keep.
+ROWAN [determined]: ...If they hit Brookhollow, they'll hit Millbrook too. Then the Thornwood villages, and the Keep.
 ALDRIC [neutral]: And Lord Halvric's men?
-ROWAN [cold]: Haven't come. Not one of them.
+ROWAN [cold]: They haven't come. Not one of them.
 ALDRIC [neutral]: Then we go.
 
 
 # ---- Scenes added for the built map. Not in DIALOGUE.md yet.
 
 ### ch01_wenna
-WENNA [worried]: Rowan Ashford? Inside, quick, before something sees the door open.
+WENNA [worried]: Rowan Ashford? Get inside, quick, before something sees the door open.
 WENNA [neutral]: Take this. Mira's mother mixed it. Drink it before you need it, not after.
 ROWAN [neutral]: Thank you, Elder.
 WENNA [smile]: Thank me by keeping my roof on.

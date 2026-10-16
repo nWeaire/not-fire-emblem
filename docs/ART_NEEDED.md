@@ -32,7 +32,8 @@ Folder: `assets/sprites/units/<spriteId>/`. Units find art through `BattleUnit.S
 | Priority | Sprite id | Who / what | Used in |
 |---|---|---|---|
 | P2 | `boss_sennet`, `boss_varga`, `boss_gorran` | Distinct looks for named bosses (set the spawn `SpriteId`) | Ch 1–3 |
-| P2 | `aldric_warden_lord`, `tamsin_sniper`, `brann_warrior`, `kai_paladin`, `mira_sage`, `rowan_crest_knight` | Tier 2 outfits (`PLANNED` in `tools/art/manifest.py`) | After promotion |
+| Done | `rowan_crest_knight`, `aldric_warden_lord`, `tamsin_sniper`, `brann_warrior`, `kai_paladin`, `mira_sage`, `elise_sage` | Tier 2 outfits, map + battle (session 5) | After promotion |
+| P3 | Tier 3–4 outfits | When those classes exist (`PLANNED` in `tools/art/manifest.py`) | Act II+ |
 
 ## 2. Battle-screen sprites (the "E" look: 84 px stills animated on 128×84, east only, `idle` `attack` `critical` `dodge` `hit`)
 Folder: `assets/sprites/battle/<spriteId>/`. Same ids as §1; `ally_villager` has none (rarely fights).

@@ -181,6 +181,8 @@ def run_characters(r: Runner, ids: list[str], sets: list[str], anims: bool) -> N
                     print(f"  {sid} {set_name}: character not ready; skipping animations")
                     continue
                 wanted = M.map_anims(spec["weapon"]) if set_name == "map" else M.battle_anims(spec["weapon"])
+                if set_name == "map" and spec.get("template") == "horse" and "walk" in wanted:
+                    wanted["walk"] = M.HORSE_WALK  # the horse body names its walk differently
                 for name, anim in wanted.items():
                     request_animation(r, entry, f"{char_key(set_name, sid)}/{name}", name, anim,
                                       SETS[set_name]["directions"])

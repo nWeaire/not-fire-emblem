@@ -77,6 +77,13 @@ _Last updated: 2026-10-16 (end of session 5)._
   (a skipped scene still plays its last track), title/hub/prep screens, phase changes, combat on the map and on
   the battle screen, kills, heals, level-ups, and the victory/defeat jingles. libsndfile's Vorbis encoder crashes
   the process on one big write, so the build writes OGG in 4096-sample blocks.
+- **Tier-2 class art:** map + battle sprites for Crest Knight (Rowan), Warden Lord (Aldric), Sniper (Tamsin),
+  Warrior (Brann), Paladin (Kai), and Sage (Mira and Elise), as `<unitId>_<classId>`; picks in
+  `approved/battle_picks.txt`. Horse-template map sprites need the `walk-4-frames` template (`HORSE_WALK`); the
+  Cavalier and Pegasus Knight had no map walk until this was fixed.
+- **Dialogue copyedit** (all six scripts + the canon copies in DIALOGUE.md): question marks, fragments that read as
+  errors, consistent past-tense narration, Varga's pronoun ("him" -> she), and Osmund's self-contradicting Ch 3
+  briefing. Voices kept per DIALOGUE.md section 2.
 - Aldric's attack redrawn (the old prompt "from high behind" painted a second sword).
 - Hand playtest copy: `git worktree` at `C:/Users/nweai/nfe-playtest` (detached at the commit it was made from;
   `git -C C:/Users/nweai/nfe-playtest checkout --detach <commit>` then build + import to update it).

@@ -6,7 +6,7 @@
 @music forest_tension
 NARRATOR: The Thornwood was old when the First Kingdom was young. Its trees grew close and listened.
 MIRA [worried]: I can't see ten paces.
-ALDRIC [neutral]: Neither can they. Keep together. Move slow.
+ALDRIC [neutral]: Neither can they. Stay together and move slowly.
 KAI [determined]: I'm not scared, I'm energised.
 ROWAN [neutral]: Be energised quietly.
 
@@ -14,34 +14,34 @@ ROWAN [neutral]: Be energised quietly.
 @focus 9,7
 @sfx bow_shot
 TAMSIN [angry]: Come on, then. Come on! I've got arrows enough for all of you.
-ROWAN [surprised]: Someone's in the clearing. Alone.
-ALDRIC [neutral]: Hunter, by the bow. Get to her before they do.
+ROWAN [surprised]: Someone's in the clearing, alone.
+ALDRIC [neutral]: A hunter, by that bow. Get to her before they do.
 
 ### ch03_tamsin
 TAMSIN [cold]: Stay back. You're loud. Gloamkin love loud.
 ROWAN [neutral]: You're surrounded.
 TAMSIN [cold]: I'd noticed.
 ROWAN [neutral]: We're hunting whoever's driving them. Come with us, or wait here for the next lot.
-TAMSIN [neutral]: ...They took my dogs. Four of them. Best dogs in the Thornvale.
+TAMSIN [neutral]: ...They took my dogs. All four of them, the best dogs in the Thornvale.
 TAMSIN [determined]: Fine. I'll shoot what you can't reach. Don't make me regret it.
 
 ### ch03_dogs
-NARRATOR: Under the thorn bushes lie four hunting dogs. They died facing outward, in a ring.
+NARRATOR: Under the thorn bushes lay four hunting dogs. They had died facing outward, in a ring.
 TAMSIN [sad]: ...Bramble. Fen. Old Tuck. The little one never had a name. I was going to think of one.
 MIRA [sad]: I'm sorry.
 TAMSIN [cold]: Don't be sorry. Be quick. Whoever did this is still out there.
 
 ### ch03_boss
 VARGA [cold]: The farmer with the white hand. We were told you'd come wandering in.
-ROWAN [determined]: Told by who?
-VARGA [cold]: By the quiet, child. It speaks to all of us, eventually.
+ROWAN [determined]: Who told you?
+VARGA [cold]: The quiet told us, child. It speaks to all of us, eventually.
 
 ### ch03_varga_dies
 @focus 15,2
 @sfx crest_rise
 VARGA [hurt]: It's... cold... We were promised it wouldn't be cold.
 NARRATOR: The Binder's crest rose and drifted to Rowan's hand. It burned less this time.
-ALDRIC [neutral]: There's a satchel on him. Orders.
+ALDRIC [neutral]: She was carrying a satchel. Orders.
 ROWAN [neutral]: "Intercept the archive scholar on the south road. Deliver her to the men of Dain Hall."
 KAI [surprised]: Dain Hall? That's Lord Halvric's seat.
 ALDRIC [cold]: So the lord's men aren't missing. They're busy.
@@ -49,10 +49,10 @@ ALDRIC [cold]: So the lord's men aren't missing. They're busy.
 ### ch03_post
 @bg thornwood_dawn
 @music aftermath
-TAMSIN [neutral]: I buried them. Facing out. They'd have liked that.
-TAMSIN [neutral]: You're going south after this scholar.
+TAMSIN [neutral]: I buried them facing out. They'd have liked that.
+TAMSIN [neutral]: You're going south after this scholar?
 ROWAN [neutral]: If Halvric's men want her, she knows something.
-TAMSIN [cold]: Then I'm coming. Not for you. The beasts came out of my wood. I want the one holding the leash.
+TAMSIN [cold]: Then I'm coming. Not for you. The beasts came out of my wood, and I want whoever's holding the leash.
 ROWAN [smile]: Right. Welcome to Brookhollow.
 TAMSIN [cold]: Don't make it a thing.
 NARRATOR: To be continued in Chapter 4: The Scholar of Calder.

@@ -22,6 +22,7 @@ BATTLE = {"size": 64, "view": "side", "directions": ["east"], "out": "assets/spr
 FACE = "keeps facing right the whole time, side view, never turns toward the camera"
 
 MAP_WALK = {"kind": "template", "template": "walking-4-frames"}
+HORSE_WALK = {"kind": "template", "template": "walk-4-frames"}  # template "horse" (cavalry, pegasi)
 MAP_ATTACKS = {
     "sword": "steps forward and slashes a sword in a quick arc, then returns to stance",
     "lance": "thrusts a spear forward in a powerful stab, then pulls back",
@@ -151,21 +152,34 @@ CHARACTERS = {
     "enemy_pegasus_knight": dict(weapon="lance", sets=("map",), template="horse",
         desc="mercenary pegasus knight, young woman in red and steel armour with a short red cape, riding a white "
              "winged pegasus with feathered wings, iron lance"),
+    # Tier 2 outfits (promotion; the game looks for <unitId>_<classId> art first). Grander than the tier 1 clothes.
+    "rowan_crest_knight": dict(weapon="sword", sets=("map",),
+        desc="18 year old knight-lord, messy dark blue hair, steel breastplate over a dark blue tunic, short blue cape "
+             "with silver trim, a faint white crest glow on the back of his hand, steel sword"),
+    "aldric_warden_lord": dict(weapon="sword", sets=("map",),
+        desc="grizzled 50 year old lord-knight, short grey-streaked dark hair and beard, black leather armour with "
+             "silver plates and sigils, long black cloak, steel greatsword"),
+    "tamsin_sniper": dict(weapon="bow", sets=("map",),
+        desc="lean young woman sniper, short messy auburn hair, dark green hooded cloak, fitted leather armour with a "
+             "fur collar, quiver on her back, tall recurve longbow"),
+    "brann_warrior": dict(weapon="axe", sets=("map",),
+        desc="big burly young warrior, short brown beard, chainmail shirt with a fur mantle, iron gauntlets, bare "
+             "muscular arms, heavy steel battleaxe"),
+    "kai_paladin": dict(weapon="lance", sets=("map",), template="horse",
+        desc="18 year old knight riding an armoured grey horse, shaggy sandy blond hair, steel plate armour with a blue "
+             "tabard, steel lance"),
+    "mira_sage": dict(weapon="staff", sets=("map",),
+        desc="young sage woman, long blonde braid, white and blue robes with silver embroidery, ornate silver staff "
+             "with a glowing white tip"),
+    "elise_sage": dict(weapon="anima", sets=("map",),
+        desc="young scholar sage woman, long auburn hair, green eyes, grey and deep blue hooded robes with silver "
+             "embroidery, satchel of papers, glowing red tome, flame above her free hand"),
     "ally_villager": dict(weapon="none", sets=("map",),
         desc="plain village farmer man, brown hair, beige linen shirt, green wool vest, brown trousers, no weapon"),
 }
 
-# Tier 2+ outfits for later (ART_NEEDED P2). Not generated until moved into CHARACTERS.
-PLANNED = {
-    "rowan_crest_knight": "young knight-lord, messy dark blue hair, steel breastplate over a dark blue tunic, short "
-                          "blue cape with silver trim, steel sword",
-    "aldric_warden_lord": "grizzled 50 year old lord-knight, grey-streaked beard, black leather armour with silver "
-                          "plates and sigils, long black cloak, steel greatsword",
-    "tamsin_sniper": "young woman sniper, auburn hair, dark green hooded cloak, leather armour, longbow",
-    "brann_warrior": "burly warrior, brown beard, chainmail with a fur mantle, iron gauntlets, steel battleaxe",
-    "kai_paladin": "young knight in steel plate with a blue tabard, sandy blond hair, riding an armoured grey horse",
-    "mira_sage": "young sage woman, blonde braid, white and blue robes with silver embroidery, ornate silver staff",
-}
+# Later outfits (tier 3+) go here until their classes exist.
+PLANNED: dict[str, str] = {}
 
 # ------------------------------------------------------------------ portraits (generate-image-v2, 4 takes at 96 px)
 

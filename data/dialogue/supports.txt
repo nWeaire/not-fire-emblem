@@ -10,7 +10,7 @@ KAI [laugh]: That means fewer than seven.
 ROWAN [smile]: It means I was busy keeping you alive, which should count for about twelve.
 
 ### support_kai_rowan_B
-KAI [neutral]: Rowan. When this is over, you're going to have a castle or something, aren't you.
+KAI [neutral]: Rowan, when this is over, you're going to have a castle or something, aren't you?
 ROWAN [surprised]: I'm going to have goats.
 KAI [worried]: You've got a steward. Stewards don't follow goats around.
 KAI [sad]: I just... I don't want to be the friend who used to know you.
@@ -59,7 +59,7 @@ KAI [neutral]: ...That was important news.
 ### support_kai_mira_B
 KAI [worried]: Mira. That brute. If you hadn't burned it, it'd have had me.
 MIRA [neutral]: I know.
-KAI [sad]: I always thought I'd be the one looking after you. Big stupid spear and all.
+KAI [sad]: I always thought I'd be the one looking after you, with my big stupid spear.
 MIRA [smile]: You still can. We'll take turns.
 
 ### support_kai_mira_A
@@ -70,7 +70,7 @@ MIRA [neutral]: ...Only if you come home too. That's the deal.
 KAI [smile]: Deal.
 
 ### support_aldric_rowan_C
-ALDRIC [neutral]: You're gripping too hard. Blade's like a plough. It goes where you put your weight, not your fist.
+ALDRIC [neutral]: You're gripping too hard. A blade's like a plough: it goes where you put your weight, not your fist.
 ROWAN [neutral]: You never taught me that on the farm.
 ALDRIC [cold]: On the farm you were killing wolves. Wolves don't parry.
 ROWAN [worried]: ...Who taught you?
@@ -78,24 +78,24 @@ ALDRIC [neutral]: Eat first. Questions after.
 
 ### support_aldric_rowan_B
 ROWAN [neutral]: The armour. The sword. The way you move. You were a soldier.
-ALDRIC [neutral]: Something like.
+ALDRIC [neutral]: Something like that.
 ROWAN [cold]: That's not an answer.
-ALDRIC [sad]: No. It isn't. One day it will be. When knowing won't get you killed.
+ALDRIC [sad]: No, it isn't. One day it will be, when knowing won't get you killed.
 ROWAN [worried]: And until then?
 ALDRIC [smile]: Until then, stay on my left.
 
 ### support_aldric_rowan_A
 ALDRIC [neutral]: Your mother had the same habit. Rubbing her hand when she was thinking.
 ROWAN [surprised]: You never talk about her.
-ALDRIC [sad]: She'd have liked you. Stubborn. Quiet when it matters. She was...
+ALDRIC [sad]: She'd have liked you. You're stubborn, and quiet when it matters. She was...
 @wait 0.8
 ALDRIC [neutral]: ...Another time. Fetch your bow. The light's going.
 ROWAN [neutral]: ...Right.
 
 ### support_brann_tamsin_C
-BRANN [neutral]: Your bowstring's frayed. And the limb's got a crack, here.
+BRANN [neutral]: Your bowstring's frayed, and the limb has a crack, here.
 TAMSIN [cold]: I know. I'll fix it.
-BRANN [smile]: Already did. Wrapped it in sinew. Should hold another season.
+BRANN [smile]: I already did. I wrapped it in sinew. It should hold for another season.
 TAMSIN [angry]: I didn't ask you to.
 BRANN [neutral]: No. You didn't. Steady now, old girl.
 TAMSIN [surprised]: ...Was that to me or the bow?
@@ -105,13 +105,13 @@ TAMSIN [neutral]: Here.
 BRANN [surprised]: That's a stag.
 TAMSIN [cold]: For the bowstring. Now I don't owe you.
 BRANN [smile]: You didn't owe me before.
-TAMSIN [cold]: I did. I hate owing. Eat your stag.
+TAMSIN [cold]: I did. I hate owing anyone. Eat your stag.
 
 ### support_brann_tamsin_A
-BRANN [neutral]: Made you something. Arrowheads. Proper ones. They'll go through a brute's hide like butter.
+BRANN [neutral]: I made you something: arrowheads, proper ones. They'll go through a brute's hide like butter.
 TAMSIN [neutral]: ...Why?
 BRANN [smile]: Because you're good. And good folk should have good tools.
 TAMSIN [neutral]: ...
 TAMSIN [smile]: Thank you, Brann.
-BRANN [surprised]: Well. Never thought I'd hear that.
+BRANN [surprised]: Well. I never thought I'd hear that.
 TAMSIN [cold]: Don't make it a thing.

@@ -54,13 +54,13 @@ ALDRIC [neutral]: Another line.
 ### pro_opening
 @bg farm_evening
 @music calm_farm
-NARRATOR: The Thornvale. A week's ride from anywhere that matters.
-NARRATOR: Which suited the Ashfords just fine.
+NARRATOR: The Thornvale lay a week's ride from anywhere that mattered.
+NARRATOR: That suited the Ashfords just fine.
 ALDRIC [neutral]: You left the south gate open again.
 ROWAN [neutral]: I closed it.
 ALDRIC [neutral]: Then the goats have learned latches. Should I be worried?
 ROWAN [smile]: You should be impressed.
-ALDRIC [smile]: Fetch your bow. The fence-line, before it's dark. Something's been at the hens.
+ALDRIC [smile]: Fetch your bow and check the fence line before dark. Something's been at the hens.
 ROWAN [neutral]: Foxes?
 ALDRIC [worried]: ...Probably.
 @wait 0.6
@@ -72,7 +72,7 @@ NARRATOR: Neither of them said it out loud.
 @music tension_low
 @sfx gloam_howl
 ROWAN [surprised]: That's not a fox.
-ROWAN [worried]: Father — there's something in the treeline. Walking on two legs.
+ROWAN [worried]: Father, there's something in the treeline. It's walking on two legs.
 ALDRIC [determined]: Inside. Now.
 ROWAN [determined]: I've got my bow.
 ALDRIC [angry]: Rowan. *Inside.*
@@ -110,9 +110,9 @@ ROWAN [hurt]: Agh— It's— it's *in* my hand—
 @wait 0.8
 ALDRIC [sad]: ...No. No, not you. Not yet.
 ROWAN [worried]: What is it? You know what it is.
-ALDRIC [neutral]: It's a crest. A crest of the lords.
-ALDRIC [neutral]: Every ruler in Aldmere carries one. Reeves. Lords. Kings. It's what makes them rulers.
-ALDRIC [neutral]: It lets you reach the people around you. Strengthen them. Shield them. Heal them.
+ALDRIC [neutral]: It's a crest, the mark of a lord.
+ALDRIC [neutral]: Every ruler in Aldmere carries one: reeves, lords, kings. It's what makes them rulers.
+ALDRIC [neutral]: It lets you reach the people around you, to strengthen them, shield them and heal them.
 ALDRIC [cold]: Or reach into them and *make them kneel*. You saw what his did to those creatures.
 ROWAN [worried]: Why did it come to me?
 ALDRIC [neutral]: A crest goes to whoever ends its bearer. And it takes the colour of the heart that holds it.
@@ -125,7 +125,7 @@ ALDRIC [neutral]: Later.
 @bg farm_night_smoke
 @music tension_high
 ROWAN [worried]: Father. The sky over Brookhollow.
-ALDRIC [determined]: Kai. Mira. The whole village.
+ALDRIC [determined]: Kai and Mira are down there. The whole village is.
 ALDRIC [determined]: Get your sword. We run.
 
 ---
@@ -138,18 +138,18 @@ ALDRIC [determined]: Get your sword. We run.
 NARRATOR: Brookhollow had forty houses, a chapel, a well, and no walls.
 NARRATOR: Nobody had ever needed walls.
 ROWAN [worried]: They're everywhere.
-ALDRIC [determined]: Then we're busy. The well square first. Someone's still fighting there.
+ALDRIC [determined]: Then we'll be busy. Make for the well square. Someone's still fighting there.
 ROWAN [surprised]: That's Kai's spear.
 ALDRIC [neutral]: Of course it is.
 
 ### ch01_kai_joins
-KAI [laugh]: Rowan! Took your time!
+KAI [laugh]: Rowan! You took your time!
 ROWAN [neutral]: You're bleeding.
-KAI [smile]: Some of it's mine. Bet I've got more of them than you.
+KAI [smile]: Some of it's mine. I bet I've got more of them than you.
 ROWAN [smile]: You started first.
-KAI [surprised]: Mr Ashford — is that *armour*? Since when does your dad have—
+KAI [surprised]: Mr. Ashford, is that *armour*? Since when does your dad have—
 ALDRIC [cold]: Since now. Fight.
-KAI [determined]: Yes sir!
+KAI [determined]: Yes, sir!
 
 ### ch01_mira_fire
 @focus 13,4
@@ -157,7 +157,7 @@ MIRA [worried]: Stay behind me. All of you, behind the pews—
 @sfx gloam_roar
 MIRA [determined]: ...No. Not in my chapel.
 @sfx fire_cast
-NARRATOR: The brute caught fire from the inside of its own shadow.
+NARRATOR: The brute caught fire from inside its own shadow.
 KAI [surprised]: MIRA?!
 MIRA [smile]: I've been practising.
 KAI [surprised]: Practising *what*? Since *when*?
@@ -170,7 +170,7 @@ ROWAN [smile]: ...Well. That's three of us.
 @sfx gloam_howl
 ALDRIC [determined]: More from the north road. Someone's herding them here.
 ROWAN [determined]: The one in the cloak. There's always one in a cloak.
-ALDRIC [neutral]: Learning fast.
+ALDRIC [neutral]: You're learning fast.
 
 ### ch01_boss_sennet (boss battle quote)
 SENNET [cold]: You wear a stolen light, child. It will go dark like all the others.
@@ -182,19 +182,19 @@ ROWAN [determined]: Not while you're the one holding the lamp.
 NARRATOR: By dawn the fires were out. The village had lost two barns, a mill wheel, and old Teodor's prize goat.
 NARRATOR: It had lost no one else.
 WENNA [neutral]: Rowan Ashford. Show me your hand.
-ROWAN [worried]: It's... It's nothing, Elder—
+ROWAN [worried]: It's... it's nothing, Elder—
 WENNA [sad]: It's a crest, boy. I'm old, not blind.
 WENNA [neutral]: The last reeve this village had died forty years ago. We've done without since.
-WENNA [smile]: Seems the village has a protector again, whether it wants one or not.
+WENNA [smile]: It seems the village has a protector again, whether it wants one or not.
 WENNA [neutral]: I'll send for Osmund in the morning. A crest-bearer who knows nothing about crests is a danger to everyone.
 ROWAN [neutral]: I'm a farmer.
 ALDRIC [neutral]: So was I.
 KAI [laugh]: Lord Rowan of the Goats.
 MIRA [smile]: Kai.
 KAI [smile]: What? He's earned it.
-ROWAN [determined]: ...If they hit Brookhollow, they'll hit Millbrook. And the Thornwood villages. And the Keep.
+ROWAN [determined]: ...If they hit Brookhollow, they'll hit Millbrook too. Then the Thornwood villages, and the Keep.
 ALDRIC [neutral]: And Lord Halvric's men?
-ROWAN [cold]: Haven't come. Not one of them.
+ROWAN [cold]: They haven't come. Not one of them.
 ALDRIC [neutral]: Then we go.
 
 ---
@@ -222,7 +222,8 @@ OSMUND [cold]: Your *trousers*.
 OSMUND [neutral]: A lord who looks like a goatherd will be treated as one, my lord. Usually by goats.
 ROWAN [neutral]: I'm not a lord.
 OSMUND [neutral]: You bear a crest, you defended a village, and you have a steward. I'm afraid the evidence is against you.
-NARRATOR: The doublet was dark blue wool, cut for some young noble who had never come to claim it. It fitted almost perfectly.
+NARRATOR: The doublet was dark blue wool, cut for some young noble who had never come to claim it.
+NARRATOR: It fitted almost perfectly.
 @flag rowan_class_lord
 KAI [laugh]: Oh no. Oh, that's — Rowan. Turn around. Do a twirl.
 ROWAN [cold]: Kai.
@@ -236,17 +237,17 @@ NARRATOR: Aldric watched from the doorway and said nothing. His face said a grea
 ### hub_osmund_aldric
 @bg farm_yard
 OSMUND [neutral]: That armour of yours. Black hide, silver stitching. The Crestwardens wore something very like it.
-ALDRIC [cold]: Lot of black leather in the world.
+ALDRIC [cold]: There's a lot of black leather in the world.
 OSMUND [neutral]: Quite. And a lot of farmers who parry like duellists, I'm sure.
 ALDRIC [cold]: You were at court. You were there when they disappeared.
-OSMUND [sad]: I was dismissed for asking where they'd gone. Twenty years ago this spring.
+OSMUND [sad]: I was dismissed for asking where they had gone. That was twenty years ago this spring.
 ALDRIC [neutral]: ...Then you asked the right question.
 OSMUND [neutral]: I usually do, Master Ashford. It's my least popular quality.
 
 ### hub_briefing_ch02
 @bg village_hall
-OSMUND [neutral]: Millbrook, my lord. Half a day downriver. Forge, mill, and as of this morning, bandits.
-OSMUND [neutral]: The Gloamkin raids have emptied Lord Halvric's patrols, and opportunists have noticed.
+OSMUND [neutral]: Millbrook, my lord, half a day downriver. It has a forge, a mill and, as of this morning, bandits.
+OSMUND [neutral]: The Gloamkin raids have stretched Lord Halvric's patrols thin, and opportunists have noticed.
 ROWAN [neutral]: Halvric's men should be there.
 OSMUND [cold]: Lord Halvric's men should be a great many places, my lord. I've begun a list.
 ROWAN [determined]: Right. We go now.

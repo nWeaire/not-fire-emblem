@@ -22,7 +22,8 @@ OSMUND [cold]: Your *trousers*.
 OSMUND [neutral]: A lord who looks like a goatherd will be treated as one, my lord. Usually by goats.
 ROWAN [neutral]: I'm not a lord.
 OSMUND [neutral]: You bear a crest, you defended a village, and you have a steward. I'm afraid the evidence is against you.
-NARRATOR: The doublet was dark blue wool, cut for some young noble who had never come to claim it. It fitted almost perfectly.
+NARRATOR: The doublet was dark blue wool, cut for some young noble who had never come to claim it.
+NARRATOR: It fitted almost perfectly.
 @flag rowan_class_lord
 KAI [laugh]: Oh no. Oh, that's — Rowan. Turn around. Do a twirl.
 ROWAN [cold]: Kai.
@@ -36,17 +37,17 @@ NARRATOR: Aldric watched from the doorway and said nothing. His face said a grea
 ### hub_osmund_aldric
 @bg farm_yard
 OSMUND [neutral]: That armour of yours. Black hide, silver stitching. The Crestwardens wore something very like it.
-ALDRIC [cold]: Lot of black leather in the world.
+ALDRIC [cold]: There's a lot of black leather in the world.
 OSMUND [neutral]: Quite. And a lot of farmers who parry like duellists, I'm sure.
 ALDRIC [cold]: You were at court. You were there when they disappeared.
-OSMUND [sad]: I was dismissed for asking where they'd gone. Twenty years ago this spring.
+OSMUND [sad]: I was dismissed for asking where they had gone. That was twenty years ago this spring.
 ALDRIC [neutral]: ...Then you asked the right question.
 OSMUND [neutral]: I usually do, Master Ashford. It's my least popular quality.
 
 ### hub_briefing_ch02
 @bg village_hall
-OSMUND [neutral]: Millbrook, my lord. Half a day downriver. Forge, mill, and as of this morning, bandits.
-OSMUND [neutral]: The Gloamkin raids have emptied Lord Halvric's patrols, and opportunists have noticed.
+OSMUND [neutral]: Millbrook, my lord, half a day downriver. It has a forge, a mill and, as of this morning, bandits.
+OSMUND [neutral]: The Gloamkin raids have stretched Lord Halvric's patrols thin, and opportunists have noticed.
 ROWAN [neutral]: Halvric's men should be there.
 OSMUND [cold]: Lord Halvric's men should be a great many places, my lord. I've begun a list.
 ROWAN [determined]: Right. We go now.
@@ -58,16 +59,16 @@ OSMUND [smile]: "We go now." Concise. We'll work on the speeches.
 @bg village_hall
 BRANN [smile]: Your steward says you've a hall with a cold forge in the back.
 OSMUND [neutral]: Disused since the last smith retired. I took the liberty of having it swept.
-BRANN [neutral]: Swept's no good. It wants feeding. Coal, iron, and a bit of patience.
-BRANN [smile]: Bring me your blades, Rowan. Iron I can make into steel. Steady now, old girl.
+BRANN [neutral]: Sweeping's no good. It wants feeding: coal, iron and a bit of patience.
+BRANN [smile]: Bring me your blades, Rowan. I can turn iron into steel. Steady now, old girl.
 ROWAN [surprised]: ...Old girl?
 BRANN [smile]: The hammer. She's sensitive.
 
 ### hub_briefing_ch03
 @bg village_hall
-OSMUND [neutral]: The Thornwood, my lord. Hunters have stopped coming back, and the dogs come back alone.
-OSMUND [worried]: Or rather, they don't come back at all. Which is worse.
+OSMUND [neutral]: The Thornwood, my lord. Hunters have stopped coming back.
+OSMUND [worried]: Their dogs used to find their way home. Lately, even the dogs don't. Which is worse.
 ALDRIC [cold]: Something's herding Gloamkin out of the deep wood. Same as Brookhollow.
 KAI [determined]: Then we go in and find whoever's doing the herding.
-OSMUND [neutral]: It is thick forest. You will see very little until you are standing on it.
+OSMUND [neutral]: It is thick forest. You will see very little until you are standing right on top of it.
 ROWAN [neutral]: Stay close. Nobody wanders.

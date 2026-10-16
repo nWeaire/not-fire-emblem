@@ -5761,6 +5761,74 @@
           "type": "generations"
         }
       },
+      "map:aldric_warden_lord": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "6813a614-2411-402a-8250-ea5377868111",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "bfc51ba5-8b7c-491f-94a5-92ee6bddf1fd",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01215983549753825
+              },
+              {
+                "type": "usd",
+                "usd": 0.011046574989954632
+              },
+              {
+                "type": "usd",
+                "usd": 0.008420444276597765
+              },
+              {
+                "type": "usd",
+                "usd": 0.008971467600928413
+              }
+            ]
+          }
+        },
+        "character_id": "07680859-054c-4bdc-a692-034fa73c5ebb",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "map:ally_villager": {
         "animations": {
           "walk": {
@@ -5936,6 +6004,74 @@
           "type": "generations"
         }
       },
+      "map:brann_warrior": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "5b89eb7d-3f85-4dd7-bc0d-d947a6173881",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "5f691b8d-9ab0-459e-a4ce-065cdda39ad3",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009188619560665554
+              },
+              {
+                "type": "usd",
+                "usd": 0.00892333436012268
+              },
+              {
+                "type": "usd",
+                "usd": 0.008385515742831761
+              },
+              {
+                "type": "usd",
+                "usd": 0.009028994692696465
+              }
+            ]
+          }
+        },
+        "character_id": "cfaf5733-4b77-47fb-a7d0-42f4fd92e00c",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "map:elise_mage": {
         "animations": {
           "attack": {
@@ -5998,6 +6134,74 @@
           }
         },
         "character_id": "12d15a30-d3e6-47e7-8d58-776270d09204",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:elise_sage": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "3009636b-64e5-432a-8d0b-815c3d004cb7",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "874d974f-c12c-45b3-bc79-60335979edd3",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011841522349251642
+              },
+              {
+                "type": "usd",
+                "usd": 0.010797176652484471
+              },
+              {
+                "type": "usd",
+                "usd": 0.009129073672824436
+              },
+              {
+                "type": "usd",
+                "usd": 0.012701719760894776
+              }
+            ]
+          }
+        },
+        "character_id": "8d9dcb22-dd2c-4386-ba4c-3708ba62e249",
         "status": "completed",
         "usage": {
           "generations": 10.0,
@@ -6574,8 +6778,33 @@
             ]
           },
           "walk": {
-            "directions": [],
-            "jobs": {}
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "be60d5f1-d48b-4371-940f-f0c98db8411b",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01128691069285075
+              },
+              {
+                "type": "usd",
+                "usd": 0.011863338867823283
+              },
+              {
+                "type": "usd",
+                "usd": 0.009723736339145236
+              },
+              {
+                "type": "usd",
+                "usd": 0.009411076307296753
+              }
+            ]
           }
         },
         "character_id": "4f4228e3-6a9d-43d8-b304-5ed8b6547c48",
@@ -6685,11 +6914,104 @@
             ]
           },
           "walk": {
-            "directions": [],
-            "jobs": {}
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "41911372-a084-483a-b8a6-ffecf859b811",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008200751198662651
+              },
+              {
+                "type": "usd",
+                "usd": 0.008971236758761936
+              },
+              {
+                "type": "usd",
+                "usd": 0.011232287168502808
+              },
+              {
+                "type": "usd",
+                "usd": 0.008866532855563694
+              }
+            ]
           }
         },
         "character_id": "c1379896-1928-48d2-94a2-1288254e989b",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:kai_paladin": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "438487eb-36a8-4f4f-be33-af15e4cf4b37",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "5ed8ad46-f973-4972-ab1b-49e32a19a799",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011727339824040731
+              },
+              {
+                "type": "usd",
+                "usd": 0.01054886245727539
+              },
+              {
+                "type": "usd",
+                "usd": 0.008922691345214843
+              },
+              {
+                "type": "usd",
+                "usd": 0.008984516382217408
+              }
+            ]
+          }
+        },
+        "character_id": "c47e52a9-b0dd-4325-ad19-9dcb49923eab",
         "status": "completed",
         "usage": {
           "generations": 10.0,
@@ -6825,6 +7147,142 @@
         },
         "character_id": "87180fa6-c885-41fd-9b8a-0742d3c2f4bd",
         "status": "completed"
+      },
+      "map:mira_sage": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "b2bb3307-5753-4f32-b01d-0989239ef47a",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "73a7c69a-710f-4006-8e06-5e7ed7c01895",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011541517151726617
+              },
+              {
+                "type": "usd",
+                "usd": 0.010033798164791531
+              },
+              {
+                "type": "usd",
+                "usd": 0.010474046972062853
+              },
+              {
+                "type": "usd",
+                "usd": 0.00858631059858534
+              }
+            ]
+          }
+        },
+        "character_id": "f39af875-87b5-4a4a-9b3d-0a8e8306d011",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:rowan_crest_knight": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "dd8cdb1e-45dd-4a1d-95c5-9de07caf8abe",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "c42ab953-ee5e-4fd8-b64e-074af9d29c30",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.020198329713609485
+              },
+              {
+                "type": "usd",
+                "usd": 0.008934086561203003
+              },
+              {
+                "type": "usd",
+                "usd": 0.009811973094940186
+              },
+              {
+                "type": "usd",
+                "usd": 0.011317605151070489
+              }
+            ]
+          }
+        },
+        "character_id": "dfcf8389-6848-464f-ba7f-37aaabbc5bfb",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
       },
       "map:rowan_lord": {
         "animations": {
@@ -7026,6 +7484,74 @@
           "generations": 10.0,
           "type": "generations"
         }
+      },
+      "map:tamsin_sniper": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "c67ed8fe-f62f-43c7-9976-71da345c8bd2",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "49254dcf-ea70-4015-a911-04ecfd5b9a2e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008032632509867351
+              },
+              {
+                "type": "usd",
+                "usd": 0.010023728105756972
+              },
+              {
+                "type": "usd",
+                "usd": 0.009535761011971369
+              },
+              {
+                "type": "usd",
+                "usd": 0.008911246140797933
+              }
+            ]
+          }
+        },
+        "character_id": "1ded1972-98f2-4697-8c37-63edfe7f1144",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
       }
     },
     "portraits": {
@@ -7130,6 +7656,15 @@
           "type": "generations"
         }
       },
+      "aldric_warden_lord": {
+        "job": "ea83f8f8-87b9-4e50-b15e-961ac2ad2139",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
       "boss_brigand_chief": {
         "job": "ca661713-e432-4509-9342-92708ec7859e",
         "status": "completed",
@@ -7148,8 +7683,26 @@
           "type": "generations"
         }
       },
+      "brann_warrior": {
+        "job": "0e0cb9fb-fdf0-4677-997f-9c459e1f0ae0",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
       "elise_mage": {
         "job": "4a2d8ffb-5247-4e4a-b573-9211ba4bc620",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "elise_sage": {
+        "job": "7e38982f-c18a-4a2d-b26b-0d8b11cdf11f",
         "status": "completed",
         "takes": 9,
         "usage": {
@@ -7256,6 +7809,15 @@
           "type": "generations"
         }
       },
+      "kai_paladin": {
+        "job": "f62b630d-890e-484a-bb0a-a4767b58a19f",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
       "kai_soldier": {
         "job": "2c4e4c04-b6dc-48f8-bb3d-9c5184c2fe32",
         "status": "completed",
@@ -7274,6 +7836,24 @@
           "type": "generations"
         }
       },
+      "mira_sage": {
+        "job": "c2db086c-3542-4415-8c88-69a835b12343",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "rowan_crest_knight": {
+        "job": "7e25cfad-c4bb-4390-8e22-402806b6220c",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
       "rowan_lord": {
         "job": "37091dab-5122-4dee-b1f0-00b17e1e48d1",
         "status": "completed",
@@ -7285,6 +7865,15 @@
       },
       "tamsin_archer": {
         "job": "f69b536d-24cb-4ed7-a45a-e988d7ed091e",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "tamsin_sniper": {
+        "job": "74bcc5c3-7fa5-41fb-b268-a283b148088b",
         "status": "completed",
         "takes": 9,
         "usage": {
@@ -7340,6 +7929,58 @@
           "job": "73fdf9a8-75cc-4404-9ea1-edeeef49222c",
           "status": "completed",
           "still": "approved/refs/aldric_warden_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "aldric_warden_lord": {
+        "attack": {
+          "frames": 9,
+          "job": "55a79a2d-00a4-401a-a0ca-95ff0968d111",
+          "status": "completed",
+          "still": "approved/refs/aldric_warden_lord_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "36762f1c-ca65-4fa6-833a-1f53f92d488d",
+          "status": "completed",
+          "still": "approved/refs/aldric_warden_lord_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "0273a447-4e61-44b4-b8c3-3b0abb74e836",
+          "status": "completed",
+          "still": "approved/refs/aldric_warden_lord_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "b5c099d0-aad3-4a89-bc53-41007429360f",
+          "status": "completed",
+          "still": "approved/refs/aldric_warden_lord_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "9c04450c-7018-4444-bc1f-7f1420cf0961",
+          "status": "completed",
+          "still": "approved/refs/aldric_warden_lord_battle.png",
           "usage": {
             "generations": 1.0,
             "type": "generations"
@@ -7450,6 +8091,58 @@
           }
         }
       },
+      "brann_warrior": {
+        "attack": {
+          "frames": 9,
+          "job": "983e046e-cccf-4666-b7b0-d26158fece22",
+          "status": "completed",
+          "still": "approved/refs/brann_warrior_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "46d08ae7-023a-4269-93a0-542d5888e403",
+          "status": "completed",
+          "still": "approved/refs/brann_warrior_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "3cbab7fa-cf7f-43c7-9a77-9476a1ab5745",
+          "status": "completed",
+          "still": "approved/refs/brann_warrior_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "6bf0d493-0f58-47f6-b7ca-d1f307746ec9",
+          "status": "completed",
+          "still": "approved/refs/brann_warrior_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 4,
+          "job": "46273577-861a-496a-b17e-34efbba39d13",
+          "status": "completed",
+          "still": "approved/refs/brann_warrior_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
       "elise_mage": {
         "attack": {
           "frames": 9,
@@ -7496,6 +8189,58 @@
           "job": "bd249963-51b2-41d5-8837-a45b638ccd1b",
           "status": "completed",
           "still": "approved/refs/elise_mage_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "elise_sage": {
+        "attack": {
+          "frames": 9,
+          "job": "72f3e09a-2ebc-4da0-8fdc-e180af98d7e1",
+          "status": "completed",
+          "still": "approved/refs/elise_sage_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "30174929-361d-46b8-9211-2f003239fe67",
+          "status": "completed",
+          "still": "approved/refs/elise_sage_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "6b2dab43-a85a-493e-a5ad-510c41b3bdde",
+          "status": "completed",
+          "still": "approved/refs/elise_sage_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "2c8ecea1-1ebf-47b7-a25b-14772e54d6f3",
+          "status": "completed",
+          "still": "approved/refs/elise_sage_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "1ee7a55f-9ee9-4f16-aa1f-4c3fe301d70a",
+          "status": "completed",
+          "still": "approved/refs/elise_sage_battle.png",
           "usage": {
             "generations": 1.0,
             "type": "generations"
@@ -8074,6 +8819,58 @@
           }
         }
       },
+      "kai_paladin": {
+        "attack": {
+          "frames": 9,
+          "job": "dfe54436-7ed3-4da0-84b9-f618ac8f24cd",
+          "status": "completed",
+          "still": "approved/refs/kai_paladin_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "f0856fec-e51d-40fa-bd74-bbae73a12290",
+          "status": "completed",
+          "still": "approved/refs/kai_paladin_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "45e9a535-6ffb-47ce-8344-b860fd1ee356",
+          "status": "completed",
+          "still": "approved/refs/kai_paladin_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "640713fd-284e-47f8-9e66-4b04a72df1ae",
+          "status": "completed",
+          "still": "approved/refs/kai_paladin_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "5c57d154-214f-4b0d-9ec9-2cb6785d4799",
+          "status": "completed",
+          "still": "approved/refs/kai_paladin_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
       "kai_soldier": {
         "attack": {
           "frames": 9,
@@ -8172,6 +8969,110 @@
           "job": "1710f745-b309-41ae-b3b8-346ce7954fa4",
           "status": "completed",
           "still": "approved/refs/mira_acolyte_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "mira_sage": {
+        "attack": {
+          "frames": 9,
+          "job": "4c3afbe4-3560-4e34-b74e-682dcf740c52",
+          "status": "completed",
+          "still": "approved/refs/mira_sage_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "006d577e-8334-48b9-8f7c-64bb6338d57d",
+          "status": "completed",
+          "still": "approved/refs/mira_sage_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "984f78f5-c51c-48ce-8d57-47f83d729671",
+          "status": "completed",
+          "still": "approved/refs/mira_sage_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "fffca426-f85e-4596-9668-bdd3eb4deccc",
+          "status": "completed",
+          "still": "approved/refs/mira_sage_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "5bf88375-2942-479a-97af-55be7770165e",
+          "status": "completed",
+          "still": "approved/refs/mira_sage_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "rowan_crest_knight": {
+        "attack": {
+          "frames": 9,
+          "job": "6e12c01c-f6bc-47e9-9f66-9fe67024ae5f",
+          "status": "completed",
+          "still": "approved/refs/rowan_crest_knight_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "c31ce375-fa46-4528-8c6d-e60011f96b53",
+          "status": "completed",
+          "still": "approved/refs/rowan_crest_knight_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "aa45f950-12ee-431f-af2e-c0fb8e7b7058",
+          "status": "completed",
+          "still": "approved/refs/rowan_crest_knight_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "29be8d64-45ce-47e7-860e-40153036c4c3",
+          "status": "completed",
+          "still": "approved/refs/rowan_crest_knight_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "22f5cd3c-93bc-45b6-bcc1-f50647aebf04",
+          "status": "completed",
+          "still": "approved/refs/rowan_crest_knight_battle.png",
           "usage": {
             "generations": 1.0,
             "type": "generations"
@@ -8328,6 +9229,58 @@
           "job": "92ea932d-9802-4c59-bba8-ace5b628b618",
           "status": "completed",
           "still": "approved/refs/tamsin_archer_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "tamsin_sniper": {
+        "attack": {
+          "frames": 9,
+          "job": "157ebb75-2125-4a37-902d-9b1f85b9943a",
+          "status": "completed",
+          "still": "approved/refs/tamsin_sniper_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "a71c88ce-f5b3-4709-9f8a-19e90cd94d9c",
+          "status": "completed",
+          "still": "approved/refs/tamsin_sniper_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "89a6c35e-4677-4550-8dac-ec60dbe539a6",
+          "status": "completed",
+          "still": "approved/refs/tamsin_sniper_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 2,
+          "job": "bce2bd91-48f4-41fc-b718-9aab3d697ca9",
+          "status": "completed",
+          "still": "approved/refs/tamsin_sniper_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "c8dc47e8-650c-47e0-8d7e-befad6771ecd",
+          "status": "completed",
+          "still": "approved/refs/tamsin_sniper_battle.png",
           "usage": {
             "generations": 1.0,
             "type": "generations"

@@ -42,6 +42,9 @@ public partial class AudioDirector : Node
                 p.Stop();
                 p.Stream = null;
             }
+        // C# holds its own handle on each cached stream until the garbage collector runs; release them now.
+        foreach (var stream in _cache.Values)
+            stream?.Dispose();
         _cache.Clear();
         if (Instance == this)
             Instance = null;
@@ -79,8 +82,8 @@ public partial class AudioDirector : Node
         FadeTo(old, -80f, stopAfter: true);
         if (id is null || Load($"{MusicRoot}/{id}.ogg") is not AudioStreamOggVorbis stream)
             return;
-        // Jingles must not loop; tracks must, whatever their import setting says.
-        stream = (AudioStreamOggVorbis)stream.Duplicate();
+        // Jingles must not loop; tracks must, whatever their import setting says. (Set on the shared, cached
+        // stream: a duplicate per play left a C# handle Godot reported as leaked at exit.)
         stream.Loop = loop;
         _current = 1 - _current;
         var next = _music[_current];

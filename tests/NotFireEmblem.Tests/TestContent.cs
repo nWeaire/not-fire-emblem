@@ -59,7 +59,6 @@ public static class TestContent
         db.Add(Weapon("claws", WeaponType.Fist, 5, 100, 0, 0));
         db.Add(new ItemDef("vulnerary", "Vulnerary", ItemKind.Heal, 10, Stat.HP, 300));
         db.Add(new ItemDef("energy_drop", "Energy Drop", ItemKind.StatBoost, 2, Stat.Str, 2500));
-        db.Add(new ItemDef("seal", "Knight Seal", ItemKind.Seal, 0, Stat.HP, 2500, Tier: 2));
         db.Add(new ArtDef("smash", "Smash", WeaponType.Sword, 3, -10, 0, 0, 2));
         db.Add(new ArtDef("quiet_cut", "Quiet Cut", WeaponType.Sword, 0, 0, 0, 0, 1, NoCounter: true));
         db.Add(new ArtDef("long_reach", "Long Reach", WeaponType.Sword, 0, 0, 0, 1, 1));

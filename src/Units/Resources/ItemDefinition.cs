@@ -2,7 +2,7 @@ using Godot;
 
 namespace NotFireEmblem.Units;
 
-/// <summary>A consumable or key item (vulnerary, stat booster, promotion seal).</summary>
+/// <summary>A consumable (vulnerary, stat booster).</summary>
 [GlobalClass]
 public partial class ItemDefinition : Resource
 {
@@ -14,8 +14,6 @@ public partial class ItemDefinition : Resource
     /// <summary>The stat a booster raises.</summary>
     [Export] public Stat Stat { get; set; } = Stat.HP;
     [Export] public int Price { get; set; }
-    /// <summary>For seals: the class tier they promote into.</summary>
-    [Export] public int Tier { get; set; } = 1;
 
-    public ItemDef ToDef() => new(Id, Name, Kind, Amount, Stat, Price, Tier);
+    public ItemDef ToDef() => new(Id, Name, Kind, Amount, Stat, Price);
 }

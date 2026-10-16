@@ -115,7 +115,7 @@ CrestBearer = true
 script = ExtResource("1_map")
 Id = "prologue"
 Name = "Prologue: Embers at Ashford Farm"
-TerrainRows = PackedStringArray("FFFFFPFFFFPFFF", "FFPFFPPFFPPFPF", "PFPPPPPPPPPPPP", "PPPPPPPPPPPPFP", "PPPPPPPPPWWWPP", "PPWWWPPPPWTWPP", "PPWTWPPPPPPPPP", "PPPPPPPPPPPPFP", "FPPPPPPPPPPPFF", "FFPPPPPPPPPPFF")
+TerrainRows = PackedStringArray("FFFFF=FFFF,FFF", "FF,FF=,FF,,F,F", "PF,PP=PPP,PP,P", "PP,PP=PPPPP,FP", "PPPPP=PPPWWWPP", "P,WWW=PPPWTW,P", "P,WTW======,PP", "PPP===::::,PFP", "FPP,P=::::,PFF", "FF,PP=::::PPFF")
 HeightRows = PackedStringArray("11111111111111", "00000000000000", "00000000000000", "00000000000000", "00000000000000", "01111100000000", "01111100000000", "01111100000000", "00000000000000", "00000000000000")
 Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10")])
 Victory = "boss binder"

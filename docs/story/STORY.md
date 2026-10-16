@@ -1,4 +1,4 @@
-# Not Fire Emblem — Story Bible
+# The Radiant Crest — Story Bible
 
 The canonical story, world and crest lore. Mission design lives in [`CHAPTERS.md`](CHAPTERS.md), and character voices and scripts in [`DIALOGUE.md`](DIALOGUE.md). When a chapter, a line of dialogue or a new unit contradicts this file, this file wins. If the story changes, update this file first.
 
@@ -82,7 +82,7 @@ Rowan's crest grows by absorbing the crests of the major foes he defeats. Each t
   - **Dominion:** enemies within 3 tiles of the bearer get +2 Str/Def and never retreat or flee.
   - **Severance:** when a crest-bearer dies, the units it dominated are severed. Beasts become **Stunned** (they skip their next phase), and dominated humans **surrender**: they leave the map and count as defeated, but give no EXP. This makes "kill the controller" a constant tactical choice on every map with a crest-bearer.
 - **Claiming:** defeating a crest-bearer boss with Rowan grants a **crest fragment** (bonus crest EXP). Defeating it with anyone else still works for the story: the crest passes to Rowan anyway, because the radiant crest pulls it in. There is no need to force a Rowan kill.
-- **Class tier gates:** a promotion needs Lv 10, the class's seal, *and* `crestTier ≥ class tier`. The crest is the story's way of gating the class tree.
+- **Class tier gates:** a promotion needs Lv 10 *and* `crestTier ≥ class tier`. The crest is the story's way of gating the class tree.
 - **Equipment is not crest-gated.** Weapons, armour and accessories progress through regional shops and story rewards, separate from class and look. See GDD §3 *Equipment* and the shop table in `CHAPTERS.md`. Osmund's line on it: *"The crest decides what you are, my lord. The armourer decides whether you survive being it."*
 
 ---

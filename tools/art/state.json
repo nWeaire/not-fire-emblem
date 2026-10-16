@@ -7263,7 +7263,7 @@
       "aldric_warden": {
         "attack": {
           "frames": 9,
-          "job": "94c70926-ddb0-4dd0-81e1-8403818005d2",
+          "job": "33beaf51-f0d3-444d-88e7-791bb9d5dc11",
           "status": "completed",
           "still": "approved/refs/aldric_warden_battle.png",
           "usage": {
@@ -8302,6 +8302,14 @@
       }
     },
     "tiles": {
+      "ground": {
+        "status": "completed",
+        "tile_id": "04845663-a215-471a-9275-15e13cc69e56",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "village": {
         "status": "completed",
         "tile_id": "8469c502-fc89-437a-b1ac-6e5d71e57a10",

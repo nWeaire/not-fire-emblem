@@ -1,4 +1,4 @@
-# Not Fire Emblem — Game Design Document
+# The Radiant Crest — Game Design Document
 
 High-level design and architecture for a Fire Emblem: Three Houses–style tactical RPG built in Godot 4.7 (C#, .NET 8). This document defines *what* the systems are, *what data each one owns*, and *how data flows between them*. Implementation details belong in code.
 
@@ -85,7 +85,7 @@ HP, Str, Mag, Dex, Spd, Lck, Def, Res, Mov (plus Cha reserved for future use).
 
 ### Crests (story-driven progression)
 Crests are the game's central power system and the spine of progression. Rowan's crest grows in tiers by absorbing the crests of the crest-bearing bosses he defeats.
-- Each tier gates the next class tier (promotion needs Lv 10 + seal + crest tier) and unlocks a crest skill (Ward, Rally, Mend, Dawn).
+- Each tier gates the next class tier (promotion needs Lv 10 + crest tier) and unlocks a crest skill (Ward, Rally, Mend, Dawn).
 - Rowan's radiant crest gives nearby allies an aura.
 - Enemy crest-bearers project **Dominion** over nearby troops. Killing them **severs** those troops: beasts are stunned, and dominated soldiers surrender.
 

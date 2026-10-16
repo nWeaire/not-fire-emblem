@@ -54,6 +54,27 @@ public class ProgressionTests
     }
 
     [Fact]
+    public void LevelUp_IsNeverEmpty()
+    {
+        var db = TestContent.Create();
+        var def = new UnitDef("x", "x", "merc", 1, default, default, Array.Empty<string>(), false);
+        var unit = UnitState.FromDef(def);
+        var level = Assert.Single(LevelUpService.AddExp(db, unit, 100, new ScriptedRng(99, 99, 99, 99, 99, 99, 99, 99, 99)));
+        Assert.Equal(1, StatBlock.All.Sum(stat => level.Gains[stat]));
+    }
+
+    [Fact]
+    public void LevelUp_DoesNotHeal()
+    {
+        var (s, _) = Start(new TestBattle(".....").Lord(0, 0, "sword").Unit(Faction.Enemy, "merc", 4, 0));
+        var lord = s.Units.First(u => u.IsLord);
+        lord.CurrentHp = 5;
+        BattleProgress.AwardExp(s, lord, 100, new List<BattleEvent>());
+        Assert.Equal(2, lord.State.Level);
+        Assert.Equal(5, lord.CurrentHp);
+    }
+
+    [Fact]
     public void Combat_GivesExpToRosterUnitsOnly()
     {
         var (s, tm) = Start(new TestBattle(".....").Lord(0, 0, "sword").Unit(Faction.Enemy, "merc", 1, 0, "sword").Unit(Faction.Enemy, "merc", 4, 0));

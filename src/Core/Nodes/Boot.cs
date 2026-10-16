@@ -14,7 +14,7 @@ public partial class Boot : Node
 
     public override void _Ready()
     {
-        GD.Print("Not Fire Emblem: boot");
+        GD.Print("The Radiant Crest: boot");
         string? map = OS.GetCmdlineUserArgs().FirstOrDefault(a => a.StartsWith("--map=", StringComparison.Ordinal))?["--map=".Length..];
         if (map is not null)
         {

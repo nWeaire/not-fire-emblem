@@ -40,7 +40,8 @@ public static class LevelUpService
 {
     /// <summary>
     /// Adds EXP and rolls a level-up for every 100 gained. Each stat (not Mov) rises by 1 when a roll is under
-    /// the unit's personal growth + class growth; stats already at the class cap don't roll.
+    /// the unit's personal growth + class growth; stats already at the class cap don't roll. Every level gives at
+    /// least one point. Levels never heal: current HP is left alone.
     /// </summary>
     public static List<LevelUp> AddExp(ContentDatabase db, UnitState unit, int exp, IRng rng)
     {
@@ -78,6 +79,15 @@ public static class LevelUpService
             int points = growth / 100 + (rng.Next(100) < growth % 100 ? 1 : 0);
             gains = gains.With(stat, points);
         }
+        // No empty levels: if every roll missed, the highest-growth stat that isn't capped still rises.
+        if (StatBlock.All.All(stat => gains[stat] == 0))
+        {
+            var pick = StatBlock.All.Where(stat => stat is not (Stat.Mov or Stat.Cha)
+                                                   && !(cls.Caps[stat] > 0 && current[stat] >= cls.Caps[stat]))
+                .OrderByDescending(stat => cls.Growths[stat] + unit.Def.Growths[stat]).Cast<Stat?>().FirstOrDefault();
+            if (pick is { } stat)
+                gains = gains.With(stat, 1);
+        }
         unit.Gains += gains;
         unit.Level++;
         return gains;
@@ -85,14 +95,14 @@ public static class LevelUpService
 }
 
 /// <summary>
-/// Promotion (GDD §3, STORY §4.3): Lv 10+, a seal for the target tier, and Rowan's crest tier at least the
+/// Promotion (GDD §3, STORY §4.3): Lv 10+ and Rowan's crest tier at least the
 /// class tier. A class's bases come from the class itself, so changing class applies the new bases automatically.
 /// </summary>
 public static class PromotionService
 {
     public const int MinLevel = 10;
 
-    public static string? CannotPromote(ContentDatabase db, UnitState unit, string targetClassId, int crestTier, IEnumerable<string> seals)
+    public static string? CannotPromote(ContentDatabase db, UnitState unit, string targetClassId, int crestTier)
     {
         var cls = db.Class(unit.ClassId);
         if (!cls.PromotesTo.Contains(targetClassId))
@@ -102,14 +112,8 @@ public static class PromotionService
             return $"Needs level {MinLevel}.";
         if (crestTier < target.Tier)
             return $"Needs crest tier {target.Tier} (now {crestTier}).";
-        if (SealFor(db, target, seals) is null)
-            return $"Needs a tier {target.Tier} seal.";
         return null;
     }
-
-    /// <summary>A seal item id from <paramref name="seals"/> that can promote into <paramref name="target"/>.</summary>
-    public static string? SealFor(ContentDatabase db, ClassDef target, IEnumerable<string> seals) =>
-        seals.FirstOrDefault(id => db.TryItem(id) is { Kind: ItemKind.Seal } seal && seal.Tier >= target.Tier);
 
     /// <summary>Changes class and resets the level (EXP keeps accruing from level 1).</summary>
     public static void Promote(UnitState unit, string targetClassId)

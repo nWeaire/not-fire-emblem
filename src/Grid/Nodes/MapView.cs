@@ -15,7 +15,7 @@ public partial class MapView : Node3D
     private const float BlockBottom = -1.5f;
 
     /// <summary>Terrains whose tiles look the same turned any way round, so cells can rotate them to hide repeats.</summary>
-    private static readonly HashSet<string> Rotatable = new() { "plain", "forest", "mountain", "water", "fort" };
+    private static readonly HashSet<string> Rotatable = new() { "plain", "forest", "mountain", "water", "fort", "road", "meadow", "square" };
 
     private readonly Dictionary<string, StandardMaterial3D> _materials = new();
     private readonly Dictionary<string, List<Texture2D>> _tiles = new();

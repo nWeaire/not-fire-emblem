@@ -34,7 +34,7 @@ public partial class TitleScreen : Control
         var column = new VBoxContainer { Alignment = BoxContainer.AlignmentMode.Center };
         column.AddThemeConstantOverride("separation", 14);
         center.AddChild(column);
-        column.AddChild(UiKit.Label("NOT FIRE EMBLEM", 56, UiKit.Accent, HorizontalAlignment.Center));
+        column.AddChild(UiKit.Label("THE RADIANT CREST", 56, UiKit.Accent, HorizontalAlignment.Center));
         column.AddChild(UiKit.Label("A tale of crests and the Thornvale", 18, UiKit.Muted, HorizontalAlignment.Center));
         column.AddChild(new Control { CustomMinimumSize = new Vector2(0, 20) });
         var panel = UiKit.Panel();

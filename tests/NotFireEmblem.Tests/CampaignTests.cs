@@ -207,7 +207,7 @@ public class CampaignTests
     }
 
     [Fact]
-    public void Promotion_NeedsLevelSealAndCrestTier()
+    public void Promotion_NeedsLevelAndCrestTier()
     {
         var db = Db();
         db.Add(new UnitDef("rookie", "Rookie", "merc_p", 1, default, default, Array.Empty<string>(), false));
@@ -218,11 +218,8 @@ public class CampaignTests
         rookie.Level = 10;
         Assert.Equal("Needs crest tier 2 (now 1).", HubService.CannotPromote(db, s, rookie, "hero"));
         s.CrestTier = 2;
-        Assert.Equal("Needs a tier 2 seal.", HubService.CannotPromote(db, s, rookie, "hero"));
-        s.Convoy.Add("seal");
         Assert.Null(HubService.Promote(db, s, rookie, "hero"));
         Assert.Equal("hero", rookie.ClassId);
         Assert.Equal(1, rookie.Level);
-        Assert.Empty(s.Convoy);
     }
 }

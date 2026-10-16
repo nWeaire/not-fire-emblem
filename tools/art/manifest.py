@@ -214,6 +214,11 @@ BACKGROUNDS = {
 TILE_STYLE = ("Game Boy Advance Fire Emblem map tile, flat bright colours, very limited palette, simple shapes, "
               "seamless top-down")
 TILESETS = {
+    # Plain-like ground (same rules as plain) to fill open map areas: road =, field :, meadow ,, square #.
+    "ground": [("road", "packed brown dirt road with small pebbles, no edges, fills the whole tile"),
+               ("field", "tilled farm field with rows of green crops"),
+               ("meadow", "green grass meadow with small white and yellow wildflowers"),
+               ("square", "grey cobblestone village square paving")],
     "village": [("fire", "burning house roof with orange flames"),
                 ("house", "red tiled cottage roof"),
                 ("chapel", "grey slate chapel roof"),

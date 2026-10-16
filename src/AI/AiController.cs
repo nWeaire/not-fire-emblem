@@ -148,7 +148,7 @@ public static class AiController
     }
 
     /// <summary>For each cell, how many units hostile to <paramref name="faction"/> could attack it next phase.</summary>
-    private static Dictionary<GridPos, int> ThreatCounts(BattleState s, Faction faction)
+    public static Dictionary<GridPos, int> ThreatCounts(BattleState s, Faction faction)
     {
         var counts = new Dictionary<GridPos, int>();
         foreach (var enemy in s.Living.Where(u => u.Faction.IsHostileTo(faction)))

@@ -168,24 +168,17 @@ public static class HubService
 
     // ------------------------------------------------------------------ promotion
 
-    /// <summary>Seals the party holds: in the convoy and in units' inventories.</summary>
-    public static IEnumerable<string> Seals(ContentDatabase db, GameSession s) =>
-        s.Convoy.Concat(s.ActiveRoster.SelectMany(u => u.Inventory)).Where(id => db.TryItem(id) is { Kind: ItemKind.Seal });
-
     public static string? CannotPromote(ContentDatabase db, GameSession s, UnitState unit, string classId)
     {
         if (!s.Unlocks.Contains("promotion"))
             return "Promotion isn't available yet.";
-        return PromotionService.CannotPromote(db, unit, classId, s.CrestTier, Seals(db, s));
+        return PromotionService.CannotPromote(db, unit, classId, s.CrestTier);
     }
 
     public static string? Promote(ContentDatabase db, GameSession s, UnitState unit, string classId)
     {
         if (CannotPromote(db, s, unit, classId) is { } error)
             return error;
-        string seal = PromotionService.SealFor(db, db.Class(classId), Seals(db, s))!;
-        if (!s.Convoy.Remove(seal))
-            s.ActiveRoster.First(u => u.Inventory.Contains(seal)).Inventory.Remove(seal);
         PromotionService.Promote(unit, classId);
         if (EquipmentService.RemoveInvalidArmor(db, unit) is { } removed)
             s.Convoy.Add(removed);

@@ -37,8 +37,9 @@ ACTIONS = {
               "the same stance", True),
 }
 ATTACKS = {  # weapon: attack ending back in stance (the critical keeps the manifest's text and ends mid-strike)
-    "sword": "steps forward to the RIGHT and swings the sword in a wide fast slash from high behind to low in front, "
-             "then returns to the same stance",
+    # "from high behind" drew a second sword behind Aldric: name a single blade and keep it in his hands.
+    "sword": "raises his one sword overhead with both hands, steps forward to the RIGHT and slashes it down in front in a "
+             "wide fast arc, then returns to the same stance. Only one sword, always held in the hands",
     "anima": "thrusts the free hand to the RIGHT and hurls a ball of fire that flies off to the right, then returns "
              "to the same stance",
 }

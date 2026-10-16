@@ -1,4 +1,4 @@
-# Not Fire Emblem — Technical Implementation Plan
+# The Radiant Crest — Technical Implementation Plan
 
 How every system in `GDD.md` will be coded, in what order, and how each step is verified. `GDD.md` says *what* the game is; this file says *how* it is built. Work proceeds milestone by milestone (§10). Each milestone ends in a runnable, tested state.
 

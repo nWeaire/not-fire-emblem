@@ -43,11 +43,9 @@ public static class BattleProgress
     {
         if (!s.Options.GainExp || amount <= 0 || !unit.IsRosterUnit)
             return;
-        int maxHpBefore = s.Stats(unit).HP;
         var levels = LevelUpService.AddExp(s.Db, unit.State, amount, s.Rng);
         unit.ExpEarned += amount;
-        // A level-up's HP gain also raises current HP.
-        unit.CurrentHp += s.Stats(unit).HP - maxHpBefore;
+        // Levels never heal: a higher max HP leaves current HP where it was.
         events.Add(new ExpGained(unit.Id, amount, unit.State.Exp, levels));
     }
 

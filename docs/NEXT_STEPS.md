@@ -55,6 +55,19 @@ _Last updated: 2026-10-16 (end of session 5)._
   New `anima` (fire) weapon animations in the manifest. The effect filter only catches white or growing effects:
   orange sparks and thin slashes still need checking by eye (the Mage's and Myrmidon's hits were cleaned by hand).
 
+### End of session 5 (user requests)
+- **Renamed to "The Radiant Crest"** (window title, title screen, docs). The solution, assembly and `NotFireEmblem`
+  namespaces keep the old name. Godot's save folder follows the name: saves were copied from
+  `%APPDATA%/Godot/app_userdata/Not Fire Emblem/` to `.../The Radiant Crest/`.
+- **Levels:** a level-up never heals (current HP stays put) and always gives at least one stat (if every roll misses,
+  the highest-growth uncapped stat rises). Promotion needs only Lv 10 and crest tier ≥ the class tier (seal items were removed at the user's request).
+- **Ground terrain** `road =`, `field :`, `meadow ,`, `square #` (plain rules, 32 px tiles in
+  `approved/terrain_gba32/ground/`). The prologue, Ch 1, Ch 2 and test map were repainted on plain cells only, so
+  movement and balance are unchanged.
+- Aldric's attack redrawn (the old prompt "from high behind" painted a second sword).
+- Hand playtest copy: `git worktree` at `C:/Users/nweai/nfe-playtest` (detached at the commit it was made from;
+  `git -C C:/Users/nweai/nfe-playtest checkout --detach <commit>` then build + import to update it).
+
 ### Next
 1. User review of the new battle cast in game; swap any still pick for ~7 gens (`animate_still.py`).
 2. Every unit now has current-style art (Elise, Kai's Cavalier and the Pegasus Knight use `template="horse"` or a
@@ -138,8 +151,10 @@ samples and mockups. Everything decided is in **`docs/ART_DIRECTION.md`**, and t
 - **Not built:** crest fragments / crest EXP, suspend saves, a settings menu, audio playback (`@music`/`@sfx` are parsed and ignored), and story background images (`@bg` shows a tinted gradient).
 - **Autoplay** clears non-lords off a seize tile (Aldric used to park on Ch 2's mill fort, so Rowan could never
   seize and runs ended "AUTOPLAY STUCK"). Its Ch 2 losses (Rowan dying on turn 2–4, sometimes 6+ retries in a row)
-  are autoplay weaknesses rather than map balance: it never uses vulneraries, keeps attacking with a low-HP Rowan,
-  and lets Mira die in Ch 1 (permadeath), so Ch 2 has no healer. It still never uses Talk, so automated runs skip optional recruits. Talk is covered by unit tests.
+  were autoplay weaknesses. `src/AI/CarefulAi.cs` now makes it heal (staff users heal anyone under 75%), drink
+  vulneraries below 35% HP (the lord below 50%) and retreat to the safest tile; three campaign runs then finished with
+  no losses. Still seen in every run: **Brann dies on Ch 2 turn 3** before anyone reaches him (the "pressed" damage plus
+  bandits), and autoplay **kills Tamsin** in Ch 3 instead of recruiting her. Check both in the hand playtest. It still never uses Talk, so automated runs skip optional recruits. Talk is covered by unit tests.
 - **Exported builds** need `*.txt` in the export filter so `data/dialogue/` and `data/campaign/` ship.
 
 ### Art (PixelLab)

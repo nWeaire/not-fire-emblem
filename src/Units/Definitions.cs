@@ -97,7 +97,7 @@ public sealed record SupportDef(string PartnerId, int C, int B, int A)
     public int Threshold(int rank) => rank switch { 1 => C, 2 => B, 3 => A, _ => int.MaxValue };
 }
 
-public enum ItemKind { Heal, StatBoost, Seal }
+public enum ItemKind { Heal, StatBoost }
 
 /// <summary>A consumable or key item carried in the 5-slot inventory. Used up when used.</summary>
 public sealed record ItemDef(
@@ -106,8 +106,7 @@ public sealed record ItemDef(
     ItemKind Kind,
     int Amount,          // HP healed (0 = full), or stat points gained
     Stat Stat,           // for StatBoost
-    int Price,
-    int Tier = 1);       // for Seal: the class tier it promotes into
+    int Price);
 
 /// <summary>
 /// A combat art: a special attack with a weapon of <see cref="Type"/>. Uses refill after every map (GDD §3).

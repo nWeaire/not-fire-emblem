@@ -12,7 +12,7 @@ See `docs/story/` for the story canon: `STORY.md` (world, crests, characters, pl
 
 ## 1. Project & Technical Stack
 
-- **Game Concept:** "Not Fire Emblem" — Tactical 2.5D / 3D Grid-Based RPG.
+- **Game:** "The Radiant Crest" (working title until session 5: "Not Fire Emblem", which the solution, assembly and `NotFireEmblem` namespaces still use) — Tactical 2.5D / 3D Grid-Based RPG.
 - **Engine:** Godot **4.7.2 Stable (Mono / .NET Build)**.
 - **Primary Language:** **C# (.NET 8.0)**.
 - **Physics Engine:** Godot Jolt (3D Physics).

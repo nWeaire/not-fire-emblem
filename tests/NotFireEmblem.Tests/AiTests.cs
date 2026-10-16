@@ -160,4 +160,54 @@ public class AiTests
         Assert.Equal(0.922, CombatOdds.TrueHit(80), 3);
         Assert.Equal(0.505, CombatOdds.TrueHit(50), 3);
     }
+
+    private static BattleState PlayerPhase(TestBattle builder) => builder.Build();
+
+    [Fact]
+    public void WoundedLord_DrinksAVulneraryOutOfReach()
+    {
+        var s = PlayerPhase(new TestBattle("..............").Lord(3, 0, "sword", "vulnerary")
+            .Unit(Faction.Enemy, "merc", 0, 0, "sword"));
+        var lord = s.Units.First(u => u.IsLord);
+        lord.CurrentHp = 4;
+        var cmd = Assert.IsType<ActCommand>(CarefulAi.Recover(s, lord, s.Reach(lord), 0.5, needsItem: false));
+        Assert.IsType<UseItemAction>(cmd.Action);
+        Assert.Equal(0, AiController.ThreatCounts(s, Faction.Player).GetValueOrDefault(cmd.Destination));
+        Assert.True(cmd.Validate(s).Ok);
+    }
+
+    [Fact]
+    public void WoundedLord_WithoutItem_OnlyRetreatsWhileThreatened()
+    {
+        var s = PlayerPhase(new TestBattle("..............").Lord(3, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 0, 0, "sword"));
+        var lord = s.Units.First(u => u.IsLord);
+        lord.CurrentHp = 4;
+        var cmd = Assert.IsType<ActCommand>(CarefulAi.Recover(s, lord, s.Reach(lord), 0.5, needsItem: false));
+        Assert.IsType<WaitAction>(cmd.Action);
+        Assert.NotEqual(lord.Pos, cmd.Destination);
+
+        var safe = PlayerPhase(new TestBattle("..............").Lord(13, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 0, 0, "sword"));
+        var far = safe.Units.First(u => u.IsLord);
+        far.CurrentHp = 4;
+        Assert.Null(CarefulAi.Recover(safe, far, safe.Reach(far), 0.5, needsItem: false));
+        Assert.Null(CarefulAi.Recover(s, lord, s.Reach(lord), 0.5, needsItem: true));
+    }
+
+    [Fact]
+    public void Healer_HealsTheMostHurtFriend()
+    {
+        var s = PlayerPhase(new TestBattle(".......").Lord(1, 0, "sword")
+            .Unit(Faction.Player, "merc", 5, 0, "sword")
+            .Named("cleric", Faction.Player, "healer", 3, 0));
+        var lord = s.Units.First(u => u.IsLord);
+        var merc = s.Unit("u1");
+        lord.CurrentHp = s.Stats(lord).HP - 6;
+        merc.CurrentHp = 3;
+        var cleric = s.Units.First(u => u.State.Def.Id == "cleric");
+        var cmd = Assert.IsType<ActCommand>(CarefulAi.Heal(s, cleric, s.Reach(cleric)));
+        Assert.Equal(merc.Id, Assert.IsType<HealAction>(cmd.Action).TargetId);
+        Assert.True(cmd.Validate(s).Ok);
+    }
 }

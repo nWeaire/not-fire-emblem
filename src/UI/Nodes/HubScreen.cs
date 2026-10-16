@@ -297,8 +297,7 @@ public partial class HubScreen : Control
             return i.Kind switch
             {
                 ItemKind.Heal => i.Amount > 0 ? $"Heals {i.Amount} HP" : "Heals fully",
-                ItemKind.StatBoost => $"{i.Stat} +{i.Amount}",
-                _ => $"Promotes to tier {i.Tier}",
+                _ => $"{i.Stat} +{i.Amount}",
             };
         return "";
     }
@@ -331,8 +330,7 @@ public partial class HubScreen : Control
 
     private void BuildPromotion()
     {
-        Row($"Promotion needs level {PromotionService.MinLevel}, a seal, and a crest tier at least the new class's tier. Crest: tier {S.CrestTier}.", 14, UiKit.Muted);
-        Row($"Seals held: {HubService.Seals(Db, S).Count()}", 14, UiKit.Muted);
+        Row($"Promotion needs level {PromotionService.MinLevel} and a crest tier at least the new class's tier. Crest: tier {S.CrestTier}.", 14, UiKit.Muted);
         foreach (var unit in S.ActiveRoster)
         {
             var cls = Db.Class(unit.ClassId);

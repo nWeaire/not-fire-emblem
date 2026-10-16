@@ -254,6 +254,16 @@ public partial class BattleController : Node3D
                 if (off != default)
                     return new AiDecision(unit, new ActCommand(unit.Id, off, new WaitAction()), null);
             }
+        // Look after the party first: heal the hurt, and pull back the wounded (the lord early, even without a
+        // vulnerary; anyone else only when they can drink one).
+        foreach (var unit in State.LivingOf(Faction.Player).Where(u => u.ActionState == ActionState.Ready).OrderBy(u => u.Id))
+        {
+            var reach = State.Reach(unit);
+            var care = CarefulAi.Heal(State, unit, reach)
+                       ?? CarefulAi.Recover(State, unit, reach, unit.IsLord ? 0.5 : 0.35, needsItem: !unit.IsLord);
+            if (care is not null && care.Validate(State).Ok)
+                return new AiDecision(unit, care, null);
+        }
         // Everyone else fights like the enemy AI; the lord is far more careful (losing him loses the map).
         var decisions = State.LivingOf(Faction.Player).Where(u => u.ActionState != ActionState.Done)
             .Select(u => u.IsLord ? LordDecision(u) : AiController.Decide(State, u, AutoplayWeights)).ToList();

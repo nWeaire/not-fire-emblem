@@ -1,6 +1,6 @@
 # Art Direction
 
-The approved look for Not Fire Emblem, settled in session 4 (2026-10-14) through three review rounds with the
+The approved look for The Radiant Crest, settled in session 4 (2026-10-14) through three review rounds with the
 user. New art must follow this. The approved samples live in `tools/art/approved/` (a `.gdignore` keeps Godot
 from importing them); finished game assets go in `assets/` as usual.
 

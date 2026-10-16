@@ -18,6 +18,12 @@ public partial class UnitView : Node3D
 
     /// <summary>World size of one sprite pixel: the map's shared art pixel (a 48 px frame stands 1.5 cells tall).</summary>
     private const float SpritePixelSize = NotFireEmblem.Grid.MapView.ArtPixelSize;
+    /// <summary>
+    /// How far the sprite is pulled along the line to the camera. A camera-facing sprite leans back over the cell
+    /// behind it, so a raised block there would cut through its upper half; pulling it toward the camera keeps it
+    /// in front without moving it on screen.
+    /// </summary>
+    private const float PullTowardCamera = 1.1f;
     /// <summary>Transparent rows below the feet in PixelLab frames.</summary>
     private const float SpriteFootPadding = 2f;
 
@@ -97,6 +103,8 @@ public partial class UnitView : Node3D
             AlphaCut = SpriteBase3D.AlphaCutMode.Discard,
             Shaded = false,
             PixelSize = SpritePixelSize * scale,
+            // Pulled toward the camera (PullToCamera), a sprite's shadow would land away from its feet.
+            CastShadow = GeometryInstance3D.ShadowCastingSetting.Off,
             // Pivot at the feet, so the billboard leans back from the ground instead of sinking into it.
             Offset = new Vector2(0f, 24f - SpriteFootPadding),
         };
@@ -133,6 +141,7 @@ public partial class UnitView : Node3D
         if (_sprite is null)
             return;
         Bob(delta);
+        PullToCamera();
         string dir = DirectionFromCamera();
         if (dir != _dir)
         {
@@ -143,6 +152,15 @@ public partial class UnitView : Node3D
             _sprite.Play($"{_anim}_{_dir}");
             _sprite.SetFrameAndProgress(frame, progress);
         }
+    }
+
+    private void PullToCamera()
+    {
+        var camera = GetViewport()?.GetCamera3D();
+        if (camera is null)
+            return;
+        var feet = _model.GlobalPosition;
+        _sprite!.GlobalPosition = feet + (camera.GlobalPosition - feet).Normalized() * PullTowardCamera;
     }
 
     /// <summary>

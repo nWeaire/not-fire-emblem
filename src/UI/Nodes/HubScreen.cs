@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Godot;
+using NotFireEmblem.Audio;
 using NotFireEmblem.Campaign;
 using NotFireEmblem.Combat;
 using NotFireEmblem.Core;
@@ -31,6 +32,7 @@ public partial class HubScreen : Control
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        AudioDirector.PlayMusic("hub");
         AddChild(UiKit.Backdrop(new Color(0.18f, 0.14f, 0.1f), new Color(0.07f, 0.06f, 0.05f)));
         if (GameSessionNode.Instance.Session is null)
         {

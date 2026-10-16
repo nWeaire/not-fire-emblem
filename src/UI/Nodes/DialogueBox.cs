@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Godot;
+using NotFireEmblem.Audio;
 using NotFireEmblem.Core;
 using NotFireEmblem.Dialogue;
 using NotFireEmblem.Grid;
@@ -135,21 +137,35 @@ public partial class DialogueBox : Control
         _advance?.TrySetResult(true);
     }
 
+    /// <summary>A skipped scene still leaves its last track playing, so the next screen has the right mood.</summary>
+    private static void PlayLastMusic(IEnumerable<DialogueLine> lines)
+    {
+        if (lines.OfType<MusicLine>().LastOrDefault() is { } music)
+            AudioDirector.PlayMusic(music.Id);
+    }
+
     /// <summary>Plays the whole scene. Returns when it ends or is skipped.</summary>
     public async Task Play(DialogueScene scene, ContentDatabase db)
     {
         if (DevTools.SkipDialogue)
+        {
+            PlayLastMusic(scene.Lines);
             return;
+        }
         IsPlaying = true;
         _skip = false;
         // The box appears with the first spoken line, so camera moves before it aren't covered by an empty box.
         Visible = false;
         try
         {
-            foreach (var line in scene.Lines)
+            for (int i = 0; i < scene.Lines.Count; i++)
             {
+                var line = scene.Lines[i];
                 if (_skip)
+                {
+                    PlayLastMusic(scene.Lines.Skip(i));
                     break;
+                }
                 switch (line)
                 {
                     case SpeakLine speak:
@@ -165,6 +181,12 @@ public partial class DialogueBox : Control
                         break;
                     case BackgroundLine bg:
                         OnBackground?.Invoke(bg.Id);
+                        break;
+                    case MusicLine music:
+                        AudioDirector.PlayMusic(music.Id);
+                        break;
+                    case SoundLine sound:
+                        AudioDirector.PlaySfx(sound.Id);
                         break;
                 }
             }

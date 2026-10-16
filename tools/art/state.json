@@ -7086,6 +7086,40 @@
         }
       }
     },
+    "props": {
+      "cottage": {
+        "status": "completed",
+        "takes": 16,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "oak": {
+        "status": "completed",
+        "takes": 16,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "peak": {
+        "status": "completed",
+        "takes": 16,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "pine": {
+        "status": "completed",
+        "takes": 16,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      }
+    },
     "still_takes": {
       "aldric_warden": {
         "job": "6937da95-c9c9-4d33-af58-a44203f945c9",
@@ -8302,6 +8336,14 @@
       }
     },
     "tiles": {
+      "grass": {
+        "status": "completed",
+        "tile_id": "f9df2acb-1cfa-455b-ae33-f1a39157d3fd",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "ground": {
         "status": "completed",
         "tile_id": "04845663-a215-471a-9275-15e13cc69e56",

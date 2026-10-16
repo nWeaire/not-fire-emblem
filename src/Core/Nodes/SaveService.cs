@@ -16,6 +16,9 @@ public static class SaveService
 
     public static string? Save(int slot, GameSession session)
     {
+        // Autoplay test runs share the player's save folder; they must never overwrite real saves.
+        if (DevTools.Autoplay)
+            return null;
         DirAccess.MakeDirRecursiveAbsolute(Dir);
         string label = $"{session.ChapterTitle} · {Time.GetDatetimeStringFromSystem(false, true)}";
         using var file = FileAccess.Open(SlotPath(slot), FileAccess.ModeFlags.Write);

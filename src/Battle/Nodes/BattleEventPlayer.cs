@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
+using NotFireEmblem.Audio;
 using NotFireEmblem.Grid;
 using NotFireEmblem.UI;
 using NotFireEmblem.Units;
@@ -65,6 +66,8 @@ public partial class BattleEventPlayer : Node
             Battle.ViewOf(unit.Id)?.SetStatus(StatusOf(unit));
         }
         Battle.Hud.UpdateObjective(Battle.State);
+        AudioDirector.PlayMusic(AudioCues.PhaseMusic(p.Phase));
+        AudioDirector.PlaySfx("phase_change");
         await Battle.Hud.ShowBanner($"{p.Phase} Phase", UnitView.ColorFor(p.Phase).Lightened(0.3f));
     }
 
@@ -124,7 +127,9 @@ public partial class BattleEventPlayer : Node
         {
             var striker = strike.ByAttacker ? attacker : defender;
             var target = strike.ByAttacker ? defender : attacker;
+            AudioDirector.PlaySfx(AudioCues.Swing(state.Db, (strike.ByAttacker ? attackerUnit : defenderUnit).State));
             await striker.Lunge(target.Position);
+            AudioDirector.PlaySfx(AudioCues.Impact(strike.Hit, strike.Crit));
             if (strike.Hit)
             {
                 if (strike.Crit)
@@ -148,6 +153,8 @@ public partial class BattleEventPlayer : Node
     {
         var view = Battle.ViewOf(d.UnitId);
         Battle.RemoveView(d.UnitId);
+        if (view is not null)
+            AudioDirector.PlaySfx("kill");
         if (view is not null)
             await view.Die();
     }
@@ -261,6 +268,7 @@ public partial class BattleEventPlayer : Node
         {
             var stats = Battle.State.Stats(unit);
             Battle.ViewOf(x.UnitId)?.SetHp(unit.CurrentHp, stats.HP);
+            AudioDirector.PlaySfx("level_up");
             await Battle.Hud.ShowLevelUp(unit.Name, Battle.State.Db.Class(unit.State.ClassId).Name, level, stats);
         }
     }
@@ -273,6 +281,7 @@ public partial class BattleEventPlayer : Node
             return;
         if (h.SourceId != h.TargetId)
             Battle.ViewOf(h.SourceId)?.FaceToward(view.Position);
+        AudioDirector.PlaySfx("heal");
         Popup(view.Position, $"+{h.Amount}", HealColor);
         view.SetHp(h.HpAfter, Battle.State.Stats(unit).HP);
         await Wait(0.35f);

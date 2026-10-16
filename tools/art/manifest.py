@@ -213,7 +213,24 @@ BACKGROUNDS = {
 
 TILE_STYLE = ("Game Boy Advance Fire Emblem map tile, flat bright colours, very limited palette, simple shapes, "
               "seamless top-down")
+# ------------------------------------------------------------------ map props (generate-image-v2, 16 takes at 64 px)
+# Upright billboards on map cells (forest trees, mountain peaks, fort cottages); takes go to takes/props/<id>/.
+PROP_STYLE = ("single object, Game Boy Advance Fire Emblem map sprite style, 16-bit pixel art, seen from a low "
+              "three-quarter top-down angle, bold dark outline, flat bright colours, transparent background, centered, "
+              "fills the frame")
+PROPS = {
+    "pine": "one tall dark green pine tree with a short brown trunk",
+    "oak": "one round leafy green oak tree with a brown trunk",
+    "cottage": "one small village cottage with a red tiled roof, cream plaster walls and a wooden door",
+    "peak": "one rocky grey-brown mountain peak boulder with a little snow on top",
+}
+
 TILESETS = {
+    # Grass detail for plain cells (the base plain tile is flat): the main tile plus subtle variants.
+    "grass": [("plain", "short green grass with small darker grass tufts"),
+              ("plain", "green grass with a few tiny pebbles"),
+              ("plain", "green grass with subtle lighter and darker patches"),
+              ("plain", "green grass with small clover leaves")],
     # Plain-like ground (same rules as plain) to fill open map areas: road =, field :, meadow ,, square #.
     "ground": [("road", "packed brown dirt road with small pebbles, no edges, fills the whole tile"),
                ("field", "tilled farm field with rows of green crops"),

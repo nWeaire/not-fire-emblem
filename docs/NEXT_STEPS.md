@@ -64,6 +64,19 @@ _Last updated: 2026-10-16 (end of session 5)._
 - **Ground terrain** `road =`, `field :`, `meadow ,`, `square #` (plain rules, 32 px tiles in
   `approved/terrain_gba32/ground/`). The prologue, Ch 1, Ch 2 and test map were repainted on plain cells only, so
   movement and balance are unchanged.
+- **Map art filled in:** detailed grass on plain cells (the old plain tile was two flat greens), earth-and-stone block
+  sides (triplanar `cliff_side.png`), and pixel-art billboard props replacing the primitive shapes: pines and oaks
+  in forests, peaks on mountains, cottages on forts (`assets/sprites/props/<id>_N.png`, cropped so they stand on the
+  ground; `generate.py props` makes 16 takes each). Props use full billboards like units (upright-only ones looked
+  squashed under the high camera).
+- **Music and sound:** `tools/audio/` synthesizes GBA-style sampled-orchestra music and effects (numpy +
+  soundfile; `pip install -r tools/audio/requirements.txt`, then `python tools/audio/build.py`). 14 tracks (title,
+  hub, prep, player/enemy phase, the 7 story cues, victory, defeat) and 27 effects (menus, swings per weapon, hit,
+  crit, miss, kill, heal, level-up jingle, the 7 story cues). `AudioDirector` (autoload) crossfades looping music
+  and plays effects; menu sounds follow the confirm / cancel / cursor actions. Hooks: dialogue `@music`/`@sfx`
+  (a skipped scene still plays its last track), title/hub/prep screens, phase changes, combat on the map and on
+  the battle screen, kills, heals, level-ups, and the victory/defeat jingles. libsndfile's Vorbis encoder crashes
+  the process on one big write, so the build writes OGG in 4096-sample blocks.
 - Aldric's attack redrawn (the old prompt "from high behind" painted a second sword).
 - Hand playtest copy: `git worktree` at `C:/Users/nweai/nfe-playtest` (detached at the commit it was made from;
   `git -C C:/Users/nweai/nfe-playtest checkout --detach <commit>` then build + import to update it).
@@ -149,6 +162,7 @@ samples and mockups. Everything decided is in **`docs/ART_DIRECTION.md`**, and t
 
 ### Known gaps
 - **Not built:** crest fragments / crest EXP, suspend saves, a settings menu, audio playback (`@music`/`@sfx` are parsed and ignored), and story background images (`@bg` shows a tinted gradient).
+- **Autoplay never saves** (`SaveService.Save` returns early under `--autoplay`; earlier runs overwrote the autosave in slot 0).
 - **Autoplay** clears non-lords off a seize tile (Aldric used to park on Ch 2's mill fort, so Rowan could never
   seize and runs ended "AUTOPLAY STUCK"). Its Ch 2 losses (Rowan dying on turn 2–4, sometimes 6+ retries in a row)
   were autoplay weaknesses. `src/AI/CarefulAi.cs` now makes it heal (staff users heal anyone under 75%), drink

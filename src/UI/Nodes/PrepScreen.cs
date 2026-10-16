@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using NotFireEmblem.Audio;
 using NotFireEmblem.Battle;
 using NotFireEmblem.Core;
 using NotFireEmblem.Units;
@@ -18,6 +19,7 @@ public partial class PrepScreen : Control
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        AudioDirector.PlayMusic("prep");
         AddChild(UiKit.Backdrop(new Color(0.1f, 0.13f, 0.2f), new Color(0.05f, 0.06f, 0.1f)));
         var node = GameSessionNode.Instance;
         var runner = node.Runner!;

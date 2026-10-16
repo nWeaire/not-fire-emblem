@@ -21,6 +21,7 @@ InputSetup="*res://src/Core/Nodes/InputSetup.cs"
 GameSessionNode="*res://src/Core/Nodes/GameSessionNode.cs"
 DevTools="*res://src/Core/Nodes/DevTools.cs"
 UiThemeSetup="*res://src/UI/Nodes/UiThemeSetup.cs"
+AudioDirector="*res://src/Audio/Nodes/AudioDirector.cs"
 
 [display]
 

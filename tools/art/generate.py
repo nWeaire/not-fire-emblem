@@ -39,7 +39,7 @@ MAX_JOBS = 8  # PixelLab Tier 1 concurrency
 def load_state() -> dict:
     state = json.loads(STATE_PATH.read_text(encoding="utf-8")) if STATE_PATH.exists() else {}
     state.setdefault("gba", {})
-    for key in ("characters", "portraits", "backgrounds", "tiles"):
+    for key in ("characters", "portraits", "backgrounds", "tiles", "props"):
         state["gba"].setdefault(key, {})
     return state
 
@@ -315,6 +315,31 @@ def run_backgrounds(r: Runner, ids: list[str]) -> None:
     r.drain()
 
 
+def run_props(r: Runner, ids: list[str]) -> None:
+    done_map = r.state["gba"]["props"]
+    style = REPO_ROOT / "assets" / "sprites" / "units" / "rowan_youth" / "rotations" / "south.png"
+    for pid in ids:
+        if done_map.get(pid, {}).get("status") == "completed":
+            continue
+        response = r.submit(f"prop {pid}", "/generate-image-v2", {
+            "description": f"{M.PROPS[pid]}. {M.PROP_STYLE}", "image_size": {"width": 64, "height": 64},
+            "no_background": True, "target_palette": {"max_colors": 16},
+            "style_image": {"image": {"type": "base64", "base64": b64(style)}, "size": image_size(style)},
+            "style_options": {"color_palette": False, "outline": True, "detail": True, "shading": True}})
+        done_map[pid] = {"status": "processing"}
+        save_state(r.state)
+
+        def done(job, pid=pid):
+            if not job or job.get("status") != "completed":
+                done_map[pid] = {"status": "failed"}
+                return
+            n = save_images(job, [TAKES / "props" / pid / f"take_{i}.png" for i in range(16)])
+            done_map[pid] = {"status": "completed", "usage": job.get("usage"), "takes": n}
+            print(f"  prop {pid}: {n} takes {job.get('usage')}")
+        r.track(response["background_job_id"], done)
+    r.drain()
+
+
 STYLE_TILES32 = [M.APPROVED / "terrain_gba32" / "T_terrain32" / f"tile_{i}.png" for i in (0, 3, 7, 11)]
 
 
@@ -376,7 +401,7 @@ def plan(state: dict) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("command", choices=["balance", "plan", "chars", "portraits", "backgrounds", "tiles", "download"])
+    parser.add_argument("command", choices=["balance", "plan", "chars", "portraits", "backgrounds", "tiles", "props", "download"])
     parser.add_argument("--only", nargs="*", default=[])
     parser.add_argument("--set", choices=list(SETS), action="append")
     parser.add_argument("--no-anims", action="store_true")
@@ -388,7 +413,7 @@ def main() -> int:
         plan(state)
         return 0
     catalog = {"chars": M.CHARACTERS, "download": M.CHARACTERS, "portraits": M.PORTRAITS,
-               "backgrounds": M.BACKGROUNDS, "tiles": M.TILESETS}.get(args.command, {})
+               "backgrounds": M.BACKGROUNDS, "tiles": M.TILESETS, "props": M.PROPS}.get(args.command, {})
     ids = args.only or list(catalog)
     unknown = [i for i in ids if i not in catalog]
     if unknown:
@@ -411,7 +436,8 @@ def main() -> int:
             {"chars": lambda: run_characters(r, ids, sets, not args.no_anims),
              "portraits": lambda: run_portraits(r, ids),
              "backgrounds": lambda: run_backgrounds(r, ids),
-             "tiles": lambda: run_tiles(r, ids)}[args.command]()
+             "tiles": lambda: run_tiles(r, ids),
+             "props": lambda: run_props(r, ids)}[args.command]()
         finally:
             r.drain()
             save_state(state)

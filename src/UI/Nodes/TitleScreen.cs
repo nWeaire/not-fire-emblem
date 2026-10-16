@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Godot;
+using NotFireEmblem.Audio;
 using NotFireEmblem.Core;
 
 namespace NotFireEmblem.UI;
@@ -27,6 +28,7 @@ public partial class TitleScreen : Control
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        AudioDirector.PlayMusic("title");
         AddChild(UiKit.Backdrop(new Color(0.07f, 0.09f, 0.18f), new Color(0.2f, 0.13f, 0.2f)));
 
         var center = new CenterContainer();

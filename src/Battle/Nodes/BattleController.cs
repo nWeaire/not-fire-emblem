@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using NotFireEmblem.AI;
+using NotFireEmblem.Audio;
 using NotFireEmblem.Core;
 using NotFireEmblem.Grid;
 using NotFireEmblem.UI;
@@ -297,6 +298,7 @@ public partial class BattleController : Node3D
     private async Task EndBattle()
     {
         var node = GameSessionNode.Instance;
+        AudioDirector.PlayMusic(State.Outcome == BattleOutcome.Victory ? "victory" : "defeat", loop: false);
         if (IsCampaign && State.Outcome == BattleOutcome.Victory)
         {
             await Hud.ShowBanner("Victory!", UiKit.Accent, 1.2f);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
+using NotFireEmblem.Audio;
 using NotFireEmblem.Battle;
 using NotFireEmblem.Combat;
 using NotFireEmblem.Units;
@@ -143,6 +144,8 @@ public partial class BattleSceneView : CanvasLayer
 
         _left.Setup(leftUnit, LeftX, WeaponOf(s, leftUnit));
         _right.Setup(rightUnit, RightX, WeaponOf(s, rightUnit));
+        _left.SwingSound = AudioCues.Swing(s.Db, leftUnit.State);
+        _right.SwingSound = AudioCues.Swing(s.Db, rightUnit.State);
         _leftHud.Show(leftForecast, leftUnit.Faction);
         _rightHud.Show(rightForecast, rightUnit.Faction);
 
@@ -208,6 +211,7 @@ public partial class BattleSceneView : CanvasLayer
         // 1. Critical wind-up: a white pop, then the screen dims toward violet and the banner shows.
         if (strike.Crit)
         {
+            AudioDirector.PlaySfx("critical");
             _whiteout.Color = Colors.White with { A = 0.9f };
             await Wait(0.05f);
             _whiteout.Color = Colors.White with { A = 0f };
@@ -236,7 +240,9 @@ public partial class BattleSceneView : CanvasLayer
                 .SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
         }
         striker.Sprite.Play(anim);
+        AudioDirector.PlaySfx(striker.SwingSound);
         await Wait(toImpact);
+        AudioDirector.PlaySfx(AudioCues.Impact(strike.Hit, strike.Crit));
 
         // 3–4. The hit: cut streak, white-out, impact burst, then shake, flash, knockback, damage pop, HP drain.
         var chest = target.ChestPoint();
@@ -403,6 +409,7 @@ public partial class BattleSceneView : CanvasLayer
         public float Facing => FaceRight ? 1f : -1f;
         public float HomeX { get; private set; }
         public WeaponType? Weapon { get; private set; }
+        public string SwingSound { get; set; } = "sword_swing";
         /// <summary>Distance in stage pixels from the anchor (feet centre) to the front of the torso.</summary>
         public float BodyFront { get; private set; } = 8f;
         private float _bodyHeight = 32f;

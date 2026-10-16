@@ -19,7 +19,9 @@ Priority: **P1** is seen in the playable story (Prologue to Ch 3). **P2** is nee
 `enemy_gloam_stalker`, `enemy_binder`, and the `ally_villager` map sprite. Portraits `aldric`, `tamsin`, `wenna`,
 `binder`, `sennet`, `varga`, `elise` (other takes in `tools/art/takes/portraits/`). Backgrounds `farm`, `village`,
 `farmhouse_interior`, `village_hall`, `river_road`, `mill`, `thornwood`, `forest`, `plains`. The 32 px terrain set and
-`fire` tiles. Clean UI panel, name plate and fonts.
+`fire` tiles, plain grass detail and ground terrain (road, field, meadow, square), earth block sides
+(`assets/textures/cliff_side.png`), and billboard map props (pine, oak, cottage, peak in `assets/sprites/props/`).
+Clean UI panel, name plate and fonts.
 
 ---
 
@@ -55,7 +57,6 @@ Folder: `assets/textures/terrain/<terrainId>[_N].png` (32 px top-down; `_N` are 
 | Priority | Tile | Notes |
 |---|---|---|
 | P2 | House / chapel roofs | Generated (`tools/art/takes/tiles/village/` tiles 1/5/9/13 and 2/6/10/14) but need new terrain types; villages reuse `fort` (T) and `wall` (W) |
-| P2 | Block side texture | Generated (cliff, tiles 3/7/11/15); needs code to texture the sides of raised cells |
 | P3 | Marsh / reeds / shallow water | Needed by Ch 6 (Greyfen) |
 
 ## 6. UI
@@ -72,7 +73,9 @@ Folder: `assets/textures/terrain/<terrainId>[_N].png` (32 px top-down; `_N` are 
 | P2 | Crest effects: the crest rising from a fallen Binder, Ward / Rally / Mend / Dawn auras, Severance burst |
 | P3 | Level-up flourish; hit sparks; Dominion aura on dominated enemies |
 
-## 8. Audio (not art, but also placeholders)
-Ids used by the scripts. No audio player is wired yet.
-- **Music:** `calm_farm`, `tension_low`, `tension_high`, `battle_urgent`, `aftermath`, `march`, `forest_tension`, plus player/enemy phase battle themes.
-- **Sounds:** `gloam_howl`, `gloam_roar`, `floorboards`, `crest_rise`, `crest_burn`, `fire_cast`, `bow_shot`, plus UI clicks, hits, crits and misses.
+## 8. Audio
+Done in session 5: all music and sound effects are synthesized by `tools/audio/build.py` (instruments in
+`synth.py`, tracks composed in `songs.py`, effects in `sfx.py`) into `assets/audio/music/<id>.ogg` and
+`assets/audio/sfx/<id>.wav`, and played by the `AudioDirector` autoload. Replace any file with a hand-made one of the
+same id to upgrade it. Ideas for later: per-chapter battle themes, a boss theme distinct from `battle_urgent`, and
+footstep / door / menu-open sounds.

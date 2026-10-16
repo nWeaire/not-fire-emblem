@@ -31,7 +31,6 @@ Folder: `assets/sprites/units/<spriteId>/`. Units find art through `BattleUnit.S
 |---|---|---|---|
 | P2 | `enemy_pegasus_knight` | Still session-2 art (map and battle); a flying mount | Test map |
 | P2 | `boss_sennet`, `boss_varga`, `boss_gorran` | Distinct looks for named bosses (set the spawn `SpriteId`) | Ch 1–3 |
-| P2 | `elise_mage`, `kai_cavalier` | Session-2 art (map and battle); regenerate in the current styles. Elise shows in Battle Select's default party | Ch 4+, promotion |
 | P2 | `aldric_warden_lord`, `tamsin_sniper`, `brann_warrior`, `kai_paladin`, `mira_sage`, `rowan_crest_knight` | Tier 2 outfits (`PLANNED` in `tools/art/manifest.py`) | After promotion |
 
 ## 2. Battle-screen sprites (the "E" look: 84 px stills animated on 128×84, east only, `idle` `attack` `critical` `dodge` `hit`)
@@ -43,7 +42,6 @@ Expressions used by the scripts: `neutral smile laugh surprised worried sad angr
 
 | Priority | File | Notes |
 |---|---|---|
-| P1 | `gorran.png` | Ch 2 bandit leader (could reuse `boss_brigand_chief.png`) |
 | P2 | `rowan`, `kai`, `mira`, `brann`, `osmund`, `boss_brigand_chief` | Session-2 portraits; check against the GBA style, regenerate if they clash |
 | P2 | Expression sets for the main cast | e.g. `rowan_worried.png`. Without them the base portrait is used for every expression. |
 

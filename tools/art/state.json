@@ -5936,6 +5936,74 @@
           "type": "generations"
         }
       },
+      "map:elise_mage": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "4c5c9372-1947-4fe4-8d65-a29cd8735042",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "8a82c9bf-1ce0-41d4-9fe7-80ef67697e8e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008900695747799343
+              },
+              {
+                "type": "usd",
+                "usd": 0.009271589332156712
+              },
+              {
+                "type": "usd",
+                "usd": 0.008655426502227784
+              },
+              {
+                "type": "usd",
+                "usd": 0.00954776242044237
+              }
+            ]
+          }
+        },
+        "character_id": "12d15a30-d3e6-47e7-8d58-776270d09204",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "map:enemy_archer": {
         "animations": {
           "attack": {
@@ -6542,6 +6610,49 @@
           "type": "generations"
         }
       },
+      "map:kai_cavalier": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "9441768f-3cdb-4d04-812e-b4f871e7d729",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [],
+            "jobs": {}
+          }
+        },
+        "character_id": "c1379896-1928-48d2-94a2-1288254e989b",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "map:kai_soldier": {
         "adopted": true,
         "animations": {
@@ -6960,6 +7071,15 @@
           "type": "generations"
         }
       },
+      "elise_mage": {
+        "job": "4a2d8ffb-5247-4e4a-b573-9211ba4bc620",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
       "enemy_archer": {
         "job": "bdf210c9-c39a-4be1-a95a-fd39982a9fc9",
         "status": "completed",
@@ -7034,6 +7154,15 @@
       },
       "enemy_soldier": {
         "job": "f9e939a3-7579-405f-b297-390638f5ea32",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "kai_cavalier": {
+        "job": "80388eaf-c4b6-4936-8196-8b2deb5ef400",
         "status": "completed",
         "takes": 9,
         "usage": {
@@ -7229,6 +7358,58 @@
           "job": "4fa1c201-0778-4409-bd7f-a5af9c2381fe",
           "status": "completed",
           "still": "approved/refs/brann_fighter_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "elise_mage": {
+        "attack": {
+          "frames": 9,
+          "job": "9d14e21a-25e5-4f19-9097-6e990e764ed6",
+          "status": "completed",
+          "still": "approved/refs/elise_mage_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "c734fe31-2f1b-4d4a-b6f8-929ca7595fed",
+          "status": "completed",
+          "still": "approved/refs/elise_mage_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "c5bd5117-2bcc-4f96-ab8f-3d900d4f227b",
+          "status": "completed",
+          "still": "approved/refs/elise_mage_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "0b3774fb-2fee-47fa-b0e5-07c833f655ea",
+          "status": "completed",
+          "still": "approved/refs/elise_mage_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "bd249963-51b2-41d5-8837-a45b638ccd1b",
+          "status": "completed",
+          "still": "approved/refs/elise_mage_battle.png",
           "usage": {
             "generations": 1.0,
             "type": "generations"
@@ -7697,6 +7878,58 @@
           "job": "75d0966a-fa91-422e-9fb0-fc7440012ab3",
           "status": "completed",
           "still": "approved/refs/enemy_soldier_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "kai_cavalier": {
+        "attack": {
+          "frames": 9,
+          "job": "8eeb4538-f3a4-49f8-a645-b0a4c1589009",
+          "status": "completed",
+          "still": "approved/refs/kai_cavalier_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "55820964-855e-4d7a-8fec-6068f2126547",
+          "status": "completed",
+          "still": "approved/refs/kai_cavalier_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "f3b74b46-4811-47e7-afe5-8edc71ae5a8a",
+          "status": "completed",
+          "still": "approved/refs/kai_cavalier_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 2,
+          "job": "1ef31f5d-f0e3-4453-b667-c28603620473",
+          "status": "completed",
+          "still": "approved/refs/kai_cavalier_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "3c9a4300-d5bb-40db-b6af-e269bf728f2d",
+          "status": "completed",
+          "still": "approved/refs/kai_cavalier_battle.png",
           "usage": {
             "generations": 1.0,
             "type": "generations"

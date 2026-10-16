@@ -57,8 +57,9 @@ _Last updated: 2026-10-16 (end of session 5)._
 
 ### Next
 1. User review of the new battle cast in game; swap any still pick for ~7 gens (`animate_still.py`).
-2. Remaining art in `docs/ART_NEEDED.md`: `gorran.png` (P1), and Elise, Kai's Cavalier and the Pegasus Knight, which
-   still use session-2 art.
+2. Remaining art in `docs/ART_NEEDED.md`: the Pegasus Knight (test map only) is the last session-2 unit. Elise and
+   Kai's Cavalier (`template="horse"` for the map sprite) are restyled, and `gorran.png` is a copy of the brigand-chief
+   portrait (his sprite id).
 3. Switch `BattleController.MapId` to `prologue` if wanted, and playtest by hand.
 
 ## Session 4: art direction settled

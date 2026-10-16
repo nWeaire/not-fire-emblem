@@ -122,6 +122,13 @@ CHARACTERS = {
     "brann_fighter": dict(weapon="axe", sets=("map",),
         desc="big burly young village blacksmith, short brown beard, scorched leather apron over a plain shirt, bare "
              "muscular arms, heavy iron wood-cutting axe"),
+    "elise_mage": dict(weapon="anima", sets=("map",),
+        desc="young travelling scholar woman, long auburn hair, green eyes, worn grey travelling hood and grey cloak, "
+             "satchel of papers, holding an open red tome, small flame above her free hand"),
+    # Kai's tier 2: mounted on his family's ranch horse (Ch 5). The horse template fits a mounted body.
+    "kai_cavalier": dict(weapon="lance", sets=("map",), template="horse",
+        desc="18 year old ranch boy knight riding a brown ranch horse, shaggy sandy blond hair, dented iron cap, padded "
+             "tan gambeson with a leather breastplate, long wooden spear with an iron tip"),
     # Act I bandits and generic human enemies ("iron and leather", CHAPTERS.md). Gorran uses boss_brigand_chief.
     "enemy_fighter": dict(weapon="axe", sets=("map",),
         desc="rough bandit brigand, scruffy dark hair, stubble, red bandana, patched brown leather vest over a dirty "

@@ -14,3 +14,5 @@ enemy_myrmidon 2 sword
 boss_brigand_chief 1 axe
 enemy_soldier 1 lance
 enemy_mage 2 anima
+elise_mage 2 anima
+kai_cavalier 3 lance

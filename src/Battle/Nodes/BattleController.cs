@@ -244,6 +244,16 @@ public partial class BattleController : Node3D
                     return new AiDecision(unit, new ActCommand(unit.Id, cell, new TalkAction(talk.Id)), null);
             }
         }
+        // Units like the seize tile (often a fort) and would park on it forever: clear it for the lord.
+        if (State.Map.Goals.Victory == VictoryKind.Seize)
+            foreach (var unit in State.LivingOf(Faction.Player).Where(u => !u.IsLord && u.ActionState == ActionState.Ready
+                                                                           && State.Map.Goals.Cells.Contains(u.Pos)))
+            {
+                var off = State.Reach(unit).StopCells.Where(c => !State.Map.Goals.Cells.Contains(c))
+                    .OrderBy(c => c.DistanceTo(unit.Pos)).FirstOrDefault(c => c != unit.Pos);
+                if (off != default)
+                    return new AiDecision(unit, new ActCommand(unit.Id, off, new WaitAction()), null);
+            }
         // Everyone else fights like the enemy AI; the lord is far more careful (losing him loses the map).
         var decisions = State.LivingOf(Faction.Player).Where(u => u.ActionState != ActionState.Done)
             .Select(u => u.IsLord ? LordDecision(u) : AiController.Decide(State, u, AutoplayWeights)).ToList();

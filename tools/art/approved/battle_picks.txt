@@ -16,3 +16,4 @@ enemy_soldier 1 lance
 enemy_mage 2 anima
 elise_mage 2 anima
 kai_cavalier 3 lance
+enemy_pegasus_knight 3 lance

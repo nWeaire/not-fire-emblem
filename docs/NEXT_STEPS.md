@@ -57,9 +57,10 @@ _Last updated: 2026-10-16 (end of session 5)._
 
 ### Next
 1. User review of the new battle cast in game; swap any still pick for ~7 gens (`animate_still.py`).
-2. Remaining art in `docs/ART_NEEDED.md`: the Pegasus Knight (test map only) is the last session-2 unit. Elise and
-   Kai's Cavalier (`template="horse"` for the map sprite) are restyled, and `gorran.png` is a copy of the brigand-chief
-   portrait (his sprite id).
+2. Every unit now has current-style art (Elise, Kai's Cavalier and the Pegasus Knight use `template="horse"` or a
+   mannequin for map sprites; `gorran.png` copies the brigand-chief portrait, his sprite id). Remaining art in
+   `docs/ART_NEEDED.md` is P2/P3: named Binder looks, tier-2 outfits, expressions, roof/cliff tiles (need code).
+   A gallery of all session-5 art: https://claude.ai/artifact/M2rMGYkPFpD8H5FcLgx9o4 (private to the user).
 3. Switch `BattleController.MapId` to `prologue` if wanted, and playtest by hand.
 
 ## Session 4: art direction settled
@@ -135,7 +136,10 @@ samples and mockups. Everything decided is in **`docs/ART_DIRECTION.md`**, and t
 
 ### Known gaps
 - **Not built:** crest fragments / crest EXP, suspend saves, a settings menu, audio playback (`@music`/`@sfx` are parsed and ignored), and story background images (`@bg` shows a tinted gradient).
-- **Autoplay** never uses Talk, so automated runs skip optional recruits. Talk is covered by unit tests.
+- **Autoplay** clears non-lords off a seize tile (Aldric used to park on Ch 2's mill fort, so Rowan could never
+  seize and runs ended "AUTOPLAY STUCK"). Its Ch 2 losses (Rowan dying on turn 2–4, sometimes 6+ retries in a row)
+  are autoplay weaknesses rather than map balance: it never uses vulneraries, keeps attacking with a low-HP Rowan,
+  and lets Mira die in Ch 1 (permadeath), so Ch 2 has no healer. It still never uses Talk, so automated runs skip optional recruits. Talk is covered by unit tests.
 - **Exported builds** need `*.txt` in the export filter so `data/dialogue/` and `data/campaign/` ship.
 
 ### Art (PixelLab)

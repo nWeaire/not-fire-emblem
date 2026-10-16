@@ -6542,6 +6542,49 @@
           "type": "generations"
         }
       },
+      "map:enemy_pegasus_knight": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "601ffc10-de82-41e9-8745-34305dfa6e37",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              },
+              {
+                "generations": 1.0,
+                "type": "generations"
+              }
+            ]
+          },
+          "walk": {
+            "directions": [],
+            "jobs": {}
+          }
+        },
+        "character_id": "4f4228e3-6a9d-43d8-b304-5ed8b6547c48",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "map:enemy_soldier": {
         "animations": {
           "attack": {
@@ -7145,6 +7188,15 @@
       },
       "enemy_myrmidon": {
         "job": "07df2a5c-e710-486e-a1b9-788a0799877e",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "enemy_pegasus_knight": {
+        "job": "c88ab1fa-4eb5-4bcd-8ef3-9f4370e330bc",
         "status": "completed",
         "takes": 9,
         "usage": {
@@ -7826,6 +7878,58 @@
           "job": "5ca9f4a0-c57e-4f30-a1c0-69c564386c78",
           "status": "completed",
           "still": "approved/refs/enemy_myrmidon_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        }
+      },
+      "enemy_pegasus_knight": {
+        "attack": {
+          "frames": 9,
+          "job": "5987ed25-2ce4-4eed-9315-fef4d00902b5",
+          "status": "completed",
+          "still": "approved/refs/enemy_pegasus_knight_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "48866492-4ab4-4c45-9ffc-fd55eece5b74",
+          "status": "completed",
+          "still": "approved/refs/enemy_pegasus_knight_battle.png",
+          "usage": {
+            "generations": 2.0,
+            "type": "generations"
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "b08d1b99-cc3a-4ec7-a3c9-2a874593b1d1",
+          "status": "completed",
+          "still": "approved/refs/enemy_pegasus_knight_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "b7b32256-18b6-46bf-b87f-0a46a660d131",
+          "status": "completed",
+          "still": "approved/refs/enemy_pegasus_knight_battle.png",
+          "usage": {
+            "generations": 1.0,
+            "type": "generations"
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "3f5ee9a4-b28b-4dd0-8ac0-f9ccac1ea7cb",
+          "status": "completed",
+          "still": "approved/refs/enemy_pegasus_knight_battle.png",
           "usage": {
             "generations": 1.0,
             "type": "generations"

@@ -148,6 +148,9 @@ CHARACTERS = {
     "enemy_mage": dict(weapon="anima", sets=("map",),
         desc="rogue fire mage, young man with ragged dark hair, dark red hooded robe with a rope belt, holding a "
              "red tome, small flame flickering above the free hand"),
+    "enemy_pegasus_knight": dict(weapon="lance", sets=("map",), template="horse",
+        desc="mercenary pegasus knight, young woman in red and steel armour with a short red cape, riding a white "
+             "winged pegasus with feathered wings, iron lance"),
     "ally_villager": dict(weapon="none", sets=("map",),
         desc="plain village farmer man, brown hair, beige linen shirt, green wool vest, brown trousers, no weapon"),
 }

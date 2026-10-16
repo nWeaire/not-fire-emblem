@@ -17,10 +17,17 @@ public partial class BattleEventPlayer : Node
 
     private BattleController Battle => GetParent<BattleController>();
 
+    private IReadOnlyList<BattleEvent> _batch = System.Array.Empty<BattleEvent>();
+    private int _index;
+    /// <summary>EXP the battle screen already showed; the map skips its own popup for these.</summary>
+    private readonly HashSet<ExpGained> _shownExp = new();
+
     public async Task Play(IReadOnlyList<BattleEvent> events)
     {
-        foreach (var e in events)
+        _batch = events;
+        for (_index = 0; _index < events.Count; _index++)
         {
+            var e = events[_index];
             await PlayOne(e);
             Battle.RefreshMapState();
         }
@@ -105,7 +112,12 @@ public partial class BattleEventPlayer : Node
         Battle.ViewOf(c.DefenderId)?.SetHidden(false);
         if (Battle.UseBattleScenes && BattleSceneView.CanShow(attackerUnit, defenderUnit))
         {
-            await Battle.BattleScene.Play(state, c);
+            // The fight's EXP follows it in the same batch; the battle screen shows it before closing.
+            var exp = _batch.Skip(_index + 1).TakeWhile(e => e is not CombatResolved).OfType<ExpGained>()
+                .Where(x => x.UnitId == c.AttackerId || x.UnitId == c.DefenderId).ToList();
+            await Battle.BattleScene.Play(state, c, exp);
+            foreach (var x in exp)
+                _shownExp.Add(x);
             Battle.ViewOf(c.AttackerId)?.SetHp(c.Result.AttackerHpAfter, state.Stats(attackerUnit).HP);
             Battle.ViewOf(c.DefenderId)?.SetHp(c.Result.DefenderHpAfter, state.Stats(defenderUnit).HP);
             return;
@@ -261,6 +273,13 @@ public partial class BattleEventPlayer : Node
 
     private async Task PlayExp(ExpGained x)
     {
+        if (_shownExp.Remove(x))
+        {
+            // Already shown on the battle screen; just bring the map's HP bar up to date.
+            var shown = Battle.State.Unit(x.UnitId);
+            Battle.ViewOf(x.UnitId)?.SetHp(shown.CurrentHp, Battle.State.Stats(shown).HP);
+            return;
+        }
         var unit = Battle.State.Unit(x.UnitId);
         if (Battle.ViewOf(x.UnitId) is { } view)
             Popup(view.Position + new Vector3(0, 0.3f, 0), $"+{x.Amount} EXP", new Color(0.6f, 0.85f, 1f));

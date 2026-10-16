@@ -42,6 +42,8 @@ public partial class BattleSceneView : CanvasLayer
     private Control _ui = null!;
     private SideHud _leftHud = null!;
     private SideHud _rightHud = null!;
+    private PanelContainer _levelPanel = null!;
+    private Label _levelText = null!;
     private Label _banner = null!;
     private ColorRect _fade = null!;
     private float _scale = 4.8f;
@@ -89,6 +91,12 @@ public partial class BattleSceneView : CanvasLayer
         _banner.GrowHorizontal = Control.GrowDirection.Both;
         _banner.Position += new Vector2(0, 92);
 
+        _levelPanel = new PanelContainer { MouseFilter = Control.MouseFilterEnum.Ignore, Visible = false };
+        _levelPanel.AddThemeStyleboxOverride("panel", UiKit.PanelStyle(margin: 16));
+        _levelText = UiKit.Label("", 22);
+        _levelPanel.AddChild(_levelText);
+        _ui.AddChild(_levelPanel);
+
         _fade = new ColorRect { Color = new Color(0, 0, 0, 1), MouseFilter = Control.MouseFilterEnum.Ignore };
         _root.AddChild(_fade);
         _fade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
@@ -122,7 +130,11 @@ public partial class BattleSceneView : CanvasLayer
         _ => "plains",
     };
 
-    public async Task Play(BattleState s, CombatResolved c)
+    /// <summary>
+    /// Plays one fight, then (before fading back to the map) fills the player's EXP bar with what the fight earned
+    /// and shows any level-ups here, GBA style. <paramref name="exp"/> holds the fight's ExpGained events.
+    /// </summary>
+    public async Task Play(BattleState s, CombatResolved c, IReadOnlyList<ExpGained>? exp = null)
     {
         var attacker = s.Unit(c.AttackerId);
         var defender = s.Unit(c.DefenderId);
@@ -148,6 +160,10 @@ public partial class BattleSceneView : CanvasLayer
         _right.SwingSound = AudioCues.Swing(s.Db, rightUnit.State);
         _leftHud.Show(leftForecast, leftUnit.Faction);
         _rightHud.Show(rightForecast, rightUnit.Faction);
+        var leftExp = exp?.FirstOrDefault(x => x.UnitId == leftUnit.Id);
+        var rightExp = exp?.FirstOrDefault(x => x.UnitId == rightUnit.Id);
+        _leftHud.ShowExp(leftUnit.IsRosterUnit ? ExpBefore(leftUnit, leftExp) : null);
+        _rightHud.ShowExp(rightUnit.IsRosterUnit ? ExpBefore(rightUnit, rightExp) : null);
 
         Visible = true;
         await TweenAlpha(_fade, 0f, 0.25f);
@@ -187,9 +203,18 @@ public partial class BattleSceneView : CanvasLayer
             await ToSignal(tween, Tween.SignalName.Finished);
         }
 
+        // EXP, then level-ups, before leaving the battle screen.
+        foreach (var (unit, hud, gained) in new[] { (rightUnit, _rightHud, rightExp), (leftUnit, _leftHud, leftExp) })
+        {
+            if (gained is null || gained.Amount <= 0 || unit.IsDefeated)
+                continue;
+            await PlayExp(s, unit, hud, gained);
+        }
+
         await Wait(0.4f);
         await TweenAlpha(_fade, 1f, 0.25f);
         Visible = false;
+        _levelPanel.Visible = false;
         _left.Reset();
         _right.Reset();
     }
@@ -283,6 +308,62 @@ public partial class BattleSceneView : CanvasLayer
         _banner.Modulate = Colors.White;
         if (striker.Sprite.Animation != "idle") striker.Sprite.Play("idle");
         if (target.Sprite.Animation != "idle") target.Sprite.Play("idle");
+    }
+
+    /// <summary>The unit's EXP before this fight: the state already holds the result, so undo the gain.</summary>
+    private static int ExpBefore(BattleUnit unit, ExpGained? gained) =>
+        gained is null ? unit.State.Exp : gained.ExpAfter - gained.Amount + ExpCalculator.ExpPerLevel * gained.LevelUps.Count;
+
+    /// <summary>Fills the EXP bar by the amount gained; each time it passes 100, plays a level-up here.</summary>
+    private async Task PlayExp(BattleState s, BattleUnit unit, SideHud hud, ExpGained gained)
+    {
+        int exp = ExpBefore(unit, gained);
+        int left = gained.Amount;
+        hud.ExpGain(left);
+        AudioDirector.PlaySfx("confirm");
+        int levelIndex = 0;
+        while (left > 0)
+        {
+            int step = Math.Min(left, ExpCalculator.ExpPerLevel - exp);
+            await hud.AnimateExp(exp, exp + step, 0.12f + step * 0.012f);
+            exp += step;
+            left -= step;
+            if (exp >= ExpCalculator.ExpPerLevel && levelIndex < gained.LevelUps.Count)
+            {
+                await ShowLevelUp(s, unit, gained, levelIndex++);
+                exp = 0;
+                hud.SetExp(0);
+            }
+            else if (exp >= ExpCalculator.ExpPerLevel)
+                break; // level cap
+        }
+        await Wait(0.35f);
+    }
+
+    private async Task ShowLevelUp(BattleState s, BattleUnit unit, ExpGained gained, int index)
+    {
+        var level = gained.LevelUps[index];
+        // The state already holds every level; take later levels' gains back off to show this one's stats.
+        var stats = s.Stats(unit);
+        for (int i = index + 1; i < gained.LevelUps.Count; i++)
+            stats -= gained.LevelUps[i].Gains;
+        var rows = StatBlock.All.Where(st => st is not (Stat.Mov or Stat.Cha))
+            .Select(st => $"{st,-4}{stats[st],3}" + (level.Gains[st] > 0 ? $"  +{level.Gains[st]}" : ""));
+        _levelText.Text = $"LEVEL UP!\n{unit.Name}   {s.Db.Class(unit.State.ClassId).Name}  Lv {level.Level}\n\n"
+                          + string.Join("\n", rows);
+        AudioDirector.PlaySfx("level_up");
+        // Centre it over the stage, above the HUD panels; sized from its text, so place it after setting that.
+        _levelPanel.ResetSize();
+        var screen = _ui.Size;
+        _levelPanel.Position = new Vector2((screen.X - _levelPanel.Size.X) / 2f, (screen.Y - 154 - _levelPanel.Size.Y) / 2f);
+        _levelPanel.Visible = true;
+        _levelPanel.Modulate = Colors.White with { A = 0f };
+        var tween = CreateTween();
+        tween.TweenProperty(_levelPanel, "modulate:a", 1f, 0.15f);
+        tween.TweenInterval(1.8f);
+        tween.TweenProperty(_levelPanel, "modulate:a", 0f, 0.25f);
+        await ToSignal(tween, Tween.SignalName.Finished);
+        _levelPanel.Visible = false;
     }
 
     private void Effect(string name, Vector2 at, float alpha, bool flip, float seconds)
@@ -529,6 +610,10 @@ public partial class BattleSceneView : CanvasLayer
         private readonly Label _hpText;
         private readonly ProgressBar _hp;
         private readonly StyleBoxFlat _fill;
+        private readonly HBoxContainer _expRow;
+        private readonly ProgressBar _exp;
+        private readonly Label _expText;
+        private readonly Label _expGain;
 
         public SideHud(Control parent, bool left)
         {
@@ -546,7 +631,7 @@ public partial class BattleSceneView : CanvasLayer
             panel.AnchorLeft = left ? 0f : 0.5f;
             panel.AnchorRight = left ? 0.5f : 1f;
             panel.AnchorTop = panel.AnchorBottom = 1f;
-            panel.OffsetTop = -126;
+            panel.OffsetTop = -154;
             panel.OffsetBottom = 0;
 
             var box = new VBoxContainer();
@@ -578,6 +663,51 @@ public partial class BattleSceneView : CanvasLayer
             _fill = new StyleBoxFlat { BgColor = UiKit.Good };
             _hp.AddThemeStyleboxOverride("fill", _fill);
             hpRow.AddChild(_hp);
+
+            // EXP under HP, for the player's own units (enemies don't earn EXP).
+            _expRow = new HBoxContainer();
+            _expRow.AddThemeConstantOverride("separation", 10);
+            box.AddChild(_expRow);
+            var expCaps = UiKit.Caps("EXP", 13);
+            expCaps.CustomMinimumSize = new Vector2(40, 0);
+            expCaps.VerticalAlignment = VerticalAlignment.Center;
+            _expRow.AddChild(expCaps);
+            _exp = new ProgressBar
+            {
+                ShowPercentage = false, MaxValue = ExpCalculator.ExpPerLevel, SizeFlagsHorizontal = Control.SizeFlags.ExpandFill,
+                CustomMinimumSize = new Vector2(0, 8), SizeFlagsVertical = Control.SizeFlags.ShrinkCenter,
+            };
+            _exp.AddThemeStyleboxOverride("fill", new StyleBoxFlat { BgColor = UiKit.Accent });
+            _expRow.AddChild(_exp);
+            _expText = UiKit.Label("", 16);
+            _expText.CustomMinimumSize = new Vector2(34, 0);
+            _expRow.AddChild(_expText);
+            _expGain = UiKit.Label("", 16, UiKit.Accent);
+            _expGain.CustomMinimumSize = new Vector2(70, 0);
+            _expRow.AddChild(_expGain);
+        }
+
+        /// <summary>Shows the EXP row at <paramref name="exp"/>, or hides it (null) for units that don't earn EXP.</summary>
+        public void ShowExp(int? exp)
+        {
+            _expRow.Modulate = exp is null ? Colors.Transparent : Colors.White; // keep the row's space so panels match
+            _expGain.Text = "";
+            SetExp(exp ?? 0);
+        }
+
+        public void SetExp(int exp)
+        {
+            _exp.Value = exp;
+            _expText.Text = $"{exp}";
+        }
+
+        public void ExpGain(int amount) => _expGain.Text = $"+{amount}";
+
+        public async Task AnimateExp(int from, int to, float seconds)
+        {
+            var tween = _exp.CreateTween();
+            tween.TweenMethod(Callable.From<double>(v => SetExp((int)v)), (double)from, (double)to, seconds);
+            await _exp.ToSignal(tween, Tween.SignalName.Finished);
         }
 
         public void Show(CombatantForecast f, Faction faction)

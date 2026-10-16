@@ -16,6 +16,7 @@ namespace NotFireEmblem.Core;
 ///   --skipdialogue           dialogue scenes end at once
 ///   --autoadvance            prep, results and hub screens continue on their own
 ///   --newgame / --load=N     (title screen) start a campaign at once
+///   --exp=N                  player units start each battle with N EXP (to test level-ups)
 /// BattleController also reads --seed=&lt;n&gt; (battle RNG); Boot reads --map=&lt;id&gt; (e.g. prologue, ch1, test_ford).
 /// </summary>
 public partial class DevTools : Node
@@ -23,6 +24,7 @@ public partial class DevTools : Node
     public static bool Autoplay { get; private set; }
     public static bool SkipDialogue { get; private set; }
     public static bool AutoAdvance { get; private set; }
+    public static int? StartExp { get; private set; }
 
     private string? _screenshotPath;
     private int _captureFrame = 90;
@@ -42,6 +44,9 @@ public partial class DevTools : Node
                 continue;
             switch (parts[0])
             {
+                case "--exp":
+                    StartExp = int.Parse(parts[1]);
+                    break;
                 case "--screenshot":
                     _screenshotPath = parts[1];
                     break;

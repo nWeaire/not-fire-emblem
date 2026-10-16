@@ -98,6 +98,9 @@ public partial class BattleController : Node3D
         }
         if (State.Options.Difficulty == Difficulty.Hard)
             _aiWeights = AiWeights.Aggressive;
+        if (DevTools.StartExp is { } startExp)
+            foreach (var unit in State.LivingOf(Faction.Player).Where(u => u.IsRosterUnit))
+                unit.State.Exp = Math.Clamp(startExp, 0, ExpCalculator.ExpPerLevel - 1);
         Turns = new TurnManager(State);
 
         MapView.Build(State.Grid);

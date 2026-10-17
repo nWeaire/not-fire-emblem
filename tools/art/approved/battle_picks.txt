@@ -29,3 +29,5 @@ sable_myrmidon 4 sword
 enemy_cavalier 1 lance
 enemy_gloam_alpha 3 claws
 boss_rusk 3 axe
+boss_sennet: take_1 (session 7)
+boss_varga: take_0 (session 7)

@@ -10,7 +10,6 @@ sprites in the "E" look (84 px tall), portraits 96 px, terrain tiles 32 px, back
 - **Portraits:** characters without one get a coloured square with their initials.
 - **Story backgrounds** without a picture are tinted gradients labelled `[background: id]`. Variants reuse their
   location's picture with a tint (`farm_night_smoke` → `farm`), so only locations need pictures.
-- **Music and sound** commands (`@music`, `@sfx`) are parsed but play nothing.
 
 Priority: **P1** is seen in the playable story (Prologue to Ch 3). **P2** is needed for upcoming chapters and promotions. **P3** is polish.
 
@@ -31,7 +30,7 @@ Folder: `assets/sprites/units/<spriteId>/`. Units find art through `BattleUnit.S
 
 | Priority | Sprite id | Who / what | Used in |
 |---|---|---|---|
-| P2 | `boss_sennet`, `boss_varga`, `boss_gorran` | Distinct looks for named bosses (set the spawn `SpriteId`) | Ch 1–3 |
+| Done (session 7) | `boss_sennet`, `boss_varga` | Named Binder bosses: map stills + battle sprites (Varga's battle animations pending, see NEXT_STEPS). Gorran already uses his own `boss_brigand_chief`. Map walk/attack still to do | Ch 1, Ch 3 |
 | Done | `rowan_crest_knight`, `aldric_warden_lord`, `tamsin_sniper`, `brann_warrior`, `kai_paladin`, `mira_sage`, `elise_sage` | Tier 2 outfits, map + battle (session 5) | After promotion |
 | P3 | Tier 3–4 outfits | When those classes exist (`PLANNED` in `tools/art/manifest.py`) | Act II+ |
 
@@ -50,7 +49,7 @@ Expressions used by the scripts: `neutral smile laugh surprised worried sad angr
 ## 4. Story backgrounds (`assets/backgrounds/<id>.png`)
 | Priority | Ids |
 |---|---|
-| P2 | Hub backdrop (behind the hub menus); title screen illustration; locations for Ch 4+ |
+| P2 | Hub backdrop (behind the hub menus); locations for Ch 7+ (title vista done in session 7) |
 
 ## 5. Terrain
 Folder: `assets/textures/terrain/<terrainId>[_N].png` (32 px top-down; `_N` are random alternates).

@@ -6033,6 +6033,22 @@
           "type": "generations"
         }
       },
+      "map:boss_sennet": {
+        "character_id": "5f55f990-8142-4e30-8301-76ac6611f282",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:boss_varga": {
+        "character_id": "491dbf76-596f-4b9b-92f5-916c29dddda0",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:brann_fighter": {
         "animations": {
           "attack": {
@@ -8232,6 +8248,24 @@
           "type": "generations"
         }
       },
+      "boss_sennet": {
+        "job": "0f06bc80-56a0-42ec-b97a-a47c475fc7d6",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "boss_varga": {
+        "job": "184d83d1-940f-4574-8478-2ee5fbdc4b17",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "brann_fighter": {
         "job": "560e5255-cd62-42aa-875a-60191302c57b",
         "status": "completed",
@@ -8480,12 +8514,12 @@
       "aldric_warden": {
         "attack": {
           "frames": 9,
-          "job": "33beaf51-f0d3-444d-88e7-791bb9d5dc11",
+          "job": "6454d060-8f87-4ebf-8bbb-5e681285f713",
           "status": "completed",
-          "still": "approved/refs/aldric_warden_battle.png",
+          "still": "tools/art/approved/refs/aldric_warden_battle.png",
           "usage": {
-            "generations": 2.0,
-            "type": "generations"
+            "type": "usd",
+            "usd": 0.022795159942573973
           }
         },
         "critical": {
@@ -8532,12 +8566,12 @@
       "aldric_warden_lord": {
         "attack": {
           "frames": 9,
-          "job": "55a79a2d-00a4-401a-a0ca-95ff0968d111",
+          "job": "2f35cf80-9daf-48da-96ce-762bbf5d9a99",
           "status": "completed",
-          "still": "approved/refs/aldric_warden_lord_battle.png",
+          "still": "tools/art/approved/refs/aldric_warden_lord_battle.png",
           "usage": {
-            "generations": 2.0,
-            "type": "generations"
+            "type": "usd",
+            "usd": 0.036285991960101655
           }
         },
         "critical": {
@@ -8682,6 +8716,110 @@
           "usage": {
             "generations": 1.0,
             "type": "generations"
+          }
+        }
+      },
+      "boss_sennet": {
+        "attack": {
+          "frames": 9,
+          "job": "022cdb3d-94fc-4d3d-bdee-bab24b894b51",
+          "status": "completed",
+          "still": "tools/art/approved/refs/boss_sennet_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02326143568091922
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "1129b71d-148d-4e2c-a5b2-28ed47827d8c",
+          "status": "completed",
+          "still": "tools/art/approved/refs/boss_sennet_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.029253711005051933
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "d16ee134-68ef-41ea-aa8d-005412929e9a",
+          "status": "completed",
+          "still": "tools/art/approved/refs/boss_sennet_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.021398763524161445
+          }
+        },
+        "hit": {
+          "frames": 3,
+          "job": "87f4a8c3-4ed7-4a9e-9cc7-74fb8aaa15b9",
+          "status": "completed",
+          "still": "tools/art/approved/refs/boss_sennet_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.020893984781371222
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "a69bd7a9-da33-4af9-8678-0a6ff7746f7d",
+          "status": "completed",
+          "still": "tools/art/approved/refs/boss_sennet_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.022501624213324654
+          }
+        }
+      },
+      "boss_varga": {
+        "attack": {
+          "frames": 9,
+          "job": "abc0f9ea-ff23-4825-9008-03fca5aeabef",
+          "status": "completed",
+          "still": "tools/art/approved/refs/boss_varga_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.026227501425478195
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "7d953fd4-8997-4027-a427-4db1aab2eb4b",
+          "status": "completed",
+          "still": "tools/art/approved/refs/boss_varga_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.028856033947732715
+          }
+        },
+        "dodge": {
+          "frames": 5,
+          "job": "3a16551a-9e39-4a1c-82b2-9a1f8ef6a963",
+          "status": "completed",
+          "still": "tools/art/approved/refs/boss_varga_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.027741120802031623
+          }
+        },
+        "hit": {
+          "frames": 3,
+          "job": "695c03e7-0396-4dd1-965d-bf55e5f9c043",
+          "status": "completed",
+          "still": "tools/art/approved/refs/boss_varga_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.022970699720912507
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "9b43234f-e74e-431c-9e8a-b9c5ee7f1706",
+          "status": "completed",
+          "still": "tools/art/approved/refs/boss_varga_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.023468295481469895
           }
         }
       },

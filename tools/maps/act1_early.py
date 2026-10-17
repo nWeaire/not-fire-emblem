@@ -181,7 +181,7 @@ def ch1():
         hound((6, 2)), hound((8, 3)), hound((12, 2)), hound((4, 6)), hound((12, 5)), hound((3, 4)),
         brute((9, 4)), brute((11, 3)), brute((6, 4)),
         stalker((5, 3)), stalker((13, 5)), stalker((8, 1)),
-        dict(ClassId="binder", Name="Sennet", Tag="sennet", SpriteId="enemy_binder", Level=4, Inventory=["shadow"],
+        dict(ClassId="binder", Name="Sennet", Tag="sennet", SpriteId="boss_sennet", Level=4, Inventory=["shadow"],
              Pos=(10, 0), Ai=BOSS, IsBoss=True, CrestBearer=True),
         brute((20, 9), Group="chapel"),
         hound((8, 0), Group="north"), hound((9, 0), Group="north"), hound((11, 0), Group="north"),

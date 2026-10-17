@@ -47,8 +47,16 @@ The user counts the Prologue as "chapter 1", so their "chapter 2" is Ch 1 (Brook
   `title_vista` background (sunrise valley, 240×135), then the title and menu fade in (`TitleScreen.PlayIntro`).
   Any key or click skips; it plays once per launch and never with `--newgame`, `--load` or `--autoadvance`.
   `generate.py backgrounds` now keeps every take in `takes/backgrounds/<id>/` and installs take 0.
-- **Budget:** subscription generations used up (0 left); $9.92 of the user's $10 credit left (a background costs
-  about $0.08).
+- **Aldric's attacks redrawn** (Warden and Warden Lord) with a level chest-height slash: `animate_still.py --attack`
+  overrides the shared sword wording, which swung into the ground.
+- **Named Binder bosses:** `boss_sennet` (Ch 1) and `boss_varga` (Ch 3) have their own map sprites (stills only, no
+  walk/attack yet) and battle stills (picks in `approved/battle_picks.txt`). Sennet's battle animations are done.
+  **Varga's five battle animations were submitted but PixelLab went unreachable**: rerun
+  `python tools/art/animate_still.py tools/art/approved/refs/boss_varga_battle.png boss_varga --weapon dark` to
+  fetch them (recorded in state.json, not paid again; jobs expire after about a day). Until then her fights use the
+  map animation. Gorran already has his own look (`boss_brigand_chief`).
+- **Budget:** subscription generations used up (0 left); about $9.3 of the user's $10 credit left (a background or
+  map character costs about $0.08, a battle animation $0.02–0.04).
 
 ## Session 6: back to 2.5D
 

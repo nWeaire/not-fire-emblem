@@ -187,6 +187,13 @@ CHARACTERS = {
     "enemy_gloam_alpha": dict(weapon="claws", sets=("map",),
         desc="huge hulking alpha beast from a dark fairy tale, much bigger than the others, ash-grey hide with glowing "
              "violet cracks, a crown of bone spikes on its head, long arms with massive claws"),
+    # Named Binder bosses (session 7): they reused the Prologue's hooded Binder. Looks follow their portraits.
+    "boss_sennet": dict(weapon="dark", sets=("map",),
+        desc="cold thin gaunt middle-aged man, slicked-back black hair, long deep purple high-collared coat, faint "
+             "purple glow of a thorny sigil at his throat, dark tome in one hand"),
+    "boss_varga": dict(weapon="dark", sets=("map",),
+        desc="fierce scarred woman with a shaved head and tattoos, dark purple leather armour, cruel grin, a "
+             "glowing purple sigil on the back of her hand, dark tome"),
     "boss_rusk": dict(weapon="axe", sets=("map",),
         desc="burly bandit king, shaved head, thick red beard, gold earrings, patched marsh-green leather coat over "
              "armour, a stolen glowing purple crest sigil on the back of his hand, heavy steel axe"),

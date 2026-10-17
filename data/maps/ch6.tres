@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapDefinition" load_steps=17 format=3]
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
 [ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
@@ -8,7 +8,7 @@ script = ExtResource("2_spawn")
 UnitId = "sable"
 Level = 6
 Faction = 1
-Position = Vector2i(10, 6)
+Position = Vector2i(17, 9)
 Ai = 1
 
 [sub_resource type="Resource" id="SpawnDefinition_2"]
@@ -21,7 +21,7 @@ Armor = "chainmail"
 Level = 9
 Inventory = PackedStringArray("steel_axe", "hand_axe")
 Faction = 1
-Position = Vector2i(17, 2)
+Position = Vector2i(27, 3)
 Ai = 3
 IsBoss = true
 CrestBearer = true
@@ -36,8 +36,8 @@ Armor = "leather_jerkin"
 Level = 5
 Inventory = PackedStringArray("iron_axe")
 Faction = 1
-Position = Vector2i(6, 4)
-Ai = 0
+Position = Vector2i(9, 7)
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_4"]
 script = ExtResource("2_spawn")
@@ -49,8 +49,8 @@ Armor = "leather_jerkin"
 Level = 5
 Inventory = PackedStringArray("iron_axe")
 Faction = 1
-Position = Vector2i(9, 3)
-Ai = 0
+Position = Vector2i(16, 5)
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_5"]
 script = ExtResource("2_spawn")
@@ -62,8 +62,8 @@ Armor = "leather_jerkin"
 Level = 5
 Inventory = PackedStringArray("iron_axe")
 Faction = 1
-Position = Vector2i(12, 7)
-Ai = 0
+Position = Vector2i(19, 13)
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_6"]
 script = ExtResource("2_spawn")
@@ -75,8 +75,8 @@ Armor = "leather_jerkin"
 Level = 6
 Inventory = PackedStringArray("iron_axe")
 Faction = 1
-Position = Vector2i(14, 4)
-Ai = 0
+Position = Vector2i(22, 6)
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_7"]
 script = ExtResource("2_spawn")
@@ -88,8 +88,8 @@ Armor = "leather_jerkin"
 Level = 5
 Inventory = PackedStringArray("iron_axe")
 Faction = 1
-Position = Vector2i(13, 9)
-Ai = 0
+Position = Vector2i(21, 15)
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_8"]
 script = ExtResource("2_spawn")
@@ -101,8 +101,8 @@ Armor = "leather_jerkin"
 Level = 6
 Inventory = PackedStringArray("iron_axe")
 Faction = 1
-Position = Vector2i(16, 4)
-Ai = 0
+Position = Vector2i(26, 6)
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_9"]
 script = ExtResource("2_spawn")
@@ -114,20 +114,21 @@ Armor = "leather_jerkin"
 Level = 6
 Inventory = PackedStringArray("iron_axe")
 Faction = 1
-Position = Vector2i(18, 4)
-Ai = 0
+Position = Vector2i(29, 6)
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_10"]
 script = ExtResource("2_spawn")
-ClassId = "archer"
-Name = "Greyfen Archer"
+ClassId = "fighter"
+Name = "Greyfen Bandit"
 DominatedBy = "rusk"
-SpriteId = "enemy_archer"
-Level = 5
-Inventory = PackedStringArray("iron_bow")
+SpriteId = "enemy_fighter"
+Armor = "leather_jerkin"
+Level = 6
+Inventory = PackedStringArray("iron_axe")
 Faction = 1
-Position = Vector2i(2, 3)
-Ai = 0
+Position = Vector2i(24, 18)
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_11"]
 script = ExtResource("2_spawn")
@@ -138,10 +139,22 @@ SpriteId = "enemy_archer"
 Level = 5
 Inventory = PackedStringArray("iron_bow")
 Faction = 1
-Position = Vector2i(13, 3)
-Ai = 0
+Position = Vector2i(3, 5)
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_12"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Greyfen Archer"
+DominatedBy = "rusk"
+SpriteId = "enemy_archer"
+Level = 5
+Inventory = PackedStringArray("iron_bow")
+Faction = 1
+Position = Vector2i(20, 4)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_13"]
 script = ExtResource("2_spawn")
 ClassId = "archer"
 Name = "Greyfen Archer"
@@ -150,10 +163,10 @@ SpriteId = "enemy_archer"
 Level = 6
 Inventory = PackedStringArray("iron_bow")
 Faction = 1
-Position = Vector2i(15, 1)
-Ai = 0
+Position = Vector2i(25, 2)
+Ai = 2
 
-[sub_resource type="Resource" id="SpawnDefinition_13"]
+[sub_resource type="Resource" id="SpawnDefinition_14"]
 script = ExtResource("2_spawn")
 ClassId = "myrmidon"
 Name = "Greyfen Sellsword"
@@ -162,10 +175,10 @@ SpriteId = "enemy_myrmidon"
 Level = 6
 Inventory = PackedStringArray("iron_sword")
 Faction = 1
-Position = Vector2i(19, 6)
-Ai = 0
+Position = Vector2i(30, 9)
+Ai = 2
 
-[sub_resource type="Resource" id="SpawnDefinition_14"]
+[sub_resource type="Resource" id="SpawnDefinition_15"]
 script = ExtResource("2_spawn")
 ClassId = "fighter"
 Name = "Greyfen Bandit"
@@ -175,20 +188,20 @@ Armor = "leather_jerkin"
 Level = 6
 Inventory = PackedStringArray("iron_axe")
 Faction = 1
-Position = Vector2i(19, 3)
-Ai = 0
+Position = Vector2i(30, 4)
+Ai = 2
 HardOnly = true
 
 [resource]
 script = ExtResource("1_map")
 Id = "ch6"
 Name = "Chapter 6: The Bandit King of Greyfen"
-TerrainRows = PackedStringArray("~~ssrrPPsshh~~ssrrPP", "~ssrrPPsss~h~ssrrPPh", "ssrPPPsBs~~~ssrPPhhP", "srPPPsss~ss~srPPPPPP", "rPPhPss~~ssrrPPrrPPP", "PPPPsss~rPPPPss~~rrP", "PPrssr~~PPhPPsss~~rP", "PrrssBBsPPPPrrss~srr", "PrsssrrsssPPPrsss~sP", "PPssr~~rrrsPPhPPsBsr", "PPPsr~~ssPPPPPPrsss~", "PPPrss~sssrrPPPrrss~", "PPPPssBsrrPPhPPrrs~~", "PPPPrssssrPPPPPrss~~")
-HeightRows = PackedStringArray("00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000", "00000000000000000000")
-Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14")])
+TerrainRows = PackedStringArray("ssssPPPrPPs~~sPPPPPPsssssssPPsss", "ssssssssPPs~~sPPPssssssPrrrPPsss", "ssssssssrrPs~~sPPsssPPPPPPPPPPPP", "PPPPssssrrPBBBBPPPPPPPrrPPPhPPrP", "rrPPPPPPrrPPs~~sPPPPPPrrPPPPPPPP", "rrPPPPPPrrPPs~~sPPPPPPrrPhPPPhPP", "rrPPPhsssPPs~~sPrPPssssPPPPPPPPP", "PPPrPPsssPPs~~sPPPPssssPPPPsssPP", "PPsssssssPPPs~~sPPPssssPPPPsssPP", "PPssssPPPhPPPs~~sPPPPPsshsPsssPP", "PPssssPPsssPPBBBBPrrrPsssssssPPP", "rPPPPrrPsssPPPs~~srrrPPrPPsssrrr", "PPhPPrrPPPPPrPs~~srrrPPPssssPrrr", "PPPPPPPssssPPs~~sssPPPPPssssPrrr", "PrrrPPPssssPPs~~sssPPrrPssssPPPP", "sssrsssssssPs~~sssshPrrPPPPPssss", "sssPsssPPPPPs~~sPPPPPPPPPrrrssss", "PPPPPPPrPPPPPBBBBPPPssssPrrrssss", "PPPssssPPrrPPPs~~sPPssssPrrrPPPP", "PPPssssPPrrssss~~sssssssPPPPrrrr", "PPPssssPPrrsssPr~sssPPPPPPPrrrrr", "PPPPPPPPPPPsssPs~sssPPPPPPPPrrrr")
+HeightRows = PackedStringArray("00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000")
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15")])
 Victory = "boss rusk"
 Defeat = PackedStringArray()
-Triggers = PackedStringArray("talk kai sable => scene ch06_sable; join sable", "turn 1 => scene ch06_start", "turn 5 => scene ch06_scouts", "visit 3,4 => scene ch06_house; give actor elixir", "combat rusk => scene ch06_boss", "defeated rusk => scene ch06_rusk")
+Triggers = PackedStringArray("talk kai sable => scene ch06_sable; join sable", "turn 1 => scene ch06_start", "turn 5 => scene ch06_scouts", "visit 5,6 => scene ch06_house; give actor elixir", "combat rusk => scene ch06_boss", "defeated rusk => scene ch06_rusk")
 Fog = false
-DeploySlots = "1,10 2,10 1,11 2,11 1,12 2,12 1,13 2,13"
+DeploySlots = "1,17 2,17 1,18 2,18 1,19 2,19 1,20 2,20"
 Background = "greyfen"

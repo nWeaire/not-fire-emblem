@@ -12,7 +12,7 @@ ALDRIC [neutral]: A woman. Grey hood, satchel, running like she means it.
 ROWAN [determined]: That's our scholar. Get between her and them.
 
 ### ch04_start
-@focus 8,8
+@focus 12,13
 ELISE [worried]: You there! Yes, you, with the swords! I would very much like not to be arrested today!
 ROWAN [determined]: Stay where you are. We're coming to you.
 ALDRIC [neutral]: Then we take her south, down the road and out the bottom of the valley. Don't stop to fight the gate.
@@ -27,7 +27,7 @@ ROWAN [neutral]: South exit. Stay close to me.
 ELISE [determined]: I can do more than stay close. I have fire. Quite a lot of it.
 
 ### ch04_soldiers
-@focus 8,2
+@focus 13,3
 NARRATOR: The soldiers came through the gate without a word. Not a shout, not an order, not a curse.
 MIRA [worried]: Their eyes, Rowan. Look at their eyes. There's nothing in them.
 TAMSIN [cold]: One of them dropped this. A seal. "Under orders from Dain Hall."

@@ -1,9 +1,9 @@
-"""Writes the bigger Prologue, Ch 1, Ch 2 and Ch 3 maps (session 7: +60% per side, the user's pick).
+"""Writes the bigger Prologue and Ch 1-6 maps (session 7: +60% per side, the user's pick).
 
 Each map is painted onto a grid (base terrain, then roads, rivers, houses, fields...) so the layout reads as code.
 The .tres files it writes are canonical afterwards (edit them directly); rerunning this overwrites them.
     python tools/maps/act1_early.py
-Dialogue @focus cells for these maps live in data/dialogue/{prologue,ch01,ch02,ch03}.txt.
+Dialogue @focus cells for these maps live in data/dialogue/{prologue,ch01..ch06}.txt.
 """
 from act1_ch4_6 import DATA, PLAYER, ENEMY, ALLY, AGGRESSIVE, STATIONARY, GUARD, BOSS, map_tres
 
@@ -348,8 +348,194 @@ def ch3():
              background="thornwood", fog=True)
 
 
+# ------------------------------------------------------------------ Chapter 4: The Scholar of Calder (26×26)
+
+def ch4():
+    g = Grid(26, 26)
+    # Hill country: rocky hills in the corners (raised), woods along the flanks.
+    for x0, y0, x1, y1 in [(0, 0, 3, 3), (22, 0, 25, 3), (0, 22, 2, 25), (23, 22, 25, 25)]:
+        g.rect(x0, y0, x1, y1, "M")
+        g.raise_(x0, y0, x1, y1, 2)
+    g.raise_(0, 4, 3, 7)
+    g.raise_(22, 4, 25, 7)
+    for x0, y0, x1, y1 in [(4, 0, 7, 2), (18, 0, 21, 2), (0, 8, 2, 12), (23, 8, 25, 12), (4, 7, 7, 10), (18, 8, 21, 11),
+                           (5, 15, 8, 18), (17, 19, 19, 21), (3, 20, 6, 23), (0, 14, 1, 19), (24, 14, 25, 19)]:
+        g.rect(x0, y0, x1, y1, "F")
+    g.spots(",", [(9, 6), (10, 7), (16, 6), (15, 8), (4, 12), (9, 13), (17, 13), (20, 14), (8, 20), (16, 23),
+                  (10, 10), (21, 6), (6, 13), (19, 24), (9, 23)])
+    # The north road through the toll gate (a palisade with the road through it) down to the south exit.
+    g.vline(12, 0, 25)
+    g.vline(13, 0, 25)
+    g.hline(4, 3, 10, "W")
+    g.hline(4, 15, 22, "W")
+    # The waystation to the south-east: three buildings (forts) where the party can rest.
+    g.spots("T", [(20, 20), (21, 21), (22, 21)])
+    g.spots("P", [(10, 25), (11, 25), (14, 25), (15, 25)])
+
+    def soldier(pos, lvl=4, group=""):
+        return dict(ClassId="soldier", Name="Dain Hall Soldier", SpriteId="enemy_soldier", Level=lvl,
+                    Inventory=["iron_lance"], Pos=pos, Group=group, Armor="padded_gambeson")
+
+    def cavalier(pos, group=""):
+        return dict(ClassId="cavalier", Name="Dain Hall Cavalier", SpriteId="enemy_cavalier", Level=5,
+                    Inventory=["iron_lance"], Pos=pos, Group=group)
+
+    def archer(pos, group=""):
+        return dict(ClassId="archer", Name="Dain Hall Archer", SpriteId="enemy_archer", Level=4,
+                    Inventory=["iron_bow"], Pos=pos, Group=group)
+
+    spawns = [
+        # Elise on the road, just out of the first wave's reach; the soldiers wait at the toll gate.
+        dict(UnitId="elise", Faction=ALLY, Level=4, Pos=(12, 13), Ai=STATIONARY),
+        soldier((11, 2)), soldier((13, 3)), soldier((16, 2), 5), archer((9, 2)), cavalier((12, 1)), soldier((10, 2), 5),
+        soldier((15, 3)),
+        # A wave down the road every turn.
+        soldier((12, 0), 4, "north2"), soldier((13, 0), 4, "north2"),
+        cavalier((13, 0), "north3"), archer((12, 0), "north3"),
+        soldier((12, 0), 5, "north4"), soldier((13, 0), 5, "north4"),
+        soldier((12, 0), 5, "north5"), dict(archer((13, 0), "north5"), HardOnly=True),
+    ]
+    triggers = ["turn 1 => scene ch04_start",
+                "talk rowan elise => scene ch04_elise; join elise",
+                "turn 2 => spawn north2", "turn 3 => spawn north3; scene ch04_soldiers",
+                "turn 4 => spawn north4", "turn 5 => spawn north5",
+                "enter player 19,19-22,21 => scene ch04_waystation"]
+    slots = [(15, 13), (16, 13), (15, 14), (16, 14), (15, 15), (16, 12)]
+    map_tres("ch4", "Chapter 4: The Scholar of Calder", g.rows(), g.height_rows(), spawns,
+             "escape 10,25-15,25 elise rowan", ["die elise"], triggers, slots, background="hill_road")
+
+
+# ------------------------------------------------------------------ Chapter 5: Ferrow's Keep (29×22)
+
+def ch5():
+    g = Grid(29, 22)
+    # The keep: walls round a stone courtyard, open to the west (the party's side); the east wall faces the Gloam.
+    g.rect(4, 1, 18, 20, "#")
+    g.hline(0, 3, 19, "W")
+    g.hline(21, 3, 19, "W")
+    g.vline(19, 0, 21, "W")
+    g.vline(3, 0, 21, "W")
+    g.vline(3, 8, 13, "#")       # the west gateway, open
+    g.raise_(3, 0, 19, 0)
+    g.raise_(3, 21, 19, 21)
+    g.raise_(19, 0, 19, 21)
+    g.put(19, 17, "P")           # a breach in the east wall, open from the start
+    g.raise_(19, 17, 19, 17, 0)
+    # Inside: the hall and two barrack blocks (walls, raised) break up the yard; forts are the keep's rooms.
+    for x0, y0, x1, y1 in [(6, 8, 9, 13), (11, 3, 14, 5), (11, 16, 14, 18)]:
+        g.rect(x0, y0, x1, y1, "W")
+        g.raise_(x0, y0, x1, y1)
+    g.spots("T", [(16, 2), (5, 3), (16, 10), (5, 18), (16, 19), (10, 10)])
+    # The field to the east, where the waves come from.
+    for x0, y0, x1, y1 in [(24, 1, 26, 3), (22, 17, 24, 19), (26, 10, 28, 12), (27, 18, 28, 21), (20, 0, 21, 1)]:
+        g.rect(x0, y0, x1, y1, "F")
+    g.spots(",", [(21, 7), (23, 13), (25, 6), (21, 20), (27, 15)])
+    g.spots("F", [(0, 0), (1, 0), (0, 21), (1, 21), (0, 20)])
+
+    def hound(pos, group=""):
+        return dict(ClassId="gloam_hound", SpriteId="enemy_gloam_hound", Level=4, Group=group,
+                    Inventory=["gloam_fangs"], Pos=pos, DominatedBy="hollin")
+
+    def brute(pos, group=""):
+        return dict(ClassId="gloam_brute", SpriteId="enemy_gloam_brute", Level=4, Group=group,
+                    Inventory=["gloam_claws"], Pos=pos, DominatedBy="hollin")
+
+    def stalker(pos, group=""):
+        return dict(ClassId="gloam_stalker", SpriteId="enemy_gloam_stalker", Level=4, Group=group,
+                    Inventory=["bone_spikes"], Pos=pos, DominatedBy="hollin")
+
+    spawns = [
+        dict(UnitId="dorran", Faction=ALLY, Level=8, Pos=(18, 11), Ai=STATIONARY),
+        hound((22, 5)), hound((22, 15)), stalker((24, 8)), stalker((24, 16)), brute((24, 11)),
+        dict(ClassId="gloam_brute", Name="Gloam Alpha", Tag="alpha", SpriteId="enemy_gloam_alpha", Level=8,
+             Inventory=["gloam_claws"], Pos=(22, 11), Ai=BOSS, IsBoss=True, DominatedBy="hollin"),
+        dict(ClassId="binder", Name="Binder Hollin", Tag="hollin", SpriteId="enemy_binder", Level=6,
+             Inventory=["shadow"], Pos=(27, 1), Ai=STATIONARY, CrestBearer=True),
+        hound((28, 6), "wave2"), hound((28, 15), "wave2"), stalker((28, 10), "wave2"),
+        brute((28, 5), "wave3"), hound((28, 11), "wave3"), hound((28, 16), "wave3"),
+        hound((28, 3), "wave4"), stalker((28, 13), "wave4"), brute((28, 17), "wave4"),
+        hound((28, 9), "wave5"), stalker((28, 4), "wave5"),
+        hound((28, 8), "wave6"), hound((28, 14), "wave6"), dict(brute((28, 11), "wave6"), HardOnly=True),
+    ]
+    triggers = ["turn 1 => scene ch05_dorran; join dorran",
+                "turn 2 enemy => spawn wave2", "turn 3 enemy => spawn wave3", "turn 4 enemy => spawn wave4",
+                "turn 5 => terrain 19,10-19,11 #; scene ch05_gate", "turn 5 enemy => spawn wave5",
+                "turn 6 enemy => spawn wave6",
+                "combat alpha => scene ch05_alpha",
+                "defeated hollin => scene ch05_hollin; gold 500; win"]
+    slots = [(13, 8), (14, 8), (13, 11), (14, 11), (12, 10), (14, 10), (13, 13)]
+    map_tres("ch5", "Chapter 5: Ferrow's Keep", g.rows(), g.height_rows(), spawns, "survive 8", ["die dorran"], triggers,
+             slots, background="ferrows_keep")
+
+
+# ------------------------------------------------------------------ Chapter 6: The Bandit King of Greyfen (32×22)
+
+def ch6():
+    g = Grid(32, 22)
+    # The fen: a deep channel winds north to south through the middle, edged by shallows; reed beds and
+    # shallow pools everywhere else. Firm ground is the paths between them.
+    channel = [11, 11, 12, 12, 13, 13, 12, 12, 13, 14, 14, 15, 15, 14, 14, 13, 13, 14, 15, 15, 16, 16]
+    for y, x in enumerate(channel):
+        g.rect(x - 1, y, x + 2, y, "s")
+        g.rect(x, y, x + 1, y, "~")
+    for x0, y0, x1, y1 in [(4, 1, 7, 3), (2, 8, 5, 10), (7, 13, 10, 15), (3, 18, 6, 20), (19, 6, 22, 8),
+                           (24, 12, 27, 14), (20, 17, 23, 19), (27, 7, 29, 9), (17, 1, 19, 2)]:
+        g.rect(x0, y0, x1, y1, "s")
+    for x0, y0, x1, y1 in [(8, 2, 9, 5), (0, 4, 1, 6), (5, 11, 6, 12), (1, 14, 3, 15), (9, 18, 10, 20),
+                           (18, 10, 20, 12), (22, 3, 23, 5), (25, 16, 27, 18), (29, 11, 31, 13), (21, 14, 22, 15),
+                           (28, 19, 31, 21), (24, 0, 26, 1)]:
+        g.rect(x0, y0, x1, y1, "r")
+    for x0, y0, x1, y1 in [(0, 0, 3, 2), (6, 6, 8, 8), (0, 15, 2, 16), (11, 19, 13, 21), (16, 13, 18, 15),
+                           (22, 9, 25, 10), (28, 15, 31, 17), (17, 19, 19, 21), (23, 0, 26, 0), (29, 0, 31, 1),
+                           (8, 10, 10, 11), (4, 15, 6, 16), (26, 10, 28, 11), (20, 0, 22, 1)]:
+        g.rect(x0, y0, x1, y1, "s")
+    g.spots("r", [(7, 0), (3, 7), (0, 11), (12, 12), (16, 6), (23, 11), (27, 20), (15, 20), (7, 17), (30, 3)])
+    # Boardwalks over the channel: north, middle and south crossings.
+    for y in (3, 10, 17):
+        x = channel[y]
+        g.rect(x - 1, y, x + 2, y, "B")
+    # Stilt houses: the village by the start, a hut mid-fen, and Rusk's hall to the north-east.
+    g.spots("h", [(5, 6), (2, 12), (9, 9), (19, 15), (24, 9), (27, 3), (29, 5), (25, 5)])
+    g.rect(26, 2, 29, 4, "P")
+    g.put(27, 3, "h")
+
+    def bandit(pos, lvl=5, group=""):
+        return dict(ClassId="fighter", Name="Greyfen Bandit", SpriteId="enemy_fighter", Level=lvl,
+                    Inventory=["iron_axe"], Pos=pos, Group=group, DominatedBy="rusk", Armor="leather_jerkin")
+
+    def archer(pos, lvl=5):
+        return dict(ClassId="archer", Name="Greyfen Archer", SpriteId="enemy_archer", Level=lvl,
+                    Inventory=["iron_bow"], Pos=pos, DominatedBy="rusk")
+
+    spawns = [
+        dict(UnitId="sable", Faction=ENEMY, Level=6, Pos=(17, 9), Ai=STATIONARY),
+        dict(ClassId="fighter", Name="Rusk", Tag="rusk", SpriteId="boss_rusk", Level=9, Armor="chainmail",
+             Inventory=["steel_axe", "hand_axe"], Pos=(27, 3), Ai=BOSS, IsBoss=True, CrestBearer=True),
+        bandit((9, 7)), bandit((16, 5)), bandit((19, 13)), bandit((22, 6), 6), bandit((21, 15)),
+        bandit((26, 6), 6), bandit((29, 6), 6), bandit((24, 18), 6),
+        archer((3, 5)), archer((20, 4)), archer((25, 2), 6),
+        dict(ClassId="myrmidon", Name="Greyfen Sellsword", SpriteId="enemy_myrmidon", Level=6,
+             Inventory=["iron_sword"], Pos=(30, 9), DominatedBy="rusk"),
+        dict(bandit((30, 4), 6), HardOnly=True),
+    ]
+    for unit in spawns[2:]:
+        unit.setdefault("Ai", GUARD)
+    triggers = ["talk kai sable => scene ch06_sable; join sable",
+                "turn 1 => scene ch06_start",
+                "turn 5 => scene ch06_scouts",
+                "visit 5,6 => scene ch06_house; give actor elixir",
+                "combat rusk => scene ch06_boss",
+                "defeated rusk => scene ch06_rusk"]
+    slots = [(1, 17), (2, 17), (1, 18), (2, 18), (1, 19), (2, 19), (1, 20), (2, 20)]
+    map_tres("ch6", "Chapter 6: The Bandit King of Greyfen", g.rows(), g.height_rows(), spawns, "boss rusk", [],
+             triggers, slots, background="greyfen")
+
+
 if __name__ == "__main__":
     prologue()
     ch1()
     ch2()
     ch3()
+    ch4()
+    ch5()
+    ch6()

@@ -11,7 +11,7 @@ ELISE [worried]: There'll be a Binder behind them. There always is. Someone has 
 ROWAN [determined]: Then we hold the walls until dawn, and we look for the one holding the leash.
 
 ### ch05_dorran
-@focus 11,7
+@focus 18,11
 DORRAN [cold]: You're late. And you're not the King's men.
 ROWAN [neutral]: We're from Brookhollow. We came to help.
 DORRAN [neutral]: Captain Dorran Kell. Retired. They forgot to tell the Gloamkin. Hold the courtyard, my lord.
@@ -22,7 +22,7 @@ ALDRIC [cold]: It's warm.
 DORRAN [neutral]: ...So it is. Keep the gate, then. I'll keep my questions.
 
 ### ch05_gate
-@focus 12,7
+@focus 19,11
 @sfx gloam_roar
 NARRATOR: Something huge hit the gate, and the gate gave way.
 DORRAN [determined]: The gate's down! Close the gap! Lines are what keep villages!

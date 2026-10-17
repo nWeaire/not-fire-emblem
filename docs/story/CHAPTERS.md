@@ -76,7 +76,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Scenes:** `ch03_pre`, `ch03_tamsin`, `ch03_dogs`, `ch03_post` (the orders point to Elise and to Lord Halvric's men).
 
 ## Chapter 4 — "The Scholar of Calder"
-- **Map:** 16×16 hill road; a toll gate north, a waystation south.
+- **Map:** 26×26 hill road (session 8): the road runs north to south through a toll-gate palisade, with woods and rocky hills on the flanks and the waystation (forts) to the south-east. Elise starts mid-road; the party starts 3–4 cells from her.
 - **Party:** up to 6. **Win:** **Escape**: Elise reaches the south exit, and Rowan must exit too. **Lose:** default, or Elise dies.
 - **Enemies:** Lord Halvric's soldiers and 2 cavaliers. Their eyes are wrong: they never speak and they fight to the death. They come in from the north each turn.
 - **Events:** Elise starts as an Ally NPC and joins on Rowan's Talk (`ch04_elise`). The T3 bark `ch04_soldiers` reveals they are "under orders from Dain Hall".
@@ -84,7 +84,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Scenes:** `ch04_pre`, `ch04_elise`, `ch04_soldiers`, `ch04_lore`.
 
 ## Chapter 5 — "Ferrow's Keep"
-- **Map:** 18×14 border fort with walls, a gate and a courtyard. Gloamkin pour from the east.
+- **Map:** 29×22 border fort (session 8): a walled courtyard with a hall and two barracks for cover, open to the west; the east wall has a breach and a gate that breaks on T5. Gloamkin pour from the east field in waves on T2–T6.
 - **Party:** up to 7, plus Dorran pre-deployed. **Win:** Survive 8 turns. **Lose:** default, or Dorran dies.
 - **Enemies:** waves of Gloamkin, plus a Gloam Brute Alpha (B) and a Binder at the rear. Killing the Binder makes the waves stop early.
 - **Events:**
@@ -95,7 +95,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Scenes:** `ch05_pre`, `ch05_dorran`, `ch05_gate`, `ch05_post` (Dorran to Aldric, privately: "I thought the Wardens all burned.").
 
 ## Chapter 6 — "The Bandit King of Greyfen"
-- **Map:** 20×14 marsh, with shallow water (slow), reeds (avoid) and stilt houses.
+- **Map:** 32×22 marsh (session 8): a deep channel winds north to south with three boardwalk crossings; shallows (slow), reeds (avoid) and stilt houses everywhere else. Rusk's hall is north-east, Sable mid-fen; the bandits guard their ground.
 - **Party:** up to 8. **Win:** Defeat Boss (Rusk). **Lose:** default.
 - **Enemies:** bandits, archers, Sable (a myrmidon), and Rusk (B, a stolen shrouded crest, Dominion over the bandits).
 - **Events:**

@@ -6,22 +6,25 @@ _Last updated: 2026-10-17 (end of session 7)._
 
 ---
 
-## Next (plan for session 8)
-Session 7 is merged into `main` (fast-forward, not pushed); work continues on `act1-scale`.
-1. **Hand playtest Prologue → Ch 2** (the user). Most of session 7 is untested by hand: the bigger maps and their
-   balance, Kai from turn 1, Mira's Prayer, Brann's rescue, the weapon picker, the crest absorption, the shadows and
-   tilt-shift (is the blur too strong?), the side outlines, and keyboard focus in the hub and prep screens.
-   Autoplay won every run but still loses villagers and Kai sometimes; tune from the user's notes.
-2. **Merge `art-direction-gba` into `main`** once the playtest is happy (sessions 4–7 live only on this branch).
-3. **Ch 4–6 at the new scale:** the Prologue to Ch 3 are enlarged (+60%); Ch 3 (32×22, session 7) is a hunt: the
-   packs guard their clearings and Tamsin holds a hunter's hut (fort) until the party reaches her. Follow
-   `tools/maps/act1_early.py` for Ch 4–6 (`act1_ch4_6.py` wrote the current ones) and retune with autoplay.
+## Next (plan for session 9)
+`main` holds everything up to the Aldric retune (fast-forward, not pushed); Ch 4–6 at the new scale are on `act1-scale`.
+1. **Hand playtest Ch 3 → Ch 6** (the user). New since the last playtest: Ch 3 at 32×22, the list-and-card shop,
+   spell effects, portrait expressions, Rowan's clean criticals, guards waking 2 cells sooner, and Ch 4–6 rebuilt.
+2. **Ch 6 balance:** autoplay wins 2 of 3 but loses 3–6 units a run (one run stalled with only Rowan left). If it
+   feels too hard by hand, thin the bandits near the start or the archers by the channel crossings.
+3. **Merge `act1-scale` into `main`** after the playtest.
 4. **Ch 7, "Storm over Dain Hall"** (ends Act I): map, script, Wren and Lord Halvric (CHAPTERS.md), plus their art.
-5. **Art with the remaining ~$9 of PixelLab credit** (`docs/ART_NEEDED.md`): walk/attack map animations for Sennet
-   and Varga; Fire / Shadow / Heal spell effects; crest skill auras; portrait expressions for the main cast; UI icons;
-   a hub backdrop. Characters keep the current look (no chibi NSO style).
+5. **Art with the remaining ~$7 of PixelLab credit** (`docs/ART_NEEDED.md`): walk/attack map animations for Sennet
+   and Varga; crest skill auras; UI icons; a hub backdrop. Characters keep the current look (no chibi NSO style).
 6. **Systems not built yet:** crest fragments / crest EXP, suspend saves, and a Windows build (install Godot's export
    templates, then the "Windows Desktop" preset).
+
+## Session 8: playtest round 2 and Ch 4–6 at the new scale
+- Shop as a list plus detail card, X jumps to Party, Aldric about 10% below his original strength, villagers 24 HP / 4 Def,
+  Rowan's criticals redrawn, guards wake at move + range + 2, 18 portrait expressions, spell effects in code.
+- **Ch 4–6 rebuilt** in `tools/maps/act1_early.py` (26×26, 29×22, 32×22; the .tres files are canonical, rerunning
+  the script overwrites them) with dialogue `@focus` cells moved to match. Autoplay (seeds 1–3): Ch 4 wins 3/3 on
+  T4, Ch 5 wins 3/3 (Dorran lives), Ch 6 wins 2/3 with heavy losses.
 
 ## Session 7: hand-check fixes, bigger early maps, art and polish
 - **Playtest round 2:** Rowan's criticals redrawn without baked-in effects (`animate_still.py --critical`, effect

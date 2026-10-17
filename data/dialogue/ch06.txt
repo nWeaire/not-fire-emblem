@@ -11,7 +11,7 @@ ELISE [worried]: If the rumour's true, he's holding them the way the Binders hol
 ROWAN [determined]: Then where did he get a crest?
 
 ### ch06_start
-@focus 10,6
+@focus 17,9
 KAI [surprised]: Hang on. The swordswoman on the stilt house. Red headband. That's Sable!
 ROWAN [neutral]: You know her?
 KAI [smile]: She grew up two farms over. She still owes me eight silver. Let me talk to her.
@@ -25,7 +25,7 @@ SABLE [cold]: ...I've seen. I took his coin before he got that thing on his hand
 SABLE [smile]: Fine. I'm switching sides. You can owe me sixteen.
 
 ### ch06_scouts
-@focus 10,0
+@focus 16,1
 @sfx gloam_howl
 NARRATOR: Wings beat overhead. Three riders on white pegasi, in Dain Hall green, circled once and turned north.
 TAMSIN [cold]: Scouts. Counting us.
@@ -41,7 +41,7 @@ ROWAN [cold]: It's not yours.
 RUSK [laugh]: It is now. That's how crests work.
 
 ### ch06_rusk
-@focus 17,2
+@focus 27,3
 @sfx crest_rise
 RUSK [hurt]: No... it was mine... I took it fair...
 NARRATOR: The purple crest tore free of Rusk's hand, hung in the air, and drifted toward Rowan. It burned white.

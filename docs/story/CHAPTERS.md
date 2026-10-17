@@ -57,7 +57,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 ## ACT I — THE THORNVALE
 
 ## Chapter 2 — "The Millbrook Road"
-- **Map:** 29×19 (enlarged in session 7). Roads on both banks of the river and three bridges (chokepoints); the mill sits at the far north-east end. Brann's forge is on the south road, about as far from the deploy slots as before so he can be reached in time.
+- **Map:** 29×19 (enlarged in session 7). Roads on both banks of the river and three bridges (chokepoints); the mill sits at the far north-east end. Brann's forge is on the south road two moves from the deploy slots, with the south-bank bandits further east, so the party reaches him as they do (moved in session 7 after a playtest). Some bandits are **Axe Throwers** (hand axes, range 1-2).
 - **Party:** up to 5. **Win:** Seize the mill. **Lose:** default.
 - **Enemies:** 13 bandits (fighters, archers, sellswords; A, with the mill guard on G/S) plus a 3-man ambush on T3, and a Bandit leader with a Hand Axe (B, on the mill).
 - **Events:** Brann starts as an **Ally** defending his forge, and joins when Rowan *Talks* to him (`ch02_brann`). If Brann is left alone for 3 turns, he takes damage (tension). Two village houses can be Visited for items.

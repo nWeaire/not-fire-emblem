@@ -24,13 +24,18 @@ public static class CombatCalculator
     public static IEnumerable<WeaponDef> UsableWeapons(ContentDatabase db, UnitState unit) =>
         unit.Inventory.Select(db.TryWeapon).OfType<WeaponDef>().Where(w => CanWield(db, unit, w)).Distinct();
 
-    /// <summary>The weapon the unit counters with: its equipped weapon, else its first usable one.</summary>
-    public static WeaponDef? CounterWeapon(ContentDatabase db, UnitState unit)
+    /// <summary>
+    /// The weapon the unit counters with: its equipped weapon, else its first usable one. Given the attack's
+    /// <paramref name="distance"/>, a carried weapon that reaches is used when the equipped one can't (a fighter with
+    /// a hand axe answers a thrown axe; session 7, the user expected units to hit back).
+    /// </summary>
+    public static WeaponDef? CounterWeapon(ContentDatabase db, UnitState unit, int? distance = null)
     {
         var equipped = db.TryWeapon(unit.EquippedItemId);
-        if (equipped is not null && CanWield(db, unit, equipped))
-            return equipped;
-        return UsableWeapons(db, unit).FirstOrDefault();
+        var usable = equipped is not null && CanWield(db, unit, equipped) ? equipped : UsableWeapons(db, unit).FirstOrDefault();
+        if (distance is { } d && usable is not null && !InRange(usable, d))
+            return UsableWeapons(db, unit).FirstOrDefault(w => InRange(w, d)) ?? usable;
+        return usable;
     }
 
     public static bool InRange(WeaponDef weapon, int distance) => distance >= weapon.MinRange && distance <= weapon.MaxRange;
@@ -80,8 +85,8 @@ public static class CombatCalculator
     {
         var attackWeapon = EffectiveWeapon(s.Db, choice);
         bool noCounter = choice is ArtAttack art && s.Db.Art(art.ArtId).NoCounter;
-        var counterWeapon = CounterWeapon(s.Db, defender.State);
         int distance = attackerPos.DistanceTo(defender.Pos);
+        var counterWeapon = CounterWeapon(s.Db, defender.State, distance);
         bool canCounter = !noCounter && counterWeapon is not null && InRange(counterWeapon, distance);
 
         var aStats = s.Stats(attacker);

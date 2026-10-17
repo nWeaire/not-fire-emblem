@@ -229,8 +229,10 @@ def ch2():
     g.rect(25, 1, 28, 2, "W")
     g.put(27, 2, "T")
     # Doors face south (house()), so each is reached from the cell below it.
-    g.house(15, 12)  # the forge: door at (16, 13)
-    g.house(9, 13)   # house A: door at (10, 14)
+    # The forge sits two moves from the deploy slots (session 7: the user couldn't reach Brann in time); house A
+    # is further east.
+    g.house(9, 13)   # the forge: door at (10, 14)
+    g.house(15, 12)  # house A: door at (16, 13)
     g.house(13, 1)   # house B: door at (14, 2)
     # Fields.
     g.rect(0, 3, 3, 5, ":")
@@ -242,15 +244,16 @@ def ch2():
         return dict(ClassId="fighter", Name="Bandit", Level=level, Inventory=["iron_axe"], Pos=pos, **kv)
 
     def thrower(pos, level=2, **kv):
-        return dict(ClassId="fighter", Name="Bandit", Level=level, Inventory=["hand_axe"], Pos=pos, **kv)
+        # Named apart: they throw from 2 cells, where swords and lances can't answer.
+        return dict(ClassId="fighter", Name="Axe Thrower", Level=level, Inventory=["hand_axe"], Pos=pos, **kv)
 
     def archer(pos, level=2, **kv):
         return dict(ClassId="archer", Name="Bandit Archer", Level=level, Inventory=["iron_bow"], Pos=pos, **kv)
 
     spawns = [
-        dict(UnitId="brann", Faction=ALLY, Pos=(16, 13), Ai=STATIONARY),
-        # South bank, between the party and the forge: these come for the party first.
-        bandit((11, 11), 1), thrower((12, 10)), bandit((10, 12), 1), bandit((13, 9)), archer((14, 11)),
+        dict(UnitId="brann", Faction=ALLY, Pos=(10, 14), Ai=STATIONARY),
+        # South bank, east of the forge: they reach it about when the party does (turn 2), so you fight beside Brann.
+        bandit((17, 11), 1), thrower((18, 10)), bandit((17, 15), 1), bandit((19, 13)), archer((20, 11)),
         # North bank: the near ones roam; the far ones hold the road to the mill until someone comes close.
         bandit((9, 4), 1), bandit((12, 5), Ai=GUARD), thrower((15, 4), Ai=GUARD), archer((18, 3), Ai=GUARD), bandit((20, 6), Ai=GUARD),
         dict(ClassId="myrmidon", Name="Sellsword", Level=3, Inventory=["iron_sword"], Pos=(22, 5), Ai=GUARD),
@@ -269,7 +272,7 @@ def ch2():
                 "turn 3 enemy unless joined brann => scene ch02_brann_pressed",
                 "turn 3 => spawn ambush",
                 "combat gorran => scene ch02_boss",
-                "visit 10,14 => scene ch02_house_a; give actor vulnerary",
+                "visit 16,13 => scene ch02_house_a; give actor vulnerary",
                 "visit 14,2 => scene ch02_house_b; gold 600; give actor energy_drop"]
     slots = [(2, 13), (3, 13), (2, 14), (3, 14), (2, 15), (3, 15)]
     map_tres("ch2", "Chapter 2: The Millbrook Road", g.rows(), g.height_rows(), spawns, "seize 27,2", [],

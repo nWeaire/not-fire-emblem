@@ -11,6 +11,20 @@ public class CombatTests
         CombatCalculator.Forecast(s, s.Units[0], s.Units[0].Pos, s.Units[1], new WeaponAttack(weapon));
 
     [Fact]
+    public void Counter_UsesACarriedWeaponThatReachesWhenTheEquippedOneCant()
+    {
+        // A javelin thrown from 2 cells: the defender's equipped lance can't reach, its javelin can.
+        var s = new TestBattle("...").Unit(Faction.Player, "soldier", 0, 0, "javelin")
+            .Unit(Faction.Enemy, "soldier", 2, 0, "lance", "javelin").Build();
+        var f = Forecast(s, "javelin");
+        Assert.True(f.Defender.CanStrike);
+        // With nothing that reaches, still no counter.
+        var t = new TestBattle("...").Unit(Faction.Player, "soldier", 0, 0, "javelin")
+            .Unit(Faction.Enemy, "soldier", 2, 0, "lance").Build();
+        Assert.False(Forecast(t, "javelin").Defender.CanStrike);
+    }
+
+    [Fact]
     public void BaseFormulas_MatchGdd()
     {
         // Both: Str 10, Dex 10, Spd 10, Lck 0, Def 5. Weapon Mt 5, Hit 100, Wt 0.

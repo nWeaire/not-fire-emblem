@@ -8,7 +8,7 @@ script = ExtResource("2_spawn")
 UnitId = "brann"
 Level = 1
 Faction = 2
-Position = Vector2i(16, 13)
+Position = Vector2i(10, 14)
 Ai = 1
 
 [sub_resource type="Resource" id="SpawnDefinition_2"]
@@ -18,17 +18,17 @@ Name = "Bandit"
 Level = 1
 Inventory = PackedStringArray("iron_axe")
 Faction = 1
-Position = Vector2i(11, 11)
+Position = Vector2i(17, 11)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_3"]
 script = ExtResource("2_spawn")
 ClassId = "fighter"
-Name = "Bandit"
+Name = "Axe Thrower"
 Level = 2
 Inventory = PackedStringArray("hand_axe")
 Faction = 1
-Position = Vector2i(12, 10)
+Position = Vector2i(18, 10)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_4"]
@@ -38,7 +38,7 @@ Name = "Bandit"
 Level = 1
 Inventory = PackedStringArray("iron_axe")
 Faction = 1
-Position = Vector2i(10, 12)
+Position = Vector2i(17, 15)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_5"]
@@ -48,7 +48,7 @@ Name = "Bandit"
 Level = 2
 Inventory = PackedStringArray("iron_axe")
 Faction = 1
-Position = Vector2i(13, 9)
+Position = Vector2i(19, 13)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_6"]
@@ -58,7 +58,7 @@ Name = "Bandit Archer"
 Level = 2
 Inventory = PackedStringArray("iron_bow")
 Faction = 1
-Position = Vector2i(14, 11)
+Position = Vector2i(20, 11)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_7"]
@@ -84,7 +84,7 @@ Ai = 2
 [sub_resource type="Resource" id="SpawnDefinition_9"]
 script = ExtResource("2_spawn")
 ClassId = "fighter"
-Name = "Bandit"
+Name = "Axe Thrower"
 Level = 2
 Inventory = PackedStringArray("hand_axe")
 Faction = 1
@@ -178,7 +178,7 @@ Ai = 2
 [sub_resource type="Resource" id="SpawnDefinition_18"]
 script = ExtResource("2_spawn")
 ClassId = "fighter"
-Name = "Bandit"
+Name = "Axe Thrower"
 Level = 3
 Inventory = PackedStringArray("hand_axe")
 Faction = 1
@@ -228,7 +228,7 @@ HeightRows = PackedStringArray("00001111000000000000000000000", "000011110000000
 Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21")])
 Victory = "seize 27,2"
 Defeat = PackedStringArray()
-Triggers = PackedStringArray("talk rowan brann => scene ch02_brann; join brann", "turn 3 enemy unless joined brann => scene ch02_brann_pressed", "turn 3 => spawn ambush", "combat gorran => scene ch02_boss", "visit 10,14 => scene ch02_house_a; give actor vulnerary", "visit 14,2 => scene ch02_house_b; gold 600; give actor energy_drop")
+Triggers = PackedStringArray("talk rowan brann => scene ch02_brann; join brann", "turn 3 enemy unless joined brann => scene ch02_brann_pressed", "turn 3 => spawn ambush", "combat gorran => scene ch02_boss", "visit 16,13 => scene ch02_house_a; give actor vulnerary", "visit 14,2 => scene ch02_house_b; gold 600; give actor energy_drop")
 Fog = false
 DeploySlots = "2,13 3,13 2,14 3,14 2,15 3,15"
 Background = ""

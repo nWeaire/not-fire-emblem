@@ -278,13 +278,17 @@ public partial class MapView : Node3D
 
     private void AddHedgeBox(Vector3 top, float x0, float x1, float z0, float z1)
     {
+        var mesh = new BoxMesh { Size = new Vector3(x1 - x0, HedgeHeight, z1 - z0) };
+        var position = top + new Vector3((x0 + x1) / 2f, HedgeHeight / 2f, (z0 + z1) / 2f);
         AddChild(new MeshInstance3D
         {
-            Mesh = new BoxMesh { Size = new Vector3(x1 - x0, HedgeHeight, z1 - z0) },
+            Mesh = mesh,
             MaterialOverride = HedgeMaterial,
-            Position = top + new Vector3((x0 + x1) / 2f, HedgeHeight / 2f, (z0 + z1) / 2f),
+            Position = position,
             CastShadow = GeometryInstance3D.ShadowCastingSetting.Off,
         });
+        // The visible hedge is pulled toward the camera in its shader; an unpulled copy casts its shadow.
+        AddChild(new MeshInstance3D { Mesh = mesh, Position = position, CastShadow = GeometryInstance3D.ShadowCastingSetting.ShadowsOnly });
     }
 
     private ShaderMaterial? _hedgeMaterial;
@@ -331,10 +335,14 @@ public partial class MapView : Node3D
         return material;
     }
 
-    /// <summary>An upright pixel-art prop standing on <paramref name="ground"/>, facing the camera like the units.</summary>
-    private void AddBillboard(Texture2D texture, Vector3 ground)
+    /// <summary>
+    /// An upright pixel-art prop standing on <paramref name="ground"/>, facing the camera like the units. The visible
+    /// sprite is pulled toward the camera (see _Process), which would put its shadow away from its base, so with
+    /// <paramref name="shadow"/> an invisible copy stands on the true ground point and casts the shadow instead.
+    /// </summary>
+    private void AddBillboard(Texture2D texture, Vector3 ground, bool shadow = true)
     {
-        var sprite = new Sprite3D
+        Sprite3D Make(GeometryInstance3D.ShadowCastingSetting cast) => new()
         {
             Texture = texture,
             Billboard = BaseMaterial3D.BillboardModeEnum.Enabled, // like the units: FixedY squashed props under the high camera
@@ -344,11 +352,13 @@ public partial class MapView : Node3D
             PixelSize = ArtPixelSize,
             Offset = new Vector2(0f, texture.GetHeight() / 2f), // the art is cropped, so this stands it on the ground
             Position = ground,
-            // Pulled toward the camera (see _Process), its shadow would land away from its base.
-            CastShadow = GeometryInstance3D.ShadowCastingSetting.Off,
+            CastShadow = cast,
         };
+        var sprite = Make(GeometryInstance3D.ShadowCastingSetting.Off);
         AddChild(sprite);
         _billboards.Add((sprite, ground));
+        if (shadow)
+            AddChild(Make(GeometryInstance3D.ShadowCastingSetting.ShadowsOnly));
     }
 
     public override void _Process(double delta)
@@ -368,8 +378,9 @@ public partial class MapView : Node3D
     private void AddDecor(string id, GridPos p, int salt, Vector3 ground)
     {
         var art = Props(id);
+        // Only the taller decorations cast shadows; grass tufts and flowers are too small to show one.
         if (art.Count > 0)
-            AddBillboard(art[(int)(Hash(p, salt) % (uint)art.Count)], ground);
+            AddBillboard(art[(int)(Hash(p, salt) % (uint)art.Count)], ground, shadow: id is "wheat" or "bush" or "reed");
     }
 
     /// <summary>A point toward one of the cell's four corners (chosen by the hash), jittered a little.</summary>

@@ -23,7 +23,11 @@ sky_material = SubResource("SkyMat")
 background_mode = 2
 sky = SubResource("Sky")
 ambient_light_source = 3
-ambient_light_energy = 0.6
+ambient_light_energy = 0.5
+glow_enabled = true
+glow_intensity = 0.35
+glow_bloom = 0.04
+glow_hdr_threshold = 0.9
 
 [node name="Battle" type="Node3D"]
 script = ExtResource("1_ctrl")
@@ -32,9 +36,13 @@ script = ExtResource("1_ctrl")
 environment = SubResource("Env")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-rotation = Vector3(-0.95, 0.6, 0)
-light_energy = 1.1
+rotation = Vector3(-0.72, 0.75, 0)
+light_color = Color(1, 0.94, 0.82, 1)
+light_energy = 1.2
 shadow_enabled = true
+shadow_opacity = 0.75
+shadow_blur = 1.5
+directional_shadow_max_distance = 45.0
 
 [node name="MapView" type="Node3D" parent="."]
 unique_name_in_owner = true

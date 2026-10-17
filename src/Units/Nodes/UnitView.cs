@@ -37,6 +37,7 @@ public partial class UnitView : Node3D
     private StandardMaterial3D? _material;
     private AnimatedSprite3D? _sprite;
     private MeshInstance3D? _shadow;
+    private AnimatedSprite3D? _caster;
     private Label3D _label = null!;
     private Color _baseColor;
     private Color _tint = Colors.White;
@@ -62,6 +63,17 @@ public partial class UnitView : Node3D
         _ => AllyColor,
     };
 
+    /// <summary>The ring drawn round a map sprite to show its side: blue army, red enemies, green allies.</summary>
+    public static Color OutlineFor(Faction faction) => faction switch
+    {
+        Faction.Player => new Color(0.35f, 0.6f, 1f),
+        Faction.Enemy => new Color(1f, 0.28f, 0.22f),
+        _ => new Color(0.35f, 0.95f, 0.4f),
+    };
+
+    /// <summary>The unit's map frames without the side outline (the outline is redrawn if the unit changes side).</summary>
+    private SpriteFrames? _plainFrames;
+
     public void Setup(string unitId, string name, string title, Faction faction, bool isBoss, int hp, int maxHp, SpriteFrames? mapFrames)
     {
         UnitId = unitId;
@@ -73,8 +85,9 @@ public partial class UnitView : Node3D
         _model = new Node3D();
         AddChild(_model);
         float scale = 1f;
+        _plainFrames = mapFrames;
         if (mapFrames is not null)
-            BuildSprite(mapFrames, scale);
+            BuildSprite(SpriteLibrary.Outlined(mapFrames, OutlineFor(faction)), scale);
         else
             BuildCapsule(scale);
         if (isBoss)
@@ -123,14 +136,26 @@ public partial class UnitView : Node3D
                 PlayAnim("idle");
         };
         _model.AddChild(_sprite);
-        // A soft shadow on the ground marks the unit's tile: the sprite is 1.5 cells tall and drawn pulled toward the
-        // camera, so without it units read as floating above and behind their cell.
+        // The sun's shadow comes from an invisible copy standing on the feet, not pulled toward the camera; it
+        // mirrors the visible sprite's animation every frame (see _Process).
+        _caster = new AnimatedSprite3D
+        {
+            SpriteFrames = frames,
+            Billboard = BaseMaterial3D.BillboardModeEnum.Enabled,
+            TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
+            AlphaCut = SpriteBase3D.AlphaCutMode.Discard,
+            Shaded = false,
+            PixelSize = SpritePixelSize * scale,
+            CastShadow = GeometryInstance3D.ShadowCastingSetting.ShadowsOnly,
+        };
+        _model.AddChild(_caster);
+        // A soft contact shadow on the ground marks the unit's tile under the sun's shadow.
         _model.AddChild(_shadow = new MeshInstance3D
         {
             Mesh = new CylinderMesh { TopRadius = 0.3f, BottomRadius = 0.3f, Height = 0.01f, RadialSegments = 24 },
             MaterialOverride = new StandardMaterial3D
             {
-                AlbedoColor = new Color(0f, 0f, 0f, 0.35f),
+                AlbedoColor = new Color(0f, 0f, 0f, 0.22f),
                 Transparency = BaseMaterial3D.TransparencyEnum.Alpha,
                 ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
             },
@@ -202,6 +227,17 @@ public partial class UnitView : Node3D
         // made units look as if they hovered over it.
         if (_shadow is not null)
             _shadow.GlobalPosition = feet - toward * ShadowBehindFeet + new Vector3(0f, 0.012f, 0f);
+        if (_caster is not null)
+        {
+            _caster.GlobalPosition = feet;
+            if (_caster.SpriteFrames != _sprite.SpriteFrames)
+                _caster.SpriteFrames = _sprite.SpriteFrames;
+            if (_caster.Animation != _sprite.Animation)
+                _caster.Animation = _sprite.Animation;
+            _caster.Frame = _sprite.Frame;
+            _caster.Offset = _sprite.Offset;
+            _caster.Visible = _sprite.Visible && _sprite.Modulate.A > 0.5f;
+        }
     }
 
     /// <summary>
@@ -319,6 +355,11 @@ public partial class UnitView : Node3D
         _baseColor = ColorFor(faction);
         if (_material is not null)
             _material.AlbedoColor = _baseColor;
+        if (_sprite is not null && _plainFrames is not null)
+        {
+            _sprite.SpriteFrames = SpriteLibrary.Outlined(_plainFrames, OutlineFor(faction));
+            PlayAnim(_anim);
+        }
     }
 
     /// <summary>Reinforcements fade in from above.</summary>
@@ -410,6 +451,17 @@ public partial class UnitView : Node3D
         var start = Position;
         tween.Parallel().TweenProperty(this, "position", start + new Vector3(0.06f, 0f, 0f), 0.04f);
         tween.TweenProperty(this, "position", start, 0.06f);
+        await ToSignal(tween, Tween.SignalName.Finished);
+    }
+
+    /// <summary>The sprite brightens to <paramref name="color"/> and settles back over <paramref name="seconds"/>.</summary>
+    public async Task Glow(Color color, float seconds)
+    {
+        if (_sprite is null)
+            return;
+        var tween = CreateTween();
+        tween.TweenProperty(_sprite, "modulate", color, seconds * 0.25f);
+        tween.TweenProperty(_sprite, "modulate", _tint, seconds * 0.75f);
         await ToSignal(tween, Tween.SignalName.Finished);
     }
 

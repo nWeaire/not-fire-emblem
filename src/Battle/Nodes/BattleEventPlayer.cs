@@ -169,6 +169,138 @@ public partial class BattleEventPlayer : Node
             AudioDirector.PlaySfx("kill");
         if (view is not null)
             await view.Die();
+        var unit = Battle.State.TryUnit(d.UnitId);
+        if (unit is { CrestBearer: true } && CrestEmblem.BearerCrest(unit.Name) is { } crest)
+            await PlayCrestAbsorb(unit, crest.Motif, crest.Tier);
+    }
+
+    /// <summary>How high above a cell (world units) the crest appears and the shards land: about chest height.</summary>
+    private const float CrestHeight = 1.1f;
+
+    /// <summary>
+    /// A fallen crest-bearer's crest rises over the spot, shatters into white shards, and the shards stream across
+    /// the battlefield into Rowan's crest (the camera follows them to him). Shards track his place on screen every
+    /// frame, so they arrive wherever he is.
+    /// </summary>
+    private async Task PlayCrestAbsorb(BattleUnit bearer, string motif, int tier)
+    {
+        var camera = Battle.Camera.Camera;
+        var lord = Battle.State.LivingOf(Faction.Player).FirstOrDefault(u => u.IsLord);
+        var fallAt = Battle.CellWorld(bearer.Pos) + Vector3.Up * CrestHeight;
+        Battle.Hud.HideForecast();
+        Battle.Camera.Focus(Battle.CellWorld(bearer.Pos));
+        await Wait(0.45f);
+
+        var layer = new Control { MouseFilter = Control.MouseFilterEnum.Ignore };
+        Battle.Hud.AddChild(layer);
+        layer.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+
+        // 1. The crest rises out of the fallen bearer, in its shrouded colour.
+        const float size = 96f;
+        var emblem = new CrestEmblem(motif, tier, radiant: false, size) { Modulate = Colors.White with { A = 0f } };
+        layer.AddChild(emblem);
+        emblem.Size = new Vector2(size, size);
+        emblem.PivotOffset = emblem.Size / 2f;
+        var start = camera.UnprojectPosition(fallAt) - emblem.Size / 2f;
+        emblem.Position = start;
+        AudioDirector.PlaySfx("crest_rise");
+        var rise = CreateTween().SetParallel();
+        rise.TweenProperty(emblem, "modulate:a", 1f, 0.5f);
+        rise.TweenProperty(emblem, "position:y", start.Y - 70f, 1.1f).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+        rise.TweenProperty(emblem, "scale", Vector2.One * 1.25f, 1.1f).SetTrans(Tween.TransitionType.Sine);
+        await ToSignal(rise, Tween.SignalName.Finished);
+        await Wait(0.35f);
+
+        // 2. It cracks white and shatters into pixel shards that burst outward.
+        var flare = CreateTween();
+        flare.TweenProperty(emblem, "modulate", new Color(3f, 3f, 3f), 0.18f);
+        await ToSignal(flare, Tween.SignalName.Finished);
+        AudioDirector.PlaySfx("crest_burn");
+        var centre = emblem.Position + emblem.Size / 2f;
+        emblem.QueueFree();
+        var rng = new RandomNumberGenerator { Seed = (ulong)bearer.Id.GetHashCode() }; // visual only, never the battle RNG
+        var shards = new List<(ColorRect Rect, Vector2 Velocity, float Delay)>();
+        for (int i = 0; i < 28; i++)
+        {
+            float s = rng.RandiRange(3, 6);
+            var rect = new ColorRect { Color = Colors.White, Size = new Vector2(s, s), MouseFilter = Control.MouseFilterEnum.Ignore };
+            layer.AddChild(rect);
+            rect.Position = centre - rect.Size / 2f;
+            float angle = rng.RandfRange(0f, Mathf.Tau);
+            shards.Add((rect, Vector2.FromAngle(angle) * rng.RandfRange(140f, 320f), rng.RandfRange(0f, 0.35f)));
+        }
+        for (float t = 0f; t < 0.5f; t += (float)GetProcessDeltaTime())
+        {
+            float delta = (float)GetProcessDeltaTime();
+            for (int i = 0; i < shards.Count; i++)
+            {
+                var (rect, velocity, delay) = shards[i];
+                rect.Position += velocity * delta;
+                shards[i] = (rect, velocity * Mathf.Pow(0.04f, delta), delay); // they slow and hang in the air
+            }
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+
+        // 3. With no lord on the field the light just fades out.
+        if (lord is null)
+        {
+            var fade = CreateTween().SetParallel();
+            foreach (var (rect, _, _) in shards)
+                fade.TweenProperty(rect, "modulate:a", 0f, 0.5f);
+            await ToSignal(fade, Tween.SignalName.Finished);
+            layer.QueueFree();
+            return;
+        }
+
+        // 4. They stream to Rowan; the camera follows them. Each shard homes in, faster as it goes.
+        Battle.Camera.Focus(Battle.CellWorld(lord.Pos));
+        var lordView = Battle.ViewOf(lord.Id);
+        Vector2 Target() => camera.UnprojectPosition(Battle.CellWorld(lord.Pos) + Vector3.Up * CrestHeight);
+        var speed = new float[shards.Count];
+        var arrived = new bool[shards.Count];
+        int landed = 0;
+        for (float t = 0f; landed < shards.Count && t < 4f; t += (float)GetProcessDeltaTime())
+        {
+            float delta = (float)GetProcessDeltaTime();
+            var target = Target();
+            for (int i = 0; i < shards.Count; i++)
+            {
+                var (rect, _, delay) = shards[i];
+                if (arrived[i] || t < delay)
+                    continue;
+                speed[i] = Mathf.Min(speed[i] + 1400f * delta, 1500f);
+                var to = target - rect.Size / 2f - rect.Position;
+                float step = speed[i] * delta;
+                if (to.Length() <= step)
+                {
+                    arrived[i] = true;
+                    rect.Visible = false;
+                    landed++;
+                    if (landed == 1)
+                        AudioDirector.PlaySfx("heal");
+                    continue;
+                }
+                rect.Position += to.Normalized() * step;
+            }
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+
+        // 5. Rowan's crest drinks the light: it flares over him and he glows white for a moment.
+        const float flareSize = 120f;
+        var rowanCrest = new CrestEmblem("rowan", Mathf.Max(1, Battle.State.Options.CrestTier), radiant: true, flareSize);
+        layer.AddChild(rowanCrest);
+        rowanCrest.Size = new Vector2(flareSize, flareSize);
+        rowanCrest.PivotOffset = rowanCrest.Size / 2f;
+        rowanCrest.Position = Target() - rowanCrest.Size / 2f;
+        rowanCrest.Modulate = new Color(2f, 2f, 2f, 0f);
+        var glow = CreateTween();
+        glow.TweenProperty(rowanCrest, "modulate:a", 1f, 0.15f);
+        glow.Parallel().TweenProperty(rowanCrest, "scale", Vector2.One * 1.4f, 0.9f).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+        glow.TweenProperty(rowanCrest, "modulate:a", 0f, 0.5f);
+        if (lordView is not null)
+            _ = lordView.Glow(new Color(1.8f, 1.8f, 2f), 1f);
+        await ToSignal(glow, Tween.SignalName.Finished);
+        layer.QueueFree();
     }
 
     private Task SetDone(UnitActionStateChanged a)

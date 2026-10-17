@@ -117,8 +117,9 @@ public partial class HubScreen : Control
         _crestRow.AddChild(crestLabel);
         _header.Text = $"{S.ChapterTitle}\nGold: {S.Gold}\nConvoy: {S.Convoy.Count}/{GameSession.ConvoyCapacity}\n{S.Mode} · {S.Difficulty}";
         _osmund.Text = OsmundLine();
-        foreach (var child in _tabs.GetChildren())
-            child.QueueFree();
+        // Rebuilding frees the focused button: remember where the keyboard was and put it back after.
+        int tabFocus = UiKit.FocusIndex(_tabs), contentFocus = UiKit.FocusIndex(_content);
+        UiKit.ClearChildren(_tabs);
         foreach (var tab in Enum.GetValues<Tab>())
         {
             bool open = tab switch
@@ -140,8 +141,7 @@ public partial class HubScreen : Control
                 button.Modulate = UiKit.Accent;
             _tabs.AddChild(button);
         }
-        foreach (var child in _content.GetChildren())
-            child.QueueFree();
+        UiKit.ClearChildren(_content);
         switch (_tab)
         {
             case Tab.Party: BuildParty(); break;
@@ -152,6 +152,10 @@ public partial class HubScreen : Control
             case Tab.Save: BuildSave(); break;
             case Tab.Settings: _content.AddChild(new SettingsPanel()); break;
         }
+        if (contentFocus >= 0)
+            UiKit.RestoreFocus(_content, contentFocus);
+        else
+            UiKit.RestoreFocus(_tabs, Math.Max(0, tabFocus)); // on opening the hub, the first tab
     }
 
     private void Do(Func<string?> action, string success)

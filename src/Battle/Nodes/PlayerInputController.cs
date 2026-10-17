@@ -532,10 +532,43 @@ public partial class PlayerInputController : Node
 
     // ------------------------------------------------------------------ attack targeting
 
+    /// <summary>The weapon picked for this attack; target select and the forecast only offer it (and its arts).</summary>
+    private string? _weaponLock;
+
+    /// <summary>
+    /// Attack, step 1: which weapon. Only weapons that can reach an enemy from here are offered (with
+    /// <paramref name="preferred"/>, ones that reach that enemy); with just one, the list is skipped.
+    /// </summary>
     private void OpenTargetSelect(BattleUnit? preferred)
     {
+        var unit = _selected!;
+        var targets = preferred is null ? ActionRules.AttackTargets(S, unit, _dest).ToList() : new List<BattleUnit> { preferred };
+        var weapons = CombatCalculator.UsableWeapons(S.Db, unit.State)
+            .Where(w => targets.Any(t => CombatCalculator.InRange(w, _dest.DistanceTo(t.Pos)))).ToList();
+        if (weapons.Count <= 1)
+        {
+            OpenTargets(preferred, weapons.FirstOrDefault()?.Id, back: null);
+            return;
+        }
+        // The equipped weapon first, then inventory order.
+        weapons = weapons.OrderBy(w => w.Id == unit.State.EquippedItemId ? 0 : 1).ToList();
+        _b.Hud.HideForecast();
+        OpenSubMenu(weapons.Select(w => (WeaponLabel(w), (Action)(() => OpenTargets(preferred, w.Id, back: () => OpenTargetSelect(preferred))))).ToList(),
+            OpenActionMenu);
+    }
+
+    private static string WeaponLabel(WeaponDef w) =>
+        $"{w.Name}   Mt {w.Might}  Hit {w.Hit}  Rng {(w.MinRange == w.MaxRange ? $"{w.MinRange}" : $"{w.MinRange}-{w.MaxRange}")}";
+
+    /// <summary>Attack, step 2: which enemy, among those <paramref name="weaponId"/> can reach.</summary>
+    private void OpenTargets(BattleUnit? preferred, string? weaponId, Action? back)
+    {
+        _weaponLock = weaponId;
+        var weapon = weaponId is null ? null : S.Db.TryWeapon(weaponId);
         _targets.Clear();
-        _targets.AddRange(ActionRules.AttackTargets(S, _selected!, _dest).OrderBy(t => t.Pos.X).ThenBy(t => t.Pos.Y));
+        _targets.AddRange(ActionRules.AttackTargets(S, _selected!, _dest)
+            .Where(t => weapon is null || CombatCalculator.InRange(weapon, _dest.DistanceTo(t.Pos)))
+            .OrderBy(t => t.Pos.X).ThenBy(t => t.Pos.Y));
         if (_targets.Count == 0)
         {
             OpenActionMenu();
@@ -543,7 +576,7 @@ public partial class PlayerInputController : Node
         }
         _targetIndex = preferred is null ? 0 : Math.Max(0, _targets.IndexOf(preferred));
         _choices.Clear();
-        _back = null;
+        _back = back;
         _mode = Mode.TargetSelect;
         _b.Hud.HideMenu();
         _b.RangeOverlay.ShowCells(_targets.Select(t => (t.Pos, CellOverlay.AttackColor)).ToList());
@@ -557,8 +590,9 @@ public partial class PlayerInputController : Node
         var previous = _choices.Count > 0 ? _choices[_choiceIndex] : null;
         int distance = _dest.DistanceTo(target.Pos);
         _choices.Clear();
-        _choices.AddRange(CombatCalculator.AttackChoices(S.Db, unit).Where(c => CombatCalculator.InRange(S.Db, c, distance)));
-        string? equipped = unit.State.EquippedItemId;
+        _choices.AddRange(CombatCalculator.AttackChoices(S.Db, unit)
+            .Where(c => CombatCalculator.InRange(S.Db, c, distance) && (_weaponLock is null || c.WeaponId == _weaponLock)));
+        string? equipped = _weaponLock ?? unit.State.EquippedItemId;
         _choiceIndex = Math.Max(0, previous is not null && _choices.Contains(previous)
             ? _choices.IndexOf(previous)
             : _choices.FindIndex(c => c is WeaponAttack && c.WeaponId == equipped));
@@ -569,7 +603,7 @@ public partial class PlayerInputController : Node
         var choice = _choices[_choiceIndex];
         var forecast = CombatCalculator.Forecast(S, unit, _dest, target, choice);
         string uses = choice is ArtAttack art ? $"   ({unit.UsesLeft.GetValueOrDefault(art.ArtId)} uses left)" : "";
-        string hint = (_choices.Count > 1 ? "Tab: switch weapon / art   " : "") + (_targets.Count > 1 ? "Arrows: switch target   " : "") + "Z: attack   X: back" + uses;
+        string hint = (_choices.Count > 1 ? "Tab: switch art   " : "") + (_targets.Count > 1 ? "Arrows: switch target   " : "") + "Z: attack   X: back" + uses;
         _b.Hud.ShowForecast(forecast, hint);
         _b.Hud.ShowUnit(S, target);
         _b.Hud.ShowTerrain(S, target.Pos);

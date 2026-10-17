@@ -24,6 +24,7 @@ User's reference images: `assets/ExampleFiles/` (GBA Fire Emblem map-sprite clas
 | Terrain | GBA level, 32 px tiles (switched from 16 px in session 5), flat bright colours | `approved/terrain_gba32/` |
 | Battle backgrounds | GBA level: 240×135, 32 colours, with no people in them | `approved/battle_bg/` |
 | UI | Clean: flat charcoal panels, thin warm-white border with corner ticks | `approved/ui_clean/` |
+| Map units | Current character look (not the chibi NSO map style, turned down in session 7). Sides are shown by a 1 px outline in code: blue army, red enemies, green allies, so art needs no team colours | `assets/sprites/units/` |
 | Font | **VT323** for all text (OFL, `assets/fonts/`; session 7, chosen for legibility over Pixelify Sans / Silkscreen). Sizes go through `UiKit.Px` (×1.3, snapped to 4 px, 16 px for titles, never under 20 px) so the pixels stay even | `assets/fonts/` |
 | Portraits | Rowan take #1 and brigand chief take #4 are the style guide | `approved/portraits/` |
 | Crests | Grancrest-style glowing linework on a V/anchor core. Radiant white or Shrouded purple. | `assets/crests/`, §5 |

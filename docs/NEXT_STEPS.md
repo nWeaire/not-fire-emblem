@@ -54,6 +54,18 @@ The user counts the Prologue as "chapter 1", so their "chapter 2" is Ch 1 (Brook
   Varga's are done too (fetched after a PixelLab outage). Gorran already has his own look (`boss_brigand_chief`).
 - **Portraits:** Brann and Osmund regenerated to match the cast (they were rounder and cartoonier); Rowan, Kai,
   Mira and the brigand chief checked and kept. The bottom 4 rows of new portrait takes carry a light bar: clear them.
+- **Side outlines:** every map sprite gets a 1 px ring in its side's colour just outside its own outline (blue
+  army, red enemies, green allies; `SpriteLibrary.Outlined`, `UnitView.OutlineFor`), redrawn when a unit changes side.
+  The user turned down the chibi NSO map-sprite look after a pilot (Rowan, $0.08): keep the current character style.
+- **Crest absorption:** when a crest-bearer falls, its shrouded crest rises over the spot, shatters into white
+  shards, and the shards stream across the map into Rowan (the camera follows; they track his place on screen), then
+  his radiant crest flares and he glows (`BattleEventPlayer.PlayCrestAbsorb`). Plays before the bearer's death scene.
+- **Lighting (Octopath-style):** a warmer, lower sun with softer shadows, mild bloom (`Battle.tscn`), and tilt-shift
+  depth of field that follows the zoom (`TacticsCamera`). Units, props, wheat/bushes/reeds and hedges cast real
+  shadows from invisible shadow-only copies at their true ground spot (the visible ones are pulled toward the camera).
+- **Weapon picker:** Attack first lists the weapons that can reach an enemy from where the unit stands (skipped when
+  only one can), then target select offers only enemies that weapon reaches; Tab cycles that weapon's arts
+  (`PlayerInputController.OpenTargetSelect` / `OpenTargets`). Units with two weapons: Brann, Elise, Dorran, Sable.
 - **Cleanup (user request):** deleted the parked flat 2D renderer (`FlatTerrain.cs`, `GridMetrics.Flat` and the flat
   paths in MapView/TacticsCamera/UnitView/SpriteLibrary), `tools/art/superseded/` (5,324 files), the unused fonts
   (Pixelify Sans, Silkscreen) and props (`fence_*`, `hedge_1-4`), and the untracked style-round takes and logs

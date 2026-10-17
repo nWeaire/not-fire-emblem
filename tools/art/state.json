@@ -7533,6 +7533,14 @@
           "type": "generations"
         }
       },
+      "map:pilot_nso_rowan": {
+        "character_id": "46a34b01-3aac-4f43-ab99-a63e5c0e15bd",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:rowan_crest_knight": {
         "animations": {
           "attack": {

@@ -86,6 +86,53 @@ public static class SpriteLibrary
         return frames;
     }
 
+    private static readonly Dictionary<(ulong, Color), SpriteFrames> OutlinedCache = new();
+    private static readonly Dictionary<(ulong, Color), Texture2D> OutlinedTextures = new();
+
+    /// <summary>
+    /// A copy of <paramref name="frames"/> with a one-pixel ring of <paramref name="color"/> round every frame's
+    /// silhouette, just outside the art's own dark outline: the side a unit is on, readable at a glance.
+    /// Cached per frame set and colour.
+    /// </summary>
+    public static SpriteFrames Outlined(SpriteFrames frames, Color color)
+    {
+        var key = (frames.GetInstanceId(), color);
+        if (OutlinedCache.TryGetValue(key, out var cached))
+            return cached;
+        var result = new SpriteFrames();
+        result.RemoveAnimation("default");
+        foreach (var name in frames.GetAnimationNames())
+        {
+            result.AddAnimation(name);
+            result.SetAnimationSpeed(name, frames.GetAnimationSpeed(name));
+            result.SetAnimationLoop(name, frames.GetAnimationLoop(name));
+            for (int i = 0; i < frames.GetFrameCount(name); i++)
+                result.AddFrame(name, OutlinedTexture(frames.GetFrameTexture(name, i), color), frames.GetFrameDuration(name, i));
+        }
+        return OutlinedCache[key] = result;
+    }
+
+    private static Texture2D OutlinedTexture(Texture2D texture, Color color)
+    {
+        var key = (texture.GetInstanceId(), color);
+        if (OutlinedTextures.TryGetValue(key, out var cached))
+            return cached;
+        var source = texture.GetImage();
+        if (source is null || source.IsEmpty())
+            return OutlinedTextures[key] = texture;
+        if (source.IsCompressed())
+            source.Decompress();
+        source.Convert(Image.Format.Rgba8);
+        int w = source.GetWidth(), h = source.GetHeight();
+        var image = (Image)source.Duplicate();
+        bool Solid(int x, int y) => x >= 0 && y >= 0 && x < w && y < h && source.GetPixel(x, y).A > 0.5f;
+        for (int y = 0; y < h; y++)
+            for (int x = 0; x < w; x++)
+                if (!Solid(x, y) && (Solid(x - 1, y) || Solid(x + 1, y) || Solid(x, y - 1) || Solid(x, y + 1)))
+                    image.SetPixel(x, y, color);
+        return OutlinedTextures[key] = ImageTexture.CreateFromImage(image);
+    }
+
     /// <summary>Map frames for the unit's current outfit (see BattleUnit.SpriteCandidates), or null.</summary>
     public static SpriteFrames? Map(BattleUnit unit) =>
         unit.SpriteCandidates().Select(Map).FirstOrDefault(f => f is not null);

@@ -285,6 +285,46 @@ public static class UiKit
     }
 
     /// <summary>Fills a control's parent area.</summary>
+    /// <summary>
+    /// Removes and frees every child now. Freeing alone waits for the end of the frame, so a focused child would keep
+    /// the keyboard focus until then and take it with it, leaving menus dead to keys and pads.
+    /// </summary>
+    public static void ClearChildren(Node node)
+    {
+        foreach (var child in node.GetChildren())
+        {
+            node.RemoveChild(child);
+            child.QueueFree();
+        }
+    }
+
+    /// <summary>Which of <paramref name="root"/>'s focusable controls has the keyboard focus (in tree order), or -1.</summary>
+    public static int FocusIndex(Control root)
+    {
+        var owner = root.GetViewport()?.GuiGetFocusOwner();
+        return owner is null ? -1 : Focusable(root).IndexOf(owner);
+    }
+
+    /// <summary>Gives the focus to <paramref name="root"/>'s focusable control at <paramref name="index"/> (clamped).</summary>
+    public static void RestoreFocus(Control root, int index)
+    {
+        var all = Focusable(root);
+        if (all.Count > 0 && index >= 0)
+            all[Math.Min(index, all.Count - 1)].CallDeferred(Control.MethodName.GrabFocus);
+    }
+
+    private static List<Control> Focusable(Node root)
+    {
+        var found = new List<Control>();
+        foreach (var child in root.GetChildren())
+        {
+            if (child is Control { FocusMode: not Control.FocusModeEnum.None } c && c.Visible && !(c is BaseButton { Disabled: true }))
+                found.Add(c);
+            found.AddRange(Focusable(child));
+        }
+        return found;
+    }
+
     public static T Fill<T>(T control) where T : Control
     {
         control.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);

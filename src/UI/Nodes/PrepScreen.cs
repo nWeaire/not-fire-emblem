@@ -68,8 +68,9 @@ public partial class PrepScreen : Control
         var step = node.PendingBattleStep!;
         var fixedUnits = runner.FixedUnits(step);
         int limit = runner.DeployLimit(step);
-        foreach (var child in _list.GetChildren())
-            child.QueueFree();
+        // Ticking a box rebuilds the list and frees the focused box: put the keyboard back on the same row after.
+        int focus = UiKit.FocusIndex(_list);
+        UiKit.ClearChildren(_list);
         foreach (var unit in runner.Session.ActiveRoster)
         {
             string id = unit.Def.Id;
@@ -93,6 +94,8 @@ public partial class PrepScreen : Control
             _list.AddChild(check);
         }
         _count.Text = $"Deploy {_chosen.Count} / {limit}";
+        if (focus >= 0)
+            UiKit.RestoreFocus(_list, focus);
     }
 
     public static string GoalText(MapDef map)

@@ -61,8 +61,7 @@ public partial class TitleScreen : Control
         column.AddThemeConstantOverride("separation", 14);
         center.AddChild(column);
         _column = column;
-        column.AddChild(UiKit.Outlined(UiKit.Label("THE RADIANT CREST", 56, UiKit.Accent, HorizontalAlignment.Center), 10));
-        column.AddChild(UiKit.Outlined(UiKit.Label("A tale of crests and the Thornvale", 18, Colors.White, HorizontalAlignment.Center), 6));
+        column.AddChild(UiKit.Outlined(UiKit.Label("The Radiant Crest", 56, UiKit.Accent, HorizontalAlignment.Center), 10));
         column.AddChild(new Control { CustomMinimumSize = new Vector2(0, 20) });
         var panel = UiKit.Panel();
         column.AddChild(panel);
@@ -171,8 +170,9 @@ public partial class TitleScreen : Control
 
     private void Clear()
     {
-        foreach (var child in _menu.GetChildren())
-            child.QueueFree();
+        // Out now, not at the end of the frame: Focus() picks the menu's first button, and a button only queued for
+        // deletion would take the focus with it, leaving the keyboard dead.
+        UiKit.ClearChildren(_menu);
     }
 
     private void Focus()

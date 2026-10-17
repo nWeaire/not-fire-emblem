@@ -28,6 +28,16 @@ public partial class TacticsCamera : Node3D
     public override void _Ready()
     {
         Camera = new Camera3D { Fov = 45f };
+        // Tilt-shift, Octopath style: the band around the focus point is sharp, the far rows (top of the screen) and
+        // the nearest rows (bottom) soften. Distances follow the zoom (ApplyTransform).
+        Camera.Attributes = _focusBlur = new CameraAttributesPractical
+        {
+            DofBlurFarEnabled = true,
+            DofBlurFarTransition = 8f,
+            DofBlurNearEnabled = true,
+            DofBlurNearTransition = 3f,
+            DofBlurAmount = 0.08f,
+        };
         AddChild(Camera);
         Camera.MakeCurrent();
         _distance = Distance;
@@ -44,12 +54,16 @@ public partial class TacticsCamera : Node3D
         ApplyTransform();
     }
 
+    private CameraAttributesPractical _focusBlur = null!;
+
     private void ApplyTransform()
     {
         Rotation = new Vector3(0f, _yaw, 0f);
         float pitch = Mathf.DegToRad(PitchDegrees);
         Camera.Position = new Vector3(0f, _distance * Mathf.Sin(pitch), _distance * Mathf.Cos(pitch));
         Camera.Rotation = new Vector3(-pitch, 0f, 0f);
+        _focusBlur.DofBlurFarDistance = _distance + 5f;
+        _focusBlur.DofBlurNearDistance = Mathf.Max(1f, _distance - 6f);
     }
 
     public void Focus(Vector3 worldPoint, bool instant = false)

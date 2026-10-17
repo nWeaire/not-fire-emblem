@@ -31,8 +31,8 @@ Session 7 is merged into `main` (fast-forward, not pushed); work continues on `a
 - **Shop as list + detail card** (user's pick from https://claude.ai/artifact/Bbu5Me4a2Ha88FLkXMXMc9): Buy / Sell tabs,
   rows of icon, name and price (greyed when the buyer can't use or afford it), and a card with the item's numbers and
   only the differences from the buyer's current weapon or armour (green better, red worse). X in the hub jumps back to
-  Party. **Aldric 20% weaker** (playtest: he beat Ch 2's bandits alone): personal bases −6 HP, −1 Str/Dex/Spd/Def
-  (Lck/Res bonuses gone) and growths cut by a fifth.
+  Party. **Aldric about 10% weaker** (playtest: he beat Ch 2's bandits alone; −20% then proved too weak): personal
+  bases HP −1, Dex/Lck/Res +1 (was +2/+1/+1/+1 HP/Str/Dex…) and growths about a tenth lower. Villagers 24 HP, 4 Def.
 - **Hub redone (user's option A from https://claude.ai/artifact/RGw7jyT84DXTQGkAo5xBmj):** a top bar with gold (big,
   gold-coloured), chapter, convoy, crest, Title and March On; places in a left column with Osmund beneath; screens wrap
   and scroll so nothing runs off at any window size. The shop buys for a chosen unit straight into their pack

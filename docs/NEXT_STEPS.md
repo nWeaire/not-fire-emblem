@@ -52,6 +52,8 @@ The user counts the Prologue as "chapter 1", so their "chapter 2" is Ch 1 (Brook
 - **Named Binder bosses:** `boss_sennet` (Ch 1) and `boss_varga` (Ch 3) have their own map sprites (stills only, no
   walk/attack yet) and battle stills (picks in `approved/battle_picks.txt`). Sennet's battle animations are done.
   Varga's are done too (fetched after a PixelLab outage). Gorran already has his own look (`boss_brigand_chief`).
+- **Portraits:** Brann and Osmund regenerated to match the cast (they were rounder and cartoonier); Rowan, Kai,
+  Mira and the brigand chief checked and kept. The bottom 4 rows of new portrait takes carry a light bar: clear them.
 - **Cleanup (user request):** deleted the parked flat 2D renderer (`FlatTerrain.cs`, `GridMetrics.Flat` and the flat
   paths in MapView/TacticsCamera/UnitView/SpriteLibrary), `tools/art/superseded/` (5,324 files), the unused fonts
   (Pixelify Sans, Silkscreen) and props (`fence_*`, `hedge_1-4`), and the untracked style-round takes and logs

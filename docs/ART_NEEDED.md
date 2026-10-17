@@ -43,7 +43,7 @@ Expressions used by the scripts: `neutral smile laugh surprised worried sad angr
 
 | Priority | File | Notes |
 |---|---|---|
-| P2 | `rowan`, `kai`, `mira`, `brann`, `osmund`, `boss_brigand_chief` | Session-2 portraits; check against the GBA style, regenerate if they clash |
+| Done (session 7) | `brann`, `osmund` | Regenerated in the cast's style (picks: brann take 1, osmund take 0; others in `tools/art/takes/portraits/`). `rowan`, `kai`, `mira` and `boss_brigand_chief` were checked and kept: Rowan's is the style reference and the others match it |
 | P2 | Expression sets for the main cast | e.g. `rowan_worried.png`. Without them the base portrait is used for every expression. |
 
 ## 4. Story backgrounds (`assets/backgrounds/<id>.png`)

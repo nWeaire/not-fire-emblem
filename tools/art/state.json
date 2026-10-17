@@ -7984,6 +7984,14 @@
           "type": "generations"
         }
       },
+      "brann": {
+        "status": "completed",
+        "takes": 4,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "dorran": {
         "status": "completed",
         "takes": 4,
@@ -7998,6 +8006,14 @@
         "usage": {
           "generations": 10.0,
           "type": "generations"
+        }
+      },
+      "osmund": {
+        "status": "completed",
+        "takes": 4,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
         }
       },
       "rusk": {

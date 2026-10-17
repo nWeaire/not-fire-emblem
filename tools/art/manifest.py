@@ -229,6 +229,11 @@ PORTRAITS = {
              "black leather collar and red sash",
     "rusk": "burly bandit king, shaved head, thick red beard, gold earrings, cruel grin, marsh-green leather coat, a "
             "faint purple glow from a sigil on his neck",
+    # Session 7: the session-2 portraits of these two were rounder and more cartoony than the rest of the cast.
+    "brann": "big gentle young village blacksmith, broad shoulders, short brown hair, short brown beard, kind brown "
+             "eyes, soot smudges on his cheek, scorched leather smith's apron over a plain linen shirt",
+    "osmund": "fussy precise old royal steward, about 60, neat grey beard, round spectacles, dry polite expression, "
+              "high-collared bottle-green coat with brass buttons, a white quill tucked behind his ear",
 }
 
 # ------------------------------------------------------------------ backgrounds (generate-image-v2, 240x135)

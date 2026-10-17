@@ -309,7 +309,9 @@ public partial class BattleController : Node3D
         // Everyone else fights like the enemy AI; vital units (the lord, and anyone who must escape) are far more
         // careful. Units that only must survive still fight, but pull back sooner (above).
         var decisions = State.LivingOf(Faction.Player).Where(u => u.ActionState != ActionState.Done)
-            .Select(u => IsVital(u) ? LordDecision(u) : AiController.Decide(State, u, AutoplayWeights)).ToList();
+            .Select(u => IsVital(u) ? LordDecision(u)
+                : CarefulAi.Shelter(State, u, State.Reach(u)) is { } shelter ? new AiDecision(u, shelter, null)
+                : AiController.Decide(State, u, AutoplayWeights)).ToList();
         return decisions.Where(d => d.AttackScore is not null).OrderByDescending(d => d.AttackScore).FirstOrDefault()
                ?? decisions.FirstOrDefault(d => !IsVital(d.Unit)) ?? decisions.FirstOrDefault();
     }

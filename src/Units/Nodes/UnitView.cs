@@ -20,12 +20,23 @@ public partial class UnitView : Node3D
     private const float SpritePixelSize = NotFireEmblem.Grid.MapView.ArtPixelSize;
     /// <summary>How far the sprite is pulled toward the camera so raised terrain behind it can't cut through it.</summary>
     private const float PullTowardCamera = NotFireEmblem.Grid.MapView.UnitPull;
-    /// <summary>Transparent rows below the feet in PixelLab frames.</summary>
+    /// <summary>Transparent rows below the feet in PixelLab frames (a fallback when a frame can't be measured).</summary>
     private const float SpriteFootPadding = 2f;
+    /// <summary>
+    /// How far toward the camera (in cells) the feet stand from the cell centre. A sprite is 1.5 cells tall, so with
+    /// its feet at the centre the body covers the cell behind; near the front edge it stands on its own tile.
+    /// </summary>
+    private const float FeetForward = 0.3f;
+    /// <summary>How far behind the feet (away from the camera) the ground shadow is centred, in cells.</summary>
+    private const float ShadowBehindFeet = 0.14f;
+
+    /// <summary>Per sprite set and animation_direction: the sprite offset that puts the feet (not the frame) on the pivot.</summary>
+    private static readonly Dictionary<(ulong, string), Vector2> Anchors = new();
 
     private Node3D _model = null!;
     private StandardMaterial3D? _material;
     private AnimatedSprite3D? _sprite;
+    private MeshInstance3D? _shadow;
     private Label3D _label = null!;
     private Color _baseColor;
     private Color _tint = Colors.White;
@@ -38,7 +49,7 @@ public partial class UnitView : Node3D
     private string _anim = "idle";
     private string _dir = "south";
     private double _bobTime;
-    /// <summary>The sprite's offset at rest; the idle bob lifts it one pixel from here.</summary>
+    /// <summary>The sprite's offset at rest; the idle bob dips it one pixel from here.</summary>
     private float _restOffsetY = 24f - SpriteFootPadding;
 
     public string UnitId { get; private set; } = "";
@@ -80,7 +91,7 @@ public partial class UnitView : Node3D
         {
             Billboard = BaseMaterial3D.BillboardModeEnum.Enabled,
             NoDepthTest = true,
-            FontSize = 40,
+            FontSize = NotFireEmblem.UI.UiKit.Px(40),
             OutlineSize = 10,
             PixelSize = 0.006f,
             Position = new Vector3(0f, mapFrames is not null ? (isBoss ? 1.95f : 1.8f) : 1.3f, 0f),
@@ -91,7 +102,7 @@ public partial class UnitView : Node3D
         if (NotFireEmblem.Grid.GridMetrics.Flat)
         {
             // Seen from above, "up" on screen is -Z: put the name just above the sprite's head, smaller.
-            _label.FontSize = 30;
+            _label.FontSize = NotFireEmblem.UI.UiKit.Px(30);
             _label.Position = new Vector3(0f, 0.3f, -0.62f);
         }
         SetHp(hp, maxHp);
@@ -138,7 +149,7 @@ public partial class UnitView : Node3D
         }
         // A soft shadow on the ground marks the unit's tile: the sprite is 1.5 cells tall and drawn pulled toward the
         // camera, so without it units read as floating above and behind their cell.
-        _model.AddChild(new MeshInstance3D
+        _model.AddChild(_shadow = new MeshInstance3D
         {
             Mesh = new CylinderMesh { TopRadius = 0.3f, BottomRadius = 0.3f, Height = 0.01f, RadialSegments = 24 },
             MaterialOverride = new StandardMaterial3D
@@ -194,7 +205,17 @@ public partial class UnitView : Node3D
             _dir = dir;
             _sprite.Play($"{_anim}_{_dir}");
             _sprite.SetFrameAndProgress(frame, progress);
+            ApplyAnchor();
         }
+    }
+
+    private void ApplyAnchor()
+    {
+        if (_sprite is null || NotFireEmblem.Grid.GridMetrics.Flat)
+            return;
+        var anchor = AnchorFor(_sprite.SpriteFrames, $"{_anim}_{_dir}");
+        _restOffsetY = anchor.Y;
+        _sprite.Offset = anchor;
     }
 
     private void PullToCamera()
@@ -202,8 +223,54 @@ public partial class UnitView : Node3D
         var camera = GetViewport()?.GetCamera3D();
         if (camera is null)
             return;
-        var feet = _model.GlobalPosition;
+        var centre = _model.GlobalPosition;
+        var towardCamera = (camera.GlobalPosition - centre) with { Y = 0f };
+        var toward = towardCamera.LengthSquared() > 0.0001f ? towardCamera.Normalized() : Vector3.Zero;
+        var feet = centre + toward * FeetForward;
         _sprite!.GlobalPosition = feet + (camera.GlobalPosition - feet).Normalized() * PullTowardCamera;
+        // The shadow sits mostly behind the feet: centred on them, its front half showed below the feet on screen and
+        // made units look as if they hovered over it.
+        if (_shadow is not null)
+            _shadow.GlobalPosition = feet - toward * ShadowBehindFeet + new Vector3(0f, 0.012f, 0f);
+    }
+
+    /// <summary>
+    /// The offset that stands this direction's art on the pivot: its lowest opaque row on the ground and its legs
+    /// (the mean column of the bottom third of the figure) centred, whatever the art's placement in the frame.
+    /// Measured once per animation and direction from its first frame: walk and attack art is drawn with the feet
+    /// higher (or on a bigger canvas) than the standing frame, so one anchor for all of them made walkers float.
+    /// </summary>
+    private static Vector2 AnchorFor(SpriteFrames frames, string anim)
+    {
+        var key = (frames.GetInstanceId(), anim);
+        if (Anchors.TryGetValue(key, out var cached))
+            return cached;
+        var fallback = new Vector2(0f, 24f - SpriteFootPadding);
+        var image = frames.HasAnimation(anim) && frames.GetFrameCount(anim) > 0
+            ? frames.GetFrameTexture(anim, 0)?.GetImage()
+            : null;
+        if (image is null || image.IsEmpty())
+            return Anchors[key] = fallback;
+        if (image.IsCompressed())
+            image.Decompress();
+        var used = image.GetUsedRect();
+        if (used.Size.Y == 0)
+            return Anchors[key] = fallback;
+        long sum = 0;
+        int count = 0;
+        for (int y = used.End.Y - Mathf.Max(1, used.Size.Y / 3); y < used.End.Y; y++)
+        {
+            for (int x = used.Position.X; x < used.End.X; x++)
+            {
+                if (image.GetPixel(x, y).A > 0.5f)
+                {
+                    sum += x;
+                    count++;
+                }
+            }
+        }
+        float legsX = count > 0 ? sum / (float)count + 0.5f : used.Position.X + used.Size.X / 2f;
+        return Anchors[key] = new Vector2(Mathf.Round(image.GetWidth() / 2f - legsX), used.End.Y - image.GetHeight() / 2f);
     }
 
     /// <summary>
@@ -220,8 +287,9 @@ public partial class UnitView : Node3D
         if (_bobTime == 0)
             _bobTime = (UnitId.GetHashCode() & 0xFF) / 255.0;
         _bobTime += delta;
-        bool up = (int)(_bobTime / 0.45) % 2 == 1;
-        _sprite.Offset = _sprite.Offset with { Y = _restOffsetY + (up ? 1f : 0f) };
+        // The step dips a pixel rather than lifting one, so the feet never leave the ground.
+        bool down = (int)(_bobTime / 0.45) % 2 == 1;
+        _sprite.Offset = _sprite.Offset with { Y = _restOffsetY - (down ? 1f : 0f) };
     }
 
     /// <summary>Which art direction shows the unit's facing from the current camera (south = facing the camera).</summary>
@@ -249,6 +317,7 @@ public partial class UnitView : Node3D
         _anim = anim;
         _dir = DirectionFromCamera();
         _sprite.Play($"{_anim}_{_dir}");
+        ApplyAnchor();
     }
 
     public void SetHp(int hp, int maxHp)

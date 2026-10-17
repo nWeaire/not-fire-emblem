@@ -41,6 +41,20 @@ public partial class InputSetup : Node
         Bind(NextUnit, Key(Godot.Key.Tab), Pad(JoyButton.Y));
         Bind(Info, Key(Godot.Key.R), Pad(JoyButton.X));
         Bind(ToggleBattleScenes, Key(Godot.Key.B), Pad(JoyButton.RightStick));
+        // Menu buttons (title, prep, results, hub) are pressed by Godot's built-in ui_accept, which only knows
+        // Enter/Space: give the menus the game's own confirm / cancel keys and WASD too.
+        Extend("ui_accept", Key(Godot.Key.Z));
+        Extend("ui_cancel", Key(Godot.Key.X));
+        Extend("ui_up", Key(Godot.Key.W));
+        Extend("ui_down", Key(Godot.Key.S));
+        Extend("ui_left", Key(Godot.Key.A));
+        Extend("ui_right", Key(Godot.Key.D));
+    }
+
+    private static void Extend(string action, InputEvent e)
+    {
+        if (InputMap.HasAction(action) && !InputMap.ActionHasEvent(action, e))
+            InputMap.ActionAddEvent(action, e);
     }
 
     private static void Bind(string action, params InputEvent[] events)

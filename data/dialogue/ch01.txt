@@ -21,7 +21,7 @@ ALDRIC [cold]: Since now. Fight.
 KAI [determined]: Yes, sir!
 
 ### ch01_mira_fire
-@focus 14,5
+@focus 21,7
 MIRA [worried]: Stay behind me. All of you, behind the pews—
 @sfx gloam_roar
 MIRA [determined]: ...No. Not in my chapel.
@@ -35,7 +35,7 @@ ROWAN [smile]: ...Well. That's three of us.
 @flag mira_fire
 
 ### ch01_reinforcements
-@focus 7,0
+@focus 10,0
 @sfx gloam_howl
 ALDRIC [determined]: More from the north road. Someone's herding them here.
 ROWAN [determined]: The one in the cloak. There's always one in a cloak.

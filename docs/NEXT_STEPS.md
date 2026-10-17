@@ -6,7 +6,46 @@ _Last updated: 2026-10-17 (end of session 6)._
 
 ---
 
-## Session 6: back to 2.5D (read this first)
+## Session 7: hand-check fixes and early-chapter balance (in progress)
+
+The user counts the Prologue as "chapter 1", so their "chapter 2" is Ch 1 (Brookhollow) and "chapter 3" is Ch 2 (Millbrook).
+- **Units stand on their tile:** `UnitView` measures each sprite direction's legs and lowest pixel (some PixelLab
+  frames are 5–15 px off-centre; Rowan Lord east by 13) and puts the feet 0.3 cell toward the camera from the cell
+  centre, with the shadow. Before, feet were at the centre so the 1.5-cell sprite stood over the tile behind.
+- **Aldric's attack** (Warden and Warden Lord) lost the frames that swung down into the ground; it now goes from
+  the wind-up straight to the forward thrust. A regenerated attack would be better once credits arrive.
+- **No stone on farm maps:** `ArtSet = "farm"` (Prologue, Ch 1, Ch 2) draws walls as bush hedgerows on grass and forts
+  and squares on dirt (`MapView.TileFor`); Ch 1/Ch 2 `#` cells became road `=`.
+- **Ch 1:** Kai is a player unit from turn 1 (his join scene plays on turn 1) and carries a vulnerary. Mira has a
+  new self-heal spell, **Prayer** (range 0, 3 uses; `HealTargets` includes the caster when MinRange is 0).
+  Autoplay ×3: no player deaths, one villager lost each run.
+- **Ch 2:** Brann starts inside his forge (fort 15,8), no turn-3 damage, deploy slots moved 2 tiles east, and
+  Gorran's archer (stationary) and bandit (guard) no longer cross the river to attack Brann. Autoplay ×4: Brann
+  survived every run (seed 4 lost Rowan to the ambush archers, a known autoplay weakness).
+- **New props (30 gens):** `wheat`, `fence` and `hedge` (`generate.py props`; takes in `tools/art/takes/props/`,
+  picks cropped into `assets/sprites/props/`). Field cells show two rows of wheat (the cabbage `crop` stays as a
+  fallback); farm-map walls show a fence next to a cottage (fort) and a hedge elsewhere.
+- **Bigger maps (+60% per side, the user's pick from https://claude.ai/artifact/EG5R6b9d6wjsKeffoXxNvR):** Prologue
+  22×16, Ch 1 26×19, Ch 2 29×19, written by `tools/maps/act1_early.py` (painted layouts; rerun to regenerate).
+  More enemies, a barn brute on guard, three bridges each in Ch 1/Ch 2, Ch 2's mill guard holds the north bank.
+  Dialogue `@focus` cells and `docs/story/CHAPTERS.md` updated. Brann's forge stays about as far from deploy as before.
+- **Hedges:** farm-map walls are solid 3D hedges that follow the grid, joining neighbours and wrapping round yards
+  (`MapView.AddHedge`), in a seamless leaf texture (`tools/art/hedge_texture.py` → `assets/textures/hedge_leaves.png`).
+  Their shader pulls them toward the camera like the props, so units behind a hedge stay behind it. Grid-following
+  fences (the user found them wrong) and the angled fence/hedge billboards were dropped; their art is still in
+  `assets/sprites/props/` (`fence_*`, `fence_straight_*`, `hedge_*`).
+- **Grounding:** the unit shadow sits a little behind the feet (centred on them, its front half showed below the feet
+  and read as hovering), and the idle bob dips a pixel instead of lifting.
+- **Font:** VT323 everywhere (user's pick from https://claude.ai/artifact/J56NzWNNMFDBUUm5iStHi3). All sizes go through
+  `UiKit.Px`. The battle controls hint was shortened to fit.
+- **Menus:** Z/X (and WASD) now work on menu buttons (`ui_accept`/`ui_cancel` extended in `InputSetup`); before,
+  only Enter/Space pressed them (e.g. Continue on the victory screen).
+- **Map sprites:** anchors are measured per animation, not just the standing frame (walk frames have the feet ~6 px
+  higher, so walking Gloam floated).
+- **Autoplay:** unarmed units (Mira before her tome) shelter instead of advancing (`CarefulAi.Shelter`).
+- **Budget:** subscription generations used up (0 left); the user's $10 of credit is untouched.
+
+## Session 6: back to 2.5D
 
 The user explored a fully flat 2D map style this session, then **decided to stay with the 2.5D view and its art**.
 The game is back on the 2.5D blocks with the session-5 art.

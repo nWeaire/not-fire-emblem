@@ -59,6 +59,8 @@ Folder: `assets/textures/terrain/<terrainId>[_N].png` (32 px top-down; `_N` are 
 |---|---|---|
 | P2 | House / chapel roofs | Generated (`tools/art/takes/tiles/village/` tiles 1/5/9/13 and 2/6/10/14) but need new terrain types; villages reuse `fort` (T) and `wall` (W) |
 | P3 | Marsh / reeds / shallow water | Needed by Ch 6 (Greyfen) |
+| Done (session 7) | **Wheat** crop prop (replaces the cabbage `crop`) | User request (session 7): field cells (`:`) should show **rows of wheat** instead of lettuce/cabbages, for a golden/straw colour against all the green. 32 px billboard takes like the other props (`generate.py props`, `assets/sprites/props/wheat_N.png`); plant them as lines across the cell, not a 2×2 grid (`MapView.AddProps`, case `field`). Pilot 1 take first. |
+| Done (session 7) | **Hedges** | Farm-map walls are solid 3D hedges in code (`MapView.AddHedge`, leaf texture from `tools/art/hedge_texture.py`). Fence art (`fence_*`, `fence_straight_*`) was generated but the user preferred hedges; it is unused. |
 
 ## 6. UI
 | Priority | Item |

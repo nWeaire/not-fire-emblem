@@ -16,10 +16,10 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 ---
 
 ## Prologue — "Embers at Ashford Farm"
-- **Map:** 14×10. The farmhouse, barn and fields sit on a gentle hill; the treeline lies to the north. Night (visual only). Height: the house sits on a rise (+1). No fog.
+- **Map:** 22×16 (enlarged in session 7). The farmhouse sits on a gentle rise with the barn, a pond and the fields round it; the treeline lies to the north. Night (visual only). Height: the house sits on a rise (+1). No fog.
 - **Party:** **Rowan** (Youth, Iron Sword + Short Bow, in farm clothes), **Aldric** (Warden, Steel Sword, Warden's Hide).
 - **Win:** Defeat Boss (the Binder). **Lose:** Rowan or Aldric dies.
-- **Enemies:** 4 Gloam Hounds (A), 2 Gloam Brutes (A), the Binder (B, Shadow tome, shrouded crest, Dominion radius 3).
+- **Enemies:** 5 Gloam Hounds (A), 2 Gloam Brutes (A) plus one guarding the barn (G), the Binder (B, Shadow tome, shrouded crest, Dominion radius 3).
 - **Events:**
   - T1, start (`pro_tutorial_move`): tutorial on moving.
   - T1, Rowan in range of an enemy (`pro_tutorial_attack`): tutorial on attacking and the forecast.
@@ -30,12 +30,12 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Scenes:** `pro_opening` (the evening on the farm), `pro_dogs` (the attack begins), `pro_aldric_reveal`, `pro_crest_awakens`, `pro_smoke` (glow over Brookhollow).
 
 ## Chapter 1 — "Brookhollow Burns"
-- **Map:** 16×12 village. A river runs south; the chapel is east, the well square in the centre, cottages in a ring. Several houses are **burning** (impassable fire tiles that clear at T4). No fog.
+- **Map:** 26×19 village (enlarged in session 7). A river runs south with three bridges; the chapel is across it to the east, the well square in the centre, cottages in a ring. Several houses are **burning** (impassable fire tiles that clear at T4). No fog.
 - **Party:** **Rowan**, **Aldric**, **Kai** (Soldier, ally-controlled until reached), **Mira** (Acolyte, starts in the chapel).
 - **Win:** Rout. **Lose:** Rowan dies, or 3 of 5 **villagers** (green NPCs) die. *(New objective: Defend/Protect NPCs.)*
-- **Enemies:** 6 Gloam Hounds, 3 Brutes, 2 Gloam Stalkers (spike-throwers, range 2); Binder Sennet (B) at the north gate. Reinforcements: 3 Hounds from the north road on T4.
+- **Enemies:** 6 Gloam Hounds, 3 Brutes, 3 Gloam Stalkers (spike-throwers, range 2); Binder Sennet (B) at the north gate. Reinforcements: 3 Hounds from the north road on T4.
 - **Events:**
-  - Kai starts as an **Ally** unit. When Rowan is adjacent (`ch01_kai_joins`), he switches to Player.
+  - Kai is a **Player** unit from the start, holding the well (`ch01_kai_joins` plays on turn 1; changed in session 7 for balance).
   - T3 (`ch01_mira_fire`): a Brute breaks into the chapel courtyard and Mira casts **Fire**. She gains the Fire tome; Kai's reaction is the comic beat.
   - T4 (`ch01_reinforcements`): fire tiles burn out and new enemies come from the north road.
   - Visit Elder Wenna's house: a Vulnerary + `ch01_wenna`.
@@ -56,9 +56,9 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 ## ACT I — THE THORNVALE
 
 ## Chapter 2 — "The Millbrook Road"
-- **Map:** 18×12. A road along the river; the mill and forge sit at the far end. Bridges are chokepoints.
+- **Map:** 29×19 (enlarged in session 7). Roads on both banks of the river and three bridges (chokepoints); the mill sits at the far north-east end. Brann's forge is on the south road, about as far from the deploy slots as before so he can be reached in time.
 - **Party:** up to 5. **Win:** Seize the mill. **Lose:** default.
-- **Enemies:** 10 bandits (fighters, brigands; A), a Bandit leader with a Hand Axe (B, on the mill).
+- **Enemies:** 13 bandits (fighters, archers, sellswords; A, with the mill guard on G/S) plus a 3-man ambush on T3, and a Bandit leader with a Hand Axe (B, on the mill).
 - **Events:** Brann starts as an **Ally** defending his forge, and joins when Rowan *Talks* to him (`ch02_brann`). If Brann is left alone for 3 turns, he takes damage (tension). Two village houses can be Visited for items.
 - **Recruit / unlock:** **Brann**; the hub **Smithy**. *(New commands: Talk, Visit.)*
 - **Scenes:** `ch02_pre` ("bandits move in when the lord's men don't"), `ch02_brann`, `ch02_post`.

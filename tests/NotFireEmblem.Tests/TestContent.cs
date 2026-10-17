@@ -64,6 +64,8 @@ public static class TestContent
         db.Add(new ArtDef("long_reach", "Long Reach", WeaponType.Sword, 0, 0, 0, 1, 1));
         db.Add(new ArtDef("beastbane", "Beastbane", WeaponType.Sword, 0, 0, 0, 0, 1, EffectiveAgainst: new[] { "Beast" }));
         db.Add(new SpellDef("heal", "Heal", 10, 1, 1, 3));
+        db.Add(Class("monk", MovementType.Infantry, basic, WeaponType.WhiteMagic) with { Spells = new[] { "prayer" } });
+        db.Add(new SpellDef("prayer", "Prayer", 10, 0, 0, 3));
         db.Add(new Dialogue.DialogueScene("scene_a", new Dialogue.DialogueLine[]
         {
             new Dialogue.SpeakLine("lord", "neutral", "Hello."),

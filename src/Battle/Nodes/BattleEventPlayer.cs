@@ -335,7 +335,7 @@ public partial class BattleEventPlayer : Node
             Text = text,
             Billboard = BaseMaterial3D.BillboardModeEnum.Enabled,
             NoDepthTest = true,
-            FontSize = 64,
+            FontSize = NotFireEmblem.UI.UiKit.Px(64),
             OutlineSize = 14,
             PixelSize = 0.006f,
             Modulate = color,

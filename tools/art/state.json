@@ -8074,6 +8074,22 @@
           "type": "generations"
         }
       },
+      "fence": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "fence_straight": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "flowers": {
         "status": "completed",
         "takes": 64,
@@ -8083,6 +8099,14 @@
         }
       },
       "flowers_s": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "hedge": {
         "status": "completed",
         "takes": 64,
         "usage": {
@@ -8147,6 +8171,14 @@
         }
       },
       "tuft_s": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "wheat": {
         "status": "completed",
         "takes": 64,
         "usage": {

@@ -85,7 +85,7 @@ public partial class BattleHud : CanvasLayer
         var unitBox = new VBoxContainer();
         unitRow.AddChild(unitBox);
         _unitTitle = new Label();
-        _unitTitle.AddThemeFontSizeOverride("font_size", 20);
+        _unitTitle.AddThemeFontSizeOverride("font_size", UiKit.Px(20));
         unitBox.AddChild(_unitTitle);
         var hpRow = new HBoxContainer();
         unitBox.AddChild(hpRow);
@@ -95,13 +95,13 @@ public partial class BattleHud : CanvasLayer
         _unitHpText = new Label();
         hpRow.AddChild(_unitHpText);
         _unitStats = new Label();
-        _unitStats.AddThemeFontSizeOverride("font_size", 14);
+        _unitStats.AddThemeFontSizeOverride("font_size", UiKit.Px(14));
         unitBox.AddChild(_unitStats);
         _unitItems = new Label();
-        _unitItems.AddThemeFontSizeOverride("font_size", 14);
+        _unitItems.AddThemeFontSizeOverride("font_size", UiKit.Px(14));
         unitBox.AddChild(_unitItems);
         _unitStatus = new Label { Modulate = new Color(0.75f, 0.9f, 1f) };
-        _unitStatus.AddThemeFontSizeOverride("font_size", 13);
+        _unitStatus.AddThemeFontSizeOverride("font_size", UiKit.Px(13));
         unitBox.AddChild(_unitStatus);
         _unitPanel.Visible = false;
 
@@ -124,19 +124,19 @@ public partial class BattleHud : CanvasLayer
         _forecastGrid.AddThemeConstantOverride("h_separation", 24);
         forecastBox.AddChild(_forecastGrid);
         _forecastHint = new Label { HorizontalAlignment = HorizontalAlignment.Center, Modulate = new Color(1, 1, 1, 0.7f) };
-        _forecastHint.AddThemeFontSizeOverride("font_size", 13);
+        _forecastHint.AddThemeFontSizeOverride("font_size", UiKit.Px(13));
         forecastBox.AddChild(_forecastHint);
         _forecastPanel.Visible = false;
 
         // Controls hint (bottom-centre)
         var hint = new Label
         {
-            Text = "Z / LMB: select   X / RMB: back   WASD / arrows: cursor   Q / E: rotate   wheel / +/-: zoom   Tab: next unit / weapon   G: danger zone   B: battle scenes   T: end turn",
+            Text = "Z: select  X: back  WASD: cursor  Q/E: rotate  +/-: zoom  Tab: next  G: danger  B: scenes  T: end turn",
             Modulate = new Color(1, 1, 1, 0.65f),
             HorizontalAlignment = HorizontalAlignment.Center,
             MouseFilter = Control.MouseFilterEnum.Ignore,
         };
-        hint.AddThemeFontSizeOverride("font_size", 13);
+        hint.AddThemeFontSizeOverride("font_size", UiKit.Px(13));
         hint.AddThemeConstantOverride("outline_size", 4);
         hint.AddThemeColorOverride("font_outline_color", Colors.Black);
         root.AddChild(hint);
@@ -146,7 +146,7 @@ public partial class BattleHud : CanvasLayer
 
         // Phase banner (centre)
         _banner = new Label { HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Visible = false };
-        _banner.AddThemeFontSizeOverride("font_size", 56);
+        _banner.AddThemeFontSizeOverride("font_size", UiKit.Px(56));
         _banner.AddThemeConstantOverride("outline_size", 12);
         _banner.AddThemeColorOverride("font_outline_color", Colors.Black);
         root.AddChild(_banner);
@@ -165,7 +165,7 @@ public partial class BattleHud : CanvasLayer
         _result.AddChild(resultBox);
         resultBox.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
         _resultLabel = new Label { HorizontalAlignment = HorizontalAlignment.Center };
-        _resultLabel.AddThemeFontSizeOverride("font_size", 64);
+        _resultLabel.AddThemeFontSizeOverride("font_size", UiKit.Px(64));
         resultBox.AddChild(_resultLabel);
         _resultButtons = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ShrinkCenter };
         _resultButtons.AddThemeConstantOverride("separation", 8);
@@ -174,7 +174,7 @@ public partial class BattleHud : CanvasLayer
         // Level-up panel (centre)
         _levelPanel = Panel(root, Control.LayoutPreset.Center, Vector2.Zero);
         _levelText = new Label();
-        _levelText.AddThemeFontSizeOverride("font_size", 18);
+        _levelText.AddThemeFontSizeOverride("font_size", UiKit.Px(18));
         _levelPanel.AddChild(_levelText);
         _levelPanel.Visible = false;
 
@@ -447,7 +447,7 @@ public partial class BattleHud : CanvasLayer
     public void Toast(string text, Color? color = null)
     {
         var label = new Label { Text = text, HorizontalAlignment = HorizontalAlignment.Right, Modulate = color ?? Colors.White };
-        label.AddThemeFontSizeOverride("font_size", 18);
+        label.AddThemeFontSizeOverride("font_size", UiKit.Px(18));
         label.AddThemeConstantOverride("outline_size", 6);
         label.AddThemeColorOverride("font_outline_color", Colors.Black);
         _toasts.AddChild(label);

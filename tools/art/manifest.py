@@ -282,7 +282,25 @@ PROPS.update({
     "cottage_s": "one small village cottage with a red tiled roof, cream plaster walls and a wooden door",
     "peak_s": "one small rocky grey-brown mountain peak with a little snow on top",
 })
-PROP_SIZE = {"tuft": 32, "flowers": 32, "crop": 32, "bush": 32,
+# Session 7 (user requests): wheat replaces the cabbage crop on field cells; fences and hedges replace the lumped
+# bushes on farm-map wall cells. Side-on so they read as a line on the billboard.
+PROPS.update({
+    "wheat": "one short row of ripe golden wheat stalks with drooping grain heads, straw yellow and pale gold, "
+             "seen from the side",
+    "fence": "one short straight section of rustic wooden farm fence, two horizontal split rails on three posts, "
+             "weathered brown wood, seen from the side",
+    "hedge": "one short straight section of a trimmed farm hedgerow, a dense low boxy green hedge with a flat top "
+             "and leafy texture, seen from the side",
+})
+# Straight fence for the 3D fence lines (MapView.AddFence): flat front elevation whose rails run off both edges, so
+# sections join into runs and corners along the grid.
+PROPS.update({
+    "fence_straight": "one straight section of rustic wooden split-rail farm fence seen exactly from the front, flat "
+                      "side elevation with no perspective, two horizontal rails running the full width of the image "
+                      "from the left edge to the right edge, one thick post in the middle, weathered brown wood",
+})
+PROP_SIZE = {"tuft": 32, "flowers": 32, "crop": 32, "bush": 32, "wheat": 32, "fence": 32, "hedge": 32,
+             "fence_straight": 32,
              "tuft_s": 16, "flowers_s": 16, "crop_s": 16, "bush_s": 24, "cottage_s": 32, "peak_s": 32, "reed_s": 16, "stilt_house_s": 32}  # others are 64
 
 TILESETS = {

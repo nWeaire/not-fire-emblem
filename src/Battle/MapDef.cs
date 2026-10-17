@@ -51,7 +51,7 @@ public sealed record MapDef(
     int VisionBonus = 0,
     IReadOnlyList<GridPos>? DeploySlots = null, // where deployed roster units without a fixed spawn start
     string? Background = null,                  // the battle screen's backdrop for open ground (assets/backgrounds/)
-    string? ArtSet = null,                      // flat-map art variant, e.g. "farm" (hedges, farmhouses)
+    string? ArtSet = null,                      // art variant: "farm" = no stone (hedgerow walls, dirt yards and squares)
     string? Lighting = null)                    // "night" darkens the map and battle screen
 {
     public IReadOnlyList<GridPos> Slots => DeploySlots ?? System.Array.Empty<GridPos>();

@@ -22,7 +22,7 @@ KAI [surprised]: ...Is he talking to his axe?
 BRANN [smile]: My hammer's at home. The axe gets jealous.
 
 ### ch02_brann_pressed
-@focus 15,9
+@focus 16,13
 BRANN [hurt]: Oof. That one knew what he was doing.
 BRANN [determined]: If you're coming, come quicker!
 

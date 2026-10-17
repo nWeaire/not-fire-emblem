@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bahau2ho4ni1s"
-path="res://.godot/imported/frame_006.png-53c15fd90f66187499cbc2fd4fc82e89.ctex"
+uid="uid://du7natejhj1op"
+path="res://.godot/imported/fence_3.png-2842556e576ffa82bfd962680d648620.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battle/aldric_warden_lord/animations/attack/east/frame_006.png"
-dest_files=["res://.godot/imported/frame_006.png-53c15fd90f66187499cbc2fd4fc82e89.ctex"]
+source_file="res://assets/sprites/props/fence_3.png"
+dest_files=["res://.godot/imported/fence_3.png-2842556e576ffa82bfd962680d648620.ctex"]
 
 [params]
 

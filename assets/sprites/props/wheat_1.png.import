@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcdpb1s6qauvu"
-path="res://.godot/imported/frame_008.png-2dff8e955f697d5a7d054b898bf9eeec.ctex"
+uid="uid://qy2bde26vsqs"
+path="res://.godot/imported/wheat_1.png-5a278e61557fc39122eb1521a37ec192.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battle/aldric_warden_lord/animations/attack/east/frame_008.png"
-dest_files=["res://.godot/imported/frame_008.png-2dff8e955f697d5a7d054b898bf9eeec.ctex"]
+source_file="res://assets/sprites/props/wheat_1.png"
+dest_files=["res://.godot/imported/wheat_1.png-5a278e61557fc39122eb1521a37ec192.ctex"]
 
 [params]
 

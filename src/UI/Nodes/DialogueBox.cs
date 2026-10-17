@@ -101,8 +101,8 @@ public partial class DialogueBox : Control
             SizeFlagsVertical = SizeFlags.ExpandFill,
             MouseFilter = MouseFilterEnum.Ignore,
         };
-        _text.AddThemeFontSizeOverride("normal_font_size", 20);
-        _text.AddThemeFontSizeOverride("italics_font_size", 20);
+        _text.AddThemeFontSizeOverride("normal_font_size", UiKit.Px(20));
+        _text.AddThemeFontSizeOverride("italics_font_size", UiKit.Px(20));
         column.AddChild(_text);
         _more = UiKit.Label("▼  Z: next   X: skip", 13, UiKit.Muted, HorizontalAlignment.Right);
         column.AddChild(_more);

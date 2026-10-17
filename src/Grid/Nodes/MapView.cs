@@ -68,7 +68,7 @@ public partial class MapView : Node3D
             float height = top - BlockBottom;
             var center = new Vector3(p.X * GridMetrics.CellSize, BlockBottom + height / 2f, p.Y * GridMetrics.CellSize);
             bool alt = (p.X + p.Y) % 2 == 0;
-            var tiles = Tiles(cell.Terrain.Id);
+            var tiles = Tiles(TileFor(cell.Terrain.Id));
 
             var block = new MeshInstance3D
             {
@@ -111,6 +111,14 @@ public partial class MapView : Node3D
         });
     }
 
+    /// <summary>
+    /// The tile set a terrain draws with. Farm maps (ArtSet "farm") have no stone: walls are hedgerows on grass,
+    /// cottages stand on a dirt yard and squares are packed earth.
+    /// </summary>
+    private string TileFor(string terrainId) => _artSet == "farm"
+        ? terrainId switch { "wall" => "plain", "fort" or "square" => "road", _ => terrainId }
+        : terrainId;
+
     /// <summary>The bridge tile's planks run north–south; turn it when the bridge crosses water to its north and south.</summary>
     private static bool SpansEastWest(BattleGrid grid, GridPos p)
     {
@@ -152,6 +160,9 @@ public partial class MapView : Node3D
             case "stilt" when Props("stilt_house").Count > 0:
                 AddBillboard(Props("stilt_house")[(int)(Hash(p, 80) % (uint)Props("stilt_house").Count)], top);
                 return;
+            case "wall" when _artSet == "farm" && ResourceLoader.Exists(HedgeTexture):
+                AddHedge(grid, p, top);
+                return;
             case "reeds":
                 for (int i = 0; i < 2; i++)
                     AddDecor("reed", p, 81 + i, top + Corner(p, 83 + i, 0.33f));
@@ -170,6 +181,11 @@ public partial class MapView : Node3D
             case "meadow":
                 for (int i = 0; i < 2 + (int)(Hash(p, 60) % 2); i++)
                     AddDecor("flowers", p, 61 + i, top + Corner(p, 64 + i, 0.36f));
+                return;
+            case "field" when Props("wheat").Count > 0:
+                // Two rows of wheat across the cell; neighbouring field cells line up into long rows.
+                for (int i = 0; i < 2; i++)
+                    AddDecor("wheat", p, 70 + i, top + new Vector3(Jitter(70 + i) * 0.1f, 0f, i == 0 ? -0.22f : 0.22f));
                 return;
             case "field":
                 // A planted 2×2 grid inside the cell (±0.2 keeps each cabbage clear of the cell's edges).
@@ -264,6 +280,89 @@ public partial class MapView : Node3D
             AddChild(body);
         }
         return true;
+    }
+
+    private const string HedgeTexture = "res://assets/textures/hedge_leaves.png";
+    private const float HedgeHeight = 0.5f;
+    private const float HedgeHalfWidth = 0.2f;
+
+    /// <summary>
+    /// A solid hedge that follows the grid: a block on the cell centre, run out to each neighbouring wall cell, so
+    /// hedges join up, wrap round a yard and turn corners (a lone wall cell gets an east–west stretch). Real 3D boxes
+    /// in a seamless leaf texture at the map's pixel scale. They are drawn pulled toward the camera like the props
+    /// (BillboardPull), so units behind a hedge stay behind it and units in front stay in front.
+    /// </summary>
+    private void AddHedge(BattleGrid grid, GridPos p, Vector3 top)
+    {
+        bool IsWall(int dx, int dy)
+        {
+            var n = new GridPos(p.X + dx, p.Y + dy);
+            return grid.InBounds(n) && grid[n].Terrain.Id == "wall";
+        }
+        bool east = IsWall(1, 0), west = IsWall(-1, 0), south = IsWall(0, 1), north = IsWall(0, -1);
+        if (!(east || west || south || north))
+            east = west = true;
+        float h = HedgeHalfWidth, half = GridMetrics.CellSize / 2f;
+        // One box along each axis that has neighbours (or the centre block alone on that axis).
+        float x0 = west ? -half : -h, x1 = east ? half : h, z0 = north ? -half : -h, z1 = south ? half : h;
+        AddHedgeBox(top, x0, x1, -h, h);
+        if (north || south)
+            AddHedgeBox(top, -h, h, z0, z1);
+    }
+
+    private void AddHedgeBox(Vector3 top, float x0, float x1, float z0, float z1)
+    {
+        AddChild(new MeshInstance3D
+        {
+            Mesh = new BoxMesh { Size = new Vector3(x1 - x0, HedgeHeight, z1 - z0) },
+            MaterialOverride = HedgeMaterial,
+            Position = top + new Vector3((x0 + x1) / 2f, HedgeHeight / 2f, (z0 + z1) / 2f),
+            CastShadow = GeometryInstance3D.ShadowCastingSetting.Off,
+        });
+    }
+
+    private ShaderMaterial? _hedgeMaterial;
+
+    private ShaderMaterial HedgeMaterial => _hedgeMaterial ??= CreateHedgeMaterial();
+
+    private static ShaderMaterial CreateHedgeMaterial()
+    {
+        var material = new ShaderMaterial
+        {
+            Shader = new Shader
+            {
+                Code = """
+                    shader_type spatial;
+                    uniform sampler2D leaves : source_color, filter_nearest, repeat_enable;
+                    uniform float pull = 1.1;
+                    uniform float texels_per_unit = 1.0;
+                    varying vec3 world_pos;
+                    varying vec3 world_normal;
+                    void vertex() {
+                        world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+                        world_normal = normalize((MODEL_MATRIX * vec4(NORMAL, 0.0)).xyz);
+                        // Pull along the view ray, like the billboards: same place on screen, nearer in depth.
+                        vec4 view = MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
+                        view.xyz -= normalize(view.xyz) * pull;
+                        POSITION = PROJECTION_MATRIX * view;
+                    }
+                    void fragment() {
+                        // World-space (triplanar) UVs: one texture pixel per map art pixel on every face.
+                        vec3 n = abs(world_normal);
+                        vec2 uv = n.y > 0.5 ? world_pos.xz : (n.x > 0.5 ? world_pos.zy : world_pos.xy);
+                        vec3 c = texture(leaves, uv * texels_per_unit).rgb;
+                        // The top catches the light; the sides are a shade darker.
+                        ALBEDO = c * (n.y > 0.5 ? 1.15 : 0.85);
+                        ROUGHNESS = 1.0;
+                    }
+                    """,
+            },
+        };
+        material.SetShaderParameter("leaves", ResourceLoader.Load<Texture2D>(HedgeTexture));
+        material.SetShaderParameter("pull", BillboardPull);
+        // The texture is 32 px, one cell's worth of art pixels: one repeat per world unit.
+        material.SetShaderParameter("texels_per_unit", 1f / GridMetrics.CellSize);
+        return material;
     }
 
     /// <summary>An upright pixel-art prop standing on <paramref name="ground"/>, facing the camera like the units.</summary>

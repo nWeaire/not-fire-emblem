@@ -50,6 +50,23 @@ public static class CarefulAi
         return new ActCommand(unit.Id, cell, item is null ? new WaitAction() : new UseItemAction(item.Id));
     }
 
+    /// <summary>
+    /// A unit with no weapon (Mira before her tome) can't fight back, so it doesn't advance: it waits on the reachable
+    /// cell the fewest enemies can hit, staying close to where it is. Null for armed units.
+    /// </summary>
+    public static IBattleCommand? Shelter(BattleState s, BattleUnit unit, ReachMap reach)
+    {
+        if (s.Db.TryWeapon(unit.State.EquippedItemId) is not null)
+            return null;
+        var threats = Threats(s, unit.Faction);
+        var cell = reach.StopCells
+            .OrderBy(c => threats.GetValueOrDefault(c))
+            .ThenBy(c => c.DistanceTo(unit.Pos))
+            .ThenByDescending(c => s.Grid[c].Terrain.Def + s.Grid[c].Terrain.Avoid / 10)
+            .First();
+        return new ActCommand(unit.Id, cell, new WaitAction());
+    }
+
     /// <summary>The reachable cell the fewest enemies can hit next phase; ties go to cells near a healer, then cover.</summary>
     public static GridPos SafestCell(BattleState s, BattleUnit unit, ReachMap reach)
     {

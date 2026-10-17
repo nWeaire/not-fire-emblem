@@ -161,7 +161,7 @@ public partial class PlayerInputController : Node
                 }
                 break;
             case Mode.PickUnit:
-                int pick = _targets.FindIndex(t => t.Pos == cell);
+                int pick = _targets.FindIndex(t => PickPos(t) == cell);
                 if (pick >= 0 && pick != _targetIndex)
                 {
                     _targetIndex = pick;
@@ -585,23 +585,27 @@ public partial class PlayerInputController : Node
             return;
         }
         _targets.Clear();
-        _targets.AddRange(targets.OrderBy(t => t.Pos.X).ThenBy(t => t.Pos.Y));
+        _targets.AddRange(targets.OrderBy(t => PickPos(t).X).ThenBy(t => PickPos(t).Y));
         _targetIndex = 0;
         _pickAction = action;
         _pickPreview = preview;
         _back = back ?? OpenActionMenu;
         _mode = Mode.PickUnit;
         _b.Hud.HideMenu();
-        _b.RangeOverlay.ShowCells(_targets.Select(t => (t.Pos, CellOverlay.HealColor)).ToList());
+        _b.RangeOverlay.ShowCells(_targets.Select(t => (PickPos(t), CellOverlay.HealColor)).ToList());
         UpdatePick();
     }
+
+    /// <summary>Where a pick target stands: the acting unit itself (a self-heal) is already on its destination.</summary>
+    private GridPos PickPos(BattleUnit t) => t == _selected ? _dest : t.Pos;
 
     private void UpdatePick()
     {
         var target = _targets[_targetIndex];
-        _b.Cursor.MoveTo(target.Pos);
-        _b.Camera.Focus(_b.CellWorld(target.Pos));
-        _b.ViewOf(_selected!.Id)?.FaceToward(_b.CellWorld(target.Pos));
+        _b.Cursor.MoveTo(PickPos(target));
+        _b.Camera.Focus(_b.CellWorld(PickPos(target)));
+        if (target != _selected)
+            _b.ViewOf(_selected!.Id)?.FaceToward(_b.CellWorld(target.Pos));
         _b.Hud.ShowPreview(_pickPreview!(target) + (_targets.Count > 1 ? "\nArrows: switch   Z: confirm   X: back" : "\nZ: confirm   X: back"));
         _b.Hud.ShowUnit(S, target);
     }

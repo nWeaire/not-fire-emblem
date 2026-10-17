@@ -32,7 +32,7 @@ ROWAN [worried]: Who—
 ???: Not you, child. Him.
 
 ### pro_aldric_reveal
-@focus 3,6
+@focus 3,8
 @sfx floorboards
 ROWAN [surprised]: ...Where did you get that?
 ALDRIC [cold]: Under the floor. Where I left it.
@@ -47,7 +47,7 @@ BINDER [cold]: The quiet is coming, Warden. We are only early.
 ALDRIC [angry]: Then you can wait in the ground.
 
 ### pro_crest_awakens
-@focus 7,1
+@focus 11,1
 @sfx crest_rise
 NARRATOR: The cloaked man fell. The mark on his hand did not.
 NARRATOR: It rose into the air — a sigil of dark violet light — and drifted, slow as ash, toward Rowan.
@@ -82,7 +82,7 @@ ALDRIC [determined]: Get your sword. We run.
 # ---- Scenes added for the built map (tutorials). Not in DIALOGUE.md yet.
 
 ### pro_tutorial_move
-@focus 5,7
+@focus 5,10
 NARRATOR: Select Rowan and choose where to move. Blue tiles show where he can go; red tiles show what he can hit.
 NARRATOR: Press G to show every tile the enemy can reach next turn. Press it again to hide them.
 ROWAN [determined]: Let them come to me. One at a time.
@@ -90,7 +90,7 @@ NARRATOR: Move next to an enemy and choose Attack.
 NARRATOR: Before you commit, the forecast shows the exact damage, hit chance and critical chance.
 
 ### pro_tutorial_dominion
-@focus 7,1
+@focus 11,1
 ALDRIC [cold]: See how they move? Like hands on one arm.
 ALDRIC [determined]: The cloaked one is holding them. Near him, they hit harder and they don't run.
 ROWAN [neutral]: So we cut off the hand.

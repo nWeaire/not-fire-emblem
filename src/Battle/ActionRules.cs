@@ -98,8 +98,10 @@ public static class ActionRules
         var spell = ReadySpells(s, unit).FirstOrDefault(sp => sp.Id == spellId);
         if (spell is null)
             return Enumerable.Empty<BattleUnit>();
-        return Friends(s, unit).Where(f => f.CurrentHp < s.Stats(f).HP
-                                           && from.DistanceTo(f.Pos) >= spell.MinRange && from.DistanceTo(f.Pos) <= spell.MaxRange);
+        var targets = Friends(s, unit).Where(f => f.CurrentHp < s.Stats(f).HP
+                                                  && from.DistanceTo(f.Pos) >= spell.MinRange && from.DistanceTo(f.Pos) <= spell.MaxRange);
+        // A spell with minimum range 0 also heals the caster (it stands on `from`, wherever its Pos still says).
+        return spell.MinRange == 0 && unit.CurrentHp < s.Stats(unit).HP ? targets.Prepend(unit) : targets;
     }
 
     public static bool CanVisit(BattleState s, BattleUnit unit, GridPos from) =>

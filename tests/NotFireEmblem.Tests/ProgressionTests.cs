@@ -130,6 +130,24 @@ public class ProgressionTests
     }
 
     [Fact]
+    public void SelfHealSpell_HealsTheCasterAfterMovingButNoOneElse()
+    {
+        var (s, tm) = Start(new TestBattle(".....").Lord(0, 0, "sword")
+            .Named("mira", Faction.Player, "monk", 2, 0).Unit(Faction.Enemy, "merc", 4, 0));
+        var lord = s.Unit("u0");
+        var mira = s.Unit("u1");
+        lord.CurrentHp = 3;
+        var dest = new GridPos(1, 0); // next to the hurt lord: range 0 still only reaches herself
+        Assert.Empty(ActionRules.HealTargets(s, mira, dest, "prayer"));
+        mira.CurrentHp = 2;
+        Assert.Equal(new[] { mira }, ActionRules.HealTargets(s, mira, dest, "prayer"));
+        var r = tm.Submit(new ActCommand("u1", dest, new HealAction("u1", "prayer")));
+        Assert.True(r.Ok, r.Error);
+        Assert.True(mira.CurrentHp > 2);
+        Assert.Equal(2, mira.UsesLeft["prayer"]);
+    }
+
+    [Fact]
     public void Vulnerary_HealsAndIsUsedUp()
     {
         var (s, tm) = Start(new TestBattle(".....").Lord(0, 0, "sword", "vulnerary").Unit(Faction.Enemy, "merc", 4, 0));

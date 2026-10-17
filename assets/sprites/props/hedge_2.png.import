@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7xm4wrojpg8c"
-path="res://.godot/imported/frame_007.png-e55c0b3f288d058d8b2c22e3c65b6974.ctex"
+uid="uid://dqbs3pyi5vpf3"
+path="res://.godot/imported/hedge_2.png-aebae157095185c3c092385d58aa85c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battle/aldric_warden/animations/attack/east/frame_007.png"
-dest_files=["res://.godot/imported/frame_007.png-e55c0b3f288d058d8b2c22e3c65b6974.ctex"]
+source_file="res://assets/sprites/props/hedge_2.png"
+dest_files=["res://.godot/imported/hedge_2.png-aebae157095185c3c092385d58aa85c3.ctex"]
 
 [params]
 

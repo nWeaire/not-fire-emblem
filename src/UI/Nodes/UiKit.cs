@@ -29,8 +29,22 @@ public static class UiKit
     private static Font? _capsFont;
     private static readonly Dictionary<string, Texture2D?> Scaled = new();
 
-    public static Font TextFont => _textFont ??= LoadFont("res://assets/fonts/PixelifySans.ttf");
-    public static Font CapsFont => _capsFont ??= LoadFont("res://assets/fonts/Silkscreen-Regular.ttf");
+    // VT323 for all text (session 7: the user found Pixelify Sans and Silkscreen hard to read, e.g. 5/S and B/G).
+    public static Font TextFont => _textFont ??= LoadFont("res://assets/fonts/VT323-Regular.ttf");
+    public static Font CapsFont => _capsFont ??= LoadFont("res://assets/fonts/VT323-Regular.ttf");
+
+    /// <summary>
+    /// The font size to use for a size written for the old font. VT323 draws smaller per point, and its pixels only
+    /// stay even at multiples of 4 px (it is drawn without smoothing), so sizes scale by 1.3 and snap to 4. Nothing
+    /// goes below 20 px: at 16 VT323's small letters are hard to read.
+    /// </summary>
+    public static int Px(int size)
+    {
+        double scaled = size * 1.3;
+        // Big titles snap to 16 so their pixel steps stay even too.
+        int step = scaled >= 40 ? 16 : 4;
+        return Math.Max(20, step * (int)Math.Round(scaled / step, MidpointRounding.AwayFromZero));
+    }
 
     private static Font LoadFont(string path)
     {
@@ -108,7 +122,7 @@ public static class UiKit
 
     private static Theme BuildTheme()
     {
-        var t = new Theme { DefaultFont = TextFont, DefaultFontSize = 18 };
+        var t = new Theme { DefaultFont = TextFont, DefaultFontSize = Px(18) };
 
         t.SetStylebox("panel", "PanelContainer", PanelStyle());
         t.SetStylebox("panel", "Panel", PanelStyle());
@@ -172,7 +186,7 @@ public static class UiKit
     public static Label Label(string text, int size = 18, Color? color = null, HorizontalAlignment align = HorizontalAlignment.Left)
     {
         var label = new Label { Text = text, HorizontalAlignment = align, AutowrapMode = TextServer.AutowrapMode.Off };
-        label.AddThemeFontSizeOverride("font_size", size);
+        label.AddThemeFontSizeOverride("font_size", Px(size));
         if (color is { } c)
             label.Modulate = c;
         return label;
@@ -199,7 +213,7 @@ public static class UiKit
     public static Button Button(string text, Action onPressed, int minWidth = 180, bool enabled = true)
     {
         var button = new Button { Text = text, CustomMinimumSize = new Vector2(minWidth, 38), Disabled = !enabled };
-        button.AddThemeFontSizeOverride("font_size", 18);
+        button.AddThemeFontSizeOverride("font_size", Px(18));
         button.Pressed += onPressed;
         return button;
     }

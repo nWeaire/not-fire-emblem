@@ -11,7 +11,7 @@ KAI [determined]: I'm not scared, I'm energised.
 ROWAN [neutral]: Be energised quietly.
 
 ### ch03_tamsin_seen
-@focus 9,7
+@focus 13,12
 @sfx bow_shot
 TAMSIN [angry]: Come on, then. Come on! I've got arrows enough for all of you.
 ROWAN [surprised]: Someone's in the clearing, alone.
@@ -37,7 +37,7 @@ ROWAN [determined]: Who told you?
 VARGA [cold]: The quiet told us, child. It speaks to all of us, eventually.
 
 ### ch03_varga_dies
-@focus 15,2
+@focus 26,3
 @sfx crest_rise
 VARGA [hurt]: It's... cold... We were promised it wouldn't be cold.
 NARRATOR: The Binder's crest rose and drifted to Rowan's hand. It burned less this time.

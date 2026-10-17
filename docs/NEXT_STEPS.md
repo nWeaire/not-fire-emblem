@@ -7,14 +7,15 @@ _Last updated: 2026-10-17 (end of session 7)._
 ---
 
 ## Next (plan for session 8)
-Everything from session 7 is committed on `art-direction-gba` (last: `4e38278`); nothing is pushed or merged.
+Session 7 is merged into `main` (fast-forward, not pushed); work continues on `act1-scale`.
 1. **Hand playtest Prologue → Ch 2** (the user). Most of session 7 is untested by hand: the bigger maps and their
    balance, Kai from turn 1, Mira's Prayer, Brann's rescue, the weapon picker, the crest absorption, the shadows and
    tilt-shift (is the blur too strong?), the side outlines, and keyboard focus in the hub and prep screens.
    Autoplay won every run but still loses villagers and Kai sometimes; tune from the user's notes.
 2. **Merge `art-direction-gba` into `main`** once the playtest is happy (sessions 4–7 live only on this branch).
-3. **Ch 3–6 at the new scale:** only the Prologue, Ch 1 and Ch 2 were enlarged (+60%). Ch 3 (Thornwood) is next in
-   the story and still 20×14; follow `tools/maps/act1_early.py` (and `act1_ch4_6.py` for Ch 4–6), retune with autoplay.
+3. **Ch 4–6 at the new scale:** the Prologue to Ch 3 are enlarged (+60%); Ch 3 (32×22, session 7) is a hunt: the
+   packs guard their clearings and Tamsin holds a hunter's hut (fort) until the party reaches her. Follow
+   `tools/maps/act1_early.py` for Ch 4–6 (`act1_ch4_6.py` wrote the current ones) and retune with autoplay.
 4. **Ch 7, "Storm over Dain Hall"** (ends Act I): map, script, Wren and Lord Halvric (CHAPTERS.md), plus their art.
 5. **Art with the remaining ~$9 of PixelLab credit** (`docs/ART_NEEDED.md`): walk/attack map animations for Sennet
    and Varga; Fire / Shadow / Heal spell effects; crest skill auras; portrait expressions for the main cast; UI icons;

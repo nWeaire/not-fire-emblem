@@ -1,9 +1,9 @@
-"""Writes the bigger Prologue, Ch 1 and Ch 2 maps (session 7: +60% per side, the user's pick).
+"""Writes the bigger Prologue, Ch 1, Ch 2 and Ch 3 maps (session 7: +60% per side, the user's pick).
 
 Each map is painted onto a grid (base terrain, then roads, rivers, houses, fields...) so the layout reads as code.
 The .tres files it writes are canonical afterwards (edit them directly); rerunning this overwrites them.
     python tools/maps/act1_early.py
-Dialogue @focus cells for these maps live in data/dialogue/{prologue,ch01,ch02}.txt.
+Dialogue @focus cells for these maps live in data/dialogue/{prologue,ch01,ch02,ch03}.txt.
 """
 from act1_ch4_6 import DATA, PLAYER, ENEMY, ALLY, AGGRESSIVE, STATIONARY, GUARD, BOSS, map_tres
 
@@ -277,7 +277,76 @@ def ch2():
     finish("ch2", {"ArtSet": "farm"})
 
 
+# ------------------------------------------------------------------ Chapter 3: Thornwood Hunt (32×22)
+
+def ch3():
+    g = Grid(32, 22, "F")
+    # Clearings in the forest: deploy (south-west), Tamsin's (centre), the north-west glade, a small north glade,
+    # Varga's (north-east, round a ruined hunting lodge) and the dead dogs' (south-east).
+    for x0, y0, x1, y1 in [(1, 16, 7, 20), (11, 9, 19, 13), (3, 2, 9, 6), (14, 3, 17, 5), (21, 1, 29, 6), (21, 15, 27, 19)]:
+        g.rect(x0, y0, x1, y1, "P")
+    # Ragged clearing edges: a few trees back in, a few meadow patches.
+    g.spots("F", [(1, 16), (7, 20), (11, 9), (19, 13), (3, 6), (9, 2), (21, 6), (29, 1), (27, 19), (21, 15), (17, 3)])
+    g.spots(",", [(2, 19), (5, 16), (13, 12), (18, 10), (4, 3), (8, 5), (23, 2), (28, 5), (24, 18), (26, 16), (15, 4)])
+    # Hunters' trails between the clearings.
+    g.hline(18, 7, 11, "=")
+    g.vline(11, 13, 18, "=")
+    g.hline(11, 19, 22, "=")
+    g.vline(22, 6, 11, "=")
+    g.vline(16, 13, 17, "=")
+    g.hline(17, 16, 21, "=")
+    g.vline(10, 6, 9, "=")
+    g.hline(6, 9, 10, "=")
+    # Rock outcrops (raised) and a pond feeding a stream to the south.
+    g.rect(8, 7, 9, 8, "M")
+    g.raise_(8, 7, 9, 8)
+    g.rect(24, 11, 25, 12, "M")
+    g.raise_(24, 11, 25, 12)
+    g.rect(28, 9, 30, 11, "~")
+    g.vline(29, 12, 21, "~")
+    # The ruined hunting lodge in Varga's clearing, and Tamsin's hunter's hut at the west of the central clearing,
+    # near where the trail from the deploy clearing comes in: she holds it (fort: Def, Avoid, healing) until the party
+    # reaches her.
+    g.house(25, 1)
+    g.put(13, 12, "T")
+
+    def hound(pos, level=2, **kv):
+        return gloam("gloam_hound", pos, "varga", **kv) | {"Level": level}
+
+    def stalker(pos):
+        return gloam("gloam_stalker", pos, "varga", Ai=GUARD)
+
+    def brute(pos):
+        return gloam("gloam_brute", pos, "varga") | {"Level": 3}
+
+    spawns = [
+        # Stalkers wait in the trees; hounds roam. None within a move of Tamsin's clearing (she must last until the
+        # party arrives) or of the deploy clearing.
+        stalker((9, 5)), stalker((5, 10)), stalker((8, 13)), stalker((23, 13)), stalker((27, 8)),
+        # Varga's pack holds the north and east until someone comes near; Tamsin is an archer and can't answer
+        # hounds at her side, so only her own two press her before the party arrives.
+        hound((16, 4), Ai=GUARD), hound((19, 3), Ai=GUARD), hound((24, 9), Ai=GUARD),
+        hound((22, 16), Ai=GUARD), hound((26, 18), Ai=GUARD),  # the pack at the dead dogs
+        brute((27, 5)), brute((15, 3)) | {"Ai": GUARD},
+        dict(ClassId="binder", Name="Varga", Tag="varga", SpriteId="boss_varga", Level=6, Inventory=["shadow"],
+             Pos=(26, 3), Ai=BOSS, IsBoss=True, CrestBearer=True),
+        hound((18, 12), HardOnly=True),
+        # Turn 2: Tamsin, fighting two hounds alone in the central clearing.
+        dict(UnitId="tamsin", Group="tamsin", Faction=ALLY, Pos=(13, 12)),
+        hound((14, 10), 1, Group="tamsin"), hound((16, 12), 1, Group="tamsin"),
+    ]
+    triggers = ["turn 2 => spawn tamsin; scene ch03_tamsin_seen",
+                "talk rowan tamsin => scene ch03_tamsin; join tamsin",
+                "enter player 23,16-26,18 => scene ch03_dogs",
+                "combat varga => scene ch03_boss",
+                "defeated varga => scene ch03_varga_dies"]
+    slots = [(2, 17), (3, 17), (2, 18), (3, 18), (4, 18), (3, 19)]
+    map_tres("ch3", "Chapter 3: Thornwood Hunt", g.rows(), g.height_rows(), spawns, "boss varga", [], triggers, slots,
+             background="thornwood", fog=True)
+
+
 if __name__ == "__main__":
     prologue()
     ch1()
     ch2()
+    ch3()

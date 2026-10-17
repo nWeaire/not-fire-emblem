@@ -65,7 +65,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Scenes:** `ch02_pre` ("bandits move in when the lord's men don't"), `ch02_brann`, `ch02_post`.
 
 ## Chapter 3 — "Thornwood Hunt"
-- **Map:** 20×14 forest, mostly forest tiles with clearings. **Fog of war ON.**
+- **Map:** 32×22 forest (enlarged in session 7), mostly forest tiles with clearings joined by hunters' trails: deploy (south-west), Tamsin's (centre), the dead dogs' (south-east) and Varga's round a ruined hunting lodge (north-east); two rock outcrops, a pond and a stream. **Fog of war ON.**
 - **Party:** up to 6. **Win:** Defeat Boss (Binder Varga). **Lose:** default.
 - **Enemies:** Gloam Stalkers in the trees (G), Hounds (A), and Binder Varga (B, Dominion), who moves between clearings.
 - **Events:**

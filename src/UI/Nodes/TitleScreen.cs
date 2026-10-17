@@ -24,23 +24,45 @@ public partial class TitleScreen : Control
         ("ch6", "Chapter 6: The Bandit King of Greyfen"),
     };
 
+    private const string VistaPath = "res://assets/backgrounds/title_vista.png";
+
+    /// <summary>The crest intro plays once per launch, not every time the game returns to the title.</summary>
+    private static bool _introPlayed;
+
     private VBoxContainer _menu = null!;
+    private Control _column = null!;
+    private Control? _intro;
+    private Tween? _introTween;
     private GameMode _mode = GameMode.Classic;
     private Difficulty _difficulty = Difficulty.Normal;
 
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        AudioDirector.PlayMusic("title");
-        AddChild(UiKit.Backdrop(new Color(0.07f, 0.09f, 0.18f), new Color(0.2f, 0.13f, 0.2f)));
+        if (ResourceLoader.Exists(VistaPath))
+        {
+            // The world, as the crest's light reveals it, with a light veil so the title reads over the bright sky.
+            AddChild(UiKit.Fill(new TextureRect
+            {
+                Texture = ResourceLoader.Load<Texture2D>(VistaPath),
+                ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+                StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered,
+                TextureFilter = TextureFilterEnum.Nearest,
+                MouseFilter = MouseFilterEnum.Ignore,
+            }));
+            AddChild(UiKit.Fill(new ColorRect { Color = new Color(0.03f, 0.03f, 0.08f, 0.3f), MouseFilter = MouseFilterEnum.Ignore }));
+        }
+        else
+            AddChild(UiKit.Backdrop(new Color(0.07f, 0.09f, 0.18f), new Color(0.2f, 0.13f, 0.2f)));
 
         var center = new CenterContainer();
         AddChild(UiKit.Fill(center));
         var column = new VBoxContainer { Alignment = BoxContainer.AlignmentMode.Center };
         column.AddThemeConstantOverride("separation", 14);
         center.AddChild(column);
-        column.AddChild(UiKit.Label("THE RADIANT CREST", 56, UiKit.Accent, HorizontalAlignment.Center));
-        column.AddChild(UiKit.Label("A tale of crests and the Thornvale", 18, UiKit.Muted, HorizontalAlignment.Center));
+        _column = column;
+        column.AddChild(UiKit.Outlined(UiKit.Label("THE RADIANT CREST", 56, UiKit.Accent, HorizontalAlignment.Center), 10));
+        column.AddChild(UiKit.Outlined(UiKit.Label("A tale of crests and the Thornvale", 18, Colors.White, HorizontalAlignment.Center), 6));
         column.AddChild(new Control { CustomMinimumSize = new Vector2(0, 20) });
         var panel = UiKit.Panel();
         column.AddChild(panel);
@@ -49,12 +71,99 @@ public partial class TitleScreen : Control
         panel.AddChild(_menu);
         ShowMain();
 
+        bool scripted = false;
         foreach (var arg in OS.GetCmdlineUserArgs())
         {
             if (arg == "--newgame")
+            {
+                scripted = true;
                 CallDeferred(MethodName.StartNew);
+            }
             else if (arg.StartsWith("--load=", StringComparison.Ordinal) && int.TryParse(arg["--load=".Length..], out int slot))
+            {
+                scripted = true;
                 Callable.From(() => CampaignFlow.Continue(slot)).CallDeferred();
+            }
+        }
+        if (!_introPlayed && !scripted && !DevTools.AutoAdvance && ResourceLoader.Exists(VistaPath))
+            PlayIntro();
+        else
+            AudioDirector.PlayMusic("title");
+        _introPlayed = true;
+    }
+
+    /// <summary>
+    /// The launch intro: in the dark, Rowan's crest at its highest tier rises and brightens until its light fills the
+    /// screen, the white fades to the vista of the world, and the title and menu come up. Any key or click skips it.
+    /// </summary>
+    private void PlayIntro()
+    {
+        _column.Visible = false;
+        var intro = UiKit.Fill(new Control { MouseFilter = MouseFilterEnum.Ignore });
+        AddChild(intro);
+        _intro = intro;
+        var dark = UiKit.Fill(new ColorRect { Color = Colors.Black, MouseFilter = MouseFilterEnum.Ignore });
+        intro.AddChild(dark);
+        var holder = UiKit.Fill(new CenterContainer { MouseFilter = MouseFilterEnum.Ignore });
+        intro.AddChild(holder);
+        const float size = 300f;
+        var crest = new CrestEmblem("rowan", 4, radiant: true, size)
+        {
+            Modulate = Colors.White with { A = 0f },
+            PivotOffset = new Vector2(size / 2f, size / 2f),
+            Scale = Vector2.One * 0.75f,
+        };
+        holder.AddChild(crest);
+        var flash = UiKit.Fill(new ColorRect { Color = Colors.White with { A = 0f }, MouseFilter = MouseFilterEnum.Ignore });
+        intro.AddChild(flash);
+
+        var t = _introTween = CreateTween();
+        t.TweenInterval(0.5f);
+        // The crest rises out of the dark.
+        t.TweenCallback(Callable.From(() => AudioDirector.PlaySfx("crest_rise")));
+        t.TweenProperty(crest, "modulate:a", 1f, 1.4f).SetTrans(Tween.TransitionType.Sine);
+        t.Parallel().TweenProperty(crest, "scale", Vector2.One, 2.2f).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+        t.TweenInterval(0.5f);
+        // It flares until its light fills the screen.
+        t.TweenCallback(Callable.From(() => AudioDirector.PlaySfx("crest_burn")));
+        t.TweenProperty(crest, "scale", Vector2.One * 1.6f, 0.8f).SetTrans(Tween.TransitionType.Expo).SetEase(Tween.EaseType.In);
+        t.Parallel().TweenProperty(flash, "color:a", 1f, 0.8f).SetTrans(Tween.TransitionType.Expo).SetEase(Tween.EaseType.In);
+        // Behind the light: the world.
+        t.TweenCallback(Callable.From(() =>
+        {
+            dark.Visible = false;
+            crest.Visible = false;
+            AudioDirector.PlayMusic("title");
+        }));
+        t.TweenInterval(0.25f);
+        t.TweenProperty(flash, "color:a", 0f, 1.6f).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+        t.TweenCallback(Callable.From(ShowTitle));
+    }
+
+    /// <summary>Ends the intro (finished or skipped): the title and menu fade in and take focus.</summary>
+    private void ShowTitle()
+    {
+        if (_intro is null)
+            return;
+        _introTween?.Kill();
+        _intro.QueueFree();
+        _intro = null;
+        AudioDirector.PlayMusic("title");
+        _column.Visible = true;
+        _column.Modulate = Colors.White with { A = 0f };
+        CreateTween().TweenProperty(_column, "modulate:a", 1f, 0.6f);
+        Focus();
+    }
+
+    public override void _Input(InputEvent e)
+    {
+        // Skip the intro on any key, button or click; the press must not also reach the menu.
+        if (_intro is null || !e.IsPressed() || e.IsEcho())
+            return;
+        if (e is InputEventKey or InputEventMouseButton or InputEventJoypadButton)
+        {
+            GetViewport().SetInputAsHandled();
+            ShowTitle();
         }
     }
 

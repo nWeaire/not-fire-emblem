@@ -4777,6 +4777,14 @@
           "type": "generations"
         }
       },
+      "title_vista": {
+        "status": "completed",
+        "takes": 1,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "village": {
         "status": "completed",
         "usage": {

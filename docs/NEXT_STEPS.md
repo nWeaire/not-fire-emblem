@@ -43,7 +43,12 @@ The user counts the Prologue as "chapter 1", so their "chapter 2" is Ch 1 (Brook
 - **Map sprites:** anchors are measured per animation, not just the standing frame (walk frames have the feet ~6 px
   higher, so walking Gloam floated).
 - **Autoplay:** unarmed units (Mira before her tome) shelter instead of advancing (`CarefulAi.Shelter`).
-- **Budget:** subscription generations used up (0 left); the user's $10 of credit is untouched.
+- **Title intro:** on launch, Rowan's tier-4 radiant crest rises in the dark, flares to white and reveals the new
+  `title_vista` background (sunrise valley, 240×135), then the title and menu fade in (`TitleScreen.PlayIntro`).
+  Any key or click skips; it plays once per launch and never with `--newgame`, `--load` or `--autoadvance`.
+  `generate.py backgrounds` now keeps every take in `takes/backgrounds/<id>/` and installs take 0.
+- **Budget:** subscription generations used up (0 left); $9.92 of the user's $10 credit left (a background costs
+  about $0.08).
 
 ## Session 6: back to 2.5D
 

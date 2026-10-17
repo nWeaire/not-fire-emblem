@@ -20,6 +20,7 @@ import base64
 import io
 import json
 import os
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -310,8 +311,10 @@ def run_backgrounds(r: Runner, ids: list[str]) -> None:
             if not job or job.get("status") != "completed":
                 done_map[bid] = {"status": "failed"}
                 return
-            save_images(job, [REPO_ROOT / "assets" / "backgrounds" / f"{bid}.png"])
-            done_map[bid] = {"status": "completed", "usage": job.get("usage")}
+            # Every take goes to takes/backgrounds/<id>/ for picking; the first is installed.
+            n = save_images(job, [TAKES / "backgrounds" / bid / f"take_{i}.png" for i in range(16)])
+            shutil.copyfile(TAKES / "backgrounds" / bid / "take_0.png", REPO_ROOT / "assets" / "backgrounds" / f"{bid}.png")
+            done_map[bid] = {"status": "completed", "usage": job.get("usage"), "takes": n}
             print(f"  background {bid}: {job.get('usage')}")
         r.track(response["background_job_id"], done)
     r.drain()

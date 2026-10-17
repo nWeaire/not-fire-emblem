@@ -248,6 +248,10 @@ BACKGROUNDS = {
     "river_road": "a dirt road beside a river with a wooden bridge, grassy banks, distant hills, road in the lower half",
     "mill": "a riverside watermill with a big wooden wheel, stone millhouse, grassy ground in the lower half",
     "thornwood": "a dark thorny old forest, twisted trees, brambles, mist, mossy ground in the lower half",
+    # Title screen (session 7): revealed by the crest's light, the menu sits over the middle.
+    "title_vista": "a grand sweeping vista of a peaceful fantasy kingdom at sunrise seen from a high hilltop, "
+                   "rolling green valleys and farmland, a winding river, small villages, a castle on a distant "
+                   "crag, snow-capped mountains on the horizon, golden dawn sky with soft clouds",
 }
 
 # ------------------------------------------------------------------ terrain (create-tiles-pro, 32 px)

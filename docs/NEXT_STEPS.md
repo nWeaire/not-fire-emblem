@@ -2,11 +2,27 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-17 (end of session 6)._
+_Last updated: 2026-10-17 (end of session 7)._
 
 ---
 
-## Session 7: hand-check fixes and early-chapter balance (in progress)
+## Next (plan for session 8)
+Everything from session 7 is committed on `art-direction-gba` (last: `4e38278`); nothing is pushed or merged.
+1. **Hand playtest Prologue → Ch 2** (the user). Most of session 7 is untested by hand: the bigger maps and their
+   balance, Kai from turn 1, Mira's Prayer, Brann's rescue, the weapon picker, the crest absorption, the shadows and
+   tilt-shift (is the blur too strong?), the side outlines, and keyboard focus in the hub and prep screens.
+   Autoplay won every run but still loses villagers and Kai sometimes; tune from the user's notes.
+2. **Merge `art-direction-gba` into `main`** once the playtest is happy (sessions 4–7 live only on this branch).
+3. **Ch 3–6 at the new scale:** only the Prologue, Ch 1 and Ch 2 were enlarged (+60%). Ch 3 (Thornwood) is next in
+   the story and still 20×14; follow `tools/maps/act1_early.py` (and `act1_ch4_6.py` for Ch 4–6), retune with autoplay.
+4. **Ch 7, "Storm over Dain Hall"** (ends Act I): map, script, Wren and Lord Halvric (CHAPTERS.md), plus their art.
+5. **Art with the remaining ~$9 of PixelLab credit** (`docs/ART_NEEDED.md`): walk/attack map animations for Sennet
+   and Varga; Fire / Shadow / Heal spell effects; crest skill auras; portrait expressions for the main cast; UI icons;
+   a hub backdrop. Characters keep the current look (no chibi NSO style).
+6. **Systems not built yet:** crest fragments / crest EXP, suspend saves, and a Windows build (install Godot's export
+   templates, then the "Windows Desktop" preset).
+
+## Session 7: hand-check fixes, bigger early maps, art and polish
 
 The user counts the Prologue as "chapter 1", so their "chapter 2" is Ch 1 (Brookhollow) and "chapter 3" is Ch 2 (Millbrook).
 - **Units stand on their tile:** `UnitView` measures each sprite direction's legs and lowest pixel (some PixelLab

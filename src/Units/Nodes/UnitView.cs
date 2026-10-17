@@ -99,12 +99,6 @@ public partial class UnitView : Node3D
             OutlineRenderPriority = 0,
         };
         AddChild(_label);
-        if (NotFireEmblem.Grid.GridMetrics.Flat)
-        {
-            // Seen from above, "up" on screen is -Z: put the name just above the sprite's head, smaller.
-            _label.FontSize = NotFireEmblem.UI.UiKit.Px(30);
-            _label.Position = new Vector3(0f, 0.3f, -0.62f);
-        }
         SetHp(hp, maxHp);
     }
 
@@ -129,24 +123,6 @@ public partial class UnitView : Node3D
                 PlayAnim("idle");
         };
         _model.AddChild(_sprite);
-        if (NotFireEmblem.Grid.GridMetrics.Flat)
-        {
-            // Flat SNES map: the sprite lies on the ground facing the camera above, its feet near the bottom of the
-            // cell and its head reaching into the cell above, like SNES tactics sprites.
-            _sprite.Billboard = BaseMaterial3D.BillboardModeEnum.Disabled;
-            _sprite.Axis = Vector3.Axis.Y;
-            _sprite.Centered = true;
-            // SNES map sprites are 16 px: one sprite pixel per map art pixel, one sprite per cell. Taller (older)
-            // art is scaled to a cell and a half.
-            var texture = frames.GetFrameTexture(frames.GetAnimationNames()[0], 0);
-            _sprite.PixelSize = texture.GetHeight() <= 24 ? 1f / NotFireEmblem.Grid.FlatTerrain.TilePixels : 1.5f / texture.GetHeight();
-            // Centred on the cell: a 16 px sprite exactly fills its tile.
-            _sprite.Offset = Vector2.Zero;
-            _restOffsetY = 0f;
-            _sprite.Position = new Vector3(0f, 0.05f, 0f);
-            PlayAnim("idle");
-            return;
-        }
         // A soft shadow on the ground marks the unit's tile: the sprite is 1.5 cells tall and drawn pulled toward the
         // camera, so without it units read as floating above and behind their cell.
         _model.AddChild(_shadow = new MeshInstance3D
@@ -189,13 +165,7 @@ public partial class UnitView : Node3D
         if (_sprite is null)
             return;
         Bob(delta);
-        if (NotFireEmblem.Grid.GridMetrics.Flat)
-        {
-            // Lower rows draw over the row above (heads overlap the cell behind, as on SNES maps).
-            _sprite.Position = _sprite.Position with { Y = 0.05f + GlobalPosition.Z * 0.002f };
-        }
-        else
-            PullToCamera();
+        PullToCamera();
         string dir = DirectionFromCamera();
         if (dir != _dir)
         {
@@ -211,7 +181,7 @@ public partial class UnitView : Node3D
 
     private void ApplyAnchor()
     {
-        if (_sprite is null || NotFireEmblem.Grid.GridMetrics.Flat)
+        if (_sprite is null)
             return;
         var anchor = AnchorFor(_sprite.SpriteFrames, $"{_anim}_{_dir}");
         _restOffsetY = anchor.Y;

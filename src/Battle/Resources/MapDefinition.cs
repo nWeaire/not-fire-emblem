@@ -27,7 +27,7 @@ public partial class MapDefinition : Resource
     [Export] public string DeploySlots { get; set; } = "";
     /// <summary>Battle-screen backdrop for open ground on this map (forest and water keep their own), e.g. "greyfen".</summary>
     [Export] public string Background { get; set; } = "";
-    /// <summary>Flat-map art variant: "farm" draws walls as hedges and houses as farmhouses.</summary>
+    /// <summary>Art variant: "farm" has no stone (walls are hedges, yards and squares are dirt; MapView.TileFor).</summary>
     [Export] public string ArtSet { get; set; } = "";
     /// <summary>"night" tints the map and the battle screen for a night battle.</summary>
     [Export] public string Lighting { get; set; } = "";

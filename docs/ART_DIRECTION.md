@@ -53,7 +53,7 @@ approved characters without paying to recreate them.
 1. Get still takes: `POST /generate-image-v2`, 84×84, `no_background`, `target_palette {max_colors: 16}`, description
    `"<who>, full body, side view. Game Boy Advance Fire Emblem battle animation sprite, like Fire Emblem: The Blazing
    Blade, bright saturated colours, anime proportions, 3-tone cel shading, crisp dark outline, clean readable pixels"`
-   (15 gens for 9 takes; the script is `tools/art/takes/pilot5/pilot5.py`, grid "E"). Pick a ready-stance take.
+   (15 gens for 9 takes; the script is `tools/art/battle_stills.py <sprite_id>`). Pick a ready-stance take.
 2. `python tools/art/animate_still.py <take.png> <sprite_id> --weapon <w>` animates that still directly
    (`/animate-with-text-v3`, about 7 gens for idle/attack/critical/hit/dodge) onto a 128×84 canvas.
    **Don't** build a character from the still (`create-character-pro` `create_from_concept`): it redrew Rowan as a

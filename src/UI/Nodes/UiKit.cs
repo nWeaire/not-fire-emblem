@@ -6,8 +6,8 @@ namespace NotFireEmblem.UI;
 
 /// <summary>
 /// Shared look for code-built screens, in the approved "Clean" style (docs/ART_DIRECTION.md): flat charcoal panels
-/// with a thin warm-white border and corner ticks (9-slice art in assets/ui/), Pixelify Sans for text and Silkscreen
-/// for small-caps labels. <see cref="Theme"/> is set on the root window by <see cref="UiThemeSetup"/>, so every
+/// with a thin warm-white border and corner ticks (9-slice art in assets/ui/), and VT323 for all text (sizes through
+/// <see cref="Px"/>). <see cref="Theme"/> is set on the root window by <see cref="UiThemeSetup"/>, so every
 /// Control picks it up; the helpers below build common pieces.
 /// </summary>
 public static class UiKit
@@ -192,7 +192,7 @@ public static class UiKit
         return label;
     }
 
-    /// <summary>A small-caps Silkscreen label (stat names, section headers).</summary>
+    /// <summary>A label in the accent colour and caps font (stat names, section headers).</summary>
     public static Label Caps(string text, int size = 14, Color? color = null)
     {
         var label = Label(text, size, color ?? Accent);

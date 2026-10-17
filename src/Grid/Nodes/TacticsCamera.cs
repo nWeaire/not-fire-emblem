@@ -44,22 +44,8 @@ public partial class TacticsCamera : Node3D
         ApplyTransform();
     }
 
-    /// <summary>Orthographic sizes (cells shown vertically) that keep pixels whole on a 720 px tall view: 16 px tiles at 5x, 4x, 3x, 2x.</summary>
-    private static readonly float[] FlatSizes = { 9f, 11.25f, 15f, 22.5f };
-    private int _flatZoom = 1;
-
     private void ApplyTransform()
     {
-        if (GridMetrics.Flat)
-        {
-            // Straight down, orthographic, no rotation: the map reads like a SNES tactics screen.
-            Rotation = Vector3.Zero;
-            Camera.Projection = Camera3D.ProjectionType.Orthogonal;
-            Camera.Size = FlatSizes[_flatZoom];
-            Camera.Position = new Vector3(0f, 30f, 0f);
-            Camera.Rotation = new Vector3(-Mathf.Pi / 2f, 0f, 0f);
-            return;
-        }
         Rotation = new Vector3(0f, _yaw, 0f);
         float pitch = Mathf.DegToRad(PitchDegrees);
         Camera.Position = new Vector3(0f, _distance * Mathf.Sin(pitch), _distance * Mathf.Cos(pitch));
@@ -76,19 +62,9 @@ public partial class TacticsCamera : Node3D
         }
     }
 
-    public void RotateStep(int direction)
-    {
-        if (!GridMetrics.Flat)
-            _yawSteps += direction;
-    }
+    public void RotateStep(int direction) => _yawSteps += direction;
 
-    public void Zoom(int direction)
-    {
-        if (GridMetrics.Flat)
-            _flatZoom = Mathf.Clamp(_flatZoom + direction, 0, FlatSizes.Length - 1);
-        else
-            Distance = Mathf.Clamp(Distance + direction * ZoomStep, MinDistance, MaxDistance);
-    }
+    public void Zoom(int direction) => Distance = Mathf.Clamp(Distance + direction * ZoomStep, MinDistance, MaxDistance);
 
     /// <summary>Maps a screen direction (Up = away from the camera) to a grid direction for the current yaw.</summary>
     public GridPos ScreenToGrid(GridPos screenDir)

@@ -51,10 +51,12 @@ The user counts the Prologue as "chapter 1", so their "chapter 2" is Ch 1 (Brook
   overrides the shared sword wording, which swung into the ground.
 - **Named Binder bosses:** `boss_sennet` (Ch 1) and `boss_varga` (Ch 3) have their own map sprites (stills only, no
   walk/attack yet) and battle stills (picks in `approved/battle_picks.txt`). Sennet's battle animations are done.
-  **Varga's five battle animations were submitted but PixelLab went unreachable**: rerun
-  `python tools/art/animate_still.py tools/art/approved/refs/boss_varga_battle.png boss_varga --weapon dark` to
-  fetch them (recorded in state.json, not paid again; jobs expire after about a day). Until then her fights use the
-  map animation. Gorran already has his own look (`boss_brigand_chief`).
+  Varga's are done too (fetched after a PixelLab outage). Gorran already has his own look (`boss_brigand_chief`).
+- **Cleanup (user request):** deleted the parked flat 2D renderer (`FlatTerrain.cs`, `GridMetrics.Flat` and the flat
+  paths in MapView/TacticsCamera/UnitView/SpriteLibrary), `tools/art/superseded/` (5,324 files), the unused fonts
+  (Pixelify Sans, Silkscreen) and props (`fence_*`, `hedge_1-4`), and the untracked style-round takes and logs
+  (`tools/art/takes/{snes,thracia,fe32,styles2,flat_styles,half,pilot5,review}`). Older notes below that point at
+  them are history; the committed files are recoverable from git (last present in `dfabc7b`).
 - **Budget:** subscription generations used up (0 left); about $9.3 of the user's $10 credit left (a background or
   map character costs about $0.08, a battle animation $0.02–0.04).
 
@@ -72,7 +74,7 @@ The game is back on the 2.5D blocks with the session-5 art.
 - **Map options** on `MapDefinition`: `Lighting = "night"` tints the map and the battle screen (the prologue uses it);
   `ArtSet` (e.g. `"farm"`) only affects the parked flat renderer.
 
-**Parked, not deleted:** the flat 2D renderer. `GridMetrics.Flat = false` switches it off; `FlatTerrain.cs`,
+**Parked, then deleted in session 7** (recoverable from git, last present in `dfabc7b`): the flat 2D renderer. `GridMetrics.Flat = false` switches it off; `FlatTerrain.cs`,
 `MapView.BuildFlat`, the straight-down camera in `TacticsCamera` and the flat sprite path in `UnitView`/
 `SpriteLibrary.Field` stay dormant. Its art is in `tools/art/takes/flat_parked/` (not imported or committed). All
 the style rounds (pilots, mockups, scripts) are in `tools/art/takes/{snes,thracia,fe32,gba,styles2}/`.

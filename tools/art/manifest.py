@@ -260,6 +260,11 @@ BACKGROUNDS = {
     "river_road": "a dirt road beside a river with a wooden bridge, grassy banks, distant hills, road in the lower half",
     "mill": "a riverside watermill with a big wooden wheel, stone millhouse, grassy ground in the lower half",
     "thornwood": "a dark thorny old forest, twisted trees, brambles, mist, mossy ground in the lower half",
+    # Hub mockup (session 7): Brookhollow from above, buildings to click (shop, forge, chapel, hall).
+    "town_overview": "a small medieval farming village seen from above at a high three-quarter angle, a village "
+                     "square with a stone well, timber and thatch cottages, a general store with a hanging sign, a "
+                     "blacksmith forge with a chimney, a small chapel, a village hall with a flag, dirt paths, "
+                     "wheat fields and a river at the edges, sunny day",
     # Title screen (session 7): revealed by the crest's light, the menu sits over the middle.
     "title_vista": "a grand sweeping vista of a peaceful fantasy kingdom at sunrise seen from a high hilltop, "
                    "rolling green valleys and farmland, a winding river, small villages, a castle on a distant "

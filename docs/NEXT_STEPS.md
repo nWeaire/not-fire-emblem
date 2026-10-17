@@ -23,6 +23,12 @@ Everything from session 7 is committed on `art-direction-gba` (last: `4e38278`);
    templates, then the "Windows Desktop" preset).
 
 ## Session 7: hand-check fixes, bigger early maps, art and polish
+- **Hub redone (user's option A from https://claude.ai/artifact/RGw7jyT84DXTQGkAo5xBmj):** a top bar with gold (big,
+  gold-coloured), chapter, convoy, crest, Title and March On; places in a left column with Osmund beneath; screens wrap
+  and scroll so nothing runs off at any window size. The shop buys for a chosen unit straight into their pack
+  (`HubService.BuyFor`). **Osmund's tour** on the first visit: places, then buy and equip an Iron Sword (Rowan now
+  starts with the `old_sword`, Mt 3, tier 0, which Brann can reforge). Option C (a living 3D town that grows) is the
+  plan for later; `--hideunits` shows a map with no units or HUD for screenshots like the mockup.
 
 The user counts the Prologue as "chapter 1", so their "chapter 2" is Ch 1 (Brookhollow) and "chapter 3" is Ch 2 (Millbrook).
 - **Units stand on their tile:** `UnitView` measures each sprite direction's legs and lowest pixel (some PixelLab

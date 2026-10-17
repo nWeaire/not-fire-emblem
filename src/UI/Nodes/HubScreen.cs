@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using NotFireEmblem.Audio;
@@ -20,15 +21,25 @@ public partial class HubScreen : Control
     private ContentDatabase Db => GameSessionNode.Instance.Content;
     private GameSession S => GameSessionNode.Instance.Session!;
 
+    private static readonly Color GoldColor = new(0.95f, 0.79f, 0.3f);
+
     private Tab _tab = Tab.Party;
     private string? _unitId;
     private VBoxContainer _content = null!;
     private Label _status = null!;
     private Label _osmund = null!;
-    private Label _header = null!;
+    private Label _gold = null!;
+    private Label _chapter = null!;
+    private Label _convoy = null!;
     private HBoxContainer _crestRow = null!;
-    private HBoxContainer _tabs = null!;
+    private VBoxContainer _tabs = null!;
+    private VBoxContainer _right = null!;
 
+    /// <summary>
+    /// The layout (session 7, "option A"): a top bar with the gold, chapter, convoy and crest beside Title and March On;
+    /// the places down the left with Osmund beneath; the chosen place's screen on the right, wrapping and scrolling so
+    /// nothing runs off the window at any size.
+    /// </summary>
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
@@ -43,64 +54,90 @@ public partial class HubScreen : Control
         var margin = new MarginContainer();
         AddChild(UiKit.Fill(margin));
         foreach (var side in new[] { "left", "right", "top", "bottom" })
-            margin.AddThemeConstantOverride($"margin_{side}", 24);
-        var root = new HBoxContainer();
-        root.AddThemeConstantOverride("separation", 20);
+            margin.AddThemeConstantOverride($"margin_{side}", 16);
+        var root = new VBoxContainer();
+        root.AddThemeConstantOverride("separation", 10);
         margin.AddChild(root);
 
-        // Left: Osmund and the party's standing.
-        var left = new VBoxContainer { CustomMinimumSize = new Vector2(260, 0) };
-        left.AddThemeConstantOverride("separation", 10);
-        root.AddChild(left);
-        var portraitPanel = UiKit.Panel();
-        left.AddChild(portraitPanel);
-        var portrait = new TextureRect
-        {
-            Texture = DialogueBox.Portrait("osmund", "neutral"),
-            CustomMinimumSize = new Vector2(220, 220),
-            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
-            StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
-            TextureFilter = TextureFilterEnum.Nearest,
-        };
-        portraitPanel.AddChild(portrait);
-        left.AddChild(UiKit.Label("Osmund Thorne, Steward", 16, UiKit.Accent));
-        _osmund = UiKit.Label("", 15);
-        _osmund.AutowrapMode = TextServer.AutowrapMode.WordSmart;
-        _osmund.CustomMinimumSize = new Vector2(250, 0);
-        left.AddChild(_osmund);
+        // Top bar: what you have and where you're going.
+        var bar = UiKit.Panel();
+        root.AddChild(bar);
+        var barRow = new HBoxContainer();
+        barRow.AddThemeConstantOverride("separation", 18);
+        bar.AddChild(barRow);
+        _gold = UiKit.Label("", 24, GoldColor);
+        _gold.SizeFlagsVertical = SizeFlags.ShrinkCenter;
+        barRow.AddChild(_gold);
+        _chapter = UiKit.Label("", 16, UiKit.Muted);
+        _chapter.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        _chapter.SizeFlagsVertical = SizeFlags.ShrinkCenter;
+        _chapter.ClipText = true;
+        barRow.AddChild(_chapter);
+        _convoy = UiKit.Label("", 16, UiKit.Muted);
+        _convoy.SizeFlagsVertical = SizeFlags.ShrinkCenter;
+        barRow.AddChild(_convoy);
         _crestRow = new HBoxContainer();
-        _crestRow.AddThemeConstantOverride("separation", 12);
-        left.AddChild(_crestRow);
-        _header = UiKit.Label("", 15, UiKit.Muted);
-        _header.AutowrapMode = TextServer.AutowrapMode.WordSmart;
-        _header.CustomMinimumSize = new Vector2(250, 0);
-        left.AddChild(_header);
-        left.AddChild(new Control { SizeFlagsVertical = SizeFlags.ExpandFill });
-        left.AddChild(UiKit.Button("March On ▶", CampaignFlow.LeaveHub, 250));
-        left.AddChild(UiKit.Button("Quit to Title", () =>
+        _crestRow.AddThemeConstantOverride("separation", 8);
+        barRow.AddChild(_crestRow);
+        barRow.AddChild(UiKit.Button("Title", () =>
         {
             GameSessionNode.Instance.EndSession();
             GameSessionNode.Instance.GoTo(GameSessionNode.TitleScene);
-        }, 250));
+        }, 100));
+        barRow.AddChild(UiKit.Button("March On ▶", CampaignFlow.LeaveHub, 170));
 
-        // Right: tabs and their content.
+        var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill };
+        body.AddThemeConstantOverride("separation", 14);
+        root.AddChild(body);
+
+        // Left: the places, then Osmund.
+        var left = new VBoxContainer { CustomMinimumSize = new Vector2(250, 0) };
+        left.AddThemeConstantOverride("separation", 8);
+        body.AddChild(left);
+        _tabs = new VBoxContainer();
+        _tabs.AddThemeConstantOverride("separation", 6);
+        left.AddChild(_tabs);
+        left.AddChild(new Control { SizeFlagsVertical = SizeFlags.ExpandFill });
+        var osmundPanel = UiKit.Panel();
+        left.AddChild(osmundPanel);
+        var osmundBox = new HBoxContainer();
+        osmundBox.AddThemeConstantOverride("separation", 8);
+        osmundPanel.AddChild(osmundBox);
+        osmundBox.AddChild(new TextureRect
+        {
+            Texture = DialogueBox.Portrait("osmund", "neutral"),
+            CustomMinimumSize = new Vector2(64, 64),
+            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+            StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+            TextureFilter = TextureFilterEnum.Nearest,
+            SizeFlagsVertical = SizeFlags.ShrinkBegin,
+        });
+        _osmund = UiKit.Label("", 14);
+        _osmund.AutowrapMode = TextServer.AutowrapMode.WordSmart;
+        _osmund.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        _osmund.CustomMinimumSize = new Vector2(140, 0);
+        osmundBox.AddChild(_osmund);
+
+        // Right: the chosen place.
         var right = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
-        right.AddThemeConstantOverride("separation", 8);
-        root.AddChild(right);
-        _tabs = new HBoxContainer();
-        right.AddChild(_tabs);
+        right.AddThemeConstantOverride("separation", 6);
+        body.AddChild(right);
+        _right = right;
         var panel = UiKit.Panel();
         panel.SizeFlagsVertical = SizeFlags.ExpandFill;
         right.AddChild(panel);
-        var scroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled };
+        // FollowFocus: keyboard and pad selection scroll the list to whatever is selected.
+        var scroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, FollowFocus = true };
         panel.AddChild(scroll);
         _content = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         _content.AddThemeConstantOverride("separation", 6);
         scroll.AddChild(_content);
         _status = UiKit.Label("", 15, UiKit.Accent);
+        _status.AutowrapMode = TextServer.AutowrapMode.WordSmart;
         right.AddChild(_status);
 
         _unitId = S.ActiveRoster.FirstOrDefault()?.Def.Id;
+        BuildTour();
         Refresh();
         if (DevTools.AutoAdvance)
             GetTree().CreateTimer(0.5).Timeout += CampaignFlow.LeaveHub;
@@ -108,15 +145,17 @@ public partial class HubScreen : Control
 
     private void Refresh()
     {
-        foreach (var child in _crestRow.GetChildren())
-            child.QueueFree();
+        UiKit.ClearChildren(_crestRow);
         if (S.CrestTier > 0)
-            _crestRow.AddChild(new CrestEmblem("rowan", S.CrestTier, radiant: true, size: 72));
-        var crestLabel = UiKit.Label(CrestName(S.CrestTier), 18, S.CrestTier > 0 ? UiKit.Text : UiKit.Muted);
+            _crestRow.AddChild(new CrestEmblem("rowan", S.CrestTier, radiant: true, size: 40));
+        var crestLabel = UiKit.Label(CrestName(S.CrestTier), 16, S.CrestTier > 0 ? UiKit.Text : UiKit.Muted);
         crestLabel.SizeFlagsVertical = SizeFlags.ShrinkCenter;
         _crestRow.AddChild(crestLabel);
-        _header.Text = $"{S.ChapterTitle}\nGold: {S.Gold}\nConvoy: {S.Convoy.Count}/{GameSession.ConvoyCapacity}\n{S.Mode} · {S.Difficulty}";
+        _gold.Text = $"{S.Gold} G";
+        _chapter.Text = $"{S.ChapterTitle}  ·  {S.Mode}, {S.Difficulty}";
+        _convoy.Text = $"Convoy {S.Convoy.Count}/{GameSession.ConvoyCapacity}";
         _osmund.Text = OsmundLine();
+        _tourTargets.Clear();
         // Rebuilding frees the focused button: remember where the keyboard was and put it back after.
         int tabFocus = UiKit.FocusIndex(_tabs), contentFocus = UiKit.FocusIndex(_content);
         UiKit.ClearChildren(_tabs);
@@ -136,10 +175,12 @@ public partial class HubScreen : Control
                 _tab = tab;
                 _status.Text = "";
                 Refresh();
-            }, 120, open);
+            }, 0, open);
+            button.Alignment = HorizontalAlignment.Left;
             if (tab == _tab)
                 button.Modulate = UiKit.Accent;
             _tabs.AddChild(button);
+            _tourTargets[$"tab:{tab}"] = button;
         }
         UiKit.ClearChildren(_content);
         switch (_tab)
@@ -156,6 +197,7 @@ public partial class HubScreen : Control
             UiKit.RestoreFocus(_content, contentFocus);
         else
             UiKit.RestoreFocus(_tabs, Math.Max(0, tabFocus)); // on opening the hub, the first tab
+        UpdateTour();
     }
 
     private void Do(Func<string?> action, string success)
@@ -193,6 +235,9 @@ public partial class HubScreen : Control
         row.AddThemeConstantOverride("separation", 8);
         var label = UiKit.Label(text, size, color);
         label.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        // Long lines wrap inside the panel instead of pushing it past the window edge.
+        label.AutowrapMode = TextServer.AutowrapMode.WordSmart;
+        label.CustomMinimumSize = new Vector2(80, 0);
         row.AddChild(label);
         _content.AddChild(row);
         return row;
@@ -236,7 +281,11 @@ public partial class HubScreen : Control
                           + (w is null ? "" : $"   Mt {w.Might}  Hit {w.Hit}  Crt {w.Crit}  Wt {w.Weight}  Rng {w.MinRange}-{w.MaxRange}");
             var row = Row(text);
             if (w is not null && CombatCalculator.CanWield(Db, u, w) && i != u.EquippedIndex)
-                row.AddChild(Small("Equip", () => Do(() => { u.EquippedIndex = slot; return null; }, $"{u.Def.Name} equips {w.Name}.")));
+            {
+                var equip = Small("Equip", () => Do(() => { u.EquippedIndex = slot; return null; }, $"{u.Def.Name} equips {w.Name}."));
+                row.AddChild(equip);
+                _tourTargets.TryAdd($"equip:{u.Def.Id}:{itemId}", equip);
+            }
             row.AddChild(Small("To convoy", () => Do(() => HubService.TakeFromUnit(Db, S, u, slot), "Sent to the convoy.")));
         }
         if (u.Inventory.Count == 0)
@@ -276,13 +325,34 @@ public partial class HubScreen : Control
     {
         var shops = EquipmentService.OpenShops(Db, S.Chapter).Select(sh => sh.Name).ToList();
         Row("Open shops: " + (shops.Count == 0 ? "none yet" : string.Join(", ", shops)), 14, UiKit.Muted);
+        // Who the purchase is for: weapons and items go straight into their pack (the convoy when it's full).
+        Row("Buy for", 17, UiKit.Accent);
+        var picker = new HFlowContainer();
+        _content.AddChild(picker);
+        foreach (var member in S.ActiveRoster)
+        {
+            string id = member.Def.Id;
+            var button = UiKit.Button($"{member.Def.Name} ({member.Inventory.Count}/{UnitState.MaxInventory})", () => { _unitId = id; Refresh(); }, 130);
+            if (id == _unitId)
+                button.Modulate = UiKit.Accent;
+            picker.AddChild(button);
+        }
+        var buyer = _unitId is null ? null : S.Unit(_unitId);
         Row("Buy", 17, UiKit.Accent);
         foreach (var itemId in HubService.ShopStock(Db, S).OrderBy(Db.ItemPrice))
         {
             int price = Db.ItemPrice(itemId);
-            var row = Row($"   {Db.ItemName(itemId),-22} {Describe(itemId)}");
-            row.AddChild(UiKit.Label($"{price}g", 15, UiKit.Accent));
-            row.AddChild(Small("Buy", () => Do(() => HubService.Buy(Db, S, itemId), $"Bought {Db.ItemName(itemId)} (sent to the convoy)."), S.Gold >= price));
+            var row = Row($"   {Db.ItemName(itemId)}   {Describe(itemId)}");
+            row.AddChild(UiKit.Label($"{price} G", 15, GoldColor));
+            var buy = Small("Buy", () =>
+            {
+                int before = buyer?.Inventory.Count ?? 0;
+                string? error = buyer is null ? HubService.Buy(Db, S, itemId) : HubService.BuyFor(Db, S, buyer, itemId);
+                bool toPack = buyer is not null && buyer.Inventory.Count > before;
+                Do(() => error, toPack ? $"Bought {Db.ItemName(itemId)} for {buyer!.Def.Name}." : $"Bought {Db.ItemName(itemId)} (sent to the convoy).");
+            }, S.Gold >= price);
+            row.AddChild(buy);
+            _tourTargets.TryAdd($"buy:{itemId}", buy);
         }
         Row("Sell (from the convoy)", 17, UiKit.Accent);
         foreach (var itemId in S.Convoy.Distinct().OrderBy(Db.ItemName))
@@ -386,6 +456,130 @@ public partial class HubScreen : Control
                 Row($"   {Db.Unit(roster[i]).Name} & {Db.Unit(roster[j]).Name}: {Supports.RankNames[rank]}   ({next})", 15);
             }
         }
+    }
+
+    // ------------------------------------------------------------------ Osmund's tour (first visit)
+
+    private const string TourFlag = "tour_hub";
+    private const string Lord = "rowan";
+
+    /// <summary>One step: Osmund's line, what ends it (null: the Next button) and what to point at (first that exists).</summary>
+    private sealed record TourStep(string Text, Func<bool>? Done, string[] Targets, bool LordSelected = false);
+
+    private TourStep[] _steps = Array.Empty<TourStep>();
+    private int _step = -1;
+    private readonly Dictionary<string, Control> _tourTargets = new();
+    private Control? _tourPanel;
+    private Label _tourText = null!;
+    private Button _tourNext = null!;
+
+    private UnitState? LordState => S.Unit(Lord);
+
+    private bool LordHas(string itemId) => LordState is { } u && (u.Inventory.Contains(itemId) || S.Convoy.Contains(itemId));
+
+    /// <summary>
+    /// The first visit: Osmund shows the places, then has Rowan buy and equip an Iron Sword in place of the old farm
+    /// sword he started with. Steps wait for Next or for the player to do the thing; the target pulses.
+    /// </summary>
+    private void BuildTour()
+    {
+        if (S.Flags.Contains(TourFlag) || DevTools.AutoAdvance || LordState is null)
+            return;
+        _steps = new[]
+        {
+            new TourStep("Welcome to the hall, my lord. Between battles, all you need is here: the places down the left, " +
+                         "your gold and the road onward along the top.", null, Array.Empty<string>()),
+            new TourStep("That blade, however. A lord who carries a rusted farm sword will be treated as one. The trader " +
+                         "has proper iron: the Shop, if you please.", () => _tab == Tab.Shop, new[] { "tab:Shop" }),
+            new TourStep("The Iron Sword, for yourself. Bought for you, it goes straight into your pack.",
+                         () => LordHas("iron_sword"), new[] { "buy:iron_sword", "tab:Shop" }, LordSelected: true),
+            new TourStep("Now the Party screen, to take it in hand.", () => _tab == Tab.Party, new[] { "tab:Party" }),
+            new TourStep("Equip the Iron Sword. The old one may stay in your pack, or go to the convoy. Sentiment weighs " +
+                         "nothing there.", () => LordState?.EquippedItemId == "iron_sword",
+                         new[] { $"equip:{Lord}:iron_sword", "tab:Party" }, LordSelected: true),
+            new TourStep("Splendid. Promotion and Supports will matter in time, Save keeps a record, and Settings is there " +
+                         "should the music offend. When you are ready, March On.", null, Array.Empty<string>()),
+        };
+        // An older save where Rowan already carries iron: just the summary.
+        _step = LordState!.EquippedItemId == "iron_sword" ? _steps.Length - 1 : 0;
+
+        // Above the chosen place's screen, so it never covers what Osmund asks you to press.
+        var panel = UiKit.Panel();
+        _right.AddChild(panel);
+        _right.MoveChild(panel, 0);
+        var row = new HBoxContainer();
+        row.AddThemeConstantOverride("separation", 12);
+        panel.AddChild(row);
+        row.AddChild(new TextureRect
+        {
+            Texture = DialogueBox.Portrait("osmund", "neutral"),
+            CustomMinimumSize = new Vector2(80, 80),
+            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+            StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+            TextureFilter = TextureFilterEnum.Nearest,
+        });
+        var column = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        column.AddThemeConstantOverride("separation", 6);
+        row.AddChild(column);
+        column.AddChild(UiKit.Label("Osmund", 16, UiKit.Accent));
+        _tourText = UiKit.Label("", 16);
+        _tourText.AutowrapMode = TextServer.AutowrapMode.WordSmart;
+        _tourText.CustomMinimumSize = new Vector2(200, 0);
+        column.AddChild(_tourText);
+        var buttons = new HBoxContainer();
+        buttons.AddThemeConstantOverride("separation", 10);
+        column.AddChild(buttons);
+        _tourNext = UiKit.Button("Next ▶", NextTourStep, 140);
+        buttons.AddChild(_tourNext);
+        buttons.AddChild(UiKit.Button("Skip tour", EndTour, 140));
+        _tourPanel = panel;
+    }
+
+    private void NextTourStep()
+    {
+        _step++;
+        if (_step >= _steps.Length)
+        {
+            EndTour();
+            return;
+        }
+        if (_steps[_step].LordSelected)
+            _unitId = Lord;
+        Refresh();
+    }
+
+    private void EndTour()
+    {
+        S.Flags.Add(TourFlag);
+        _step = -1;
+        _tourPanel?.QueueFree();
+        _tourPanel = null;
+        Refresh();
+    }
+
+    /// <summary>After every rebuild: move past finished steps, show the line, point at (and focus) what to press.</summary>
+    private void UpdateTour()
+    {
+        if (_tourPanel is null || _step < 0)
+            return;
+        if (_steps[_step].Done is { } done && done())
+        {
+            Callable.From(NextTourStep).CallDeferred();
+            return;
+        }
+        var step = _steps[_step];
+        _tourText.Text = step.Text;
+        _tourNext.Visible = step.Done is null;
+        var target = step.Targets.Select(k => _tourTargets.GetValueOrDefault(k)).FirstOrDefault(c => c is not null);
+        if (target is not null)
+        {
+            var pulse = target.CreateTween().SetLoops();
+            pulse.TweenProperty(target, "modulate", new Color(1.6f, 1.35f, 0.6f), 0.45f);
+            pulse.TweenProperty(target, "modulate", Colors.White, 0.45f);
+            target.CallDeferred(Control.MethodName.GrabFocus);
+        }
+        else if (step.Done is null)
+            _tourNext.CallDeferred(Control.MethodName.GrabFocus);
     }
 
     // ------------------------------------------------------------------ save

@@ -17,7 +17,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 
 ## Prologue — "Embers at Ashford Farm"
 - **Map:** 22×16 (enlarged in session 7). The farmhouse sits on a gentle rise with the barn, a pond and the fields round it; the treeline lies to the north. Night (visual only). Height: the house sits on a rise (+1). No fog.
-- **Party:** **Rowan** (Youth, Iron Sword + Short Bow, in farm clothes), **Aldric** (Warden, Steel Sword, Warden's Hide).
+- **Party:** **Rowan** (Youth, the family's **Old Sword** (Mt 3; Osmund has him buy an Iron Sword at the first hub visit), in farm clothes), **Aldric** (Warden, Steel Sword, Warden's Hide).
 - **Win:** Defeat Boss (the Binder). **Lose:** Rowan or Aldric dies.
 - **Enemies:** 5 Gloam Hounds (A), 2 Gloam Brutes (A) plus one guarding the barn (G), the Binder (B, Shadow tome, shrouded crest, Dominion radius 3).
 - **Events:**
@@ -49,6 +49,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
   - Rowan changes class from **Youth → Lord** (his new outfit).
   - Hub tutorial: Osmund walks through the Party, Convoy, Smithy (locked until Brann joins), Supports and Save screens, then briefs Ch 2.
 - **Recruit / unlock:** Osmund (hub NPC; he never fights); Rowan's lord outfit; the hub's **Briefing** screen.
+- **First visit tour (session 7):** Osmund shows the places, then has Rowan buy and equip an Iron Sword in place of the old farm sword (`HubScreen` tour; flag `tour_hub`).
 - **Scenes:** `hub_intro`, `hub_outfit`, `hub_osmund_aldric`, `hub_briefing_ch02`.
 
 ---

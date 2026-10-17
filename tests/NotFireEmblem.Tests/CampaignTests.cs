@@ -176,6 +176,22 @@ public class CampaignTests
     }
 
     [Fact]
+    public void Shop_BuysForAUnitIntoItsPackElseTheConvoy()
+    {
+        var db = Db();
+        var s = new GameSession { Gold = 1000 };
+        var lord = s.Join(db, "lord");
+        Assert.Null(HubService.BuyFor(db, s, lord, "iron_sword"));
+        Assert.Equal(new[] { "sword", "iron_sword" }, lord.Inventory);
+        Assert.Empty(s.Convoy);
+        Assert.Equal(600, s.Gold);
+        while (lord.Inventory.Count < UnitState.MaxInventory)
+            lord.Inventory.Add("vulnerary");
+        Assert.Null(HubService.BuyFor(db, s, lord, "vulnerary")); // full pack: to the convoy
+        Assert.Equal(new[] { "vulnerary" }, s.Convoy);
+    }
+
+    [Fact]
     public void Convoy_MovesItemsInAndOutOfInventories()
     {
         var db = Db();

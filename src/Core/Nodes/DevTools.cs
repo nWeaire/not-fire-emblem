@@ -17,6 +17,7 @@ namespace NotFireEmblem.Core;
 ///   --autoadvance            prep, results and hub screens continue on their own
 ///   --newgame / --load=N     (title screen) start a campaign at once
 ///   --exp=N                  player units start each battle with N EXP (to test level-ups)
+///   --hideunits              the battle map shows no units or HUD (screenshots of the map art alone)
 /// BattleController also reads --seed=&lt;n&gt; (battle RNG); Boot reads --map=&lt;id&gt; (e.g. prologue, ch1, test_ford).
 /// </summary>
 public partial class DevTools : Node
@@ -25,6 +26,7 @@ public partial class DevTools : Node
     public static bool SkipDialogue { get; private set; }
     public static bool AutoAdvance { get; private set; }
     public static int? StartExp { get; private set; }
+    public static bool HideUnits { get; private set; }
 
     private string? _screenshotPath;
     private int _captureFrame = 90;
@@ -39,6 +41,7 @@ public partial class DevTools : Node
             Autoplay |= arg == "--autoplay";
             SkipDialogue |= arg == "--skipdialogue";
             AutoAdvance |= arg == "--autoadvance";
+            HideUnits |= arg == "--hideunits";
             var parts = arg.Split('=', 2);
             if (parts.Length != 2)
                 continue;

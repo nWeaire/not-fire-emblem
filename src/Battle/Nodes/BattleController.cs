@@ -105,6 +105,12 @@ public partial class BattleController : Node3D
         Turns = new TurnManager(State);
 
         MapView.Build(State.Grid, State.Map.ArtSet);
+        if (DevTools.HideUnits)
+        {
+            UnitsRoot.Visible = false;
+            Hud.Visible = false;
+            Cursor.Visible = false;
+        }
         if (State.Map.Lighting == "night")
             AddNightTint();
         foreach (var overlay in new[] { RangeOverlay, PathOverlay, DangerOverlay, FogOverlay, MarkerOverlay })

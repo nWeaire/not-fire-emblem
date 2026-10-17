@@ -37,6 +37,27 @@ public static class HubService
         return null;
     }
 
+    /// <summary>
+    /// Buys an item for <paramref name="unit"/>: weapons and items go straight into its pack when there is room (and
+    /// a weapon is equipped if it holds none), anything else, or a full pack, goes to the convoy.
+    /// </summary>
+    public static string? BuyFor(ContentDatabase db, GameSession s, UnitState unit, string itemId)
+    {
+        bool toPack = db.IsInventoryItem(itemId) && unit.Inventory.Count < UnitState.MaxInventory;
+        if (!toPack)
+            return Buy(db, s, itemId);
+        if (!ShopStock(db, s).Contains(itemId))
+            return "Not sold here.";
+        int price = db.ItemPrice(itemId);
+        if (s.Gold < price)
+            return "Not enough gold.";
+        s.Gold -= price;
+        unit.Inventory.Add(itemId);
+        if (unit.EquippedItemId is null && db.TryWeapon(itemId) is { } w && CombatCalculator.CanWield(db, unit, w))
+            unit.Equip(itemId);
+        return null;
+    }
+
     public static int SellPrice(ContentDatabase db, string itemId) => db.ItemPrice(itemId) * SellPercent / 100;
 
     public static string? Sell(ContentDatabase db, GameSession s, string itemId)

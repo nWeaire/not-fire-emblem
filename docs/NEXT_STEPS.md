@@ -24,6 +24,15 @@ Session 7 is merged into `main` (fast-forward, not pushed); work continues on `a
    templates, then the "Windows Desktop" preset).
 
 ## Session 7: hand-check fixes, bigger early maps, art and polish
+- **Playtest round 2:** Rowan's criticals redrawn without baked-in effects (`animate_still.py --critical`, effect
+  frames dropped; crest versions rebuilt with `add_crest.py --redo`). Guards wake at move + range + 2 cells
+  (`AiController.Alerted`). 18 portrait expressions; spell effects in code. Ch 1 lost a brute after Aldric's cut;
+  autoplay still loses it 1 run in 3 (villagers), so check it by hand; next lever: sturdier villagers.
+- **Shop as list + detail card** (user's pick from https://claude.ai/artifact/Bbu5Me4a2Ha88FLkXMXMc9): Buy / Sell tabs,
+  rows of icon, name and price (greyed when the buyer can't use or afford it), and a card with the item's numbers and
+  only the differences from the buyer's current weapon or armour (green better, red worse). X in the hub jumps back to
+  Party. **Aldric 20% weaker** (playtest: he beat Ch 2's bandits alone): personal bases −6 HP, −1 Str/Dex/Spd/Def
+  (Lck/Res bonuses gone) and growths cut by a fifth.
 - **Hub redone (user's option A from https://claude.ai/artifact/RGw7jyT84DXTQGkAo5xBmj):** a top bar with gold (big,
   gold-coloured), chapter, convoy, crest, Title and March On; places in a left column with Osmund beneath; screens wrap
   and scroll so nothing runs off at any window size. The shop buys for a chosen unit straight into their pack

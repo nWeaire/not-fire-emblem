@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxx1y7p2f717q"
-path="res://.godot/imported/frame_012.png-76a661c1784fc38fd7aeed5783dffa7f.ctex"
+uid="uid://bad1u1yt0e0uo"
+path="res://.godot/imported/kai_determined.png-25df52489c6f262b270ba2d07e39fbf6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battle/rowan_lord_crest/animations/critical/east/frame_012.png"
-dest_files=["res://.godot/imported/frame_012.png-76a661c1784fc38fd7aeed5783dffa7f.ctex"]
+source_file="res://assets/portraits/kai_determined.png"
+dest_files=["res://.godot/imported/kai_determined.png-25df52489c6f262b270ba2d07e39fbf6.ctex"]
 
 [params]
 

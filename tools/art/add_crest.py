@@ -55,6 +55,8 @@ def main() -> int:
     parser.add_argument("sprite_id")
     parser.add_argument("--set", choices=list(ROOTS), action="append")
     parser.add_argument("--only", nargs="*")
+    parser.add_argument("--redo", action="store_true",
+                        help="edit the chosen animations again (pays again), clearing their old _crest frames first")
     args = parser.parse_args()
     client = PixelLab()
     state = load_state()
@@ -70,6 +72,11 @@ def main() -> int:
         for name, frames in groups(src):
             if args.only and name.split("/")[0] not in args.only:
                 continue
+            if args.redo:
+                # The source may have a different frame count now: drop the old copies so none are left over.
+                for folder in {f.parent for f in frames}:
+                    for old in (dst / folder.relative_to(src)).glob("frame_*.png*"):
+                        old.unlink()
             # Crop the group to the union of its content: smaller frames fit more per request (16 up to 64 px,
             # 9 up to 80, else 4). Results are pasted back at the same offset.
             full = Image.open(frames[0]).size
@@ -92,7 +99,7 @@ def main() -> int:
                 if len(chunk) == 1:
                     chunk = chunk * 2
                 key = f"{set_name}:{args.sprite_id}:{name}:{start}"
-                if done.get(key) == "completed":
+                if done.get(key) == "completed" and not args.redo:
                     continue
                 body = {"description": EDIT, "frames": [{"image": b64crop(f, box), "size": {"width": w, "height": h}} for f in chunk],
                         "image_size": {"width": w, "height": h}, "no_background": True}

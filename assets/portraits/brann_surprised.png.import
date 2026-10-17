@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bustq6kswotuo"
-path="res://.godot/imported/frame_010.png-ded3b47b3876a5bf278ccb4a44505d19.ctex"
+uid="uid://dlxbie3v33aue"
+path="res://.godot/imported/brann_surprised.png-77b2418b3c6eafc9128d99026b0169f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battle/rowan_lord_crest/animations/critical/east/frame_010.png"
-dest_files=["res://.godot/imported/frame_010.png-ded3b47b3876a5bf278ccb4a44505d19.ctex"]
+source_file="res://assets/portraits/brann_surprised.png"
+dest_files=["res://.godot/imported/brann_surprised.png-77b2418b3c6eafc9128d99026b0169f7.ctex"]
 
 [params]
 

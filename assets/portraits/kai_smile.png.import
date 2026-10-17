@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctklax2oufxbe"
-path="res://.godot/imported/frame_012.png-805dd978cb94db6633b335af306051a6.ctex"
+uid="uid://c0s0nicwf6voc"
+path="res://.godot/imported/kai_smile.png-2bb512cba2a1197b095c709471d7ff7d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battle/rowan_lord/animations/critical/east/frame_012.png"
-dest_files=["res://.godot/imported/frame_012.png-805dd978cb94db6633b335af306051a6.ctex"]
+source_file="res://assets/portraits/kai_smile.png"
+dest_files=["res://.godot/imported/kai_smile.png-2bb512cba2a1197b095c709471d7ff7d.ctex"]
 
 [params]
 

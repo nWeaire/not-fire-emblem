@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8fwc8o8nflpv"
-path="res://.godot/imported/frame_012.png-2b85f37d6528a278f1846e6396be47a2.ctex"
+uid="uid://b87875k36mvds"
+path="res://.godot/imported/mira_worried.png-f838200db8327de7dcf8c03fb866a91e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battle/rowan_youth/animations/critical/east/frame_012.png"
-dest_files=["res://.godot/imported/frame_012.png-2b85f37d6528a278f1846e6396be47a2.ctex"]
+source_file="res://assets/portraits/mira_worried.png"
+dest_files=["res://.godot/imported/mira_worried.png-f838200db8327de7dcf8c03fb866a91e.ctex"]
 
 [params]
 

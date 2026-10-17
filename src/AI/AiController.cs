@@ -66,12 +66,27 @@ public static class AiController
         if (best is { } attack)
             return new AiDecision(unit, attack.Command, attack.Score);
 
-        // Stationary and Boss units hold position; Guard units stay asleep until something comes within reach.
-        if (unit.AiProfile is AiProfile.Stationary or AiProfile.Boss or AiProfile.GuardRegion)
+        // Stationary and Boss units hold position; Guard units stay asleep until a foe comes within their alert range.
+        if (unit.AiProfile is AiProfile.Stationary or AiProfile.Boss || unit.AiProfile == AiProfile.GuardRegion && !Alerted(s, unit))
             return Wait(unit);
         if (unit.AiProfile == AiProfile.Healer && BestHeal(s, unit, reach) is { } heal)
             return new AiDecision(unit, heal, null);
         return new AiDecision(unit, new ActCommand(unit.Id, ApproachCell(s, unit, reach), new WaitAction()), null);
+    }
+
+    /// <summary>How many cells beyond its attack reach (move + weapon range) a guard notices a foe and moves in.</summary>
+    public const int GuardAlertMargin = 2;
+
+    /// <summary>
+    /// A guard wakes when a foe stands within its move plus weapon range plus <see cref="GuardAlertMargin"/> (straight-
+    /// line cells). Before, guards only acted on foes they could already hit, so the party had to walk right up to
+    /// them (session 7 playtest).
+    /// </summary>
+    public static bool Alerted(BattleState s, BattleUnit unit)
+    {
+        int range = CombatCalculator.UsableWeapons(s.Db, unit.State).Select(w => w.MaxRange).DefaultIfEmpty(1).Max();
+        int alert = s.Stats(unit).Mov + range + GuardAlertMargin;
+        return s.Living.Any(u => u.Faction.IsHostileTo(unit.Faction) && u.IsOnMap && u.Pos.DistanceTo(unit.Pos) <= alert);
     }
 
     /// <summary>Healer profile: heal the most injured friend it can reach.</summary>

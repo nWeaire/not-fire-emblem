@@ -179,7 +179,7 @@ def ch1():
         # bank, so Mira has until the turn-3 brute.
         villager((2, 12)), villager((16, 9)), villager((13, 15)), villager((22, 14)), villager((7, 13)),
         hound((6, 2)), hound((8, 3)), hound((12, 2)), hound((4, 6)), hound((12, 5)), hound((3, 4)),
-        brute((9, 4)), brute((11, 3)), brute((6, 4)),
+        brute((9, 4)), brute((11, 3)),  # two brutes since Aldric was weakened (session 7)
         stalker((5, 3)), stalker((13, 5)), stalker((8, 1)),
         dict(ClassId="binder", Name="Sennet", Tag="sennet", SpriteId="boss_sennet", Level=4, Inventory=["shadow"],
              Pos=(10, 0), Ai=BOSS, IsBoss=True, CrestBearer=True),

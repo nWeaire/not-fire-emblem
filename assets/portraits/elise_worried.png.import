@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4c1ptd18tqhl"
-path="res://.godot/imported/frame_012.png-d1902fad2ae2aea312225b598541d9d0.ctex"
+uid="uid://cipxxkmu06ogo"
+path="res://.godot/imported/elise_worried.png-b59720c9ef41158ba33a6b5ca7f59b9b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battle/rowan_youth_crest/animations/critical/east/frame_012.png"
-dest_files=["res://.godot/imported/frame_012.png-d1902fad2ae2aea312225b598541d9d0.ctex"]
+source_file="res://assets/portraits/elise_worried.png"
+dest_files=["res://.godot/imported/elise_worried.png-b59720c9ef41158ba33a6b5ca7f59b9b.ctex"]
 
 [params]
 

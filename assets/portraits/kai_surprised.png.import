@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3cduntxe11aw"
-path="res://.godot/imported/frame_010.png-0beceb7f35a9beef3017c44a50c30006.ctex"
+uid="uid://dylgrxgxiaqaj"
+path="res://.godot/imported/kai_surprised.png-c85cc3fa6fea2a56a2d553043fe1c6bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battle/rowan_lord/animations/critical/east/frame_010.png"
-dest_files=["res://.godot/imported/frame_010.png-0beceb7f35a9beef3017c44a50c30006.ctex"]
+source_file="res://assets/portraits/kai_surprised.png"
+dest_files=["res://.godot/imported/kai_surprised.png-c85cc3fa6fea2a56a2d553043fe1c6bb.ctex"]
 
 [params]
 

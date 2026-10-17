@@ -433,9 +433,42 @@ public partial class BattleEventPlayer : Node
         if (h.SourceId != h.TargetId)
             Battle.ViewOf(h.SourceId)?.FaceToward(view.Position);
         AudioDirector.PlaySfx("heal");
+        _ = HealSparkles(view.GlobalPosition + Vector3.Up * 0.7f);
         Popup(view.Position, $"+{h.Amount}", HealColor);
         view.SetHp(h.HpAfter, Battle.State.Stats(unit).HP);
         await Wait(0.35f);
+    }
+
+    /// <summary>Green and white pixel sparkles rising round a healed unit (screen space, so they keep their size).</summary>
+    private async Task HealSparkles(Vector3 world)
+    {
+        var camera = Battle.Camera.Camera;
+        var layer = new Control { MouseFilter = Control.MouseFilterEnum.Ignore };
+        Battle.Hud.AddChild(layer);
+        var rng = new RandomNumberGenerator { Seed = (ulong)Engine.GetProcessFrames() };
+        var colors = new[] { Colors.White, new Color(0.7f, 1f, 0.75f), new Color(0.35f, 0.9f, 0.45f) };
+        var sparks = new List<(ColorRect Rect, Vector2 Offset, float Delay, float Rise)>();
+        for (int i = 0; i < 18; i++)
+        {
+            float s = rng.RandiRange(1, 2) * 3f;
+            var rect = new ColorRect { Color = colors[rng.RandiRange(0, colors.Length - 1)], Size = new Vector2(s, s), MouseFilter = Control.MouseFilterEnum.Ignore };
+            layer.AddChild(rect);
+            sparks.Add((rect, new Vector2(rng.RandfRange(-28f, 28f), rng.RandfRange(-20f, 30f)), rng.RandfRange(0f, 0.35f), rng.RandfRange(40f, 70f)));
+        }
+        const float life = 0.9f;
+        for (float t = 0f; t < life + 0.35f; t += (float)GetProcessDeltaTime())
+        {
+            var centre = camera.UnprojectPosition(world);
+            foreach (var (rect, offset, delay, rise) in sparks)
+            {
+                float k = Mathf.Clamp((t - delay) / life, 0f, 1f);
+                rect.Visible = t >= delay && k < 1f;
+                rect.Position = centre + offset + new Vector2(0f, -rise * k);
+                rect.Modulate = Colors.White with { A = 1f - k };
+            }
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+        layer.QueueFree();
     }
 
     private async Task Info(string unitId, string text, string? toast)

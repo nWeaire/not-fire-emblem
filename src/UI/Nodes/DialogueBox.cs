@@ -225,10 +225,23 @@ public partial class DialogueBox : Control
     public static string SpeakerName(string speaker, ContentDatabase db) =>
         speaker == "???" ? "???" : db.Units.TryGetValue(speaker, out var unit) ? unit.Name : UiKit.TitleCase(speaker);
 
-    /// <summary>The best portrait for a speaker and expression, or null.</summary>
+    /// <summary>
+    /// The nearest expression to try when a speaker has no portrait for the one asked (only the common expressions
+    /// are drawn; tools/art/expressions.py).
+    /// </summary>
+    private static readonly Dictionary<string, string> NearestExpression = new()
+    {
+        ["laugh"] = "smile", ["angry"] = "cold", ["hurt"] = "worried", ["sad"] = "worried", ["surprised"] = "worried",
+    };
+
+    /// <summary>The best portrait for a speaker and expression (exact, then the nearest, then the base), or null.</summary>
     public static Texture2D? Portrait(string speaker, string expression)
     {
-        foreach (var path in new[] { $"{PortraitRoot}/{speaker}_{expression}.png", $"{PortraitRoot}/{speaker}.png" })
+        var paths = new List<string> { $"{PortraitRoot}/{speaker}_{expression}.png" };
+        if (NearestExpression.TryGetValue(expression, out var nearest))
+            paths.Add($"{PortraitRoot}/{speaker}_{nearest}.png");
+        paths.Add($"{PortraitRoot}/{speaker}.png");
+        foreach (var path in paths)
             if (ResourceLoader.Exists(path))
                 return ResourceLoader.Load<Texture2D>(path);
         return null;

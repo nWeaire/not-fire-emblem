@@ -44,7 +44,7 @@ Expressions used by the scripts: `neutral smile laugh surprised worried sad angr
 | Priority | File | Notes |
 |---|---|---|
 | Done (session 7) | `brann`, `osmund` | Regenerated in the cast's style (picks: brann take 1, osmund take 0; others in `tools/art/takes/portraits/`). `rowan`, `kai`, `mira` and `boss_brigand_chief` were checked and kept: Rowan's is the style reference and the others match it |
-| P2 | Expression sets for the main cast | e.g. `rowan_worried.png`. Without them the base portrait is used for every expression. |
+| Done (session 7) | Expressions for the main cast | `tools/art/expressions.py` (edit_images-v2, one request per expression): Rowan determined/worried/surprised/smile, Aldric cold/determined/sad, Kai surprised/smile/laugh/determined, Mira smile/worried, Brann smile/surprised, Elise worried/surprised, Tamsin cold. Rarer ones fall back to the nearest (laugh→smile, angry→cold, hurt/sad/surprised→worried), then the base. Others (Dorran, Wenna, Sable, bosses) could follow. |
 
 ## 4. Story backgrounds (`assets/backgrounds/<id>.png`)
 | Priority | Ids |
@@ -71,7 +71,7 @@ Folder: `assets/textures/terrain/<terrainId>[_N].png` (32 px top-down; `_N` are 
 ## 7. Effects
 | Priority | Item |
 |---|---|
-| P2 | Spell effects for the battle screen and map: Fire, Shadow, Heal |
+| Done (session 7, in code) | Spell effects: Fire (fireball + embers), Shadow (orbs gather and collapse), Wind, Thunder (bolt), Light; Heal sparkles on the map (`BattleSceneView.CastSpell`, `BattleEventPlayer.HealSparkles`). Pixel-art effect sprites could replace them later. |
 | P2 | Crest effects: the crest rising from a fallen Binder, Ward / Rally / Mend / Dawn auras, Severance burst |
 | P3 | Level-up flourish; hit sparks; Dominion aura on dominated enemies |
 

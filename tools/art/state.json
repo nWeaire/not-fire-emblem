@@ -7983,6 +7983,89 @@
       "map:rowan_youth:rotations:0": "completed",
       "map:rowan_youth:walk:0": "completed"
     },
+    "expressions": {
+      "cold": {
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        },
+        "who": [
+          "aldric",
+          "tamsin"
+        ]
+      },
+      "determined": {
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        },
+        "who": [
+          "rowan",
+          "aldric",
+          "kai"
+        ]
+      },
+      "laugh": {
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        },
+        "who": [
+          "kai"
+        ]
+      },
+      "sad": {
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        },
+        "who": [
+          "aldric"
+        ]
+      },
+      "smile": {
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        },
+        "who": [
+          "rowan",
+          "kai",
+          "mira",
+          "brann"
+        ]
+      },
+      "surprised": {
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        },
+        "who": [
+          "rowan",
+          "kai",
+          "brann",
+          "elise"
+        ]
+      },
+      "worried": {
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        },
+        "who": [
+          "rowan",
+          "mira",
+          "elise"
+        ]
+      }
+    },
     "portraits": {
       "aldric": {
         "status": "completed",
@@ -10012,12 +10095,12 @@
         },
         "critical": {
           "frames": 13,
-          "job": "c31ce375-fa46-4528-8c6d-e60011f96b53",
+          "job": "ef5c8059-0623-4906-bb21-f29bf1a252fa",
           "status": "completed",
-          "still": "approved/refs/rowan_crest_knight_battle.png",
+          "still": "tools/art/approved/refs/rowan_crest_knight_battle.png",
           "usage": {
-            "generations": 2.0,
-            "type": "generations"
+            "type": "usd",
+            "usd": 0.02678501131137212
           }
         },
         "dodge": {
@@ -10064,12 +10147,12 @@
         },
         "critical": {
           "frames": 13,
-          "job": "046e4d77-be2b-42fc-9de5-1341f7facc77",
+          "job": "b4faddc4-93d3-46f4-a924-a47773465781",
           "status": "completed",
-          "still": "approved/refs/rowan_lord_battle.png",
+          "still": "tools/art/approved/refs/rowan_lord_battle.png",
           "usage": {
-            "generations": 2.0,
-            "type": "generations"
+            "type": "usd",
+            "usd": 0.036174136049217646
           }
         },
         "dodge": {
@@ -10116,12 +10199,12 @@
         },
         "critical": {
           "frames": 13,
-          "job": "451d108c-2f76-4ca6-a694-53c40c1b6771",
+          "job": "99b430be-4757-49ef-85fc-27b19d378f7a",
           "status": "completed",
-          "still": "approved/refs/rowan_battle_E1.png",
+          "still": "tools/art/approved/refs/rowan_battle_E1.png",
           "usage": {
-            "generations": 2.0,
-            "type": "generations"
+            "type": "usd",
+            "usd": 0.025461723115709094
           }
         },
         "dodge": {

@@ -93,6 +93,7 @@ def main() -> int:
     parser.add_argument("--redo", nargs="*", default=[], help="animations to request again (pays again)")
     parser.add_argument("--clean-only", action="store_true", help="re-run the effect filter on saved frames; never spends")
     parser.add_argument("--attack", help="attack wording for this character, instead of the weapon's (ATTACKS)")
+    parser.add_argument("--critical", help="critical wording for this character, instead of the manifest's")
     args = parser.parse_args()
 
     still = Image.open(args.still).convert("RGBA")
@@ -126,6 +127,8 @@ def main() -> int:
         action, to_stance = ACTIONS.get(name, (None, False))
         if name == "attack":
             action, to_stance = args.attack or ATTACKS.get(args.weapon, M.BATTLE_ATTACKS[args.weapon][0]), True
+        if name == "critical" and args.critical:
+            action, to_stance = args.critical, False  # a critical ends mid-strike
         if action and name in ("hit", "dodge", "idle"):
             action = f"{action}. Keeps holding the {args.weapon} the whole time. {CLEAN}"
         body = {"first_frame": b64png(first), "action": f"{action}. {RIGHT}" if action else anim["action"],

@@ -90,6 +90,22 @@ public class AiTests
     }
 
     [Fact]
+    public void GuardRegion_WakesTwoCellsBeyondItsReach()
+    {
+        // Mov 5 + sword range 1 + alert margin 2 = 8 cells.
+        var outside = EnemyPhase(new TestBattle("..............")
+            .Unit(Faction.Player, "merc", 4, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 13, 0, "sword").WithAi(AiProfile.GuardRegion));
+        Assert.Equal(new GridPos(13, 0), Assert.IsType<ActCommand>(AiController.Decide(outside, outside.Unit("u1")).Command).Destination);
+
+        var alert = EnemyPhase(new TestBattle("..............")
+            .Unit(Faction.Player, "merc", 5, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 13, 0, "sword").WithAi(AiProfile.GuardRegion));
+        var move = Assert.IsType<ActCommand>(AiController.Decide(alert, alert.Unit("u1")).Command);
+        Assert.True(move.Destination.X < 13, "an alerted guard moves toward the foe");
+    }
+
+    [Fact]
     public void GuardRegion_SleepsUntilSomethingIsInReach()
     {
         var far = EnemyPhase(new TestBattle("..............")

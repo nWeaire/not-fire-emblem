@@ -143,6 +143,15 @@ public partial class HubScreen : Control
             GetTree().CreateTimer(0.5).Timeout += CampaignFlow.LeaveHub;
     }
 
+    /// <summary>Back (X / Esc / B): from anywhere in the hub, the selection jumps to Party at the top of the places list.</summary>
+    public override void _UnhandledInput(InputEvent e)
+    {
+        if (!e.IsActionPressed("ui_cancel") || _tourTargets.GetValueOrDefault("tab:Party") is not { } party)
+            return;
+        party.GrabFocus();
+        GetViewport().SetInputAsHandled();
+    }
+
     private void Refresh()
     {
         UiKit.ClearChildren(_crestRow);
@@ -321,47 +330,209 @@ public partial class HubScreen : Control
 
     // ------------------------------------------------------------------ shop
 
+    private static readonly Color DimColor = new(0.55f, 0.56f, 0.62f);
+    private static readonly Color GoodColor = new(0.5f, 0.85f, 0.5f);
+    private static readonly Color BadColor = new(0.9f, 0.5f, 0.45f);
+
+    private bool _selling;
+    private string? _shopItem;
+    private VBoxContainer _card = null!;
+
+    /// <summary>
+    /// The shop (session 7, the user's pick: "list and detail card"): Buy / Sell tabs; a short list of icon, name and
+    /// price (greyed when the buyer can't use or afford it); a card with the selected item's numbers and, below, only
+    /// how it differs from what the buyer has now. The buyer is picked on the card; Z buys or sells the item.
+    /// </summary>
     private void BuildShop()
     {
-        var shops = EquipmentService.OpenShops(Db, S.Chapter).Select(sh => sh.Name).ToList();
-        Row("Open shops: " + (shops.Count == 0 ? "none yet" : string.Join(", ", shops)), 14, UiKit.Muted);
-        // Who the purchase is for: weapons and items go straight into their pack (the convoy when it's full).
-        Row("Buy for", 17, UiKit.Accent);
-        var picker = new HFlowContainer();
-        _content.AddChild(picker);
+        var buyer = _unitId is null ? null : S.Unit(_unitId);
+        var modes = new HBoxContainer();
+        modes.AddThemeConstantOverride("separation", 8);
+        _content.AddChild(modes);
+        foreach (bool sell in new[] { false, true })
+        {
+            var tab = UiKit.Button(sell ? "Sell" : "Buy", () => { _selling = sell; _shopItem = null; Refresh(); }, 110);
+            if (sell == _selling)
+                tab.Modulate = UiKit.Accent;
+            modes.AddChild(tab);
+        }
+
+        var split = new HBoxContainer();
+        split.AddThemeConstantOverride("separation", 16);
+        _content.AddChild(split);
+        var list = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsStretchRatio = 1.1f };
+        list.AddThemeConstantOverride("separation", 4);
+        split.AddChild(list);
+        _card = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        _card.AddThemeConstantOverride("separation", 8);
+        split.AddChild(_card);
+
+        var items = _selling
+            ? S.Convoy.Distinct().OrderBy(Db.ItemName).ToList()
+            : HubService.ShopStock(Db, S).OrderBy(Db.ItemPrice).ThenBy(Db.ItemName).ToList();
+        if (items.Count == 0)
+            list.AddChild(UiKit.Label(_selling ? "The convoy is empty." : "Nothing for sale yet.", 15, UiKit.Muted));
+        if (_shopItem is null || !items.Contains(_shopItem))
+            _shopItem = items.FirstOrDefault();
+
+        foreach (var itemId in items)
+        {
+            int price = _selling ? HubService.SellPrice(Db, itemId) : Db.ItemPrice(itemId);
+            int count = _selling ? S.Convoy.Count(x => x == itemId) : 1;
+            var row = new HBoxContainer();
+            row.AddThemeConstantOverride("separation", 8);
+            list.AddChild(row);
+            var button = UiKit.Button($"{Icon(itemId)}  {Db.ItemName(itemId)}{(count > 1 ? $" ×{count}" : "")}", () =>
+            {
+                if (_selling)
+                    Do(() => HubService.Sell(Db, S, itemId), $"Sold {Db.ItemName(itemId)}.");
+                else
+                    BuyNow(buyer, itemId);
+            }, 0);
+            button.Alignment = HorizontalAlignment.Left;
+            button.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+            bool usable = _selling || (S.Gold >= price && (buyer is null || CanUse(buyer, itemId)));
+            if (!usable)
+                button.Modulate = DimColor;
+            button.FocusEntered += () => ShowCard(itemId, buyer);
+            button.MouseEntered += () => ShowCard(itemId, buyer);
+            row.AddChild(button);
+            var priceLabel = UiKit.Label($"{price} G", 15, usable ? GoldColor : DimColor);
+            priceLabel.CustomMinimumSize = new Vector2(70, 0);
+            priceLabel.HorizontalAlignment = HorizontalAlignment.Right;
+            priceLabel.SizeFlagsVertical = SizeFlags.ShrinkCenter;
+            row.AddChild(priceLabel);
+            _tourTargets.TryAdd($"buy:{itemId}", button);
+        }
+        ShowCard(_shopItem, buyer);
+    }
+
+    private void BuyNow(UnitState? buyer, string itemId)
+    {
+        int before = buyer?.Inventory.Count ?? 0;
+        string? error = buyer is null ? HubService.Buy(Db, S, itemId) : HubService.BuyFor(Db, S, buyer, itemId);
+        bool toPack = buyer is not null && buyer.Inventory.Count > before;
+        Do(() => error, toPack ? $"Bought {Db.ItemName(itemId)} for {buyer!.Def.Name}." : $"Bought {Db.ItemName(itemId)} (sent to the convoy).");
+    }
+
+    /// <summary>The detail card: the item's own numbers, then only what changes against the buyer's current gear.</summary>
+    private void ShowCard(string? itemId, UnitState? buyer)
+    {
+        if (!IsInstanceValid(_card))
+            return;
+        _shopItem = itemId;
+        UiKit.ClearChildren(_card);
+        if (itemId is null)
+            return;
+        var title = UiKit.Label(Db.ItemName(itemId), 22, UiKit.Accent);
+        title.AutowrapMode = TextServer.AutowrapMode.WordSmart;
+        _card.AddChild(title);
+        _card.AddChild(UiKit.Label(Kind(itemId), 14, UiKit.Muted));
+        var stats = UiKit.Label(Numbers(itemId), 16);
+        stats.AutowrapMode = TextServer.AutowrapMode.WordSmart;
+        _card.AddChild(stats);
+        if (!_selling && buyer is not null && Compare(buyer, itemId) is { } compare)
+            _card.AddChild(compare);
+
+        if (_selling)
+        {
+            _card.AddChild(UiKit.Label($"Sells for {HubService.SellPrice(Db, itemId)} G.  Z: sell", 14, UiKit.Muted));
+            return;
+        }
+        _card.AddChild(UiKit.Label("For", 14, UiKit.Muted));
+        var who = new HFlowContainer();
+        _card.AddChild(who);
         foreach (var member in S.ActiveRoster)
         {
             string id = member.Def.Id;
-            var button = UiKit.Button($"{member.Def.Name} ({member.Inventory.Count}/{UnitState.MaxInventory})", () => { _unitId = id; Refresh(); }, 130);
+            var chip = UiKit.Button($"{member.Def.Name} {member.Inventory.Count}/{UnitState.MaxInventory}", () => { _unitId = id; Refresh(); }, 0);
             if (id == _unitId)
-                button.Modulate = UiKit.Accent;
-            picker.AddChild(button);
+                chip.Modulate = UiKit.Accent;
+            else if (!CanUse(member, itemId))
+                chip.Modulate = DimColor;
+            who.AddChild(chip);
         }
-        var buyer = _unitId is null ? null : S.Unit(_unitId);
-        Row("Buy", 17, UiKit.Accent);
-        foreach (var itemId in HubService.ShopStock(Db, S).OrderBy(Db.ItemPrice))
+        if (buyer is not null)
+            _card.AddChild(UiKit.Label($"Z: buy for {buyer.Def.Name}", 14, UiKit.Muted));
+    }
+
+    private bool CanUse(UnitState unit, string itemId) =>
+        Db.TryWeapon(itemId) is { } w ? CombatCalculator.CanWield(Db, unit, w)
+        : Db.TryArmor(itemId) is not { } a || EquipmentService.CanEquipArmor(Db, unit, a);
+
+    private string Icon(string itemId) => Db.TryWeapon(itemId) is not null ? "⚔" : Db.TryArmor(itemId) is not null ? "⛨" : "✚";
+
+    private string Kind(string itemId) =>
+        Db.TryWeapon(itemId) is { } w ? (w.Type is WeaponType.BlackMagic or WeaponType.WhiteMagic ? "Tome" : w.Type.ToString())
+        : Db.TryArmor(itemId) is { } a ? (a.Slot == ArmorSlot.Body ? $"Body armour, {a.Class.ToString().ToLowerInvariant()}" : "Accessory")
+        : "Item";
+
+    private string Numbers(string itemId)
+    {
+        if (Db.TryWeapon(itemId) is { } w)
+            return $"Mt {w.Might} · Hit {w.Hit} · Crt {w.Crit} · Rng {Range(w)} · Wt {w.Weight}";
+        if (Db.TryArmor(itemId) is { } a)
+            return string.Join(" · ", StatBlock.All.Where(s => a.Bonuses[s] != 0).Select(s => $"{s} {a.Bonuses[s]:+0;-0}")
+                .Append(a.Weight > 0 ? $"Wt {a.Weight}" : null).OfType<string>());
+        return Describe(itemId);
+    }
+
+    private static string Range(WeaponDef w) => w.MinRange == w.MaxRange ? $"{w.MinRange}" : $"{w.MinRange}-{w.MaxRange}";
+
+    /// <summary>
+    /// "vs Old Sword: Mt +2 · Hit +5": only the stats that change against what the buyer has equipped or wears in that
+    /// slot, green when better, red when worse (more weight is worse). Items have nothing to compare.
+    /// </summary>
+    private Control? Compare(UnitState buyer, string itemId)
+    {
+        var diffs = new List<(string Stat, int Delta, bool LowerIsBetter)>();
+        string against;
+        if (Db.TryWeapon(itemId) is { } w)
         {
-            int price = Db.ItemPrice(itemId);
-            var row = Row($"   {Db.ItemName(itemId)}   {Describe(itemId)}");
-            row.AddChild(UiKit.Label($"{price} G", 15, GoldColor));
-            var buy = Small("Buy", () =>
-            {
-                int before = buyer?.Inventory.Count ?? 0;
-                string? error = buyer is null ? HubService.Buy(Db, S, itemId) : HubService.BuyFor(Db, S, buyer, itemId);
-                bool toPack = buyer is not null && buyer.Inventory.Count > before;
-                Do(() => error, toPack ? $"Bought {Db.ItemName(itemId)} for {buyer!.Def.Name}." : $"Bought {Db.ItemName(itemId)} (sent to the convoy).");
-            }, S.Gold >= price);
-            row.AddChild(buy);
-            _tourTargets.TryAdd($"buy:{itemId}", buy);
+            if (!CombatCalculator.CanWield(Db, buyer, w))
+                return CompareLine($"{buyer.Def.Name} can't use this.", BadColor);
+            var now = Db.TryWeapon(buyer.EquippedItemId);
+            if (now is null || !CombatCalculator.CanWield(Db, buyer, now))
+                return CompareLine($"{buyer.Def.Name} has no weapon equipped.", GoodColor);
+            against = now.Name;
+            diffs.Add(("Mt", w.Might - now.Might, false));
+            diffs.Add(("Hit", w.Hit - now.Hit, false));
+            diffs.Add(("Crt", w.Crit - now.Crit, false));
+            diffs.Add(("Rng", w.MaxRange - now.MaxRange, false));
+            diffs.Add(("Wt", w.Weight - now.Weight, true));
         }
-        Row("Sell (from the convoy)", 17, UiKit.Accent);
-        foreach (var itemId in S.Convoy.Distinct().OrderBy(Db.ItemName))
+        else if (Db.TryArmor(itemId) is { } a)
         {
-            int price = HubService.SellPrice(Db, itemId);
-            var row = Row($"   {Db.ItemName(itemId)}");
-            row.AddChild(UiKit.Label($"{price}g", 15));
-            row.AddChild(Small("Sell", () => Do(() => HubService.Sell(Db, S, itemId), $"Sold {Db.ItemName(itemId)}."), price > 0));
+            if (!EquipmentService.CanEquipArmor(Db, buyer, a))
+                return CompareLine($"{buyer.Def.Name} can't wear this.", BadColor);
+            var now = Db.TryArmor(a.Slot == ArmorSlot.Body ? buyer.ArmorId : buyer.AccessoryId);
+            against = now?.Name ?? "nothing worn";
+            foreach (var stat in StatBlock.All)
+                diffs.Add((stat.ToString(), a.Bonuses[stat] - (now?.Bonuses[stat] ?? 0), false));
+            diffs.Add(("Wt", a.Weight - (now?.Weight ?? 0), true));
         }
+        else
+            return null;
+
+        var changed = diffs.Where(d => d.Delta != 0).ToList();
+        if (changed.Count == 0)
+            return CompareLine($"Same as {against}.", UiKit.Muted);
+        var line = new RichTextLabel { BbcodeEnabled = true, FitContent = true, ScrollActive = false, AutowrapMode = TextServer.AutowrapMode.WordSmart };
+        line.AddThemeFontSizeOverride("normal_font_size", UiKit.Px(16));
+        string Part((string Stat, int Delta, bool LowerIsBetter) d)
+        {
+            bool better = d.LowerIsBetter ? d.Delta < 0 : d.Delta > 0;
+            return $"[color=#{(better ? GoodColor : BadColor).ToHtml(false)}]{d.Stat} {d.Delta:+0;-0}[/color]";
+        }
+        line.Text = $"[color=#{UiKit.Muted.ToHtml(false)}]vs {against}:[/color] " + string.Join("  ", changed.Select(Part));
+        return line;
+    }
+
+    private static Label CompareLine(string text, Color color)
+    {
+        var label = UiKit.Label(text, 16, color);
+        label.AutowrapMode = TextServer.AutowrapMode.WordSmart;
+        return label;
     }
 
     private string Describe(string itemId)

@@ -33,7 +33,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Map:** 26×19 village (enlarged in session 7). A river runs south with three bridges; the chapel is across it to the east, the well square in the centre, cottages in a ring. Several houses are **burning** (impassable fire tiles that clear at T4). No fog.
 - **Party:** **Rowan**, **Aldric**, **Kai** (Soldier, ally-controlled until reached), **Mira** (Acolyte, starts in the chapel).
 - **Win:** Rout. **Lose:** Rowan dies, or 3 of 5 **villagers** (green NPCs) die. *(New objective: Defend/Protect NPCs.)*
-- **Enemies:** 6 Gloam Hounds, 3 Brutes, 3 Gloam Stalkers (spike-throwers, range 2); Binder Sennet (B) at the north gate. Reinforcements: 3 Hounds from the north road on T4.
+- **Enemies:** 6 Gloam Hounds, 2 Brutes, 3 Gloam Stalkers (spike-throwers, range 2); Binder Sennet (B) at the north gate. Reinforcements: 3 Hounds from the north road on T4.
 - **Events:**
   - Kai is a **Player** unit from the start, holding the well (`ch01_kai_joins` plays on turn 1; changed in session 7 for balance).
   - T3 (`ch01_mira_fire`): a Brute breaks into the chapel courtyard and Mira casts **Fire**. She gains the Fire tome; Kai's reaction is the comic beat.

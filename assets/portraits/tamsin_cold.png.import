@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnq0l3lskrdk4"
-path="res://.godot/imported/frame_011.png-83f8882a9d9fec9b6a7c3f28a483cc76.ctex"
+uid="uid://1wsa76ospems"
+path="res://.godot/imported/tamsin_cold.png-69f18172d93c92f39ec4989b4d887742.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battle/rowan_lord/animations/critical/east/frame_011.png"
-dest_files=["res://.godot/imported/frame_011.png-83f8882a9d9fec9b6a7c3f28a483cc76.ctex"]
+source_file="res://assets/portraits/tamsin_cold.png"
+dest_files=["res://.godot/imported/tamsin_cold.png-69f18172d93c92f39ec4989b4d887742.ctex"]
 
 [params]
 

@@ -162,6 +162,8 @@ public partial class BattleSceneView : CanvasLayer
 
         _left.Setup(leftUnit, LeftX, WeaponOf(s, leftUnit));
         _right.Setup(rightUnit, RightX, WeaponOf(s, rightUnit));
+        _left.Spell = SpellOf(s, leftForecast.WeaponName);
+        _right.Spell = SpellOf(s, rightForecast.WeaponName);
         _left.SwingSound = AudioCues.Swing(s.Db, leftUnit.State);
         _right.SwingSound = AudioCues.Swing(s.Db, rightUnit.State);
         _leftHud.Show(leftForecast, leftUnit.Faction);
@@ -228,6 +230,168 @@ public partial class BattleSceneView : CanvasLayer
     private static WeaponType? WeaponOf(BattleState s, BattleUnit unit) =>
         s.Db.TryWeapon(unit.State.EquippedItemId)?.Type;
 
+    // ------------------------------------------------------------------ spell effects
+
+    /// <summary>How a tome's spell looks; picked from the weapon used in this fight (all tomes share one type).</summary>
+    private enum SpellLook { None, Fire, Shadow, Wind, Thunder, Light }
+
+    private static SpellLook SpellOf(BattleState s, string? weaponName)
+    {
+        var weapon = s.Db.Weapons.Values.FirstOrDefault(w => w.Name == weaponName);
+        if (weapon is null || weapon.Type is not (WeaponType.BlackMagic or WeaponType.WhiteMagic))
+            return SpellLook.None;
+        string id = weapon.Id;
+        return id.Contains("fire") ? SpellLook.Fire
+            : id.Contains("shadow") || id.Contains("dark") ? SpellLook.Shadow
+            : id.Contains("wind") ? SpellLook.Wind
+            : id.Contains("thunder") || id.Contains("bolt") ? SpellLook.Thunder
+            : SpellLook.Light;
+    }
+
+    private static Color[] SpellColors(SpellLook look) => look switch
+    {
+        SpellLook.Fire => new[] { new Color(1f, 0.95f, 0.55f), new Color(1f, 0.6f, 0.15f), new Color(0.9f, 0.25f, 0.1f) },
+        SpellLook.Shadow => new[] { new Color(0.75f, 0.45f, 1f), new Color(0.45f, 0.2f, 0.7f), new Color(0.15f, 0.05f, 0.25f) },
+        SpellLook.Wind => new[] { new Color(0.85f, 1f, 0.85f), new Color(0.45f, 0.9f, 0.5f), new Color(0.2f, 0.6f, 0.3f) },
+        SpellLook.Thunder => new[] { Colors.White, new Color(1f, 0.95f, 0.45f), new Color(0.6f, 0.75f, 1f) },
+        _ => new[] { Colors.White, new Color(1f, 0.95f, 0.8f), new Color(0.8f, 0.9f, 1f) },
+    };
+
+    /// <summary>
+    /// The spell on its way, timed to land on the cast animation's impact frame: Fire and Wind fly from the caster,
+    /// Shadow gathers round the target in orbs that collapse inward, Thunder and Light fall from above. A miss carries
+    /// on past (or fades) instead of landing.
+    /// </summary>
+    private async Task CastSpell(Fighter caster, Fighter target, bool hit, float toImpact)
+    {
+        var colors = SpellColors(caster.Spell);
+        float travel = Math.Max(0.12f, toImpact * 0.5f);
+        await Wait(Math.Max(0f, toImpact - travel));
+        var from = caster.ChestPoint() + new Vector2(caster.Facing * 6f, 0f);
+        var to = target.ChestPoint() + (hit ? Vector2.Zero : new Vector2(caster.Facing * 26f, -10f));
+        var nodes = new List<(Node2D Node, Vector2 Start, Vector2 End)>();
+        switch (caster.Spell)
+        {
+            case SpellLook.Fire:
+                nodes.Add((Blob(colors, 4), from, to));
+                break;
+            case SpellLook.Wind:
+                for (int i = 0; i < 3; i++)
+                    nodes.Add((Blade(colors[1]), from + new Vector2(0, (i - 1) * 6f), to + new Vector2(0, (i - 1) * 4f)));
+                break;
+            case SpellLook.Shadow:
+                for (int i = 0; i < 6; i++)
+                {
+                    var ring = Vector2.FromAngle(i * Mathf.Tau / 6f) * 22f;
+                    nodes.Add((Blob(colors, 2), to + ring, to));
+                }
+                break;
+            default: // Thunder and Light: from the top of the stage straight down
+                nodes.Add((Blob(colors, 2), new Vector2(to.X, 0f), to));
+                break;
+        }
+        foreach (var (node, start, _) in nodes)
+        {
+            node.Position = start;
+            _fx.AddChild(node);
+        }
+        for (float t = 0f; t < travel; t += (float)GetProcessDeltaTime())
+        {
+            float k = t / travel;
+            foreach (var (node, start, end) in nodes)
+                node.Position = start.Lerp(end, k * k);
+            if (caster.Spell == SpellLook.Fire && Engine.GetProcessFrames() % 2 == 0)
+                _ = Particles(nodes[0].Node.Position, colors, 2, 4f, 12f, 0.3f, -20f, 1f); // trailing embers
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+        if (caster.Spell is SpellLook.Thunder or SpellLook.Light && hit)
+            Bolt(new Vector2(to.X, 0f), to, colors);
+        foreach (var (node, _, _) in nodes)
+            node.QueueFree();
+    }
+
+    /// <summary>The spell landing: a burst of its colours (embers rise, shadow sinks, sparks scatter).</summary>
+    private Task SpellHit(SpellLook look, Vector2 at, float intensity)
+    {
+        var colors = SpellColors(look);
+        int count = (int)(14 + 16 * intensity);
+        return look switch
+        {
+            SpellLook.Fire => Particles(at, colors, count, 20f, 60f, 0.55f, -60f, 2f),
+            SpellLook.Shadow => Particles(at, colors, count, 10f, 40f, 0.6f, 40f, 2f),
+            SpellLook.Wind => Particles(at, colors, count, 30f, 70f, 0.45f, 0f, 1f),
+            _ => Particles(at, colors, count, 25f, 70f, 0.4f, 30f, 1f),
+        };
+    }
+
+    /// <summary>Square pixel particles flying out from <paramref name="at"/>, fading, pulled by <paramref name="gravity"/>.</summary>
+    private async Task Particles(Vector2 at, Color[] colors, int count, float minSpeed, float maxSpeed, float life, float gravity, float size)
+    {
+        var rng = new RandomNumberGenerator { Seed = (ulong)Engine.GetProcessFrames() * 977u + (ulong)count };
+        var bits = new List<(ColorRect Rect, Vector2 Velocity)>();
+        for (int i = 0; i < count; i++)
+        {
+            float s = size * rng.RandiRange(1, 2);
+            var rect = new ColorRect { Color = colors[rng.RandiRange(0, colors.Length - 1)], Size = new Vector2(s, s), Position = at };
+            _fx.AddChild(rect);
+            bits.Add((rect, Vector2.FromAngle(rng.RandfRange(0f, Mathf.Tau)) * rng.RandfRange(minSpeed, maxSpeed)));
+        }
+        for (float t = 0f; t < life; t += (float)GetProcessDeltaTime())
+        {
+            float dt = (float)GetProcessDeltaTime();
+            for (int i = 0; i < bits.Count; i++)
+            {
+                var (rect, v) = bits[i];
+                if (!IsInstanceValid(rect))
+                    continue;
+                rect.Position += v * dt;
+                rect.Modulate = Colors.White with { A = 1f - t / life };
+                bits[i] = (rect, v + new Vector2(0f, gravity * dt));
+            }
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+        foreach (var (rect, _) in bits)
+            if (IsInstanceValid(rect))
+                rect.QueueFree();
+    }
+
+    /// <summary>A small round pixel blob: a bright core inside its spell's darker rim.</summary>
+    private static Node2D Blob(Color[] colors, int radius)
+    {
+        var node = new Node2D();
+        for (int ring = radius; ring >= 0; ring--)
+        {
+            var color = colors[Math.Min(colors.Length - 1, ring * (colors.Length - 1) / Math.Max(1, radius))];
+            node.AddChild(new ColorRect { Color = color, Size = new Vector2(ring * 2 + 1, ring * 2 + 1), Position = new Vector2(-ring, -ring) });
+        }
+        return node;
+    }
+
+    private static Node2D Blade(Color color)
+    {
+        var node = new Node2D();
+        node.AddChild(new ColorRect { Color = color, Size = new Vector2(8, 1), Position = new Vector2(-4, 0) });
+        node.AddChild(new ColorRect { Color = color.Lightened(0.4f), Size = new Vector2(4, 1), Position = new Vector2(-1, -1) });
+        return node;
+    }
+
+    /// <summary>A jagged lightning bolt from <paramref name="from"/> down to <paramref name="to"/>, flashing briefly.</summary>
+    private void Bolt(Vector2 from, Vector2 to, Color[] colors)
+    {
+        var rng = new RandomNumberGenerator { Seed = (ulong)Engine.GetProcessFrames() };
+        var line = new Line2D { Width = 2f, DefaultColor = colors[0] };
+        int steps = 7;
+        for (int i = 0; i <= steps; i++)
+        {
+            var p = from.Lerp(to, i / (float)steps);
+            line.AddPoint(i == 0 || i == steps ? p : p + new Vector2(rng.RandfRange(-5f, 5f), 0f));
+        }
+        _fx.AddChild(line);
+        var tween = line.CreateTween();
+        tween.TweenProperty(line, "modulate:a", 0f, 0.18f).SetDelay(0.06f);
+        tween.TweenCallback(Callable.From(line.QueueFree));
+    }
+
     private async Task PlayStrike(Fighter striker, Fighter target, SideHud targetHud, Strike strike, bool melee, bool counter)
     {
         float intensity = strike.Crit ? 1f : counter ? 0.45f : 0.7f;
@@ -272,6 +436,8 @@ public partial class BattleSceneView : CanvasLayer
         }
         striker.Sprite.Play(anim);
         AudioDirector.PlaySfx(striker.SwingSound);
+        if (striker.Spell != SpellLook.None)
+            _ = CastSpell(striker, target, strike.Hit, toImpact);
         await Wait(toImpact);
         AudioDirector.PlaySfx(AudioCues.Impact(strike.Hit, strike.Crit));
 
@@ -282,6 +448,8 @@ public partial class BattleSceneView : CanvasLayer
             target.Sprite.Play("hit");
             if (melee)
                 Effect(striker.Weapon is WeaponType.Fist ? "claw_rake" : "cut_streak", chest, 0.7f, !striker.FaceRight, 0.11f);
+            if (striker.Spell != SpellLook.None)
+                _ = SpellHit(striker.Spell, chest, intensity);
             _whiteout.Color = Colors.White with { A = 0.35f + 0.65f * intensity };
             await Wait(strike.Crit ? 0.07f : 0.04f);
             _whiteout.Color = Colors.White with { A = 0f };
@@ -496,6 +664,8 @@ public partial class BattleSceneView : CanvasLayer
         public float Facing => FaceRight ? 1f : -1f;
         public float HomeX { get; private set; }
         public WeaponType? Weapon { get; private set; }
+        /// <summary>The spell this fighter casts in this fight (None for weapons).</summary>
+        public SpellLook Spell { get; set; }
         public string SwingSound { get; set; } = "sword_swing";
         /// <summary>Distance in stage pixels from the anchor (feet centre) to the front of the torso.</summary>
         public float BodyFront { get; private set; } = 8f;

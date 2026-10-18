@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/WeaponDefinition.cs" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+Id = "gloam_bolt"
+Name = "Gloom Bolt"
+Type = 5
+Might = 2
+Hit = 80
+Crit = 0
+Weight = 8
+MinRange = 1
+MaxRange = 2
+Magic = true
+EffectiveAgainst = PackedStringArray("Armored")
+Price = 0
+Tier = 1

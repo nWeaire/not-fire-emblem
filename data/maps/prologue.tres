@@ -50,7 +50,7 @@ Level = 1
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
 Position = Vector2i(14, 2)
-Ai = 0
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_6"]
 script = ExtResource("2_spawn")
@@ -61,7 +61,7 @@ Level = 1
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
 Position = Vector2i(19, 2)
-Ai = 0
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_7"]
 script = ExtResource("2_spawn")
@@ -94,7 +94,7 @@ Level = 2
 Inventory = PackedStringArray("gloam_claws")
 Faction = 1
 Position = Vector2i(12, 3)
-Ai = 0
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_10"]
 script = ExtResource("2_spawn")
@@ -116,7 +116,7 @@ SpriteId = "enemy_binder"
 Level = 2
 Inventory = PackedStringArray("shadow")
 Faction = 1
-Position = Vector2i(11, 1)
+Position = Vector2i(20, 3)
 Ai = 3
 IsBoss = true
 CrestBearer = true

@@ -12,13 +12,13 @@ ROWAN [determined]: Then the lord's men can watch how it's done. Take the mill f
 MIRA [worried]: Someone's still fighting by the forge. Look.
 
 ### ch02_brann
-BRANN [surprised]: You're not bandits. Bandits don't knock.
+BRANN [smile]: You're not bandits. Bandits don't knock.
 ROWAN [neutral]: We're from Brookhollow. We came to help.
 BRANN [neutral]: Brookhollow? I heard you had a bad night.
 BRANN [smile]: Well, I've had a bad morning. I reckon we could swap stories afterwards.
 ROWAN [smile]: Can you fight?
 BRANN [neutral]: I can hit things very hard. That's mostly the same thing. Steady now, old girl.
-KAI [surprised]: ...Is he talking to his axe?
+KAI [smile]: ...Is he talking to his axe?
 BRANN [smile]: My hammer's at home. The axe gets jealous.
 
 ### ch02_brann_pressed

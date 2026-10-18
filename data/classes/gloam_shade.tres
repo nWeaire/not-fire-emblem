@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="ClassDefinition" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ClassDefinition.cs" id="1_class"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+HP = 14
+Mag = 6
+Dex = 5
+Spd = 4
+Lck = 2
+Def = 1
+Res = 5
+Mov = 5
+
+[sub_resource type="Resource" id="StatsDefinition_2"]
+script = ExtResource("2_stats")
+Mag = 5
+Res = 10
+
+[sub_resource type="Resource" id="StatsDefinition_3"]
+script = ExtResource("2_stats")
+HP = 60
+Str = 30
+Mag = 30
+Dex = 30
+Spd = 30
+Lck = 30
+Def = 30
+Res = 30
+Mov = 10
+
+[resource]
+script = ExtResource("1_class")
+Id = "gloam_shade"
+Name = "Gloam Shade"
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Caps = SubResource("StatsDefinition_3")
+MovementType = 0
+UsableWeapons = PackedStringArray("BlackMagic")
+PromotesTo = PackedStringArray()
+IsPromoted = false
+MaxArmor = 0
+Traits = PackedStringArray("Beast")

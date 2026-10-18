@@ -16,12 +16,13 @@ public sealed record AiWeights(
     double SelfDeath = 60.0,
     double Danger = 1.5,
     double LowHpTarget = 8.0,
-    double LordTarget = 12.0,
+    double LordTarget = 8.0,
     double HealerTarget = 8.0,
     double NoCounterBonus = 4.0,
     double TerrainAvoid = 0.1,
     double TerrainDef = 1.0,
-    double ArtCost = 3.0)
+    double ArtCost = 3.0,
+    double ProtectTarget = 4.0)
 {
     public static readonly AiWeights Default = new();
     public static readonly AiWeights Aggressive = new(CounterDamage: 0.3, SelfDeath: 25.0, Danger: 0.5);
@@ -150,6 +151,8 @@ public static class AiController
         score += w.LowHpTarget * (1 - hpRatio);
         if (target.IsLord)
             score += w.LordTarget;
+        if (IsProtected(s, target))
+            score += w.ProtectTarget;
         if (s.Db.Class(target.State.ClassId).Usable.Contains(WeaponType.WhiteMagic))
             score += w.HealerTarget;
         if (!f.Defender.CanStrike)
@@ -161,6 +164,16 @@ public static class AiController
             score -= w.Danger * Math.Max(0, threats - 1); // the target itself is always one threat
         return score;
     }
+
+    /// <summary>
+    /// How many steps nearer a unit the player must protect (a map's "protect TAG N") counts as when choosing where
+    /// to head. Session 9 playtest: Ch 1's Gloam walked past the villagers and piled onto Rowan.
+    /// </summary>
+    public const int ProtectPull = 2;
+
+    /// <summary>Whether the map's defeat conditions make <paramref name="unit"/> one the player must protect.</summary>
+    public static bool IsProtected(BattleState s, BattleUnit unit) =>
+        unit.Tag is { } tag && s.Map.Goals.Protect.Any(p => p.Tag == tag);
 
     /// <summary>For each cell, how many units hostile to <paramref name="faction"/> could attack it next phase.</summary>
     public static Dictionary<GridPos, int> ThreatCounts(BattleState s, Faction faction)
@@ -174,23 +187,27 @@ public static class AiController
 
     /// <summary>
     /// Where to move when nothing can be attacked: as far as possible along the terrain path toward the
-    /// nearest hostile unit; falls back to the reachable cell closest to it.
+    /// nearest hostile unit (units the player must protect count as <see cref="ProtectPull"/> steps nearer);
+    /// falls back to the reachable cell closest to it.
     /// </summary>
     public static GridPos ApproachCell(BattleState s, BattleUnit unit, ReachMap reach)
     {
         var moveType = s.MoveType(unit);
         IReadOnlyList<GridPos>? bestPath = null;
         BattleUnit? goal = null;
+        int bestLength = int.MaxValue;
         // Prefer targets the side can see; under fog with nothing in sight, head for the nearest anyway.
         var hostiles = s.Living.Where(t => t.Faction.IsHostileTo(unit.Faction)).ToList();
         var seen = hostiles.Where(t => s.CanSee(unit.Faction, t)).ToList();
         foreach (var target in (seen.Count > 0 ? seen : hostiles).OrderBy(t => t.Id, StringComparer.Ordinal))
         {
             var path = Pathfinder.FindPath(s.Grid, unit.Pos, target.Pos, moveType);
-            if (path is not null && (bestPath is null || path.Count < bestPath.Count))
+            int length = path is null ? int.MaxValue : path.Count - (IsProtected(s, target) ? ProtectPull : 0);
+            if (path is not null && length < bestLength)
             {
                 bestPath = path;
                 goal = target;
+                bestLength = length;
             }
         }
         if (bestPath is null || goal is null)

@@ -26,6 +26,8 @@ public sealed class BattleState
     public const int DominionRadius = 3;
     public const int AuraRadius = 2;
     public const int SupportRadius = 2;
+    public const int AdjacentHit = 10;
+    public const int AdjacentAvoid = 5;
     public static readonly StatBlock DominionBonus = new(0, 2, 0, 0, 0, 0, 2, 0, 0);
 
     private readonly Dictionary<GridPos, BattleUnit> _occupancy = new();
@@ -162,7 +164,8 @@ public sealed class BattleState
     /// <summary>
     /// Hit, avoid and crit bonuses for a unit standing at <paramref name="pos"/>: Rowan's crest aura
     /// (+5 hit/avoid per crest tier for allies within 2 tiles) and support partners within 2 tiles
-    /// (C +5/+5, B +10/+10/+5 crit, A +15/+15/+10 crit).
+    /// (C +5/+5, B +10/+10/+5 crit, A +15/+15/+10 crit). Any friend standing right next to the unit adds
+    /// <see cref="AdjacentHit"/> hit and <see cref="AdjacentAvoid"/> avoid, support or not.
     /// </summary>
     public (int Hit, int Avoid, int Crit) CombatBonus(BattleUnit unit, GridPos pos)
     {
@@ -175,6 +178,11 @@ public sealed class BattleState
                 hit += 5 * Options.CrestTier;
                 avoid += 5 * Options.CrestTier;
             }
+        }
+        if (unit.Faction != Faction.Enemy && HasFriendBeside(unit, pos))
+        {
+            hit += AdjacentHit;
+            avoid += AdjacentAvoid;
         }
         if (Options.SupportRank is { } rankOf && unit.Faction == Faction.Player)
         {
@@ -190,6 +198,10 @@ public sealed class BattleState
         }
         return (hit, avoid, crit);
     }
+
+    /// <summary>Whether a living unit of <paramref name="unit"/>'s side stands next to <paramref name="pos"/>.</summary>
+    public bool HasFriendBeside(BattleUnit unit, GridPos pos) =>
+        Living.Any(f => f != unit && f.Faction == unit.Faction && f.Pos.DistanceTo(pos) == 1);
 
     public MovementType MoveType(BattleUnit unit) => StatCalculator.MovementTypeOf(Db, unit.State);
 

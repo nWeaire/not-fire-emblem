@@ -77,6 +77,20 @@ public class AiTests
     }
 
     [Fact]
+    public void Aggressive_HeadsForUnitsThePlayerMustProtect()
+    {
+        // The lord is 7 cells east, the villager 8 cells west: on a protect map the villager counts as 2 steps nearer.
+        TestBattle Map() => new TestBattle("..................")
+            .Lord(17, 0, "sword")
+            .Unit(Faction.Ally, "merc", 2, 0).With(sp => sp with { Tag = "villager" })
+            .Unit(Faction.Enemy, "merc", 10, 0, "sword");
+        var plain = EnemyPhase(Map());
+        Assert.Equal(new GridPos(15, 0), Assert.IsType<ActCommand>(AiController.Decide(plain, plain.Unit("u2")).Command).Destination);
+        var protect = EnemyPhase(Map().Defeat("protect villager 3"));
+        Assert.Equal(new GridPos(5, 0), Assert.IsType<ActCommand>(AiController.Decide(protect, protect.Unit("u2")).Command).Destination);
+    }
+
+    [Fact]
     public void Aggressive_RoutesAroundWalls()
     {
         var s = EnemyPhase(new TestBattle(

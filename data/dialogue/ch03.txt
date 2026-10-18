@@ -14,8 +14,10 @@ ROWAN [neutral]: Be energised quietly.
 @focus 13,12
 @sfx bow_shot
 TAMSIN [angry]: Come on, then. Come on! I've got arrows enough for all of you.
-ROWAN [surprised]: Someone's in the clearing, alone.
-ALDRIC [neutral]: A hunter, by that bow. Get to her before they do.
+ROWAN [worried]: Someone's in the clearing, alone.
+ROWAN [determined]: You there! Hold on! We're coming to you!
+TAMSIN [cold]: You're loud. Gloamkin love loud. ...Fine. Don't get in my line of fire.
+ALDRIC [neutral]: A hunter, by that bow. She's with us for now. Get to her before they do.
 
 ### ch03_tamsin
 TAMSIN [cold]: Stay back. You're loud. Gloamkin love loud.
@@ -31,6 +33,13 @@ TAMSIN [sad]: ...Bramble. Fen. Old Tuck. The little one never had a name. I was 
 MIRA [sad]: I'm sorry.
 TAMSIN [cold]: Don't be sorry. Be quick. Whoever did this is still out there.
 
+### ch03_varga_pack
+@focus 26,3
+@sfx gloam_howl
+NARRATOR: Something whistled in the ruined lodge.
+NARRATOR: Out of the thorns came a hound, a stalker, a brute and a hooded shade, to stand at Varga's side.
+TAMSIN [cold]: She called her pack in. Pick them off first, or they'll close round whoever goes for her.
+
 ### ch03_boss
 VARGA [cold]: The farmer with the white hand. We were told you'd come wandering in.
 ROWAN [determined]: Who told you?
@@ -43,7 +52,7 @@ VARGA [hurt]: It's... cold... We were promised it wouldn't be cold.
 NARRATOR: The Binder's crest rose and drifted to Rowan's hand. It burned less this time.
 ALDRIC [neutral]: She was carrying a satchel. Orders.
 ROWAN [neutral]: "Intercept the archive scholar on the south road. Deliver her to the men of Dain Hall."
-KAI [surprised]: Dain Hall? That's Lord Halvric's seat.
+KAI [neutral]: Dain Hall? That's Lord Halvric's seat.
 ALDRIC [cold]: So the lord's men aren't missing. They're busy.
 
 ### ch03_post

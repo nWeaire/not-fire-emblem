@@ -22,9 +22,10 @@ Ai = 0
 [sub_resource type="Resource" id="SpawnDefinition_3"]
 script = ExtResource("2_spawn")
 UnitId = "mira"
+Group = "mira"
 Level = 1
 Faction = 0
-Position = Vector2i(21, 7)
+Position = Vector2i(3, 8)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_4"]
@@ -234,7 +235,7 @@ SpriteId = "enemy_gloam_brute"
 Level = 2
 Inventory = PackedStringArray("gloam_claws")
 Faction = 1
-Position = Vector2i(20, 9)
+Position = Vector2i(4, 10)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_23"]
@@ -290,12 +291,12 @@ HardOnly = true
 script = ExtResource("1_map")
 Id = "ch1"
 Name = "Chapter 1: Brookhollow Burns"
-TerrainRows = PackedStringArray("FFFFFFFFFF=FFFFFF~FFFFFFFF", "FFWWW,FPPP=P,WWWP~P,,PPPFF", "FPWTWPPPPP=PPWTWP~PPPPPPPF", "P,PPPPP,PP=P,PPPP~PPPPPP,P", "P================B========", "PPPPP^^PPP=PPPPPP~P,PPPPPP", "P,PPPPPP=====,PPP~PWWWWW,P", "PPWWW,PP=====PWWW~PWWTWWPP", "PPWTWPPP==T==PWTW~PPPPPPPP", "PPPPPPPP=====^^PP~PPPPPPPF", "PPPPPPPPPP=PPPPPP~PPPPPFFF", "=================B========", "PPPPPPP,PP=PPP,PP~P,PWWWPP", "FPPWWWPPPP=PWWWPP~PPPWTW,P", "FFPWTWPPPP=PWTWPP~PPPPPPPP", "FP,P:::::P=PPPPPPB=====PPF", "FFPP:::::P=P::::P~P:::::PF", "FFFP:::::P=P::::P~P:::::FF", "FFFFFFFFFF=FFFFFF~FFFFFFFF")
+TerrainRows = PackedStringArray("FFFFFFFFFF=FFFFFF~FFFFFFFF", "FFWWW,FPPP=P,WWWP~P,,PPPFF", "FPWTWPPPPP=PPWTWP~PPPPPPPF", "P,PPPPP,PP=P,PPPP~PPPPPP,P", "P================B========", "PPPPP^^PPP=PPPPPP~P,PPPPPP", "P,PPPPPP=====,PPP~PPWWWP,P", "PWWWWWPP=====PWWW~PPWTWPPP", "PWWTWWPP==T==PWTW~PPPPPPPP", "PPPPPPPP=====^^PP~PPPPPPPF", "PPPPPPPPPP=PPPPPP~PPPPPFFF", "=================B========", "PPPPPPP,PP=PPP,PP~P,PWWWPP", "FPPWWWPPPP=PWWWPP~PPPWTW,P", "FFPWTWPPPP=PWTWPP~PPPPPPPP", "FP,P:::::P=PPPPPPB=====PPF", "FFPP:::::P=P::::P~P:::::PF", "FFFP:::::P=P::::P~P:::::FF", "FFFFFFFFFF=FFFFFF~FFFFFFFF")
 HeightRows = PackedStringArray("00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000")
 Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22"), SubResource("SpawnDefinition_23"), SubResource("SpawnDefinition_24"), SubResource("SpawnDefinition_25"), SubResource("SpawnDefinition_26")])
 Victory = "rout"
 Defeat = PackedStringArray("protect villager 3")
-Triggers = PackedStringArray("turn 1 => scene ch01_kai_joins", "turn 3 => spawn chapel; scene ch01_mira_fire; give mira fire", "turn 4 => terrain 5,5-6,5 13,9-14,9 P; spawn north; scene ch01_reinforcements", "combat sennet => scene ch01_boss_sennet", "visit 4,14 => scene ch01_wenna; give actor vulnerary")
+Triggers = PackedStringArray("turn 1 => scene ch01_kai_joins", "turn 3 => spawn mira; spawn chapel; scene ch01_mira_fire; give mira fire", "turn 4 => terrain 5,5-6,5 13,9-14,9 P; spawn north; scene ch01_reinforcements", "combat sennet => scene ch01_boss_sennet", "visit 4,14 => scene ch01_wenna; give actor vulnerary")
 Fog = false
 DeploySlots = ""
 Background = ""

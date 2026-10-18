@@ -25,6 +25,25 @@ public class CombatTests
     }
 
     [Fact]
+    public void Tomes_GrowWithTheCaster_AndElementsDoubleMightOnTheirFoe()
+    {
+        // Mag 10, Fire Mt 5, Res 5. Level 1: no bonus.
+        var b = new TestBattle("..").Unit(Faction.Player, "mage", 0, 0, "fire").Unit(Faction.Enemy, "merc", 1, 0, "sword");
+        b.Db.Add(b.Db.Weapon("fire") with { EffectiveAgainst = new[] { "Beast" } });
+        var s = b.Build();
+        Assert.Equal(10, Forecast(s, "fire").Attacker.Damage);
+        s.Units[0].State.Level = 7;                                    // +1 might per 3 levels: +2
+        Assert.Equal(12, Forecast(s, "fire").Attacker.Damage);
+
+        // Fire on a beast: might doubled, (5 + 2) * 2 = 14, so 10 + 14 - 5.
+        var c = new TestBattle("..").Unit(Faction.Player, "mage", 0, 0, "fire").Unit(Faction.Enemy, "beast", 1, 0, "claws");
+        c.Db.Add(c.Db.Weapon("fire") with { EffectiveAgainst = new[] { "Beast" } });
+        var t = c.Build();
+        t.Units[0].State.Level = 7;
+        Assert.Equal(19, Forecast(t, "fire").Attacker.Damage);
+    }
+
+    [Fact]
     public void BaseFormulas_MatchGdd()
     {
         // Both: Str 10, Dex 10, Spd 10, Lck 0, Def 5. Weapon Mt 5, Hit 100, Wt 0.

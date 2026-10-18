@@ -19,7 +19,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Map:** 22×16 (enlarged in session 7). The farmhouse sits on a gentle rise with the barn, a pond and the fields round it; the treeline lies to the north. Night (visual only). Height: the house sits on a rise (+1). No fog.
 - **Party:** **Rowan** (Youth, the family's **Old Sword** (Mt 3; Osmund has him buy an Iron Sword at the first hub visit), in farm clothes), **Aldric** (Warden, Steel Sword, Warden's Hide).
 - **Win:** Defeat Boss (the Binder). **Lose:** Rowan or Aldric dies.
-- **Enemies:** 5 Gloam Hounds (A), 2 Gloam Brutes (A) plus one guarding the barn (G), the Binder (B, Shadow tome, shrouded crest, Dominion radius 3).
+- **Enemies:** 5 Gloam Hounds and 3 Gloam Brutes. 3 hounds and a brute charge (A); the east pair of hounds, a field brute and the barn brute wait (G) until someone comes near (session 9). The Binder (B, Shadow tome, shrouded crest, Dominion radius 3) holds the north-east corner beside them, so the party has to cross the farm to it.
 - **Events:**
   - T1, start (`pro_tutorial_move`): tutorial on moving.
   - T1, Rowan in range of an enemy (`pro_tutorial_attack`): tutorial on attacking and the forecast.
@@ -30,8 +30,8 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Scenes:** `pro_opening` (the evening on the farm), `pro_dogs` (the attack begins), `pro_aldric_reveal`, `pro_crest_awakens`, `pro_smoke` (glow over Brookhollow).
 
 ## Chapter 1 — "Brookhollow Burns"
-- **Map:** 26×19 village (enlarged in session 7). A river runs south with three bridges; the chapel is across it to the east, the well square in the centre, cottages in a ring. Several houses are **burning** (impassable fire tiles that clear at T4). No fog.
-- **Party:** **Rowan**, **Aldric**, **Kai** (Soldier, ally-controlled until reached), **Mira** (Acolyte, starts in the chapel).
+- **Map:** 26×19 village (enlarged in session 7). A river runs south with three bridges down the east side; the chapel is on the west road (moved in session 9, nearer the party), the well square in the centre, cottages in a ring. Several houses are **burning** (impassable fire tiles that clear at T4). No fog.
+- **Party:** **Rowan**, **Aldric**, **Kai** (Soldier, ally-controlled until reached), **Mira** (Acolyte; appears in the chapel on T3, when her fire scene plays).
 - **Win:** Rout. **Lose:** Rowan dies, or 3 of 5 **villagers** (green NPCs) die. *(New objective: Defend/Protect NPCs.)*
 - **Enemies:** 6 Gloam Hounds, 2 Brutes, 3 Gloam Stalkers (spike-throwers, range 2); Binder Sennet (B) at the north gate. Reinforcements: 3 Hounds from the north road on T4.
 - **Events:**
@@ -69,7 +69,8 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Party:** up to 6. **Win:** Defeat Boss (Binder Varga). **Lose:** default.
 - **Enemies:** Gloam Stalkers in the trees (G), Hounds (A), and Binder Varga (B, Dominion), who moves between clearings.
 - **Events:**
-  - T2: Tamsin appears as a green unit fighting alone, and joins when Rowan Talks to her (`ch03_tamsin`).
+  - T2: Tamsin appears fighting alone and joins the player at once (session 9: as a green ally she charged Varga and died). Rowan can Talk to her for `ch03_tamsin`.
+  - Entering Varga's clearing (`ch03_varga_pack`): a hound, a stalker, a brute and a Gloam Shade appear at her side. Another Shade guards the north-west glade.
   - Finding the dead hunting dogs region → `ch03_dogs` (her motivation).
   - When Varga dies, Elise's name appears in Varga's orders ("intercept the archive scholar").
 - **Recruit / unlock:** **Tamsin**; first crest fragment.
@@ -78,15 +79,15 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 ## Chapter 4 — "The Scholar of Calder"
 - **Map:** 26×26 hill road (session 8): the road runs north to south through a toll-gate palisade, with woods and rocky hills on the flanks and the waystation (forts) to the south-east. Elise starts mid-road; the party starts 3–4 cells from her.
 - **Party:** up to 6. **Win:** **Escape**: Elise reaches the south exit, and Rowan must exit too. **Lose:** default, or Elise dies.
-- **Enemies:** Lord Halvric's soldiers and 2 cavaliers. Their eyes are wrong: they never speak and they fight to the death. They come in from the north each turn.
-- **Events:** Elise starts as an Ally NPC and joins on Rowan's Talk (`ch04_elise`). The T3 bark `ch04_soldiers` reveals they are "under orders from Dain Hall".
+- **Enemies:** Lord Halvric's soldiers and archers (the 2 cavaliers were removed in session 9). Their eyes are wrong: they never speak and they fight to the death. They come in from the north each turn.
+- **Events:** Elise starts as an Ally NPC and joins on Rowan's Talk (`ch04_elise`). The T3 bark `ch04_soldiers` reveals they are "under orders from Dain Hall". The opening scene pans to the south exit. Soldiers and an archer step out of the south-west woods on T1 (enemy phase, `ch04_ambush`) and the south woods on T3 (session 9; a T2 east-woods ambush was cut as too hard), so the party has to choose where to fight on the way out.
 - **Recruit / unlock:** **Elise**. The post-map scene (`ch04_lore`) is the big crest lore dump at the hub.
 - **Scenes:** `ch04_pre`, `ch04_elise`, `ch04_soldiers`, `ch04_lore`.
 
 ## Chapter 5 — "Ferrow's Keep"
-- **Map:** 29×22 border fort (session 8): a walled courtyard with a hall and two barracks for cover, open to the west; the east wall has a breach and a gate that breaks on T5. Gloamkin pour from the east field in waves on T2–T6.
+- **Map:** 29×22 border fort (session 8): a walled courtyard with a hall and two barracks for cover, open to the west; the east wall has a breach and a gate that breaks on T5. Gloamkin pour from the east field in waves on T2–T6. Siege clutter fills the yard (session 9): barricades (wagons, stalls, crates, barrels; terrain `k`, impassable except to fliers) and rubble (`x`, slow, +10 avoid).
 - **Party:** up to 7, plus Dorran pre-deployed. **Win:** Survive 8 turns. **Lose:** default, or Dorran dies.
-- **Enemies:** waves of Gloamkin, plus a Gloam Brute Alpha (B) and a Binder at the rear. Killing the Binder makes the waves stop early.
+- **Enemies:** waves of Gloamkin, plus a Gloam Brute Alpha (B) and a Binder at the rear. The first **Gloam Harriers** (flying Gloamkin, session 9) come with them: one at the start, two in wave 3, two in wave 5. They fly over the walls; bows are effective against them. **Gloam Shades** (Gloamkin casters, session 9; Gloom Bolt is effective against the Armored trait: Aldric, Dorran, knights) come at the start and with waves 4 and 6. Killing the Binder makes the waves stop early.
 - **Events:**
   - T1 (`ch05_dorran`): Dorran sees Aldric's armour and keeps quiet.
   - T5: the gate breaks.
@@ -106,16 +107,16 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Scenes:** `ch06_pre`, `ch06_sable`, `ch06_rusk` ("Crests can be stolen?" "Crests can be *taken*."), `ch06_post`.
 
 ## Chapter 7 — "Storm over Dain Hall"
-- **Map:** 20×16 castle with a courtyard, ramparts (height +2) and the throne room.
+- **Map:** 30×24 castle (session 9, `tools/maps/act1_ch7.py`). The party deploys on the town road south of the moat and crosses the drawbridge into the gate. The courtyard has a well, two barracks, a stable block and a chapel garden; ramparts (height 2, a stair at each end) run inside the west and east walls. The keep (height 1) is at the north end; its throne room has four pillars, and the **throne** (new terrain `Y`: Def 3, Avoid 30, heals 10%) is at 15,1.
 - **Party:** up to 10. **Win:** Seize the throne. **Lose:** default.
-- **Enemies:** dominated soldiers and knights, a pegasus patrol including Wren, and Lord Halvric (B, a shrouded crest; Dominion over his whole army).
+- **Enemies:** Lord Halvric's soldiers, knights, cavaliers, mages and archers, all under his Dominion: gate and courtyard guards (G), four archers on the ramparts (S), knights at the keep door and in the throne room (G), and Lord Halvric (B, Knight L12, Silver Lance and Javelin, a shrouded crest) on the throne.
 - **Events:**
-  - T2: Wren hesitates. Rowan Talks to her (`ch07_wren`) and she joins.
-  - When Halvric's HP is below 50%: `ch07_halvric_plea`.
-  - Seizing the throne with Halvric dead triggers `ch07_severance`: every soldier on the map surrenders.
-  - Halvric's death scene (`ch07_halvric_dies`) names the Chancellor.
-- **Recruit / unlock:** **Wren**, and the **Knight's Crest (Tier 2)**: promotions, the crest skill **Rally**, and Aldric's Warden Lord.
-- **Scenes:** `ch07_pre`, `ch07_wren`, `ch07_halvric_plea`, `ch07_halvric_dies`, `ch07_post` (the people ask Rowan to rule, and he refuses the title), `hub_act1_end`.
+  - T2 (`ch07_patrol`): the sky patrol drops in over the east wall: two pegasus knights attack, and **Wren** hangs back (an enemy that never moves). Rowan Talks to her (`ch07_wren`) and she joins.
+  - T4 (enemy phase): soldiers and an archer come out of the barracks. T6 (`ch07_rear`): cavaliers ride up the road behind the party.
+  - Entering the throne room plays `ch07_throne_room`; Halvric's first fight `ch07_boss`; below 50% HP `ch07_halvric_plea`.
+  - Halvric dies → `ch07_halvric_dies`: his crest goes to Rowan and every soldier he held surrenders (severance). Rowan then seizes the throne.
+- **Recruit / unlock:** **Wren**, and the **Knight's Crest (Tier 2)** (`crest 2` in the campaign): promotions, the crest skill **Rally**, and Aldric's Warden Lord.
+- **Scenes:** `hub_briefing_ch07` (in the hub before), `ch07_pre`, `ch07_start`, `ch07_patrol`, `ch07_wren`, `ch07_rear`, `ch07_throne_room`, `ch07_boss`, `ch07_halvric_plea`, `ch07_halvric_dies`, `ch07_post` (the town offers Rowan the hall and he refuses the title), `hub_act1_end`.
 
 ---
 
@@ -282,7 +283,7 @@ Enemies follow the same tiers: Act I bandits carry iron and leather, Halvric's g
 ## Mapping to current content
 - **Built so far:** `data/maps/prologue.tres` and `ch1.tres`–`ch6.tres`, with the objectives, triggers, recruitments, visits and Dominion described above, chained by `data/campaign/main.txt`. Their scenes are in `data/dialogue/`. Chapters 4–6 come from `tools/maps/act1_ch4_6.py` (its .tres output is canonical afterwards).
   - Ch 4: Elise starts as a Stationary Ally out of the first wave's reach; Dain Hall soldiers come through the toll gate in groups on turns 2–5. Escape: Elise and Rowan through the south road.
-  - Ch 5: Dorran (new `knight` class) joins on turn 1. The gate is wall cells that turn to courtyard on turn 5; a breach in the south wall is the other way in. Killing Binder Hollin wins early with 500 gold. Kai becomes a Cavalier at the hub afterwards (`hub_merrow_horses`).
+  - Ch 5: Dorran (new `knight` class) joins on turn 1. The gate is wall cells that turn to courtyard on turn 5; a breach in the south wall is the other way in. Killing Binder Hollin wins early with 300 gold. Kai becomes a Cavalier at the hub afterwards (`hub_merrow_horses`).
   - Ch 6: new `shallows` (s), `reeds` (r) and `stilt` (h) terrain. Kai Talks to Sable; Rusk holds Dominion over his men and his crest goes to Rowan. The T5 pegasus scouts are a scene only.
   - Simplifications: Aldric starts as an Ally on Stationary AI and joins on turn 2. Ch 2's "Brann takes damage" is a single turn-3 event. Crest fragments aren't tracked yet.
 - The old systems test map ("Brigands at the Ford", with Brann and Elise) is now `data/maps/test_ford.tres` (`--map=test_ford`). Brann and Elise keep their ids and join at Ch 2 and Ch 4.

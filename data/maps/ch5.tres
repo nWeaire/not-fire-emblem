@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapDefinition" load_steps=25 format=3]
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=33 format=3]
 
 [ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
 [ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
@@ -16,7 +16,7 @@ script = ExtResource("2_spawn")
 ClassId = "gloam_hound"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_hound"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
 Position = Vector2i(22, 5)
@@ -27,7 +27,7 @@ script = ExtResource("2_spawn")
 ClassId = "gloam_hound"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_hound"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
 Position = Vector2i(22, 15)
@@ -38,7 +38,7 @@ script = ExtResource("2_spawn")
 ClassId = "gloam_stalker"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_stalker"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("bone_spikes")
 Faction = 1
 Position = Vector2i(24, 8)
@@ -49,7 +49,7 @@ script = ExtResource("2_spawn")
 ClassId = "gloam_stalker"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_stalker"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("bone_spikes")
 Faction = 1
 Position = Vector2i(24, 16)
@@ -60,7 +60,7 @@ script = ExtResource("2_spawn")
 ClassId = "gloam_brute"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_brute"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_claws")
 Faction = 1
 Position = Vector2i(24, 11)
@@ -68,13 +68,13 @@ Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_7"]
 script = ExtResource("2_spawn")
-ClassId = "gloam_brute"
+ClassId = "gloam_alpha"
 Name = "Gloam Alpha"
 Tag = "alpha"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_alpha"
-Level = 8
-Inventory = PackedStringArray("gloam_claws")
+Level = 10
+Inventory = PackedStringArray("alpha_claws")
 Faction = 1
 Position = Vector2i(22, 11)
 Ai = 3
@@ -99,7 +99,7 @@ ClassId = "gloam_hound"
 Group = "wave2"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_hound"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
 Position = Vector2i(28, 6)
@@ -111,7 +111,7 @@ ClassId = "gloam_hound"
 Group = "wave2"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_hound"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
 Position = Vector2i(28, 15)
@@ -123,7 +123,7 @@ ClassId = "gloam_stalker"
 Group = "wave2"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_stalker"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("bone_spikes")
 Faction = 1
 Position = Vector2i(28, 10)
@@ -135,7 +135,7 @@ ClassId = "gloam_brute"
 Group = "wave3"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_brute"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_claws")
 Faction = 1
 Position = Vector2i(28, 5)
@@ -147,7 +147,7 @@ ClassId = "gloam_hound"
 Group = "wave3"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_hound"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
 Position = Vector2i(28, 11)
@@ -159,7 +159,7 @@ ClassId = "gloam_hound"
 Group = "wave3"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_hound"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
 Position = Vector2i(28, 16)
@@ -171,7 +171,7 @@ ClassId = "gloam_hound"
 Group = "wave4"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_hound"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
 Position = Vector2i(28, 3)
@@ -183,7 +183,7 @@ ClassId = "gloam_stalker"
 Group = "wave4"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_stalker"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("bone_spikes")
 Faction = 1
 Position = Vector2i(28, 13)
@@ -195,7 +195,7 @@ ClassId = "gloam_brute"
 Group = "wave4"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_brute"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_claws")
 Faction = 1
 Position = Vector2i(28, 17)
@@ -203,59 +203,153 @@ Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_18"]
 script = ExtResource("2_spawn")
+ClassId = "gloam_harrier"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_harrier"
+Level = 5
+Inventory = PackedStringArray("gloam_talons")
+Faction = 1
+Position = Vector2i(26, 2)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_19"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_harrier"
+Group = "wave3"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_harrier"
+Level = 5
+Inventory = PackedStringArray("gloam_talons")
+Faction = 1
+Position = Vector2i(27, 7)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_20"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_harrier"
+Group = "wave3"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_harrier"
+Level = 5
+Inventory = PackedStringArray("gloam_talons")
+Faction = 1
+Position = Vector2i(27, 15)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_21"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_harrier"
+Group = "wave5"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_harrier"
+Level = 5
+Inventory = PackedStringArray("gloam_talons")
+Faction = 1
+Position = Vector2i(28, 1)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_22"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_harrier"
+Group = "wave5"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_harrier"
+Level = 5
+Inventory = PackedStringArray("gloam_talons")
+Faction = 1
+Position = Vector2i(28, 20)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_23"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_shade"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_shade"
+Level = 5
+Inventory = PackedStringArray("gloam_bolt")
+Faction = 1
+Position = Vector2i(25, 11)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_24"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_shade"
+Group = "wave4"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_shade"
+Level = 5
+Inventory = PackedStringArray("gloam_bolt")
+Faction = 1
+Position = Vector2i(28, 7)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_25"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_shade"
+Group = "wave6"
+DominatedBy = "hollin"
+SpriteId = "enemy_gloam_shade"
+Level = 5
+Inventory = PackedStringArray("gloam_bolt")
+Faction = 1
+Position = Vector2i(28, 12)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_26"]
+script = ExtResource("2_spawn")
 ClassId = "gloam_hound"
 Group = "wave5"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_hound"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
 Position = Vector2i(28, 9)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_19"]
+[sub_resource type="Resource" id="SpawnDefinition_27"]
 script = ExtResource("2_spawn")
 ClassId = "gloam_stalker"
 Group = "wave5"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_stalker"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("bone_spikes")
 Faction = 1
 Position = Vector2i(28, 4)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_20"]
+[sub_resource type="Resource" id="SpawnDefinition_28"]
 script = ExtResource("2_spawn")
 ClassId = "gloam_hound"
 Group = "wave6"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_hound"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
 Position = Vector2i(28, 8)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_21"]
+[sub_resource type="Resource" id="SpawnDefinition_29"]
 script = ExtResource("2_spawn")
 ClassId = "gloam_hound"
 Group = "wave6"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_hound"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_fangs")
 Faction = 1
 Position = Vector2i(28, 14)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_22"]
+[sub_resource type="Resource" id="SpawnDefinition_30"]
 script = ExtResource("2_spawn")
 ClassId = "gloam_brute"
 Group = "wave6"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_brute"
-Level = 4
+Level = 6
 Inventory = PackedStringArray("gloam_claws")
 Faction = 1
 Position = Vector2i(28, 11)
@@ -266,12 +360,12 @@ HardOnly = true
 script = ExtResource("1_map")
 Id = "ch5"
 Name = "Chapter 5: Ferrow's Keep"
-TerrainRows = PackedStringArray("FFPWWWWWWWWWWWWWWWWWFFPPPPPPP", "PPPW###############WFFPPFFFPP", "PPPW############T##WPPPPFFFPP", "PPPW#T#####WWWW####WPPPPFFFPP", "PPPW#######WWWW####WPPPPPPPPP", "PPPW#######WWWW####WPPPPPPPPP", "PPPW###############WPPPPP,PPP", "PPPW###############WP,PPPPPPP", "PPP###WWWW#########WPPPPPPPPP", "PPP###WWWW#########WPPPPPPPPP", "PPP###WWWWT#####T##WPPPPPPFFF", "PPP###WWWW#########WPPPPPPFFF", "PPP###WWWW#########WPPPPPPFFF", "PPP###WWWW#########WPPP,PPPPP", "PPPW###############WPPPPPPPPP", "PPPW###############WPPPPPPP,P", "PPPW#######WWWW####WPPPPPPPPP", "PPPW#######WWWW####PPPFFFPPPP", "PPPW#T#####WWWW####WPPFFFPPFF", "PPPW############T##WPPFFFPPFF", "FPPW###############WP,PPPPPFF", "FFPWWWWWWWWWWWWWWWWWPPPPPPPFF")
+TerrainRows = PackedStringArray("FFPWWWWWWWWWWWWWWWWWFFPPPPPPP", "PPPW######k########WFFPPFFFPP", "PPPW############T##WPPPPFFFPP", "PPPW#T##kk#WWWW####WPPPPFFFPP", "PPPW#######WWWW####WPPPPPPPPP", "PPPW#######WWWW###xWPPPPPPPPP", "PPPW#k###x######k##WPPPPP,PPP", "PPPW########k######WP,PPPPPPP", "PPP###WWWW#########WxPPPPPPPP", "PPP###WWWW#######x#WPPPPPPPPP", "PPP###WWWWT#####T##WPPPPPPFFF", "PPP#x#WWWW#########WPxPPPPFFF", "PPP###WWWW########xWPPPPPPFFF", "PPP###WWWW#####k#k#WPPx,PPPPP", "PPPW#k###########k#WPPPPPPPPP", "PPPW######k##x#x###WPPPPPPP,P", "PPPW##x####WWWW#k#xWPPPPPPPPP", "PPPW#######WWWW##x#PPxFFFPPPP", "PPPW#T#####WWWW###xWPPFFFPPFF", "PPPW###kk#######T##WPPFFFPPFF", "FPPW########x######WP,PPPPPFF", "FFPWWWWWWWWWWWWWWWWWPPPPPPPFF")
 HeightRows = PackedStringArray("00011111111111111111000000000", "00000000000000000001000000000", "00000000000000000001000000000", "00000000000111100001000000000", "00000000000111100001000000000", "00000000000111100001000000000", "00000000000000000001000000000", "00000000000000000001000000000", "00000011110000000001000000000", "00000011110000000001000000000", "00000011110000000001000000000", "00000011110000000001000000000", "00000011110000000001000000000", "00000011110000000001000000000", "00000000000000000001000000000", "00000000000000000001000000000", "00000000000111100001000000000", "00000000000111100000000000000", "00000000000111100001000000000", "00000000000000000001000000000", "00000000000000000001000000000", "00011111111111111111000000000")
-Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22")])
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22"), SubResource("SpawnDefinition_23"), SubResource("SpawnDefinition_24"), SubResource("SpawnDefinition_25"), SubResource("SpawnDefinition_26"), SubResource("SpawnDefinition_27"), SubResource("SpawnDefinition_28"), SubResource("SpawnDefinition_29"), SubResource("SpawnDefinition_30")])
 Victory = "survive 8"
 Defeat = PackedStringArray("die dorran")
-Triggers = PackedStringArray("turn 1 => scene ch05_dorran; join dorran", "turn 2 enemy => spawn wave2", "turn 3 enemy => spawn wave3", "turn 4 enemy => spawn wave4", "turn 5 => terrain 19,10-19,11 #; scene ch05_gate", "turn 5 enemy => spawn wave5", "turn 6 enemy => spawn wave6", "combat alpha => scene ch05_alpha", "defeated hollin => scene ch05_hollin; gold 500; win")
+Triggers = PackedStringArray("turn 1 => scene ch05_dorran; join dorran", "turn 2 enemy => spawn wave2", "turn 3 enemy => spawn wave3", "turn 4 enemy => spawn wave4", "turn 5 => terrain 19,10-19,11 #; scene ch05_gate", "turn 5 enemy => spawn wave5", "turn 6 enemy => spawn wave6", "combat alpha => scene ch05_alpha", "defeated hollin => scene ch05_hollin; gold 300; win")
 Fog = false
 DeploySlots = "13,8 14,8 13,11 14,11 12,10 14,10 13,13"
 Background = "ferrows_keep"

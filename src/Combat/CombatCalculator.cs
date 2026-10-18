@@ -14,6 +14,19 @@ public static class CombatCalculator
     public const int FollowUpThreshold = 4;
     public const int CritMultiplier = 3;
     public const int EffectiveMultiplier = 3;
+
+    /// <summary>
+    /// Tomes don't get reforged; they grow with their caster instead (session 9): +1 might for every
+    /// <see cref="TomeLevelStep"/> levels, promoted classes counting <see cref="PromotedLevelOffset"/> levels more.
+    /// </summary>
+    public const int TomeLevelStep = 3;
+    public const int PromotedLevelOffset = 10;
+
+    /// <summary>An element against its foe (Fire on beasts, Thunder on armour, Wind on fliers) doubles the tome's might.</summary>
+    public const int ElementMultiplier = 2;
+
+    public static int TomeLevelBonus(ContentDatabase db, UnitState unit) =>
+        (unit.Level + (db.Class(unit.ClassId).IsPromoted ? PromotedLevelOffset : 0)) / TomeLevelStep;
     public const int HeightHitBonus = 10;
 
     public static bool CanWield(ContentDatabase db, UnitState unit, WeaponDef weapon) =>
@@ -126,7 +139,8 @@ public static class CombatCalculator
         int terrainAvoid = theyFly ? 0 : theirTerrain.Avoid;
         int terrainDef = theyFly ? 0 : theirTerrain.Def;
 
-        int might = myWeapon.Might * (effective ? EffectiveMultiplier : 1);
+        int baseMight = myWeapon.Might + (myWeapon.Magic ? TomeLevelBonus(s.Db, me.State) : 0);
+        int might = baseMight * (!effective ? 1 : myWeapon.Magic ? ElementMultiplier : EffectiveMultiplier);
         int attack = (myWeapon.Magic ? myStats.Mag : myStats.Str) + might + tri * WeaponTriangle.DamageBonus;
         int defense = (myWeapon.Magic ? theirStats.Res : theirStats.Def) + terrainDef;
         int damage = Math.Max(0, attack - defense);

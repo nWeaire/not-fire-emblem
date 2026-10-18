@@ -14,9 +14,8 @@ Mov = 4
 
 [sub_resource type="Resource" id="StatsDefinition_2"]
 script = ExtResource("2_stats")
-HP = 15
-Str = 10
-Def = 5
+HP = 5
+Str = 5
 
 [sub_resource type="Resource" id="StatsDefinition_3"]
 script = ExtResource("2_stats")

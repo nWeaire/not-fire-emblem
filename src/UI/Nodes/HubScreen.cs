@@ -79,11 +79,7 @@ public partial class HubScreen : Control
         _crestRow = new HBoxContainer();
         _crestRow.AddThemeConstantOverride("separation", 8);
         barRow.AddChild(_crestRow);
-        barRow.AddChild(UiKit.Button("Title", () =>
-        {
-            GameSessionNode.Instance.EndSession();
-            GameSessionNode.Instance.GoTo(GameSessionNode.TitleScene);
-        }, 100));
+        barRow.AddChild(UiKit.Button("Title", AskBeforeTitle, 100));
         barRow.AddChild(UiKit.Button("March On ▶", CampaignFlow.LeaveHub, 170));
 
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill };
@@ -755,6 +751,35 @@ public partial class HubScreen : Control
 
     // ------------------------------------------------------------------ save
 
+    /// <summary>Offers to save to a manual slot before going back to the title screen.</summary>
+    private void AskBeforeTitle()
+    {
+        var modal = new Modal("Save before returning to the title?");
+        foreach (var (slot, label) in SaveService.List().Where(s => s.Slot > 0))
+        {
+            int target = slot;
+            modal.Body.AddChild(UiKit.Button($"Save to {SaveService.SlotName(slot)}: {label ?? "(empty)"}", () =>
+            {
+                if (SaveService.Save(target, S) is { } error)
+                {
+                    modal.Body.AddChild(UiKit.Label(error, 14, UiKit.Bad));
+                    return;
+                }
+                modal.Close();
+                ToTitle();
+            }, 420));
+        }
+        modal.Body.AddChild(UiKit.Button("Leave without saving", () => { modal.Close(); ToTitle(); }, 420));
+        modal.Body.AddChild(UiKit.Button("Cancel", modal.Close, 420));
+        AddChild(modal);
+    }
+
+    private static void ToTitle()
+    {
+        GameSessionNode.Instance.EndSession();
+        GameSessionNode.Instance.GoTo(GameSessionNode.TitleScene);
+    }
+
     private void BuildSave()
     {
         foreach (var (slot, label) in SaveService.List().Where(s => s.Slot > 0))
@@ -762,6 +787,6 @@ public partial class HubScreen : Control
             var row = Row($"   {SaveService.SlotName(slot)}: {label ?? "(empty)"}");
             row.AddChild(Small("Save", () => Do(() => SaveService.Save(slot, S), $"Saved to {SaveService.SlotName(slot)}.")));
         }
-        Row("The game also autosaves whenever you arrive at the hub.", 14, UiKit.Muted);
+        Row("The game also autosaves after every battle and whenever you arrive at the hub (the Autosave slot).", 14, UiKit.Muted);
     }
 }

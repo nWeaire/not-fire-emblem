@@ -7,7 +7,7 @@
 NARRATOR: The south road climbed out of the Thornwood and over the Calder hills, toward the old toll gate.
 NARRATOR: Halvric's men held the gate. They had been holding it for a week, and nobody had been allowed through.
 TAMSIN [cold]: Soldiers in Dain Hall green. On the road. In a line.
-KAI [surprised]: Hang on. Are they chasing someone?
+KAI [worried]: Hang on. Are they chasing someone?
 ALDRIC [neutral]: A woman. Grey hood, satchel, running like she means it.
 ROWAN [determined]: That's our scholar. Get between her and them.
 
@@ -16,13 +16,18 @@ ROWAN [determined]: That's our scholar. Get between her and them.
 ELISE [worried]: You there! Yes, you, with the swords! I would very much like not to be arrested today!
 ROWAN [determined]: Stay where you are. We're coming to you.
 ALDRIC [neutral]: Then we take her south, down the road and out the bottom of the valley. Don't stop to fight the gate.
+@focus 12,24
+@wait 0.6
+NARRATOR: The south road leaves the valley here. Elise and Rowan must both reach the road's end to escape.
+ROWAN [neutral]: Those woods either side of the road are thick enough to hide a company. Watch them.
+@focus 12,13
 
 ### ch04_elise
-ELISE [surprised]: You're not wearing green. Good. That's the first good thing that's happened since Tuesday.
+ELISE [smile]: You're not wearing green. Good. That's the first good thing that's happened since Tuesday.
 ROWAN [neutral]: Rowan Ashford. From Brookhollow. They were sent to take you to Dain Hall.
 ELISE [worried]: Dain Hall? I was sent to Dain Hall. By the royal archive. To study the crest disturbances.
-ELISE [surprised]: And then they tried to lock me in a cellar, which is a very strange way to welcome a scholar.
-ELISE [surprised]: Is that... your hand. Is that a crest? A white one? May I— later. Later. Running first.
+ELISE [smile]: And then they tried to lock me in a cellar, which is a very strange way to welcome a scholar.
+ELISE [smile]: Is that... your hand. Is that a crest? A white one? May I— later. Later. Running first.
 ROWAN [neutral]: South exit. Stay close to me.
 ELISE [determined]: I can do more than stay close. I have fire. Quite a lot of it.
 
@@ -32,6 +37,12 @@ NARRATOR: The soldiers came through the gate without a word. Not a shout, not an
 MIRA [worried]: Their eyes, Rowan. Look at their eyes. There's nothing in them.
 TAMSIN [cold]: One of them dropped this. A seal. "Under orders from Dain Hall."
 ALDRIC [cold]: That's Halvric's own hand. He's not missing. He's sending them.
+
+### ch04_ambush
+@focus 6,16
+NARRATOR: Green shapes stepped out of the trees beside the south road, silent as the rest.
+ELISE [worried]: They're ahead of us now as well! Please tell me someone has a plan.
+ROWAN [determined]: Pick a gap and push through it. Don't stop to finish them.
 
 ### ch04_waystation
 NARRATOR: The waystation's shutters were nailed shut. Someone inside had scratched a warning into the door.
@@ -43,7 +54,7 @@ NARRATOR: "The green men don't sleep. Keep walking."
 NARRATOR: They didn't stop running until the hills hid the gate.
 ELISE [neutral]: Thank you. Truly. I'd thank you more elegantly, but I've run four miles in archive shoes.
 ROWAN [neutral]: You said crest disturbances. What does that mean?
-ELISE [surprised]: Oh, it means a great deal. It means I have nine pages of notes and you're the tenth.
+ELISE [smile]: Oh, it means a great deal. It means I have nine pages of notes and you're the tenth.
 ALDRIC [cold]: Not on the road. Back to Brookhollow. Walls, bread, then talk.
 ELISE [smile]: A man of priorities. I like him.
 

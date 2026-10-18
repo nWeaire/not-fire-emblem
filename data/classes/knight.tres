@@ -44,3 +44,4 @@ UsableWeapons = PackedStringArray("Lance")
 PromotesTo = PackedStringArray()
 IsPromoted = false
 MaxArmor = 2
+Traits = PackedStringArray("Armored")

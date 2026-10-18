@@ -7,6 +7,7 @@ using NotFireEmblem.Combat;
 using NotFireEmblem.Core;
 using NotFireEmblem.Grid;
 using NotFireEmblem.Units;
+using NotFireEmblem.UI;
 
 namespace NotFireEmblem.Battle;
 
@@ -21,6 +22,9 @@ public partial class PlayerInputController : Node
 
     private BattleController _b = null!;
     private Mode _mode = Mode.Disabled;
+
+    /// <summary>The art picked straight from the action menu: target select opens with it chosen.</summary>
+    private ArtAttack? _artPreference;
 
     private BattleUnit? _selected;
     private ReachMap? _reach;
@@ -344,9 +348,22 @@ public partial class PlayerInputController : Node
             OpenMenu(Mode.MapMenu, new List<(string, Action)>
             {
                 ("End Turn", () => Submit(new EndPhaseCommand())),
+                ("Settings", OpenSettings),
                 ("Cancel", OnCancel),
             });
         }
+    }
+
+    /// <summary>The settings (volumes, text speed, battle scenes) over the battle; input returns to the map after.</summary>
+    private void OpenSettings()
+    {
+        _b.Hud.HideMenu();
+        _mode = Mode.Disabled;
+        var modal = new Modal("Settings");
+        modal.Body.AddChild(new SettingsPanel());
+        modal.Body.AddChild(UiKit.Button("Close", modal.Close, 280));
+        modal.Closed += () => _mode = Mode.Browse;
+        _b.Hud.AddChild(modal);
     }
 
     private void Select(BattleUnit unit)
@@ -420,8 +437,22 @@ public partial class PlayerInputController : Node
         var unit = _selected!;
         var from = _dest;
         var options = new List<(string, Action)>();
-        if (ActionRules.AttackTargets(S, unit, from).Any())
+        _artPreference = null;
+        var attackTargets = ActionRules.AttackTargets(S, unit, from).ToList();
+        if (attackTargets.Count > 0)
             options.Add(("Attack", () => OpenTargetSelect(null)));
+        // Each ready combat art gets its own entry (session 9: Tab inside Attack was too hidden to find).
+        foreach (var art in CombatCalculator.AttackChoices(S.Db, unit).OfType<ArtAttack>()
+                     .Where(a => attackTargets.Any(t => CombatCalculator.InRange(S.Db, a, from.DistanceTo(t.Pos))))
+                     .GroupBy(a => a.ArtId).Select(g => g.First()))
+        {
+            var def = S.Db.Art(art.ArtId);
+            options.Add(($"{def.Name} ({unit.UsesLeft.GetValueOrDefault(art.ArtId)}/{def.Uses})", () =>
+            {
+                _artPreference = art;
+                OpenTargets(null, art.WeaponId, back: OpenActionMenu);
+            }));
+        }
         var healSpells = ActionRules.ReadySpells(S, unit).Where(sp => ActionRules.HealTargets(S, unit, from, sp.Id).Any()).ToList();
         if (healSpells.Count > 0)
             options.Add(("Heal", () => OpenHeal(healSpells)));
@@ -595,6 +626,8 @@ public partial class PlayerInputController : Node
         string? equipped = _weaponLock ?? unit.State.EquippedItemId;
         _choiceIndex = Math.Max(0, previous is not null && _choices.Contains(previous)
             ? _choices.IndexOf(previous)
+            : _artPreference is not null && _choices.Contains(_artPreference)
+            ? _choices.IndexOf(_artPreference)
             : _choices.FindIndex(c => c is WeaponAttack && c.WeaponId == equipped));
 
         _b.Cursor.MoveTo(target.Pos);
@@ -604,6 +637,8 @@ public partial class PlayerInputController : Node
         var forecast = CombatCalculator.Forecast(S, unit, _dest, target, choice);
         string uses = choice is ArtAttack art ? $"   ({unit.UsesLeft.GetValueOrDefault(art.ArtId)} uses left)" : "";
         string hint = (_choices.Count > 1 ? "Tab: switch art   " : "") + (_targets.Count > 1 ? "Arrows: switch target   " : "") + "Z: attack   X: back" + uses;
+        if (S.HasFriendBeside(unit, _dest))
+            hint = $"Ally beside you: +{BattleState.AdjacentHit} Hit, +{BattleState.AdjacentAvoid} Avoid\n" + hint;
         _b.Hud.ShowForecast(forecast, hint);
         _b.Hud.ShowUnit(S, target);
         _b.Hud.ShowTerrain(S, target.Pos);

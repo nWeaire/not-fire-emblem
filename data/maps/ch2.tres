@@ -228,7 +228,7 @@ HeightRows = PackedStringArray("00001111000000000000000000000", "000011110000000
 Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21")])
 Victory = "seize 27,2"
 Defeat = PackedStringArray()
-Triggers = PackedStringArray("talk rowan brann => scene ch02_brann; join brann", "turn 3 enemy unless joined brann => scene ch02_brann_pressed", "turn 3 => spawn ambush", "combat gorran => scene ch02_boss", "visit 16,13 => scene ch02_house_a; give actor vulnerary", "visit 14,2 => scene ch02_house_b; gold 600; give actor energy_drop")
+Triggers = PackedStringArray("talk rowan brann => scene ch02_brann; join brann", "turn 3 enemy unless joined brann => scene ch02_brann_pressed", "turn 3 => spawn ambush", "combat gorran => scene ch02_boss", "visit 16,13 => scene ch02_house_a; give actor vulnerary", "visit 14,2 => scene ch02_house_b; gold 300; give actor energy_drop")
 Fog = false
 DeploySlots = "2,13 3,13 2,14 3,14 2,15 3,15"
 Background = ""

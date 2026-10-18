@@ -8,7 +8,7 @@ NARRATOR: The morning after, Brookhollow still smelled of smoke. Ashford Farm sm
 WENNA [neutral]: Rowan. This is Master Osmund Thorne. He keeps the village records.
 OSMUND [neutral]: And, once upon a time, the King's household. Your hand, please.
 ROWAN [worried]: It's... just the one crest.
-OSMUND [surprised]: "Just." He says "just".
+OSMUND [neutral]: "Just." He says "just".
 OSMUND [neutral]: Radiant. Unmistakably radiant. I haven't seen a white crest since— well. Since.
 ALDRIC [cold]: Since what?
 OSMUND [neutral]: Since a great many things, Master Ashford. As I suspect you know.
@@ -61,7 +61,7 @@ BRANN [smile]: Your steward says you've a hall with a cold forge in the back.
 OSMUND [neutral]: Disused since the last smith retired. I took the liberty of having it swept.
 BRANN [neutral]: Sweeping's no good. It wants feeding: coal, iron and a bit of patience.
 BRANN [smile]: Bring me your blades, Rowan. I can turn iron into steel. Steady now, old girl.
-ROWAN [surprised]: ...Old girl?
+ROWAN [neutral]: ...Old girl?
 BRANN [smile]: The hammer. She's sensitive.
 
 ### hub_briefing_ch03
@@ -89,7 +89,7 @@ ELISE [neutral]: They grow. A Kindled Crest, a Knight's Crest, a Lord's Crest, a
 ELISE [neutral]: And they take the colour of the heart that carries them. Radiant or shrouded. White or purple.
 OSMUND [neutral]: Purple is the colour of every Binder you have killed, my lord.
 ELISE [worried]: And of a good many lords lately. Shrouded crests are spreading. Faster every year. That's the disturbance.
-ELISE [surprised]: Yours is radiant. I've only ever read about radiant ones. May I— no. Later. I'll draw it later.
+ELISE [smile]: Yours is radiant. I've only ever read about radiant ones. May I— no. Later. I'll draw it later.
 ROWAN [neutral]: Why does it matter what colour it is?
 ELISE [neutral]: A radiant crest lifts the people around it. A shrouded one holds them. That's the difference between leading and owning.
 ALDRIC [neutral]: Remember that one.
@@ -117,3 +117,25 @@ OSMUND [neutral]: The Greyfen marsh, my lord. A bandit called Rusk has made hims
 OSMUND [cold]: His men are said to move as one, and to obey before he's finished speaking. You'll recognise the description.
 ELISE [worried]: That's Dominion. He has a crest. A shrouded one. And no right to it whatsoever.
 ROWAN [determined]: Then we find out where he got it. And we take it back.
+
+### hub_briefing_ch07
+@bg village_hall
+OSMUND [neutral]: Dain Hall, my lord. Lord Halvric's seat, two days north. Every road we have walked ends at its gate.
+OSMUND [cold]: The soldiers, the toll gate, the scholar, the scouts over Greyfen. I've finished my list. It is one name long.
+SABLE [neutral]: Rusk's crest came from a dead reeve, and the man who sold the reeve's road wore Halvric's green.
+ELISE [worried]: If Halvric holds a crest, his whole garrison is under Dominion. Every one of them, all at once.
+ALDRIC [cold]: Then we don't fight the garrison. We go through it, to him.
+ROWAN [determined]: Right. We go now.
+
+### hub_act1_end
+@bg village_hall
+@music hub
+NARRATOR: Brookhollow held a feast for them. Nobody had planned one; it simply happened, the way spring does.
+KAI [laugh]: Lord Rowan of the goats, the Thornvale and one very muddy marsh.
+MIRA [smile]: Leave him alone, Kai. He's trying to eat.
+OSMUND [neutral]: A letter has come from the capital, my lord. The King's seal. Or rather, the Chancellor's seal, on the King's behalf.
+OSMUND [cold]: Chancellor Morvane thanks you for your "service to the realm" and invites you to Calder. Warmly.
+ALDRIC [cold]: ...
+ROWAN [neutral]: You don't want me to go.
+ALDRIC [neutral]: I want you to go with your eyes open. That's different.
+ROWAN [determined]: Right. We go to the capital.

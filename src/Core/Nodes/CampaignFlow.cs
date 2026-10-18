@@ -129,6 +129,8 @@ public static class CampaignFlow
         var runner = Node.Runner!;
         Node.LastReport = runner.ApplyVictory(state);
         runner.Complete();
+        // Autosave after every battle (slot 0, separate from the manual slots), as well as on reaching the hub.
+        SaveService.Save(0, runner.Session);
         Node.PendingBattle = null;
         Node.GoTo(GameSessionNode.ResultsScene);
     }

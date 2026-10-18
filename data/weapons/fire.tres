@@ -14,5 +14,5 @@ Weight = 1
 MinRange = 1
 MaxRange = 2
 Magic = true
-EffectiveAgainst = PackedStringArray()
+EffectiveAgainst = PackedStringArray("Beast")
 Price = 500

@@ -159,6 +159,15 @@ public sealed class CampaignRunner
     /// Writes a won battle back into the session: roster units (including recruits) replace their roster copies,
     /// fallen units die (Classic) or recover (Casual), and gold, items, flags and support points are added.
     /// </summary>
+    /// <summary>
+    /// Gold for every victory, rising through the campaign (Prologue 150, Ch 1 200 … Ch 7 500): about one new item a
+    /// battle (session 9 playtest: 500 + 150 a chapter left 1850 to spend after Ch 2, enough to re-equip everyone).
+    /// </summary>
+    public static int VictoryGold(int chapter) => 150 + 50 * chapter;
+
+    /// <summary>EXP every deployed roster unit still standing at the end of a won battle receives.</summary>
+    public const int SurvivorExp = 20;
+
     public BattleReport ApplyVictory(BattleState s)
     {
         var supportsBefore = Session.AvailableSupports(Db).Select(x => x.SceneId).ToHashSet();
@@ -183,6 +192,7 @@ public sealed class CampaignRunner
             {
                 state.Status = UnitStatus.Active;
                 survivors.Add(id);
+                BattleProgress.AwardExp(s, battleUnit, SurvivorExp, new List<BattleEvent>());
             }
             int index = Session.Roster.FindIndex(u => u.Def.Id == id);
             if (index >= 0)
@@ -192,7 +202,8 @@ public sealed class CampaignRunner
             units.Add((state.Def.Name, battleUnit.ExpEarned, state.Level));
         }
 
-        Session.Gold += s.GoldGained;
+        int gold = s.GoldGained + VictoryGold(Session.Chapter);
+        Session.Gold += gold;
         foreach (var item in s.ItemsToConvoy)
             Session.AddToConvoy(item);
         Session.Flags.UnionWith(s.Flags);
@@ -211,6 +222,6 @@ public sealed class CampaignRunner
         Session.BattleCount++;
         var newSupports = Session.AvailableSupports(Db).Where(x => !supportsBefore.Contains(x.SceneId))
             .Select(x => $"{Db.Unit(x.A).Name} & {Db.Unit(x.B).Name} ({Supports.RankNames[x.Rank]})").ToList();
-        return new BattleReport(s.GoldGained, s.ItemsToConvoy.ToList(), units, recruited, fallen, newSupports);
+        return new BattleReport(gold, s.ItemsToConvoy.ToList(), units, recruited, fallen, newSupports);
     }
 }

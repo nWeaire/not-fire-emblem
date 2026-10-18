@@ -1,0 +1,87 @@
+# Chapter 7: Storm over Dain Hall
+# Written for the built map (data/maps/ch7.tres). Voices follow docs/story/DIALOGUE.md section 2.
+
+### ch07_pre
+@bg dain_hall_storm
+@music tension_high
+NARRATOR: Dain Hall stood on its hill above the Thornvale, grey stone under a grey sky. A storm was coming in off the moors.
+NARRATOR: The town below was shuttered. The drawbridge was down, and nobody stood on it.
+DORRAN [cold]: Gate open, bridge down, no challenge. That's not a welcome, my lord. That's a door left open for a mouse.
+ELISE [worried]: If Halvric holds his whole garrison the way Rusk held his bandits, every soldier in there is his hand.
+SABLE [neutral]: Then we cut off the hand at the wrist.
+ALDRIC [neutral]: Halvric sits in the throne room at the top of the keep. Take the throne and the rest falls with it.
+ROWAN [determined]: Right. Through the gate, across the yard, up to the keep. We go now.
+
+### ch07_start
+@focus 14,17
+@sfx phase_change
+NARRATOR: Thunder rolled over the walls. On the ramparts, the archers turned their heads all at once, like birds.
+TAMSIN [cold]: Archers on both walls. High ground. Don't stand in the open yard longer than you have to.
+DORRAN [neutral]: Knights at the keep door, too. Plate's slow, my lord. Go round it, not through it.
+
+### ch07_patrol
+@focus 24,12
+NARRATOR: Three pegasi dropped out of the clouds over the east wall. Two dived at once. The third hung back.
+KAI [worried]: The scouts from Greyfen! Hang on, that one's not attacking. She's just... watching.
+ROWAN [neutral]: Her eyes are clear. She's not one of his. Let me talk to her.
+
+### ch07_wren
+WREN [worried]: Stay back! I— I'm Lord Halvric's sky patrol. I'm meant to stop you.
+ROWAN [neutral]: You're meant to. You haven't.
+WREN [sad]: Everyone else stopped talking a month ago. They eat, they march, they stand at their posts. They don't sleep.
+WREN [sad]: I kept flying patrols because those were my orders. I counted you at Greyfen because those were my orders.
+ROWAN [neutral]: And now?
+WREN [determined]: Now I was ordered to watch. I'm done watching. Wren Alder. My lance is yours, if you'll have it.
+
+### ch07_rear
+@focus 14,22
+NARRATOR: Hooves on the drawbridge. Riders from the town garrison had come up the road behind them.
+BRANN [determined]: They're at our backs. Steady now. I'll hold the bridge end if someone holds the throne.
+
+### ch07_throne_room
+@focus 15,3
+NARRATOR: The throne room was cold. Rain hammered the tall windows. At the far end, Lord Halvric sat very still.
+ELISE [worried]: That's his crest. Purple, like Rusk's. But stronger. Much stronger.
+
+### ch07_boss
+HALVRIC [cold]: Ashford's boy. The white crest. I was told you might come.
+ROWAN [cold]: You sent soldiers after a scholar. You left villages to burn. You let the Gloam walk your roads.
+HALVRIC [neutral]: I kept order. Every man in this hall does exactly what he must. Nobody panics. Nobody runs.
+ROWAN [cold]: Nobody's left.
+
+### ch07_halvric_plea
+HALVRIC [hurt]: Wait. Listen to me, boy. You don't know what it was like. Every summer, another village ash.
+HALVRIC [sad]: I wrote to the King. I wrote ten times. Someone wrote back and offered me... a firm hand.
+ROWAN [neutral]: Then put it down.
+HALVRIC [cold]: I can't. I don't remember how.
+
+### ch07_halvric_dies
+@focus 15,1
+HALVRIC [hurt]: Ah... it's quiet. It's so quiet now.
+HALVRIC [sad]: They kept burning, boy. Every year another village. He said... with a firm enough hand... no more burning.
+ROWAN [cold]: Who said?
+HALVRIC [sad]: The Chancellor. He was so... reasonable...
+@sfx crest_rise
+NARRATOR: Halvric's crest rose, purple, and went white the moment it touched Rowan's.
+NARRATOR: Across the castle, soldiers lowered their lances and looked at their own hands as if they'd never seen them.
+ELISE [worried]: Your crest just... it *grew*. It absorbed it. That's not in any of the texts—
+ALDRIC [cold]: The Chancellor.
+ROWAN [worried]: Father?
+ALDRIC [neutral]: ...Nothing. Take the throne, Rowan. Then let's get these people home.
+@flag crest_tier_2
+
+### ch07_post
+@bg dain_hall
+@music aftermath
+NARRATOR: By morning the storm had passed. The soldiers of Dain Hall woke up in their barracks, hungry and frightened.
+NARRATOR: Most of them remembered nothing since the spring. Some remembered everything, and those were worse.
+DORRAN [neutral]: The garrison's asking for orders, my lord. The town is too. They want to know who holds the Thornvale now.
+ROWAN [worried]: Not me.
+OSMUND [neutral]: The town council has, strictly speaking, offered you the hall, the seal and the title, my lord.
+ROWAN [neutral]: Tell them no. Tell them to pick someone who lives here. I've got a farm.
+OSMUND [smile]: "I've got a farm." I'll find a more formal way to put it.
+ELISE [determined]: Rowan. Your crest. It's changed. Look at it. There's a second ring.
+NARRATOR: The white mark on Rowan's hand had grown. A second ring of light circled the first: the Knight's Crest.
+ALDRIC [neutral]: Old Wardens said the second ring was when a crest stopped being a spark and started being a fire.
+WREN [worried]: Lord Halvric said "the Chancellor." The King's own Chancellor. Is that... is that treason, to say?
+ALDRIC [cold]: Saying it isn't. Doing it might be. Pack for the capital.

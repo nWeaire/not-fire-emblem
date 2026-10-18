@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapDefinition" load_steps=20 format=3]
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=25 format=3]
 
 [ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
 [ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
@@ -194,16 +194,75 @@ Faction = 1
 Position = Vector2i(16, 12)
 Ai = 0
 
+[sub_resource type="Resource" id="SpawnDefinition_18"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_hound"
+Group = "varga_pack"
+DominatedBy = "varga"
+SpriteId = "enemy_gloam_hound"
+Level = 3
+Inventory = PackedStringArray("gloam_fangs")
+Faction = 1
+Position = Vector2i(23, 4)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_19"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_stalker"
+Group = "varga_pack"
+DominatedBy = "varga"
+SpriteId = "enemy_gloam_stalker"
+Level = 3
+Inventory = PackedStringArray("bone_spikes")
+Faction = 1
+Position = Vector2i(28, 2)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_20"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_brute"
+Group = "varga_pack"
+DominatedBy = "varga"
+SpriteId = "enemy_gloam_brute"
+Level = 3
+Inventory = PackedStringArray("gloam_claws")
+Faction = 1
+Position = Vector2i(25, 5)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_21"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_shade"
+Group = "varga_pack"
+DominatedBy = "varga"
+SpriteId = "enemy_gloam_shade"
+Level = 3
+Inventory = PackedStringArray("gloam_bolt")
+Faction = 1
+Position = Vector2i(24, 4)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_22"]
+script = ExtResource("2_spawn")
+ClassId = "gloam_shade"
+DominatedBy = "varga"
+SpriteId = "enemy_gloam_shade"
+Level = 2
+Inventory = PackedStringArray("gloam_bolt")
+Faction = 1
+Position = Vector2i(6, 3)
+Ai = 2
+
 [resource]
 script = ExtResource("1_map")
 Id = "ch3"
 Name = "Chapter 3: Thornwood Hunt"
 TerrainRows = PackedStringArray("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "FFFFFFFFFFFFFFFFFFFFFPPPPWWWPFFF", "FFFPPPPPPFFFFFFFFFFFFPP,PWTWPPFF", "FFFP,PPPPPFFFFPPPFFFFPPPPPPPPPFF", "FFFPPPPPPPFFFFP,PPFFFPPPPPPPPPFF", "FFFPPPPP,PFFFFPPPPFFFPPPPPPP,PFF", "FFFFPPPPP==FFFFFFFFFFF=PPPPPPPFF", "FFFFFFFFMM=FFFFFFFFFFF=FFFFFFFFF", "FFFFFFFFMM=FFFFFFFFFFF=FFFFFFFFF", "FFFFFFFFFF=FPPPPPPPPFF=FFFFF~~~F", "FFFFFFFFFFFPPPPPPP,PFF=FFFFF~~~F", "FFFFFFFFFFFPPPPPPPP====FMMFF~~~F", "FFFFFFFFFFFPPTPPPPPPFFFFMMFFF~FF", "FFFFFFFFFFF=PPPP=PPFFFFFFFFFF~FF", "FFFFFFFFFFF=FFFF=FFFFFFFFFFFF~FF", "FFFFFFFFFFF=FFFF=FFFFFPPPPPPF~FF", "FFPPP,PPFFF=FFFF=FFFFPPPPP,PF~FF", "FPPPPPPPFFF=FFFF======PPPPPPF~FF", "FPPPPPP=====FFFFFFFFFPPP,PPPF~FF", "FP,PPPPPFFFFFFFFFFFFFPPPPPPFF~FF", "FPPPPPPFFFFFFFFFFFFFFFFFFFFFF~FF", "FFFFFFFFFFFFFFFFFFFFFFFFFFFFF~FF")
 HeightRows = PackedStringArray("00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000110000000000000000000000", "00000000110000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000011000000", "00000000000000000000000011000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000")
-Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17")])
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22")])
 Victory = "boss varga"
 Defeat = PackedStringArray()
-Triggers = PackedStringArray("turn 2 => spawn tamsin; scene ch03_tamsin_seen", "talk rowan tamsin => scene ch03_tamsin; join tamsin", "enter player 23,16-26,18 => scene ch03_dogs", "combat varga => scene ch03_boss", "defeated varga => scene ch03_varga_dies")
+Triggers = PackedStringArray("turn 2 => spawn tamsin; scene ch03_tamsin_seen; join tamsin", "talk rowan tamsin => scene ch03_tamsin", "enter player 21,1-29,6 => spawn varga_pack; scene ch03_varga_pack", "enter player 23,16-26,18 => scene ch03_dogs", "combat varga => scene ch03_boss", "defeated varga => scene ch03_varga_dies")
 Fog = true
 DeploySlots = "2,17 3,17 2,18 3,18 4,18 3,19"
 Background = "thornwood"

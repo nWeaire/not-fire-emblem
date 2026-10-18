@@ -11,7 +11,7 @@ ROWAN [smile]: It means I was busy keeping you alive, which should count for abo
 
 ### support_kai_rowan_B
 KAI [neutral]: Rowan, when this is over, you're going to have a castle or something, aren't you?
-ROWAN [surprised]: I'm going to have goats.
+ROWAN [smile]: I'm going to have goats.
 KAI [worried]: You've got a steward. Stewards don't follow goats around.
 KAI [sad]: I just... I don't want to be the friend who used to know you.
 ROWAN [neutral]: You'll be the friend who tells me when I'm being an idiot.
@@ -86,7 +86,7 @@ ALDRIC [smile]: Until then, stay on my left.
 
 ### support_aldric_rowan_A
 ALDRIC [neutral]: Your mother had the same habit. Rubbing her hand when she was thinking.
-ROWAN [surprised]: You never talk about her.
+ROWAN [worried]: You never talk about her.
 ALDRIC [sad]: She'd have liked you. You're stubborn, and quiet when it matters. She was...
 @wait 0.8
 ALDRIC [neutral]: ...Another time. Fetch your bow. The light's going.
@@ -98,11 +98,11 @@ TAMSIN [cold]: I know. I'll fix it.
 BRANN [smile]: I already did. I wrapped it in sinew. It should hold for another season.
 TAMSIN [angry]: I didn't ask you to.
 BRANN [neutral]: No. You didn't. Steady now, old girl.
-TAMSIN [surprised]: ...Was that to me or the bow?
+TAMSIN [smile]: ...Was that to me or the bow?
 
 ### support_brann_tamsin_B
 TAMSIN [neutral]: Here.
-BRANN [surprised]: That's a stag.
+BRANN [smile]: That's a stag.
 TAMSIN [cold]: For the bowstring. Now I don't owe you.
 BRANN [smile]: You didn't owe me before.
 TAMSIN [cold]: I did. I hate owing anyone. Eat your stag.
@@ -113,5 +113,5 @@ TAMSIN [neutral]: ...Why?
 BRANN [smile]: Because you're good. And good folk should have good tools.
 TAMSIN [neutral]: ...
 TAMSIN [smile]: Thank you, Brann.
-BRANN [surprised]: Well. I never thought I'd hear that.
+BRANN [neutral]: Well. I never thought I'd hear that.
 TAMSIN [cold]: Don't make it a thing.

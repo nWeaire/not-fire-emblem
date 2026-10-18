@@ -7,8 +7,11 @@ namespace NotFireEmblem.Battle;
 
 public static class BattleSetup
 {
-    /// <summary>Growths every generic unit gets on top of its class growths.</summary>
-    public static readonly StatBlock GenericGrowths = new(HP: 50, Str: 30, Mag: 30, Dex: 30, Spd: 30, Lck: 20, Def: 25, Res: 25, Mov: 0);
+    /// <summary>
+    /// Growths every generic unit gets on top of its class growths. Class growths are shared with the player's units,
+    /// so this is where enemies are made to scale with their level (session 9: +55% Str/Mag a level, was 30%).
+    /// </summary>
+    public static readonly StatBlock GenericGrowths = new(HP: 80, Str: 55, Mag: 55, Dex: 40, Spd: 35, Lck: 25, Def: 40, Res: 30, Mov: 0);
 
     /// <summary>On Hard, generic enemies get the stat gains of a unit this many levels higher.</summary>
     public const int HardLevelBonus = 3;

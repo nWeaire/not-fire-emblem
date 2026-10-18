@@ -12,13 +12,13 @@ ROWAN [determined]: Then where did he get a crest?
 
 ### ch06_start
 @focus 17,9
-KAI [surprised]: Hang on. The swordswoman on the stilt house. Red headband. That's Sable!
+KAI [smile]: Hang on. The swordswoman on the stilt house. Red headband. That's Sable!
 ROWAN [neutral]: You know her?
 KAI [smile]: She grew up two farms over. She still owes me eight silver. Let me talk to her.
 
 ### ch06_sable
 SABLE [smile]: Kai Merrow. You still owe me eight silver.
-KAI [surprised]: I owe you? You owe me! The horse race! You cheated!
+KAI [laugh]: I owe you? You owe me! The horse race! You cheated!
 SABLE [laugh]: I won. That's different. What are you doing in a swamp with a lord and a scholar?
 KAI [determined]: Stopping your boss. Have you seen his men? They don't blink. They don't even talk.
 SABLE [cold]: ...I've seen. I took his coin before he got that thing on his hand. Now I don't like what I'm paid for.
@@ -46,7 +46,7 @@ RUSK [laugh]: It is now. That's how crests work.
 RUSK [hurt]: No... it was mine... I took it fair...
 NARRATOR: The purple crest tore free of Rusk's hand, hung in the air, and drifted toward Rowan. It burned white.
 NARRATOR: All across the marsh, Rusk's men dropped their weapons and blinked as if waking.
-KAI [surprised]: Crests can be stolen?
+KAI [worried]: Crests can be stolen?
 ELISE [worried]: Crests can be *taken*. Whoever ends a bearer takes the crest. That's the rule. I'd hoped it was only a theory.
 ROWAN [worried]: Then anyone who wants one just has to kill for it.
 ALDRIC [cold]: Now you see why the old lords were careful who they made enemies of.

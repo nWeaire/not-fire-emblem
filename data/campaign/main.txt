@@ -15,7 +15,7 @@ chapter 1 Chapter 1: Brookhollow Burns
 scene ch01_pre
 battle ch1
 scene ch01_post
-gold 800
+gold 500
 
 chapter 1 Interlude: The Steward
 scene hub_intro
@@ -61,6 +61,15 @@ chapter 6 Chapter 6: The Bandit King of Greyfen
 scene ch06_pre
 battle ch6 deploy 8 force rowan
 scene ch06_post
-gold 1500
+gold 500
+hub hub_briefing_ch07
+
+chapter 7 Chapter 7: Storm over Dain Hall
+scene ch07_pre
+battle ch7 deploy 10 force rowan
+scene ch07_post
+crest 2
+gold 800
+scene hub_act1_end
 hub
-end To be continued in Chapter 7: Storm over Dain Hall.
+end Act I is over. To be continued in Act II: The Burning Crowns.

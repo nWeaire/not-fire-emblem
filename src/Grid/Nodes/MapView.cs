@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace NotFireEmblem.Grid;
@@ -37,7 +38,7 @@ public partial class MapView : Node3D
     private static readonly HashSet<string> NoEarthSides = new() { "water", "bridge" };
 
     /// <summary>Terrains whose tiles look the same turned any way round, so cells can rotate them to hide repeats.</summary>
-    private static readonly HashSet<string> Rotatable = new() { "plain", "forest", "mountain", "water", "fort", "road", "meadow", "square", "shallows", "reeds" };
+    private static readonly HashSet<string> Rotatable = new() { "plain", "forest", "mountain", "fort", "road", "meadow", "square", "shallows", "reeds" };
 
     private readonly Dictionary<string, StandardMaterial3D> _materials = new();
     private readonly Dictionary<string, List<Texture2D>> _tiles = new();
@@ -45,9 +46,25 @@ public partial class MapView : Node3D
     private string? _artSet;
     /// <summary>Every prop billboard and the ground point it stands on, re-pulled toward the camera as it moves.</summary>
     private readonly List<(Sprite3D Sprite, Vector3 Ground)> _billboards = new();
+
+    /// <summary>Water cells whose body of water is taller than it is wide (a north–south river): ripples run along it.</summary>
+    private readonly HashSet<GridPos> _verticalWater = new();
     private Transform3D _lastCamera;
 
     public BattleGrid? Grid { get; private set; }
+
+    /// <summary>
+    /// When set, props round this cursor's cell and between it and the camera turn see-through, so the tile being
+    /// picked stays visible under trees (session 9: Ch 3's forest hid the cursor).
+    /// </summary>
+    public GridCursor? Cursor { get; set; }
+
+    private const float FadeAlpha = 0.35f;
+    private const float FadeRadius = 1.3f;     // cells round the cursor
+    private const float FadeTowardCamera = 3f; // cells in front of it, toward the camera
+    private const float FadeHalfWidth = 1.2f;  // half the width of that strip
+    private readonly List<Sprite3D> _faded = new();
+    private GridPos? _fadedFor;
 
     public void Build(BattleGrid grid, string? artSet = null)
     {
@@ -56,6 +73,9 @@ public partial class MapView : Node3D
         foreach (var child in GetChildren())
             child.QueueFree();
         _billboards.Clear();
+        _faded.Clear();
+        _fadedFor = null;
+        FindVerticalWater(grid);
         _lastCamera = default;
         _topMesh = new PlaneMesh { Size = new Vector2(GridMetrics.CellSize, GridMetrics.CellSize) };
 
@@ -97,6 +117,7 @@ public partial class MapView : Node3D
         uint h = Hash(p, 1);
         int variant = tiles.Count > 1 && h % 5 == 0 ? 1 + (int)(h / 5 % (uint)(tiles.Count - 1)) : 0;
         float yaw = Rotatable.Contains(terrainId) ? Hash(p, 2) % 4 * Mathf.Pi / 2f
+            : terrainId == "water" && _verticalWater.Contains(p) ? Mathf.Pi / 2f
             : terrainId == "bridge" && SpansEastWest(grid, p) ? Mathf.Pi / 2f
             : 0f;
         AddChild(new MeshInstance3D
@@ -115,7 +136,36 @@ public partial class MapView : Node3D
     /// </summary>
     private string TileFor(string terrainId) => _artSet == "farm"
         ? terrainId switch { "wall" => "plain", "fort" or "square" => "road", _ => terrainId }
-        : terrainId;
+        : terrainId is "throne" or "barricade" or "rubble" ? "square" : terrainId;
+
+    /// <summary>
+    /// Water is never turned at random (session 9: odd vertical tiles in a horizontal river). Each connected body of
+    /// water takes one direction from its extent: wider than tall (ponds, Ch 2's river) keeps the tile's horizontal
+    /// ripples, taller than wide (Ch 1's river, Ch 6's channel) turns them to run north–south.
+    /// </summary>
+    private void FindVerticalWater(BattleGrid grid)
+    {
+        _verticalWater.Clear();
+        var seen = new HashSet<GridPos>();
+        foreach (var start in grid.AllPositions())
+        {
+            if (grid[start].Terrain.Id != "water" || !seen.Add(start))
+                continue;
+            var body = new List<GridPos> { start };
+            for (int i = 0; i < body.Count; i++)
+            {
+                foreach (var (dx, dy) in new[] { (1, 0), (-1, 0), (0, 1), (0, -1) })
+                {
+                    var n = new GridPos(body[i].X + dx, body[i].Y + dy);
+                    if (grid.InBounds(n) && grid[n].Terrain.Id == "water" && seen.Add(n))
+                        body.Add(n);
+                }
+            }
+            int width = body.Max(c => c.X) - body.Min(c => c.X) + 1, height = body.Max(c => c.Y) - body.Min(c => c.Y) + 1;
+            if (height > width)
+                _verticalWater.UnionWith(body);
+        }
+    }
 
     /// <summary>The bridge tile's planks run north–south; turn it when the bridge crosses water to its north and south.</summary>
     private static bool SpansEastWest(BattleGrid grid, GridPos p)
@@ -148,6 +198,14 @@ public partial class MapView : Node3D
                 return;
             case "mountain" when Props("peak").Count > 0:
                 AddBillboard(Props("peak")[(int)(Hash(p, 30) % (uint)Props("peak").Count)],
+                    top + new Vector3(Jitter(1) * 0.15f, 0f, Jitter(2) * 0.15f));
+                return;
+            case "barricade" when SiegeProps().Count > 0:
+                // Wagons, stalls, crates, barrels and carts, picked per cell.
+                AddBillboard(SiegeProps()[(int)(Hash(p, 90) % (uint)SiegeProps().Count)], top);
+                return;
+            case "rubble" when Props("rubble").Count > 0:
+                AddBillboard(Props("rubble")[(int)(Hash(p, 95) % (uint)Props("rubble").Count)],
                     top + new Vector3(Jitter(1) * 0.15f, 0f, Jitter(2) * 0.15f));
                 return;
             case "fort" when Props("cottage").Count > 0:
@@ -244,6 +302,29 @@ public partial class MapView : Node3D
                         Position = top + (eastWest ? new Vector3(0f, 0.07f, i * 0.45f) : new Vector3(i * 0.45f, 0.07f, 0f)),
                     });
                 }
+                break;
+            case "barricade":
+                AddChild(new MeshInstance3D
+                {
+                    Mesh = new BoxMesh { Size = new Vector3(0.7f, 0.45f, 0.5f) },
+                    MaterialOverride = Material("#7a5634", 0f),
+                    Position = top + new Vector3(0f, 0.22f, 0f),
+                });
+                break;
+            case "throne":
+                // A tall back at the north edge of the cell, so whoever sits on it stays in view.
+                AddChild(new MeshInstance3D
+                {
+                    Mesh = new BoxMesh { Size = new Vector3(0.6f, 0.9f, 0.12f) },
+                    MaterialOverride = Material("#b8902e", 0f),
+                    Position = top + new Vector3(0f, 0.45f, -0.4f),
+                });
+                AddChild(new MeshInstance3D
+                {
+                    Mesh = new BoxMesh { Size = new Vector3(0.44f, 0.6f, 0.04f) },
+                    MaterialOverride = Material("#2f5a34", 0f),
+                    Position = top + new Vector3(0f, 0.42f, -0.33f),
+                });
                 break;
         }
     }
@@ -366,12 +447,47 @@ public partial class MapView : Node3D
         // Pull every prop toward the camera (BillboardPull) so raised terrain behind it can't cut through it.
         // Only when the camera has moved: there can be a few hundred props.
         var camera = GetViewport()?.GetCamera3D();
-        if (camera is null || camera.GlobalTransform.IsEqualApprox(_lastCamera))
+        if (camera is null)
             return;
-        _lastCamera = camera.GlobalTransform;
         var eye = ToLocal(camera.GlobalPosition);
+        bool moved = !camera.GlobalTransform.IsEqualApprox(_lastCamera);
+        if (moved)
+        {
+            _lastCamera = camera.GlobalTransform;
+            foreach (var (sprite, ground) in _billboards)
+                sprite.Position = ground + (eye - ground).Normalized() * BillboardPull;
+        }
+        GridPos? focus = Cursor is { Visible: true } && Grid is not null ? Cursor.Pos : null;
+        if (moved || focus != _fadedFor)
+            FadeAround(focus, eye);
+    }
+
+    /// <summary>Makes the props near <paramref name="focus"/> and in front of it (toward the camera) see-through.</summary>
+    private void FadeAround(GridPos? focus, Vector3 eye)
+    {
+        _fadedFor = focus;
+        foreach (var sprite in _faded)
+        {
+            sprite.AlphaCut = SpriteBase3D.AlphaCutMode.Discard;
+            sprite.Modulate = Colors.White;
+        }
+        _faded.Clear();
+        if (focus is not { } cell || Grid is null)
+            return;
+        var center = GridMetrics.CellCenter(Grid, cell);
+        var toCamera = new Vector2(eye.X - center.X, eye.Z - center.Z).Normalized();
         foreach (var (sprite, ground) in _billboards)
-            sprite.Position = ground + (eye - ground).Normalized() * BillboardPull;
+        {
+            var d = new Vector2(ground.X - center.X, ground.Z - center.Z) / GridMetrics.CellSize;
+            float along = d.Dot(toCamera);
+            float across = (d - toCamera * along).Length();
+            if (d.Length() > FadeRadius && (along <= 0f || along > FadeTowardCamera || across > FadeHalfWidth))
+                continue;
+            // Alpha blending only while faded: the props are alpha-cut otherwise (sharper, no sorting issues).
+            sprite.AlphaCut = SpriteBase3D.AlphaCutMode.Disabled;
+            sprite.Modulate = new Color(1f, 1f, 1f, FadeAlpha);
+            _faded.Add(sprite);
+        }
     }
 
     /// <summary>One variant of a decoration prop (picked by the cell hash), if that prop has art.</summary>
@@ -396,6 +512,12 @@ public partial class MapView : Node3D
     private readonly Dictionary<string, List<Texture2D>> _props = new();
 
     /// <summary>The prop's art: &lt;id&gt;_0.png, &lt;id&gt;_1.png… while they exist.</summary>
+    private List<Texture2D>? _siegeProps;
+
+    /// <summary>Every siege-clutter prop together, for barricade cells.</summary>
+    private List<Texture2D> SiegeProps() =>
+        _siegeProps ??= new[] { "wagon", "stall", "crates", "barrels", "cart" }.SelectMany(Props).ToList();
+
     private List<Texture2D> Props(string id)
     {
         if (_props.TryGetValue(id, out var cached))

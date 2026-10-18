@@ -27,8 +27,8 @@ public partial class BattleHud : CanvasLayer
     private Label _unitTitle = null!;
     private ProgressBar _unitHp = null!;
     private Label _unitHpText = null!;
-    private Label _unitStats = null!;
-    private Label _unitItems = null!;
+    private Label _unitClass = null!;
+    private VBoxContainer _unitSections = null!;
     private PanelContainer _terrainPanel = null!;
     private Label _terrainText = null!;
     private PanelContainer _menuPanel = null!;
@@ -85,8 +85,10 @@ public partial class BattleHud : CanvasLayer
         var unitBox = new VBoxContainer();
         unitRow.AddChild(unitBox);
         _unitTitle = new Label();
-        _unitTitle.AddThemeFontSizeOverride("font_size", UiKit.Px(20));
+        _unitTitle.AddThemeFontSizeOverride("font_size", UiKit.Px(22));
         unitBox.AddChild(_unitTitle);
+        _unitClass = UiKit.Label("", 15, UiKit.Muted);
+        unitBox.AddChild(_unitClass);
         var hpRow = new HBoxContainer();
         unitBox.AddChild(hpRow);
         _unitHp = new ProgressBar { CustomMinimumSize = new Vector2(180, 14), ShowPercentage = false, SizeFlagsVertical = Control.SizeFlags.ShrinkCenter };
@@ -94,12 +96,10 @@ public partial class BattleHud : CanvasLayer
         hpRow.AddChild(_unitHp);
         _unitHpText = new Label();
         hpRow.AddChild(_unitHpText);
-        _unitStats = new Label();
-        _unitStats.AddThemeFontSizeOverride("font_size", UiKit.Px(14));
-        unitBox.AddChild(_unitStats);
-        _unitItems = new Label();
-        _unitItems.AddThemeFontSizeOverride("font_size", UiKit.Px(14));
-        unitBox.AddChild(_unitItems);
+        // Weapons, items and spells: short sections, each only when the unit has something in it.
+        _unitSections = new VBoxContainer();
+        _unitSections.AddThemeConstantOverride("separation", 2);
+        unitBox.AddChild(_unitSections);
         _unitStatus = new Label { Modulate = new Color(0.75f, 0.9f, 1f) };
         _unitStatus.AddThemeFontSizeOverride("font_size", UiKit.Px(13));
         unitBox.AddChild(_unitStatus);
@@ -131,7 +131,7 @@ public partial class BattleHud : CanvasLayer
         // Controls hint (bottom-centre)
         var hint = new Label
         {
-            Text = "Z: select  X: back  WASD: cursor  Q/E: rotate  +/-: zoom  Tab: next  G: danger  B: scenes  T: end turn",
+            Text = "Z: select  X: back  WASD: cursor  Q/E: rotate  +/-: zoom  Tab: next  G: danger  B: scenes  T: end turn  Hold Space: 4×",
             Modulate = new Color(1, 1, 1, 0.65f),
             HorizontalAlignment = HorizontalAlignment.Center,
             MouseFilter = Control.MouseFilterEnum.Ignore,
@@ -232,45 +232,57 @@ public partial class BattleHud : CanvasLayer
         var stats = s.Stats(unit);
         var cls = db.Class(unit.State.ClassId);
         _unitPanel.Visible = true;
-        _unitTitle.Text = $"{unit.Name}{(unit.IsBoss ? " (Boss)" : "")} — {cls.Name} Lv {unit.State.Level}";
+        _unitTitle.Text = unit.Name + (unit.IsBoss ? "  (Boss)" : "");
         _unitTitle.Modulate = UnitView.ColorFor(unit.Faction).Lightened(0.35f);
+        _unitClass.Text = $"Lv {unit.State.Level} · {cls.Name}";
         ShowPortrait(unit);
         _unitHp.MaxValue = stats.HP;
         _unitHp.Value = unit.CurrentHp;
-        _unitHpText.Text = $"  HP {unit.CurrentHp}/{stats.HP}";
-        _unitStats.Text =
-            $"Str {stats.Str,2}  Mag {stats.Mag,2}  Dex {stats.Dex,2}  Spd {stats.Spd,2}\n" +
-            $"Lck {stats.Lck,2}  Def {stats.Def,2}  Res {stats.Res,2}  Mov {stats.Mov,2}";
-        var items = unit.State.Inventory.Select((id, i) =>
+        _unitHpText.Text = $"  {unit.CurrentHp}/{stats.HP}";
+
+        foreach (var child in _unitSections.GetChildren())
+            child.QueueFree();
+        var weapons = new List<(string Text, bool Equipped)>();
+        var items = new List<string>();
+        for (int i = 0; i < unit.State.Inventory.Count; i++)
         {
-            var w = db.TryWeapon(id);
-            string name = w?.Name ?? id;
-            string marker = i == unit.State.EquippedIndex ? "▶ " : "   ";
-            return w is null ? marker + name : $"{marker}{name}  Mt {w.Might} Hit {w.Hit} Rng {RangeText(w)}";
-        });
-        var worn = new[] { db.TryArmor(unit.State.ArmorId), db.TryArmor(unit.State.AccessoryId) }.OfType<ArmorDef>()
-            .Select(a => $"   {a.Name}  {BonusText(a.Bonuses)}");
-        var lines = items.Concat(worn).ToList();
-        _unitItems.Text = lines.Count == 0 ? "(no items)" : string.Join("\n", lines);
+            string id = unit.State.Inventory[i];
+            if (db.TryWeapon(id) is { } w)
+                weapons.Add((w.Name, i == unit.State.EquippedIndex));
+            else
+                items.Add(db.TryItem(id)?.Name ?? id);
+        }
+        var spells = Abilities.Spells(db, unit.State).Select(sp => $"{sp.Name} {unit.UsesLeft.GetValueOrDefault(sp.Id)}/{sp.Uses}")
+            .Concat(Abilities.Arts(db, unit.State).Select(a => $"{a.Name} {unit.UsesLeft.GetValueOrDefault(a.Id)}/{a.Uses}"))
+            .Concat(unit.UsesLeft.Where(kv => kv.Key.StartsWith("crest:")).Select(kv => $"{kv.Key[6..]} {kv.Value}"))
+            .ToList();
+        if (weapons.Count > 0)
+        {
+            _unitSections.AddChild(UiKit.Caps("Weapons", 12));
+            foreach (var (text, equipped) in weapons)
+                _unitSections.AddChild(UiKit.Label((equipped ? "▶ " : "   ") + text, 15, equipped ? UiKit.Text : UiKit.Muted));
+        }
+        if (items.Count > 0)
+        {
+            _unitSections.AddChild(UiKit.Caps("Items", 12));
+            _unitSections.AddChild(UiKit.Label("   " + string.Join(", ", items), 15));
+        }
+        if (spells.Count > 0)
+        {
+            _unitSections.AddChild(UiKit.Caps("Spells & arts", 12));
+            _unitSections.AddChild(UiKit.Label("   " + string.Join(", ", spells), 15));
+        }
 
         var status = new List<string>();
-        if (unit.IsRosterUnit)
-            status.Add($"EXP {unit.State.Exp}/100");
         if (s.IsDominated(unit))
-            status.Add("Dominion: +2 Str/Def");
+            status.Add("Dominated");
         if (unit.CrestBearer)
-            status.Add("Crest-bearer (Dominion 3)");
+            status.Add("Crest-bearer");
         if (unit.StunnedPhases > 0)
             status.Add("Stunned");
         if (unit.TempBonusSource is { } buff)
-            status.Add($"{buff}: {BonusText(unit.TempBonus)}");
-        var uses = Abilities.Arts(db, unit.State).Select(a => $"{a.Name} {unit.UsesLeft.GetValueOrDefault(a.Id)}/{a.Uses}")
-            .Concat(Abilities.Spells(db, unit.State).Select(sp => $"{sp.Name} {unit.UsesLeft.GetValueOrDefault(sp.Id)}/{sp.Uses}"))
-            .Concat(unit.UsesLeft.Where(kv => kv.Key.StartsWith("crest:")).Select(kv => $"{kv.Key[6..]} {kv.Value}"))
-            .ToList();
-        if (uses.Count > 0)
-            status.Add(string.Join("  ", uses));
-        _unitStatus.Text = string.Join("\n", status);
+            status.Add(buff);
+        _unitStatus.Text = string.Join(" · ", status);
         _unitStatus.Visible = status.Count > 0;
 
         foreach (var child in _unitCrest.GetChildren())

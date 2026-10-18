@@ -6,7 +6,7 @@
 @music battle_urgent
 NARRATOR: Ferrow's Keep had watched the eastern border for two hundred years. It had never been asked to watch this.
 NARRATOR: The Gloamkin came out of the east at dusk, more of them than anyone had counted, and they did not stop.
-KAI [surprised]: That's not a raid. That's the whole forest walking.
+KAI [worried]: That's not a raid. That's the whole forest walking.
 ELISE [worried]: There'll be a Binder behind them. There always is. Someone has to be holding the leash.
 ROWAN [determined]: Then we hold the walls until dawn, and we look for the one holding the leash.
 
@@ -15,7 +15,7 @@ ROWAN [determined]: Then we hold the walls until dawn, and we look for the one h
 DORRAN [cold]: You're late. And you're not the King's men.
 ROWAN [neutral]: We're from Brookhollow. We came to help.
 DORRAN [neutral]: Captain Dorran Kell. Retired. They forgot to tell the Gloamkin. Hold the courtyard, my lord.
-ROWAN [surprised]: I'm not—
+ROWAN [neutral]: I'm not—
 DORRAN [smile]: You've a crest and a steward's habits about you. "My lord" will do.
 DORRAN [neutral]: That armour, sir. Black hide, silver stitching.
 ALDRIC [cold]: It's warm.
@@ -37,7 +37,7 @@ ROWAN [determined]: Don't trade blows with it. Wear it down.
 @sfx crest_rise
 HOLLIN [hurt]: We were... so close. The quiet was so close...
 NARRATOR: The Binder's crest rose from his hand and burned out in the air. The beasts screamed and fled east.
-DORRAN [surprised]: They're running. In two hundred years this keep has never seen Gloamkin run.
+DORRAN [neutral]: They're running. In two hundred years this keep has never seen Gloamkin run.
 ROWAN [neutral]: Cut off the hand, and the rest come loose.
 
 ### ch05_post

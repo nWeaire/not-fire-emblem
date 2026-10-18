@@ -88,10 +88,11 @@ CHARACTERS = {
         desc="18 year old farm boy hero, messy dark blue hair, off-white linen shirt, brown leather vest, brown "
              "trousers, boots, plain iron sword",
         adopt={"map": "cc3f5f68-665d-49f3-bd00-71690f384851"}),
+    # Session 9 (user's pick "ranch hand" from the outfit mockups; the old tan gambeson and iron cap read as grey).
     "kai_soldier": dict(weapon="lance", sets=("map",),
-        desc="18 year old ranch boy, shaggy sandy blond hair, padded tan cloth gambeson, dented iron cap, long wooden "
-             "spear with an iron tip",
-        adopt={"map": "871ef5a9-69bd-49ca-9697-b1ad6177a22d", "battle": "42d39467-c587-4c5e-9aaf-01c081463d9c"}),
+        desc="cheerful 18 year old ranch boy, shaggy messy sandy blond hair, bright blue eyes, warm tanned skin, no "
+             "helmet, cream linen shirt with rolled sleeves, rust red neckerchief, brown leather vest, dark green "
+             "trousers, tall brown boots, long wooden spear with an iron tip"),
     "mira_acolyte": dict(weapon="staff", sets=("map",),
         desc="18 year old village healer girl, long blonde braid, grey-green wool dress with white apron, wooden staff",
         adopt={"map": "87180fa6-c885-41fd-9b8a-0742d3c2f4bd", "battle": "5970379e-05fc-4ff2-a524-77f82a9e825d"}),
@@ -117,6 +118,14 @@ CHARACTERS = {
     "enemy_gloam_stalker": dict(weapon="spikes", sets=("map",),
         desc="spindly tall thin humanoid beast from a dark fairy tale, ash-grey and violet hide, long thin limbs, bone "
              "spikes growing from its back and shoulders, small glowing pale eyes"),
+    # Session 9: the first flying Gloamkin (Ch 5 onward). Flies over walls; bows are effective against it.
+    "enemy_gloam_harrier": dict(weapon="claws", sets=("map",),
+        desc="winged beast from a dark fairy tale, lean hunched body with huge ragged ash-grey bat wings spread wide, "
+             "violet hide with glowing cracks, long hooked talons on its feet, small glowing pale eyes, flying"),
+    # Session 9: Gloamkin caster (Ch 3 onward); its Gloom Bolt is effective against armour.
+    "enemy_gloam_shade": dict(weapon="dark", sets=("map",),
+        desc="hunched hooded shadow beast from a dark fairy tale, ragged ash-grey cloak-like hide, long thin clawed "
+             "hands cupping a crackling orb of violet dark magic, small glowing pale eyes under the hood"),
     "rowan_lord": dict(weapon="sword", sets=("map",),
         desc="18 year old young lord, messy dark blue hair, fitted dark blue wool doublet with a few silver buttons, "
              "short grey travelling cloak, leather bracers, brown trousers, boots, plain iron sword"),
@@ -125,7 +134,8 @@ CHARACTERS = {
              "muscular arms, heavy iron wood-cutting axe"),
     "elise_mage": dict(weapon="anima", sets=("map",),
         desc="young travelling scholar woman, long auburn hair, green eyes, worn grey travelling hood and grey cloak, "
-             "satchel of papers, holding an open red tome, small flame above her free hand"),
+             "satchel of papers, holding an open red tome in both hands in front of her, a small flame floating just "
+             "above its open pages"),
     # Kai's tier 2: mounted on his family's ranch horse (Ch 5). The horse template fits a mounted body.
     "kai_cavalier": dict(weapon="lance", sets=("map",), template="horse",
         desc="18 year old ranch boy knight riding a brown ranch horse, shaggy sandy blond hair, dented iron cap, padded "
@@ -197,6 +207,18 @@ CHARACTERS = {
     "boss_rusk": dict(weapon="axe", sets=("map",),
         desc="burly bandit king, shaved head, thick red beard, gold earrings, patched marsh-green leather coat over "
              "armour, a stolen glowing purple crest sigil on the back of his hand, heavy steel axe"),
+    # Chapter 7 (CHAPTERS.md): Wren (joins on Talk) and Lord Halvric (the Act I boss).
+    "wren_pegasus_knight": dict(weapon="lance", sets=("map",), template="horse",
+        desc="earnest young woman pegasus knight, short chestnut bob, light steel armour over a deep green Dain Hall "
+             "tabard with a gold trim, short green cape, riding a white winged pegasus with feathered wings, iron "
+             "lance"),
+    "enemy_knight": dict(weapon="lance", sets=("map",),
+        desc="heavy armoured knight in thick steel plate with a closed visored helmet, faint purple glow through the "
+             "visor slit, deep green tabard, big square steel shield, iron lance"),
+    "boss_halvric": dict(weapon="lance", sets=("map",),
+        desc="tall grim 55 year old lord in heavy ornate steel plate armour, swept-back grey hair, short grey beard, "
+             "deep green and gold surcoat and cloak, faint purple glow in his eyes and a glowing purple crest sigil on "
+             "his gauntlet, silver lance"),
     "ally_villager": dict(weapon="none", sets=("map",),
         desc="plain village farmer man, brown hair, beige linen shirt, green wool vest, brown trousers, no weapon"),
 }
@@ -229,6 +251,12 @@ PORTRAITS = {
              "black leather collar and red sash",
     "rusk": "burly bandit king, shaved head, thick red beard, gold earrings, cruel grin, marsh-green leather coat, a "
             "faint purple glow from a sigil on his neck",
+    "kai": "cheerful 18 year old ranch boy, shaggy messy spiky sandy blond hair, bright blue eyes, warm tanned skin, "
+           "big confident grin, cream linen shirt collar, rust red neckerchief, brown leather vest",
+    "wren": "earnest young woman pegasus knight, about 19, short chestnut bob, worried honest brown eyes, light "
+            "steel shoulder guard over a deep green tabard with gold trim",
+    "halvric": "tall grim lord, about 55, swept-back grey hair, short grey beard, hollow tired eyes with a faint "
+               "purple glow, ornate steel gorget over a deep green and gold surcoat",
     # Session 7: the session-2 portraits of these two were rounder and more cartoony than the rest of the cast.
     "brann": "big gentle young village blacksmith, broad shoulders, short brown hair, short brown beard, kind brown "
              "eyes, soot smudges on his cheek, scorched leather smith's apron over a plain linen shirt",
@@ -260,6 +288,8 @@ BACKGROUNDS = {
     "river_road": "a dirt road beside a river with a wooden bridge, grassy banks, distant hills, road in the lower half",
     "mill": "a riverside watermill with a big wooden wheel, stone millhouse, grassy ground in the lower half",
     "thornwood": "a dark thorny old forest, twisted trees, brambles, mist, mossy ground in the lower half",
+    "dain_hall": "the great hall of a stone castle, tall pillars, green and gold banners, a raised stone throne at "
+                 "the far end, tall arched windows with storm clouds outside, flagstone floor in the lower half",
     # Hub mockup (session 7): Brookhollow from above, buildings to click (shop, forge, chapel, hall).
     "town_overview": "a small medieval farming village seen from above at a high three-quarter angle, a village "
                      "square with a stone well, timber and thatch cottages, a general store with a hanging sign, a "
@@ -320,8 +350,17 @@ PROPS.update({
                       "side elevation with no perspective, two horizontal rails running the full width of the image "
                       "from the left edge to the right edge, one thick post in the middle, weathered brown wood",
 })
+# Session 9: siege clutter for castle maps (Ferrow's Keep): barricade cells pick one of these, rubble cells the last.
+PROPS.update({
+    "wagon": "one wooden supply wagon with two big spoked wheels and a grey canvas cover, tipped as a barricade",
+    "stall": "one small wooden market stall with a striped red and cream cloth awning and a counter of crates",
+    "crates": "one stack of three wooden supply crates with rope ties",
+    "barrels": "one cluster of three wooden barrels with iron hoops",
+    "cart": "one broken wooden hand cart lying on its side with a cracked wheel",
+    "rubble": "one low pile of broken grey stone blocks and rubble from a collapsed wall",
+})
 PROP_SIZE = {"tuft": 32, "flowers": 32, "crop": 32, "bush": 32, "wheat": 32, "fence": 32, "hedge": 32,
-             "fence_straight": 32,
+             "fence_straight": 32, "wagon": 32, "stall": 32, "crates": 32, "barrels": 32, "cart": 32, "rubble": 32,
              "tuft_s": 16, "flowers_s": 16, "crop_s": 16, "bush_s": 24, "cottage_s": 32, "peak_s": 32, "reed_s": 16, "stilt_house_s": 32}  # others are 64
 
 TILESETS = {

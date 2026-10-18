@@ -21,7 +21,7 @@ ALDRIC [neutral]: Another line.
 ```
 
 - **Speaker ids** are unit ids in caps (`ROWAN`, `ALDRIC`, `KAI`, `MIRA`…). `NARRATOR` has no portrait; `???` hides the speaker's name.
-- **Expressions:** `neutral`, `smile`, `laugh`, `surprised`, `worried`, `sad`, `angry`, `determined`, `hurt`, `cold` (villains). Each portrait needs these variants; generate the base portrait first.
+- **Expressions:** `neutral`, `smile`, `laugh`, `worried`, `sad`, `angry`, `determined`, `hurt`, `cold` (villains). No `surprised`: the user dislikes the shocked faces (session 9); use `worried` for alarm, `smile` for delight. Each portrait needs these variants; generate the base portrait first.
 - **Line length:** at most about 110 characters per line (two text-box rows). Split longer speeches.
 - **In-battle scenes** (`chNN_*` triggered mid-map) stay short: 2–6 lines. The long talking happens in pre- and post-map scenes.
 
@@ -71,7 +71,7 @@ NARRATOR: Neither of them said it out loud.
 @bg farm_night
 @music tension_low
 @sfx gloam_howl
-ROWAN [surprised]: That's not a fox.
+ROWAN [worried]: That's not a fox.
 ROWAN [worried]: Father, there's something in the treeline. It's walking on two legs.
 ALDRIC [determined]: Inside. Now.
 ROWAN [determined]: I've got the sword.
@@ -84,9 +84,9 @@ ROWAN [worried]: Who—
 ### pro_aldric_reveal
 @focus 6,5
 @sfx floorboards
-ROWAN [surprised]: ...Where did you get that?
+ROWAN [worried]: ...Where did you get that?
 ALDRIC [cold]: Under the floor. Where I left it.
-ROWAN [surprised]: That's not farm armour.
+ROWAN [worried]: That's not farm armour.
 ALDRIC [neutral]: No. It isn't.
 ALDRIC [determined]: Stay on my left. Take what gets past me. Don't follow them into the trees.
 ROWAN [determined]: ...Right.
@@ -101,8 +101,8 @@ ALDRIC [angry]: Then you can wait in the ground.
 @sfx crest_rise
 NARRATOR: The cloaked man fell. The mark on his hand did not.
 NARRATOR: It rose into the air — a sigil of dark violet light — and drifted, slow as ash, toward Rowan.
-ROWAN [surprised]: Father?
-ALDRIC [surprised]: Don't— Rowan, don't touch it—
+ROWAN [worried]: Father?
+ALDRIC [worried]: Don't— Rowan, don't touch it—
 @sfx crest_burn
 NARRATOR: It touched him.
 NARRATOR: The violet bled away like ink in water. What was left burned white.
@@ -139,7 +139,7 @@ NARRATOR: Brookhollow had forty houses, a chapel, a well, and no walls.
 NARRATOR: Nobody had ever needed walls.
 ROWAN [worried]: They're everywhere.
 ALDRIC [determined]: Then we'll be busy. Make for the well square. Someone's still fighting there.
-ROWAN [surprised]: That's Kai's spear.
+ROWAN [worried]: That's Kai's spear.
 ALDRIC [neutral]: Of course it is.
 
 ### ch01_kai_joins
@@ -147,7 +147,7 @@ KAI [laugh]: Rowan! You took your time!
 ROWAN [neutral]: You're bleeding.
 KAI [smile]: Some of it's mine. I bet I've got more of them than you.
 ROWAN [smile]: You started first.
-KAI [surprised]: Mr. Ashford, is that *armour*? Since when does your dad have—
+KAI [worried]: Mr. Ashford, is that *armour*? Since when does your dad have—
 ALDRIC [cold]: Since now. Fight.
 KAI [determined]: Yes, sir!
 
@@ -158,9 +158,9 @@ MIRA [worried]: Stay behind me. All of you, behind the pews—
 MIRA [determined]: ...No. Not in my chapel.
 @sfx fire_cast
 NARRATOR: The brute caught fire from inside its own shadow.
-KAI [surprised]: MIRA?!
+KAI [worried]: MIRA?!
 MIRA [smile]: I've been practising.
-KAI [surprised]: Practising *what*? Since *when*?
+KAI [worried]: Practising *what*? Since *when*?
 MIRA [determined]: Since I got tired of bandaging you. Eyes forward, Kai.
 ROWAN [smile]: ...Well. That's three of us.
 @flag mira_fire
@@ -208,7 +208,7 @@ NARRATOR: The morning after, Brookhollow still smelled of smoke. Ashford Farm sm
 WENNA [neutral]: Rowan. This is Master Osmund Thorne. He keeps the village records.
 OSMUND [neutral]: And, once upon a time, the King's household. Your hand, please.
 ROWAN [worried]: It's... just the one crest.
-OSMUND [surprised]: "Just." He says "just".
+OSMUND [worried]: "Just." He says "just".
 OSMUND [neutral]: Radiant. Unmistakably radiant. I haven't seen a white crest since— well. Since.
 ALDRIC [cold]: Since what?
 OSMUND [neutral]: Since a great many things, Master Ashford. As I suspect you know.
@@ -262,7 +262,7 @@ ROWAN [cold]: Who said?
 HALVRIC [sad]: The Chancellor. He was so... reasonable...
 @sfx crest_rise
 NARRATOR: Halvric's crest rose, purple, and went white the moment it touched Rowan's.
-ELISE [surprised]: Your crest just — it *grew*. It absorbed it. That's not in any of the texts—
+ELISE [worried]: Your crest just — it *grew*. It absorbed it. That's not in any of the texts—
 ALDRIC [cold]: The Chancellor.
 ROWAN [worried]: Father?
 ALDRIC [neutral]: ...Nothing. Let's get these people home.
@@ -313,7 +313,7 @@ ROWAN [cold]: Then stay behind me. Like he told you to.
 ### ch19_father
 @bg still_meadow
 @music still_meadow
-ROWAN [surprised]: ...Father?
+ROWAN [worried]: ...Father?
 ALDRIC [smile]: You left the south gate open again.
 ROWAN [hurt]: You're dead. I heard— I heard your sword—
 ALDRIC [neutral]: I know. Sit. The fence holds two.
@@ -336,8 +336,8 @@ ALDRIC [smile]: And Rowan — close the gate on your way out.
 ### ch24_choice
 @focus 9,9
 MORVANE [cold]: Look at it, child. Two halves of one crest. Radiant and hollow. The First King's light — and the shadow it always cast.
-ELISE [surprised]: They're the same crest. If one goes— Rowan, if one goes, they *all* go. Every crest in Aldmere.
-MORVANE [surprised]: ...You wouldn't. You *couldn't*. Without the crests, who keeps them in line? Who stops the burning?
+ELISE [worried]: They're the same crest. If one goes— Rowan, if one goes, they *all* go. Every crest in Aldmere.
+MORVANE [worried]: ...You wouldn't. You *couldn't*. Without the crests, who keeps them in line? Who stops the burning?
 ROWAN [neutral]: Nobody.
 ROWAN [smile]: That's the point.
 

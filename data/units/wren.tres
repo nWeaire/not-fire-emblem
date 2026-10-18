@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/UnitDefinition.cs" id="1_unit"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+HP = 2
+Str = 1
+Dex = 2
+Spd = 2
+Lck = 1
+Def = 1
+Res = 2
+
+[sub_resource type="Resource" id="StatsDefinition_2"]
+script = ExtResource("2_stats")
+HP = 45
+Str = 40
+Mag = 10
+Dex = 50
+Spd = 60
+Lck = 45
+Def = 20
+Res = 40
+
+[resource]
+script = ExtResource("1_unit")
+Id = "wren"
+Name = "Wren"
+ClassId = "pegasus_knight"
+Level = 7
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Inventory = PackedStringArray("steel_lance", "javelin")
+IsLord = false

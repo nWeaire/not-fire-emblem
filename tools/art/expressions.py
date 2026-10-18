@@ -7,6 +7,7 @@ data/dialogue (the base portrait already covers "neutral").
 
 Usage (from the repo root):
     python tools/art/expressions.py [--only worried smile ...]
+    python tools/art/expressions.py --who kai      # redo one character's expressions after a new base portrait
 Each request is recorded in state.json under "gba" / "expressions" and is not paid for twice. Takes are kept in
 tools/art/takes/portraits/expressions/.
 """
@@ -29,7 +30,6 @@ KEEP = ("Change only the face to show this expression. Keep the same character, 
 EXPRESSIONS = {
     "determined": ("a determined, resolute expression: firm brows, steady eyes, mouth set in a line", ["rowan", "aldric", "kai"]),
     "worried": ("a worried, anxious expression: brows raised and drawn together, mouth slightly open", ["rowan", "mira", "elise"]),
-    "surprised": ("a surprised expression: wide eyes, raised brows, mouth open", ["rowan", "kai", "brann", "elise"]),
     "smile": ("a warm smile: relaxed brows, eyes soft, a clear friendly smile", ["rowan", "kai", "mira", "brann"]),
     "cold": ("a cold, hard expression: narrowed eyes, flat mouth, unfriendly", ["aldric", "tamsin"]),
     "sad": ("a sad expression: brows tilted up in the middle, eyes lowered, mouth turned down", ["aldric"]),
@@ -74,6 +74,7 @@ def remask_existing() -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--only", nargs="*")
+    parser.add_argument("--who", nargs="*", help="only these characters; recorded per character, so it can redo them")
     parser.add_argument("--remask", action="store_true", help="re-apply base transparency to installed expressions; never spends")
     args = parser.parse_args()
     if args.remask:
@@ -86,7 +87,10 @@ def main() -> int:
     takes.mkdir(parents=True, exist_ok=True)
 
     for expression, (look, who) in EXPRESSIONS.items():
-        if args.only and expression not in args.only or done.get(expression, {}).get("status") == "completed":
+        if args.who:
+            who = [w for w in who if w in args.who]
+        key = f"{expression}:{'+'.join(who)}" if args.who else expression
+        if not who or args.only and expression not in args.only or done.get(key, {}).get("status") == "completed":
             continue
         bases = [Image.open(PORTRAITS / f"{w}.png").convert("RGBA") for w in who]
         size = bases[0].size
@@ -111,7 +115,7 @@ def main() -> int:
             edited = clear_bottom_bar(base_mask(edited, base))
             edited.save(takes / f"{name}_{expression}.png")
             edited.save(PORTRAITS / f"{name}_{expression}.png")
-        done[expression] = {"status": "completed", "usage": job.get("usage"), "who": who}
+        done[key] = {"status": "completed", "usage": job.get("usage"), "who": who}
         save_state(state)
         print(f"  {expression}: {len(images)} portraits {job.get('usage')}")
     return 0

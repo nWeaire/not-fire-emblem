@@ -105,6 +105,7 @@ public partial class BattleController : Node3D
         Turns = new TurnManager(State);
 
         MapView.Build(State.Grid, State.Map.ArtSet);
+        MapView.Cursor = Cursor;
         if (DevTools.HideUnits)
         {
             UnitsRoot.Visible = false;

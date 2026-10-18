@@ -150,7 +150,7 @@ public static class HubService
     // ------------------------------------------------------------------ smithy
 
     /// <summary>
-    /// What the smithy can reforge: each weapon becomes the next tier of the same type (the strongest common,
+    /// What the smithy can reforge (not tomes): each weapon becomes the next tier of the same type (the strongest common,
     /// non-personal weapon of that tier), for the price difference. Brann can work one tier beyond what the open
     /// shops sell, up to Silver.
     /// </summary>
@@ -160,7 +160,8 @@ public static class HubService
         int maxTier = System.Math.Min(MaxForgeTier, shopTier + 1);
         foreach (var id in weaponIds.Distinct())
         {
-            if (db.TryWeapon(id) is not { PersonalTo: null } weapon || weapon.Tier >= maxTier)
+            // Tomes aren't reforged: they grow with their caster (CombatCalculator.TomeLevelBonus).
+            if (db.TryWeapon(id) is not { PersonalTo: null, Magic: false } weapon || weapon.Tier >= maxTier)
                 continue;
             var next = db.Weapons.Values
                 .Where(w => w.Type == weapon.Type && w.Tier == weapon.Tier + 1 && w.PersonalTo is null && w.Price > 0

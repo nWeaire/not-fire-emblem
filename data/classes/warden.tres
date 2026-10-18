@@ -47,3 +47,4 @@ UsableWeapons = PackedStringArray("Sword")
 PromotesTo = PackedStringArray("warden_lord")
 IsPromoted = true
 MaxArmor = 1
+Traits = PackedStringArray("Armored")

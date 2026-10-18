@@ -56,8 +56,26 @@ def finish(mid, extra):
     path.write_text(text, encoding="utf-8", newline="\n")
 
 
+def assert_connected(g, start):
+    """Every cell someone on foot can stand on is reachable from start (clutter must not seal anything off)."""
+    blocked = set("W~k^")
+    seen, todo = {start}, [start]
+    while todo:
+        x, y = todo.pop()
+        for nx, ny in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+            if (0 <= nx < g.w and 0 <= ny < g.h and (nx, ny) not in seen and g.cells[ny][nx] not in blocked
+                    and abs(g.heights[ny][nx] - g.heights[y][x]) <= 1):
+                seen.add((nx, ny))
+                todo.append((nx, ny))
+    stranded = [(x, y) for y in range(g.h) for x in range(g.w) if g.cells[y][x] not in blocked and (x, y) not in seen]
+    assert not stranded, f"cut off: {stranded}"
+
+
+# Gloamkin levels rise through the campaign (session 9: Ch 5's hounds did almost no damage): about Prologue 1,
+# Ch 1 1-2, Ch 3 2-3, Ch 5 5-6, with the class growths (data/classes/gloam_*.tres) making each level count.
 def gloam(cls, pos, by, **kv):
-    weapon = {"gloam_hound": "gloam_fangs", "gloam_brute": "gloam_claws", "gloam_stalker": "bone_spikes"}[cls]
+    weapon = {"gloam_hound": "gloam_fangs", "gloam_brute": "gloam_claws", "gloam_stalker": "bone_spikes",
+              "gloam_shade": "gloam_bolt", "gloam_harrier": "gloam_talons"}[cls]
     level = 1 if cls == "gloam_hound" else 2
     return dict(ClassId=cls, DominatedBy=by, SpriteId=f"enemy_{cls}", Level=level, Inventory=[weapon], Pos=pos, **kv)
 
@@ -98,15 +116,19 @@ def prologue():
         dict(UnitId="aldric", Faction=ALLY, Pos=(3, 8), Ai=STATIONARY),
         gloam("gloam_hound", (3, 2), "binder"),
         gloam("gloam_hound", (8, 3), "binder"),
-        gloam("gloam_hound", (14, 2), "binder"),
-        gloam("gloam_hound", (19, 2), "binder"),
+        # The east pair and one brute wait until someone comes near (session 9: Rowan, alone until Aldric joins on
+        # turn 2, died more often than not when all of them charged at once).
+        gloam("gloam_hound", (14, 2), "binder", Ai=GUARD),
+        gloam("gloam_hound", (19, 2), "binder", Ai=GUARD),
         gloam("gloam_hound", (5, 1), "binder"),
         gloam("gloam_brute", (9, 3), "binder"),
-        gloam("gloam_brute", (12, 3), "binder"),
+        gloam("gloam_brute", (12, 3), "binder", Ai=GUARD),
         # The barn brute only stirs when someone comes near.
         gloam("gloam_brute", (17, 4), "binder", Ai=GUARD),
+        # The Binder holds the north-east corner beside the waiting pack, so going for it draws them in (session 9:
+        # from the middle of the treeline the east hound and brute never joined the fight).
         dict(ClassId="binder", Name="The Binder", Tag="binder", SpriteId="enemy_binder", Level=2,
-             Inventory=["shadow"], Pos=(11, 1), Ai=BOSS, IsBoss=True, CrestBearer=True),
+             Inventory=["shadow"], Pos=(20, 3), Ai=BOSS, IsBoss=True, CrestBearer=True),
         gloam("gloam_hound", (14, 1), "binder", HardOnly=True),
     ]
     triggers = ["turn 1 => scene pro_tutorial_move",
@@ -145,11 +167,12 @@ def ch1():
     # The well square (packed earth on a farm map) with the well in the middle.
     g.rect(8, 6, 12, 9, "=")
     g.put(10, 8, "T")
-    # Cottages in a ring; the chapel across the river; Wenna's house to the south-west.
-    for x, y in [(2, 1), (13, 1), (2, 7), (14, 7), (3, 13), (12, 13), (21, 12)]:
+    # Cottages in a ring; the chapel on the west side (session 9: moved from across the river so Mira, who appears
+    # there on turn 3, isn't far from the party); Wenna's house to the south-west.
+    for x, y in [(2, 1), (13, 1), (20, 6), (14, 7), (3, 13), (12, 13), (21, 12)]:
         g.house(x, y)
-    g.rect(19, 6, 23, 7, "W")
-    g.put(21, 7, "T")
+    g.rect(1, 7, 5, 8, "W")
+    g.put(3, 8, "T")
     # Burning houses: fire that blocks until turn 4.
     g.spots("^", [(5, 5), (6, 5), (13, 9), (14, 9)])
     # Fields.
@@ -173,22 +196,22 @@ def ch1():
     spawns = [
         dict(UnitId="rowan", Faction=PLAYER, Pos=(9, 17)),
         dict(UnitId="aldric", Faction=PLAYER, Pos=(11, 17)),
-        dict(UnitId="mira", Faction=PLAYER, Pos=(21, 7)),
+        # Mira appears in the chapel only when her fire scene plays (session 9: the user wants her introduced there).
+        dict(UnitId="mira", Faction=PLAYER, Pos=(3, 8), Group="mira"),
         dict(UnitId="kai", Faction=PLAYER, Pos=(10, 8)),
-        # Villagers shelter in the south half; the Gloam come in from the north. Nothing starts on the chapel's
-        # bank, so Mira has until the turn-3 brute.
+        # Villagers shelter in the south half; the Gloam come in from the north.
         villager((2, 12)), villager((16, 9)), villager((13, 15)), villager((22, 14)), villager((7, 13)),
         hound((6, 2)), hound((8, 3)), hound((12, 2)), hound((4, 6)), hound((12, 5)), hound((3, 4)),
         brute((9, 4)), brute((11, 3)),  # two brutes since Aldric was weakened (session 7)
         stalker((5, 3)), stalker((13, 5)), stalker((8, 1)),
         dict(ClassId="binder", Name="Sennet", Tag="sennet", SpriteId="boss_sennet", Level=4, Inventory=["shadow"],
              Pos=(10, 0), Ai=BOSS, IsBoss=True, CrestBearer=True),
-        brute((20, 9), Group="chapel"),
+        brute((4, 10), Group="chapel"),
         hound((8, 0), Group="north"), hound((9, 0), Group="north"), hound((11, 0), Group="north"),
         hound((12, 0), Group="north", HardOnly=True),
     ]
     triggers = ["turn 1 => scene ch01_kai_joins",
-                "turn 3 => spawn chapel; scene ch01_mira_fire; give mira fire",
+                "turn 3 => spawn mira; spawn chapel; scene ch01_mira_fire; give mira fire",
                 "turn 4 => terrain 5,5-6,5 13,9-14,9 P; spawn north; scene ch01_reinforcements",
                 "combat sennet => scene ch01_boss_sennet",
                 "visit 4,14 => scene ch01_wenna; give actor vulnerary"]
@@ -273,7 +296,7 @@ def ch2():
                 "turn 3 => spawn ambush",
                 "combat gorran => scene ch02_boss",
                 "visit 16,13 => scene ch02_house_a; give actor vulnerary",
-                "visit 14,2 => scene ch02_house_b; gold 600; give actor energy_drop"]
+                "visit 14,2 => scene ch02_house_b; gold 300; give actor energy_drop"]
     slots = [(2, 13), (3, 13), (2, 14), (3, 14), (2, 15), (3, 15)]
     map_tres("ch2", "Chapter 2: The Millbrook Road", g.rows(), g.height_rows(), spawns, "seize 27,2", [],
              triggers, slots)
@@ -337,9 +360,17 @@ def ch3():
         # Turn 2: Tamsin, fighting two hounds alone in the central clearing.
         dict(UnitId="tamsin", Group="tamsin", Faction=ALLY, Pos=(13, 12)),
         hound((14, 10), 1, Group="tamsin"), hound((16, 12), 1, Group="tamsin"),
+        # Varga's guard: one of each Gloamkin appears at her side when the party enters her clearing.
+        hound((23, 4), 3, Group="varga_pack"), gloam("gloam_stalker", (28, 2), "varga", Group="varga_pack") | {"Level": 3},
+        brute((25, 5)) | {"Group": "varga_pack"},
+        # Shades (session 9): Gloamkin casters whose Gloom Bolt is effective against armour (Aldric, Dorran).
+        gloam("gloam_shade", (24, 4), "varga", Group="varga_pack") | {"Level": 3},
+        gloam("gloam_shade", (6, 3), "varga", Ai=GUARD),
     ]
-    triggers = ["turn 2 => spawn tamsin; scene ch03_tamsin_seen",
-                "talk rowan tamsin => scene ch03_tamsin; join tamsin",
+    # Tamsin joins as soon as she appears (an ally AI ran her straight at Varga); the Talk is her conversation.
+    triggers = ["turn 2 => spawn tamsin; scene ch03_tamsin_seen; join tamsin",
+                "talk rowan tamsin => scene ch03_tamsin",
+                "enter player 21,1-29,6 => spawn varga_pack; scene ch03_varga_pack",
                 "enter player 23,16-26,18 => scene ch03_dogs",
                 "combat varga => scene ch03_boss",
                 "defeated varga => scene ch03_varga_dies"]
@@ -376,10 +407,6 @@ def ch4():
         return dict(ClassId="soldier", Name="Dain Hall Soldier", SpriteId="enemy_soldier", Level=lvl,
                     Inventory=["iron_lance"], Pos=pos, Group=group, Armor="padded_gambeson")
 
-    def cavalier(pos, group=""):
-        return dict(ClassId="cavalier", Name="Dain Hall Cavalier", SpriteId="enemy_cavalier", Level=5,
-                    Inventory=["iron_lance"], Pos=pos, Group=group)
-
     def archer(pos, group=""):
         return dict(ClassId="archer", Name="Dain Hall Archer", SpriteId="enemy_archer", Level=4,
                     Inventory=["iron_bow"], Pos=pos, Group=group)
@@ -387,18 +414,27 @@ def ch4():
     spawns = [
         # Elise on the road, just out of the first wave's reach; the soldiers wait at the toll gate.
         dict(UnitId="elise", Faction=ALLY, Level=4, Pos=(12, 13), Ai=STATIONARY),
-        soldier((11, 2)), soldier((13, 3)), soldier((16, 2), 5), archer((9, 2)), cavalier((12, 1)), soldier((10, 2), 5),
+        # No cavaliers and no east-woods ambush (session 9 playtest: with the ambushes the escape was far too hard).
+        soldier((11, 2)), soldier((13, 3)), soldier((16, 2), 5), archer((9, 2)), soldier((10, 2), 5),
         soldier((15, 3)),
         # A wave down the road every turn.
         soldier((12, 0), 4, "north2"), soldier((13, 0), 4, "north2"),
-        cavalier((13, 0), "north3"), archer((12, 0), "north3"),
+        archer((12, 0), "north3"),
         soldier((12, 0), 5, "north4"), soldier((13, 0), 5, "north4"),
         soldier((12, 0), 5, "north5"), dict(archer((13, 0), "north5"), HardOnly=True),
+        # Ambushes out of the southern woods (session 9 playtest: the party routed the north and strolled out), so
+        # the escape means choosing where to fight. Each group comes out beside the road further south.
+        soldier((7, 16), 5, "woods3"), soldier((6, 17), 5, "woods3"), archer((5, 15), "woods3"),
+        soldier((5, 22), 5, "woods5"), soldier((6, 21), 5, "woods5"), archer((4, 21), "woods5"),
+        dict(soldier((24, 16), 5, "woods5"), Name="Dain Hall Sergeant", Level=6),
     ]
     triggers = ["turn 1 => scene ch04_start",
                 "talk rowan elise => scene ch04_elise; join elise",
                 "turn 2 => spawn north2", "turn 3 => spawn north3; scene ch04_soldiers",
                 "turn 4 => spawn north4", "turn 5 => spawn north5",
+                # The party can reach the exit on turn 3, so the woods spring from the first enemy phase.
+                "turn 1 enemy => spawn woods3; scene ch04_ambush",
+                "turn 3 enemy => spawn woods5",
                 "enter player 19,19-22,21 => scene ch04_waystation"]
     slots = [(15, 13), (16, 13), (15, 14), (16, 14), (15, 15), (16, 12)]
     map_tres("ch4", "Chapter 4: The Scholar of Calder", g.rows(), g.height_rows(), spawns,
@@ -431,29 +467,49 @@ def ch5():
         g.rect(x0, y0, x1, y1, "F")
     g.spots(",", [(21, 7), (23, 13), (25, 6), (21, 20), (27, 15)])
     g.spots("F", [(0, 0), (1, 0), (0, 21), (1, 21), (0, 20)])
+    # Siege clutter (session 9 playtest: the yard looked empty): wagons, stalls, crates and barrels as barricades
+    # (no one on foot gets through), and rubble from the battered walls (slow ground with a little cover).
+    g.spots("k", [(8, 3), (9, 3), (16, 6), (17, 13), (17, 14), (5, 14), (10, 15), (15, 13), (7, 19), (8, 19),
+                  (12, 7), (5, 6), (16, 16), (10, 1)])
+    g.spots("x", [(18, 16), (17, 17), (18, 18), (17, 9), (18, 12), (15, 15), (9, 6), (4, 11), (12, 20), (18, 5),
+                  (13, 15), (6, 16), (21, 11), (22, 13), (21, 17), (20, 8)])
+    assert_connected(g, (4, 10))
+
+    def shade(pos, group=""):
+        return dict(ClassId="gloam_shade", SpriteId="enemy_gloam_shade", Level=5, Group=group,
+                    Inventory=["gloam_bolt"], Pos=pos, DominatedBy="hollin")
+
+    def harrier(pos, group=""):
+        return dict(ClassId="gloam_harrier", SpriteId="enemy_gloam_harrier", Level=5, Group=group,
+                    Inventory=["gloam_talons"], Pos=pos, DominatedBy="hollin")
 
     def hound(pos, group=""):
-        return dict(ClassId="gloam_hound", SpriteId="enemy_gloam_hound", Level=4, Group=group,
+        return dict(ClassId="gloam_hound", SpriteId="enemy_gloam_hound", Level=6, Group=group,
                     Inventory=["gloam_fangs"], Pos=pos, DominatedBy="hollin")
 
     def brute(pos, group=""):
-        return dict(ClassId="gloam_brute", SpriteId="enemy_gloam_brute", Level=4, Group=group,
+        return dict(ClassId="gloam_brute", SpriteId="enemy_gloam_brute", Level=6, Group=group,
                     Inventory=["gloam_claws"], Pos=pos, DominatedBy="hollin")
 
     def stalker(pos, group=""):
-        return dict(ClassId="gloam_stalker", SpriteId="enemy_gloam_stalker", Level=4, Group=group,
+        return dict(ClassId="gloam_stalker", SpriteId="enemy_gloam_stalker", Level=6, Group=group,
                     Inventory=["bone_spikes"], Pos=pos, DominatedBy="hollin")
 
     spawns = [
         dict(UnitId="dorran", Faction=ALLY, Level=8, Pos=(18, 11), Ai=STATIONARY),
         hound((22, 5)), hound((22, 15)), stalker((24, 8)), stalker((24, 16)), brute((24, 11)),
-        dict(ClassId="gloam_brute", Name="Gloam Alpha", Tag="alpha", SpriteId="enemy_gloam_alpha", Level=8,
-             Inventory=["gloam_claws"], Pos=(22, 11), Ai=BOSS, IsBoss=True, DominatedBy="hollin"),
+        # The Alpha is its own boss class (session 9: as a level-10 brute it was too weak).
+        dict(ClassId="gloam_alpha", Name="Gloam Alpha", Tag="alpha", SpriteId="enemy_gloam_alpha", Level=10,
+             Inventory=["alpha_claws"], Pos=(22, 11), Ai=BOSS, IsBoss=True, DominatedBy="hollin"),
         dict(ClassId="binder", Name="Binder Hollin", Tag="hollin", SpriteId="enemy_binder", Level=6,
              Inventory=["shadow"], Pos=(27, 1), Ai=STATIONARY, CrestBearer=True),
         hound((28, 6), "wave2"), hound((28, 15), "wave2"), stalker((28, 10), "wave2"),
         brute((28, 5), "wave3"), hound((28, 11), "wave3"), hound((28, 16), "wave3"),
         hound((28, 3), "wave4"), stalker((28, 13), "wave4"), brute((28, 17), "wave4"),
+        # Harriers fly straight over the walls at whoever is behind the line.
+        harrier((26, 2)), harrier((27, 7), "wave3"), harrier((27, 15), "wave3"), harrier((28, 1), "wave5"),
+        harrier((28, 20), "wave5"),
+        shade((25, 11)), shade((28, 7), "wave4"), shade((28, 12), "wave6"),
         hound((28, 9), "wave5"), stalker((28, 4), "wave5"),
         hound((28, 8), "wave6"), hound((28, 14), "wave6"), dict(brute((28, 11), "wave6"), HardOnly=True),
     ]
@@ -462,7 +518,7 @@ def ch5():
                 "turn 5 => terrain 19,10-19,11 #; scene ch05_gate", "turn 5 enemy => spawn wave5",
                 "turn 6 enemy => spawn wave6",
                 "combat alpha => scene ch05_alpha",
-                "defeated hollin => scene ch05_hollin; gold 500; win"]
+                "defeated hollin => scene ch05_hollin; gold 300; win"]
     slots = [(13, 8), (14, 8), (13, 11), (14, 11), (12, 10), (14, 10), (13, 13)]
     map_tres("ch5", "Chapter 5: Ferrow's Keep", g.rows(), g.height_rows(), spawns, "survive 8", ["die dorran"], triggers,
              slots, background="ferrows_keep")

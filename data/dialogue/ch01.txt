@@ -8,7 +8,7 @@ NARRATOR: Brookhollow had forty houses, a chapel, a well, and no walls.
 NARRATOR: Nobody had ever needed walls.
 ROWAN [worried]: They're everywhere.
 ALDRIC [determined]: Then we'll be busy. Make for the well square. Someone's still fighting there.
-ROWAN [surprised]: That's Kai's spear.
+ROWAN [worried]: That's Kai's spear.
 ALDRIC [neutral]: Of course it is.
 
 ### ch01_kai_joins
@@ -16,20 +16,20 @@ KAI [laugh]: Rowan! You took your time!
 ROWAN [neutral]: You're bleeding.
 KAI [smile]: Some of it's mine. I bet I've got more of them than you.
 ROWAN [smile]: You started first.
-KAI [surprised]: Mr. Ashford, is that *armour*? Since when does your dad have—
+KAI [worried]: Mr. Ashford, is that *armour*? Since when does your dad have—
 ALDRIC [cold]: Since now. Fight.
 KAI [determined]: Yes, sir!
 
 ### ch01_mira_fire
-@focus 21,7
+@focus 3,8
 MIRA [worried]: Stay behind me. All of you, behind the pews—
 @sfx gloam_roar
 MIRA [determined]: ...No. Not in my chapel.
 @sfx fire_cast
 NARRATOR: The brute caught fire from inside its own shadow.
-KAI [surprised]: MIRA?!
+KAI [laugh]: MIRA?!
 MIRA [smile]: I've been practising.
-KAI [surprised]: Practising *what*? Since *when*?
+KAI [smile]: Practising *what*? Since *when*?
 MIRA [determined]: Since I got tired of bandaging you. Eyes forward, Kai.
 ROWAN [smile]: ...Well. That's three of us.
 @flag mira_fire

@@ -1,4 +1,4 @@
-kai_soldier 2 lance
+kai_soldier kai_mock_a take 4 lance (session 9 ranch hand)
 mira_acolyte 2 staff
 aldric_warden 2 sword
 tamsin_archer 2 bow
@@ -31,3 +31,8 @@ enemy_gloam_alpha 3 claws
 boss_rusk 3 axe
 boss_sennet: take_1 (session 7)
 boss_varga: take_0 (session 7)
+wren_pegasus_knight 3 lance
+boss_halvric 2 lance
+enemy_knight 2 lance
+enemy_gloam_harrier 0 claws
+enemy_gloam_shade 1 dark

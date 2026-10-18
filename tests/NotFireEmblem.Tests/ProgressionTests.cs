@@ -225,7 +225,9 @@ public class ProgressionTests
         b.Options(new BattleOptions(SupportRank: (x, y) => 1));
         var (s, tm) = Start(b);
         var lord = s.Unit("u0");
-        Assert.Equal((5, 5, 0), s.CombatBonus(lord, lord.Pos));
+        // The partner is right beside the lord: the support rank's bonus plus the one for any friend beside you.
+        Assert.Equal((5 + BattleState.AdjacentHit, 5 + BattleState.AdjacentAvoid, 0), s.CombatBonus(lord, lord.Pos));
+        Assert.Equal((5, 5, 0), s.CombatBonus(lord, new GridPos(2, 1)));
         Assert.Equal((0, 0, 0), s.CombatBonus(lord, new GridPos(3, 0)));
         tm.Submit(new ActCommand("u0", lord.Pos, new AttackAction("u2", new WeaponAttack("sword"))));
         Assert.Equal(1, s.SupportPoints[Supports.PairKey("lord", "partner")]);

@@ -88,7 +88,8 @@ public class CampaignTests
         Assert.Equal(new[] { "Partner" }, report.Fallen);
         Assert.Equal(UnitStatus.Dead, session.Unit("partner")!.Status);
         Assert.Equal(55, session.Unit("partner")!.Exp);
-        Assert.Equal(800, session.Gold);
+        Assert.Equal(800 + CampaignRunner.VictoryGold(session.Chapter), session.Gold);
+        Assert.Equal(CampaignRunner.SurvivorExp, session.Unit("lord")!.Exp);
         Assert.Contains("won", session.Flags);
     }
 

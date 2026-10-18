@@ -2,22 +2,65 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-17 (end of session 7)._
+_Last updated: 2026-10-18 (end of session 9)._
 
 ---
 
-## Next (plan for session 9)
-`main` holds everything up to the Aldric retune (fast-forward, not pushed); Ch 4–6 at the new scale are on `act1-scale`.
-1. **Hand playtest Ch 3 → Ch 6** (the user). New since the last playtest: Ch 3 at 32×22, the list-and-card shop,
-   spell effects, portrait expressions, Rowan's clean criticals, guards waking 2 cells sooner, and Ch 4–6 rebuilt.
-2. **Ch 6 balance:** autoplay wins 2 of 3 but loses 3–6 units a run (one run stalled with only Rowan left). If it
-   feels too hard by hand, thin the bandits near the start or the archers by the channel crossings.
-3. **Merge `act1-scale` into `main`** after the playtest.
-4. **Ch 7, "Storm over Dain Hall"** (ends Act I): map, script, Wren and Lord Halvric (CHAPTERS.md), plus their art.
-5. **Art with the remaining ~$7 of PixelLab credit** (`docs/ART_NEEDED.md`): walk/attack map animations for Sennet
-   and Varga; crest skill auras; UI icons; a hub backdrop. Characters keep the current look (no chibi NSO style).
-6. **Systems not built yet:** crest fragments / crest EXP, suspend saves, and a Windows build (install Godot's export
-   templates, then the "Windows Desktop" preset).
+## Next (plan for session 10)
+Everything from session 9 is committed on `act1-scale` (afc937b6, not pushed); `main` is still at the Aldric retune.
+1. **Hand playtest the user's run onward**, especially what changed today and was only checked by autoplay:
+   Ch 3 (Tamsin from T2, Varga's pack + Shades), Ch 4 (woods ambushes on T1 and T3, no cavaliers), Ch 5 (siege
+   clutter, Harriers, Shades, the new Alpha boss), Ch 6, and **Ch 7, which has never been run, even by autoplay**:
+   run `--map=ch7 --autoplay` first and look at Wren's Talk, Halvric's plea/death scenes and the throne seize.
+2. **Balance to confirm by hand** (autoplay uses a fresh level-1 party and plays recklessly, so it reads harsh):
+   Ch 4 (autoplay: 1 win on T5 losing 4), Ch 5 (2/3 wins with heavy losses before the last Gloamkin level cut; not
+   re-run since), Ch 6 humans hit ~1–2 harder after the enemy growth change. Ch 1 is settled (3/3, 1 villager lost),
+   Prologue is settled (3/3, no losses).
+3. **Gold:** victory gold is now 150 + 50 × chapter with smaller story gold; the user's save keeps the gold it had.
+   Check it feels like "about one item a battle".
+4. **Re-export the Windows build** (templates are installed; `godot --headless --export-release "Windows Desktop"
+   "build/windows/The Radiant Crest.exe"`). The console wrapper sits idle after "savepack DONE": the export is
+   finished at that point. The current exe is from this morning, before most of session 9.
+5. **Kai's tier-2/3 looks** (Cavalier, Paladin) still wear the old tan colours: redo them in the ranch-hand palette
+   (cream shirt, rust neckerchief, brown vest, green trousers) with `generate.py chars` + `battle_stills.py` (~$0.5).
+6. **Merge `act1-scale` into `main`** once the playtest is happy.
+7. Still not built: crest fragments / crest EXP, suspend saves. Art wish list in `docs/ART_NEEDED.md`
+   (~$3.57 PixelLab credit left).
+
+## Session 9: Ch 7, new Gloamkin, Kai's new look, playtest round 3
+- **Ch 7 "Storm over Dain Hall"** (`tools/maps/act1_ch7.py`, 30×24 castle): moat and gate, courtyard with ramparts
+  (height 2), keep and throne room; new `throne` terrain (Y: Def 3, Avo 30, heal 10%); Wren (pegasus knight, joins on
+  Rowan's Talk on T2), Lord Halvric (knight L12 boss, Dominion over the garrison); `data/dialogue/ch07.txt`,
+  `hub_briefing_ch07` / `hub_act1_end`; campaign `crest 2` then the Act I end text.
+- **New enemies:** Gloam Harrier (flying beast), Gloam Shade (beast caster; Gloom Bolt doubles might against the new
+  `Armored` trait on warden / warden_lord / knight; heavy so it never strikes twice), `gloam_alpha` boss class with
+  Alpha Claws; armoured `enemy_knight` art for Ch 7.
+- **Scaling:** `BattleSetup.GenericGrowths` raised (Str/Mag 55%, Def 40%, HP 80%) so every generic enemy grows ~0.6
+  attack a level; Gloamkin class growths trimmed to match; levels per chapter noted above `gloam()` in act1_early.py.
+- **Siege clutter** (Ch 5): `barricade` (k, impassable except to fliers) and `rubble` (x, slow, +10 avoid) terrain with
+  props (`wagon/stall/crates/barrels/cart/rubble_N.png`, picks in `tools/art/approved/siege_props.txt`);
+  `assert_connected` in act1_early.py checks no clutter seals off cells.
+- **Map changes:** Prologue east pack waits (G) and the Binder sits at 20,3; Ch 1 chapel moved west (fort 3,8), Mira
+  spawns there on T3, villagers 30 HP / 6 Def; Ch 3 Tamsin joins on T2 and `varga_pack` appears on entering her
+  clearing; Ch 4 camera pan to the exit, woods ambushes T1 (west) and T3 (south), cavaliers removed.
+- **AI:** enemies weigh units on a map's `protect` list (ProtectPull 2 steps, ProtectTarget +4); LordTarget 12 → 8.
+- **Rewards:** `CampaignRunner.VictoryGold` = 150 + 50 × chapter, +20 EXP (`SurvivorExp`) for every survivor; story
+  gold cut (Ch 1 500, Ch 2 house 300, Ch 5 Binder 300, Ch 6 500, Ch 7 800).
+- **Combat:** adjacent friend gives +10 hit / +5 avoid (`BattleState.AdjacentHit/Avoid`, shown in the forecast);
+  tomes gain +1 might per 3 caster levels (promoted +10 levels) and aren't offered by the smithy; Fire/Elfire → Beast,
+  Thunder → Armored, Wind → Flying at ×2 (`ElementMultiplier`); Ch 7 mages carry Fire.
+- **UI / QoL:** unit panel shows only name, level/class, HP, weapons, items, spells & arts; arts listed directly in
+  the action menu; hold Space for 4× speed (`InputSetup.FastForward`); props fade round the cursor and in front of it
+  (`MapView.FadeAround`); water ripples follow each body of water (`FindVerticalWater`); autosave after every battle;
+  "save before returning to the title?" in the hub; Settings in the battle map menu (`UI/Nodes/Modal.cs`).
+- **Art:** Wren, Halvric, knight, Harrier, Shade, Dain Hall backdrop, siege props; **Kai redrawn** in the user's
+  "ranch hand" pick (portrait, determined/smile/laugh expressions, map, battle; old art not kept in the repo);
+  Elise's map sprite redrawn holding the tome in front. `expressions.py --who <id>` redoes one character.
+- **Dialogue:** no `[surprised]` (the user dislikes the shocked faces): lines remapped, portraits deleted, a content
+  test enforces it. DIALOGUE.md says to use `worried` / `smile` instead.
+- **Music:** the user's settings had music at 0 (not a bug); they've since raised it.
+- **Tests:** 114 pass. Autoplay notes: a killed background task can leave its Godot child running; check with
+  `Get-CimInstance Win32_Process` and stop only the `--autoplay` ones, never the editor.
 
 ## Session 8: playtest round 2 and Ch 4–6 at the new scale
 - Shop as a list plus detail card, X jumps to Party, Aldric about 10% below his original strength, villagers 24 HP / 4 Def,

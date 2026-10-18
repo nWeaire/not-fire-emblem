@@ -152,6 +152,17 @@ public class AiTests
     }
 
     [Fact]
+    public void Boss_WithLongerLeash_StepsFurther()
+    {
+        var s = EnemyPhase(new TestBattle("..........")
+            .Unit(Faction.Player, "merc", 5, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 8, 0, "sword").WithAi(AiProfile.Boss).WithLeash(2));
+        var attack = Assert.IsType<ActCommand>(AiController.Decide(s, s.Unit("u1")).Command);
+        Assert.Equal(new GridPos(6, 0), attack.Destination);
+        Assert.IsType<AttackAction>(attack.Action);
+    }
+
+    [Fact]
     public void NextDecision_OrdersAttackersFirst()
     {
         var s = EnemyPhase(new TestBattle("..............")

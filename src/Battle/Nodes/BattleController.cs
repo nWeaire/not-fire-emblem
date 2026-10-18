@@ -132,9 +132,52 @@ public partial class BattleController : Node3D
         Run(async () =>
         {
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            await ShowObjectives(lord);
             await EventPlayer.Play(Turns.StartBattle());
             await ContinueUntilPlayerInput();
         });
+    }
+
+    /// <summary>Seconds each objective-tour stop stays up unless the player presses confirm.</summary>
+    private const float TourStopSeconds = 2.6f;
+
+    private TaskCompletionSource? _tourNext;
+
+    /// <summary>
+    /// Before turn 1: the camera visits each objective and point of interest (ObjectiveTour) with a caption, its
+    /// cells marked, then returns to the lord. Confirm skips to the next stop. Not shown in unattended dev runs.
+    /// </summary>
+    private async Task ShowObjectives(BattleUnit lord)
+    {
+        var stops = ObjectiveTour.Stops(State);
+        if (stops.Count == 0 || DevTools.Autoplay || DevTools.SkipDialogue)
+            return;
+        foreach (var stop in stops)
+        {
+            if (stop.Cells.Count > 0)
+            {
+                var sum = stop.Cells.Aggregate(Vector3.Zero, (acc, c) => acc + CellWorld(c));
+                Camera.Focus(sum / stop.Cells.Count);
+            }
+            MarkerOverlay.ShowCells(stop.Cells.Select(c => (c, CellOverlay.ObjectiveColor)).ToList());
+            Hud.ShowCaption(stop.Caption);
+            _tourNext = new TaskCompletionSource();
+            var next = _tourNext;
+            GetTree().CreateTimer(TourStopSeconds).Timeout += () => next.TrySetResult();
+            await next.Task;
+        }
+        _tourNext = null;
+        Hud.ShowCaption(null);
+        RefreshMapState();
+        Camera.Focus(CellWorld(lord.Pos));
+    }
+
+    public override void _UnhandledInput(InputEvent e)
+    {
+        if (_tourNext is null || !e.IsActionPressed(InputSetup.Confirm))
+            return;
+        GetViewport().SetInputAsHandled();
+        _tourNext.TrySetResult();
     }
 
     /// <summary>Night battles: the map is multiplied by a moonlit blue (the HUD sits on its own layer above).</summary>
@@ -355,6 +398,20 @@ public partial class BattleController : Node3D
     private static readonly AiWeights AutoplayWeights = new(CounterDamage: 1.2, SelfDeath: 200.0, Danger: 3.0);
     private static readonly AiWeights LordWeights = new(CounterDamage: 2.0, SelfDeath: 500.0, Danger: 12.0);
 
+    /// <summary>Starts this battle over from turn 1 with the same deployment (from the result screen or the settings).</summary>
+    public void RetryBattle()
+    {
+        if (IsCampaign)
+        {
+            var node = GameSessionNode.Instance;
+            var runner = node.Runner!;
+            // A new seed per attempt, so a retry isn't a replay of the same rolls.
+            runner.Session.BattleCount++;
+            node.PendingBattle = runner.Launch(node.PendingBattleStep!, node.PendingBattle!.Deployed);
+        }
+        GetTree().ReloadCurrentScene();
+    }
+
     private async Task EndBattle()
     {
         var node = GameSessionNode.Instance;
@@ -365,22 +422,7 @@ public partial class BattleController : Node3D
             CampaignFlow.BattleWon(State);
             return;
         }
-        var buttons = new List<(string, Action)>();
-        if (IsCampaign)
-        {
-            buttons.Add(("Retry Battle", () =>
-            {
-                var runner = node.Runner!;
-                // A new seed per attempt, so a retry isn't a replay of the same rolls.
-                runner.Session.BattleCount++;
-                node.PendingBattle = runner.Launch(node.PendingBattleStep!, node.PendingBattle!.Deployed);
-                GetTree().ReloadCurrentScene();
-            }));
-        }
-        else
-        {
-            buttons.Add(("Play Again", () => GetTree().ReloadCurrentScene()));
-        }
+        var buttons = new List<(string, Action)> { (IsCampaign ? "Retry Battle" : "Play Again", RetryBattle) };
         buttons.Add(("Title Screen", () =>
         {
             node.EndSession();

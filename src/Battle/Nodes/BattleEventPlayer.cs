@@ -52,6 +52,7 @@ public partial class BattleEventPlayer : Node
         CellVisited v => Info(v.UnitId, "Visited", null),
         CellSeized s => Banner("Seized!", UiKit.Accent),
         UnitEscaped x => PlayLeave(x.UnitId, "Escaped"),
+        UnitDeparted d => PlayLeave(d.UnitId, null),
         CrestSevered s => PlaySevered(s),
         UnitStunnedSkip s => Info(s.UnitId, "Stunned", null),
         ExpGained x => PlayExp(x),
@@ -76,6 +77,8 @@ public partial class BattleEventPlayer : Node
         AudioDirector.PlayMusic(AudioCues.PhaseMusic(p.Phase));
         AudioDirector.PlaySfx("phase_change");
         await Battle.Hud.ShowBanner($"{p.Phase} Phase", UnitView.ColorFor(p.Phase).Lightened(0.3f));
+        if (p.Phase == Faction.Player && ObjectiveTour.Countdown(Battle.State) is { } countdown)
+            await Battle.Hud.ShowBanner(countdown, UiKit.Accent, 0.6f);
     }
 
     private string StatusOf(BattleUnit unit) =>
@@ -377,13 +380,14 @@ public partial class BattleEventPlayer : Node
         await Wait(0.2f);
     }
 
-    private async Task PlayLeave(string unitId, string text)
+    private async Task PlayLeave(string unitId, string? text)
     {
         var view = Battle.ViewOf(unitId);
         Battle.RemoveView(unitId);
         if (view is null)
             return;
-        Popup(view.Position, text, InfoColor);
+        if (text is not null)
+            Popup(view.Position, text, InfoColor);
         await view.Leave();
     }
 

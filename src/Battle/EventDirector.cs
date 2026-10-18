@@ -96,7 +96,7 @@ public static class EventDirector
         switch (condition)
         {
             case DefeatedCondition c:
-                return s.ByKey(c.Key) is { IsOnMap: false, Exit: not MapExit.Escaped } u && (who = u) is not null;
+                return s.ByKey(c.Key) is { IsOnMap: false, Exit: not (MapExit.Escaped or MapExit.Departed) } u && (who = u) is not null;
             case EnterCondition c:
                 who = Matching(s, c.Who).FirstOrDefault(u => c.Cells.Contains(u.Pos));
                 return who is not null;
@@ -191,6 +191,13 @@ public static class EventDirector
                 int dealt = System.Math.Min(e.Amount, u.CurrentHp - 1);
                 u.CurrentHp -= dealt;
                 events.Add(new UnitDamaged(u.Id, dealt, u.CurrentHp));
+                break;
+            case LeaveEffect e:
+                foreach (var u in s.Units.Where(u => u.IsOnMap && u.Key == e.Key).ToList())
+                {
+                    s.RemoveFromMap(u, MapExit.Departed);
+                    events.Add(new UnitDeparted(u.Id));
+                }
                 break;
             case EndEffect e:
                 s.ForcedOutcome = e.Outcome;

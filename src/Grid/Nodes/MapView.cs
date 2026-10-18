@@ -93,7 +93,7 @@ public partial class MapView : Node3D
                 Mesh = new BoxMesh { Size = new Vector3(GridMetrics.CellSize, height, GridMetrics.CellSize) },
                 // With a tile on top, the block only shows its sides: darker, so the top face reads clearly.
                 MaterialOverride = tiles.Count > 0
-                    ? SideMaterial(cell.Terrain.Id, cell.Terrain.ColorHex)
+                    ? SideMaterial(cell.Terrain.Id, cell.Terrain.ColorHex, p)
                     : Material(cell.Terrain.ColorHex, alt ? 0.04f : 0f),
                 Position = center,
                 Name = $"Cell_{p.X}_{p.Y}",
@@ -108,14 +108,17 @@ public partial class MapView : Node3D
             AddChild(body);
 
             AddProps(grid, cell.Terrain.Id, new Vector3(center.X, top, center.Z), p);
+            if (cell.Terrain.Id == "wall" && _artSet != "farm")
+                AddWallDecor(grid, p, new Vector3(center.X, top, center.Z));
         }
     }
 
     private void AddTopTile(BattleGrid grid, GridPos p, string terrainId, List<Texture2D> tiles, Vector3 top, bool alt)
     {
-        // The first tile is the main look; alternates appear on about one cell in five.
+        // The first tile is the main look; alternates appear on about one cell in five. Bridges always use the main
+        // tile, so a bridge's cells match.
         uint h = Hash(p, 1);
-        int variant = tiles.Count > 1 && h % 5 == 0 ? 1 + (int)(h / 5 % (uint)(tiles.Count - 1)) : 0;
+        int variant = tiles.Count > 1 && h % 5 == 0 && terrainId != "bridge" ? 1 + (int)(h / 5 % (uint)(tiles.Count - 1)) : 0;
         float yaw = Rotatable.Contains(terrainId) ? Hash(p, 2) % 4 * Mathf.Pi / 2f
             : terrainId == "water" && _verticalWater.Contains(p) ? Mathf.Pi / 2f
             : terrainId == "bridge" && SpansEastWest(grid, p) ? Mathf.Pi / 2f
@@ -136,7 +139,7 @@ public partial class MapView : Node3D
     /// </summary>
     private string TileFor(string terrainId) => _artSet == "farm"
         ? terrainId switch { "wall" => "plain", "fort" or "square" => "road", _ => terrainId }
-        : terrainId is "throne" or "barricade" or "rubble" ? "square" : terrainId;
+        : terrainId is "throne" or "barricade" or "rubble" or "gate" ? "square" : terrainId;
 
     /// <summary>
     /// Water is never turned at random (session 9: odd vertical tiles in a horizontal river). Each connected body of
@@ -167,15 +170,22 @@ public partial class MapView : Node3D
         }
     }
 
-    /// <summary>The bridge tile's planks run north–south; turn it when the bridge crosses water to its north and south.</summary>
+    /// <summary>The bridge tile is drawn for a north–south walkway; true when this bridge runs east–west instead.</summary>
     private static bool SpansEastWest(BattleGrid grid, GridPos p)
     {
-        bool IsWater(int dx, int dy)
+        bool Is(int dx, int dy, string a, string b)
         {
             var n = new GridPos(p.X + dx, p.Y + dy);
-            return grid.InBounds(n) && grid[n].Terrain.Id == "water";
+            return grid.InBounds(n) && grid[n].Terrain.Id is var id && (id == a || id == b);
         }
-        return IsWater(0, -1) || IsWater(0, 1);
+        // A bridge crosses the water: it runs east–west when water (or shallows) lies north or south of it and not
+        // east or west. Otherwise (both or neither) it follows the bridge cells beside it, so a long bridge whose
+        // ends touch reeds or banks still turns as one piece (session 10: Ch 6's bridges were half turned).
+        bool wetNorthSouth = Is(0, -1, "water", "shallows") || Is(0, 1, "water", "shallows");
+        bool wetEastWest = Is(-1, 0, "water", "shallows") || Is(1, 0, "water", "shallows");
+        if (wetNorthSouth != wetEastWest)
+            return wetNorthSouth;
+        return Is(-1, 0, "bridge", "bridge") || Is(1, 0, "bridge", "bridge");
     }
 
     private void AddProps(BattleGrid grid, string terrainId, Vector3 top, GridPos p)
@@ -215,6 +225,9 @@ public partial class MapView : Node3D
             // in the middle stays clear, and are small enough to read as ground cover.
             case "stilt" when Props("stilt_house").Count > 0:
                 AddBillboard(Props("stilt_house")[(int)(Hash(p, 80) % (uint)Props("stilt_house").Count)], top);
+                return;
+            case "gate" when Props("gate").Count > 0:
+                AddGate(grid, p, top);
                 return;
             case "wall" when _artSet == "farm" && ResourceLoader.Exists(HedgeTexture):
                 AddHedge(grid, p, top);
@@ -327,6 +340,25 @@ public partial class MapView : Node3D
                 });
                 break;
         }
+    }
+
+    /// <summary>
+    /// A castle gate (Ch 5): one camera-facing prop of two oak doors in a stone arch, standing in the middle of each
+    /// straight run of gate cells, so a two-cell gate reads as one double door. Gate cells sit at ground height in
+    /// the wall, so when a trigger breaks the gate the gap is level with the yard.
+    /// </summary>
+    private void AddGate(BattleGrid grid, GridPos p, Vector3 top)
+    {
+        bool IsGate(int x, int y) => grid.InBounds(new GridPos(x, y)) && grid[new GridPos(x, y)].Terrain.Id == "gate";
+        bool northSouth = IsGate(p.X, p.Y - 1) || IsGate(p.X, p.Y + 1);
+        // Drawn once, from the run's first (north or west) cell.
+        if (northSouth ? IsGate(p.X, p.Y - 1) : IsGate(p.X - 1, p.Y))
+            return;
+        int length = 1;
+        while (northSouth ? IsGate(p.X, p.Y + length) : IsGate(p.X + length, p.Y))
+            length++;
+        float middle = (length - 1) / 2f * GridMetrics.CellSize;
+        AddBillboard(Props("gate")[0], top + (northSouth ? new Vector3(0f, 0f, middle) : new Vector3(middle, 0f, 0f)));
     }
 
     private const string HedgeTexture = "res://assets/textures/hedge_leaves.png";
@@ -530,8 +562,13 @@ public partial class MapView : Node3D
     }
 
     /// <summary>Block sides: the earth-and-stone texture wrapped round the block (triplanar), shaded to read as sides.</summary>
-    private StandardMaterial3D SideMaterial(string terrainId, string colorHex)
+    /// <summary>Terrains whose raised blocks are masonry, not earth (castle walls and floors), outside farm maps.</summary>
+    private static readonly HashSet<string> StoneSides = new() { "wall", "square", "throne", "fort" };
+
+    private StandardMaterial3D SideMaterial(string terrainId, string colorHex, GridPos p)
     {
+        if (_artSet != "farm" && StoneSides.Contains(terrainId) && StoneSideMaterial(terrainId == "wall" && Hash(p, 120) % 4 == 0 ? 1 : 0) is { } stone)
+            return stone;
         if (NoEarthSides.Contains(terrainId) || !ResourceLoader.Exists(SideTexture))
             return Material(colorHex, -0.35f);
         if (!_materials.TryGetValue("side", out var material))
@@ -546,6 +583,90 @@ public partial class MapView : Node3D
                 Roughness = 0.95f,
             };
             _materials["side"] = material;
+        }
+        return material;
+    }
+
+    /// <summary>
+    /// Masonry for the sides of stone blocks (assets/textures/wall_side[_N].png, tools/art/wall_art.py): one tile per
+    /// cell face, lined up with the cell edges so the courses meet at the corners. Null when the art is missing.
+    /// </summary>
+    private StandardMaterial3D? StoneSideMaterial(int variant)
+    {
+        string path = variant == 0 ? WallSideRoot + ".png" : $"{WallSideRoot}_{variant}.png";
+        if (!ResourceLoader.Exists(path))
+            return variant == 0 ? null : StoneSideMaterial(0);
+        string key = $"stone_side_{variant}";
+        if (!_materials.TryGetValue(key, out var material))
+        {
+            material = new StandardMaterial3D
+            {
+                AlbedoTexture = ResourceLoader.Load<Texture2D>(path),
+                AlbedoColor = new Color(0.82f, 0.82f, 0.82f),
+                TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
+                Uv1Triplanar = true,
+                Uv1Scale = Vector3.One,
+                // Cell centres sit on whole numbers: shift half a cell so each face shows one whole tile.
+                Uv1Offset = new Vector3(0.5f, 0f, 0.5f),
+                Roughness = 0.95f,
+            };
+            _materials[key] = material;
+        }
+        return material;
+    }
+
+    private const string WallSideRoot = "res://assets/textures/wall_side";
+    private const string WallDecorRoot = "res://assets/textures/wall_decor";
+    private static readonly string[] WallDecor = { "slit", "slit", "window", "banner_green", "banner_red" };
+
+    /// <summary>
+    /// Arrow slits, barred windows and banners on some of a wall cell's exposed faces (the sides that stand at least
+    /// a step above their neighbour, or face off the map), in the top half-cell of the face. About one face in four.
+    /// </summary>
+    private void AddWallDecor(BattleGrid grid, GridPos p, Vector3 top)
+    {
+        var faces = new (int Dx, int Dy, float Yaw)[] { (0, 1, 0f), (1, 0, Mathf.Pi / 2f), (0, -1, Mathf.Pi), (-1, 0, -Mathf.Pi / 2f) };
+        for (int i = 0; i < faces.Length; i++)
+        {
+            var (dx, dy, yaw) = faces[i];
+            var n = new GridPos(p.X + dx, p.Y + dy);
+            if (grid.InBounds(n) && top.Y - GridMetrics.SurfaceY(grid, n) < GridMetrics.StepHeight - 0.01f)
+                continue;
+            uint roll = Hash(p, 130 + i);
+            if (roll % 4 != 0)
+                continue;
+            string id = WallDecor[(int)(roll / 4 % (uint)WallDecor.Length)];
+            if (WallDecorMaterial(id) is not { } material)
+                continue;
+            var normal = new Vector3(dx, 0f, dy);
+            AddChild(new MeshInstance3D
+            {
+                Mesh = new QuadMesh { Size = new Vector2(GridMetrics.CellSize, GridMetrics.StepHeight) },
+                MaterialOverride = material,
+                Position = top + normal * (GridMetrics.CellSize / 2f + 0.004f) + new Vector3(0f, -GridMetrics.StepHeight / 2f, 0f),
+                Rotation = new Vector3(0f, yaw, 0f),
+                CastShadow = GeometryInstance3D.ShadowCastingSetting.Off,
+            });
+        }
+    }
+
+    private StandardMaterial3D? WallDecorMaterial(string id)
+    {
+        string path = $"{WallDecorRoot}/{id}.png";
+        if (!ResourceLoader.Exists(path))
+            return null;
+        string key = $"wall_decor_{id}";
+        if (!_materials.TryGetValue(key, out var material))
+        {
+            material = new StandardMaterial3D
+            {
+                AlbedoTexture = ResourceLoader.Load<Texture2D>(path),
+                AlbedoColor = new Color(0.82f, 0.82f, 0.82f),
+                TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
+                Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor,
+                Roughness = 0.95f,
+            };
+            _materials[key] = material;
         }
         return material;
     }

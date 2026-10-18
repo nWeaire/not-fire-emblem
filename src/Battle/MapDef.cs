@@ -26,7 +26,8 @@ public sealed record SpawnDef(
     string? Group = null,         // reinforcement group: spawned by a trigger instead of at the start
     string? DominatedBy = null,   // key of the crest-bearer whose Dominion holds this unit
     bool CrestBearer = false,     // projects Dominion; its death severs the units it dominates
-    bool HardOnly = false)        // only placed on Hard difficulty
+    bool HardOnly = false,        // only placed on Hard difficulty
+    int Leash = 0)                // Boss AI: how far it may step from its start to attack (0 = AiController.BossLeash)
 {
     /// <summary>How objectives and triggers refer to this unit.</summary>
     public string? Key => Tag ?? UnitId;
@@ -52,12 +53,14 @@ public sealed record MapDef(
     IReadOnlyList<GridPos>? DeploySlots = null, // where deployed roster units without a fixed spawn start
     string? Background = null,                  // the battle screen's backdrop for open ground (assets/backgrounds/)
     string? ArtSet = null,                      // art variant: "farm" = no stone (hedgerow walls, dirt yards and squares)
-    string? Lighting = null)                    // "night" darkens the map and battle screen
+    string? Lighting = null,                    // "night" darkens the map and battle screen
+    IReadOnlyList<MapHighlight>? Highlights = null) // points of interest shown with the objectives before turn 1
 {
     public IReadOnlyList<GridPos> Slots => DeploySlots ?? System.Array.Empty<GridPos>();
 
     public Objectives Goals => Objectives ?? Battle.Objectives.Default;
     public IReadOnlyList<TriggerDef> AllTriggers => Triggers ?? System.Array.Empty<TriggerDef>();
+    public IReadOnlyList<MapHighlight> AllHighlights => Highlights ?? System.Array.Empty<MapHighlight>();
 
     public BattleGrid BuildGrid(ContentDatabase db) => BattleGrid.FromRows(TerrainRows, HeightRows, db.TerrainBySymbol);
 
@@ -108,6 +111,8 @@ public sealed record MapDef(
         foreach (var k in goals.EscapeKeys.Concat(goals.MustSurvive)) Key(k, "objective");
         foreach (var rule in goals.Protect.Where(r => !Spawns.Any(s => s.Tag == r.Tag)))
             errors.Add($"Map '{Id}' protects tag '{rule.Tag}' but no spawn has it.");
+        foreach (var highlight in AllHighlights.Where(h => h.Key is not null))
+            Key(highlight.Key!, "highlight");
         if (goals.Victory is VictoryKind.Seize or VictoryKind.Escape && goals.Cells.Count == 0)
             errors.Add($"Map '{Id}' {goals.Victory} victory needs cells.");
         foreach (var trigger in AllTriggers)
@@ -131,6 +136,7 @@ public sealed record MapDef(
                         errors.Add($"Map '{Id}' trigger spawns unknown group '{e.Group}'."); break;
                     case FactionEffect e: Key(e.Key, "trigger"); break;
                     case DamageEffect e: Key(e.Key, "trigger"); break;
+                    case LeaveEffect e: Key(e.Key, "trigger"); break;
                     case GiveEffect e:
                         Key(e.Key, "trigger");
                         if (!db.IsItem(e.ItemId))

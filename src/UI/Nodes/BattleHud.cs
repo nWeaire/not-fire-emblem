@@ -48,6 +48,8 @@ public partial class BattleHud : CanvasLayer
     private PanelContainer _levelPanel = null!;
     private Label _levelText = null!;
     private VBoxContainer _toasts = null!;
+    private PanelContainer _captionPanel = null!;
+    private Label _caption = null!;
 
     /// <summary>Raised when a menu entry is clicked with the mouse.</summary>
     public event Action<int>? MenuClicked;
@@ -127,6 +129,23 @@ public partial class BattleHud : CanvasLayer
         _forecastHint.AddThemeFontSizeOverride("font_size", UiKit.Px(13));
         forecastBox.AddChild(_forecastHint);
         _forecastPanel.Visible = false;
+
+        // Objective tour caption (top-centre, narrow enough to clear the objective panel; long captions wrap)
+        _captionPanel = Panel(root, Control.LayoutPreset.CenterTop, new Vector2(0, 16));
+        var captionBox = new VBoxContainer();
+        _captionPanel.AddChild(captionBox);
+        _caption = new Label
+        {
+            HorizontalAlignment = HorizontalAlignment.Center,
+            AutowrapMode = TextServer.AutowrapMode.WordSmart,
+            CustomMinimumSize = new Vector2(UiKit.Px(320), 0),
+        };
+        _caption.AddThemeFontSizeOverride("font_size", UiKit.Px(20));
+        captionBox.AddChild(_caption);
+        var captionHint = new Label { Text = "Z: next", HorizontalAlignment = HorizontalAlignment.Center, Modulate = new Color(1, 1, 1, 0.6f) };
+        captionHint.AddThemeFontSizeOverride("font_size", UiKit.Px(13));
+        captionBox.AddChild(captionHint);
+        _captionPanel.Visible = false;
 
         // Controls hint (bottom-centre)
         var hint = new Label
@@ -213,6 +232,13 @@ public partial class BattleHud : CanvasLayer
     }
 
     // ------------------------------------------------------------------ objective
+
+    /// <summary>The objective tour's caption; null hides it.</summary>
+    public void ShowCaption(string? text)
+    {
+        _captionPanel.Visible = text is not null;
+        _caption.Text = text ?? "";
+    }
 
     public void UpdateObjective(BattleState s)
     {

@@ -31,6 +31,8 @@ public partial class MapDefinition : Resource
     [Export] public string ArtSet { get; set; } = "";
     /// <summary>"night" tints the map and the battle screen for a night battle.</summary>
     [Export] public string Lighting { get; set; } = "";
+    /// <summary>Points of interest shown with the objectives before turn 1: "CELLS => caption" or "KEY => caption".</summary>
+    [Export] public string[] Highlights { get; set; } = Array.Empty<string>();
 
     public MapDef ToDef()
     {
@@ -41,7 +43,8 @@ public partial class MapDefinition : Resource
                 string.IsNullOrWhiteSpace(DeploySlots) ? null : MapScript.Cells(DeploySlots.Split(' ', StringSplitOptions.RemoveEmptyEntries), DeploySlots),
                 string.IsNullOrWhiteSpace(Background) ? null : Background,
                 string.IsNullOrWhiteSpace(ArtSet) ? null : ArtSet,
-                string.IsNullOrWhiteSpace(Lighting) ? null : Lighting);
+                string.IsNullOrWhiteSpace(Lighting) ? null : Lighting,
+                MapScript.ParseHighlights(Highlights));
         }
         catch (FormatException e)
         {

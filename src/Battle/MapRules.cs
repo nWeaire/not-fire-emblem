@@ -59,7 +59,14 @@ public sealed record GiveEffect(string Key, string ItemId) : TriggerEffect;
 public sealed record GoldEffect(int Amount) : TriggerEffect;
 public sealed record TerrainEffect(IReadOnlyList<GridPos> Cells, char Symbol) : TriggerEffect;
 public sealed record DamageEffect(string Key, int Amount) : TriggerEffect;
+/// <summary>Every unit with this key leaves the map (scripted fly-bys, e.g. Ch 6's pegasus scouts).</summary>
+public sealed record LeaveEffect(string Key) : TriggerEffect;
 public sealed record EndEffect(BattleOutcome Outcome) : TriggerEffect;
+
+/// <summary>
+/// A point of interest the battle shows before turn 1 (ObjectiveTour): some cells, or a unit by key, and a caption.
+/// </summary>
+public sealed record MapHighlight(IReadOnlyList<GridPos> Cells, string? Key, string Caption);
 
 /// <summary>A guard that holds a trigger back while it is true: "flag NAME" or "joined KEY" (KEY is on the player's side).</summary>
 public sealed record TriggerGuard(string Kind, string Arg);
@@ -80,7 +87,8 @@ public sealed record TriggerDef(string Id, TriggerCondition Condition, IReadOnly
 ///               enemies N (at most N left) · hp KEY PERCENT (below) · talk ACTOR TARGET · visit X,Y · combat KEY
 ///   guards:     flag NAME · joined KEY (KEY is on the player's side), e.g. "turn 3 enemy unless joined brann => ..."
 ///   effects:    scene ID · spawn GROUP · flag NAME · join KEY · faction KEY player|enemy|ally · give KEY ITEM
-///               gold N · terrain CELLS SYMBOL · damage KEY N · win · lose
+///               gold N · terrain CELLS SYMBOL · damage KEY N · leave KEY · win · lose
+/// Highlight: CELLS => caption · KEY => caption   (shown with the objectives before turn 1)
 /// CELLS: "x,y" or a rectangle "x1,y1-x2,y2", several separated by spaces.
 /// </code>
 /// </summary>
@@ -147,6 +155,25 @@ public static class MapScript
         return triggers;
     }
 
+    /// <summary>Highlights, one per line: "CELLS => caption" or "KEY => caption".</summary>
+    public static List<MapHighlight> ParseHighlights(IEnumerable<string>? lines)
+    {
+        var highlights = new List<MapHighlight>();
+        foreach (var line in lines ?? Array.Empty<string>())
+        {
+            if (string.IsNullOrWhiteSpace(line))
+                continue;
+            var halves = line.Split("=>", 2, StringSplitOptions.TrimEntries);
+            if (halves.Length != 2 || halves[1].Length == 0)
+                throw new FormatException($"Highlight '{line}' needs 'CELLS => caption' or 'KEY => caption'.");
+            var t = Tokens(halves[0]);
+            highlights.Add(t.Length > 0 && t.All(IsCell)
+                ? new MapHighlight(Cells(t, line), null, halves[1])
+                : new MapHighlight(Array.Empty<GridPos>(), Arg(t, 0, line), halves[1]));
+        }
+        return highlights;
+    }
+
     private static TriggerGuard ParseGuard(string text, string line)
     {
         var t = Tokens(text);
@@ -188,6 +215,7 @@ public static class MapScript
             "gold" => new GoldEffect(Int(Arg(t, 1, line))),
             "terrain" => new TerrainEffect(Cells(t.Skip(1).Take(t.Length - 2), line), Arg(t, t.Length - 1, line).Single()),
             "damage" => new DamageEffect(Arg(t, 1, line), Int(Arg(t, 2, line))),
+            "leave" => new LeaveEffect(Arg(t, 1, line)),
             "win" => new EndEffect(BattleOutcome.Victory),
             "lose" => new EndEffect(BattleOutcome.Defeat),
             _ => throw new FormatException($"Unknown trigger effect '{text}' in '{line}'."),

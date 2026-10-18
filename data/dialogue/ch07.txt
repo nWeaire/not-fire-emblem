@@ -85,3 +85,8 @@ NARRATOR: The white mark on Rowan's hand had grown. A second ring of light circl
 ALDRIC [neutral]: Old Wardens said the second ring was when a crest stopped being a spark and started being a fire.
 WREN [worried]: Lord Halvric said "the Chancellor." The King's own Chancellor. Is that... is that treason, to say?
 ALDRIC [cold]: Saying it isn't. Doing it might be. Pack for the capital.
+
+### ch07_smith
+NARRATOR: The town smith had barred his door when Halvric's men rode in. He opened it a crack, then all the way.
+NARRATOR: "I made half the plate in that castle. Swords skid off it." He pressed a heavy hammer into their hands.
+NARRATOR: "Hit the joints and the rivets. It'll ring like a bell, and they'll feel it."

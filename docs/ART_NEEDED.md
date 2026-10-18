@@ -60,6 +60,8 @@ Folder: `assets/textures/terrain/<terrainId>[_N].png` (32 px top-down; `_N` are 
 | P3 | Marsh / reeds / shallow water | Needed by Ch 6 (Greyfen) |
 | Done (session 7) | **Wheat** crop prop (replaces the cabbage `crop`) | User request (session 7): field cells (`:`) should show **rows of wheat** instead of lettuce/cabbages, for a golden/straw colour against all the green. 32 px billboard takes like the other props (`generate.py props`, `assets/sprites/props/wheat_N.png`); plant them as lines across the cell, not a 2×2 grid (`MapView.AddProps`, case `field`). Pilot 1 take first. |
 | Done (session 7) | **Hedges** | Farm-map walls are solid 3D hedges in code (`MapView.AddHedge`, leaf texture from `tools/art/hedge_texture.py`). Fence art (`fence_*`, `fence_straight_*`) was generated but the user preferred hedges; it is unused. |
+| Done (session 10) | **Stone wall sides** | Raised wall, square, throne and fort blocks (outside farm maps) show masonry instead of earth: `assets/textures/wall_side.png` / `_1` (dressed and mossy stone), plus `assets/textures/wall_decor/` overlays on about one exposed wall face in four (arrow slits, a barred window, green and red banners). All drawn in code by `tools/art/wall_art.py` (`MapView.StoneSideMaterial`, `AddWallDecor`). |
+| Done (session 10) | **Castle gate** | Ch 5's east gate (terrain `G`): a camera-facing prop of two oak doors in a stone arch, `assets/sprites/props/gate_0.png`, drawn by `tools/art/gate_art.py` (`MapView.AddGate`). |
 
 ## 6. UI
 | Priority | Item |

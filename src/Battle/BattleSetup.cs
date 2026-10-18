@@ -95,6 +95,7 @@ public static class BattleSetup
             CurrentHp = StatCalculator.Effective(db, unitState).HP,
             AiProfile = spawn.Ai,
             IsBoss = spawn.IsBoss,
+            Leash = spawn.Leash,
             SpriteId = spawn.ResolveSpriteId(),
             Key = spawn.Key ?? battleId,
             Tag = spawn.Tag,

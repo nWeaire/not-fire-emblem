@@ -8,7 +8,7 @@ script = ExtResource("2_stats")
 HP = 24
 Str = 8
 Dex = 3
-Spd = 2
+Spd = 3
 Def = 6
 Mov = 4
 

@@ -34,7 +34,7 @@ public sealed record AiDecision(BattleUnit Unit, IBattleCommand Command, double?
 /// <summary>Pure, deterministic AI. Picks one command per unit using the same forecasts the player sees.</summary>
 public static class AiController
 {
-    /// <summary>How far a Boss may step from its starting cell to attack.</summary>
+    /// <summary>How far a Boss may step from its starting cell to attack, unless its spawn sets a Leash.</summary>
     public const int BossLeash = 1;
 
     /// <summary>
@@ -59,7 +59,7 @@ public static class AiController
         IEnumerable<GridPos> attackFrom = unit.AiProfile switch
         {
             AiProfile.Stationary => new[] { unit.Pos },
-            AiProfile.Boss => reach.StopCells.Where(c => c.DistanceTo(unit.Home) <= BossLeash),
+            AiProfile.Boss => reach.StopCells.Where(c => c.DistanceTo(unit.Home) <= (unit.Leash > 0 ? unit.Leash : BossLeash)),
             _ => reach.StopCells,
         };
 

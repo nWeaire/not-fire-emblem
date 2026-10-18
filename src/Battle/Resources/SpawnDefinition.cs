@@ -34,6 +34,8 @@ public partial class SpawnDefinition : Resource
     [Export] public bool CrestBearer { get; set; }
     /// <summary>Only placed on Hard difficulty.</summary>
     [Export] public bool HardOnly { get; set; }
+    /// <summary>Boss AI: how far it may step from its start to attack (0 = the default, AiController.BossLeash).</summary>
+    [Export] public int Leash { get; set; }
 
     public SpawnDef ToDef() => new(
         string.IsNullOrEmpty(UnitId) ? null : UnitId,
@@ -51,5 +53,6 @@ public partial class SpawnDefinition : Resource
         string.IsNullOrEmpty(Group) ? null : Group,
         string.IsNullOrEmpty(DominatedBy) ? null : DominatedBy,
         CrestBearer,
-        HardOnly);
+        HardOnly,
+        Leash);
 }

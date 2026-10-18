@@ -25,6 +25,40 @@ public class MapRulesTests
     // ------------------------------------------------------------------ parsers
 
     [Fact]
+    public void MapScript_ParsesHighlights()
+    {
+        var h = MapScript.ParseHighlights(new[] { "19,10-19,11 => The gate.", "hollin => Defeat him to end it early." });
+        Assert.Equal(new[] { new GridPos(19, 10), new GridPos(19, 11) }, h[0].Cells);
+        Assert.Null(h[0].Key);
+        Assert.Equal("The gate.", h[0].Caption);
+        Assert.Equal("hollin", h[1].Key);
+        Assert.Throws<FormatException>(() => MapScript.ParseHighlights(new[] { "1,1 =>" }));
+    }
+
+    [Fact]
+    public void ObjectiveTour_ListsGoalsUnitsAndHighlights_AndCountsDownSurvive()
+    {
+        var s = new TestBattle("..........")
+            .Lord(0, 0, "sword")
+            .Named("dorran", Faction.Player, "merc", 1, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 8, 0, "sword").With(sp => sp with { Tag = "hollin" })
+            .Victory("survive 12").Defeat("die dorran")
+            .Highlights("4,0-5,0 => The gate.", "hollin => The Binder.")
+            .Build();
+        var stops = ObjectiveTour.Stops(s);
+        Assert.Equal(new[] { "Victory: survive 12 turns.", "Defeat if dorran falls.", "The gate.", "The Binder." },
+            stops.Select(x => x.Caption));
+        Assert.Empty(stops[0].Cells);
+        Assert.Equal(new[] { new GridPos(1, 0) }, stops[1].Cells);
+        Assert.Equal(new[] { new GridPos(4, 0), new GridPos(5, 0) }, stops[2].Cells);
+        Assert.Equal(new[] { new GridPos(8, 0) }, stops[3].Cells);
+
+        Assert.Equal("12 turns to survive", ObjectiveTour.Countdown(s));
+        s.Turn = 12;
+        Assert.Equal("Last turn!", ObjectiveTour.Countdown(s));
+    }
+
+    [Fact]
     public void MapScript_ParsesObjectivesAndTriggers()
     {
         var o = MapScript.ParseObjectives("escape 7,15-8,15 elise", new[] { "die aldric", "protect villager 3", "turns 20" });
@@ -150,6 +184,22 @@ public class MapRulesTests
     }
 
     // ------------------------------------------------------------------ triggers
+
+    [Fact]
+    public void LeaveTrigger_TakesEveryUnitWithTheKeyOffTheMap_WithoutCountingAsDefeated()
+    {
+        var (s, tm) = Start(new TestBattle(".....", ".....").Lord(0, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 4, 1, "sword")
+            .Unit(Faction.Enemy, "flier", 3, 0, "lance").With(sp => sp with { Group = "scouts", Tag = "scouts" })
+            .Unit(Faction.Enemy, "flier", 4, 0, "lance").With(sp => sp with { Group = "scouts", Tag = "scouts" })
+            .Triggers("turn 2 => spawn scouts; leave scouts", "defeated scouts => flag shot_down"));
+        EndPhase(tm);
+        var r = tm.Submit(new EndPhaseCommand());
+        Assert.Equal(2, r.Events.OfType<UnitDeparted>().Count());
+        Assert.All(s.Units.Where(u => u.Key == "scouts"), u => Assert.Equal(MapExit.Departed, u.Exit));
+        Assert.DoesNotContain("shot_down", s.Flags);
+        Assert.Equal(BattleOutcome.InProgress, ObjectiveEvaluator.Evaluate(s));
+    }
 
     [Fact]
     public void TurnTrigger_SpawnsReinforcementsOnTheNearestFreeCell()

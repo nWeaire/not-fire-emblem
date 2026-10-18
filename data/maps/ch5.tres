@@ -79,6 +79,7 @@ Faction = 1
 Position = Vector2i(22, 11)
 Ai = 3
 IsBoss = true
+Leash = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_8"]
 script = ExtResource("2_spawn")
@@ -204,6 +205,7 @@ Ai = 0
 [sub_resource type="Resource" id="SpawnDefinition_18"]
 script = ExtResource("2_spawn")
 ClassId = "gloam_harrier"
+Tag = "harrier"
 DominatedBy = "hollin"
 SpriteId = "enemy_gloam_harrier"
 Level = 5
@@ -360,12 +362,13 @@ HardOnly = true
 script = ExtResource("1_map")
 Id = "ch5"
 Name = "Chapter 5: Ferrow's Keep"
-TerrainRows = PackedStringArray("FFPWWWWWWWWWWWWWWWWWFFPPPPPPP", "PPPW######k########WFFPPFFFPP", "PPPW############T##WPPPPFFFPP", "PPPW#T##kk#WWWW####WPPPPFFFPP", "PPPW#######WWWW####WPPPPPPPPP", "PPPW#######WWWW###xWPPPPPPPPP", "PPPW#k###x######k##WPPPPP,PPP", "PPPW########k######WP,PPPPPPP", "PPP###WWWW#########WxPPPPPPPP", "PPP###WWWW#######x#WPPPPPPPPP", "PPP###WWWWT#####T##WPPPPPPFFF", "PPP#x#WWWW#########WPxPPPPFFF", "PPP###WWWW########xWPPPPPPFFF", "PPP###WWWW#####k#k#WPPx,PPPPP", "PPPW#k###########k#WPPPPPPPPP", "PPPW######k##x#x###WPPPPPPP,P", "PPPW##x####WWWW#k#xWPPPPPPPPP", "PPPW#######WWWW##x#PPxFFFPPPP", "PPPW#T#####WWWW###xWPPFFFPPFF", "PPPW###kk#######T##WPPFFFPPFF", "FPPW########x######WP,PPPPPFF", "FFPWWWWWWWWWWWWWWWWWPPPPPPPFF")
-HeightRows = PackedStringArray("00011111111111111111000000000", "00000000000000000001000000000", "00000000000000000001000000000", "00000000000111100001000000000", "00000000000111100001000000000", "00000000000111100001000000000", "00000000000000000001000000000", "00000000000000000001000000000", "00000011110000000001000000000", "00000011110000000001000000000", "00000011110000000001000000000", "00000011110000000001000000000", "00000011110000000001000000000", "00000011110000000001000000000", "00000000000000000001000000000", "00000000000000000001000000000", "00000000000111100001000000000", "00000000000111100000000000000", "00000000000111100001000000000", "00000000000000000001000000000", "00000000000000000001000000000", "00011111111111111111000000000")
+TerrainRows = PackedStringArray("FFPWWWWWWWWWWWWWWWWWFFPPPPPPP", "PPPW######k########WFFPPFFFPP", "PPPW############T##WPPPPFFFPP", "PPPW#T##kk#WWWW####WPPPPFFFPP", "PPPW#######WWWW####WPPPPPPPPP", "PPPW#######WWWW###xWPPPPPPPPP", "PPPW#k###x######k##WPPPPP,PPP", "PPPW########k######WP,PPPPPPP", "PPP###WWWW#########WxPPPPPPPP", "PPP###WWWW#######x#WPPPPPPPPP", "PPP###WWWWT#####T##GPPPPPPFFF", "PPP#x#WWWW#########GPxPPPPFFF", "PPP###WWWW########xWPPPPPPFFF", "PPP###WWWW#####k#k#WPPx,PPPPP", "PPPW#k###########k#WPPPPPPPPP", "PPPW######k##x#x###WPPPPPPP,P", "PPPW##x####WWWW#k#xWPPPPPPPPP", "PPPW#######WWWW##x#PPxFFFPPPP", "PPPW#T#####WWWW###xWPPFFFPPFF", "PPPW###kk#######T##WPPFFFPPFF", "FPPW########x######WP,PPPPPFF", "FFPWWWWWWWWWWWWWWWWWPPPPPPPFF")
+HeightRows = PackedStringArray("00011111111111111111000000000", "00000000000000000001000000000", "00000000000000000001000000000", "00000000000111100001000000000", "00000000000111100001000000000", "00000000000111100001000000000", "00000000000000000001000000000", "00000000000000000001000000000", "00000011110000000001000000000", "00000011110000000001000000000", "00000011110000000000000000000", "00000011110000000000000000000", "00000011110000000001000000000", "00000011110000000001000000000", "00000000000000000001000000000", "00000000000000000001000000000", "00000000000111100001000000000", "00000000000111100000000000000", "00000000000111100001000000000", "00000000000000000001000000000", "00000000000000000001000000000", "00011111111111111111000000000")
 Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22"), SubResource("SpawnDefinition_23"), SubResource("SpawnDefinition_24"), SubResource("SpawnDefinition_25"), SubResource("SpawnDefinition_26"), SubResource("SpawnDefinition_27"), SubResource("SpawnDefinition_28"), SubResource("SpawnDefinition_29"), SubResource("SpawnDefinition_30")])
-Victory = "survive 8"
+Victory = "survive 12"
 Defeat = PackedStringArray("die dorran")
-Triggers = PackedStringArray("turn 1 => scene ch05_dorran; join dorran", "turn 2 enemy => spawn wave2", "turn 3 enemy => spawn wave3", "turn 4 enemy => spawn wave4", "turn 5 => terrain 19,10-19,11 #; scene ch05_gate", "turn 5 enemy => spawn wave5", "turn 6 enemy => spawn wave6", "combat alpha => scene ch05_alpha", "defeated hollin => scene ch05_hollin; gold 300; win")
+Triggers = PackedStringArray("turn 1 => scene ch05_dorran; join dorran; scene ch05_alpha_gate", "turn 2 enemy => spawn wave2", "turn 3 enemy => spawn wave3; scene ch05_harriers", "turn 4 => scene ch05_gate_cracks", "turn 4 enemy => spawn wave4", "turn 5 => terrain 19,10-19,11 x; scene ch05_gate", "turn 5 enemy => spawn wave5", "turn 6 enemy => spawn wave6", "combat alpha => scene ch05_alpha", "defeated harrier => scene ch05_harrier_down", "defeated hollin => scene ch05_hollin; gold 300; win")
+Highlights = PackedStringArray("19,10-19,11 => The east gate. The Alpha will break it down on turn 5.", "alpha => The Gloam Alpha guards the gate. It won't leave its post, but it hits anyone who comes near.", "hollin => Binder Hollin. Defeat him and the battle ends early.")
 Fog = false
 DeploySlots = "13,8 14,8 13,11 14,11 12,10 14,10 13,13"
 Background = "ferrows_keep"

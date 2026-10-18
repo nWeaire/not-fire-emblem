@@ -21,10 +21,36 @@ DORRAN [neutral]: That armour, sir. Black hide, silver stitching.
 ALDRIC [cold]: It's warm.
 DORRAN [neutral]: ...So it is. Keep the gate, then. I'll keep my questions.
 
+### ch05_alpha_gate
+@focus 21,11
+@sfx gloam_roar
+NARRATOR: Outside the east gate, the Alpha reared back and threw its whole weight against the doors.
+DORRAN [determined]: That one's been at my gate since dusk. Oak and iron, but it won't hold till dawn.
+DORRAN [neutral]: When it breaks, they come through here. Be standing in the gap when they do.
+ROWAN [determined]: Then we're ready before it breaks.
+
+### ch05_harriers
+@focus 27,7
+@sfx gloam_howl
+DORRAN [worried]: Winged ones, over the east wall! Walls mean nothing to those.
+TAMSIN [determined]: Leave the birds to me. Keep them off my back and I'll pull them out of the sky.
+ELISE [smile]: Wind tears their wings, too. That's not a theory, I've checked. Twice.
+ROWAN [determined]: Bows and wind on the fliers. Everyone else, hold the yard.
+
+### ch05_harrier_down
+TAMSIN [smile]: Wings or not, they fall like any bird.
+KAI [smile]: Fine, that one counts double. I'm still winning.
+
+### ch05_gate_cracks
+@focus 19,11
+@sfx hit_heavy
+NARRATOR: Another blow. The bar across the gate split down its length.
+DORRAN [worried]: One more like that and the doors go. Brace yourselves.
+
 ### ch05_gate
 @focus 19,11
 @sfx gloam_roar
-NARRATOR: Something huge hit the gate, and the gate gave way.
+NARRATOR: The Alpha hit the gate one last time, and the doors burst inward in a storm of splinters.
 DORRAN [determined]: The gate's down! Close the gap! Lines are what keep villages!
 BRANN [determined]: Steady now, old girl. Steady.
 

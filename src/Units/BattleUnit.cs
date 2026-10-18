@@ -4,7 +4,7 @@ using NotFireEmblem.Grid;
 namespace NotFireEmblem.Units;
 
 /// <summary>Why a unit left the map without dying.</summary>
-public enum MapExit { None, Escaped, Surrendered }
+public enum MapExit { None, Escaped, Surrendered, Departed }
 
 /// <summary>A unit's battle-only wrapper: position, faction, turn state, current HP and battle statuses.</summary>
 public sealed class BattleUnit
@@ -19,6 +19,8 @@ public sealed class BattleUnit
     public ActionState ActionState { get; set; } = ActionState.Ready;
     public int CurrentHp { get; set; }
     public bool IsBoss { get; init; }
+    /// <summary>Boss AI: how far it may step from <see cref="Home"/> to attack (0 = the default leash).</summary>
+    public int Leash { get; init; }
     public AiProfile AiProfile { get; set; } = AiProfile.Aggressive;
     public bool IsDefeated { get; set; }
     public MapExit Exit { get; set; }

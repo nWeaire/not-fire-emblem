@@ -2,30 +2,66 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-18 (end of session 9)._
+_Last updated: 2026-10-18 (end of session 10)._
 
 ---
 
-## Next (plan for session 10)
-Everything from session 9 is committed on `act1-scale` (afc937b6, not pushed); `main` is still at the Aldric retune.
-1. **Hand playtest the user's run onward**, especially what changed today and was only checked by autoplay:
-   Ch 3 (Tamsin from T2, Varga's pack + Shades), Ch 4 (woods ambushes on T1 and T3, no cavaliers), Ch 5 (siege
-   clutter, Harriers, Shades, the new Alpha boss), Ch 6, and **Ch 7, which has never been run, even by autoplay**:
-   run `--map=ch7 --autoplay` first and look at Wren's Talk, Halvric's plea/death scenes and the throne seize.
-2. **Balance to confirm by hand** (autoplay uses a fresh level-1 party and plays recklessly, so it reads harsh):
-   Ch 4 (autoplay: 1 win on T5 losing 4), Ch 5 (2/3 wins with heavy losses before the last Gloamkin level cut; not
-   re-run since), Ch 6 humans hit ~1–2 harder after the enemy growth change. Ch 1 is settled (3/3, 1 villager lost),
-   Prologue is settled (3/3, no losses).
-3. **Gold:** victory gold is now 150 + 50 × chapter with smaller story gold; the user's save keeps the gold it had.
-   Check it feels like "about one item a battle".
-4. **Re-export the Windows build** (templates are installed; `godot --headless --export-release "Windows Desktop"
-   "build/windows/The Radiant Crest.exe"`). The console wrapper sits idle after "savepack DONE": the export is
-   finished at that point. The current exe is from this morning, before most of session 9.
+## Next (plan for session 11)
+Everything from session 10 is committed on `act1-scale` (not pushed); `main` is still at the Aldric retune.
+1. **Hand playtest what changed in session 10** (most of it was only checked by screenshots, unit tests or autoplay):
+   - **Ch 1:** half the enemies at the start, the rest from the north edge on T2 / T5 / T6 (`wave2/5/6`). The user's
+     complaint was Kai being surrounded on T1. Autoplay always charges Kai into Sennet, so it can't judge this.
+   - **Hounds** hit for 12 (Str 7, Fangs 5): 4×2 on Kai, 1×2 on Aldric, 6 on Rowan in the **Prologue**. Check the
+     prologue isn't too harsh now.
+   - **Ch 5:** survive 12 turns (waves still stop at T6, so T7–12 may feel empty: ask the user whether to add more
+     waves); the Alpha's `Leash = 2`; the gate, its dialogue and the turn countdown.
+   - **Ch 7:** Sunder effective against Armored, the Hammer from the smith's house (6,21), the new shop weapons.
+     Is Halvric still a fair boss wall (22 Def)?
+   - **Objective tour** before turn 1 on every map: does it feel too long? Confirm skips a stop.
+   - **Retry Battle** in the battle Settings menu, and Space no longer confirming (it only speeds up).
+2. **Autoplay stalls** found in session 10: the full-campaign soak ran past turn 60 in a later chapter (probably Ch 3,
+   with Stalkers), and a single `--map=ch6 --autoplay` run reached turn 50 with no result. Find out whether
+   the AI is stuck (enemies holding, the player AI never reaching Rusk) or a map can't be finished.
+3. **Gold:** still to confirm by hand that victory gold feels like "about one item a battle".
+4. **Re-export the Windows build** (`godot --headless --export-release "Windows Desktop"
+   "build/windows/The Radiant Crest.exe"`; the console wrapper idles after "savepack DONE": it's finished).
 5. **Kai's tier-2/3 looks** (Cavalier, Paladin) still wear the old tan colours: redo them in the ranch-hand palette
-   (cream shirt, rust neckerchief, brown vest, green trousers) with `generate.py chars` + `battle_stills.py` (~$0.5).
+   (`generate.py chars` + `battle_stills.py`, ~$0.5).
 6. **Merge `act1-scale` into `main`** once the playtest is happy.
 7. Still not built: crest fragments / crest EXP, suspend saves. Art wish list in `docs/ART_NEEDED.md`
    (~$3.57 PixelLab credit left).
+
+## Session 10: playtest fixes, gates, walls, objectives and Ch 7 balance
+- **Balance:** Gloam Hound Str 5 → 7 and Fangs might 4 → 5 (they did 0 to Aldric and Kai); Gloam Brute Spd 2 → 3
+  so Mira's Fire (16 on every Beast) no longer doubles them. Ch 1 starts with 6 Gloamkin + Sennet; the 5 that stood
+  nearest Kai now arrive from the north edge (`wave2` T2, `wave5` T5, `wave6` T6).
+- **Ch 5:** survive 12 (was 8); the east gate is a new `gate` terrain (G, impassable, ground height) drawn as one
+  camera-facing prop of two oak doors in a stone arch (`MapView.AddGate`, `assets/sprites/props/gate_0.png`,
+  `tools/art/gate_art.py`). On T5 the gate cells become rubble. Before, the gate cells were raised walls whose
+  terrain changed to floor, so units walked over a wall that was still drawn. New scenes `ch05_alpha_gate`,
+  `ch05_harriers`, `ch05_harrier_down` (the first Harrier is tagged `harrier`), `ch05_gate_cracks`. The Alpha has
+  `Leash = 2` (new per-spawn `SpawnDefinition.Leash`: how far a Boss may step from its start to attack).
+- **Objective tour** (`ObjectiveTour.Stops`, `BattleController.ShowObjectives`): before turn 1 the camera visits
+  the win condition (seize/escape cells, the boss), must-survive units, protected villagers and the map's new
+  `Highlights` lines (`CELLS => caption` / `KEY => caption`), with a caption (`BattleHud.ShowCaption`). Confirm skips
+  ahead; skipped under `--autoplay` / `--skipdialogue`. Survive maps show "N turns to survive" / "Last turn!" after
+  each Player Phase banner (`ObjectiveTour.Countdown`).
+- **Ch 6:** the T5 pegasus scouts are now three units (`scouts`) that appear for `ch06_scouts` and fly off with the
+  new `leave KEY` trigger effect (`MapExit.Departed`; `defeated` triggers ignore departed units).
+- **Ch 7:** Rowan's Sunder is effective against Armored (~24 to a knight); Hammer / Armorslayer / Heavy Spear
+  (tier 2, effective against Armored, heavy) at the Ferrow's Keep armoury; a smith's house at 6,21 gives a Hammer
+  (`ch07_smith`); highlights point at the smith and Halvric. The smithy only reforges into a weapon with the same
+  effectiveness (otherwise iron axes became Hammers, which are cheaper than steel axes).
+- **Art:** Sennet's east/west and Sable's east/north/west map sprites each had two figures side by side: cropped to
+  one (Sable's west is the mirrored east). Stone sides for raised wall, square, throne and fort blocks off farm maps
+  (`wall_side.png` / `_1`), with arrow slits, barred windows and green/red banners on about one exposed wall face in
+  four (`assets/textures/wall_decor/`, `tools/art/wall_art.py`, `MapView.StoneSideMaterial` / `AddWallDecor`).
+  Bridges turn from the water or shallows beside them, else follow their neighbouring bridge cells (Ch 6's bridges
+  were half turned), and always use the main bridge tile.
+- **UI / input:** Retry Battle (with a confirm) in the battle Settings menu (`BattleController.RetryBattle`, shared
+  with the defeat screen); Space no longer confirms in battle or menus (removed from `ui_accept` too), it only
+  fast-forwards.
+- **Tests:** 118 (Boss leash, highlights parsing, the objective tour and countdown, `leave`, smithy specialists).
 
 ## Session 9: Ch 7, new Gloamkin, Kai's new look, playtest round 3
 - **Ch 7 "Storm over Dain Hall"** (`tools/maps/act1_ch7.py`, 30×24 castle): moat and gate, courtyard with ramparts

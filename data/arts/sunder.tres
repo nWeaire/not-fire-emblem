@@ -13,4 +13,4 @@ CritMod = 5
 RangeBonus = 0
 Uses = 2
 NoCounter = false
-EffectiveAgainst = PackedStringArray()
+EffectiveAgainst = PackedStringArray("Armored")

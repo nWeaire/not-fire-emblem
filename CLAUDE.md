@@ -59,7 +59,7 @@ When editing C# code, ALWAYS verify compilation with `dotnet build` before compl
 - Content lives in `data/`: `.tres` resources per type (`classes/ units/ weapons/ armor/ items/ arts/ spells/ shops/ terrain/ maps/`), plus two plain-text formats parsed by pure code:
   - `data/dialogue/*.txt`: scenes in the `docs/story/DIALOGUE.md` script format (`DialogueParser`).
   - `data/campaign/main.txt`: the story as ordered steps: scene, battle, join, crest, hub, end (`CampaignParser`).
-- Map objectives and events are text lines in each `MapDefinition`: `Victory`, `Defeat` and `Triggers`, e.g. `turn 2 => scene pro_aldric_reveal; join aldric`. The grammar is documented on `MapScript` in `src/Battle/MapRules.cs`. Unit keys are a spawn's `Tag`, else its `UnitId`.
+- Map objectives and events are text lines in each `MapDefinition`: `Victory`, `Defeat` and `Triggers`, e.g. `turn 2 => scene pro_aldric_reveal; join aldric`, plus `Highlights` (`19,10-19,11 => caption` or `KEY => caption`) for points of interest the objective tour shows before turn 1. The grammar is documented on `MapScript` in `src/Battle/MapRules.cs`. Unit keys are a spawn's `Tag`, else its `UnitId`.
 - Art still needed (placeholders today) is listed in `docs/ART_NEEDED.md`.
 
 ---

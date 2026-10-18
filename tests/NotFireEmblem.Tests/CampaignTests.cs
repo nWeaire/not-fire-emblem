@@ -210,6 +210,8 @@ public class CampaignTests
     public void Smithy_ReforgesToTheNextTier()
     {
         var db = Db();
+        // A cheaper tier-2 specialist must not become the iron sword's upgrade.
+        db.Add(db.Weapon("steel_sword") with { Id = "armorslayer", Name = "Armorslayer", Price = 900, EffectiveAgainst = new[] { "Armored" } });
         var s = new GameSession { Gold = 1000 };
         var lord = s.Join(db, "lord");
         lord.Inventory.Add("iron_sword");

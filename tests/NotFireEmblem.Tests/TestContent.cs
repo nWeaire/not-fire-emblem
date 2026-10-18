@@ -109,6 +109,13 @@ public sealed class TestBattle
         return this;
     }
 
+    /// <summary>Sets the Boss leash of the most recently added unit.</summary>
+    public TestBattle WithLeash(int leash)
+    {
+        _spawns[^1] = _spawns[^1] with { Leash = leash };
+        return this;
+    }
+
     public TestBattle Lord(int x, int y, params string[] items)
     {
         Db.Add(new UnitDef("lord", "Lord", "merc", 1, default, default, items, true));
@@ -119,6 +126,7 @@ public sealed class TestBattle
     private string? _victory;
     private readonly List<string> _defeat = new();
     private readonly List<string> _triggers = new();
+    private readonly List<string> _highlights = new();
     private bool _fog;
     private BattleOptions? _options;
 
@@ -140,11 +148,13 @@ public sealed class TestBattle
     public TestBattle Victory(string victory) { _victory = victory; return this; }
     public TestBattle Defeat(params string[] lines) { _defeat.AddRange(lines); return this; }
     public TestBattle Triggers(params string[] lines) { _triggers.AddRange(lines); return this; }
+    public TestBattle Highlights(params string[] lines) { _highlights.AddRange(lines); return this; }
     public TestBattle Fog() { _fog = true; return this; }
     public TestBattle Options(BattleOptions options) { _options = options; return this; }
 
     public MapDef Map() => new("test", "Test", _rows, _heights, _spawns,
-        MapScript.ParseObjectives(_victory, _defeat), MapScript.ParseTriggers(_triggers), _fog);
+        MapScript.ParseObjectives(_victory, _defeat), MapScript.ParseTriggers(_triggers), _fog)
+        { Highlights = MapScript.ParseHighlights(_highlights) };
 
     public BattleState Build(ulong seed = 1) => BattleSetup.Create(Db, Map(), seed, null, _options);
 

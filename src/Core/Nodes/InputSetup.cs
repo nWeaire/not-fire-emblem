@@ -34,7 +34,7 @@ public partial class InputSetup : Node
     public override void _EnterTree()
     {
         ProcessMode = ProcessModeEnum.Always;
-        Bind(Confirm, Key(Godot.Key.Z), Key(Godot.Key.Enter), Key(Godot.Key.Space), Mouse(MouseButton.Left), Pad(JoyButton.A));
+        Bind(Confirm, Key(Godot.Key.Z), Key(Godot.Key.Enter), Mouse(MouseButton.Left), Pad(JoyButton.A));
         Bind(Cancel, Key(Godot.Key.X), Key(Godot.Key.Escape), Key(Godot.Key.Backspace), Mouse(MouseButton.Right), Pad(JoyButton.B));
         Bind(CursorUp, Key(Godot.Key.Up), Key(Godot.Key.W), Pad(JoyButton.DpadUp));
         Bind(CursorDown, Key(Godot.Key.Down), Key(Godot.Key.S), Pad(JoyButton.DpadDown));
@@ -49,11 +49,12 @@ public partial class InputSetup : Node
         Bind(NextUnit, Key(Godot.Key.Tab), Pad(JoyButton.Y));
         Bind(Info, Key(Godot.Key.R), Pad(JoyButton.X));
         Bind(ToggleBattleScenes, Key(Godot.Key.B), Pad(JoyButton.RightStick));
-        // Space also confirms (a press); holding it speeds everything up, like holding A in Fire Emblem.
+        // Holding Space speeds everything up. It doesn't confirm, so holding it never picks anything by accident.
         Bind(FastForward, Key(Godot.Key.Space));
-        // Menu buttons (title, prep, results, hub) are pressed by Godot's built-in ui_accept, which only knows
-        // Enter/Space: give the menus the game's own confirm / cancel keys and WASD too.
+        // Menu buttons (title, prep, results, hub) are pressed by Godot's built-in ui_accept, which knows
+        // Enter/Space: give the menus the game's own confirm / cancel keys and WASD too, and take Space away.
         Extend("ui_accept", Key(Godot.Key.Z));
+        RemoveKey("ui_accept", Godot.Key.Space);
         Extend("ui_cancel", Key(Godot.Key.X));
         Extend("ui_up", Key(Godot.Key.W));
         Extend("ui_down", Key(Godot.Key.S));
@@ -74,6 +75,17 @@ public partial class InputSetup : Node
     {
         if (InputMap.HasAction(action) && !InputMap.ActionHasEvent(action, e))
             InputMap.ActionAddEvent(action, e);
+    }
+
+    private static void RemoveKey(string action, Key key)
+    {
+        if (!InputMap.HasAction(action))
+            return;
+        foreach (var e in InputMap.ActionGetEvents(action))
+        {
+            if (e is InputEventKey k && (k.PhysicalKeycode == key || k.Keycode == key))
+                InputMap.ActionEraseEvent(action, e);
+        }
     }
 
     private static void Bind(string action, params InputEvent[] events)

@@ -151,7 +151,7 @@ public static class HubService
 
     /// <summary>
     /// What the smithy can reforge (not tomes): each weapon becomes the next tier of the same type (the strongest common,
-    /// non-personal weapon of that tier), for the price difference. Brann can work one tier beyond what the open
+    /// non-personal weapon of that tier with the same effectiveness), for the price difference. Brann can work one tier beyond what the open
     /// shops sell, up to Silver.
     /// </summary>
     public static IEnumerable<ForgeOption> ForgeOptions(ContentDatabase db, GameSession s, IEnumerable<string> weaponIds)
@@ -165,7 +165,9 @@ public static class HubService
                 continue;
             var next = db.Weapons.Values
                 .Where(w => w.Type == weapon.Type && w.Tier == weapon.Tier + 1 && w.PersonalTo is null && w.Price > 0
-                            && w.MinRange == weapon.MinRange && w.MaxRange == weapon.MaxRange)
+                            && w.MinRange == weapon.MinRange && w.MaxRange == weapon.MaxRange
+                            // Specialists (the Hammer, Armorslayer...) only forge from their own kind.
+                            && w.EffectiveAgainst.OrderBy(e => e).SequenceEqual(weapon.EffectiveAgainst.OrderBy(e => e)))
                 .OrderBy(w => w.Price).ThenBy(w => w.Id).FirstOrDefault();
             if (next is not null)
                 yield return new ForgeOption(weapon.Id, next.Id, System.Math.Max(100, next.Price - weapon.Price));

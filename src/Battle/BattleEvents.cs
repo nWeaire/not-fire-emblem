@@ -52,6 +52,9 @@ public sealed record CellSeized(string UnitId, GridPos Cell) : BattleEvent;
 
 public sealed record UnitEscaped(string UnitId) : BattleEvent;
 
+/// <summary>A "leave KEY" trigger took the unit off the map.</summary>
+public sealed record UnitDeparted(string UnitId) : BattleEvent;
+
 /// <summary>A crest-bearer fell: <see cref="Stunned"/> beasts lose their next phase, <see cref="Surrendered"/> humans leave.</summary>
 public sealed record CrestSevered(string BearerId, IReadOnlyList<string> Stunned, IReadOnlyList<string> Surrendered) : BattleEvent;
 

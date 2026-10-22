@@ -243,7 +243,7 @@ public partial class BattleController : Node3D
 
     /// <summary>
     /// Esc: freezes the battle (enemy phase, animations and the battle screen included) under a menu to resume, open
-    /// the settings, or quit to the title screen. Not offered once the battle is over.
+    /// the settings, retry the battle or quit to the title screen. Not offered once the battle is over.
     /// </summary>
     private void OpenPauseMenu()
     {
@@ -255,6 +255,15 @@ public partial class BattleController : Node3D
         modal.Body.AddChild(UiKit.Button("Return to Battle", modal.Close, 280));
         modal.Body.AddChild(UiKit.Button("Settings", () => ShowPausePage(modal, "Settings", page =>
             page.Body.AddChild(new SettingsPanel())), 280));
+        modal.Body.AddChild(UiKit.Button("Retry Battle", () => ShowPausePage(modal, "Retry this battle?", page =>
+        {
+            page.Body.AddChild(UiKit.Label("The battle starts over from turn 1.", 16));
+            page.Body.AddChild(UiKit.Button("Retry Battle", () =>
+            {
+                GetTree().Paused = false;
+                RetryBattle();
+            }, 280));
+        }), 280));
         modal.Body.AddChild(UiKit.Button("Quit to Title", () => ShowPausePage(modal, "Quit to the title screen?", page =>
         {
             page.Body.AddChild(UiKit.Label(IsCampaign ? "This battle's progress is lost. The campaign resumes from your last save."

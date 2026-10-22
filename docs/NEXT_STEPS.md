@@ -36,6 +36,8 @@ _Last updated: 2026-10-22 (session 11)._
 - **Pause menu** (user request): Esc in battle pauses everything (`GetTree().Paused`; battle timers use
   `processAlways: false`) under Return to Battle / Settings / Quit to Title (with a check). Esc is now the `pause`
   action, no longer Cancel; X / Backspace / right-click still cancel, and Esc still closes modals and skips dialogue.
+  Retry Battle moved here from the map menu's Settings (user request), so the pause menu is Return / Settings /
+  Retry Battle / Quit to Title.
 - **Lances pierce** (user request): against an Armored target (trait or movement type) a lance ignores half its Def
   (`CombatCalculator.LancePiercePercent`, terrain Def still counts); weapons already effective against it (Heavy
   Spear) keep ×3 instead. The forecast shows "!" for it. It works both ways: enemy lances pierce Aldric (warden).
@@ -52,9 +54,8 @@ _Last updated: 2026-10-22 (session 11)._
 - **Dev:** `--focus=X,Y` starts the battle camera on a cell (with `--hideunits` for map-art screenshots).
 
 ## Next (plan for session 12)
-1. Finish the hand playtest: the Prologue with the softer Young Fangs, Halvric himself (the user's Ch 7 run at
-   `--level=auto` felt good but ended on T4), the objective tour's length and Retry Battle. Ch 1, Ch 5 and Ch 7's
-   opening are done.
+1. Finish the hand playtest: Halvric himself (the user's Ch 7 run at `--level=auto` felt good but ended on T4).
+   Done and good: Ch 1, Ch 5, Ch 7's opening, the Prologue (Young Fangs), the objective tour, Retry Battle.
 2. Gold check, Windows build re-export, merge `act1-scale` into `main` (items 3, 4, 6 below).
 3. Still not built: suspend saves.
 

@@ -361,20 +361,7 @@ public partial class PlayerInputController : Node
         _mode = Mode.Disabled;
         var modal = new Modal("Settings");
         modal.Body.AddChild(new SettingsPanel());
-        modal.Body.AddChild(UiKit.Button("Retry Battle", () => { modal.Close(); ConfirmRetry(); }, 280));
         modal.Body.AddChild(UiKit.Button("Close", modal.Close, 280));
-        modal.Closed += () => _mode = Mode.Browse;
-        _b.Hud.AddChild(modal);
-    }
-
-    /// <summary>Asks before throwing the battle away and starting it over.</summary>
-    private void ConfirmRetry()
-    {
-        _mode = Mode.Disabled;
-        var modal = new Modal("Retry this battle?");
-        modal.Body.AddChild(UiKit.Label("The battle starts over from turn 1.", 16));
-        modal.Body.AddChild(UiKit.Button("Cancel", modal.Close, 280));
-        modal.Body.AddChild(UiKit.Button("Retry", _b.RetryBattle, 280));
         modal.Closed += () => _mode = Mode.Browse;
         _b.Hud.AddChild(modal);
     }

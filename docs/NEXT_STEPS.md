@@ -7,7 +7,8 @@ _Last updated: 2026-10-22 (session 11)._
 ---
 
 ## Session 11: autoplay stalls, Kai's mounted looks, 3D gate, neutral portraits
-- **Playtest:** the user played Ch 1 by hand and it feels good now (the T1 surround is fixed). They moved on to Ch 5.
+- **Playtest:** the user played Ch 1 and Ch 5 by hand: both feel good (Ch 1's T1 surround is fixed; Ch 5's 12 turns
+  need no extra waves), and the 3D gate, Kai's art and the pause menu all worked as intended.
 - **Crests:** no crest fragments / crest EXP. The user wants crest tiers to rise only through the story, after a major
   fight and absorbing a crest, which the campaign's `crest N` steps already do. Dropped from the to-do list.
 - **Autoplay stalls fixed** (`BattleController.AutoplayDecision` / `LordDecision`):
@@ -38,8 +39,8 @@ _Last updated: 2026-10-22 (session 11)._
 - **Dev:** `--focus=X,Y` starts the battle camera on a cell (with `--hideunits` for map-art screenshots).
 
 ## Next (plan for session 12)
-1. Finish the hand playtest from the list below (Ch 5 was in progress: waves stop at T6; autoplay finds it the
-   hardest map). Also look at the new gate, Kai's mounted art once he promotes, and the smaller Shade.
+1. Finish the hand playtest from the list below: the Prologue (harder Hounds), Ch 7 (Sunder, the Hammer, Halvric's
+   22 Def), the objective tour's length and Retry Battle. Ch 1 and Ch 5 are done.
 2. Gold check, Windows build re-export, merge `act1-scale` into `main` (items 3, 4, 6 below).
 3. Still not built: suspend saves.
 

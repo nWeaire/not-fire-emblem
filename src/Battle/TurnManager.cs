@@ -31,6 +31,19 @@ public sealed class TurnManager
         return events;
     }
 
+    /// <summary>
+    /// Rebuilds a suspended battle: starts it and resubmits its logged commands, with no visuals. The same seed,
+    /// units and commands give the same battle. False if a command is rejected (the content changed since).
+    /// </summary>
+    public bool Replay(IEnumerable<IBattleCommand> commands)
+    {
+        StartBattle();
+        foreach (var command in commands)
+            if (!Submit(command).Ok)
+                return false;
+        return true;
+    }
+
     public CommandResult Submit(IBattleCommand command)
     {
         if (State.Outcome != BattleOutcome.InProgress)

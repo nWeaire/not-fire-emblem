@@ -81,7 +81,7 @@ public partial class BattleEventPlayer : Node
             await Battle.Hud.ShowBanner(countdown, UiKit.Accent, 0.6f);
     }
 
-    private string StatusOf(BattleUnit unit) =>
+    public static string StatusOf(BattleUnit unit) =>
         unit.StunnedPhases > 0 ? "Stunned" : unit.TempBonusSource ?? "";
 
     private bool Visible(string unitId) => Battle.State.TryUnit(unitId) is { } u && Battle.State.CanSee(Faction.Player, u);

@@ -16,6 +16,7 @@ namespace NotFireEmblem.Core;
 ///   --skipdialogue           dialogue scenes end at once
 ///   --autoadvance            prep, results and hub screens continue on their own
 ///   --newgame / --load=N     (title screen) start a campaign at once
+///   --resume                 (title screen) resume the suspended battle
 ///   --exp=N                  player units start each battle with N EXP (to test level-ups)
 ///   --hideunits              the battle map shows no units or HUD (screenshots of the map art alone)
 ///   --focus=X,Y              the battle camera and cursor start on this cell instead of the lord

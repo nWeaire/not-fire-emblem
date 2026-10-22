@@ -155,6 +155,7 @@ public partial class BattleController : Node3D
             foreach (var unit in State.LivingOf(Faction.Player).Where(u => u.IsRosterUnit))
                 unit.State.Exp = Math.Clamp(startExp, 0, ExpCalculator.ExpPerLevel - 1);
         Turns = new TurnManager(State);
+        bool resumed = IsCampaign && node.PendingReplay is not null && Resume(node);
 
         MapView.Build(State.Grid, State.Map.ArtSet);
         MapView.Cursor = Cursor;
@@ -185,10 +186,50 @@ public partial class BattleController : Node3D
         Run(async () =>
         {
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-            await ShowObjectives(lord);
-            await EventPlayer.Play(Turns.StartBattle());
+            if (resumed)
+            {
+                await ShowResumed();
+            }
+            else
+            {
+                await ShowObjectives(lord);
+                await EventPlayer.Play(Turns.StartBattle());
+            }
             await ContinueUntilPlayerInput();
         });
+    }
+
+    /// <summary>
+    /// A resumed suspend: replays its commands with no visuals, so the map and units are built as they stood. If the
+    /// content has changed and a command no longer fits, the battle starts over from turn 1 instead.
+    /// </summary>
+    private bool Resume(GameSessionNode node)
+    {
+        var replay = node.PendingReplay!;
+        node.PendingReplay = null;
+        if (Turns.Replay(replay))
+        {
+            GD.Print($"Resumed '{State.Map.Id}' on turn {State.Turn} ({replay.Count} commands replayed)");
+            return true;
+        }
+        GD.PushWarning("The suspended battle couldn't be replayed; it starts over.");
+        var launch = node.Runner!.Launch(node.PendingBattleStep!, node.PendingBattle!.Deployed) with { Seed = node.PendingBattle.Seed };
+        node.PendingBattle = launch;
+        State = BattleSetup.Create(node.Content, launch.Map, launch.Seed, launch.Roster, launch.Options, launch.Deployed);
+        Turns = new TurnManager(State);
+        return false;
+    }
+
+    /// <summary>After a resume: the views catch up with what the replay left (who has acted, buffs), then the turn.</summary>
+    private async Task ShowResumed()
+    {
+        foreach (var unit in State.Living)
+        {
+            ViewOf(unit.Id)?.SetDone(unit.Faction == State.Phase && unit.ActionState == ActionState.Done);
+            ViewOf(unit.Id)?.SetStatus(BattleEventPlayer.StatusOf(unit));
+        }
+        AudioDirector.PlayMusic(AudioCues.PhaseMusic(State.Phase));
+        await Hud.ShowBanner($"Turn {State.Turn} · {State.Phase} Phase", UnitView.ColorFor(State.Phase).Lightened(0.3f));
     }
 
     /// <summary>Seconds each objective-tour stop stays up unless the player presses confirm.</summary>
@@ -243,7 +284,8 @@ public partial class BattleController : Node3D
 
     /// <summary>
     /// Esc: freezes the battle (enemy phase, animations and the battle screen included) under a menu to resume, open
-    /// the settings, retry the battle or quit to the title screen. Not offered once the battle is over.
+    /// the settings, retry the battle, suspend it (campaign) or quit to the title screen. Not offered once the battle
+    /// is over.
     /// </summary>
     private void OpenPauseMenu()
     {
@@ -264,6 +306,12 @@ public partial class BattleController : Node3D
                 RetryBattle();
             }, 280));
         }), 280));
+        if (IsCampaign)
+            modal.Body.AddChild(UiKit.Button("Suspend", () => ShowPausePage(modal, "Suspend this battle?", page =>
+            {
+                page.Body.AddChild(UiKit.Label("The battle is saved as it stands. Resume it from the title screen.", 16));
+                page.Body.AddChild(UiKit.Button("Suspend", SuspendBattle, 280));
+            }), 280));
         modal.Body.AddChild(UiKit.Button("Quit to Title", () => ShowPausePage(modal, "Quit to the title screen?", page =>
         {
             page.Body.AddChild(UiKit.Label(IsCampaign ? "This battle's progress is lost. The campaign resumes from your last save."
@@ -296,6 +344,26 @@ public partial class BattleController : Node3D
     }
 
     private void QuitToTitle()
+    {
+        if (IsCampaign)
+            SaveService.ClearSuspend();
+        LeaveToTitle();
+    }
+
+    /// <summary>Saves the battle (the session, seed, deployment and command log) and leaves for the title screen.</summary>
+    private void SuspendBattle()
+    {
+        var node = GameSessionNode.Instance;
+        if (SaveService.Suspend(SuspendData.FromBattle(node.Session!, node.PendingBattle!, State)) is { } error)
+        {
+            GD.PushError(error);
+            return;
+        }
+        GD.Print($"Suspended '{State.Map.Id}' on turn {State.Turn} ({State.CommandLog.Count} commands)");
+        LeaveToTitle();
+    }
+
+    private void LeaveToTitle()
     {
         GetTree().Paused = false;
         var node = GameSessionNode.Instance;
@@ -566,6 +634,7 @@ public partial class BattleController : Node3D
     {
         if (IsCampaign)
         {
+            SaveService.ClearSuspend();
             var node = GameSessionNode.Instance;
             var runner = node.Runner!;
             // A new seed per attempt, so a retry isn't a replay of the same rolls.
@@ -578,6 +647,8 @@ public partial class BattleController : Node3D
     private async Task EndBattle()
     {
         var node = GameSessionNode.Instance;
+        if (IsCampaign)
+            SaveService.ClearSuspend();
         AudioDirector.PlayMusic(State.Outcome == BattleOutcome.Victory ? "victory" : "defeat", loop: false);
         if (IsCampaign && State.Outcome == BattleOutcome.Victory)
         {

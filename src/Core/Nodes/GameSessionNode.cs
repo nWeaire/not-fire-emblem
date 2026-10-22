@@ -30,6 +30,8 @@ public partial class GameSessionNode : Node
     /// <summary>The battle the Battle scene should start (campaign), with its step.</summary>
     public BattleLaunch? PendingBattle { get; set; }
     public BattleStep? PendingBattleStep { get; set; }
+    /// <summary>A resumed suspend: the commands the Battle scene replays before handing over control.</summary>
+    public System.Collections.Generic.IReadOnlyList<Battle.IBattleCommand>? PendingReplay { get; set; }
     /// <summary>A map to fight outside the campaign (title-screen skirmish / chapter select).</summary>
     public string? SkirmishMapId { get; set; }
     public BattleReport? LastReport { get; set; }
@@ -75,6 +77,7 @@ public partial class GameSessionNode : Node
         Runner = null;
         PendingBattle = null;
         PendingBattleStep = null;
+        PendingReplay = null;
     }
 
     /// <summary>Fades out, changes scene, fades back in.</summary>

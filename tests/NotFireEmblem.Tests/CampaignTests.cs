@@ -1,3 +1,4 @@
+using NotFireEmblem.AI;
 using NotFireEmblem.Battle;
 using NotFireEmblem.Campaign;
 using NotFireEmblem.Combat;
@@ -7,7 +8,7 @@ using NotFireEmblem.Units;
 
 namespace NotFireEmblem.Tests;
 
-/// <summary>M6: the campaign script, roster write-back, saves, and the hub's shop, smithy and promotion rules.</summary>
+/// <summary>M6: the campaign script, roster write-back, saves and suspends, and the hub's shop, smithy and promotion rules.</summary>
 public class CampaignTests
 {
     private static ContentDatabase Db()
@@ -160,6 +161,67 @@ public class CampaignTests
         Assert.Contains("mira_fire", loaded.Flags);
         Assert.Contains("smithy", loaded.Unlocks);
         Assert.Equal(1, loaded.SupportRank("partner", "lord"));
+    }
+
+    [Fact]
+    public void Commands_RoundTripThroughJson()
+    {
+        var commands = new List<IBattleCommand>
+        {
+            new ActCommand("u0", new GridPos(2, 3), new WaitAction()),
+            new ActCommand("u0", new GridPos(1, 1), new AttackAction("u1", new WeaponAttack("sword"))),
+            new ActCommand("u0", new GridPos(1, 1), new AttackAction("u1", new ArtAttack("smash", "sword"))),
+            new ActCommand("u2", new GridPos(0, 0), new HealAction("u0", "heal")),
+            new ActCommand("u0", new GridPos(0, 1), new TalkAction("u3")),
+            new ActCommand("u0", new GridPos(0, 1), new VisitAction()),
+            new ActCommand("u0", new GridPos(0, 1), new SeizeAction()),
+            new ActCommand("u0", new GridPos(0, 1), new EscapeAction()),
+            new ActCommand("u0", new GridPos(0, 1), new UseItemAction("vulnerary")),
+            new ActCommand("u0", new GridPos(0, 1), new CrestAction(CrestSkill.Ward, "u2")),
+            new ActCommand("u0", new GridPos(0, 1), new CrestAction(CrestSkill.Rally, null)),
+            new TradeCommand("u0", new GridPos(1, 0), "u2", new[] { "sword" }, new[] { "vulnerary", "heal" }),
+            new EndPhaseCommand(),
+        };
+        var data = new SuspendData(SuspendData.CurrentVersion, "x", SaveData.FromSession(new GameSession(), "x"), 7,
+            new List<string> { "lord" }, commands);
+        var loaded = SuspendData.FromJson(data.ToJson());
+        Assert.Equal(commands.Count, loaded.Commands.Count);
+        Assert.Equal(data.ToJson(), loaded.ToJson());
+        Assert.Equal(commands[2], loaded.Commands[2]);
+        Assert.IsType<EndPhaseCommand>(loaded.Commands[^1]);
+    }
+
+    [Fact]
+    public void Suspend_ReplaysToTheSameBattle()
+    {
+        var db = Db();
+        var session = new GameSession { Seed = 99 };
+        var runner = new CampaignRunner(db, session);
+        session.Join(db, "partner");
+        runner.NextInteractive();
+        runner.Complete();
+        var step = (BattleStep)runner.NextInteractive()!;
+        var launch = runner.Launch(step, new[] { "lord", "partner" });
+
+        // Both sides played by the AI, suspended halfway through.
+        var s = BattleSetup.Create(db, launch.Map, launch.Seed, launch.Roster, launch.Options, launch.Deployed);
+        var turns = new TurnManager(s);
+        turns.StartBattle();
+        for (int i = 0; i < 12 && s.Outcome == BattleOutcome.InProgress; i++)
+            Assert.True(turns.Submit(AiController.NextDecision(s)?.Command ?? new EndPhaseCommand()).Ok);
+        Assert.NotEmpty(s.CommandLog);
+        var json = SuspendData.FromBattle(session, launch, s).ToJson();
+
+        var data = SuspendData.FromJson(json);
+        var resumedSession = data.Session.ToSession(db);
+        var resumedRunner = new CampaignRunner(db, resumedSession);
+        var again = resumedRunner.Launch((BattleStep)resumedRunner.Current!, data.Deployed) with { Seed = data.Seed };
+        var r = BattleSetup.Create(db, again.Map, again.Seed, again.Roster, again.Options, again.Deployed);
+        Assert.True(new TurnManager(r).Replay(data.Commands));
+
+        string Fingerprint(BattleState b) => $"T{b.Turn} {b.Phase} {b.Outcome} rng {((Rng)b.Rng).State} " + string.Join("; ",
+            b.Units.Select(u => $"{u.Id} {u.Pos} hp {u.CurrentHp} {u.ActionState} lv {u.State.Level} exp {u.State.Exp} {u.IsDefeated}"));
+        Assert.Equal(Fingerprint(s), Fingerprint(r));
     }
 
     [Fact]

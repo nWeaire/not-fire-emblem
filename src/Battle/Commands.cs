@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using NotFireEmblem.Combat;
 using NotFireEmblem.Grid;
 using NotFireEmblem.Units;
@@ -12,7 +13,14 @@ public readonly record struct ValidationResult(bool Ok, string? Error)
     public static ValidationResult Fail(string error) => new(false, error);
 }
 
-/// <summary>Every change to battle state, from the player or the AI, goes through a command.</summary>
+/// <summary>
+/// Every change to battle state, from the player or the AI, goes through a command. Commands are saved as JSON
+/// (suspend saves keep the battle's command log), so each type has a tag.
+/// </summary>
+[JsonPolymorphic]
+[JsonDerivedType(typeof(ActCommand), "act")]
+[JsonDerivedType(typeof(TradeCommand), "trade")]
+[JsonDerivedType(typeof(EndPhaseCommand), "end")]
 public interface IBattleCommand
 {
     ValidationResult Validate(BattleState s);
@@ -22,6 +30,16 @@ public interface IBattleCommand
 }
 
 /// <summary>What a unit does after moving.</summary>
+[JsonPolymorphic]
+[JsonDerivedType(typeof(WaitAction), "wait")]
+[JsonDerivedType(typeof(AttackAction), "attack")]
+[JsonDerivedType(typeof(HealAction), "heal")]
+[JsonDerivedType(typeof(TalkAction), "talk")]
+[JsonDerivedType(typeof(VisitAction), "visit")]
+[JsonDerivedType(typeof(SeizeAction), "seize")]
+[JsonDerivedType(typeof(EscapeAction), "escape")]
+[JsonDerivedType(typeof(UseItemAction), "item")]
+[JsonDerivedType(typeof(CrestAction), "crest")]
 public abstract record BattleAction;
 
 public sealed record WaitAction : BattleAction;

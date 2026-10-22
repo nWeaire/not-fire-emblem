@@ -115,7 +115,7 @@ Godot node scripts are a thin layer over **pure C# logic**. Rules (grid, combat,
 |---|---|
 | `GameSession` (autoload) | Roster of `UnitState`s, convoy, gold, chapter progress, unlocked supports, mode and difficulty. |
 | `EventBus` (autoload) | Typed C# events. Systems publish and subscribe here instead of holding references to each other. |
-| `SaveSystem` | Serializes `GameSession` to JSON in `user://saves/`. Saves in the hub (and optionally a battle suspend save). |
+| `SaveSystem` | Serializes `GameSession` to JSON in `user://saves/`. Saves in the hub, plus one battle suspend (`SuspendData`: the session, seed, deployment and command log, replayed on resume). |
 | `SceneRouter` | Moves between Story → Prep → Battle → Results → Hub and passes along the chapter context. |
 
 ### 4.2 Grid & Movement — `src/Grid`

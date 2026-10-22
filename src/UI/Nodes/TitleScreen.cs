@@ -7,7 +7,7 @@ using NotFireEmblem.Core;
 namespace NotFireEmblem.UI;
 
 /// <summary>
-/// Title screen (IMPLEMENTATION §5.7): New Game (mode and difficulty), Continue, Load, Battle Select (single maps,
+/// Title screen (IMPLEMENTATION §5.7): Resume (a suspended battle), New Game (mode and difficulty), Continue, Load, Battle Select (single maps,
 /// outside the campaign) and Quit. Built in code with placeholder styling.
 /// </summary>
 public partial class TitleScreen : Control
@@ -77,6 +77,11 @@ public partial class TitleScreen : Control
             {
                 scripted = true;
                 CallDeferred(MethodName.StartNew);
+            }
+            else if (arg == "--resume")
+            {
+                scripted = true;
+                Callable.From(() => CampaignFlow.Resume()).CallDeferred();
             }
             else if (arg.StartsWith("--load=", StringComparison.Ordinal) && int.TryParse(arg["--load=".Length..], out int slot))
             {
@@ -185,6 +190,8 @@ public partial class TitleScreen : Control
     private void ShowMain()
     {
         Clear();
+        if (SaveService.ReadSuspend() is { } suspend)
+            _menu.AddChild(UiKit.Button($"Resume: {suspend.Label}", () => CampaignFlow.Resume(), 280));
         _menu.AddChild(UiKit.Button("New Game", ShowNewGame, 280));
         var latest = SaveService.List().Where(s => s.Label is not null).Select(s => s.Slot).ToList();
         _menu.AddChild(UiKit.Button("Continue", () => CampaignFlow.Continue(latest[0]), 280, latest.Count > 0));

@@ -16,6 +16,15 @@ _Last updated: 2026-10-23 (session 12)._
 - **`tools/maps/act1_ch7.py` is back in step with `ch7.tres`** (smith's house, highlights, sellswords and axemen, no
   rear cavalry, the new sprite ids): rerunning it reproduces the map byte for byte. `map_tres` in `act1_ch4_6.py`
   takes an optional `highlights` list (Ch 4–6 output unchanged).
+- **Suspend saves** (pause menu → Suspend, campaign battles only): `SuspendData` (`user://saves/suspend.json`) keeps
+  the session as it was when the battle began, the battle's seed and deployment, and `BattleState.CommandLog`
+  (commands, battle actions and action choices carry `[JsonDerivedType]` tags). The title screen shows
+  "Resume: <chapter> · Turn N" first while one exists (`CampaignFlow.Resume`, dev flag `--resume`); the battle is
+  rebuilt and `TurnManager.Replay` resubmits the log with no visuals, then `BattleController.ShowResumed` restores
+  done tints, statuses and phase music. If a command no longer fits (content changed), the battle starts over. One
+  suspend at a time; a campaign battle that ends, is retried or is quit clears it. Tests: commands round-trip
+  through JSON, and an AI-played battle suspended halfway replays to the same state (RNG included). Checked in game:
+  Prologue suspended on T2 after 11 commands and resumed identically.
 - **Knights with axes:** skipped; it was only wanted if armoured enemies still felt lance-heavy, and the new Ch 7 mix
   playtested well.
 
@@ -82,7 +91,7 @@ _Last updated: 2026-10-23 (session 12)._
 1. **Testing workflow:** single battles at campaign strength with `--map=<id> --level=auto` (story classes and items
    included); `--level=auto` on a normal launch also applies to Battle Select. Retry from the Esc menu.
 2. **Polish:** done in session 12 (garrison art, `act1_ch7.py` ported); knights with axes skipped.
-3. **Still not built:** suspend saves (save mid-battle and quit). Art wish list in `docs/ART_NEEDED.md`.
+3. **Suspend saves:** built in session 12. Art wish list in `docs/ART_NEEDED.md`.
 4. **Act II, "The Burning Crowns"** (Ch 8 "Riot in the Capital" to Ch 15, in `docs/story/CHAPTERS.md`): the
    campaign currently ends with the Act I text after Ch 7. Building Act II is the next big piece of work once the user
    wants it (maps, dialogue, new units and art; crest tier 2 arrives after Ch 7, so tier-2 promotions open here).

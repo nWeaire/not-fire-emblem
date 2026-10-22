@@ -28,6 +28,27 @@ public static class CampaignFlow
         return true;
     }
 
+    /// <summary>Resumes the suspended battle: its session, then the battle rebuilt and replayed (BattleController).</summary>
+    public static bool Resume()
+    {
+        var data = SaveService.ReadSuspend();
+        if (data is null)
+            return false;
+        Node.StartSession(data.Session.ToSession(Node.Content));
+        var runner = Node.Runner!;
+        if (runner.Current is not BattleStep battle)
+        {
+            SaveService.ClearSuspend();
+            Advance();
+            return true;
+        }
+        Node.PendingBattleStep = battle;
+        Node.PendingBattle = runner.Launch(battle, data.Deployed) with { Seed = data.Seed };
+        Node.PendingReplay = data.Commands;
+        Node.GoTo(GameSessionNode.BattleScene);
+        return true;
+    }
+
     /// <summary>Goes to the screen for the next step that needs the player.</summary>
     public static void Advance()
     {

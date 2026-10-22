@@ -1,8 +1,12 @@
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace NotFireEmblem.Combat;
 
 /// <summary>What the attacker uses: a plain weapon attack, or a combat art performed with a weapon.</summary>
+[JsonPolymorphic]
+[JsonDerivedType(typeof(WeaponAttack), "weapon")]
+[JsonDerivedType(typeof(ArtAttack), "art")]
 public abstract record ActionChoice
 {
     public abstract string WeaponId { get; }

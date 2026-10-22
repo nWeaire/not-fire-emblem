@@ -39,6 +39,12 @@ _Last updated: 2026-10-22 (session 11)._
 - **Lances pierce** (user request): against an Armored target (trait or movement type) a lance ignores half its Def
   (`CombatCalculator.LancePiercePercent`, terrain Def still counts); weapons already effective against it (Heavy
   Spear) keep ×3 instead. The forecast shows "!" for it. It works both ways: enemy lances pierce Aldric (warden).
+- **Prologue Hounds** (playtest: too easy to lose Rowan): the Prologue's hounds carry `gloam_fangs_young` (Mt 3, was
+  Fangs 5), so they bite Rowan for 4, not 6. Later hounds are unchanged (`act1_early.gloam` picks the weapon).
+- **`--level=N|auto`** (DevTools): single battles raise the player side to a campaign-like level with average gains
+  (`LevelUpService.RaiseToAverage`); `auto` uses `DevTools.CampaignLevels` (Prologue 1 … Ch 7 8). Ch 7 at level 8:
+  autoplay wins 2/2 (T20, T13) but loses Aldric on T3 both times; Brann and Tamsin do 0 to Halvric, Elise's
+  Thunder does 20.
 - **Gold** checked with the user: fine for now (table: 150 + 50 × chapter plus story gold, ~5,000 over Act I).
 - **Dev:** `--focus=X,Y` starts the battle camera on a cell (with `--hideunits` for map-art screenshots).
 

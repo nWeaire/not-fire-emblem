@@ -62,6 +62,34 @@ public static class LevelUpService
         return levels;
     }
 
+    /// <summary>
+    /// Raises the unit to <paramref name="level"/> (capped at the level cap) with the average gains for its growths,
+    /// rounded per stat and stopped at the class caps: no dice, so a test party is the same every run. Used by the
+    /// --level dev flag. Units already at or above the level are left alone.
+    /// </summary>
+    public static void RaiseToAverage(ContentDatabase db, UnitState unit, int level)
+    {
+        int levels = Math.Min(level, ExpCalculator.LevelCap) - unit.Level;
+        if (levels <= 0)
+            return;
+        var cls = db.Class(unit.ClassId);
+        var current = cls.Bases + unit.Def.Bases + unit.Gains;
+        var gains = default(StatBlock);
+        foreach (var stat in StatBlock.All)
+        {
+            if (stat is Stat.Mov or Stat.Cha)
+                continue;
+            int growth = cls.Growths[stat] + unit.Def.Growths[stat];
+            int points = (growth * levels + 50) / 100;
+            if (cls.Caps[stat] > 0)
+                points = Math.Clamp(cls.Caps[stat] - current[stat], 0, points);
+            gains = gains.With(stat, points);
+        }
+        unit.Gains += gains;
+        unit.Level += levels;
+        unit.Exp = 0;
+    }
+
     /// <summary>Rolls and applies one level.</summary>
     public static StatBlock Roll(ContentDatabase db, UnitState unit, IRng rng)
     {

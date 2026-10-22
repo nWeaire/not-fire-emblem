@@ -95,6 +95,16 @@ public partial class BattleController : Node3D
             var party = SkirmishParty.Where(id => db.Units.ContainsKey(id) && !spawned.Contains(id)).Take(map.Slots.Count).ToList();
             var roster = party.ToDictionary(id => id, id => UnitState.FromDef(db.Unit(id)));
             State = BattleSetup.Create(db, map, seed, roster, options, party);
+            if (DevTools.PartyLevelFor(mapId) is { } level)
+            {
+                // Everyone on the player's side, recruits included, at a campaign-like level (not enemies).
+                foreach (var unit in State.Units.Where(u => u.IsRosterUnit && u.Faction != Faction.Enemy))
+                {
+                    LevelUpService.RaiseToAverage(db, unit.State, level);
+                    unit.CurrentHp = State.Stats(unit).HP;
+                }
+                GD.Print($"Party raised to level {level}");
+            }
             GD.Print($"Battle '{mapId}' seed {seed}");
         }
         if (State.Options.Difficulty == Difficulty.Hard)

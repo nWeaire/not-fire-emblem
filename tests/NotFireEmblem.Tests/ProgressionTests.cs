@@ -36,6 +36,21 @@ public class ProgressionTests
     }
 
     [Fact]
+    public void RaiseToAverage_GivesTheExpectedGainsWithoutDice()
+    {
+        var db = TestContent.Create();
+        var growths = default(StatBlock) with { HP = 85, Str = 50 };
+        var unit = UnitState.FromDef(new UnitDef("x", "x", "merc", 1, default, growths, Array.Empty<string>(), false));
+        LevelUpService.RaiseToAverage(db, unit, 5);
+        Assert.Equal(5, unit.Level);
+        Assert.Equal(3, unit.Gains.HP);  // 85% × 4 levels = 3.4
+        Assert.Equal(2, unit.Gains.Str); // 50% × 4 levels = 2
+        Assert.Equal(0, unit.Gains.Def);
+        LevelUpService.RaiseToAverage(db, unit, 3); // never lowers
+        Assert.Equal(5, unit.Level);
+    }
+
+    [Fact]
     public void LevelUp_RollsEachStatAgainstGrowths()
     {
         var db = TestContent.Create();

@@ -19,6 +19,8 @@ namespace NotFireEmblem.Core;
 ///   --exp=N                  player units start each battle with N EXP (to test level-ups)
 ///   --hideunits              the battle map shows no units or HUD (screenshots of the map art alone)
 ///   --focus=X,Y              the battle camera and cursor start on this cell instead of the lord
+///   --level=N|auto           single battles (--map): player units below level N are raised to it with average gains;
+///                            auto picks the map's campaign level (<see cref="CampaignLevels"/>)
 /// BattleController also reads --seed=&lt;n&gt; (battle RNG); Boot reads --map=&lt;id&gt; (e.g. prologue, ch1, test_ford).
 /// </summary>
 public partial class DevTools : Node
@@ -29,6 +31,21 @@ public partial class DevTools : Node
     public static int? StartExp { get; private set; }
     public static bool HideUnits { get; private set; }
     public static NotFireEmblem.Grid.GridPos? FocusCell { get; private set; }
+    /// <summary>--level: a level, or 0 for "auto" (the map's entry in <see cref="CampaignLevels"/>); null when unset.</summary>
+    public static int? PartyLevel { get; private set; }
+
+    /// <summary>
+    /// About where a party stands entering each map in a real campaign (session 11: autoplay soak levels, rounded up
+    /// because autoplay's Rowan rarely fights and survivors' +20 EXP isn't logged). Aldric starts at 5 and stays ahead.
+    /// </summary>
+    public static readonly IReadOnlyDictionary<string, int> CampaignLevels = new Dictionary<string, int>
+    {
+        ["prologue"] = 1, ["ch1"] = 2, ["ch2"] = 3, ["ch3"] = 4, ["ch4"] = 5, ["ch5"] = 6, ["ch6"] = 7, ["ch7"] = 8,
+    };
+
+    /// <summary>The --level to use on a map, or null when the flag is unset.</summary>
+    public static int? PartyLevelFor(string mapId) =>
+        PartyLevel is 0 ? CampaignLevels.GetValueOrDefault(mapId, 1) : PartyLevel;
 
     private string? _screenshotPath;
     private int _captureFrame = 90;
@@ -52,6 +69,9 @@ public partial class DevTools : Node
             {
                 case "--exp":
                     StartExp = int.Parse(parts[1]);
+                    break;
+                case "--level":
+                    PartyLevel = parts[1] == "auto" ? 0 : int.Parse(parts[1]);
                     break;
                 case "--focus":
                     var xy = parts[1].Split(',');

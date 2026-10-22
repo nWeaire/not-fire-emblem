@@ -76,6 +76,8 @@ def assert_connected(g, start):
 def gloam(cls, pos, by, **kv):
     weapon = {"gloam_hound": "gloam_fangs", "gloam_brute": "gloam_claws", "gloam_stalker": "bone_spikes",
               "gloam_shade": "gloam_bolt", "gloam_harrier": "gloam_talons"}[cls]
+    if cls == "gloam_hound" and by == "binder":
+        weapon = "gloam_fangs_young"  # session 11: Prologue hounds took Rowan down in 4 bites (6 each); now 4 a bite
     level = 1 if cls == "gloam_hound" else 2
     return dict(ClassId=cls, DominatedBy=by, SpriteId=f"enemy_{cls}", Level=level, Inventory=[weapon], Pos=pos, **kv)
 

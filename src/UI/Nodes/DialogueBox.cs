@@ -117,7 +117,7 @@ public partial class DialogueBox : Control
             Advance();
             GetViewport().SetInputAsHandled();
         }
-        else if (e.IsActionPressed(InputSetup.Cancel))
+        else if (e.IsActionPressed(InputSetup.Cancel) || e.IsActionPressed(InputSetup.Pause))
         {
             _skip = true;
             _advance?.TrySetResult(true);

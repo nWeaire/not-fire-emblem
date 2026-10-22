@@ -519,5 +519,5 @@ public partial class BattleEventPlayer : Node
         tween.TweenCallback(Callable.From(label.QueueFree));
     }
 
-    private async Task Wait(float seconds) => await ToSignal(GetTree().CreateTimer(seconds), SceneTreeTimer.SignalName.Timeout);
+    private async Task Wait(float seconds) => await ToSignal(GetTree().CreateTimer(seconds, processAlways: false), SceneTreeTimer.SignalName.Timeout);
 }

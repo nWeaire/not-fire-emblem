@@ -32,6 +32,9 @@ _Last updated: 2026-10-22 (session 11)._
 - **Portraits are neutral only** (user request): the 14 expression PNGs were deleted, `DialogueBox.Portrait(speaker)`
   loads `<speaker>.png`, `[expression]` tags stay in scripts as acting notes, `expressions.py` is retired.
 - **Gloam Shade** map sprite drawn at 75% (`SpriteLibrary.MapScales`; it filled its whole 48 px frame).
+- **Pause menu** (user request): Esc in battle pauses everything (`GetTree().Paused`; battle timers use
+  `processAlways: false`) under Return to Battle / Settings / Quit to Title (with a check). Esc is now the `pause`
+  action, no longer Cancel; X / Backspace / right-click still cancel, and Esc still closes modals and skips dialogue.
 - **Dev:** `--focus=X,Y` starts the battle camera on a cell (with `--hideunits` for map-art screenshots).
 
 ## Next (plan for session 12)

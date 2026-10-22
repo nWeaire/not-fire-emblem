@@ -38,6 +38,7 @@ public partial class DevTools : Node
 
     public override void _Ready()
     {
+        ProcessMode = ProcessModeEnum.Always; // presses and screenshots also work while the battle is paused
         foreach (var arg in OS.GetCmdlineUserArgs())
         {
             Autoplay |= arg == "--autoplay";

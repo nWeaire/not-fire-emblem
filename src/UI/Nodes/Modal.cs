@@ -6,7 +6,7 @@ namespace NotFireEmblem.UI;
 
 /// <summary>
 /// A dimmed full-screen layer with a centred panel (the hub's "save before leaving?" prompt, the battle's settings).
-/// Add controls to <see cref="Body"/>; a button calls <see cref="Close"/>, and so does Cancel (X / Esc).
+/// Add controls to <see cref="Body"/>; a button calls <see cref="Close"/>, and so do Cancel (X) and Esc.
 /// </summary>
 public partial class Modal : ColorRect
 {
@@ -36,7 +36,7 @@ public partial class Modal : ColorRect
         CallDeferred(MethodName.FocusFirst);
     }
 
-    private void FocusFirst()
+    public void FocusFirst()
     {
         foreach (var node in Body.FindChildren("*", "BaseButton", true, false))
         {
@@ -50,7 +50,7 @@ public partial class Modal : ColorRect
 
     public override void _UnhandledInput(InputEvent e)
     {
-        if (!e.IsActionPressed(InputSetup.Cancel))
+        if (!e.IsActionPressed(InputSetup.Cancel) && !e.IsActionPressed(InputSetup.Pause))
             return;
         GetViewport().SetInputAsHandled();
         Close();

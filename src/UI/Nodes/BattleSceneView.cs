@@ -638,7 +638,7 @@ public partial class BattleSceneView : CanvasLayer
         await ToSignal(tween, Tween.SignalName.Finished);
     }
 
-    private async Task Wait(float seconds) => await ToSignal(GetTree().CreateTimer(seconds), SceneTreeTimer.SignalName.Timeout);
+    private async Task Wait(float seconds) => await ToSignal(GetTree().CreateTimer(seconds, processAlways: false), SceneTreeTimer.SignalName.Timeout);
 
     private static Shader FlashShader => _flashShader ??= new Shader
     {

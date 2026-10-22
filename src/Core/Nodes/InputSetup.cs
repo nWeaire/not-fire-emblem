@@ -11,6 +11,8 @@ public partial class InputSetup : Node
 {
     public const string Confirm = "confirm";
     public const string Cancel = "cancel";
+    /// <summary>Esc: the battle's pause menu. Menus and dialogue treat it like Cancel.</summary>
+    public const string Pause = "pause";
     public const string CursorUp = "cursor_up";
     public const string CursorDown = "cursor_down";
     public const string CursorLeft = "cursor_left";
@@ -35,7 +37,8 @@ public partial class InputSetup : Node
     {
         ProcessMode = ProcessModeEnum.Always;
         Bind(Confirm, Key(Godot.Key.Z), Key(Godot.Key.Enter), Mouse(MouseButton.Left), Pad(JoyButton.A));
-        Bind(Cancel, Key(Godot.Key.X), Key(Godot.Key.Escape), Key(Godot.Key.Backspace), Mouse(MouseButton.Right), Pad(JoyButton.B));
+        Bind(Cancel, Key(Godot.Key.X), Key(Godot.Key.Backspace), Mouse(MouseButton.Right), Pad(JoyButton.B));
+        Bind(Pause, Key(Godot.Key.Escape));
         Bind(CursorUp, Key(Godot.Key.Up), Key(Godot.Key.W), Pad(JoyButton.DpadUp));
         Bind(CursorDown, Key(Godot.Key.Down), Key(Godot.Key.S), Pad(JoyButton.DpadDown));
         Bind(CursorLeft, Key(Godot.Key.Left), Key(Godot.Key.A), Pad(JoyButton.DpadLeft));

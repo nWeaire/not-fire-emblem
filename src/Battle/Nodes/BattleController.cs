@@ -164,7 +164,7 @@ public partial class BattleController : Node3D
             Hud.ShowCaption(stop.Caption);
             _tourNext = new TaskCompletionSource();
             var next = _tourNext;
-            GetTree().CreateTimer(TourStopSeconds).Timeout += () => next.TrySetResult();
+            GetTree().CreateTimer(TourStopSeconds, processAlways: false).Timeout += () => next.TrySetResult();
             await next.Task;
         }
         _tourNext = null;
@@ -175,10 +175,72 @@ public partial class BattleController : Node3D
 
     public override void _UnhandledInput(InputEvent e)
     {
+        if (e.IsActionPressed(InputSetup.Pause))
+        {
+            GetViewport().SetInputAsHandled();
+            OpenPauseMenu();
+            return;
+        }
         if (_tourNext is null || !e.IsActionPressed(InputSetup.Confirm))
             return;
         GetViewport().SetInputAsHandled();
         _tourNext.TrySetResult();
+    }
+
+    private Modal? _pauseMenu;
+
+    /// <summary>
+    /// Esc: freezes the battle (enemy phase, animations and the battle screen included) under a menu to resume, open
+    /// the settings, or quit to the title screen. Not offered once the battle is over.
+    /// </summary>
+    private void OpenPauseMenu()
+    {
+        if (_pauseMenu is not null || State.Outcome != BattleOutcome.InProgress || Hud.Dialogue.IsPlaying)
+            return;
+        GetTree().Paused = true;
+        var modal = new Modal("Paused") { ProcessMode = ProcessModeEnum.Always };
+        _pauseMenu = modal;
+        modal.Body.AddChild(UiKit.Button("Return to Battle", modal.Close, 280));
+        modal.Body.AddChild(UiKit.Button("Settings", () => ShowPausePage(modal, "Settings", page =>
+            page.Body.AddChild(new SettingsPanel())), 280));
+        modal.Body.AddChild(UiKit.Button("Quit to Title", () => ShowPausePage(modal, "Quit to the title screen?", page =>
+        {
+            page.Body.AddChild(UiKit.Label(IsCampaign ? "This battle's progress is lost. The campaign resumes from your last save."
+                                                       : "This battle's progress is lost.", 16));
+            page.Body.AddChild(UiKit.Button("Quit to Title", QuitToTitle, 280));
+        }), 280));
+        modal.Closed += () =>
+        {
+            _pauseMenu = null;
+            GetTree().Paused = false;
+        };
+        Hud.AddChild(modal);
+    }
+
+    /// <summary>A page over the pause menu (settings, the quit check) with a Back button; the battle stays paused.</summary>
+    private void ShowPausePage(Modal pause, string title, Action<Modal> fill)
+    {
+        pause.Visible = false;
+        var page = new Modal(title) { ProcessMode = ProcessModeEnum.Always };
+        fill(page);
+        page.Body.AddChild(UiKit.Button("Back", page.Close, 280));
+        page.Closed += () =>
+        {
+            if (!IsInstanceValid(pause))
+                return;
+            pause.Visible = true;
+            pause.CallDeferred(Modal.MethodName.FocusFirst);
+        };
+        Hud.AddChild(page);
+    }
+
+    private void QuitToTitle()
+    {
+        GetTree().Paused = false;
+        var node = GameSessionNode.Instance;
+        node.EndSession();
+        node.SkirmishMapId = null;
+        node.GoTo(GameSessionNode.TitleScene);
     }
 
     /// <summary>Night battles: the map is multiplied by a moonlit blue (the HUD sits on its own layer above).</summary>
@@ -301,7 +363,7 @@ public partial class BattleController : Node3D
                 // Show who is about to act before they move (unless they're hidden in the fog).
                 Cursor.MoveTo(decision.Unit.Pos);
                 Camera.Focus(CellWorld(decision.Unit.Pos));
-                await ToSignal(GetTree().CreateTimer(0.3), SceneTreeTimer.SignalName.Timeout);
+                await ToSignal(GetTree().CreateTimer(0.3, processAlways: false), SceneTreeTimer.SignalName.Timeout);
             }
             IBattleCommand command = decision?.Command ?? new EndPhaseCommand();
             if (!await Execute(command))

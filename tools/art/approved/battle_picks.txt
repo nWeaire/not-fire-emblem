@@ -36,3 +36,5 @@ boss_halvric 2 lance
 enemy_knight 2 lance
 enemy_gloam_harrier 0 claws
 enemy_gloam_shade 1 dark
+enemy_sellsword 0 sword
+enemy_axeman 0 axe

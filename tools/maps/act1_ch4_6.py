@@ -88,7 +88,8 @@ def spawn_block(i, s):
     return "\n".join(lines) + "\n"
 
 
-def map_tres(mid, name, rows, heights, spawns, victory, defeat, triggers, slots, background="", fog=False):
+def map_tres(mid, name, rows, heights, spawns, victory, defeat, triggers, slots, background="", fog=False,
+             highlights=()):
     w = len(rows[0])
     assert all(len(r) == w for r in rows), [len(r) for r in rows]
     assert len(heights) == len(rows) and all(len(h) == w for h in heights)
@@ -99,6 +100,7 @@ def map_tres(mid, name, rows, heights, spawns, victory, defeat, triggers, slots,
     blocks = "\n".join(spawn_block(i + 1, s) for i, s in enumerate(spawns))
     refs = ", ".join(f'SubResource("SpawnDefinition_{i + 1}")' for i in range(len(spawns)))
     q = lambda xs: ", ".join(f'"{x}"' for x in xs)
+    marks = f"Highlights = PackedStringArray({q(highlights)})\n" if highlights else ""
     write(DATA / "maps" / f"{mid}.tres", f'''[gd_resource type="Resource" script_class="MapDefinition" load_steps={len(spawns) + 3} format=3]
 
 [ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
@@ -115,7 +117,7 @@ Spawns = Array[ExtResource("2_spawn")]([{refs}])
 Victory = "{victory}"
 Defeat = PackedStringArray({q(defeat)})
 Triggers = PackedStringArray({q(triggers)})
-Fog = {"true" if fog else "false"}
+{marks}Fog = {"true" if fog else "false"}
 DeploySlots = "{" ".join(f"{x},{y}" for x, y in slots)}"
 Background = "{background}"
 ''')

@@ -6609,6 +6609,74 @@
           "type": "generations"
         }
       },
+      "map:enemy_axeman": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "f90d79d5-c6cf-45d9-abcc-1be894b04986",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.017115202612347075
+              },
+              {
+                "type": "usd",
+                "usd": 0.012683002710342409
+              },
+              {
+                "type": "usd",
+                "usd": 0.013031232886844213
+              },
+              {
+                "type": "usd",
+                "usd": 0.01811143872472975
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "64971387-f07b-4680-be3a-0fbbb691a20d",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.00923534901936849
+              },
+              {
+                "type": "usd",
+                "usd": 0.009978842788272435
+              },
+              {
+                "type": "usd",
+                "usd": 0.009094496144188776
+              },
+              {
+                "type": "usd",
+                "usd": 0.014072009695900813
+              }
+            ]
+          }
+        },
+        "character_id": "b299f884-1240-4f80-8fac-114e674354e7",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:enemy_binder": {
         "adopted": true,
         "animations": {
@@ -7477,6 +7545,74 @@
         "usage": {
           "generations": 10.0,
           "type": "generations"
+        }
+      },
+      "map:enemy_sellsword": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "94efcce7-86f3-4733-96cf-ce23527150c9",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01380124881532457
+              },
+              {
+                "type": "usd",
+                "usd": 0.011008082707722983
+              },
+              {
+                "type": "usd",
+                "usd": 0.01200097910563151
+              },
+              {
+                "type": "usd",
+                "usd": 0.010252456347147623
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "c50bca3c-4e6e-4ec0-a6a5-00d66a514a46",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009224373393588597
+              },
+              {
+                "type": "usd",
+                "usd": 0.011571984900368586
+              },
+              {
+                "type": "usd",
+                "usd": 0.009665213346481323
+              },
+              {
+                "type": "usd",
+                "usd": 0.010473477813932631
+              }
+            ]
+          }
+        },
+        "character_id": "7ce0e96a-a006-4e23-b946-550ad8ebdd05",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
         }
       },
       "map:enemy_soldier": {
@@ -9234,6 +9370,15 @@
           "type": "generations"
         }
       },
+      "enemy_axeman": {
+        "job": "a7ed38f3-3a0b-482d-b609-f07968c1b022",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "enemy_binder": {
         "job": "c90f6874-de82-4ae6-b181-069619d09bc3",
         "status": "completed",
@@ -9349,6 +9494,15 @@
         "usage": {
           "generations": 15.0,
           "type": "generations"
+        }
+      },
+      "enemy_sellsword": {
+        "job": "1ebbf58a-3bd9-41e8-a6bf-5b1ef0c70dc6",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
         }
       },
       "enemy_soldier": {
@@ -10191,6 +10345,58 @@
           }
         }
       },
+      "enemy_axeman": {
+        "attack": {
+          "frames": 9,
+          "job": "9ff25955-3e76-45f0-8aeb-b6d8168e1b11",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_axeman_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.026825063546498613
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "179f67b2-f3df-4082-9e56-fc2e431676fe",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_axeman_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02905387002891964
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "382562cc-6d75-4865-bc3d-f94b320eae55",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_axeman_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.030150405797693465
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "f615343a-6500-4310-bde3-03bd5580d3cd",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_axeman_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.023046804553932612
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "0e29423d-0a21-4c02-9076-32fe52896c7d",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_axeman_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.026076445546415118
+          }
+        }
+      },
       "enemy_binder": {
         "attack": {
           "frames": 9,
@@ -10864,6 +11070,58 @@
           "usage": {
             "generations": 1.0,
             "type": "generations"
+          }
+        }
+      },
+      "enemy_sellsword": {
+        "attack": {
+          "frames": 9,
+          "job": "06a88c06-7b8e-4f70-869a-a0ef22ee8462",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sellsword_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02560057740079032
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "dcd5a48b-d945-41e8-9cfc-0ee47dc7b21b",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sellsword_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.030174006276660496
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "47546814-d743-48ae-ad16-b2f418a271d2",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sellsword_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.020246282531155478
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "31f63aff-a03a-434a-a14b-e91c9e565c53",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sellsword_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03208403775427077
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "d1b6c3a9-8796-43eb-97d2-5417ffd1f32e",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sellsword_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.019060255487759907
           }
         }
       },

@@ -2,9 +2,22 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-22 (end of session 11)._
+_Last updated: 2026-10-23 (session 12)._
 
 ---
+
+## Session 12: polish before Act II
+- **Ch 7 garrison art:** new `enemy_sellsword` and `enemy_axeman` looks (deep green Dain Hall tabard over mail, purple
+  Dominion glow in the eyes, like the Ch 7 knight), map sprites with walk/attack plus E-look battle sprites (user's
+  picks: still take #0 of each, in `approved/battle_picks.txt`). The 7 Ch 7 Sellswords/Axemen use them (`SpriteId`).
+  Effect frames cleaned by hand: the white slash arcs on the sellsword's attack frames 2–5 and the axeman's critical
+  frames 4, 5 and 9 were erased (near-white blobs plus specks), and the sellsword's last critical frame (a yellow orb)
+  was dropped. About $0.58 spent; **~$2.21 PixelLab credit left**.
+- **`tools/maps/act1_ch7.py` is back in step with `ch7.tres`** (smith's house, highlights, sellswords and axemen, no
+  rear cavalry, the new sprite ids): rerunning it reproduces the map byte for byte. `map_tres` in `act1_ch4_6.py`
+  takes an optional `highlights` list (Ch 4–6 output unchanged).
+- **Knights with axes:** skipped; it was only wanted if armoured enemies still felt lance-heavy, and the new Ch 7 mix
+  playtested well.
 
 ## Session 11: autoplay stalls, Kai's mounted looks, 3D gate, neutral portraits
 - **Playtest:** the user played Ch 1 and Ch 5 by hand: both feel good (Ch 1's T1 surround is fixed; Ch 5's 12 turns
@@ -68,12 +81,7 @@ _Last updated: 2026-10-22 (end of session 11)._
 ## Next (plan for session 12)
 1. **Testing workflow:** single battles at campaign strength with `--map=<id> --level=auto` (story classes and items
    included); `--level=auto` on a normal launch also applies to Battle Select. Retry from the Esc menu.
-2. **Possible polish the user may want (not yet asked for):**
-   - Garrison-style art for the Ch 7 Dain Hall Sellswords and Axemen (today they borrow the bandit myrmidon/fighter
-     look; ~$0.80 for both).
-   - Knights that can use axes (would also let Dorran equip them), if armoured enemies still feel lance-heavy.
-   - `tools/maps/act1_ch7.py` is out of date for Ch 7 (smith, highlights, new enemy mix): port those back before
-     ever rerunning it.
+2. **Polish:** done in session 12 (garrison art, `act1_ch7.py` ported); knights with axes skipped.
 3. **Still not built:** suspend saves (save mid-battle and quit). Art wish list in `docs/ART_NEEDED.md`.
 4. **Act II, "The Burning Crowns"** (Ch 8 "Riot in the Capital" to Ch 15, in `docs/story/CHAPTERS.md`): the
    campaign currently ends with the Act I text after Ch 7. Building Act II is the next big piece of work once the user

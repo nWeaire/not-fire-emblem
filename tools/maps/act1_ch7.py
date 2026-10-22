@@ -1,8 +1,7 @@
 """Writes Chapter 7, "Storm over Dain Hall" (docs/story/CHAPTERS.md): the map, the throne terrain and Wren.
 
 The .tres files it writes are canonical afterwards (edit them directly); rerunning this overwrites them.
-Since session 10/11 data/maps/ch7.tres has moved on (smith's house, highlights, sellswords and axemen, no rear
-cavalry): don't rerun this for Ch 7 without porting those back.
+In step with data/maps/ch7.tres as of session 12 (smith's house, highlights, sellswords and axemen, no rear cavalry).
     python tools/maps/act1_ch7.py
 Dialogue @focus cells for this map live in data/dialogue/ch07.txt.
 """
@@ -27,6 +26,7 @@ def ch7():
     for x0, y0, x1, y1 in [(0, 21, 3, 23), (26, 21, 29, 23), (0, 0, 1, 23), (28, 0, 29, 20)]:
         g.rect(x0, y0, x1, y1, "F")
     g.spots(",", [(5, 22), (9, 23), (20, 22), (24, 23), (7, 21), (22, 21)])
+    g.put(6, 21, "T")  # the town smith's house (visit: a Hammer)
     g.hline(20, 2, 27, "~")
     g.vline(14, 20, 23)
     g.vline(15, 20, 23)
@@ -85,9 +85,17 @@ def ch7():
         return dict(ClassId="archer", Name="Dain Hall Archer", SpriteId="enemy_archer", Level=lvl,
                     Inventory=["iron_bow"], Pos=pos, Group=group, DominatedBy="halvric", **kv)
 
-    def cavalier(pos, lvl=7, group="", **kv):
+    def sellsword(pos, lvl=6, group="", weapon="iron_sword", **kv):
+        return dict(ClassId="myrmidon", Name="Dain Hall Sellsword", SpriteId="enemy_sellsword", Level=lvl,
+                    Inventory=[weapon], Pos=pos, Group=group, Armor="padded_gambeson", DominatedBy="halvric", **kv)
+
+    def axeman(pos, lvl=6, group="", weapon="iron_axe", **kv):
+        return dict(ClassId="fighter", Name="Dain Hall Axeman", SpriteId="enemy_axeman", Level=lvl,
+                    Inventory=[weapon], Pos=pos, Group=group, Armor="padded_gambeson", DominatedBy="halvric", **kv)
+
+    def cavalier(pos, lvl=7, group="", weapon="iron_lance", **kv):
         return dict(ClassId="cavalier", Name="Dain Hall Cavalier", SpriteId="enemy_cavalier", Level=lvl,
-                    Inventory=["iron_lance"], Pos=pos, Group=group, DominatedBy="halvric", **kv)
+                    Inventory=[weapon], Pos=pos, Group=group, DominatedBy="halvric", **kv)
 
     def mage(pos, lvl=6, group="", **kv):
         return dict(ClassId="mage", Name="Dain Hall Mage", SpriteId="enemy_mage", Level=lvl,
@@ -102,9 +110,10 @@ def ch7():
              Armor="iron_plate", Inventory=["silver_lance", "javelin"], Pos=(15, 1), Ai=BOSS, IsBoss=True,
              CrestBearer=True),
         # The gate and the courtyard.
-        soldier((14, 17), Ai=GUARD), soldier((15, 17), Ai=GUARD), knight((15, 15), Ai=GUARD),
-        soldier((10, 14)), soldier((19, 14), 7), cavalier((12, 11)), cavalier((18, 12)),
-        knight((7, 13), Ai=GUARD), mage((22, 13), Ai=GUARD), soldier((5, 12), 7, Ai=GUARD),
+        sellsword((14, 17), Ai=GUARD), soldier((15, 17), Ai=GUARD), knight((15, 15), Ai=GUARD),
+        axeman((10, 14)), sellsword((19, 14), 7, weapon="steel_sword"), cavalier((12, 11)),
+        cavalier((18, 12), weapon="iron_sword"),
+        knight((7, 13), Ai=GUARD), mage((22, 13), Ai=GUARD), axeman((5, 12), 7, Ai=GUARD),
         # Archers on the ramparts.
         archer((3, 6), Ai=STATIONARY), archer((3, 13), Ai=STATIONARY), archer((26, 6), Ai=STATIONARY),
         archer((26, 13), Ai=STATIONARY),
@@ -112,14 +121,13 @@ def ch7():
         knight((14, 9), Ai=GUARD), knight((15, 9), 8, Ai=GUARD),
         mage((12, 4), 7, Ai=GUARD), archer((17, 4), 7, Ai=GUARD), knight((13, 2), 8, Ai=GUARD),
         knight((16, 2), 8, Ai=GUARD),
-        dict(soldier((10, 2), 8, Ai=GUARD), HardOnly=True),
+        dict(sellsword((10, 2), 8, weapon="steel_sword", Ai=GUARD), HardOnly=True),
         # Turn 2: the sky patrol circles in over the east wall; Wren hangs back.
         dict(UnitId="wren", Faction=ENEMY, Level=7, Pos=(24, 14), Ai=STATIONARY, Group="patrol"),
         flier((25, 9), group="patrol"), flier((23, 7), 7, "patrol"),
-        # Turn 4: the barracks empty; turn 6: riders come up the road behind the party.
-        soldier((6, 17), 7, "barracks"), soldier((23, 17), 7, "barracks"), archer((21, 12), 7, "barracks"),
-        cavalier((14, 23), 7, "rear"), cavalier((15, 23), 7, "rear"),
-        dict(cavalier((16, 21), 8, "rear"), HardOnly=True),
+        # Turn 4: the barracks empty.
+        axeman((6, 17), 7, "barracks", "steel_axe"), sellsword((23, 17), 7, "barracks"),
+        archer((21, 12), 7, "barracks"),
     ]
     for s in spawns:
         s.setdefault("Ai", AGGRESSIVE)
@@ -127,14 +135,17 @@ def ch7():
                 "turn 2 => spawn patrol; scene ch07_patrol",
                 "talk rowan wren => scene ch07_wren; join wren",
                 "turn 4 enemy => spawn barracks",
-                "turn 6 enemy => spawn rear; scene ch07_rear",
                 "enter player 9,1-20,7 => scene ch07_throne_room",
                 "combat halvric => scene ch07_boss",
                 "hp halvric 50 => scene ch07_halvric_plea",
-                "defeated halvric => scene ch07_halvric_dies"]
+                "defeated halvric => scene ch07_halvric_dies",
+                "visit 6,21 => scene ch07_smith; give actor hammer"]
+    highlights = ["6,21 => The town smith's house. Visit it for a Hammer: an axe that crushes armour.",
+                  "halvric => Lord Halvric, on the throne. His knights' plate turns most blades. "
+                  "Use Thunder, Sunder or a Hammer."]
     slots = [(13, 22), (14, 22), (15, 22), (16, 22), (12, 23), (13, 23), (16, 23), (17, 23), (11, 22), (18, 22)]
     map_tres("ch7", "Chapter 7: Storm over Dain Hall", g.rows(), g.height_rows(), spawns, "seize 15,1", [],
-             triggers, slots, background="dain_hall")
+             triggers, slots, background="dain_hall", highlights=highlights)
 
 
 if __name__ == "__main__":

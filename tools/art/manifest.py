@@ -225,6 +225,13 @@ CHARACTERS = {
         desc="tall grim 55 year old lord in heavy ornate steel plate armour, swept-back grey hair, short grey beard, "
              "deep green and gold surcoat and cloak, faint purple glow in his eyes and a glowing purple crest sigil on "
              "his gauntlet, silver lance"),
+    # Session 12: Halvric's hired garrison in Ch 7 (they borrowed the bandit myrmidon / fighter looks).
+    "enemy_sellsword": dict(weapon="sword", sets=("map",),
+        desc="hired garrison swordsman, short dark hair, stubble, faint purple glow in the eyes, deep green Dain Hall "
+             "tabard over a mail shirt, leather bracers and belt, brown boots, straight steel sword"),
+    "enemy_axeman": dict(weapon="axe", sets=("map",),
+        desc="burly garrison axeman, iron nasal helmet, thick beard, faint purple glow in the eyes, deep green Dain "
+             "Hall tabard over a chainmail shirt, leather gloves, brown boots, iron battle axe"),
     "ally_villager": dict(weapon="none", sets=("map",),
         desc="plain village farmer man, brown hair, beige linen shirt, green wool vest, brown trousers, no weapon"),
 }

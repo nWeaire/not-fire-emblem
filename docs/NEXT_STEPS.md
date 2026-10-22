@@ -45,6 +45,9 @@ _Last updated: 2026-10-22 (session 11)._
   (`LevelUpService.RaiseToAverage`); `auto` uses `DevTools.CampaignLevels` (Prologue 1 … Ch 7 8). Ch 7 at level 8:
   autoplay wins 2/2 (T20, T13) but loses Aldric on T3 both times; Brann and Tamsin do 0 to Halvric, Elise's
   Thunder does 20.
+- **Single battles match the story** (playtest: Mira could only heal, Rowan was still a Youth): `--map` battles apply
+  the campaign's `class` steps before the map (`BattleController.ApplyStoryClasses`: Rowan Lord, Kai Cavalier) and,
+  after Ch 1, `StoryItems` (Mira's Fire; a Steel Sword for Rowan, the user's testing pick over the tour's Iron).
 - **Gold** checked with the user: fine for now (table: 150 + 50 × chapter plus story gold, ~5,000 over Act I).
 - **Dev:** `--focus=X,Y` starts the battle camera on a cell (with `--hideunits` for map-art screenshots).
 

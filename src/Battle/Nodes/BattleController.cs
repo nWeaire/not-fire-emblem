@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Godot;
 using NotFireEmblem.AI;
 using NotFireEmblem.Audio;
+using NotFireEmblem.Campaign;
 using NotFireEmblem.Core;
 using NotFireEmblem.Grid;
 using NotFireEmblem.UI;
@@ -28,6 +29,44 @@ public partial class BattleController : Node3D
 
     /// <summary>Who single-map battles deploy when the map has deploy slots, in order.</summary>
     private static readonly string[] SkirmishParty = { "rowan", "aldric", "kai", "mira", "brann", "tamsin", "elise", "dorran", "sable" };
+
+    /// <summary>
+    /// What named units carry by Ch 2, which unit definitions don't: Mira's Fire (Ch 1) and, for testing, a Steel Sword
+    /// for Rowan (the campaign gives an Iron Sword on Osmund's tour; a Steel Sword is affordable by Ch 3). Single
+    /// battles after Ch 1 hand them out so they play like the campaign.
+    /// </summary>
+    private static readonly Dictionary<string, string> StoryItems = new() { ["mira"] = "fire", ["rowan"] = "steel_sword" };
+
+    /// <summary>
+    /// Single battles: the campaign's class changes that come before this map (Rowan becomes a Lord after Ch 1), so
+    /// units have their story class, stats and look. Current HP follows the new maximum.
+    /// </summary>
+    private void ApplyStoryClasses(ContentDatabase db, string mapId)
+    {
+        var steps = db.Campaign?.Steps;
+        int battle = steps?.ToList().FindIndex(st => st is BattleStep b && b.MapId == mapId) ?? -1;
+        if (steps is null || battle < 0)
+            return;
+        foreach (var change in steps.Take(battle).OfType<ClassStep>())
+            foreach (var unit in State.Units.Where(u => u.IsRosterUnit && u.State.Def.Id == change.UnitId))
+            {
+                unit.State.ClassId = change.ClassId;
+                unit.CurrentHp = State.Stats(unit).HP;
+            }
+    }
+
+    private void GiveStoryItems(ContentDatabase db)
+    {
+        foreach (var unit in State.Units.Where(u => u.IsRosterUnit && StoryItems.ContainsKey(u.State.Def.Id)))
+        {
+            var inventory = unit.State.Inventory;
+            string item = StoryItems[unit.State.Def.Id];
+            if (inventory.Contains(item) || inventory.Count >= UnitState.MaxInventory)
+                continue;
+            inventory.Insert(0, item);
+            unit.State.EquippedIndex = 0; // the story item is the better weapon (Fire for the unarmed Mira, Iron over Old Sword)
+        }
+    }
 
     private readonly Dictionary<string, UnitView> _views = new();
     private AiWeights _aiWeights = AiWeights.Default;
@@ -95,6 +134,9 @@ public partial class BattleController : Node3D
             var party = SkirmishParty.Where(id => db.Units.ContainsKey(id) && !spawned.Contains(id)).Take(map.Slots.Count).ToList();
             var roster = party.ToDictionary(id => id, id => UnitState.FromDef(db.Unit(id)));
             State = BattleSetup.Create(db, map, seed, roster, options, party);
+            ApplyStoryClasses(db, mapId);
+            if (mapId is not ("prologue" or "ch1" or "test_ford"))
+                GiveStoryItems(db);
             if (DevTools.PartyLevelFor(mapId) is { } level)
             {
                 // Everyone on the player's side, recruits included, at a campaign-like level (not enemies).

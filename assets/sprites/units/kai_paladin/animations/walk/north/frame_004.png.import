@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfxgk2ccqgp4p"
-path="res://.godot/imported/frame_006.png-e3ce51b8bb77a486fcf365aa6ebeeacd.ctex"
+uid="uid://dadxy8mcky3w6"
+path="res://.godot/imported/frame_004.png-beba64b24b39d5704c427d4c40b74d17.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/units/kai_cavalier/animations/attack/north/frame_006.png"
-dest_files=["res://.godot/imported/frame_006.png-e3ce51b8bb77a486fcf365aa6ebeeacd.ctex"]
+source_file="res://assets/sprites/units/kai_paladin/animations/walk/north/frame_004.png"
+dest_files=["res://.godot/imported/frame_004.png-beba64b24b39d5704c427d4c40b74d17.ctex"]
 
 [params]
 

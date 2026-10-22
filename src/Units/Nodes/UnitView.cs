@@ -74,7 +74,7 @@ public partial class UnitView : Node3D
     /// <summary>The unit's map frames without the side outline (the outline is redrawn if the unit changes side).</summary>
     private SpriteFrames? _plainFrames;
 
-    public void Setup(string unitId, string name, string title, Faction faction, bool isBoss, int hp, int maxHp, SpriteFrames? mapFrames)
+    public void Setup(string unitId, string name, string title, Faction faction, bool isBoss, int hp, int maxHp, SpriteFrames? mapFrames, float scale = 1f)
     {
         UnitId = unitId;
         _name = name;
@@ -84,7 +84,6 @@ public partial class UnitView : Node3D
 
         _model = new Node3D();
         AddChild(_model);
-        float scale = 1f;
         _plainFrames = mapFrames;
         if (mapFrames is not null)
             BuildSprite(SpriteLibrary.Outlined(mapFrames, OutlineFor(faction)), scale);

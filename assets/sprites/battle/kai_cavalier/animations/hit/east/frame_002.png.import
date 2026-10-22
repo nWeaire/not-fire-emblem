@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bunavq4fmgkoo"
-path="res://.godot/imported/aldric_cold.png-ad8f8b65ab9fb6c9c278f0275a688a2e.ctex"
+uid="uid://bw3qee4pyipq0"
+path="res://.godot/imported/frame_002.png-a3038caee45e1fb874d61c8450fabe8c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/portraits/aldric_cold.png"
-dest_files=["res://.godot/imported/aldric_cold.png-ad8f8b65ab9fb6c9c278f0275a688a2e.ctex"]
+source_file="res://assets/sprites/battle/kai_cavalier/animations/hit/east/frame_002.png"
+dest_files=["res://.godot/imported/frame_002.png-a3038caee45e1fb874d61c8450fabe8c.ctex"]
 
 [params]
 

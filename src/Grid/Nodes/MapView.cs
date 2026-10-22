@@ -226,7 +226,7 @@ public partial class MapView : Node3D
             case "stilt" when Props("stilt_house").Count > 0:
                 AddBillboard(Props("stilt_house")[(int)(Hash(p, 80) % (uint)Props("stilt_house").Count)], top);
                 return;
-            case "gate" when Props("gate").Count > 0:
+            case "gate" when ResourceLoader.Exists($"{GateRoot}/leaf.png"):
                 AddGate(grid, p, top);
                 return;
             case "wall" when _artSet == "farm" && ResourceLoader.Exists(HedgeTexture):
@@ -343,23 +343,107 @@ public partial class MapView : Node3D
     }
 
     /// <summary>
-    /// A castle gate (Ch 5): one camera-facing prop of two oak doors in a stone arch, standing in the middle of each
-    /// straight run of gate cells, so a two-cell gate reads as one double door. Gate cells sit at ground height in
-    /// the wall, so when a trigger breaks the gate the gap is level with the yard.
+    /// A castle gate (Ch 5): 3D oak doors that fill each straight run of gate cells along the wall's line, like the
+    /// hedges, with a stone post at each end of the run. Gate cells sit at ground height in the wall, so when
+    /// a trigger breaks the gate the gap is level with the yard.
     /// </summary>
     private void AddGate(BattleGrid grid, GridPos p, Vector3 top)
     {
         bool IsGate(int x, int y) => grid.InBounds(new GridPos(x, y)) && grid[new GridPos(x, y)].Terrain.Id == "gate";
         bool northSouth = IsGate(p.X, p.Y - 1) || IsGate(p.X, p.Y + 1);
+        if (!northSouth && !(IsGate(p.X - 1, p.Y) || IsGate(p.X + 1, p.Y)))
+        {
+            // A lone gate cell runs along whichever axis its wall does.
+            bool Wall(int x, int y) => grid.InBounds(new GridPos(x, y)) && grid[new GridPos(x, y)].Terrain.Id == "wall";
+            northSouth = Wall(p.X, p.Y - 1) || Wall(p.X, p.Y + 1);
+        }
         // Drawn once, from the run's first (north or west) cell.
         if (northSouth ? IsGate(p.X, p.Y - 1) : IsGate(p.X - 1, p.Y))
             return;
         int length = 1;
         while (northSouth ? IsGate(p.X, p.Y + length) : IsGate(p.X + length, p.Y))
             length++;
-        float middle = (length - 1) / 2f * GridMetrics.CellSize;
-        AddBillboard(Props("gate")[0], top + (northSouth ? new Vector3(0f, 0f, middle) : new Vector3(middle, 0f, 0f)));
+        var along = northSouth ? Vector3.Back : Vector3.Right; // +Z (south) or +X (east)
+        var across = northSouth ? Vector3.Right : Vector3.Back;
+        // As tall as the wall it closes (the cell before the run), else one step.
+        var before = northSouth ? new GridPos(p.X, p.Y - 1) : new GridPos(p.X - 1, p.Y);
+        float height = grid.InBounds(before) ? GridMetrics.SurfaceY(grid, before) - top.Y : 0f;
+        if (height < 0.2f)
+            height = GridMetrics.StepHeight;
+
+        Vector3 Size(float a, float c, float h) => (along * a + across * c).Abs() + new Vector3(0f, h, 0f);
+        float yaw = northSouth ? Mathf.Pi / 2f : 0f;
+        for (int i = 0; i < length; i++)
+        {
+            // A leaf per cell: a thick oak slab, its faces painted with the leaf (hinge outward, meeting edge inward).
+            var centre = top + along * i + new Vector3(0f, height / 2f, 0f);
+            bool mirrored = length > 1 && i == length - 1;
+            AddGateBox(centre, Size(1f, GateThickness, height), northSouth ? GateTop : GateTopEastWest);
+            foreach (int side in new[] { 1, -1 })
+                AddGateQuad(centre + across * ((GateThickness / 2f + 0.002f) * side), yaw + (side < 0 ? Mathf.Pi : 0f),
+                    height, mirrored ^ (side < 0) ? GateLeafMirrored : GateLeaf);
+        }
+        // A stone post with a cap at both ends of the run, a little above the wall.
+        var stone = StoneSideMaterial(0) ?? Material("#8a8a80", 0f);
+        float postHeight = height + 0.18f;
+        foreach (float end in new[] { -0.5f, length - 0.5f })
+        {
+            var foot = top + along * end;
+            AddGateBox(foot + new Vector3(0f, postHeight / 2f, 0f), new Vector3(0.36f, postHeight, 0.36f), stone);
+            AddGateBox(foot + new Vector3(0f, postHeight + 0.03f, 0f), new Vector3(0.44f, 0.06f, 0.44f), stone);
+        }
     }
+
+    private void AddGateBox(Vector3 centre, Vector3 size, Material material)
+    {
+        AddChild(new MeshInstance3D { Mesh = new BoxMesh { Size = size }, MaterialOverride = material, Position = centre });
+    }
+
+    private void AddGateQuad(Vector3 centre, float yaw, float height, Material material)
+    {
+        AddChild(new MeshInstance3D
+        {
+            Mesh = new QuadMesh { Size = new Vector2(GridMetrics.CellSize, height) },
+            MaterialOverride = material,
+            Position = centre,
+            Rotation = new Vector3(0f, yaw, 0f),
+            CastShadow = GeometryInstance3D.ShadowCastingSetting.Off,
+        });
+    }
+
+    private const string GateRoot = "res://assets/textures/gate";
+    private StandardMaterial3D? _gateLeaf, _gateLeafMirrored, _gateTop;
+    private StandardMaterial3D GateLeaf => _gateLeaf ??= GateLeafMaterial(flip: false);
+    private StandardMaterial3D GateLeafMirrored => _gateLeafMirrored ??= GateLeafMaterial(flip: true);
+    private const float GateThickness = 0.55f;
+    private StandardMaterial3D? _gateTopEastWest;
+    private StandardMaterial3D GateTop => _gateTop ??= GateTopMaterial(rotate: false);
+    private StandardMaterial3D GateTopEastWest => _gateTopEastWest ??= GateTopMaterial(rotate: true);
+
+    /// <summary>The doors' top (planks along the run): the art runs north–south, so east–west runs turn it.</summary>
+    private static StandardMaterial3D GateTopMaterial(bool rotate)
+    {
+        var image = ResourceLoader.Load<Texture2D>($"{GateRoot}/top.png").GetImage();
+        if (rotate)
+            image.Rotate90(ClockDirection.Clockwise);
+        return new StandardMaterial3D
+        {
+            AlbedoTexture = ImageTexture.CreateFromImage(image),
+            TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
+            Uv1Triplanar = true,
+            Uv1Offset = new Vector3(0.5f, 0f, 0.5f),
+            Roughness = 1f,
+        };
+    }
+
+    /// <summary>One door leaf on a face (tools/art/gate_textures.py); flipped for the other leaf of a pair.</summary>
+    private static StandardMaterial3D GateLeafMaterial(bool flip) => new()
+    {
+        AlbedoTexture = ResourceLoader.Load<Texture2D>($"{GateRoot}/leaf.png"),
+        TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
+        Uv1Scale = new Vector3(flip ? -1f : 1f, 1f, 1f),
+        Roughness = 1f,
+    };
 
     private const string HedgeTexture = "res://assets/textures/hedge_leaves.png";
     private const float HedgeHeight = 0.5f;

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cipxxkmu06ogo"
-path="res://.godot/imported/elise_worried.png-b59720c9ef41158ba33a6b5ca7f59b9b.ctex"
+uid="uid://c327bf4rypnw6"
+path="res://.godot/imported/frame_004.png-f4fd278ad5fc33507161efb50b251de2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/portraits/elise_worried.png"
-dest_files=["res://.godot/imported/elise_worried.png-b59720c9ef41158ba33a6b5ca7f59b9b.ctex"]
+source_file="res://assets/sprites/units/kai_paladin/animations/walk/east/frame_004.png"
+dest_files=["res://.godot/imported/frame_004.png-f4fd278ad5fc33507161efb50b251de2.ctex"]
 
 [params]
 

@@ -1,4 +1,6 @@
-"""Portrait expressions: edits each base portrait (assets/portraits/<who>.png) into <who>_<expression>.png.
+"""RETIRED (session 11): the game shows only neutral portraits and the expression PNGs were deleted.
+
+Portrait expressions: edits each base portrait (assets/portraits/<who>.png) into <who>_<expression>.png.
 
 One request per expression (POST /edit-images-v2, edit_with_text) carries every portrait that needs it, so the same
 instruction is applied to several characters at once. The dialogue box picks <who>_<expression>.png, then the nearest

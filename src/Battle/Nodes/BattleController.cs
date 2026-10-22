@@ -122,8 +122,9 @@ public partial class BattleController : Node3D
             SpawnView(unit);
 
         var lord = State.LivingOf(Faction.Player).FirstOrDefault(u => u.IsLord) ?? State.LivingOf(Faction.Player).First();
-        Cursor.MoveTo(lord.Pos, instant: true);
-        Camera.Focus(CellWorld(lord.Pos), instant: true);
+        var start = DevTools.FocusCell ?? lord.Pos;
+        Cursor.MoveTo(start, instant: true);
+        Camera.Focus(CellWorld(start), instant: true);
         Hud.UpdateObjective(State);
         Hud.ShowTerrain(State, lord.Pos);
         PlayerInput.Init(this);
@@ -205,7 +206,7 @@ public partial class BattleController : Node3D
         var view = new UnitView();
         UnitsRoot.AddChild(view);
         var cls = State.Db.Class(unit.State.ClassId);
-        view.Setup(unit.Id, unit.Name, cls.Name, unit.Faction, unit.IsBoss, unit.CurrentHp, State.Stats(unit).HP, SpriteLibrary.Map(unit));
+        view.Setup(unit.Id, unit.Name, cls.Name, unit.Faction, unit.IsBoss, unit.CurrentHp, State.Stats(unit).HP, SpriteLibrary.Map(unit), SpriteLibrary.MapScale(unit));
         view.Position = CellWorld(unit.Pos);
         view.FaceToward(view.Position + (unit.Faction == Faction.Player ? Vector3.Forward : Vector3.Back));
         _views[unit.Id] = view;
@@ -386,16 +387,55 @@ public partial class BattleController : Node3D
         {
             var reach = State.Reach(lord);
             var goal = goals.Cells.OrderBy(c => c.DistanceTo(lord.Pos)).First();
+            if (escaping)
+            {
+                // Toward the exit, but not through an ambush: each enemy that could reach a cell costs a few steps.
+                var threats = AiController.ThreatCounts(State, lord.Faction);
+                int? StepsLeft(GridPos c) => Pathfinder.FindPath(State.Grid, c, goal, State.MoveType(lord))?.Count;
+                int now = StepsLeft(lord.Pos) ?? int.MaxValue;
+                // Only cells that get him closer (or hold), so dodging danger never turns into circling the map.
+                var best = reach.StopCells
+                    .Select(c => (Cell: c, Steps: StepsLeft(c)))
+                    .Where(x => x.Steps is not null && x.Steps <= now)
+                    .OrderBy(x => x.Steps + EscapeDangerSteps * threats.GetValueOrDefault(x.Cell))
+                    .ThenBy(x => x.Cell.Y).ThenBy(x => x.Cell.X)
+                    .Select(x => x.Cell).DefaultIfEmpty(lord.Pos).First();
+                return new AiDecision(lord, new ActCommand(lord.Id, best, new WaitAction()), null);
+            }
             var path = Pathfinder.FindPath(State.Grid, lord.Pos, goal, State.MoveType(lord));
             if (path is not null)
                 for (int i = path.Count - 1; i > 0; i--)
                     if (reach.CanStop(path[i]))
                         return new AiDecision(lord, new ActCommand(lord.Id, path[i], new WaitAction()), null);
         }
+        // Rout/Boss maps: once nobody else can fight, the lord must press on, or a boss who holds his post and a
+        // lord who waits for a safe attack stare at each other until turn 60.
+        if (goals.Victory is VictoryKind.Rout or VictoryKind.DefeatBoss
+            && !State.LivingOf(Faction.Player).Any(u => u != lord && !IsVital(u) && State.Db.TryWeapon(u.State.EquippedItemId) is not null))
+        {
+            var target = (goals.Victory == VictoryKind.DefeatBoss && goals.BossKey is { } key ? State.ByKey(key) : null)
+                         ?? State.LivingOf(Faction.Enemy).OrderBy(e => e.Pos.DistanceTo(lord.Pos)).FirstOrDefault();
+            var path = target is null ? null : Pathfinder.FindPath(State.Grid, lord.Pos, target.Pos, State.MoveType(lord));
+            if (path is not null)
+            {
+                // The furthest step along the way that at most one enemy can reach next phase.
+                var reach = State.Reach(lord);
+                var threats = AiController.ThreatCounts(State, lord.Faction);
+                for (int i = path.Count - 2; i > 0; i--)
+                    if (reach.CanStop(path[i]) && threats.GetValueOrDefault(path[i]) <= 1)
+                        return new AiDecision(lord, new ActCommand(lord.Id, path[i], new WaitAction()), null);
+            }
+        }
         return new AiDecision(lord, new ActCommand(lord.Id, lord.Pos, new WaitAction()), null);
     }
 
+    /// <summary>Autoplay defeats in a row on the current battle (kept across retries, which reload the scene).</summary>
+    private static int _autoplayLosses;
+    private const int AutoplayMaxLosses = 10;
+
     private static readonly AiWeights AutoplayWeights = new(CounterDamage: 1.2, SelfDeath: 200.0, Danger: 3.0);
+    /// <summary>How many steps out of the way an escaping lord will go to avoid each enemy that could reach him.</summary>
+    private const int EscapeDangerSteps = 10;
     private static readonly AiWeights LordWeights = new(CounterDamage: 2.0, SelfDeath: 500.0, Danger: 12.0);
 
     /// <summary>Starts this battle over from turn 1 with the same deployment (from the result screen or the settings).</summary>
@@ -418,6 +458,7 @@ public partial class BattleController : Node3D
         AudioDirector.PlayMusic(State.Outcome == BattleOutcome.Victory ? "victory" : "defeat", loop: false);
         if (IsCampaign && State.Outcome == BattleOutcome.Victory)
         {
+            _autoplayLosses = 0;
             await Hud.ShowBanner("Victory!", UiKit.Accent, 1.2f);
             CampaignFlow.BattleWon(State);
             return;
@@ -433,6 +474,13 @@ public partial class BattleController : Node3D
         if (DevTools.Autoplay)
         {
             GD.Print($"AUTOPLAY RESULT: {State.Outcome} on turn {State.Turn}");
+            // The autoplay is deterministic enough that a map it can't win is lost the same way on every retry.
+            if (++_autoplayLosses >= AutoplayMaxLosses)
+            {
+                GD.PrintErr($"AUTOPLAY STUCK on '{State.Map.Id}': lost {_autoplayLosses} times in a row");
+                GetTree().Quit();
+                return;
+            }
             if (DevTools.AutoAdvance)
                 GetTree().CreateTimer(0.5).Timeout += buttons[0].Item2;
         }

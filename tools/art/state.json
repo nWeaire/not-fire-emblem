@@ -7556,6 +7556,103 @@
               "north",
               "west"
             ],
+            "group_id": "761bd3cb-ae17-47a1-bcd7-efa9e411793b",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01595495695537991
+              },
+              {
+                "type": "usd",
+                "usd": 0.013111808564927843
+              },
+              {
+                "type": "usd",
+                "usd": 0.010680923011567858
+              },
+              {
+                "type": "usd",
+                "usd": 0.01245685222413805
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "928273b5-d9fd-464d-87dc-c4bbc6298126",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.010701362159517076
+              },
+              {
+                "type": "usd",
+                "usd": 0.010946887493133545
+              },
+              {
+                "type": "usd",
+                "usd": 0.010394588761859471
+              },
+              {
+                "type": "usd",
+                "usd": 0.011582557015948826
+              }
+            ]
+          },
+          "walk_template_session11": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "14085b04-aeb8-4294-a815-2a6de165c38a",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008093994405534533
+              },
+              {
+                "type": "usd",
+                "usd": 0.012202138609356351
+              },
+              {
+                "type": "usd",
+                "usd": 0.009262048774295383
+              },
+              {
+                "type": "usd",
+                "usd": 0.011502861208385892
+              }
+            ]
+          }
+        },
+        "character_id": "f500641f-bf6d-4c89-84d0-4cabc5dd3c15",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:kai_cavalier_session5": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
             "group_id": "9441768f-3cdb-4d04-812e-b4f871e7d729",
             "jobs": {},
             "status": "completed",
@@ -7616,6 +7713,103 @@
         }
       },
       "map:kai_paladin": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "b0a6e6b9-fe79-4a85-95e0-5c427cd64e70",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.012481478346718682
+              },
+              {
+                "type": "usd",
+                "usd": 0.01137234542104933
+              },
+              {
+                "type": "usd",
+                "usd": 0.011631432347827488
+              },
+              {
+                "type": "usd",
+                "usd": 0.01296403800116645
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "431e2448-54f2-4cf3-93c3-422c96becae6",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011817851437462702
+              },
+              {
+                "type": "usd",
+                "usd": 0.011803036954667834
+              },
+              {
+                "type": "usd",
+                "usd": 0.009552503585815431
+              },
+              {
+                "type": "usd",
+                "usd": 0.011660728030734592
+              }
+            ]
+          },
+          "walk_template_session11": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "d0d49c36-de7a-4d55-976b-551bbc06fc7e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009401586771011352
+              },
+              {
+                "type": "usd",
+                "usd": 0.010437090953191123
+              },
+              {
+                "type": "usd",
+                "usd": 0.008633570512135823
+              },
+              {
+                "type": "usd",
+                "usd": 0.0141256447368198
+              }
+            ]
+          }
+        },
+        "character_id": "3a4bd223-e3e2-4b7c-962a-f9e28ae5c018",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:kai_paladin_session5": {
         "animations": {
           "attack": {
             "directions": [
@@ -9167,6 +9361,15 @@
         }
       },
       "kai_cavalier": {
+        "job": "8d7e1b38-54e1-4aaf-a207-4007f22fe408",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "kai_cavalier_session5": {
         "job": "80388eaf-c4b6-4936-8196-8b2deb5ef400",
         "status": "completed",
         "takes": 9,
@@ -9212,6 +9415,15 @@
         }
       },
       "kai_paladin": {
+        "job": "87c2669b-6d1f-4561-916f-9b0286709590",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "generations": 15.0,
+          "type": "generations"
+        }
+      },
+      "kai_paladin_session5": {
         "job": "f62b630d-890e-484a-bb0a-a4767b58a19f",
         "status": "completed",
         "takes": 9,
@@ -10710,6 +10922,58 @@
       "kai_cavalier": {
         "attack": {
           "frames": 9,
+          "job": "bbafa37b-4945-42c1-a90f-9442a2b5c5ec",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_cavalier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.030652193864186605
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "a4095433-98c4-4642-bc6b-e2db72f3f9b2",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_cavalier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.04923212614324358
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "7979b7ba-8a96-4501-a89c-cfbf0316cd58",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_cavalier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.0255150530801879
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "aa89b5ef-f223-4ef5-9226-91d955a0c2a9",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_cavalier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.023044582373566096
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "d7a51e83-8eb1-4eb2-a1a0-3989ddf53189",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_cavalier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.025079149968094294
+          }
+        }
+      },
+      "kai_cavalier_session5": {
+        "attack": {
+          "frames": 9,
           "job": "8eeb4538-f3a4-49f8-a645-b0a4c1589009",
           "status": "completed",
           "still": "approved/refs/kai_cavalier_battle.png",
@@ -10760,6 +11024,58 @@
         }
       },
       "kai_paladin": {
+        "attack": {
+          "frames": 9,
+          "job": "50b91f59-3139-431c-84e6-2493aca40814",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_paladin_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.025438920570744407
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "25b7a451-6da0-4d0c-958e-9fb9207ccc48",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_paladin_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03745189583301544
+          }
+        },
+        "dodge": {
+          "frames": 6,
+          "job": "b3954633-2053-4e26-a661-87f3fb5141e2",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_paladin_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02494307588868671
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "f2d97e25-8cdd-4396-8e5d-18b09c5d5bbe",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_paladin_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.01948589834239748
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "37aa4dd8-3dda-434a-8a96-68549c8cfdde",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_paladin_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.023335128631856706
+          }
+        }
+      },
+      "kai_paladin_session5": {
         "attack": {
           "frames": 9,
           "job": "dfe54436-7ed3-4da0-84b9-f618ac8f24cd",

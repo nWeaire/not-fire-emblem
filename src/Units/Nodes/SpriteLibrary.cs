@@ -138,6 +138,16 @@ public static class SpriteLibrary
         unit.SpriteCandidates().Select(Map).FirstOrDefault(f => f is not null);
 
     /// <summary>
+    /// Map sprites drawn smaller than the shared pixel scale, by sprite id. The Gloam Shade's robe fills its whole
+    /// 48 px frame, so it stood a head taller and wider than everyone else (session 11 playtest).
+    /// </summary>
+    private static readonly Dictionary<string, float> MapScales = new() { ["enemy_gloam_shade"] = 0.75f };
+
+    /// <summary>The map-sprite scale for the unit's current outfit (1 for almost everyone).</summary>
+    public static float MapScale(BattleUnit unit) =>
+        unit.SpriteCandidates().Where(id => Map(id) is not null).Select(id => MapScales.GetValueOrDefault(id, 1f)).FirstOrDefault(1f);
+
+    /// <summary>
     /// Four-direction map frames for a sprite id, or null if any direction lacks both an idle and a rotation image.
     /// Missing directions of an animation fall back: idle → the static rotation, walk/attack/hit → idle.
     /// </summary>

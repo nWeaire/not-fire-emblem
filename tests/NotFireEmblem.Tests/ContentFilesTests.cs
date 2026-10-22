@@ -31,11 +31,7 @@ public class ContentFilesTests
         Assert.NotEmpty(all);
         Assert.Equal(all.Count, all.Select(s => s.Id).Distinct().Count());
         foreach (var line in all.SelectMany(s => s.Lines).OfType<SpeakLine>())
-        {
             Assert.True(line.Text.Length <= 120, $"Line too long ({line.Text.Length}): {line.Text}");
-            // The shocked faces were dropped (docs/story/DIALOGUE.md §1).
-            Assert.True(line.Expression != "surprised", $"[surprised] is not used: {line.Speaker}: {line.Text}");
-        }
     }
 
     [Fact]

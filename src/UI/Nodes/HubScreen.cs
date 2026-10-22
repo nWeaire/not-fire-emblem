@@ -101,7 +101,7 @@ public partial class HubScreen : Control
         osmundPanel.AddChild(osmundBox);
         osmundBox.AddChild(new TextureRect
         {
-            Texture = DialogueBox.Portrait("osmund", "neutral"),
+            Texture = DialogueBox.Portrait("osmund"),
             CustomMinimumSize = new Vector2(64, 64),
             ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
             StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
@@ -679,7 +679,7 @@ public partial class HubScreen : Control
         panel.AddChild(row);
         row.AddChild(new TextureRect
         {
-            Texture = DialogueBox.Portrait("osmund", "neutral"),
+            Texture = DialogueBox.Portrait("osmund"),
             CustomMinimumSize = new Vector2(80, 80),
             ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
             StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,

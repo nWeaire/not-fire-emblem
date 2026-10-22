@@ -14,8 +14,8 @@ namespace NotFireEmblem.UI;
 /// <summary>
 /// Plays a <see cref="DialogueScene"/> (GDD §5): speaker portrait, name and a typewriter line. Confirm (or a click)
 /// finishes the line or advances; Cancel skips the rest of the scene. Used by story screens, battle triggers and
-/// supports. Portraits come from assets/portraits/&lt;speaker&gt;_&lt;expression&gt;.png, then &lt;speaker&gt;.png, else a
-/// coloured placeholder with the speaker's initials.
+/// supports. Portraits come from assets/portraits/&lt;speaker&gt;.png, else a coloured placeholder with the speaker's
+/// initials. Every line shows the neutral portrait: the scripts' [expression] tags are parsed but not drawn.
 /// </summary>
 public partial class DialogueBox : Control
 {
@@ -206,7 +206,7 @@ public partial class DialogueBox : Control
         _namePlate.Visible = !narrator;
         if (_portraitFrame.Visible)
         {
-            var texture = Portrait(line.Speaker, line.Expression);
+            var texture = Portrait(line.Speaker);
             _portrait.Texture = texture;
             _portrait.Visible = texture is not null;
             _placeholder.Visible = texture is null;
@@ -225,26 +225,11 @@ public partial class DialogueBox : Control
     public static string SpeakerName(string speaker, ContentDatabase db) =>
         speaker == "???" ? "???" : db.Units.TryGetValue(speaker, out var unit) ? unit.Name : UiKit.TitleCase(speaker);
 
-    /// <summary>
-    /// The nearest expression to try when a speaker has no portrait for the one asked (only the common expressions
-    /// are drawn; tools/art/expressions.py).
-    /// </summary>
-    private static readonly Dictionary<string, string> NearestExpression = new()
+    /// <summary>A speaker's portrait, or null. Only the neutral one is used (session 11: no expression faces).</summary>
+    public static Texture2D? Portrait(string speaker)
     {
-        ["laugh"] = "smile", ["angry"] = "cold", ["hurt"] = "worried", ["sad"] = "worried", ["surprised"] = "worried",
-    };
-
-    /// <summary>The best portrait for a speaker and expression (exact, then the nearest, then the base), or null.</summary>
-    public static Texture2D? Portrait(string speaker, string expression)
-    {
-        var paths = new List<string> { $"{PortraitRoot}/{speaker}_{expression}.png" };
-        if (NearestExpression.TryGetValue(expression, out var nearest))
-            paths.Add($"{PortraitRoot}/{speaker}_{nearest}.png");
-        paths.Add($"{PortraitRoot}/{speaker}.png");
-        foreach (var path in paths)
-            if (ResourceLoader.Exists(path))
-                return ResourceLoader.Load<Texture2D>(path);
-        return null;
+        var path = $"{PortraitRoot}/{speaker}.png";
+        return ResourceLoader.Exists(path) ? ResourceLoader.Load<Texture2D>(path) : null;
     }
 
     private static string Initials(string name)

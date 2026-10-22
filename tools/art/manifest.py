@@ -22,7 +22,11 @@ BATTLE = {"size": 64, "view": "side", "directions": ["east"], "out": "assets/spr
 FACE = "keeps facing right the whole time, side view, never turns toward the camera"
 
 MAP_WALK = {"kind": "template", "template": "walking-4-frames"}
-HORSE_WALK = {"kind": "template", "template": "walk-4-frames"}  # template "horse" (cavalry, pegasi)
+# Mounted walks (template "horse": cavalry, pegasi). The "walk-4-frames" template lost the rider in session 11 (a
+# riderless horse east/west, Kai on foot south), so the walk is described instead.
+HORSE_WALK = {"kind": "v3", "frames": 4,
+              "action": "the horse walks forward at a steady pace with the rider seated in the saddle the whole time, "
+                        "holding the weapon upright"}
 MAP_ATTACKS = {
     "sword": "steps forward and slashes a sword in a quick arc, then returns to stance",
     "lance": "thrusts a spear forward in a powerful stab, then pulls back",
@@ -138,8 +142,9 @@ CHARACTERS = {
              "above its open pages"),
     # Kai's tier 2: mounted on his family's ranch horse (Ch 5). The horse template fits a mounted body.
     "kai_cavalier": dict(weapon="lance", sets=("map",), template="horse",
-        desc="18 year old ranch boy knight riding a brown ranch horse, shaggy sandy blond hair, dented iron cap, padded "
-             "tan gambeson with a leather breastplate, long wooden spear with an iron tip"),
+        desc="cheerful 18 year old ranch boy riding a chestnut brown ranch horse with a plain leather saddle, shaggy "
+             "messy sandy blond hair, no helmet, rust red neckerchief, brown leather jerkin with leather shoulder "
+             "guards over a cream linen shirt, dark green trousers, tall brown boots, long wooden spear with an iron tip"),
     # Act I bandits and generic human enemies ("iron and leather", CHAPTERS.md). Gorran uses boss_brigand_chief.
     "enemy_fighter": dict(weapon="axe", sets=("map",),
         desc="rough bandit brigand, scruffy dark hair, stubble, red bandana, patched brown leather vest over a dirty "
@@ -176,8 +181,9 @@ CHARACTERS = {
         desc="big burly young warrior, short brown beard, chainmail shirt with a fur mantle, iron gauntlets, bare "
              "muscular arms, heavy steel battleaxe"),
     "kai_paladin": dict(weapon="lance", sets=("map",), template="horse",
-        desc="18 year old knight riding an armoured grey horse, shaggy sandy blond hair, steel plate armour with a blue "
-             "tabard, steel lance"),
+        desc="confident 18 year old knight riding a chestnut brown warhorse with a dark green caparison, shaggy messy "
+             "sandy blond hair, no helmet, rust red neckerchief, polished steel breastplate and pauldrons over a dark "
+             "green tabard with brown leather trim, tall brown boots, steel lance"),
     "mira_sage": dict(weapon="staff", sets=("map",),
         desc="young sage woman, long blonde braid, white and blue robes with silver embroidery, ornate silver staff "
              "with a glowing white tip"),

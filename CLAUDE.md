@@ -79,8 +79,8 @@ Use the `_console.exe` variant of the editor binary for headless runs so output 
 ```
 godot --path . --resolution 1280x720 -- --seed=123 --speed=4 --press=100:end_turn,500:confirm --screenshot=out.png --frames=900
 ```
-`--map=<id>` jumps straight into a single battle (`test_ford`, `prologue`, `ch1` … `ch6`), `--seed` fixes the battle RNG, `--speed` sets `Engine.TimeScale`, `--press` injects input actions at given frames, and `--screenshot` saves the viewport at `--frames` and quits. The battle prints one log line per `BattleEvent`.
-Campaign flags: `--newgame` / `--load=N` start from the title screen; `--skipdialogue`, `--autoadvance` (prep, results and hub continue by themselves) and `--autoplay` (the AI plays the player's side). Together they soak-test the whole campaign:
+`--map=<id>` jumps straight into a single battle (`test_ford`, `prologue`, `ch1` … `ch6`), `--seed` fixes the battle RNG, `--speed` sets `Engine.TimeScale`, `--press` injects input actions at given frames, and `--screenshot` saves the viewport at `--frames` and quits. `--focus=X,Y` starts the camera on a cell and `--hideunits` hides units and HUD (map-art screenshots). The battle prints one log line per `BattleEvent`.
+Campaign flags: `--newgame` / `--load=N` start from the title screen (`--autoplay` new games are Casual); `--skipdialogue`, `--autoadvance` (prep, results and hub continue by themselves) and `--autoplay` (the AI plays the player's side). Together they soak-test the whole campaign:
 ```
 godot --path . -- --newgame --autoplay --skipdialogue --autoadvance --speed=10     # prints AUTOPLAY RESULT lines and CAMPAIGN COMPLETE
 ```

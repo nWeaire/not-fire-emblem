@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bad1u1yt0e0uo"
-path="res://.godot/imported/kai_determined.png-25df52489c6f262b270ba2d07e39fbf6.ctex"
+uid="uid://cu6i4sntawhri"
+path="res://.godot/imported/frame_004.png-313a435eeeabb931418d4bdf47b0530b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/portraits/kai_determined.png"
-dest_files=["res://.godot/imported/kai_determined.png-25df52489c6f262b270ba2d07e39fbf6.ctex"]
+source_file="res://assets/sprites/units/kai_cavalier/animations/walk/south/frame_004.png"
+dest_files=["res://.godot/imported/frame_004.png-313a435eeeabb931418d4bdf47b0530b.ctex"]
 
 [params]
 

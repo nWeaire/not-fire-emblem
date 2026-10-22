@@ -15,13 +15,13 @@ boss_brigand_chief 1 axe
 enemy_soldier 1 lance
 enemy_mage 2 anima
 elise_mage 2 anima
-kai_cavalier 3 lance
+kai_cavalier 8 lance (session 11 ranch hand)
 enemy_pegasus_knight 3 lance
 rowan_crest_knight 1 sword
 aldric_warden_lord 1 sword
 tamsin_sniper 7 bow
 brann_warrior 1 axe
-kai_paladin 2 lance
+kai_paladin 8 lance (session 11 ranch hand)
 mira_sage 2 staff
 elise_sage 4 anima
 dorran_knight 4 lance

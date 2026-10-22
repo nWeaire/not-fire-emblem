@@ -166,7 +166,8 @@ public partial class TitleScreen : Control
         }
     }
 
-    private void StartNew() => CampaignFlow.NewGame(_mode, _difficulty);
+    // Autoplay soak runs play Casual: in Classic one early death snowballed into Rowan alone by Ch 3, stalemated to turn 60.
+    private void StartNew() => CampaignFlow.NewGame(DevTools.Autoplay ? GameMode.Casual : _mode, _difficulty);
 
     private void Clear()
     {

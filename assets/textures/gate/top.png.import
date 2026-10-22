@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fyvncmdsmut3"
-path="res://.godot/imported/mira_smile.png-c1261e30eed47822da65c957b72a989b.ctex"
+uid="uid://b6j1wc8g3aoxa"
+path="res://.godot/imported/top.png-ef12438981c95a828481c21e3218b339.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/portraits/mira_smile.png"
-dest_files=["res://.godot/imported/mira_smile.png-c1261e30eed47822da65c957b72a989b.ctex"]
+source_file="res://assets/textures/gate/top.png"
+dest_files=["res://.godot/imported/top.png-ef12438981c95a828481c21e3218b339.ctex"]
 
 [params]
 

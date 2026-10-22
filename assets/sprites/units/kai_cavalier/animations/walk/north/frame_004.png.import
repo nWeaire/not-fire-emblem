@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0s0nicwf6voc"
-path="res://.godot/imported/kai_smile.png-2bb512cba2a1197b095c709471d7ff7d.ctex"
+uid="uid://dsw53npsjss1a"
+path="res://.godot/imported/frame_004.png-5670036c8c6d5c2d777dd6d74adabcdc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/portraits/kai_smile.png"
-dest_files=["res://.godot/imported/kai_smile.png-2bb512cba2a1197b095c709471d7ff7d.ctex"]
+source_file="res://assets/sprites/units/kai_cavalier/animations/walk/north/frame_004.png"
+dest_files=["res://.godot/imported/frame_004.png-5670036c8c6d5c2d777dd6d74adabcdc.ctex"]
 
 [params]
 

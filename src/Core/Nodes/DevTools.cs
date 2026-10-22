@@ -18,6 +18,7 @@ namespace NotFireEmblem.Core;
 ///   --newgame / --load=N     (title screen) start a campaign at once
 ///   --exp=N                  player units start each battle with N EXP (to test level-ups)
 ///   --hideunits              the battle map shows no units or HUD (screenshots of the map art alone)
+///   --focus=X,Y              the battle camera and cursor start on this cell instead of the lord
 /// BattleController also reads --seed=&lt;n&gt; (battle RNG); Boot reads --map=&lt;id&gt; (e.g. prologue, ch1, test_ford).
 /// </summary>
 public partial class DevTools : Node
@@ -27,6 +28,7 @@ public partial class DevTools : Node
     public static bool AutoAdvance { get; private set; }
     public static int? StartExp { get; private set; }
     public static bool HideUnits { get; private set; }
+    public static NotFireEmblem.Grid.GridPos? FocusCell { get; private set; }
 
     private string? _screenshotPath;
     private int _captureFrame = 90;
@@ -49,6 +51,10 @@ public partial class DevTools : Node
             {
                 case "--exp":
                     StartExp = int.Parse(parts[1]);
+                    break;
+                case "--focus":
+                    var xy = parts[1].Split(',');
+                    FocusCell = new NotFireEmblem.Grid.GridPos(int.Parse(xy[0]), int.Parse(xy[1]));
                     break;
                 case "--screenshot":
                     _screenshotPath = parts[1];

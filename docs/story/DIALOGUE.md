@@ -21,7 +21,7 @@ ALDRIC [neutral]: Another line.
 ```
 
 - **Speaker ids** are unit ids in caps (`ROWAN`, `ALDRIC`, `KAI`, `MIRA`…). `NARRATOR` has no portrait; `???` hides the speaker's name.
-- **Expressions:** `neutral`, `smile`, `laugh`, `worried`, `sad`, `angry`, `determined`, `hurt`, `cold` (villains). No `surprised`: the user dislikes the shocked faces (session 9); use `worried` for alarm, `smile` for delight. Each portrait needs these variants; generate the base portrait first.
+- **Expressions:** `neutral`, `smile`, `laugh`, `worried`, `sad`, `angry`, `determined`, `hurt`, `cold` (villains). The tags are kept in the scripts as acting notes, but the game shows only each speaker's neutral portrait (the user's call in session 11; no expression portraits are drawn).
 - **Line length:** at most about 110 characters per line (two text-box rows). Split longer speeches.
 - **In-battle scenes** (`chNN_*` triggered mid-map) stay short: 2–6 lines. The long talking happens in pre- and post-map scenes.
 

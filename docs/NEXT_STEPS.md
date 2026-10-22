@@ -2,11 +2,45 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-18 (end of session 10)._
+_Last updated: 2026-10-22 (session 11)._
 
 ---
 
-## Next (plan for session 11)
+## Session 11: autoplay stalls, Kai's mounted looks, 3D gate, neutral portraits
+- **Playtest:** the user played Ch 1 by hand and it feels good now (the T1 surround is fixed). They moved on to Ch 5.
+- **Crests:** no crest fragments / crest EXP. The user wants crest tiers to rise only through the story, after a major
+  fight and absorbing a crest, which the campaign's `crest N` steps already do. Dropped from the to-do list.
+- **Autoplay stalls fixed** (`BattleController.AutoplayDecision` / `LordDecision`):
+  - Ch 3 / Ch 6 ran to T61 because only Rowan (and an unarmed Mira) were left, Rowan waited for a safe attack and
+    Varga / Rusk hold their posts. On Rout/Boss maps the lord now presses toward the boss (or nearest enemy) once
+    nobody else can fight, stopping where at most one enemy can reach him.
+  - Ch 4 (escape) lost 106 times in a row on T3: Rowan ran straight into the woods ambush. An escaping lord now takes
+    the reachable cell that minimises steps-to-exit + 10 × enemies that can reach it, never moving away from the exit.
+  - Soak runs quit with `AUTOPLAY STUCK ... lost N times in a row` after 10 straight defeats on one battle.
+  - `--autoplay` new games play **Casual**: in Classic, early deaths left Rowan alone by Ch 3.
+  - Result: a full soak reached **CAMPAIGN COMPLETE** with no script errors. Retries: Ch 1 ×2, Ch 2 ×1, **Ch 5 ×4**
+    (Dorran dies T7–11 after most of the party falls), Ch 7 ×1. Autoplay still sends Kai into Sennet on Ch 1 T1.
+- **Kai's Cavalier and Paladin redrawn** in the ranch-hand palette (sandy hair, rust neckerchief, green, chestnut
+  horse; the Paladin adds a steel breastplate and a green caparison). Battle stills are take #8 of each (user's pick).
+  The `walk-4-frames` horse template lost the rider (riderless horse east/west, Kai on foot south), so mounted map
+  walks are now a v3 described walk (`manifest.HORSE_WALK`). Effect frames dropped by hand. Old state entries kept as
+  `*_session5` (and `walk_template_session11`). About $0.70 spent; **~$2.85 PixelLab credit left**.
+- **Ch 5 gate in 3D** (user's option A from https://claude.ai/artifact/K6BoFUrqmkJr8gd8b2kchr): `MapView.AddGate`
+  builds oak door slabs along the wall's line (planked, iron-strapped top; door-leaf faces seen when the camera
+  rotates) with a capped stone post at each end. Textures from `tools/art/gate_textures.py`. The session-10
+  camera-facing `gate_0.png` and `gate_art.py` were deleted (in git history).
+- **Portraits are neutral only** (user request): the 14 expression PNGs were deleted, `DialogueBox.Portrait(speaker)`
+  loads `<speaker>.png`, `[expression]` tags stay in scripts as acting notes, `expressions.py` is retired.
+- **Gloam Shade** map sprite drawn at 75% (`SpriteLibrary.MapScales`; it filled its whole 48 px frame).
+- **Dev:** `--focus=X,Y` starts the battle camera on a cell (with `--hideunits` for map-art screenshots).
+
+## Next (plan for session 12)
+1. Finish the hand playtest from the list below (Ch 5 was in progress: waves stop at T6; autoplay finds it the
+   hardest map). Also look at the new gate, Kai's mounted art once he promotes, and the smaller Shade.
+2. Gold check, Windows build re-export, merge `act1-scale` into `main` (items 3, 4, 6 below).
+3. Still not built: suspend saves.
+
+## Plan for session 11 (carried over; items 2 and 5 done in session 11, 7's crest part dropped)
 Everything from session 10 is committed on `act1-scale` (not pushed); `main` is still at the Aldric retune.
 1. **Hand playtest what changed in session 10** (most of it was only checked by screenshots, unit tests or autoplay):
    - **Ch 1:** half the enemies at the start, the rest from the north edge on T2 / T5 / T6 (`wave2/5/6`). The user's

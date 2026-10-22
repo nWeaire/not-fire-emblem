@@ -50,6 +50,10 @@ _Last updated: 2026-10-22 (session 11)._
 - **Single battles match the story** (playtest: Mira could only heal, Rowan was still a Youth): `--map` battles apply
   the campaign's `class` steps before the map (`BattleController.ApplyStoryClasses`: Rowan Lord, Kai Cavalier) and,
   after Ch 1, `StoryItems` (Mira's Fire; a Steel Sword for Rowan, the user's testing pick over the tour's Iron).
+- **Ch 7 enemy mix** (playtest: almost every melee enemy had a lance): four soldiers are now **Dain Hall Sellswords**
+  (myrmidon, iron/steel sword), three **Dain Hall Axemen** (fighter, iron/steel axe), one courtyard cavalier carries
+  an iron sword; the T6 rear cavalry ambush and `ch07_rear` were cut. Edited in `ch7.tres` directly (the generator
+  `act1_ch7.py` is out of date for Ch 7). They use the bandit-style myrmidon/fighter art for now.
 - **Gold** checked with the user: fine for now (table: 150 + 50 × chapter plus story gold, ~5,000 over Act I).
 - **Dev:** `--focus=X,Y` starts the battle camera on a cell (with `--hideunits` for map-art screenshots).
 

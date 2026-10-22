@@ -112,15 +112,15 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 ## Chapter 7 — "Storm over Dain Hall"
 - **Map:** 30×24 castle (session 9, `tools/maps/act1_ch7.py`). The party deploys on the town road south of the moat and crosses the drawbridge into the gate. The courtyard has a well, two barracks, a stable block and a chapel garden; ramparts (height 2, a stair at each end) run inside the west and east walls. The keep (height 1) is at the north end; its throne room has four pillars, and the **throne** (new terrain `Y`: Def 3, Avoid 30, heals 10%) is at 15,1.
 - **Party:** up to 10. **Win:** Seize the throne. **Lose:** default.
-- **Enemies:** Lord Halvric's soldiers, knights, cavaliers, mages and archers, all under his Dominion: gate and courtyard guards (G), four archers on the ramparts (S), knights at the keep door and in the throne room (G), and Lord Halvric (B, Knight L12, Silver Lance and Javelin, a shrouded crest) on the throne.
+- **Enemies:** Lord Halvric's soldiers, knights, cavaliers, mages and archers, plus hired sellswords (swords) and axemen (session 11: the melee mix was almost all lances), all under his Dominion: gate and courtyard guards (G), four archers on the ramparts (S), knights at the keep door and in the throne room (G), and Lord Halvric (B, Knight L12, Silver Lance and Javelin, a shrouded crest) on the throne.
 - **Events:**
   - T2 (`ch07_patrol`): the sky patrol drops in over the east wall: two pegasus knights attack, and **Wren** hangs back (an enemy that never moves). Rowan Talks to her (`ch07_wren`) and she joins.
-  - T4 (enemy phase): soldiers and an archer come out of the barracks. T6 (`ch07_rear`): cavaliers ride up the road behind the party.
+  - T4 (enemy phase): an axeman, a sellsword and an archer come out of the barracks. (The T6 cavalry behind the party was cut in session 11.)
   - Visiting the town smith's house (6,21, south of the moat) plays `ch07_smith` and gives a **Hammer** (session 10 balance: the knights' plate turns most physical attacks; other answers are Thunder, Rowan's **Sunder** (now effective against armour) and the Hammer / Armorslayer / Heavy Spear sold at the Ferrow's Keep armoury). The objective tour points out the smith and Halvric.
   - Entering the throne room plays `ch07_throne_room`; Halvric's first fight `ch07_boss`; below 50% HP `ch07_halvric_plea`.
   - Halvric dies → `ch07_halvric_dies`: his crest goes to Rowan and every soldier he held surrenders (severance). Rowan then seizes the throne.
 - **Recruit / unlock:** **Wren**, and the **Knight's Crest (Tier 2)** (`crest 2` in the campaign): promotions, the crest skill **Rally**, and Aldric's Warden Lord.
-- **Scenes:** `hub_briefing_ch07` (in the hub before), `ch07_pre`, `ch07_start`, `ch07_patrol`, `ch07_wren`, `ch07_rear`, `ch07_throne_room`, `ch07_boss`, `ch07_halvric_plea`, `ch07_halvric_dies`, `ch07_smith`, `ch07_post` (the town offers Rowan the hall and he refuses the title), `hub_act1_end`.
+- **Scenes:** `hub_briefing_ch07` (in the hub before), `ch07_pre`, `ch07_start`, `ch07_patrol`, `ch07_wren`, `ch07_throne_room`, `ch07_boss`, `ch07_halvric_plea`, `ch07_halvric_dies`, `ch07_smith`, `ch07_post` (the town offers Rowan the hall and he refuses the title), `hub_act1_end`.
 
 ---
 

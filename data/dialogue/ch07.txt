@@ -33,11 +33,6 @@ WREN [sad]: I kept flying patrols because those were my orders. I counted you at
 ROWAN [neutral]: And now?
 WREN [determined]: Now I was ordered to watch. I'm done watching. Wren Alder. My lance is yours, if you'll have it.
 
-### ch07_rear
-@focus 14,22
-NARRATOR: Hooves on the drawbridge. Riders from the town garrison had come up the road behind them.
-BRANN [determined]: They're at our backs. Steady now. I'll hold the bridge end if someone holds the throne.
-
 ### ch07_throne_room
 @focus 15,3
 NARRATOR: The throne room was cold. Rain hammered the tall windows. At the far end, Lord Halvric sat very still.

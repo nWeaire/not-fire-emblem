@@ -1,6 +1,8 @@
 """Writes Chapter 7, "Storm over Dain Hall" (docs/story/CHAPTERS.md): the map, the throne terrain and Wren.
 
 The .tres files it writes are canonical afterwards (edit them directly); rerunning this overwrites them.
+Since session 10/11 data/maps/ch7.tres has moved on (smith's house, highlights, sellswords and axemen, no rear
+cavalry): don't rerun this for Ch 7 without porting those back.
     python tools/maps/act1_ch7.py
 Dialogue @focus cells for this map live in data/dialogue/ch07.txt.
 """

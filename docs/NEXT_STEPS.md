@@ -58,8 +58,8 @@ _Last updated: 2026-10-22 (session 11)._
 - **Dev:** `--focus=X,Y` starts the battle camera on a cell (with `--hideunits` for map-art screenshots).
 
 ## Next (plan for session 12)
-1. Finish the hand playtest: Halvric himself (the user's Ch 7 run at `--level=auto` felt good but ended on T4).
-   Done and good: Ch 1, Ch 5, Ch 7's opening, the Prologue (Young Fangs), the objective tour, Retry Battle.
+1. The session-10 hand playtest is finished and good: Ch 1, Ch 5, Ch 7 (with the new enemy mix, Halvric beaten on T9
+   at `--level=auto`), the Prologue (Young Fangs), the objective tour, Retry Battle.
 2. Gold check, Windows build re-export, merge `act1-scale` into `main` (items 3, 4, 6 below).
 3. Still not built: suspend saves.
 

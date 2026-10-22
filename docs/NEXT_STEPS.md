@@ -52,8 +52,9 @@ _Last updated: 2026-10-22 (session 11)._
 - **Dev:** `--focus=X,Y` starts the battle camera on a cell (with `--hideunits` for map-art screenshots).
 
 ## Next (plan for session 12)
-1. Finish the hand playtest from the list below: the Prologue (harder Hounds), Ch 7 (Sunder, the Hammer, Halvric's
-   22 Def), the objective tour's length and Retry Battle. Ch 1 and Ch 5 are done.
+1. Finish the hand playtest: the Prologue with the softer Young Fangs, Halvric himself (the user's Ch 7 run at
+   `--level=auto` felt good but ended on T4), the objective tour's length and Retry Battle. Ch 1, Ch 5 and Ch 7's
+   opening are done.
 2. Gold check, Windows build re-export, merge `act1-scale` into `main` (items 3, 4, 6 below).
 3. Still not built: suspend saves.
 

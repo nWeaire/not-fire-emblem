@@ -107,6 +107,21 @@ public class CombatTests
     }
 
     [Fact]
+    public void Lances_PierceHalfAnArmouredFoesDef()
+    {
+        // Knight: Def 5, so a lance ignores 2 of it (rounded down); a sword gets no help.
+        var s = new TestBattle("...").Unit(Faction.Player, "cav", 0, 0, "lance", "sword").Unit(Faction.Enemy, "knight", 1, 0, "lance").Build();
+        var pierce = Forecast(s, "lance");
+        Assert.True(pierce.Attacker.Effective);
+        Assert.Equal(10 + 5 - 3, pierce.Attacker.Damage);
+        Assert.Equal(10 + 5 - 5 - WeaponTriangle.DamageBonus, Forecast(s, "sword").Attacker.Damage); // sword loses to lance
+        // Not against an unarmoured foe.
+        var t = new TestBattle("...").Unit(Faction.Player, "cav", 0, 0, "lance").Unit(Faction.Enemy, "soldier", 1, 0, "lance").Build();
+        Assert.False(Forecast(t, "lance").Attacker.Effective);
+        Assert.Equal(10 + 5 - 5, Forecast(t, "lance").Attacker.Damage);
+    }
+
+    [Fact]
     public void DefenderOutOfRange_CannotCounter()
     {
         var s = new TestBattle("...").Unit(Faction.Player, "archer", 0, 0, "bow").Unit(Faction.Enemy, "merc", 2, 0, "sword").Build();

@@ -25,6 +25,12 @@ public static class CombatCalculator
     /// <summary>An element against its foe (Fire on beasts, Thunder on armour, Wind on fliers) doubles the tome's might.</summary>
     public const int ElementMultiplier = 2;
 
+    /// <summary>
+    /// Lances pierce (session 11): against an armoured target (the Armored trait or movement type) they ignore this
+    /// share of its Def, terrain aside. A weapon already effective against it (Heavy Spear) gets its ×3 instead.
+    /// </summary>
+    public const int LancePiercePercent = 50;
+
     public static int TomeLevelBonus(ContentDatabase db, UnitState unit) =>
         (unit.Level + (db.Class(unit.ClassId).IsPromoted ? PromotedLevelOffset : 0)) / TomeLevelStep;
     public const int HeightHitBonus = 10;
@@ -142,7 +148,10 @@ public static class CombatCalculator
         int baseMight = myWeapon.Might + (myWeapon.Magic ? TomeLevelBonus(s.Db, me.State) : 0);
         int might = baseMight * (!effective ? 1 : myWeapon.Magic ? ElementMultiplier : EffectiveMultiplier);
         int attack = (myWeapon.Magic ? myStats.Mag : myStats.Str) + might + tri * WeaponTriangle.DamageBonus;
-        int defense = (myWeapon.Magic ? theirStats.Res : theirStats.Def) + terrainDef;
+        int unitDefense = myWeapon.Magic ? theirStats.Res : theirStats.Def;
+        if (!effective && Pierces(s, myWeapon, them))
+            unitDefense -= unitDefense * LancePiercePercent / 100;
+        int defense = unitDefense + terrainDef;
         int damage = Math.Max(0, attack - defense);
 
         int heightBonus = s.Grid[myPos].Height > s.Grid[theirPos].Height ? HeightHitBonus : 0;
@@ -166,6 +175,11 @@ public static class CombatCalculator
             string.Equals(e, moveType, StringComparison.OrdinalIgnoreCase) || cls.HasTrait(e));
     }
 
+    /// <summary>A lance (not a tome) against an armoured target; see <see cref="LancePiercePercent"/>.</summary>
+    private static bool Pierces(BattleState s, WeaponDef weapon, BattleUnit target) =>
+        weapon.Type == WeaponType.Lance && !weapon.Magic
+        && (StatCalculator.MovementTypeOf(s.Db, target.State) == MovementType.Armored || s.Db.Class(target.State.ClassId).HasTrait("Armored"));
+
     private static CombatantForecast Summary(
         BattleUnit unit, StatBlock stats, WeaponDef? weapon, PlannedStrike? strike, int attackSpeed, int strikeCount,
         WeaponDef? opposingWeapon, BattleUnit opponent, BattleState s) =>
@@ -181,7 +195,8 @@ public static class CombatCalculator
             attackSpeed,
             strikeCount,
             weapon is null ? 0 : WeaponTriangle.Advantage(weapon.Type, opposingWeapon?.Type),
-            weapon is not null && strike is not null && IsEffective(s, weapon, opponent));
+            // The forecast's "!" marks any edge against this foe: effectiveness or a lance's piercing.
+            weapon is not null && strike is not null && (IsEffective(s, weapon, opponent) || Pierces(s, weapon, opponent)));
 
     /// <summary>Rolls the forecast's strikes in order. Stops as soon as either side dies.</summary>
     public static CombatResult Resolve(CombatForecast forecast, IRng rng)

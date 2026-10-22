@@ -36,6 +36,10 @@ _Last updated: 2026-10-22 (session 11)._
 - **Pause menu** (user request): Esc in battle pauses everything (`GetTree().Paused`; battle timers use
   `processAlways: false`) under Return to Battle / Settings / Quit to Title (with a check). Esc is now the `pause`
   action, no longer Cancel; X / Backspace / right-click still cancel, and Esc still closes modals and skips dialogue.
+- **Lances pierce** (user request): against an Armored target (trait or movement type) a lance ignores half its Def
+  (`CombatCalculator.LancePiercePercent`, terrain Def still counts); weapons already effective against it (Heavy
+  Spear) keep ×3 instead. The forecast shows "!" for it. It works both ways: enemy lances pierce Aldric (warden).
+- **Gold** checked with the user: fine for now (table: 150 + 50 × chapter plus story gold, ~5,000 over Act I).
 - **Dev:** `--focus=X,Y` starts the battle camera on a cell (with `--hideunits` for map-art screenshots).
 
 ## Next (plan for session 12)

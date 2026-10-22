@@ -2,7 +2,7 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-22 (session 11)._
+_Last updated: 2026-10-22 (end of session 11)._
 
 ---
 
@@ -57,13 +57,29 @@ _Last updated: 2026-10-22 (session 11)._
 - **Gold** checked with the user: fine for now (table: 150 + 50 × chapter plus story gold, ~5,000 over Act I).
 - **Dev:** `--focus=X,Y` starts the battle camera on a cell (with `--hideunits` for map-art screenshots).
 
-## Next (plan for session 12)
-1. The session-10 hand playtest is finished and good: Ch 1, Ch 5, Ch 7 (with the new enemy mix, Halvric beaten on T9
-   at `--level=auto`), the Prologue (Young Fangs), the objective tour, Retry Battle.
-2. Gold check, Windows build re-export, merge `act1-scale` into `main` (items 3, 4, 6 below).
-3. Still not built: suspend saves.
+## Where things stand (end of session 11)
+- **Act I is playable end to end and hand-playtested.** Everything from sessions 10 and 11 is merged into `main` and
+  pushed to GitHub (`43b16002`); `act1-scale` is merged (fast-forward) and only exists locally. The repo is on `main`.
+- **Windows build** re-exported to `build/windows/The Radiant Crest.exe` + `.pck` (gitignored) from `43b16002`; it
+  boots and loads all content.
+- **Tests:** 120 pass. Full autoplay soak reaches CAMPAIGN COMPLETE with no script errors.
+- **PixelLab:** about $2.85 credit left.
 
-## Plan for session 11 (carried over; items 2 and 5 done in session 11, 7's crest part dropped)
+## Next (plan for session 12)
+1. **Testing workflow:** single battles at campaign strength with `--map=<id> --level=auto` (story classes and items
+   included); `--level=auto` on a normal launch also applies to Battle Select. Retry from the Esc menu.
+2. **Possible polish the user may want (not yet asked for):**
+   - Garrison-style art for the Ch 7 Dain Hall Sellswords and Axemen (today they borrow the bandit myrmidon/fighter
+     look; ~$0.80 for both).
+   - Knights that can use axes (would also let Dorran equip them), if armoured enemies still feel lance-heavy.
+   - `tools/maps/act1_ch7.py` is out of date for Ch 7 (smith, highlights, new enemy mix): port those back before
+     ever rerunning it.
+3. **Still not built:** suspend saves (save mid-battle and quit). Art wish list in `docs/ART_NEEDED.md`.
+4. **Act II, "The Burning Crowns"** (Ch 8 "Riot in the Capital" to Ch 15, in `docs/story/CHAPTERS.md`): the
+   campaign currently ends with the Act I text after Ch 7. Building Act II is the next big piece of work once the user
+   wants it (maps, dialogue, new units and art; crest tier 2 arrives after Ch 7, so tier-2 promotions open here).
+
+## Plan for session 11 (history: all done in session 11; the crest-fragment idea was dropped)
 Everything from session 10 is committed on `act1-scale` (not pushed); `main` is still at the Aldric retune.
 1. **Hand playtest what changed in session 10** (most of it was only checked by screenshots, unit tests or autoplay):
    - **Ch 1:** half the enemies at the start, the rest from the north edge on T2 / T5 / T6 (`wave2/5/6`). The user's

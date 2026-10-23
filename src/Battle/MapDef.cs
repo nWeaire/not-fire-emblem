@@ -29,7 +29,8 @@ public sealed record SpawnDef(
     bool HardOnly = false,        // only placed on Hard difficulty
     int Leash = 0,                // Boss AI: how far it may step from its start to attack (0 = AiController.BossLeash)
     string? Ignores = null,       // keys ("civilian", "gull|halde") the AI leaves alone unless the player commands them
-    int DominionRadius = 0)       // how far this bearer's Dominion reaches (0 = BattleState.DominionRadius, 3)
+    int DominionRadius = 0,       // how far this bearer's Dominion reaches (0 = BattleState.DominionRadius, 3)
+    bool NonLethal = false)       // at 0 HP the unit is subdued, not killed (Ch 14's Empress)
 {
     /// <summary>How objectives and triggers refer to this unit.</summary>
     public string? Key => Tag ?? UnitId;
@@ -55,7 +56,7 @@ public sealed record MapDef(
     IReadOnlyList<GridPos>? DeploySlots = null, // where deployed roster units without a fixed spawn start
     string? Background = null,                  // the battle screen's backdrop for open ground (assets/backgrounds/)
     string? ArtSet = null,                      // art variant: "farm" = no stone (hedgerow walls, dirt yards and squares)
-    string? Lighting = null,                    // "night" darkens the map and battle screen
+    string? Lighting = null,                    // "night" darkens the map and battle screen; "snow" chills it, with snowfall
     IReadOnlyList<MapHighlight>? Highlights = null) // points of interest shown with the objectives before turn 1
 {
     public IReadOnlyList<GridPos> Slots => DeploySlots ?? System.Array.Empty<GridPos>();
@@ -122,6 +123,7 @@ public sealed record MapDef(
             switch (trigger.Condition)
             {
                 case DefeatedCondition c: Key(c.Key, "trigger"); break;
+                case SubduedCondition c: Key(c.Key, "trigger"); break;
                 case EnterCondition c: Key(c.Who, "trigger"); break;
                 case AdjacentCondition c: Key(c.A, "trigger"); Key(c.B, "trigger"); break;
                 case HpBelowCondition c: Key(c.Key, "trigger"); break;

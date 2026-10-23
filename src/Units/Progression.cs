@@ -67,6 +67,23 @@ public static class LevelUpService
     /// rounded per stat and stopped at the class caps: no dice, so a test party is the same every run. Used by the
     /// --level dev flag. Units already at or above the level are left alone.
     /// </summary>
+    /// <summary>
+    /// Dev single battles (--level): raises a unit the way a campaign would. Past level 10 it promotes whenever the
+    /// crest tier allows (the next class back at level 1) and keeps levelling, so "level 15" at crest tier 2 is a tier 2
+    /// unit at level 6, like a real Act II party, not a level 15 recruit.
+    /// </summary>
+    public static void RaiseLikeCampaign(ContentDatabase db, UnitState unit, int level, int crestTier)
+    {
+        while (level > PromotionService.MinLevel
+               && PromotionService.Targets(db, unit).FirstOrDefault(t => db.Class(t).Tier <= crestTier) is { } target)
+        {
+            RaiseToAverage(db, unit, PromotionService.MinLevel);
+            PromotionService.Promote(unit, target);
+            level -= PromotionService.MinLevel - 1;
+        }
+        RaiseToAverage(db, unit, level);
+    }
+
     public static void RaiseToAverage(ContentDatabase db, UnitState unit, int level)
     {
         int levels = Math.Min(level, ExpCalculator.LevelCap) - unit.Level;

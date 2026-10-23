@@ -102,6 +102,7 @@ public static class BattleSetup
             DominatedBy = spawn.DominatedBy,
             CrestBearer = spawn.CrestBearer,
             DominionRadius = spawn.DominionRadius,
+            NonLethal = spawn.NonLethal,
             Ignores = spawn.Ignores,
             EarlierClasses = spawn.UnitId is null ? System.Array.Empty<string>() : Outfits.Earlier(db, unitState.ClassId),
         };

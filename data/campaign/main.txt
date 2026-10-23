@@ -112,5 +112,12 @@ scene ch13_elise_pattern
 crest 3
 scene ch13_post
 gold 1000
+hub hub_briefing_ch14
+
+chapter 14 Chapter 14: The Empress Unbound
+scene ch14_pre
+battle ch14 deploy 10 force rowan,seraphine
+scene ch14_post
+gold 1500
 hub
-end Act II continues in Chapter 14: The Empress Unbound.
+end Act II continues in Chapter 15: The Grey Chancellor.

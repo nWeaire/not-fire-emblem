@@ -54,6 +54,8 @@ public sealed record TalkCondition(string Actor, string Target) : TriggerConditi
 public sealed record VisitCondition(GridPos Cell) : TriggerCondition;
 /// <summary>The chest on this cell is opened (Unlock); its effects are the chest's contents.</summary>
 public sealed record ChestCondition(GridPos Cell) : TriggerCondition;
+/// <summary>A non-lethal unit with this key was beaten (subdued).</summary>
+public sealed record SubduedCondition(string Key) : TriggerCondition;
 /// <summary>The first time the unit enters combat (boss quotes play before the fight).</summary>
 public sealed record CombatCondition(string Key) : TriggerCondition;
 
@@ -92,7 +94,7 @@ public sealed record TriggerDef(string Id, TriggerCondition Condition, IReadOnly
 ///          and any of them can add "or boss KEY" (Ch 10: "survive 10 or boss commander")
 /// Defeat:  die KEY | protect TAG N | turns N
 /// Trigger: CONDITION [unless GUARD] => EFFECT; EFFECT; ...
-///   conditions: turn N [player|enemy|ally|neutral] · defeated KEY · enter WHO CELLS · adjacent A B · flag NAME
+///   conditions: turn N [player|enemy|ally|neutral] · defeated KEY · subdued KEY · enter WHO CELLS · adjacent A B · flag NAME
 ///               enemies N (at most N left) · hp KEY PERCENT (below) · talk ACTOR[|ACTOR] TARGET · visit X,Y · chest X,Y · combat KEY
 ///   guards:     flag NAME · joined KEY (KEY is on the player's side), e.g. "turn 3 enemy unless joined brann => ..."
 ///   effects:    scene ID · spawn GROUP · flag NAME · join KEY · faction KEY player|enemy|ally|neutral · give KEY ITEM
@@ -209,6 +211,7 @@ public static class MapScript
         {
             "turn" => new TurnStartCondition(Int(Arg(t, 1, line)), t.Length > 2 ? ParseFaction(t[2], line) : Faction.Player),
             "defeated" => new DefeatedCondition(Arg(t, 1, line)),
+            "subdued" => new SubduedCondition(Arg(t, 1, line)),
             "enter" => new EnterCondition(Arg(t, 1, line), Cells(t.Skip(2), line)),
             "adjacent" => new AdjacentCondition(Arg(t, 1, line), Arg(t, 2, line)),
             "flag" => new FlagCondition(Arg(t, 1, line)),

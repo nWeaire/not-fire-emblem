@@ -104,7 +104,10 @@ public static class EventDirector
         {
             case DefeatedCondition c:
                 // Any unit with the key (several can share one, like Ch 8's agitators).
-                who = s.AllByKey(c.Key).FirstOrDefault(u => u is { IsOnMap: false, Exit: not (MapExit.Escaped or MapExit.Departed) });
+                who = s.AllByKey(c.Key).FirstOrDefault(u => u is { IsOnMap: false, Exit: not (MapExit.Escaped or MapExit.Departed or MapExit.Subdued) });
+                return who is not null;
+            case SubduedCondition c:
+                who = s.AllByKey(c.Key).FirstOrDefault(u => u.Exit == MapExit.Subdued);
                 return who is not null;
             case EnterCondition c:
                 who = Matching(s, c.Who).FirstOrDefault(u => c.Cells.Contains(u.Pos));

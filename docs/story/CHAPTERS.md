@@ -218,10 +218,21 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
   mage and the west wing reinforcements did most of it).
 
 ## Chapter 14 — "The Empress Unbound"
-- **Map:** 20×18 imperial citadel courtyard in snow.
-- **Win:** Defeat Boss (**Vossk**). Empress Ysolde fights as a dominated **enemy you shouldn't kill**: if she is reduced to 0 HP she is "subdued", not killed. *(Build note: an `IsNonLethal` flag.)*
-- **Events:** Vossk dies → `ch14_ysolde_wakes`. The Empress joins as an NPC ally for the finale.
-- **Scenes:** `ch14_pre`, `ch14_vossk`, `ch14_ysolde_wakes`, `ch14_post` (peace summit agreed).
+- **Map (built, session 12):** 32×29 imperial citadel in snow (`tools/maps/act2_early.py`, new `Lighting = "snow"`: the
+  map washed toward a cold white with snow falling, standing in for snow tiles): the approach and outer gate (south,
+  deploy), the courtyard with frozen ponds, the inner keep (north, height 1–3) with the throne hall; side stairs from
+  the wall walks where the guard comes down.
+- **Win:** `boss vossk`. Vossk, the Veiled Hand (Binder L17, Boss, crest-bearer, Dominion radius 4) holds the imperial
+  guard and the Empress. **Empress Ysolde** (Wyvern Lord L15, Guard) fights for him but is **NonLethal** (new
+  per-spawn flag): at 0 HP she is subdued (leaves the map alive, `subdued KEY` trigger), and when Vossk's Dominion
+  breaks she is freed, not sent away (`defeated vossk => ...; faction ysolde ally`).
+- **Events:** T1 `ch14_start`; `ch14_empress` (her first fight); Ysra or Seraphine can talk to her (`ch14_ysolde_talk`,
+  a moment of recognition); `ch14_ysolde_subdued`; entering the hall `ch14_hall`; `ch14_vossk`; Vossk's fall
+  `ch14_ysolde_wakes`; T3 wyverns over the walls, T5 the guard down the side stairs, T7 more.
+- **Scenes:** `ch14_pre`, `ch14_start`, `ch14_empress`, `ch14_ysolde_talk`, `ch14_ysolde_subdued`, `ch14_hall`, `ch14_vossk`,
+  `ch14_ysolde_wakes`, `ch14_post` (Dravenhold withdraws; the summit in Calder is agreed).
+- **Autoplay (level 15, now promoted to tier 2 like a campaign party):** wins 3/3, losing 0–2 units: likely easy.
+  Enemy casters are Mages, not Sages: a promoted caster's tome scales off its level + 10.
 
 ## Chapter 15 — "The Grey Chancellor"
 - **Map:** 16×14 great hall in Calder: pillars, a dais, side doors to escape through.

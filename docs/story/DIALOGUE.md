@@ -46,6 +46,8 @@ ALDRIC [neutral]: Another line.
 | **Ysra** | A wyvern rider's bluntness: clipped, proud, honour-bound; dry about everything but her wyvern, Ash. | "Ysra Thane, of the third wing. Don't touch his tail." | Anything soft about the Empress, until Ch 14 |
 | **Halde** | A privateer captain: dry, salty, unhurried; talks business and means conscience. Calls the party "passengers". | "Get your people on my deck, and I'll get you out of this harbour." | That she's doing it for free |
 | **Castellan** | A merchant prince: urbane, amused, prices everything and everyone; never raises his voice, never says no, only "how much". | "Everything is someone's business, boy." | Anything free |
+| **Vossk** | Morvane's field commander: soft, devout, speaks for "the quiet" in the Binders' "we"; calls Rowan "child". | "The quiet is very patient." | Doubt |
+| **Ysolde** | Dominated: flat, few words, "the court is quiet". Freed: fierce, proud, and ashamed of what was done in her name. | "That ends." | Excuses |
 | **Osmund** | Precise, dry, fussy, devastatingly polite. Calls Rowan "my lord" from day one, with a straight face. Footnotes, etiquette and quiet devotion. | "Strictly speaking, my lord, one does not *punch* a bandit lord. One has him punched." | Anything vulgar. Raises his voice exactly once in the whole game (Ch 15). |
 | **Morvane** | Soft-spoken, reasonable, sorry. Calls everyone "child". Never shouts. | "I take no joy in this. That is rather the point." | Insults. He pities. |
 | **Gloamkin** | No words. Sound cues only (`@sfx gloam_howl`). Severed Gloamkin whimper. | — | — |

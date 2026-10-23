@@ -43,6 +43,8 @@ public partial class SpawnDefinition : Resource
     [Export] public string Ignores { get; set; } = "";
     /// <summary>How far this bearer's Dominion reaches (0 = the usual 3; Castellan's three crests reach 4).</summary>
     [Export] public int DominionRadius { get; set; }
+    /// <summary>At 0 HP the unit is subdued (leaves the map alive), not killed: an enemy you mustn't kill.</summary>
+    [Export] public bool NonLethal { get; set; }
 
     public SpawnDef ToDef() => new(
         string.IsNullOrEmpty(UnitId) ? null : UnitId,
@@ -63,5 +65,6 @@ public partial class SpawnDefinition : Resource
         HardOnly,
         Leash,
         string.IsNullOrEmpty(Ignores) ? null : Ignores,
-        DominionRadius);
+        DominionRadius,
+        NonLethal);
 }

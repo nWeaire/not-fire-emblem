@@ -486,4 +486,25 @@ public class MapRulesTests
         Assert.Contains("killer", s.Unit("u1").State.Inventory);
         Assert.False(tm.Submit(new ActCommand("u0", new GridPos(4, 0), new StealAction("u2", "sword"))).Ok);
     }
+
+    // ------------------------------------------------------------------ non-lethal (Ch 14)
+
+    [Fact]
+    public void NonLethal_IsSubduedNotKilled_AndFreedWhenItsBearerFalls()
+    {
+        var (s, tm) = Start(new TestBattle("......", "......").Lord(0, 0, "sword")
+            .Named("empress", Faction.Enemy, "merc", 1, 0, "sword").With(sp => sp with { DominatedBy = "vossk", NonLethal = true })
+            .Unit(Faction.Enemy, "merc", 5, 1, "sword").With(sp => sp with { Tag = "vossk", CrestBearer = true })
+            .Victory("boss vossk")
+            .Triggers("subdued empress => flag beaten", "defeated empress => flag killed"));
+        var empress = s.ByKey("empress")!;
+        empress.CurrentHp = 1;
+        var r = tm.Submit(new ActCommand("u0", new GridPos(0, 0), new AttackAction(empress.Id, new WeaponAttack("sword"))));
+        Assert.True(r.Ok, r.Error);
+        Assert.Contains(r.Events, e => e is UnitSubdued);
+        Assert.False(empress.IsDefeated);
+        Assert.Equal(MapExit.Subdued, empress.Exit);
+        Assert.Contains("beaten", s.Flags);
+        Assert.DoesNotContain("killed", s.Flags);
+    }
 }

@@ -98,6 +98,7 @@ public partial class StoryScreen : Control
                 case "evening": tint *= new Color(1f, 0.8f, 0.62f); break;
                 case "dusk": tint *= new Color(0.92f, 0.7f, 0.66f); break;
                 case "night": tint *= new Color(0.4f, 0.44f, 0.72f); break;
+                case "snow": tint *= new Color(0.9f, 0.95f, 1.05f); haze = new Color(0.92f, 0.95f, 1f, 0.18f); break;
                 case "dawn": tint *= new Color(1f, 0.86f, 0.8f); break;
                 case "morning": tint *= new Color(1f, 0.98f, 0.9f); break;
                 case "storm": tint *= new Color(0.55f, 0.6f, 0.72f); haze = new Color(0.2f, 0.24f, 0.32f, 0.25f); break;

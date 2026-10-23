@@ -16,6 +16,14 @@ public static class BattleProgress
     /// </summary>
     public static void Defeat(BattleState s, BattleUnit unit, List<BattleEvent> events)
     {
+        if (unit.NonLethal)
+        {
+            // Beaten, not killed (Ch 14's Empress): off the map, alive.
+            unit.CurrentHp = 1;
+            s.RemoveFromMap(unit, MapExit.Subdued);
+            events.Add(new UnitSubdued(unit.Id));
+            return;
+        }
         s.Defeat(unit);
         events.Add(new UnitDefeated(unit.Id));
         if (unit.Key is not { } key)
@@ -28,6 +36,8 @@ public static class BattleProgress
         foreach (var held in released.ToList())
         {
             held.DominatedBy = null;
+            if (held.NonLethal)
+                continue; // freed, not sent away: a trigger decides what they do next (Ch 14's Empress wakes)
             if (s.Db.Class(held.State.ClassId).HasTrait("Beast"))
             {
                 held.StunnedPhases = 1;

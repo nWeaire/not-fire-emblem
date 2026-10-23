@@ -140,6 +140,13 @@ ROWAN [neutral]: You don't want me to go.
 ALDRIC [neutral]: I want you to go with your eyes open. That's different.
 ROWAN [determined]: Right. We go to the capital.
 
+### hub_briefing_ch14
+@bg solmere_harbor
+HALDE [neutral]: The Gull can make Dravenhold's coast in six days, if the weather holds. It won't. It's the north.
+YSRA [cold]: The citadel is above the city. Vossk sits on the Empress's throne. She stands guard for him in the courtyard.
+SERAPHINE [determined]: Then we free her. Not kill her. Whatever happens, she has to live to end this war.
+ROWAN [determined]: Nobody kills the Empress. We go now.
+
 ### hub_briefing_ch13
 @bg solmere_harbor
 HALDE [neutral]: Castellan's palazzo is on the cliffs past the lighthouse. His guards walk it in step, all night, every night.

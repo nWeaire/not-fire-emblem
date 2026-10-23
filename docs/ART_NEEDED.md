@@ -55,6 +55,9 @@ Rough cost per full character (map sprite + walk/attack, battle still takes + 5 
 | P1 | Background `solmere_palazzo` | A gilded great hall with mirrors; gardens on cliffs above the sea | `dain_hall` | Ch 13 |
 | P1 | Tier 2: `dorran_general`, `sable_swordmaster`, `wren_falcon_knight` (map + battle) | The classes added in session 12 | their tier 1 looks (`Outfits.Earlier`) | after promotion |
 | P2 | Tier 3 Crestbound outfits: `rowan_high_lord`, `kai_vanguard`, `mira_oracle`, `elise_crestscribe`, `brann_ironheart`, `tamsin_wildstalker`, `halde_corsair`, `dorran_bulwark`, `sable_blade_dancer`, `wren_skyward`, `pip_shadowstep`, `seraphine_lightbearer`, `ysra_dragonheart` | Grander again than tier 2 (ART_DIRECTION, outfits follow class tier) | their tier 2 looks (`Outfits.Earlier`) | Ch 13 on |
+| P1 | `boss_vossk` (map + battle), portraits `vossk`, `ysolde` | Vossk: a grey-robed, hollow-cheeked man with crests crawling over both hands; Ysolde: a tall empress in black iron and white fur, silver lance, on a black wyvern | `enemy_binder`; Ysolde `enemy_wyvern_lord` → `enemy_pegasus_knight` | Ch 14 |
+| P1 | `enemy_veiled` (mage) | Veiled caster in grey and purple robes | `enemy_mage` | Ch 14 |
+| P1 | Snow terrain tiles (plain, road, forest in snow) and a `dravenhold_citadel` background | Ch 14's citadel; the map uses `Lighting = "snow"` (a cold wash and snowfall) until then | `dain_hall` backdrop | Ch 14 |
 | P2 | Ship hull props | Hull sides under the ship decks in Ch 12 (decks are bridge cells today) | — | Ch 12 |
 | P2 | `seraphine_valkyrie`, `ysra_wyvern_lord` | Tier-2 looks | — | after promotion |
 | P2 | `pip_rogue` (map + battle) | Pip promoted: dark leathers, a proper sword, a grin | — | after promotion |

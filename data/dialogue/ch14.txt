@@ -1,0 +1,65 @@
+# Chapter 14: The Empress Unbound
+# Written for the built map (data/maps/ch14.tres). Voices follow docs/story/DIALOGUE.md section 2.
+
+### ch14_pre
+@bg dravenhold_citadel_snow
+@music tension_high
+NARRATOR: The Gull put them ashore in a grey cove below Dravenhold's capital. Snow had been falling for three days.
+NARRATOR: The citadel stood above the city, black stone under white. Its gates were open. Nobody came or went.
+YSRA [cold]: The guard walks in step, like Castellan's did. The whole court does. They haven't had a real order in a year.
+SERAPHINE [determined]: Then we give them one. Through the gate, to the throne. To Vossk.
+ALDRIC [cold]: The Empress will be in the courtyard. He'll put her between us and him. It's what I'd do.
+MIRA [worried]: She can't help it. If she fights us, it isn't her.
+ROWAN [determined]: Then nobody kills her. We beat her if we have to, and we get to him. We go now.
+
+### ch14_start
+@focus 16,14
+NARRATOR: In the middle of the courtyard, in the falling snow, stood a tall woman in black iron, holding a silver lance.
+NARRATOR: Her eyes were open. They did not move. They did not blink.
+YSRA [sad]: Majesty...
+KAI [worried]: Nobody hit her too hard. Got it. Hit everyone else, though?
+ROWAN [neutral]: Everyone else.
+
+### ch14_empress
+YSOLDE [cold]: Intruders in the court. The court is quiet. The court will stay quiet.
+SERAPHINE [worried]: She's not even angry. She's not anything.
+
+### ch14_ysolde_talk
+YSRA [determined]: Majesty, it's Ysra. Of the third wing. You gave me my wings yourself. You laughed when Ash bit the herald.
+YSOLDE [cold]: ...the... herald...
+SERAPHINE [determined]: Empress, my father never wrote that letter. Calder wants peace. Fight him, not us. Please.
+NARRATOR: For a moment, the Empress's hand loosened on her lance. Then the purple light rose in her eyes again.
+
+### ch14_ysolde_subdued
+NARRATOR: The Empress fell to one knee in the snow. Her lance dropped from her hand, and she did not reach for it.
+MIRA [worried]: She's breathing. She's all right. Get her out of the cold. Someone, quick.
+
+### ch14_hall
+@focus 15,3
+NARRATOR: The throne hall was dark and very cold. On the Empress's throne sat a man in grey, with his hands folded.
+ELISE [worried]: Three crests on Castellan. On him... I can't count them. They keep moving.
+
+### ch14_vossk
+???: The farm boy, and the farm boy's princess. We have been expecting you. The quiet is very patient.
+ROWAN [cold]: Let her go.
+???: Let her go? Child, we have given her rest. No more fear, no more war, no more choosing. Would you take that from her?
+ROWAN [cold]: Yes.
+
+### ch14_ysolde_wakes
+NARRATOR: Vossk fell, and the light went out of the crests on his hands one by one, like a row of candles snuffed.
+NARRATOR: Out in the courtyard, the Empress drew a long, ragged breath, the first in a year that was her own.
+YSOLDE [angry]: What... what have I done? Where is the grey man? Where is he?
+YSRA [sad]: He's dead, Majesty. These are friends. Calder came to tell you the truth.
+
+### ch14_post
+@bg dravenhold_citadel_snow
+@music aftermath
+NARRATOR: The Empress of Dravenhold received them in her own hall, by her own fire, with her own guards awake around her.
+YSOLDE [sad]: I signed orders I don't remember. Villages burned in my name. A war, because a man whispered in my ear.
+YSOLDE [determined]: That ends. Dravenhold withdraws from the border, today. And I will say so to the King of Calder myself.
+SERAPHINE [determined]: Then come to Calder. A summit: Calder, Dravenhold and Solmere's free captains, at one table.
+HALDE [smile]: The captains will come if there's a table. And wine.
+YSOLDE [neutral]: The grey man came from Calder with a letter of friendship. From your Chancellor. You understand that?
+OSMUND [cold]: We understand it very well, Majesty.
+ALDRIC [cold]: ...
+ROWAN [determined]: Then we go home, and we finish it there. Calder. We go now.

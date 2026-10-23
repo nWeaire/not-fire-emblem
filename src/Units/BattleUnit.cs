@@ -4,7 +4,7 @@ using NotFireEmblem.Grid;
 namespace NotFireEmblem.Units;
 
 /// <summary>Why a unit left the map without dying.</summary>
-public enum MapExit { None, Escaped, Surrendered, Departed }
+public enum MapExit { None, Escaped, Surrendered, Departed, Subdued }
 
 /// <summary>A unit's battle-only wrapper: position, faction, turn state, current HP and battle statuses.</summary>
 public sealed class BattleUnit
@@ -34,6 +34,8 @@ public sealed class BattleUnit
     /// <summary>Key of the crest-bearer whose Dominion holds this unit.</summary>
     public string? DominatedBy { get; set; }
     public bool CrestBearer { get; init; }
+    /// <summary>Beaten, not killed: at 0 HP the unit is subdued and leaves the map alive (Ch 14's Empress).</summary>
+    public bool NonLethal { get; init; }
     /// <summary>How far this unit's Dominion reaches; 0 = the usual (BattleState.DominionRadius).</summary>
     public int DominionRadius { get; init; }
     /// <summary>Keys the AI leaves alone, "|"-separated (see SpawnDef.Ignores).</summary>
@@ -80,6 +82,8 @@ public sealed class BattleUnit
         ["enemy_falcon_knight"] = "enemy_pegasus_knight",
         ["enemy_sniper"] = "enemy_archer",
         ["enemy_warrior"] = "enemy_fighter",
+        ["enemy_sage"] = "enemy_mage",
+        ["enemy_paladin"] = "enemy_cavalier",
     };
 
     /// <summary>

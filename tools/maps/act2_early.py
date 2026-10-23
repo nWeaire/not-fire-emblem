@@ -203,6 +203,9 @@ def units():
          dict(HP=45, Str=15, Mag=55, Dex=40, Spd=50, Lck=60, Def=15, Res=55), ["vulnerary"], "")
     unit("halde", "Halde", "archer", 12, dict(HP=2, Str=1, Dex=2, Lck=1),
          dict(HP=55, Str=45, Mag=5, Dex=55, Spd=35, Lck=40, Def=30, Res=20), ["crossbow", "steel_bow"], "leather_jerkin")
+    # Empress Ysolde: Ch 14's dominated enemy you mustn't kill (NonLethal); an NPC ally for the finale.
+    unit("ysolde", "Ysolde", "wyvern_lord", 16, dict(HP=4, Str=2, Dex=2, Spd=2, Lck=3, Def=2, Res=3),
+         dict(HP=50, Str=50, Mag=10, Dex=45, Spd=40, Lck=40, Def=40, Res=30), ["silver_lance", "steel_axe"], "")
     unit("ysra", "Ysra", "wyvern_rider", 11, dict(HP=2, Str=2, Dex=1, Def=2),
          dict(HP=60, Str=50, Mag=5, Dex=45, Spd=35, Lck=30, Def=40, Res=15), ["steel_lance", "javelin"], "chainmail")
 
@@ -656,7 +659,7 @@ def ch12():
 
     # Levels: two under the party (13 by Ch 12), elites one under. They leave Halde and her crew alone (Ignores) until
     # she joins (session 12 autoplay: the ships' guards killed the Gull's crew on T2 and Halde on T3).
-    def gilded(cls, weapon, pos, lvl=10, group="", name=None, **kv):
+    def gilded(cls, weapon, pos, lvl=11, group="", name=None, **kv):
         names = {"soldier": "Gilded Guard", "knight": "Gilded Knight", "archer": "Gilded Archer", "mage": "Gilded Mage",
                  "myrmidon": "Harbour Sellsword", "fighter": "Harbour Sellsword", "thief": "Dockside Cutpurse"}
         armor = {"knight": "iron_plate", "soldier": "chainmail"}.get(cls)
@@ -679,12 +682,12 @@ def ch12():
         gilded("archer", ["steel_bow"], (5, 2), Ai=STATIONARY), gilded("fighter", ["steel_axe"], (9, 16)),
         gilded("thief", ["iron_sword", "chest_key"], (4, 5)),
         # The piers and the merchant hulk.
-        gilded("knight", ["steel_lance"], (14, 6), 11, Ai=GUARD), gilded("knight", ["steel_lance"], (16, 13), 11, Ai=GUARD),
+        gilded("knight", ["steel_lance"], (14, 6), 12, Ai=GUARD), gilded("knight", ["steel_lance"], (16, 13), 12, Ai=GUARD),
         gilded("mage", ["fire"], (21, 6), Ai=GUARD), gilded("archer", ["steel_bow"], (23, 4), Ai=STATIONARY),
         gilded("myrmidon", ["killing_edge"], (19, 13)),
         # Castellan's galley.
         gilded("soldier", ["steel_lance"], (24, 15)), gilded("mage", ["thunder"], (27, 17), Ai=STATIONARY),
-        gilded("knight", ["silver_lance"], (26, 14), 12, name="Galley Captain Dresh", Tag="dresh", Ai=GUARD),
+        gilded("knight", ["silver_lance"], (26, 14), 13, name="Galley Captain Dresh", Tag="dresh", Ai=GUARD),
         dict(gilded("archer", ["steel_bow"], (28, 16), Ai=STATIONARY), HardOnly=True),
         # Reinforcements: T3 from the warehouses, T5 boarding boats at the piers' ends, T7 more from the auction.
         gilded("soldier", ["steel_lance"], (5, 0), group="warehouse"), gilded("myrmidon", ["steel_sword"], (0, 5), group="warehouse"),
@@ -813,6 +816,105 @@ def ch13():
              triggers, slots, background="solmere_palazzo", highlights=highlights)
 
 
+# ------------------------------------------------------------------ Chapter 14: The Empress Unbound (32×29)
+
+def ch14():
+    # The imperial citadel in snow: the approach and outer gate (south), the courtyard with frozen ponds, the inner keep
+    # (north) with Vossk on the throne. The Empress fights in the courtyard under his Dominion; she can't be killed.
+    g = Grid(32, 29)
+    g.spots("F", [(2, 24), (5, 27), (9, 25), (22, 26), (26, 24), (29, 27), (1, 18), (30, 18), (4, 13), (27, 13),
+                  (11, 19), (20, 19), (8, 13), (23, 13)])
+    g.rect(15, 23, 16, 28, "=")
+    # The outer wall and gate.
+    g.hline(22, 0, 31, "W")
+    g.raise_(0, 22, 31, 22, 2)
+    g.spots("=", [(15, 22), (16, 22)])
+    g.raise_(15, 22, 16, 22, 0)
+    # The courtyard: the road to the keep, frozen ponds, carts left in the snow.
+    g.rect(15, 12, 16, 21, "=")
+    g.rect(5, 15, 7, 17, "~")
+    g.rect(24, 15, 26, 17, "~")
+    g.spots("k", [(11, 14), (20, 16), (9, 20), (22, 20)])
+    g.spots("x", [(13, 18), (18, 13)])
+    # The inner keep: walls (height 3), the throne hall (height 1), doors onto the courtyard steps.
+    g.rect(0, 0, 31, 11, "W")
+    g.raise_(0, 0, 31, 11, 3)
+    g.rect(8, 2, 23, 10, "#")
+    g.raise_(8, 2, 23, 10, 1)
+    g.rect(15, 11, 16, 11, "=")
+    g.raise_(15, 11, 16, 11, 1)
+    g.spots("Y", [(15, 3), (16, 3)])
+    for x in (11, 20):
+        for y in (4, 7):
+            g.put(x, y, "W")
+            g.raise_(x, y, x, y, 3)
+    # Side doors: the guard's stairs from the wall walks down into the courtyard (reinforcements come this way).
+    for x in (3, 28):
+        g.rect(x, 8, x, 11, "=")
+        g.raise_(x, 8, x, 8, 3)
+        g.raise_(x, 9, x, 9, 2)
+        g.raise_(x, 10, x, 10, 1)
+        g.raise_(x, 11, x, 11, 0)
+    assert_connected(g, (15, 26))
+
+    # Levels: a few under the party (15 by Ch 14). The Veiled casters are Mages, not Sages: a promoted caster's tome
+    # gains a point of might per three of its levels plus ten (session 12: L14 Veiled Sages killed 11 units in 4 runs).
+    def imperial(cls, weapon, pos, lvl=13, group="", name=None, **kv):
+        names = {"soldier": "Imperial Guard", "knight": "Imperial Knight", "general": "Imperial General",
+                 "archer": "Imperial Archer", "sniper": "Imperial Marksman", "wyvern_rider": "Wyvern Rider",
+                 "wyvern_lord": "Wyvern Lord", "mage": "Veiled Mage", "cavalier": "Imperial Cavalier"}
+        armor = {"knight": "iron_plate", "general": "silver_plate", "soldier": "chainmail", "cavalier": "chainmail"}.get(cls)
+        spawn = dict(ClassId=cls, Name=name or names[cls], SpriteId="enemy_veiled" if cls == "mage" else "enemy_imperial",
+                     Level=lvl, Inventory=weapon, Pos=pos, Group=group, DominatedBy="vossk", **kv)
+        if armor:
+            spawn["Armor"] = armor
+        return spawn
+
+    spawns = [
+        # Vossk, the Veiled Hand, on the Empress's throne; his Dominion holds her and her guard.
+        dict(ClassId="binder", Name="Vossk, the Veiled Hand", Tag="vossk", SpriteId="boss_vossk", Level=17,
+             Inventory=["shadow", "elixir"], Pos=(15, 3), Armor="sage_vestments", Ai=BOSS, IsBoss=True, CrestBearer=True,
+             DominionRadius=4, Leash=2),
+        # The Empress: she fights, but she must not die (NonLethal: beaten, she is subdued).
+        dict(UnitId="ysolde", Level=15, Pos=(16, 14), Ai=GUARD, DominatedBy="vossk", NonLethal=True),
+        # The throne hall.
+        imperial("general", ["silver_lance"], (14, 5), 14, Ai=GUARD), imperial("general", ["steel_axe"], (17, 5), 14, Ai=GUARD),
+        imperial("mage", ["fire"], (13, 8), 12, Ai=GUARD), imperial("mage", ["thunder"], (18, 8), 12, Ai=GUARD),
+        # The courtyard.
+        imperial("knight", ["steel_lance"], (12, 16)), imperial("knight", ["steel_lance"], (19, 16)),
+        imperial("soldier", ["steel_lance"], (9, 18)), imperial("soldier", ["silver_lance"], (22, 18), 13),
+        imperial("cavalier", ["steel_sword"], (4, 19)), imperial("cavalier", ["steel_lance"], (27, 19)),
+        imperial("archer", ["steel_bow"], (10, 12), 13, Ai=STATIONARY), imperial("archer", ["steel_bow"], (21, 12), 13, Ai=STATIONARY),
+        imperial("wyvern_rider", ["steel_lance"], (6, 13)),
+        dict(imperial("wyvern_lord", ["silver_lance"], (25, 13), 13), HardOnly=True),
+        # Reinforcements: T3 wyverns over the outer wall, T5 the guard down the side stairs, T7 more of both.
+        imperial("wyvern_rider", ["iron_lance"], (2, 23), group="walls"), imperial("wyvern_rider", ["javelin", "iron_lance"], (29, 23), group="walls"),
+        imperial("soldier", ["steel_lance"], (3, 11), group="stairs"), imperial("knight", ["steel_lance"], (28, 11), group="stairs"),
+        imperial("mage", ["fire"], (3, 10), 11, "late"),
+        dict(imperial("wyvern_rider", ["steel_lance"], (16, 21), group="late"), HardOnly=True),
+        dict(imperial("general", ["steel_lance"], (28, 10), 13, "late"), HardOnly=True),
+    ]
+    for s in spawns:
+        s.setdefault("Faction", ENEMY)
+        s.setdefault("Ai", AGGRESSIVE)
+    triggers = ["turn 1 => scene ch14_start",
+                "combat ysolde => scene ch14_empress",
+                "talk ysra|seraphine ysolde => scene ch14_ysolde_talk",
+                "subdued ysolde => scene ch14_ysolde_subdued",
+                "enter player 8,2-23,10 => scene ch14_hall",
+                "combat vossk => scene ch14_vossk",
+                "defeated vossk => scene ch14_ysolde_wakes; faction ysolde ally",
+                "turn 3 enemy => spawn walls",
+                "turn 5 enemy => spawn stairs",
+                "turn 7 enemy => spawn late"]
+    highlights = ["ysolde => Empress Ysolde, held by Vossk's Dominion. She can't be killed: beaten, she is only subdued.",
+                  "vossk => Vossk, the Veiled Hand. His Dominion reaches four cells. Fell him and the Empress is free."]
+    slots = [(15, 26), (16, 26), (14, 26), (17, 26), (15, 27), (16, 27), (14, 27), (17, 27), (13, 26), (18, 26)]
+    map_tres("ch14", "Chapter 14: The Empress Unbound", g.rows(), g.height_rows(), spawns, "boss vossk", [],
+             triggers, slots, background="dravenhold_citadel", highlights=highlights)
+    finish("ch14", {"Lighting": "snow"})
+
+
 if __name__ == "__main__":
     terrains()
     items()
@@ -826,3 +928,4 @@ if __name__ == "__main__":
     ch11()
     ch12()
     ch13()
+    ch14()

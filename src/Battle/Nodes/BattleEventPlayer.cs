@@ -55,6 +55,7 @@ public partial class BattleEventPlayer : Node
         CellSeized s => Banner("Seized!", UiKit.Accent),
         UnitEscaped x => PlayLeave(x.UnitId, "Escaped"),
         UnitDeparted d => PlayLeave(d.UnitId, null),
+        UnitSubdued u => PlayLeave(u.UnitId, "Subdued"),
         CrestSevered s => PlaySevered(s),
         UnitStunnedSkip s => Info(s.UnitId, "Stunned", null),
         ExpGained x => PlayExp(x),

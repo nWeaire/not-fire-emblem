@@ -49,6 +49,8 @@ public sealed record UnitTalked(string UnitId, string TargetId) : BattleEvent;
 public sealed record CellVisited(string UnitId, GridPos Cell) : BattleEvent;
 /// <summary>A locked door beside the unit, or the chest under it, was opened (by Locktouch or a key).</summary>
 public sealed record LockOpened(string UnitId, GridPos Cell, bool Chest) : BattleEvent;
+/// <summary>A non-lethal unit was beaten: it leaves the map alive.</summary>
+public sealed record UnitSubdued(string UnitId) : BattleEvent;
 /// <summary>A thief took an item from an enemy.</summary>
 public sealed record ItemStolen(string ThiefId, string TargetId, string ItemId) : BattleEvent;
 

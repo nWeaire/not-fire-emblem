@@ -59,6 +59,16 @@ public partial class BattleController : Node3D
             }
     }
 
+    /// <summary>The crest tier the campaign has reached before this map (its "crest N" steps); 1 off the campaign.</summary>
+    private static int StoryCrestTier(ContentDatabase db, string mapId)
+    {
+        var steps = db.Campaign?.Steps;
+        int battle = steps?.ToList().FindIndex(st => st is BattleStep b && b.MapId == mapId) ?? -1;
+        if (steps is null || battle < 0)
+            return 1;
+        return steps.Take(battle).OfType<CrestStep>().Select(c => c.Tier).DefaultIfEmpty(0).Max();
+    }
+
     private void GiveStoryItems(ContentDatabase db)
     {
         foreach (var unit in State.Units.Where(u => u.IsRosterUnit && StoryItems.ContainsKey(u.State.Def.Id)))
@@ -130,8 +140,9 @@ public partial class BattleController : Node3D
             }
             if (seed == 0)
                 seed = ((ulong)GD.Randi() << 32) | GD.Randi();
-            // Single maps outside the campaign: Rowan has the Kindled Crest except in the Prologue.
-            var options = new BattleOptions(CrestTier: mapId == "prologue" ? 0 : 1);
+            // Single maps: Rowan's crest as the campaign has it by then (Kindled after the Prologue, Knight's after
+            // Ch 7, Lord's after Ch 13); maps outside the campaign get the Kindled Crest.
+            var options = new BattleOptions(CrestTier: StoryCrestTier(db, mapId));
             var map = db.Map(mapId);
             // Maps that rely on deployment get a default party, fresh from the unit definitions.
             var spawned = map.Spawns.Select(sp => sp.UnitId).OfType<string>().ToHashSet();
@@ -146,9 +157,11 @@ public partial class BattleController : Node3D
             if (DevTools.PartyLevelFor(mapId) is { } level)
             {
                 // Everyone on the player's side, recruits included, at a campaign-like level (not enemies).
-                foreach (var unit in State.Units.Where(u => u.IsRosterUnit && u.Faction != Faction.Enemy))
+                foreach (var unit in State.Units.Where(u => u.IsRosterUnit && u.Faction.IsPlayerSide()))
                 {
-                    LevelUpService.RaiseToAverage(db, unit.State, level);
+                    LevelUpService.RaiseLikeCampaign(db, unit.State, level, State.Options.CrestTier);
+                    BattleProgress.ReequipIfNeeded(State, unit);
+                    BattleSetup.RefillUses(db, unit, State.Options.CrestTier);
                     unit.CurrentHp = State.Stats(unit).HP;
                 }
                 GD.Print($"Party raised to level {level}");
@@ -173,6 +186,8 @@ public partial class BattleController : Node3D
         }
         if (State.Map.Lighting == "night")
             AddNightTint();
+        else if (State.Map.Lighting == "snow")
+            AddSnow();
         foreach (var overlay in new[] { RangeOverlay, PathOverlay, DangerOverlay, FogOverlay, MarkerOverlay })
             overlay.Init(State.Grid);
         Cursor.Init(State.Grid);
@@ -389,6 +404,45 @@ public partial class BattleController : Node3D
         var rect = new ColorRect { Material = new ShaderMaterial { Shader = shader }, MouseFilter = Control.MouseFilterEnum.Ignore };
         rect.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
         layer.AddChild(rect);
+        AddChild(layer);
+    }
+
+    /// <summary>
+    /// Snow battles (Ch 14): the map washed toward a cold white (partly desaturated, so team colours still read) and
+    /// snow drifting down over it; the HUD stays above. Stands in for snow terrain art (docs/ART_NEEDED.md).
+    /// </summary>
+    private void AddSnow()
+    {
+        var layer = new CanvasLayer { Layer = 0, Name = "Snow" };
+        var shader = new Shader
+        {
+            Code = "shader_type canvas_item; uniform sampler2D screen : hint_screen_texture, filter_linear_mipmap;"
+                   + " void fragment() { vec3 c = texture(screen, SCREEN_UV).rgb; float l = dot(c, vec3(0.3, 0.59, 0.11));"
+                   + " vec3 cold = mix(vec3(l), vec3(1.0), 0.3) * vec3(0.93, 0.97, 1.06);"
+                   + " COLOR = vec4(mix(c, cold, 0.5), 1.0); }",
+        };
+        var tint = new ColorRect { Material = new ShaderMaterial { Shader = shader }, MouseFilter = Control.MouseFilterEnum.Ignore };
+        tint.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+        layer.AddChild(tint);
+        var size = GetViewport().GetVisibleRect().Size;
+        var flakes = new CpuParticles2D
+        {
+            Amount = 220,
+            Lifetime = 9,
+            Preprocess = 9,
+            EmissionShape = CpuParticles2D.EmissionShapeEnum.Rectangle,
+            EmissionRectExtents = new Vector2(size.X * 0.6f, 4),
+            Position = new Vector2(size.X / 2, -10),
+            Direction = new Vector2(0.15f, 1),
+            Spread = 12,
+            Gravity = new Vector2(0, 6),
+            InitialVelocityMin = 28,
+            InitialVelocityMax = 60,
+            ScaleAmountMin = 1.5f,
+            ScaleAmountMax = 3.5f,
+            Color = new Color(1, 1, 1, 0.85f),
+        };
+        layer.AddChild(flakes);
         AddChild(layer);
     }
 

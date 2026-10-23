@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/UnitDefinition.cs" id="1_unit"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+HP = 4
+Str = 2
+Dex = 2
+Spd = 2
+Lck = 3
+Def = 2
+Res = 3
+
+[sub_resource type="Resource" id="StatsDefinition_2"]
+script = ExtResource("2_stats")
+HP = 50
+Str = 50
+Mag = 10
+Dex = 45
+Spd = 40
+Lck = 40
+Def = 40
+Res = 30
+
+[resource]
+script = ExtResource("1_unit")
+Id = "ysolde"
+Name = "Ysolde"
+ClassId = "wyvern_lord"
+Level = 16
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Inventory = PackedStringArray("silver_lance", "steel_axe")
+IsLord = false
+Armor = ""

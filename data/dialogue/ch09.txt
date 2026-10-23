@@ -1,0 +1,58 @@
+# Chapter 9: Beneath the Crown
+# Written for the built map (data/maps/ch9.tres). Voices follow docs/story/DIALOGUE.md section 2.
+
+### ch09_pre
+@bg calder_undercity
+@music tension_low
+NARRATOR: Under Calder lay an older Calder: cellars, cisterns and sewers, three hundred years of them, stacked like plates.
+NARRATOR: The Veiled who escaped the square had gone down a drain behind the guildhalls. Tamsin had watched them go.
+TAMSIN [cold]: Fresh mud on the rungs. Lantern smoke. A lot of boots. They live down here.
+OSMUND [worried]: The old city archive was moved below the guildhalls after the flood of '82. Strictly speaking, it was closed.
+ELISE [determined]: An archive nobody visits. If I had secrets, that's exactly where I'd keep them.
+DORRAN [neutral]: Tunnels. Dark. Doors we can't open, and men who know every turn. I'd sooner take a castle.
+ROWAN [determined]: Then we bring lanterns. Find their archive. We go now.
+
+### ch09_start
+@focus 24,3
+NARRATOR: The tunnels swallowed the lantern light a few steps ahead. Somewhere water dripped, steady as a clock.
+ELISE [worried]: The archive should be north-east, under the old wool hall. And there are doors. Lots of locked doors.
+KAI [smile]: Locked doors mean there's something behind them worth locking up. Just saying.
+
+### ch09_pip
+PIP [worried]: Whoa, whoa! Not a Veiled! Not a Veiled! Look, no purple, see? Just a skinny kid with a sword he found.
+ROWAN [neutral]: What are you doing down here?
+PIP [smile]: Living. Mostly. And robbing the grey-cloaks, when they're not looking. They've got very nice boots.
+PIP [neutral]: You're after them too? I know every grate, ladder and loose brick from here to the palace.
+PIP [smile]: And I can open any lock in this city. For you, boss, no charge. Well. Small charge. Later.
+ROWAN [neutral]: Name?
+PIP [laugh]: Pip. Just Pip. Come on, I'll show you the way they don't watch.
+
+### ch09_archive
+@focus 24,2
+NARRATOR: Shelves rose into the dark, crammed with ledgers and boxed letters. Every seal on every box was purple wax.
+ELISE [worried]: Rowan, these are all addressed. Lords, captains, magistrates. Hundreds of names, all over Aldmere.
+
+### ch09_archivist
+???: You should not have come below, child of the Thornvale. The quiet keeps its ledgers well.
+ROWAN [cold]: Then I'll read them.
+
+### ch09_grate
+@focus 4,27
+NARRATOR: Grates scraped behind them. Cutpurses slipped up out of the outfall, quick and quiet as rats.
+PIP [worried]: Oh, those are Mott's lot. They sell to the grey-cloaks. They'll pick your pockets while you're bleeding.
+
+### ch09_letters
+@bg calder_undercity
+@music tension_low
+NARRATOR: They carried out what they could. By lantern light in their lodgings, Elise broke the purple seals one by one.
+ELISE [worried]: Orders. Payments. Names of crest-bearers, where they live, who guards them. Some are crossed out.
+ELISE [sad]: The crossed-out ones are dead. Reeves, mostly. The village reeves in the Thornvale are all here.
+OSMUND [cold]: Look at the paper, my lord. Not the words, the paper. Hold it to the lamp.
+NARRATOR: A watermark showed through the sheet: a tower and a key, very faint.
+OSMUND [cold]: Chancery paper. Made for one office in this kingdom. I signed letters on it for eleven years.
+SABLE [neutral]: So somebody in the palace is buying stationery for murderers. Narrows it down.
+ELISE [worried]: And this one. "The north must be moved. Send the Empress the letter in the King's hand."
+ELISE [worried]: The King's hand? The King didn't write this.
+PIP [neutral]: Forged, I'd bet. There's a man in the undercity who does hands. Very good. Very dead, last week.
+ALDRIC [cold]: ...
+ROWAN [determined]: Then Dravenhold's being lied to, same as us. Someone has to get to the border before the war does.

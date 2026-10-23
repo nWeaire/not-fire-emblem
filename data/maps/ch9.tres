@@ -1,0 +1,307 @@
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=28 format=3]
+
+[ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
+[ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
+
+[sub_resource type="Resource" id="SpawnDefinition_1"]
+script = ExtResource("2_spawn")
+UnitId = "pip"
+Level = 7
+Faction = 2
+Position = Vector2i(10, 21)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_2"]
+script = ExtResource("2_spawn")
+ClassId = "thief"
+Name = "Cutpurse"
+SpriteId = "enemy_thief"
+Level = 8
+Inventory = PackedStringArray("iron_sword", "door_key")
+Faction = 1
+Position = Vector2i(17, 25)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_3"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Veiled Thug"
+SpriteId = "enemy_veiled_thug"
+Level = 8
+Inventory = PackedStringArray("iron_axe")
+Faction = 1
+Position = Vector2i(14, 19)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_4"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Veiled Thug"
+SpriteId = "enemy_veiled_thug"
+Level = 8
+Inventory = PackedStringArray("iron_bow")
+Faction = 1
+Position = Vector2i(10, 13)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_5"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Veiled Thug"
+SpriteId = "enemy_veiled_thug"
+Level = 8
+Inventory = PackedStringArray("steel_axe")
+Faction = 1
+Position = Vector2i(18, 13)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_6"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Veiled Thug"
+SpriteId = "enemy_veiled_thug"
+Level = 8
+Inventory = PackedStringArray("iron_sword")
+Faction = 1
+Position = Vector2i(3, 15)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_7"]
+script = ExtResource("2_spawn")
+ClassId = "thief"
+Name = "Cutpurse"
+SpriteId = "enemy_thief"
+Level = 8
+Inventory = PackedStringArray("iron_sword", "vulnerary")
+Faction = 1
+Position = Vector2i(18, 25)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_8"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Veiled Thug"
+SpriteId = "enemy_veiled_thug"
+Level = 8
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(20, 25)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_9"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Veiled Thug"
+SpriteId = "enemy_veiled_thug"
+Level = 8
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(8, 9)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_10"]
+script = ExtResource("2_spawn")
+ClassId = "mage"
+Name = "Veiled Thug"
+SpriteId = "enemy_veiled_thug"
+Level = 8
+Inventory = PackedStringArray("fire")
+Faction = 1
+Position = Vector2i(17, 10)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_11"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Veiled Thug"
+SpriteId = "enemy_veiled_thug"
+Level = 8
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(12, 4)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_12"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Veiled Thug"
+SpriteId = "enemy_veiled_thug"
+Level = 8
+Inventory = PackedStringArray("iron_axe", "chest_key")
+Faction = 1
+Position = Vector2i(14, 5)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_13"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Veiled Thug"
+SpriteId = "enemy_veiled_thug"
+Level = 9
+Inventory = PackedStringArray("steel_bow")
+Faction = 1
+Position = Vector2i(16, 2)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_14"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Veiled Thug"
+SpriteId = "enemy_veiled_thug"
+Level = 9
+Inventory = PackedStringArray("killing_edge")
+Faction = 1
+Position = Vector2i(24, 17)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_15"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Veiled Thug"
+SpriteId = "enemy_veiled_thug"
+Level = 9
+Inventory = PackedStringArray("steel_lance", "elixir")
+Faction = 1
+Position = Vector2i(25, 11)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_16"]
+script = ExtResource("2_spawn")
+ClassId = "binder"
+Name = "Archivist Corvin"
+Tag = "archivist"
+SpriteId = "enemy_binder"
+Level = 10
+Inventory = PackedStringArray("shadow")
+Faction = 1
+Position = Vector2i(24, 3)
+Ai = 3
+IsBoss = true
+CrestBearer = true
+
+[sub_resource type="Resource" id="SpawnDefinition_17"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Veiled Thug"
+DominatedBy = "archivist"
+SpriteId = "enemy_veiled_thug"
+Armor = "iron_plate"
+Level = 9
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(22, 4)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_18"]
+script = ExtResource("2_spawn")
+ClassId = "mage"
+Name = "Veiled Thug"
+DominatedBy = "archivist"
+SpriteId = "enemy_veiled_thug"
+Level = 9
+Inventory = PackedStringArray("thunder")
+Faction = 1
+Position = Vector2i(26, 4)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_19"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Veiled Thug"
+DominatedBy = "archivist"
+SpriteId = "enemy_veiled_thug"
+Level = 9
+Inventory = PackedStringArray("steel_bow")
+Faction = 1
+Position = Vector2i(27, 7)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_20"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Veiled Thug"
+DominatedBy = "archivist"
+SpriteId = "enemy_veiled_thug"
+Level = 10
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(21, 2)
+Ai = 2
+HardOnly = true
+
+[sub_resource type="Resource" id="SpawnDefinition_21"]
+script = ExtResource("2_spawn")
+ClassId = "thief"
+Name = "Cutpurse"
+Group = "grate"
+SpriteId = "enemy_thief"
+Level = 8
+Inventory = PackedStringArray("iron_sword", "chest_key")
+Faction = 1
+Position = Vector2i(1, 27)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_22"]
+script = ExtResource("2_spawn")
+ClassId = "thief"
+Name = "Cutpurse"
+Group = "grate"
+SpriteId = "enemy_thief"
+Level = 8
+Inventory = PackedStringArray("iron_sword", "vulnerary")
+Faction = 1
+Position = Vector2i(7, 27)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_23"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Veiled Thug"
+Group = "watch"
+SpriteId = "enemy_veiled_thug"
+Level = 9
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(27, 10)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_24"]
+script = ExtResource("2_spawn")
+ClassId = "mage"
+Name = "Veiled Thug"
+Group = "watch"
+SpriteId = "enemy_veiled_thug"
+Level = 9
+Inventory = PackedStringArray("fire")
+Faction = 1
+Position = Vector2i(26, 9)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_25"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Veiled Thug"
+Group = "watch"
+SpriteId = "enemy_veiled_thug"
+Level = 9
+Inventory = PackedStringArray("steel_axe")
+Faction = 1
+Position = Vector2i(26, 11)
+Ai = 0
+HardOnly = true
+
+[resource]
+script = ExtResource("1_map")
+Id = "ch9"
+Name = "Chapter 9: Beneath the Crown"
+TerrainRows = PackedStringArray("WWWWWWWWWWWWWWWWWWWWWWWWWWWWW", "W######WWWWWWWWWWWWW########W", "W#C##C#WWW#######WWW########W", "W######WWW#k###k#WWW########W", "W######WWW#######WWW########W", "W######WWW#######WWW########W", "WWWWDWWWWW#######WWW########W", "WWWW##WWWWWWW#WWWWWWWWWDWW##W", "WWWW##WWWWWWW#WWWWWWWWW#WW##W", "WWWW##############x#####WW##W", "WWWW####################WW##W", "WWWW##WWWWWWWWWWWWWWWWWW####W", "WWWW##WWWWWWWWWWWWWWWWWW####W", "W#####x#####################W", "W~~~##~B~~~~~~s~~~~~~B~~##~~W", "W###########################W", "WWWW##WWWWWWWW##WWWWWWWW##WWW", "WWWW##WWWWWWWW##W###WWWW##WWW", "WWWW##WWWWWWWW##D#C#WWWW#xWWW", "WWWW##WWWWWWWW##W###WWWW##WWW", "WWWW##WWWWWWWW##W###WWWW##WWW", "WWWW##WWW###WW##WWWWWWWW##WWW", "W#######W###WW##WWWWWWWWWWWWW", "W#######W###WW##WWWWWW######W", "W####################W##C###W", "W#k######x###########D######W", "W####################W####C#W", "W#######WWWWWWWWWWWWWW######W", "WWWWWWWWWWWWWWWWWWWWWWWWWWWWW")
+HeightRows = PackedStringArray("22222222222222222222222222222", "20000002222222222222000000002", "20000002220000000222000000002", "20000002220000000222000000002", "20000002220000000222000000002", "20000002220000000222000000002", "22220222220000000222000000002", "22220022222220222222222022002", "22220022222220222222222022002", "22220000000000000000000022002", "22220000000000000000000022002", "22220022222222222222222200002", "22220022222222222222222200002", "20000000000000000000000000002", "20000000000000000000000000002", "20000000000000000000000000002", "22220022222222002222222200222", "22220022222222002000222200222", "22220022222222000000222200222", "22220022222222002000222200222", "22220022222222002000222200222", "22220022200022002222222200222", "20000000200022002222222222222", "20000000200022002222220000002", "20000000000000000000020000002", "20000000000000000000000000002", "20000000000000000000020000002", "20000000222222222222220000002", "22222222222222222222222222222")
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22"), SubResource("SpawnDefinition_23"), SubResource("SpawnDefinition_24"), SubResource("SpawnDefinition_25")])
+Victory = "seize 24,2"
+Defeat = PackedStringArray()
+Triggers = PackedStringArray("turn 1 => scene ch09_start", "talk any pip => scene ch09_pip; join pip", "enter player 20,1-27,6 => scene ch09_archive", "combat archivist => scene ch09_archivist", "turn 4 enemy => spawn grate; scene ch09_grate", "turn 6 enemy => spawn watch", "chest 2,2 => give actor speedwing", "chest 5,2 => gold 1500", "chest 18,18 => give actor silver_sword", "chest 24,24 => give actor elixir", "chest 26,26 => give actor secret_book")
+Highlights = PackedStringArray("pip => Someone small is hiding from the Veiled. Talk to him.", "4,6 16,18 21,25 23,7 => Locked doors. A thief or a Door Key opens them.", "2,2 5,2 18,18 24,24 26,26 => Chests. Stand on one with a thief or a Chest Key to open it.")
+Fog = true
+DeploySlots = "3,24 4,24 5,24 3,25 4,25 5,25 2,23 6,23 3,26 5,26"
+Background = "calder_undercity"
+Lighting = "night"

@@ -140,6 +140,13 @@ ROWAN [neutral]: You don't want me to go.
 ALDRIC [neutral]: I want you to go with your eyes open. That's different.
 ROWAN [determined]: Right. We go to the capital.
 
+### hub_briefing_ch09
+@bg calder_lodgings
+OSMUND [neutral]: The palace has given us rooms, my lord. Very fine rooms. With a view of the guard who watches our door.
+TAMSIN [cold]: The grey-cloaks who ran from the square went down a drain behind the guildhalls. I watched them go.
+ELISE [determined]: The undercity. If the Veiled have a nest in Calder, it's down there, under everyone's feet.
+ROWAN [determined]: Then we go down. Quietly. We go now.
+
 ### hub_briefing_ch08
 @bg village_hall
 OSMUND [neutral]: Calder, my lord. Nine days' ride west, and the Chancellor's letter in my coat, sealed and unopened.

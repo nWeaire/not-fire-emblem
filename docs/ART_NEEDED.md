@@ -31,12 +31,17 @@ Rough cost per full character (map sprite + walk/attack, battle still takes + 5 
 
 | Priority | Id | Who / what | Stand-in today | Used in |
 |---|---|---|---|---|
-| P1 | `enemy_veiled_agitator` (map + battle) | Veiled agent dressed as a townsman: plain grey cloak, purple sigil glowing on the wrist, sword/tome/axe variants | `enemy_myrmidon` / `enemy_mage` / `enemy_fighter` | Ch 8 |
-| P1 | `enemy_veiled_thug` (map + battle) | Veiled street muscle: grey hooded cloak over leather, purple-trimmed | bandit `enemy_*` looks | Ch 8, Ch 9 |
-| P1 | `neutral_rioter` (map + battle) | Calder townsman with a cudgel and a torch, angry; amber outline in game | `ally_villager` | Ch 8 |
+| P1 | `enemy_veiled_agitator` (map + battle; or `_<classId>` per class) | Veiled agent dressed as a townsman: plain grey cloak, purple sigil glowing on the wrist, sword/tome/axe variants | the class look `enemy_<classId>` | Ch 8 |
+| P1 | `enemy_veiled_thug` (map + battle; or `enemy_veiled_thug_<classId>` per class) | Veiled street muscle: grey hooded cloak over leather, purple-trimmed | the class look `enemy_<classId>` | Ch 8, Ch 9 |
+| P1 | `neutral_rioter` (map + battle) | Calder townsman with a cudgel and a torch, angry; amber outline in game | `ally_villager` (`BattleUnit.PlaceholderSprites`) | Ch 8 |
 | P1 | `ally_townsfolk` (map) | Calder townsfolk in city clothes (Calder blue scarves, aprons) | `ally_villager` (a farmer) | Ch 8 |
 | P1 | Portrait `morvane` | The Grey Chancellor: gentle, grey-robed, grey-haired, kind eyes (STORY §5) | initials | Ch 8 on |
 | P1 | Backgrounds `calder_square`, `calder_streets`, `calder_palace` | The fountain square and market; a Calder street; the palace audience hall (Calder blue) | `town_overview`, `town_overview`, `dain_hall` (`UiKit.PlaceholderBackgrounds`) | Ch 8 |
+| P1 | `pip` / `pip_thief` (map + battle), portrait `pip` | Pip: 15, scrawny, cheeky grin, oversized patched coat, bare feet, a short sword he "found" | the class look (`enemy_thief` → `enemy_myrmidon`); initials | Ch 9 on |
+| P1 | `enemy_thief` (map + battle) | Undercity cutpurse: hooded, lean, knife-and-short-sword, dark rags | `enemy_myrmidon` (`BattleUnit.PlaceholderSprites`) | Ch 9 |
+| P1 | Prop `chest_N.png` | A treasure chest on a stone floor (32 px billboard like the crates) | `crates` prop | Ch 9 |
+| P1 | Background `calder_undercity` | Lantern-lit sewers and cellars under Calder | `dain_hall` | Ch 9 |
+| P2 | `pip_rogue` (map + battle) | Pip promoted: dark leathers, a proper sword, a grin | — | after promotion |
 | P2 | `calder_lodgings` background | The party's rooms in the capital (Act II hub) | `village_hall` | Act II hub |
 
 ## 1. Map sprites (48 px, 4 directions, `walk` `attack`; idle falls back to the still rotation)

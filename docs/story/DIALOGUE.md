@@ -41,6 +41,7 @@ ALDRIC [neutral]: Another line.
 | **Dorran** | Old soldier, formal, economical. Calls Rowan "my lord" to annoy him, then because he means it. | "Hold the line. Lines are what keep villages." | Jokes, except one, once |
 | **Sable** | Mercenary swagger, keeps score, has a soft spot she denies. | "Kai Merrow. You still owe me eight silver." | Sentimental things, out loud |
 | **Wren** | Earnest, guilty, a rule-follower learning that rules can be wrong. | "I was ordered to watch. I'm done watching." | — |
+| **Pip** | Quick, cheeky undercity kid; prices everything, owns nothing. Calls Rowan "boss". Brave only when nobody's looking. | "For you, boss, no charge. Well. Small charge. Later." | Where he sleeps |
 | **Seraphine** | Idealistic royal, polite, braver than she is skilled. Learns to lead from Rowan. | "A crown is supposed to *mean* something." | — |
 | **Osmund** | Precise, dry, fussy, devastatingly polite. Calls Rowan "my lord" from day one, with a straight face. Footnotes, etiquette and quiet devotion. | "Strictly speaking, my lord, one does not *punch* a bandit lord. One has him punched." | Anything vulgar. Raises his voice exactly once in the whole game (Ch 15). |
 | **Morvane** | Soft-spoken, reasonable, sorry. Calls everyone "child". Never shouts. | "I take no joy in this. That is rather the point." | Insults. He pities. |

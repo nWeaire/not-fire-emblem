@@ -79,5 +79,11 @@ scene ch08_pre
 battle ch8 deploy 10 force rowan
 scene ch08_post_morvane
 scene ch08_aldric_leaves
+hub hub_briefing_ch09
+
+chapter 9 Chapter 9: Beneath the Crown
+scene ch09_pre
+battle ch9 deploy 10 force rowan
+scene ch09_letters
 hub
-end Act II continues in Chapter 9: Beneath the Crown.
+end Act II continues in Chapter 10: The Border of Ash.

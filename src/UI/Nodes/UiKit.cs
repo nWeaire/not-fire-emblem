@@ -268,7 +268,7 @@ public static class UiKit
         ["calder_streets"] = "town_overview",
         ["calder_palace"] = "dain_hall",
         ["calder_lodgings"] = "village_hall",
-        ["calder_undercity"] = "thornwood",
+        ["calder_undercity"] = "dain_hall",
     };
 
     /// <summary>assets/backgrounds/&lt;id&gt;.png (or its placeholder), or null.</summary>

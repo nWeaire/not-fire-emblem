@@ -143,10 +143,23 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Autoplay at level 9 (seeds 1–4):** wins 4/4 on T8–12, losing 0–2 townsfolk (the market's, furthest from the gate).
 
 ## Chapter 9 — "Beneath the Crown"
-- **Map:** 18×18 undercity with locked doors, treasure rooms and sewers. **Fog ON.**
-- **Win:** Seize the Veiled archive. **Recruit:** **Pip** (green, joins on Talk).
-- **Unlock:** doors and chests (the Thief's Steal/Unlock). The Veiled letters with purple seals start the conspiracy thread.
-- **Scenes:** `ch09_pre`, `ch09_pip`, `ch09_letters`.
+- **Map (built, session 12):** 29×29 undercity carved from rock (`tools/maps/act2_early.py`), **fog**, night lighting.
+  The party comes up the sewer outfall (south-west); the canal crosses the middle (two bridges and a ford); the north
+  hall reaches the Veiled archive (north-east) only through a locked door, and the long way round goes up the east
+  side. Three locked rooms (north-west strongroom, middle vault, south-east vault) hold five chests.
+- **Win:** Seize the archive's reading desk (24,2). Archivist Corvin (Binder L10, Boss, crest-bearer) holds Dominion
+  over the archive guards.
+- **Recruit:** **Pip** (Thief, Ally, in a bolt-hole off the south hall; `talk any pip`). A cutpurse comes for him.
+- **New systems:** locked **doors** (D) and **chests** (C). **Unlock** opens a door beside the unit or the chest under
+  it: the Thief's Locktouch, or a single-use Door Key / Chest Key (Calder market; some enemies carry them).
+  **Steal** (Thief) takes an item an adjacent enemy isn't holding if the thief is at least as fast. Chests are
+  `chest X,Y => give actor ITEM` triggers: Speedwing, 1500 gold, Silver Sword, Elixir, Secret Book.
+- **Events:** T1 `ch09_start`; entering the archive `ch09_archive`; the Archivist's quote `ch09_archivist`; T4 cutpurses
+  up the outfall grates (`ch09_grate`); T6 the Veiled watch from the east.
+- **Scenes:** `ch09_pre`, `ch09_start`, `ch09_pip`, `ch09_archive`, `ch09_archivist`, `ch09_grate`, `ch09_letters` (Chancery
+  paper, the forged letter "in the King's hand" that will move Dravenhold).
+- **Autoplay at level 10 (seeds 1–4):** wins 4/4 on T21–24 but loses 3–5 units (the south hall's guard soldier and the
+  east watch do most of it); autoplay's party isn't promoted, a campaign party at level 10 would be.
 
 ## Chapter 10 — "The Border of Ash"
 - **Map:** 22×14 border pass. A burning village sits mid-map.

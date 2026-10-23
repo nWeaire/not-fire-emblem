@@ -53,13 +53,26 @@ public sealed class BattleUnit
     public string Name => State.Def.Name;
     public bool IsLord => State.Def.IsLord;
 
-    /// <summary>
-    /// Art ids to try, best first. Outfits follow the class, so "&lt;spriteId&gt;_&lt;classId&gt;" (e.g. rowan_lord)
-    /// wins over the plain "&lt;spriteId&gt;"; promoting a unit swaps its art with no extra data.
-    /// </summary>
     /// <summary>The lord's crest is awake: his sprite shows it ("_crest" art variants, when they exist).</summary>
     public bool ShowsCrest { get; set; }
 
+    /// <summary>
+    /// Stand-ins for art not drawn yet (docs/ART_NEEDED.md section 0). Data names the real sprite id; until that art
+    /// exists the unit borrows this one, so the art drops in later with no data change.
+    /// </summary>
+    public static readonly IReadOnlyDictionary<string, string> PlaceholderSprites = new Dictionary<string, string>
+    {
+        ["neutral_rioter"] = "ally_villager",
+        ["ally_townsfolk"] = "ally_villager",
+        ["enemy_thief"] = "enemy_myrmidon",
+        ["enemy_rogue"] = "enemy_myrmidon",
+    };
+
+    /// <summary>
+    /// Art ids to try, best first. Outfits follow the class, so "&lt;spriteId&gt;_&lt;classId&gt;" (e.g. rowan_lord)
+    /// wins over the plain "&lt;spriteId&gt;"; promoting a unit swaps its art with no extra data. Units whose art isn't
+    /// drawn yet fall back to a stand-in, then to the generic look for their class ("enemy_&lt;classId&gt;").
+    /// </summary>
     public IEnumerable<string> SpriteCandidates()
     {
         if (ShowsCrest)
@@ -69,6 +82,14 @@ public sealed class BattleUnit
         }
         yield return $"{SpriteId}_{State.ClassId}";
         yield return SpriteId;
+        if (PlaceholderSprites.TryGetValue(SpriteId, out var stand))
+            yield return stand;
+        string generic = $"enemy_{State.ClassId}";
+        if (generic == SpriteId)
+            yield break;
+        yield return generic;
+        if (PlaceholderSprites.TryGetValue(generic, out var genericStand))
+            yield return genericStand;
     }
 
     public override string ToString() => $"{Name}[{Id}]@{Pos}";

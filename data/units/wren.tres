@@ -34,3 +34,4 @@ Bases = SubResource("StatsDefinition_1")
 Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray("steel_lance", "javelin")
 IsLord = false
+Crestbound = "skyward"

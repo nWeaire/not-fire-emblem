@@ -102,6 +102,7 @@ public static class BattleSetup
             DominatedBy = spawn.DominatedBy,
             CrestBearer = spawn.CrestBearer,
             Ignores = spawn.Ignores,
+            EarlierClasses = spawn.UnitId is null ? System.Array.Empty<string>() : Outfits.Earlier(db, unitState.ClassId),
         };
         RefillUses(db, unit, options.CrestTier);
         return unit;

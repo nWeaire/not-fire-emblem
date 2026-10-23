@@ -125,15 +125,26 @@ public static class LevelUpService
 /// <summary>
 /// Promotion (GDD §3, STORY §4.3): Lv 10+ and Rowan's crest tier at least the
 /// class tier. A class's bases come from the class itself, so changing class applies the new bases automatically.
+/// Tier 2 units go on to their own Crestbound class (UnitDef.Crestbound), not one shared by class.
 /// </summary>
 public static class PromotionService
 {
     public const int MinLevel = 10;
 
+    /// <summary>Classes the unit could promote to: its class's routes, and from tier 2 its own Crestbound class.</summary>
+    public static IEnumerable<string> Targets(ContentDatabase db, UnitState unit)
+    {
+        var cls = db.Class(unit.ClassId);
+        var targets = cls.PromotesTo.AsEnumerable();
+        if (cls.Tier == 2 && unit.Def.Crestbound is { } crestbound && crestbound != unit.ClassId)
+            targets = targets.Append(crestbound);
+        return targets.Distinct();
+    }
+
     public static string? CannotPromote(ContentDatabase db, UnitState unit, string targetClassId, int crestTier)
     {
         var cls = db.Class(unit.ClassId);
-        if (!cls.PromotesTo.Contains(targetClassId))
+        if (!Targets(db, unit).Contains(targetClassId))
             return $"{cls.Name} can't become {db.Class(targetClassId).Name}.";
         var target = db.Class(targetClassId);
         if (unit.Level < MinLevel)
@@ -149,6 +160,24 @@ public static class PromotionService
         unit.ClassId = targetClassId;
         unit.Level = 1;
         unit.Exp = 0;
+    }
+}
+
+/// <summary>Earlier classes a unit's art can fall back to (Crestbound → its tier 2 → its tier 1), nearest first.</summary>
+public static class Outfits
+{
+    public static IReadOnlyList<string> Earlier(ContentDatabase db, string classId)
+    {
+        var chain = new List<string>();
+        string? current = classId;
+        for (int i = 0; i < 3 && current is not null; i++)
+        {
+            var cls = db.Classes.GetValueOrDefault(current);
+            current = cls?.PromotesFrom ?? db.Classes.Values.Where(c => c.PromotesTo.Contains(current!)).Select(c => c.Id).OrderBy(id => id, StringComparer.Ordinal).FirstOrDefault();
+            if (current is not null && !chain.Contains(current))
+                chain.Add(current);
+        }
+        return chain;
     }
 }
 

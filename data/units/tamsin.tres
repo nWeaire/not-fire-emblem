@@ -33,3 +33,4 @@ Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray("iron_bow", "vulnerary")
 IsLord = false
 Armor = "leather_jerkin"
+Crestbound = "wildstalker"

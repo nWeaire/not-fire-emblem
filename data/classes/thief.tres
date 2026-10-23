@@ -50,3 +50,4 @@ Tier = 1
 Traits = PackedStringArray("Locktouch", "Steal")
 Arts = PackedStringArray()
 Spells = PackedStringArray()
+PromotesFrom = ""

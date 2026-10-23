@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="ClassDefinition" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ClassDefinition.cs" id="1_class"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+HP = 25
+Str = 9
+Mag = 4
+Dex = 11
+Spd = 15
+Lck = 8
+Def = 7
+Res = 11
+Mov = 9
+
+[sub_resource type="Resource" id="StatsDefinition_2"]
+script = ExtResource("2_stats")
+Dex = 5
+Spd = 15
+Lck = 5
+Res = 10
+
+[sub_resource type="Resource" id="StatsDefinition_3"]
+script = ExtResource("2_stats")
+HP = 60
+Str = 30
+Mag = 30
+Dex = 30
+Spd = 30
+Lck = 30
+Def = 30
+Res = 30
+Mov = 10
+
+[resource]
+script = ExtResource("1_class")
+Id = "skyward"
+Name = "Skyward"
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Caps = SubResource("StatsDefinition_3")
+MovementType = 3
+UsableWeapons = PackedStringArray("Lance", "Sword")
+PromotesTo = PackedStringArray()
+IsPromoted = true
+MaxArmor = 0
+Tier = 3
+Traits = PackedStringArray()
+Arts = PackedStringArray("sky_lance")
+Spells = PackedStringArray()
+PromotesFrom = "falcon_knight"

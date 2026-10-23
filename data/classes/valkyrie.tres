@@ -49,3 +49,4 @@ Tier = 2
 Traits = PackedStringArray()
 Arts = PackedStringArray()
 Spells = PackedStringArray("heal", "physic")
+PromotesFrom = ""

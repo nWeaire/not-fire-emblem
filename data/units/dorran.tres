@@ -35,3 +35,4 @@ Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray("steel_lance", "javelin")
 IsLord = false
 Armor = "iron_plate"
+Crestbound = "bulwark"

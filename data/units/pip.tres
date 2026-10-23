@@ -32,3 +32,4 @@ Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray("iron_sword", "vulnerary")
 IsLord = false
 Armor = ""
+Crestbound = "shadowstep"

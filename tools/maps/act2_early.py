@@ -73,7 +73,11 @@ def weapons():
     weapon_tres("crossbow", "Crossbow", 3, 11, 70, 5, 9, 2, 2, 1600, 2, ["Flying"])
 
 
-def class_tres(cid, name, bases, growths, weapons, promotes_to, promoted, tier, traits, arts=(), spells=(), move=INFANTRY):
+LIGHT, MEDIUM, HEAVY = 0, 1, 2  # ArmorClass: the heaviest body armour a class can wear
+
+
+def class_tres(cid, name, bases, growths, weapons, promotes_to, promoted, tier, traits, arts=(), spells=(), move=INFANTRY,
+               armor=LIGHT, promotes_from=""):
     caps = dict(HP=60, Str=30, Mag=30, Dex=30, Spd=30, Lck=30, Def=30, Res=30, Mov=10)
     q = lambda xs: ", ".join(f'"{x}"' for x in xs)
     write(DATA / "classes" / f"{cid}.tres", f"""[gd_resource type="Resource" script_class="ClassDefinition" load_steps=6 format=3]
@@ -95,11 +99,12 @@ MovementType = {move}
 UsableWeapons = PackedStringArray({q(weapons)})
 PromotesTo = PackedStringArray({q(promotes_to)})
 IsPromoted = {"true" if promoted else "false"}
-MaxArmor = 0
+MaxArmor = {armor}
 Tier = {tier}
 Traits = PackedStringArray({q(traits)})
 Arts = PackedStringArray({q(arts)})
 Spells = PackedStringArray({q(spells)})
+PromotesFrom = "{promotes_from}"
 """)
 
 
@@ -120,6 +125,75 @@ def classes():
                dict(HP=10, Str=10, Def=10), ["Lance"], ["wyvern_lord"], False, 1, [], move=FLYING)
     class_tres("wyvern_lord", "Wyvern Lord", dict(HP=26, Str=10, Dex=8, Spd=7, Lck=3, Def=11, Res=2, Mov=8),
                dict(HP=10, Str=10, Def=10), ["Lance", "Axe"], [], True, 2, [], move=FLYING)
+    tier2_classes()
+    crestbound_classes()
+
+
+def tier2_classes():
+    # Tier 2 for the Act I companions who had none (session 12): Dorran, Sable and Wren couldn't promote after Ch 7.
+    # The General takes up axes too (the "knights that can use axes" idea from session 11).
+    class_tres("general", "General", dict(HP=28, Str=10, Dex=7, Spd=4, Lck=2, Def=14, Res=3, Mov=5),
+               dict(HP=15, Str=5, Def=15), ["Lance", "Axe"], [], True, 2, [], move=ARMORED, armor=HEAVY, promotes_from="knight")
+    class_tres("swordmaster", "Swordmaster", dict(HP=22, Str=8, Dex=12, Spd=14, Lck=5, Def=6, Res=3, Mov=6),
+               dict(HP=5, Str=5, Dex=10, Spd=15), ["Sword"], [], True, 2, [], arts=["swift_cut"], promotes_from="myrmidon")
+    class_tres("falcon_knight", "Falcon Knight", dict(HP=22, Str=7, Mag=3, Dex=9, Spd=13, Lck=7, Def=6, Res=9, Mov=8),
+               dict(Dex=5, Spd=15, Lck=5, Res=10), ["Lance", "Sword"], [], True, 2, [], arts=["sky_lance"], move=FLYING,
+               promotes_from="pegasus_knight")
+
+
+def crestbound_classes():
+    # Tier 3 (STORY §4.2, the Lord's Crest after Ch 13): one class per companion (UnitDef.Crestbound), each about its
+    # tier 2 plus 4 HP and +2 to what the class lives by, sometimes a new weapon. Signature arts are still to design.
+    def cb(cid, name, base, bases, growths, weapons, arts=(), spells=(), traits=(), move=INFANTRY, armor=LIGHT):
+        class_tres(cid, name, bases, growths, weapons, [], True, 3, list(traits), arts=arts, spells=spells, move=move,
+                   armor=armor, promotes_from=base)
+    cb("high_lord", "High Lord", "crest_knight", dict(HP=28, Str=11, Mag=3, Dex=12, Spd=12, Lck=8, Def=10, Res=6, Mov=7),
+       dict(HP=10, Str=5, Dex=5, Spd=5, Lck=5), ["Sword", "Lance"], armor=MEDIUM)
+    cb("vanguard", "Vanguard", "paladin", dict(HP=30, Str=11, Mag=1, Dex=10, Spd=10, Lck=6, Def=12, Res=6, Mov=8),
+       dict(HP=10, Str=5, Dex=5, Spd=5, Def=5, Res=5), ["Sword", "Lance", "Axe"], move=CAVALRY, armor=HEAVY)
+    cb("oracle", "Oracle", "sage", dict(HP=23, Str=2, Mag=13, Dex=8, Spd=9, Lck=6, Def=5, Res=12, Mov=6),
+       dict(Mag=15, Dex=5, Spd=5, Res=10), ["BlackMagic", "WhiteMagic"], spells=["heal", "physic", "mend"])
+    cb("crestscribe", "Crestscribe", "sage", dict(HP=22, Str=2, Mag=14, Dex=9, Spd=9, Lck=5, Def=4, Res=11, Mov=6),
+       dict(Mag=15, Dex=5, Spd=5, Res=10), ["BlackMagic", "WhiteMagic"], spells=["heal"])
+    cb("ironheart", "Ironheart", "warrior", dict(HP=34, Str=14, Dex=8, Spd=9, Lck=4, Def=10, Res=3, Mov=6),
+       dict(HP=20, Str=10, Dex=5, Spd=5), ["Axe", "Bow"], armor=HEAVY)
+    cb("wildstalker", "Wildstalker", "sniper", dict(HP=25, Str=10, Dex=14, Spd=12, Lck=6, Def=7, Res=4, Mov=7),
+       dict(HP=10, Str=5, Dex=10), ["Bow"], arts=["longshot"])
+    cb("corsair", "Corsair", "sniper", dict(HP=26, Str=11, Dex=13, Spd=11, Lck=6, Def=8, Res=4, Mov=6),
+       dict(HP=10, Str=5, Dex=10), ["Bow", "Sword"], arts=["longshot"])
+    cb("bulwark", "Bulwark", "general", dict(HP=32, Str=12, Dex=8, Spd=5, Lck=3, Def=17, Res=5, Mov=5),
+       dict(HP=15, Str=5, Def=15), ["Lance", "Axe", "Sword"], move=ARMORED, armor=HEAVY)
+    cb("blade_dancer", "Blade Dancer", "swordmaster", dict(HP=25, Str=10, Dex=14, Spd=16, Lck=7, Def=7, Res=4, Mov=7),
+       dict(HP=5, Str=5, Dex=10, Spd=15), ["Sword"], arts=["swift_cut"])
+    cb("skyward", "Skyward", "falcon_knight", dict(HP=25, Str=9, Mag=4, Dex=11, Spd=15, Lck=8, Def=7, Res=11, Mov=9),
+       dict(Dex=5, Spd=15, Lck=5, Res=10), ["Lance", "Sword"], arts=["sky_lance"], move=FLYING)
+    cb("shadowstep", "Shadowstep", "rogue", dict(HP=25, Str=8, Mag=1, Dex=12, Spd=16, Lck=9, Def=5, Res=4, Mov=8),
+       dict(HP=10, Str=5, Dex=10, Spd=10, Lck=10), ["Sword"], traits=["Locktouch", "Steal"])
+    cb("lightbearer", "Lightbearer", "valkyrie", dict(HP=24, Mag=11, Dex=8, Spd=11, Lck=9, Def=5, Res=12, Mov=8),
+       dict(HP=10, Mag=10, Spd=5, Res=10), ["WhiteMagic", "BlackMagic"], spells=["heal", "physic", "mend"], move=CAVALRY)
+    cb("dragonheart", "Dragonheart", "wyvern_lord", dict(HP=30, Str=13, Dex=10, Spd=9, Lck=4, Def=13, Res=4, Mov=8),
+       dict(HP=10, Str=10, Def=10), ["Lance", "Axe"], move=FLYING)
+
+
+# Each companion's Crestbound class (STORY §6 class paths). Aldric has none: his line ends at Warden Lord.
+CRESTBOUND = {"rowan": "high_lord", "kai": "vanguard", "mira": "oracle", "elise": "crestscribe", "brann": "ironheart",
+              "tamsin": "wildstalker", "halde": "corsair", "dorran": "bulwark", "sable": "blade_dancer", "wren": "skyward",
+              "pip": "shadowstep", "seraphine": "lightbearer", "ysra": "dragonheart"}
+
+
+def tier1_routes():
+    """Adds the new tier 2 classes to the tier 1 classes' PromotesTo, and each unit's Crestbound class."""
+    import re
+    for cid, target in [("knight", "general"), ("myrmidon", "swordmaster"), ("pegasus_knight", "falcon_knight")]:
+        path = DATA / "classes" / f"{cid}.tres"
+        text = path.read_text(encoding="utf-8")
+        text = re.sub(r'PromotesTo = PackedStringArray\(\)', f'PromotesTo = PackedStringArray("{target}")', text)
+        path.write_text(text, encoding="utf-8", newline="\n")
+    for uid, cid in CRESTBOUND.items():
+        path = DATA / "units" / f"{uid}.tres"
+        text = path.read_text(encoding="utf-8")
+        text = re.sub(r'\nCrestbound = "[^"]*"', "", text).rstrip("\n") + f'\nCrestbound = "{cid}"\n'
+        path.write_text(text, encoding="utf-8", newline="\n")
 
 
 def units():
@@ -641,6 +715,7 @@ if __name__ == "__main__":
     weapons()
     classes()
     units()
+    tier1_routes()
     ch8()
     ch9()
     ch10()

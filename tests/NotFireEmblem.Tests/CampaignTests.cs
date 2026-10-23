@@ -303,4 +303,33 @@ public class CampaignTests
         Assert.Equal("hero", rookie.ClassId);
         Assert.Equal(1, rookie.Level);
     }
+
+    [Fact]
+    public void Crestbound_IsEachUnitsOwnTierThree_AndItsArtFallsBack()
+    {
+        var db = Db();
+        db.Add(db.Class("hero") with { Id = "champion", Name = "Champion", Tier = 3, PromotesFrom = "hero" });
+        db.Add(db.Class("hero") with { Id = "blademaster", Name = "Blademaster", Tier = 3, PromotesFrom = "hero" });
+        db.Add(new UnitDef("ace", "Ace", "merc_p", 1, default, default, Array.Empty<string>(), false, Crestbound: "champion"));
+        db.Add(new UnitDef("rival", "Rival", "merc_p", 1, default, default, Array.Empty<string>(), false, Crestbound: "blademaster"));
+        Assert.DoesNotContain(db.Validate(), e => e.Contains("Crestbound") || e.Contains("follows"));
+        var s = new GameSession { CrestTier = 2 };
+        s.Unlocks.Add("promotion");
+        var ace = s.Join(db, "ace");
+        var rival = s.Join(db, "rival");
+        Assert.Equal(new[] { "hero" }, PromotionService.Targets(db, ace)); // tier 1: the class's own route
+        foreach (var u in new[] { ace, rival })
+        {
+            u.Level = 10;
+            Assert.Null(HubService.Promote(db, s, u, "hero"));
+            u.Level = 10;
+        }
+        Assert.Equal(new[] { "champion" }, PromotionService.Targets(db, ace));
+        Assert.Equal(new[] { "blademaster" }, PromotionService.Targets(db, rival));
+        Assert.Equal("Needs crest tier 3 (now 2).", HubService.CannotPromote(db, s, ace, "champion"));
+        Assert.Equal("hero can't become Blademaster.", HubService.CannotPromote(db, s, ace, "blademaster"));
+        s.CrestTier = 3;
+        Assert.Null(HubService.Promote(db, s, ace, "champion"));
+        Assert.Equal(new[] { "hero", "merc_p" }, Outfits.Earlier(db, "champion"));
+    }
 }

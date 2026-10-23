@@ -53,6 +53,9 @@ public sealed class BattleUnit
     public string Name => State.Def.Name;
     public bool IsLord => State.Def.IsLord;
 
+    /// <summary>Earlier classes, nearest first (see Outfits.Earlier): their outfits stand in for art not drawn yet.</summary>
+    public IReadOnlyList<string> EarlierClasses { get; init; } = System.Array.Empty<string>();
+
     /// <summary>The lord's crest is awake: his sprite shows it ("_crest" art variants, when they exist).</summary>
     public bool ShowsCrest { get; set; }
 
@@ -85,6 +88,8 @@ public sealed class BattleUnit
             yield return $"{SpriteId}_crest";
         }
         yield return $"{SpriteId}_{State.ClassId}";
+        foreach (var earlier in EarlierClasses)
+            yield return $"{SpriteId}_{earlier}";
         yield return SpriteId;
         if (PlaceholderSprites.TryGetValue(SpriteId, out var stand))
             yield return stand;

@@ -35,3 +35,4 @@ Inventory = PackedStringArray("old_sword", "vulnerary")
 IsLord = true
 Arts = PackedStringArray("sunder")
 Supports = PackedStringArray("kai:8,20,35", "mira:8,20,35", "aldric:10,22,40")
+Crestbound = "high_lord"

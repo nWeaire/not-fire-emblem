@@ -34,7 +34,8 @@ public sealed record ClassDef(
     int Tier = 1,                            // 1 base, 2 advanced, 3 crestbound, 4 final; promotion needs crest tier ≥ this
     IReadOnlyList<string>? Traits = null,    // e.g. "Beast" (effective damage, severed beasts are stunned)
     IReadOnlyList<string>? Arts = null,      // combat arts every unit of this class knows
-    IReadOnlyList<string>? Spells = null)    // spells every unit of this class knows
+    IReadOnlyList<string>? Spells = null,    // spells every unit of this class knows
+    string? PromotesFrom = null)             // tier 3 Crestbound classes: the class they follow (art falls back to it)
 {
     public bool HasTrait(string trait) => Traits is not null && Traits.Contains(trait);
 }
@@ -89,7 +90,8 @@ public sealed record UnitDef(
     string? Accessory = null,  // starting accessory id
     IReadOnlyList<string>? Arts = null,
     IReadOnlyList<string>? Spells = null,
-    IReadOnlyList<SupportDef>? Supports = null);
+    IReadOnlyList<SupportDef>? Supports = null,
+    string? Crestbound = null); // the unit's own tier-3 class (STORY §4.2: a unique third tier per companion)
 
 /// <summary>A support pairing seen from one unit: the points needed for ranks C, B and A.</summary>
 public sealed record SupportDef(string PartnerId, int C, int B, int A)

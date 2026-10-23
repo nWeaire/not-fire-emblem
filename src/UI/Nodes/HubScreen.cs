@@ -579,15 +579,17 @@ public partial class HubScreen : Control
         foreach (var unit in S.ActiveRoster)
         {
             var cls = Db.Class(unit.ClassId);
-            if (cls.PromotesTo.Count == 0)
+            var targets = PromotionService.Targets(Db, unit).ToList();
+            if (targets.Count == 0)
             {
                 Row($"   {unit.Def.Name} ({cls.Name}): no further class yet", 15, UiKit.Muted);
                 continue;
             }
-            foreach (var target in cls.PromotesTo)
+            foreach (var target in targets)
             {
                 string? why = HubService.CannotPromote(Db, S, unit, target);
-                var row = Row($"   {unit.Def.Name} ({cls.Name} Lv {unit.Level}) → {Db.Class(target).Name}" + (why is null ? "" : $"   — {why}"));
+                string crestbound = Db.Class(target).Tier == 3 ? " (Crestbound)" : "";
+                var row = Row($"   {unit.Def.Name} ({cls.Name} Lv {unit.Level}) → {Db.Class(target).Name}{crestbound}" + (why is null ? "" : $"   — {why}"));
                 row.AddChild(Small("Promote", () => Do(() => HubService.Promote(Db, S, unit, target), $"{unit.Def.Name} is now a {Db.Class(target).Name}!"), why is null));
             }
         }

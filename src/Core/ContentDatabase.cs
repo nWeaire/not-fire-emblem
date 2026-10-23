@@ -81,6 +81,8 @@ public sealed class ContentDatabase
         {
             foreach (var p in c.PromotesTo.Where(p => !Classes.ContainsKey(p)))
                 errors.Add($"Class '{c.Id}' promotes to unknown class '{p}'.");
+            if (c.PromotesFrom is { } from && !Classes.ContainsKey(from))
+                errors.Add($"Class '{c.Id}' follows unknown class '{from}'.");
             foreach (var a in (c.Arts ?? Array.Empty<string>()).Where(a => !Arts.ContainsKey(a)))
                 errors.Add($"Class '{c.Id}' teaches unknown art '{a}'.");
             foreach (var sp in (c.Spells ?? Array.Empty<string>()).Where(sp => !Spells.ContainsKey(sp)))
@@ -96,6 +98,8 @@ public sealed class ContentDatabase
                 errors.Add($"Unit '{u.Id}' knows unknown art '{a}'.");
             foreach (var sp in (u.Spells ?? Array.Empty<string>()).Where(sp => !Spells.ContainsKey(sp)))
                 errors.Add($"Unit '{u.Id}' knows unknown spell '{sp}'.");
+            if (u.Crestbound is { } cb && !(Classes.TryGetValue(cb, out var cbClass) && cbClass.Tier == 3))
+                errors.Add($"Unit '{u.Id}' has Crestbound class '{cb}', which isn't a tier 3 class.");
             foreach (var sup in (u.Supports ?? Array.Empty<SupportDef>()).Where(sup => !Units.ContainsKey(sup.PartnerId)))
                 errors.Add($"Unit '{u.Id}' has a support with unknown unit '{sup.PartnerId}'.");
             if (u.Armor is not null && TryArmor(u.Armor) is not { Slot: ArmorSlot.Body })

@@ -28,6 +28,8 @@ public partial class ClassDefinition : Resource
     [Export] public string[] Arts { get; set; } = Array.Empty<string>();
     /// <summary>Spell ids every unit of this class knows.</summary>
     [Export] public string[] Spells { get; set; } = Array.Empty<string>();
+    /// <summary>Tier 3 Crestbound classes: the class they follow, for art that isn't drawn yet.</summary>
+    [Export] public string PromotesFrom { get; set; } = "";
 
     public ClassDef ToDef() => new(
         Id,
@@ -43,5 +45,6 @@ public partial class ClassDefinition : Resource
         Tier,
         Traits.ToArray(),
         Arts.ToArray(),
-        Spells.ToArray());
+        Spells.ToArray(),
+        string.IsNullOrEmpty(PromotesFrom) ? null : PromotesFrom);
 }

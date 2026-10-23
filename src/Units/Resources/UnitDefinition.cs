@@ -28,11 +28,14 @@ public partial class UnitDefinition : Resource
     [Export] public string[] Spells { get; set; } = Array.Empty<string>();
     /// <summary>Support pairs as "partner:C,B,A" point thresholds, e.g. "kai:10,25,45".</summary>
     [Export] public string[] Supports { get; set; } = Array.Empty<string>();
+    /// <summary>The unit's own tier-3 class, reached from its tier-2 class at crest tier 3 (empty = none).</summary>
+    [Export] public string Crestbound { get; set; } = "";
 
     public UnitDef ToDef() => new(
         Id, Name, ClassId, Level, StatsDefinition.ToBlock(Bases), StatsDefinition.ToBlock(Growths), Inventory.ToArray(), IsLord,
         string.IsNullOrEmpty(Armor) ? null : Armor, string.IsNullOrEmpty(Accessory) ? null : Accessory,
-        Arts.ToArray(), Spells.ToArray(), Supports.Select(ParseSupport).ToArray());
+        Arts.ToArray(), Spells.ToArray(), Supports.Select(ParseSupport).ToArray(),
+        string.IsNullOrEmpty(Crestbound) ? null : Crestbound);
 
     private SupportDef ParseSupport(string text)
     {

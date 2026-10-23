@@ -28,8 +28,10 @@ public static class ObjectiveTour
                 stops.Add(new TourStop("Victory: defeat every enemy.", Array.Empty<GridPos>()));
                 break;
             case VictoryKind.DefeatBoss:
-                var boss = s.ByKey(goals.BossKey!);
-                stops.Add(new TourStop($"Victory: defeat {boss?.Name ?? "the boss"}.", At(boss)));
+                var bosses = s.AllByKey(goals.BossKey!).Where(u => u.IsOnMap).ToList();
+                stops.Add(bosses.Count > 1
+                    ? new TourStop($"Victory: defeat all {bosses.Count} {bosses[0].Name.Split(' ')[^1]}s.", bosses.Select(u => u.Pos).ToList())
+                    : new TourStop($"Victory: defeat {bosses.FirstOrDefault()?.Name ?? "the boss"}.", At(bosses.FirstOrDefault())));
                 break;
             case VictoryKind.Seize:
                 stops.Add(new TourStop($"Victory: {lords} must seize this tile.", goals.Cells));

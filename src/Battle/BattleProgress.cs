@@ -10,17 +10,22 @@ public static class BattleProgress
 {
     /// <summary>
     /// Removes a fallen unit. A fallen crest-bearer severs everyone it dominated (STORY §4.3): beasts are stunned
-    /// for their next phase, dominated humans surrender and leave the map.
+    /// for their next phase, dominated humans surrender and leave the map. Anyone else others are dominated by (Ch 8's
+    /// agitators, who share one key) only lets go of the units within their Dominion range that no other unit with
+    /// the key still holds.
     /// </summary>
     public static void Defeat(BattleState s, BattleUnit unit, List<BattleEvent> events)
     {
         s.Defeat(unit);
         events.Add(new UnitDefeated(unit.Id));
-        if (!unit.CrestBearer || unit.Key is not { } key)
+        if (unit.Key is not { } key)
             return;
         var stunned = new List<string>();
         var surrendered = new List<string>();
-        foreach (var held in s.Living.Where(u => u.DominatedBy == key).ToList())
+        var released = s.Living.Where(u => u.DominatedBy == key);
+        if (!unit.CrestBearer)
+            released = released.Where(u => u.Pos.DistanceTo(unit.Pos) <= BattleState.DominionRadius && !s.IsDominated(u));
+        foreach (var held in released.ToList())
         {
             held.DominatedBy = null;
             if (s.Db.Class(held.State.ClassId).HasTrait("Beast"))

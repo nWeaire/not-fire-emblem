@@ -604,7 +604,8 @@ public partial class BattleController : Node3D
         if (goals.Victory is VictoryKind.Rout or VictoryKind.DefeatBoss
             && !State.LivingOf(Faction.Player).Any(u => u != lord && !IsVital(u) && State.Db.TryWeapon(u.State.EquippedItemId) is not null))
         {
-            var target = (goals.Victory == VictoryKind.DefeatBoss && goals.BossKey is { } key ? State.ByKey(key) : null)
+            var target = (goals.Victory == VictoryKind.DefeatBoss && goals.BossKey is { } key
+                             ? State.AllByKey(key).Where(u => u.IsOnMap).OrderBy(u => u.Pos.DistanceTo(lord.Pos)).FirstOrDefault() : null)
                          ?? State.LivingOf(Faction.Enemy).OrderBy(e => e.Pos.DistanceTo(lord.Pos)).FirstOrDefault();
             var path = target is null ? null : Pathfinder.FindPath(State.Grid, lord.Pos, target.Pos, State.MoveType(lord));
             if (path is not null)

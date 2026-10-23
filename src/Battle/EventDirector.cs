@@ -121,6 +121,7 @@ public static class EventDirector
         "player" => s.LivingOf(Faction.Player),
         "enemy" => s.LivingOf(Faction.Enemy),
         "ally" => s.LivingOf(Faction.Ally),
+        "neutral" => s.LivingOf(Faction.Neutral),
         "any" => s.Living,
         _ => s.Living.Where(u => u.Key == who),
     };

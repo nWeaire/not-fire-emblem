@@ -144,7 +144,7 @@ public partial class BattleSceneView : CanvasLayer
         var attacker = s.Unit(c.AttackerId);
         var defender = s.Unit(c.DefenderId);
         // The player's side always stands on the right, as in the GBA games.
-        bool attackerOnRight = attacker.Faction != Faction.Enemy || defender.Faction == Faction.Enemy;
+        bool attackerOnRight = attacker.Faction.IsPlayerSide() || !defender.Faction.IsPlayerSide();
         var rightUnit = attackerOnRight ? attacker : defender;
         var leftUnit = attackerOnRight ? defender : attacker;
         var rightForecast = attackerOnRight ? c.Forecast.Attacker : c.Forecast.Defender;
@@ -894,7 +894,13 @@ public partial class BattleSceneView : CanvasLayer
             _values[0].Text = f.CanStrike ? $"{f.Hit}" : "--";
             _values[1].Text = f.CanStrike ? $"{f.Damage}{(f.StrikeCount > 1 ? "×2" : "")}" : "--";
             _values[2].Text = f.CanStrike ? $"{f.Crit}" : "--";
-            _fill.BgColor = faction == Faction.Enemy ? UiKit.Bad : faction == Faction.Ally ? new Color(0.5f, 0.85f, 0.45f) : UiKit.Good;
+            _fill.BgColor = faction switch
+            {
+                Faction.Enemy => UiKit.Bad,
+                Faction.Ally => new Color(0.5f, 0.85f, 0.45f),
+                Faction.Neutral => new Color(1f, 0.78f, 0.3f),
+                _ => UiKit.Good,
+            };
             _hp.MaxValue = f.MaxHp;
             _hp.Value = f.Hp;
             _hpText.Text = $"{f.Hp}";

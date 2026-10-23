@@ -80,13 +80,13 @@ public sealed record TriggerDef(string Id, TriggerCondition Condition, IReadOnly
 /// <summary>
 /// Parses the small text language maps use for objectives and triggers, so maps stay readable text.
 /// <code>
-/// Victory: rout | boss KEY | seize X,Y | survive N | escape CELLS [KEY...]
+/// Victory: rout | boss KEY (every unit with the key) | seize X,Y | survive N | escape CELLS [KEY...]
 /// Defeat:  die KEY | protect TAG N | turns N
 /// Trigger: CONDITION [unless GUARD] => EFFECT; EFFECT; ...
-///   conditions: turn N [player|enemy|ally] · defeated KEY · enter WHO CELLS · adjacent A B · flag NAME
+///   conditions: turn N [player|enemy|ally|neutral] · defeated KEY · enter WHO CELLS · adjacent A B · flag NAME
 ///               enemies N (at most N left) · hp KEY PERCENT (below) · talk ACTOR TARGET · visit X,Y · combat KEY
 ///   guards:     flag NAME · joined KEY (KEY is on the player's side), e.g. "turn 3 enemy unless joined brann => ..."
-///   effects:    scene ID · spawn GROUP · flag NAME · join KEY · faction KEY player|enemy|ally · give KEY ITEM
+///   effects:    scene ID · spawn GROUP · flag NAME · join KEY · faction KEY player|enemy|ally|neutral · give KEY ITEM
 ///               gold N · terrain CELLS SYMBOL · damage KEY N · leave KEY · win · lose
 /// Highlight: CELLS => caption · KEY => caption   (shown with the objectives before turn 1)
 /// CELLS: "x,y" or a rectangle "x1,y1-x2,y2", several separated by spaces.
@@ -227,6 +227,7 @@ public static class MapScript
         "player" => Faction.Player,
         "enemy" => Faction.Enemy,
         "ally" => Faction.Ally,
+        "neutral" => Faction.Neutral,
         _ => throw new FormatException($"Unknown faction '{text}' in '{line}'."),
     };
 

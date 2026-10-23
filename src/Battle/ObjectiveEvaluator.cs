@@ -32,13 +32,23 @@ public static class ObjectiveEvaluator
         bool won = goals.Victory switch
         {
             VictoryKind.Rout => !s.LivingOf(Faction.Enemy).Any(),
-            VictoryKind.DefeatBoss => s.ByKey(goals.BossKey!) is { IsOnMap: false },
+            VictoryKind.DefeatBoss => s.AllByKey(goals.BossKey!).Any() && s.AllByKey(goals.BossKey!).All(u => !u.IsOnMap),
             VictoryKind.Seize => s.Seized,
             VictoryKind.Survive => s.SurviveComplete,
             VictoryKind.Escape => EscapeDone(s),
             _ => false,
         };
         return won ? BattleOutcome.Victory : BattleOutcome.InProgress;
+    }
+
+    /// <summary>"Defeat Halvric", or for a group sharing the key "Defeat the Agitators (3 left)".</summary>
+    private static string DescribeBoss(BattleState s, string key)
+    {
+        var all = s.AllByKey(key).ToList();
+        if (all.Count <= 1)
+            return $"Defeat {all.FirstOrDefault()?.Name ?? "the boss"}";
+        string name = all[0].Name.Split(' ')[^1];
+        return $"Defeat the {name}s ({all.Count(u => u.IsOnMap)} left)";
     }
 
     private static bool EscapeDone(BattleState s)
@@ -56,7 +66,7 @@ public static class ObjectiveEvaluator
         string goal = goals.Victory switch
         {
             VictoryKind.Rout => $"Rout the enemy ({s.LivingOf(Faction.Enemy).Count()} left)",
-            VictoryKind.DefeatBoss => $"Defeat {s.ByKey(goals.BossKey!)?.Name ?? "the boss"}",
+            VictoryKind.DefeatBoss => DescribeBoss(s, goals.BossKey!),
             VictoryKind.Seize => "Seize the marked tile with your lord",
             VictoryKind.Survive => $"Survive {System.Math.Max(0, goals.Turns - s.Turn + 1)} more turn(s)",
             VictoryKind.Escape => "Escape: " + string.Join(", ", EscapeNames(s)) + " to the exit",

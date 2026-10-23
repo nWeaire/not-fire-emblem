@@ -26,5 +26,5 @@ public static class AudioCues
     public static string Impact(bool hit, bool crit) => !hit ? "miss" : crit ? "hit_heavy" : "hit";
 
     /// <summary>Battle music for a phase. Allies share the player's theme.</summary>
-    public static string PhaseMusic(Faction phase) => phase == Faction.Enemy ? "enemy_phase" : "player_phase";
+    public static string PhaseMusic(Faction phase) => phase.IsPlayerSide() ? "player_phase" : "enemy_phase";
 }

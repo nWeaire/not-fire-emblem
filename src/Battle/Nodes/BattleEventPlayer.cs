@@ -393,7 +393,9 @@ public partial class BattleEventPlayer : Node
 
     private async Task PlaySevered(CrestSevered s)
     {
-        await Battle.Hud.ShowBanner("Severed!", new Color(0.85f, 0.75f, 1f), 0.5f);
+        // A crest's fall severs its hold; a fallen ringleader (Ch 8's agitators) just leaves a crowd that calms down.
+        bool crest = Battle.State.TryUnit(s.BearerId) is { CrestBearer: true };
+        await Battle.Hud.ShowBanner(crest ? "Severed!" : "Calmed!", new Color(0.85f, 0.75f, 1f), 0.5f);
         foreach (var id in s.Stunned)
         {
             if (Battle.ViewOf(id) is { } view)
@@ -403,7 +405,7 @@ public partial class BattleEventPlayer : Node
             }
         }
         foreach (var id in s.Surrendered)
-            _ = PlayLeave(id, "Surrenders");
+            _ = PlayLeave(id, crest ? "Surrenders" : "Goes home");
         await Wait(0.5f);
     }
 

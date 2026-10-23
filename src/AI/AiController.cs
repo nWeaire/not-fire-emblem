@@ -87,8 +87,15 @@ public static class AiController
     {
         int range = CombatCalculator.UsableWeapons(s.Db, unit.State).Select(w => w.MaxRange).DefaultIfEmpty(1).Max();
         int alert = s.Stats(unit).Mov + range + GuardAlertMargin;
-        return s.Living.Any(u => u.Faction.IsHostileTo(unit.Faction) && u.IsOnMap && u.Pos.DistanceTo(unit.Pos) <= alert);
+        return s.Living.Any(u => Picks(unit, u) && u.Pos.DistanceTo(unit.Pos) <= alert);
     }
+
+    /// <summary>
+    /// Whether the AI would go after <paramref name="target"/>: any hostile unit, except that Neutral units (rioters)
+    /// only start fights with Ally units (civilians), never the player's army.
+    /// </summary>
+    public static bool Picks(BattleUnit unit, BattleUnit target) =>
+        unit.Faction.IsHostileTo(target.Faction) && (unit.Faction != Faction.Neutral || target.Faction == Faction.Ally);
 
     /// <summary>Healer profile: heal the most injured friend it can reach.</summary>
     private static IBattleCommand? BestHeal(BattleState s, BattleUnit unit, ReachMap reach)
@@ -113,7 +120,7 @@ public static class AiController
         if (choices.Count == 0)
             return null;
         // Under fog, the AI only attacks what its side can see.
-        var hostiles = s.Living.Where(t => t.Faction.IsHostileTo(unit.Faction) && s.CanSee(unit.Faction, t)).ToList();
+        var hostiles = s.Living.Where(t => Picks(unit, t) && s.CanSee(unit.Faction, t)).ToList();
         var danger = new Lazy<Dictionary<GridPos, int>>(() => ThreatCounts(s, unit.Faction));
 
         (IBattleCommand Command, double Score)? best = null;
@@ -197,7 +204,7 @@ public static class AiController
         BattleUnit? goal = null;
         int bestLength = int.MaxValue;
         // Prefer targets the side can see; under fog with nothing in sight, head for the nearest anyway.
-        var hostiles = s.Living.Where(t => t.Faction.IsHostileTo(unit.Faction)).ToList();
+        var hostiles = s.Living.Where(t => Picks(unit, t)).ToList();
         var seen = hostiles.Where(t => s.CanSee(unit.Faction, t)).ToList();
         foreach (var target in (seen.Count > 0 ? seen : hostiles).OrderBy(t => t.Id, StringComparer.Ordinal))
         {

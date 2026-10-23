@@ -15,6 +15,7 @@ public partial class UnitView : Node3D
     public static readonly Color PlayerColor = new(0.25f, 0.5f, 1f);
     public static readonly Color EnemyColor = new(0.9f, 0.25f, 0.2f);
     public static readonly Color AllyColor = new(0.3f, 0.8f, 0.35f);
+    public static readonly Color NeutralColor = new(0.95f, 0.72f, 0.2f);
 
     /// <summary>World size of one sprite pixel: the map's shared art pixel (a 48 px frame stands 1.5 cells tall).</summary>
     private const float SpritePixelSize = NotFireEmblem.Grid.MapView.ArtPixelSize;
@@ -60,14 +61,16 @@ public partial class UnitView : Node3D
     {
         Faction.Player => PlayerColor,
         Faction.Enemy => EnemyColor,
+        Faction.Neutral => NeutralColor,
         _ => AllyColor,
     };
 
-    /// <summary>The ring drawn round a map sprite to show its side: blue army, red enemies, green allies.</summary>
+    /// <summary>The ring drawn round a map sprite to show its side: blue army, red enemies, green allies, amber neutrals.</summary>
     public static Color OutlineFor(Faction faction) => faction switch
     {
         Faction.Player => new Color(0.35f, 0.6f, 1f),
         Faction.Enemy => new Color(1f, 0.28f, 0.22f),
+        Faction.Neutral => new Color(1f, 0.78f, 0.2f),
         _ => new Color(0.35f, 0.95f, 0.4f),
     };
 

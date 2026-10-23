@@ -153,13 +153,15 @@ public sealed class BattleState
         return stats;
     }
 
-    /// <summary>True when the unit's crest-bearer is alive and within Dominion range.</summary>
-    public bool IsDominated(BattleUnit unit)
-    {
-        if (unit.DominatedBy is not { } key || ByKey(key) is not { IsOnMap: true } bearer)
-            return false;
-        return bearer.Pos.DistanceTo(unit.Pos) <= DominionRadius;
-    }
+    /// <summary>
+    /// True when a unit the unit is dominated by stands within Dominion range. Several units can share the key
+    /// (Ch 8's agitators): any of them will do.
+    /// </summary>
+    public bool IsDominated(BattleUnit unit) =>
+        unit.DominatedBy is { } key && Living.Any(b => b.Key == key && b != unit && b.Pos.DistanceTo(unit.Pos) <= DominionRadius);
+
+    /// <summary>Every unit with this key, on the map or not (a boss key can name a group, e.g. "agitator").</summary>
+    public IEnumerable<BattleUnit> AllByKey(string key) => _units.Where(u => u.Key == key);
 
     /// <summary>
     /// Hit, avoid and crit bonuses for a unit standing at <paramref name="pos"/>: Rowan's crest aura
@@ -170,7 +172,7 @@ public sealed class BattleState
     public (int Hit, int Avoid, int Crit) CombatBonus(BattleUnit unit, GridPos pos)
     {
         int hit = 0, avoid = 0, crit = 0;
-        if (unit.Faction != Faction.Enemy && Options.CrestTier > 0)
+        if (unit.Faction.IsPlayerSide() && Options.CrestTier > 0)
         {
             bool inAura = LivingOf(Faction.Player).Any(l => l.IsLord && l != unit && l.Pos.DistanceTo(pos) <= AuraRadius);
             if (inAura)
@@ -179,7 +181,7 @@ public sealed class BattleState
                 avoid += 5 * Options.CrestTier;
             }
         }
-        if (unit.Faction != Faction.Enemy && HasFriendBeside(unit, pos))
+        if (unit.Faction.IsPlayerSide() && HasFriendBeside(unit, pos))
         {
             hit += AdjacentHit;
             avoid += AdjacentAvoid;

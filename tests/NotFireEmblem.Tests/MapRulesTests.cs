@@ -324,4 +324,56 @@ public class MapRulesTests
         Assert.Equal(2, s.Turn);
         Assert.Equal(0, beast.StunnedPhases);
     }
+
+    // ------------------------------------------------------------------ neutrals (Ch 8's riot)
+
+    [Fact]
+    public void Neutrals_HaveTheirOwnPhase_AndOnlyPickOnAllies()
+    {
+        var (s, tm) = Start(new TestBattle("........", "........").Lord(2, 0, "sword")
+            .Unit(Faction.Ally, "merc", 6, 0).With(sp => sp with { Tag = "civilian" })
+            .Unit(Faction.Neutral, "merc", 3, 1, "sword")
+            .Unit(Faction.Enemy, "merc", 7, 1, "sword").WithAi(AiProfile.Stationary));
+        var rioter = s.Unit("u2");
+        Assert.True(rioter.Faction.IsHostileTo(Faction.Player));
+        Assert.False(rioter.Faction.IsHostileTo(Faction.Enemy));
+
+        // The lord stands right beside the rioter, but the rioter goes for the civilian.
+        var decision = AiController.Decide(s, rioter);
+        var act = Assert.IsType<ActCommand>(decision.Command);
+        Assert.Equal("u1", Assert.IsType<AttackAction>(act.Action).TargetId);
+
+        // Player → Enemy → Neutral → Ally.
+        Assert.True(tm.Submit(new EndPhaseCommand()).Ok);
+        Assert.Equal(Faction.Enemy, s.Phase);
+        Assert.True(tm.Submit(new EndPhaseCommand()).Ok);
+        Assert.Equal(Faction.Neutral, s.Phase);
+        Assert.True(tm.Submit(new EndPhaseCommand()).Ok);
+        Assert.Equal(Faction.Ally, s.Phase);
+    }
+
+    [Fact]
+    public void Agitators_ShareAKey_EachCalmsOnlyTheCrowdAroundHim()
+    {
+        var (s, tm) = Start(new TestBattle("..............", "..............").Lord(0, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 1, 0, "sword").With(sp => sp with { Tag = "agitator" })
+            .Unit(Faction.Neutral, "merc", 3, 1, "sword").With(sp => sp with { DominatedBy = "agitator" })
+            .Unit(Faction.Enemy, "merc", 12, 0, "sword").With(sp => sp with { Tag = "agitator" })
+            .Unit(Faction.Neutral, "merc", 11, 1, "sword").With(sp => sp with { DominatedBy = "agitator" })
+            .Victory("boss agitator"));
+        Assert.True(s.IsDominated(s.Unit("u2")));
+        Assert.True(s.IsDominated(s.Unit("u4")));
+
+        s.Unit("u1").CurrentHp = 1;
+        var r = tm.Submit(new ActCommand("u0", new GridPos(0, 0), new AttackAction("u1", new WeaponAttack("sword"))));
+        var calmed = r.Events.OfType<CrestSevered>().Single();
+        Assert.Equal(new[] { "u2" }, calmed.Surrendered);
+        Assert.True(s.Unit("u4").IsOnMap);
+        Assert.True(s.IsDominated(s.Unit("u4")));
+        Assert.Equal(BattleOutcome.InProgress, s.Outcome);
+        Assert.Contains("(1 left)", ObjectiveEvaluator.Describe(s));
+
+        s.Defeat(s.Unit("u3"));
+        Assert.Equal(BattleOutcome.Victory, ObjectiveEvaluator.Evaluate(s));
+    }
 }

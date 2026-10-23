@@ -12,7 +12,7 @@ public sealed record CommandResult(bool Ok, string? Error, IReadOnlyList<BattleE
 /// <summary>The battle state machine, and the one place where battle state changes.</summary>
 public sealed class TurnManager
 {
-    private static readonly Faction[] PhaseOrder = { Faction.Player, Faction.Enemy, Faction.Ally };
+    private static readonly Faction[] PhaseOrder = { Faction.Player, Faction.Enemy, Faction.Neutral, Faction.Ally };
 
     public BattleState State { get; }
 
@@ -79,7 +79,7 @@ public sealed class TurnManager
         return true;
     }
 
-    /// <summary>Player → Enemy → Ally → (Turn+1) Player. Phases with no units on the map are skipped.</summary>
+    /// <summary>Player → Enemy → Neutral → Ally → (Turn+1) Player. Phases with no units on the map are skipped.</summary>
     private void AdvancePhase(List<BattleEvent> events)
     {
         int index = System.Array.IndexOf(PhaseOrder, State.Phase);

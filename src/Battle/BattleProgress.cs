@@ -24,7 +24,7 @@ public static class BattleProgress
         var surrendered = new List<string>();
         var released = s.Living.Where(u => u.DominatedBy == key);
         if (!unit.CrestBearer)
-            released = released.Where(u => u.Pos.DistanceTo(unit.Pos) <= BattleState.DominionRadius && !s.IsDominated(u));
+            released = released.Where(u => u.Pos.DistanceTo(unit.Pos) <= BattleState.RadiusOf(unit) && !s.IsDominated(u));
         foreach (var held in released.ToList())
         {
             held.DominatedBy = null;

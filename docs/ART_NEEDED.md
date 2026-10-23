@@ -51,6 +51,10 @@ Rough cost per full character (map sprite + walk/attack, battle still takes + 5 
 | P1 | `enemy_gilded` (or per class) | Castellan's house guard: gilded half-plate, white and gold, sun crest | the class looks | Ch 12, 13 |
 | P1 | `ally_sailor` (map) | The Gull's deckhands: striped shirts, axes | `enemy_fighter` | Ch 12 |
 | P1 | Backgrounds `dravenhold_pass`, `solmere_harbor` | A snowy wyvern-roost pass; a gilded harbour with many masts | `hill_road`, `river_road` | Ch 11, 12 |
+| P1 | `boss_castellan` (map + battle), portrait `castellan` | Prince Castellan: heavy, silver-plated, rings on every finger, three purple crests (both hands, throat) | `enemy_general` → `enemy_knight` | Ch 13 |
+| P1 | Background `solmere_palazzo` | A gilded great hall with mirrors; gardens on cliffs above the sea | `dain_hall` | Ch 13 |
+| P1 | Tier 2: `dorran_general`, `sable_swordmaster`, `wren_falcon_knight` (map + battle) | The classes added in session 12 | their tier 1 looks (`Outfits.Earlier`) | after promotion |
+| P2 | Tier 3 Crestbound outfits: `rowan_high_lord`, `kai_vanguard`, `mira_oracle`, `elise_crestscribe`, `brann_ironheart`, `tamsin_wildstalker`, `halde_corsair`, `dorran_bulwark`, `sable_blade_dancer`, `wren_skyward`, `pip_shadowstep`, `seraphine_lightbearer`, `ysra_dragonheart` | Grander again than tier 2 (ART_DIRECTION, outfits follow class tier) | their tier 2 looks (`Outfits.Earlier`) | Ch 13 on |
 | P2 | Ship hull props | Hull sides under the ship decks in Ch 12 (decks are bridge cells today) | — | Ch 12 |
 | P2 | `seraphine_valkyrie`, `ysra_wyvern_lord` | Tier-2 looks | — | after promotion |
 | P2 | `pip_rogue` (map + battle) | Pip promoted: dark leathers, a proper sword, a grin | — | after promotion |

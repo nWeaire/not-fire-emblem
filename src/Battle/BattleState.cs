@@ -158,7 +158,10 @@ public sealed class BattleState
     /// (Ch 8's agitators): any of them will do.
     /// </summary>
     public bool IsDominated(BattleUnit unit) =>
-        unit.DominatedBy is { } key && Living.Any(b => b.Key == key && b != unit && b.Pos.DistanceTo(unit.Pos) <= DominionRadius);
+        unit.DominatedBy is { } key && Living.Any(b => b.Key == key && b != unit && b.Pos.DistanceTo(unit.Pos) <= RadiusOf(b));
+
+    /// <summary>How far a bearer's Dominion reaches (most bearers 3; Ch 13's Castellan 4).</summary>
+    public static int RadiusOf(BattleUnit bearer) => bearer.DominionRadius > 0 ? bearer.DominionRadius : DominionRadius;
 
     /// <summary>Every unit with this key, on the map or not (a boss key can name a group, e.g. "agitator").</summary>
     public IEnumerable<BattleUnit> AllByKey(string key) => _units.Where(u => u.Key == key);

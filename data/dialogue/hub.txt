@@ -140,6 +140,13 @@ ROWAN [neutral]: You don't want me to go.
 ALDRIC [neutral]: I want you to go with your eyes open. That's different.
 ROWAN [determined]: Right. We go to the capital.
 
+### hub_briefing_ch13
+@bg solmere_harbor
+HALDE [neutral]: Castellan's palazzo is on the cliffs past the lighthouse. His guards walk it in step, all night, every night.
+PIP [smile]: I've been looking at the plans. Everyone has plans, if you know which clerk to buy a drink for.
+SERAPHINE [determined]: We want what he knows about Vossk. And we want him to stop selling people by the piece.
+ROWAN [determined]: Then we go and get both. We go now.
+
 ### hub_briefing_ch12
 @bg solmere_harbor
 OSMUND [neutral]: Solmere, my lord. The Free Cities. They have no king, only merchant princes and very good lawyers.

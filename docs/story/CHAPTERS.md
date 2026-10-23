@@ -202,10 +202,20 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Autoplay at level 13 (seeds 1–4):** wins 4/4 on T11–19 with Halde recruited every run, losing 2–7 units.
 
 ## Chapter 13 — "The Merchant Prince"
-- **Map:** 20×16 palazzo with gardens, a vault and a balcony.
-- **Win:** Defeat Boss (Prince Castellan, who bears *three* shrouded crests; Dominion radius 4).
-- **Unlock:** **Lord's Crest (Tier 3)**: Crestbound classes and the crest skill **Mend**. In `ch13_elise_pattern`, Elise realises every shrouded crest drains toward the Ashen Reach.
-- **Scenes:** `ch13_pre`, `ch13_castellan`, `ch13_elise_pattern`, `ch13_post`.
+- **Map (built, session 12):** 32×26 palazzo on the cliffs (`tools/maps/act2_early.py`): the strand and sea gate (south,
+  deploy), terraced gardens with a fountain, the palazzo (north, height 1–3): the great hall with Castellan's seat, a
+  west wing with a locked vault (three chests: Silver Sword, 3000 gold, Seraph Robe), and the east wing's balcony (a
+  step above the gardens) where archers stand.
+- **Win:** `boss castellan`. Prince Castellan (General L15, silver plate, Boss, crest-bearer, **Dominion radius 4**: new
+  per-spawn `DominionRadius`) holds his whole house guard (`DominatedBy castellan`); his fall severs them all.
+- **Unlock:** campaign `crest 3` after the battle: **Lord's Crest (Tier 3)**: the **Crestbound** classes (each
+  companion's own tier 3, `UnitDef.Crestbound`) and the crest skill **Mend**.
+- **Events:** T1 `ch13_start`; entering the great hall `ch13_hall`; `ch13_castellan` (boss quote) and
+  `ch13_castellan_falls` ("He drinks them, boy. I only sold him the cups."); T3 riders east, T6 the west wing.
+- **Scenes:** `ch13_pre`, `ch13_start`, `ch13_hall`, `ch13_castellan`, `ch13_castellan_falls`, `ch13_elise_pattern` (every
+  crest drains east, to the Ashen Reach), `ch13_post` (the third ring).
+- **Autoplay at level 14 (seeds 1–4):** wins 4/4 on T9–13, losing 6–8 units (before the last tune: the hall's Elfire
+  mage and the west wing reinforcements did most of it).
 
 ## Chapter 14 — "The Empress Unbound"
 - **Map:** 20×18 imperial citadel courtyard in snow.

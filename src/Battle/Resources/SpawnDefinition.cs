@@ -41,6 +41,8 @@ public partial class SpawnDefinition : Resource
     /// mob; "gull|halde": Ch 12's guards ignore Halde's crew).
     /// </summary>
     [Export] public string Ignores { get; set; } = "";
+    /// <summary>How far this bearer's Dominion reaches (0 = the usual 3; Castellan's three crests reach 4).</summary>
+    [Export] public int DominionRadius { get; set; }
 
     public SpawnDef ToDef() => new(
         string.IsNullOrEmpty(UnitId) ? null : UnitId,
@@ -60,5 +62,6 @@ public partial class SpawnDefinition : Resource
         CrestBearer,
         HardOnly,
         Leash,
-        string.IsNullOrEmpty(Ignores) ? null : Ignores);
+        string.IsNullOrEmpty(Ignores) ? null : Ignores,
+        DominionRadius);
 }

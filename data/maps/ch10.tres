@@ -108,6 +108,7 @@ Faction = 1
 Position = Vector2i(31, 10)
 Ai = 3
 IsBoss = true
+Leash = 3
 
 [sub_resource type="Resource" id="SpawnDefinition_10"]
 script = ExtResource("2_spawn")

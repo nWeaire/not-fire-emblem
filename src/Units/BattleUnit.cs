@@ -34,6 +34,8 @@ public sealed class BattleUnit
     /// <summary>Key of the crest-bearer whose Dominion holds this unit.</summary>
     public string? DominatedBy { get; set; }
     public bool CrestBearer { get; init; }
+    /// <summary>How far this unit's Dominion reaches; 0 = the usual (BattleState.DominionRadius).</summary>
+    public int DominionRadius { get; init; }
     /// <summary>Keys the AI leaves alone, "|"-separated (see SpawnDef.Ignores).</summary>
     public string? Ignores { get; init; }
     /// <summary>Own phases still to skip (severed beasts are stunned for one).</summary>
@@ -73,6 +75,11 @@ public sealed class BattleUnit
         ["enemy_valkyrie"] = "enemy_cavalier",
         ["enemy_wyvern_rider"] = "enemy_pegasus_knight",
         ["enemy_wyvern_lord"] = "enemy_pegasus_knight",
+        ["enemy_general"] = "enemy_knight",
+        ["enemy_swordmaster"] = "enemy_myrmidon",
+        ["enemy_falcon_knight"] = "enemy_pegasus_knight",
+        ["enemy_sniper"] = "enemy_archer",
+        ["enemy_warrior"] = "enemy_fighter",
     };
 
     /// <summary>

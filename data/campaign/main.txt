@@ -103,5 +103,14 @@ chapter 12 Chapter 12: The Gilded Harbor
 scene ch12_pre
 battle ch12 deploy 10 force rowan,seraphine
 scene ch12_post
+hub hub_briefing_ch13
+
+chapter 13 Chapter 13: The Merchant Prince
+scene ch13_pre
+battle ch13 deploy 10 force rowan,seraphine
+scene ch13_elise_pattern
+crest 3
+scene ch13_post
+gold 1000
 hub
-end Act II continues in Chapter 13: The Merchant Prince.
+end Act II continues in Chapter 14: The Empress Unbound.

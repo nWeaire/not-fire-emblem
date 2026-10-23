@@ -709,6 +709,110 @@ def ch12():
              triggers, slots, background="solmere_harbor", highlights=highlights)
 
 
+# ------------------------------------------------------------------ Chapter 13: The Merchant Prince (32×26)
+
+def ch13():
+    # Castellan's palazzo above the sea: the shore and sea gate (south), terraced gardens, the palazzo (north) with the
+    # great hall, a locked vault (west wing) and a balcony (east wing, a step up over the gardens).
+    g = Grid(32, 26, ",")
+    g.hline(25, 0, 31, "~")
+    g.rect(0, 23, 31, 24, ":")       # the strand: open sand below the walls (field rules)
+    for x in range(0, 32):
+        g.put(x, 23, "=") if x in (15, 16) else None
+    # The garden wall along y 21, the sea gate in it.
+    g.hline(21, 0, 31, "W")
+    g.raise_(0, 21, 31, 21, 2)
+    g.spots("=", [(15, 21), (16, 21)])
+    g.raise_(15, 21, 16, 21, 0)
+    # The gardens: paths, a fountain, clipped trees, flower beds.
+    g.rect(15, 12, 16, 22, "=")
+    g.rect(4, 16, 27, 16, "=")
+    g.rect(14, 15, 17, 17, "#")
+    g.rect(15, 16, 16, 16, "~")
+    g.spots("F", [(5, 13), (9, 19), (12, 13), (20, 19), (24, 13), (27, 19), (3, 19), (28, 13)])
+    g.spots("x", [(7, 17), (23, 15)])
+    # The palazzo: walls (height 3) and halls inside (height 1).
+    g.rect(0, 0, 31, 11, "W")
+    g.raise_(0, 0, 31, 11, 3)
+
+    def hall(x0, y0, x1, y1, c="#", h=1):
+        g.rect(x0, y0, x1, y1, c)
+        g.raise_(x0, y0, x1, y1, h)
+
+    hall(10, 1, 21, 9)               # the great hall
+    hall(15, 10, 16, 11)             # its doors onto the garden steps
+    g.put(15, 2, "Y")                # Castellan's seat
+    g.put(16, 2, "Y")
+    for x in (12, 19):
+        for y in (3, 6):
+            g.put(x, y, "W")
+            g.raise_(x, y, x, y, 3)
+    hall(2, 6, 8, 9)                 # the west wing...
+    hall(9, 5, 9, 6)                 # ...open to the great hall
+    hall(2, 10, 3, 11)               # ...and down to the gardens
+    hall(3, 2, 6, 4)                 # the vault, walled in, behind a locked door
+    g.put(5, 5, "D")
+    g.raise_(5, 5, 5, 5, 1)
+    g.spots("C", [(3, 2), (5, 2), (6, 4)])
+    hall(23, 2, 29, 9, "#", 2)       # the east wing: the balcony, a step above the hall
+    hall(22, 5, 22, 6, "#", 2)
+    hall(28, 10, 29, 11, "#", 1)     # the balcony stair down to the gardens
+    g.spots("T", [(4, 8), (26, 3)])
+    assert_connected(g, (15, 23))
+
+    def gilded(cls, weapon, pos, lvl=12, group="", name=None, **kv):
+        names = {"soldier": "Gilded Guard", "knight": "Gilded Knight", "archer": "Gilded Archer", "mage": "Gilded Mage",
+                 "general": "Gilded Captain", "myrmidon": "Palazzo Sellsword", "fighter": "Palazzo Sellsword",
+                 "thief": "Vault Thief", "cavalier": "Gilded Rider", "sniper": "Gilded Marksman"}
+        armor = {"knight": "iron_plate", "general": "silver_plate", "soldier": "chainmail", "cavalier": "chainmail"}.get(cls)
+        spawn = dict(ClassId=cls, Name=name or names[cls], SpriteId="enemy_gilded" if cls not in ("myrmidon", "fighter", "thief")
+                     else f"enemy_{cls}", Level=lvl, Inventory=weapon, Pos=pos, Group=group, DominatedBy="castellan", **kv)
+        if armor:
+            spawn["Armor"] = armor
+        return spawn
+
+    spawns = [
+        # Prince Castellan: three shrouded crests, Dominion to 4 cells over the whole house guard.
+        dict(ClassId="general", Name="Prince Castellan", Tag="castellan", SpriteId="boss_castellan", Level=15,
+             Inventory=["silver_lance", "javelin", "elixir"], Pos=(15, 2), Armor="silver_plate", Ai=BOSS, IsBoss=True,
+             CrestBearer=True, DominionRadius=4, Leash=2),
+        gilded("knight", ["steel_lance"], (14, 4), 13, Ai=GUARD), gilded("knight", ["steel_lance"], (17, 4), 13, Ai=GUARD),
+        gilded("mage", ["fire"], (13, 7), Ai=GUARD), gilded("mage", ["thunder"], (18, 7), Ai=GUARD),
+        # The gardens.
+        gilded("soldier", ["steel_lance"], (10, 16)), gilded("soldier", ["steel_lance"], (21, 16)),
+        gilded("cavalier", ["steel_sword"], (6, 14)), gilded("cavalier", ["steel_lance"], (25, 18)),
+        gilded("myrmidon", ["killing_edge"], (15, 13)), gilded("fighter", ["steel_axe"], (20, 13)),
+        # The balcony: archers and a mage over the gardens.
+        gilded("archer", ["steel_bow"], (24, 9), Ai=STATIONARY), gilded("archer", ["silver_bow"], (27, 9), 13, Ai=STATIONARY),
+        gilded("mage", ["fire"], (26, 6), Ai=GUARD),
+        # The west wing and its vault.
+        gilded("thief", ["steel_sword", "chest_key"], (4, 7)), gilded("knight", ["steel_lance"], (7, 9), Ai=GUARD),
+        dict(gilded("general", ["silver_lance"], (8, 7), 13, Ai=GUARD), HardOnly=True),
+        # Reinforcements: T3 riders round the east of the gardens, T6 the west wing's guard comes out.
+        gilded("cavalier", ["steel_lance"], (31, 17), group="east"), gilded("cavalier", ["steel_sword"], (31, 14), group="east"),
+        gilded("soldier", ["steel_lance"], (2, 10), 11, "west"), gilded("myrmidon", ["steel_sword"], (3, 10), 11, "west"),
+        dict(gilded("mage", ["elfire"], (2, 11), 12, "west"), HardOnly=True),
+    ]
+    for s in spawns:
+        s.setdefault("Faction", ENEMY)
+        s.setdefault("Ai", AGGRESSIVE)
+    triggers = ["turn 1 => scene ch13_start",
+                "enter player 10,1-21,9 => scene ch13_hall",
+                "combat castellan => scene ch13_castellan",
+                "defeated castellan => scene ch13_castellan_falls",
+                "turn 3 enemy => spawn east",
+                "turn 6 enemy => spawn west",
+                "chest 3,2 => give actor silver_sword",
+                "chest 5,2 => gold 3000",
+                "chest 6,4 => give actor seraph_robe"]
+    highlights = ["castellan => Prince Castellan. Three crests: his Dominion reaches four cells and holds his whole house guard.",
+                  "5,5 => The vault. A thief or a Door Key opens it.",
+                  "23,2-29,9 => The balcony. Archers up there cover the whole east garden."]
+    slots = [(15, 23), (16, 23), (14, 23), (17, 23), (15, 24), (16, 24), (13, 23), (18, 23), (14, 24), (17, 24)]
+    map_tres("ch13", "Chapter 13: The Merchant Prince", g.rows(), g.height_rows(), spawns, "boss castellan", [],
+             triggers, slots, background="solmere_palazzo", highlights=highlights)
+
+
 if __name__ == "__main__":
     terrains()
     items()
@@ -721,3 +825,4 @@ if __name__ == "__main__":
     ch10()
     ch11()
     ch12()
+    ch13()

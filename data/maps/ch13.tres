@@ -1,0 +1,306 @@
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=25 format=3]
+
+[ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
+[ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
+
+[sub_resource type="Resource" id="SpawnDefinition_1"]
+script = ExtResource("2_spawn")
+ClassId = "general"
+Name = "Prince Castellan"
+Tag = "castellan"
+SpriteId = "boss_castellan"
+Armor = "silver_plate"
+Level = 15
+Inventory = PackedStringArray("silver_lance", "javelin", "elixir")
+Faction = 1
+Position = Vector2i(15, 2)
+Ai = 3
+IsBoss = true
+CrestBearer = true
+Leash = 2
+DominionRadius = 4
+
+[sub_resource type="Resource" id="SpawnDefinition_2"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Gilded Knight"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Armor = "iron_plate"
+Level = 13
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(14, 4)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_3"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Gilded Knight"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Armor = "iron_plate"
+Level = 13
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(17, 4)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_4"]
+script = ExtResource("2_spawn")
+ClassId = "mage"
+Name = "Gilded Mage"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Level = 12
+Inventory = PackedStringArray("fire")
+Faction = 1
+Position = Vector2i(13, 7)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_5"]
+script = ExtResource("2_spawn")
+ClassId = "mage"
+Name = "Gilded Mage"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Level = 12
+Inventory = PackedStringArray("thunder")
+Faction = 1
+Position = Vector2i(18, 7)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_6"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Gilded Guard"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Armor = "chainmail"
+Level = 12
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(10, 16)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_7"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Gilded Guard"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Armor = "chainmail"
+Level = 12
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(21, 16)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_8"]
+script = ExtResource("2_spawn")
+ClassId = "cavalier"
+Name = "Gilded Rider"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Armor = "chainmail"
+Level = 12
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(6, 14)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_9"]
+script = ExtResource("2_spawn")
+ClassId = "cavalier"
+Name = "Gilded Rider"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Armor = "chainmail"
+Level = 12
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(25, 18)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_10"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Palazzo Sellsword"
+DominatedBy = "castellan"
+SpriteId = "enemy_myrmidon"
+Level = 12
+Inventory = PackedStringArray("killing_edge")
+Faction = 1
+Position = Vector2i(15, 13)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_11"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Palazzo Sellsword"
+DominatedBy = "castellan"
+SpriteId = "enemy_fighter"
+Level = 12
+Inventory = PackedStringArray("steel_axe")
+Faction = 1
+Position = Vector2i(20, 13)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_12"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Gilded Archer"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Level = 12
+Inventory = PackedStringArray("steel_bow")
+Faction = 1
+Position = Vector2i(24, 9)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_13"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Gilded Archer"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Level = 13
+Inventory = PackedStringArray("silver_bow")
+Faction = 1
+Position = Vector2i(27, 9)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_14"]
+script = ExtResource("2_spawn")
+ClassId = "mage"
+Name = "Gilded Mage"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Level = 12
+Inventory = PackedStringArray("fire")
+Faction = 1
+Position = Vector2i(26, 6)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_15"]
+script = ExtResource("2_spawn")
+ClassId = "thief"
+Name = "Vault Thief"
+DominatedBy = "castellan"
+SpriteId = "enemy_thief"
+Level = 12
+Inventory = PackedStringArray("steel_sword", "chest_key")
+Faction = 1
+Position = Vector2i(4, 7)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_16"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Gilded Knight"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Armor = "iron_plate"
+Level = 12
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(7, 9)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_17"]
+script = ExtResource("2_spawn")
+ClassId = "general"
+Name = "Gilded Captain"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Armor = "silver_plate"
+Level = 13
+Inventory = PackedStringArray("silver_lance")
+Faction = 1
+Position = Vector2i(8, 7)
+Ai = 2
+HardOnly = true
+
+[sub_resource type="Resource" id="SpawnDefinition_18"]
+script = ExtResource("2_spawn")
+ClassId = "cavalier"
+Name = "Gilded Rider"
+Group = "east"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Armor = "chainmail"
+Level = 12
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(31, 17)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_19"]
+script = ExtResource("2_spawn")
+ClassId = "cavalier"
+Name = "Gilded Rider"
+Group = "east"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Armor = "chainmail"
+Level = 12
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(31, 14)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_20"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Gilded Guard"
+Group = "west"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Armor = "chainmail"
+Level = 11
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(2, 10)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_21"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Palazzo Sellsword"
+Group = "west"
+DominatedBy = "castellan"
+SpriteId = "enemy_myrmidon"
+Level = 11
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(3, 10)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_22"]
+script = ExtResource("2_spawn")
+ClassId = "mage"
+Name = "Gilded Mage"
+Group = "west"
+DominatedBy = "castellan"
+SpriteId = "enemy_gilded"
+Level = 12
+Inventory = PackedStringArray("elfire")
+Faction = 1
+Position = Vector2i(2, 11)
+Ai = 0
+HardOnly = true
+
+[resource]
+script = ExtResource("1_map")
+Id = "ch13"
+Name = "Chapter 13: The Merchant Prince"
+TerrainRows = PackedStringArray("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", "WWWWWWWWWW############WWWWWWWWWW", "WWWC#C#WWW#####YY#####W#######WW", "WWW####WWW##W######W##W###T###WW", "WWW###CWWW############W#######WW", "WWWWWDWWW#####################WW", "WW##########W######W##########WW", "WW#######W############W#######WW", "WW##T####W############W#######WW", "WW#######W############W#######WW", "WW##WWWWWWWWWWW##WWWWWWWWWWW##WW", "WW##WWWWWWWWWWW##WWWWWWWWWWW##WW", ",,,,,,,,,,,,,,,==,,,,,,,,,,,,,,,", ",,,,,F,,,,,,F,,==,,,,,,,F,,,F,,,", ",,,,,,,,,,,,,,,==,,,,,,,,,,,,,,,", ",,,,,,,,,,,,,,####,,,,,x,,,,,,,,", ",,,,==========#~~#==========,,,,", ",,,,,,,x,,,,,,####,,,,,,,,,,,,,,", ",,,,,,,,,,,,,,,==,,,,,,,,,,,,,,,", ",,,F,,,,,F,,,,,==,,,F,,,,,,F,,,,", ",,,,,,,,,,,,,,,==,,,,,,,,,,,,,,,", "WWWWWWWWWWWWWWW==WWWWWWWWWWWWWWW", ",,,,,,,,,,,,,,,==,,,,,,,,,,,,,,,", ":::::::::::::::==:::::::::::::::", "::::::::::::::::::::::::::::::::", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+HeightRows = PackedStringArray("33333333333333333333333333333333", "33333333331111111111113333333333", "33311113331111111111113222222233", "33311113331131111113113222222233", "33311113331111111111113222222233", "33333133311111111111112222222233", "33111111111131111113112222222233", "33111111131111111111113222222233", "33111111131111111111113222222233", "33111111131111111111113222222233", "33113333333333311333333333331133", "33113333333333311333333333331133", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "22222222222222200222222222222222", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000")
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22")])
+Victory = "boss castellan"
+Defeat = PackedStringArray()
+Triggers = PackedStringArray("turn 1 => scene ch13_start", "enter player 10,1-21,9 => scene ch13_hall", "combat castellan => scene ch13_castellan", "defeated castellan => scene ch13_castellan_falls", "turn 3 enemy => spawn east", "turn 6 enemy => spawn west", "chest 3,2 => give actor silver_sword", "chest 5,2 => gold 3000", "chest 6,4 => give actor seraph_robe")
+Highlights = PackedStringArray("castellan => Prince Castellan. Three crests: his Dominion reaches four cells and holds his whole house guard.", "5,5 => The vault. A thief or a Door Key opens it.", "23,2-29,9 => The balcony. Archers up there cover the whole east garden.")
+Fog = false
+DeploySlots = "15,23 16,23 14,23 17,23 15,24 16,24 13,23 18,23 14,24 17,24"
+Background = "solmere_palazzo"

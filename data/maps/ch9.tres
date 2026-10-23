@@ -178,6 +178,7 @@ Position = Vector2i(24, 3)
 Ai = 3
 IsBoss = true
 CrestBearer = true
+Leash = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_17"]
 script = ExtResource("2_spawn")

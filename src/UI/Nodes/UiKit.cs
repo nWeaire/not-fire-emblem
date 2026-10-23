@@ -271,6 +271,8 @@ public static class UiKit
         ["calder_undercity"] = "dain_hall",
         ["border_pass"] = "hill_road",
         ["dravenhold_pass"] = "hill_road",
+        ["solmere_harbor"] = "river_road",
+        ["solmere_palazzo"] = "dain_hall",
     };
 
     /// <summary>assets/backgrounds/&lt;id&gt;.png (or its placeholder), or null.</summary>

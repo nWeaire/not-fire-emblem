@@ -60,6 +60,8 @@ public static class ObjectiveEvaluator
     {
         var goals = s.Map.Goals;
         bool lordOut = s.Units.Where(u => u.Faction == Faction.Player && u.IsLord).All(u => u.Exit == MapExit.Escaped);
+        if (goals.EscapeAll)
+            return lordOut && s.Units.Where(u => u.Faction == Faction.Player && !u.IsDefeated).All(u => u.Exit == MapExit.Escaped);
         bool keysOut = goals.EscapeKeys.All(k => s.ByKey(k) is { Exit: MapExit.Escaped });
         return lordOut && keysOut;
     }
@@ -74,6 +76,7 @@ public static class ObjectiveEvaluator
             VictoryKind.DefeatBoss => DescribeBoss(s, goals.BossKey!),
             VictoryKind.Seize => "Seize the marked tile with your lord",
             VictoryKind.Survive => $"Survive {System.Math.Max(0, goals.Turns - s.Turn + 1)} more turn(s)",
+            VictoryKind.Escape when goals.EscapeAll => "Escape: everyone to the exit, your lord last",
             VictoryKind.Escape => "Escape: " + string.Join(", ", EscapeNames(s)) + " to the exit",
             _ => "",
         };

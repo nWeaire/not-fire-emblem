@@ -178,15 +178,28 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
   wyvern diving on Seraphine on T7. Autoplay healers who must survive now only heal from cells no enemy can reach.
 
 ## Chapter 11 — "Wings of Dravenhold"
-- **Map:** 20×20 mountain pass with cliffs (only fliers can cross) and narrow paths.
-- **Win:** Rout. **Enemies:** wyvern riders and imperial knights. **Recruit:** **Ysra** (Talk, any crest-bearer: Rowan or Seraphine).
-- **Scenes:** `ch11_pre`, `ch11_ysra` ("The Empress doesn't blink anymore."), `ch11_post`.
+- **Map (built, session 12):** 32×32 mountain pass made of heights (`tools/maps/act2_early.py`): walkers step at most one
+  level, fliers ignore heights, so every drop of two or more is a cliff only fliers cross. The south valley (deploy)
+  climbs by two ramps to a middle shelf (height 2), then one rock ramp (the only way up on foot) to the upper shelf
+  (height 4); a roost plateau (height 6) on its west end; a gorge (height 0) down the east side, below the cliffs.
+- **Win:** Rout. **Enemies:** imperials, wyvern riders (two, then one on T3 up the gorge, one on T5 over the ridge),
+  Wing-Captain Orvald (Wyvern Lord L12, Boss). **Recruit:** **Ysra** (Wyvern Rider, Enemy, Stationary on the shelf's
+  edge) on Talk from Rowan *or* Seraphine (new grammar: `talk rowan|seraphine ysra`).
+- **Scenes:** `ch11_pre`, `ch11_start`, `ch11_ysra` ("The Empress doesn't blink anymore."), `ch11_gorge`, `ch11_orvald`,
+  `ch11_post` (Vossk bought his crests from a merchant prince in Solmere: the party sails south).
+- **Autoplay at level 12 (seeds 1–4):** wins 4/4 on T11–15, losing 3–8 units; autoplay kills Ysra before talking.
 
 ## Chapter 12 — "The Gilded Harbor"
-- **Map:** 22×14 harbour; ships are linked by gangplanks (bridges), with water between.
-- **Win:** Escape (the whole party reaches the ship). **Recruit:** **Halde** (Talk on her ship).
-- **Events:** a crest auction in the background (`ch12_auction`) sets up the horror of a crest *market*.
-- **Scenes:** `ch12_pre`, `ch12_halde`, `ch12_auction`.
+- **Map (built, session 12):** 35×22 Solmere harbour: stone quays west and south (warehouses, the auction hall),
+  wooden piers into the water, three ships (decks a step up) joined by gangplanks; Halde's ship, the Gull, is furthest.
+- **Win:** `escape 31,8-32,10 all` (new: every living unit must get aboard, Rowan last). **Recruit:** **Halde**
+  (Archer with the new **Crossbow**; Ally on her deck; `talk any halde`). Her deckhands (Ally, Tag `gull`) defend the
+  ship; Castellan's Gilded Guard ignore the Gull's crew (`Ignores gull|halde`) until Halde joins.
+- **Events:** T2 `ch12_auction` (lot thirty-one: a reeve's crest in a jar); reinforcements T3 (warehouses), T5
+  (boarders at the piers' ends, `ch12_boats`), T7 (the auction hall).
+- **Scenes:** `ch12_pre`, `ch12_start`, `ch12_auction`, `ch12_halde`, `ch12_boats`, `ch12_post` (the stolen ledger: three
+  crests sold to "the Hand"; Castellan keeps three himself).
+- **Autoplay at level 13 (seeds 1–4):** wins 4/4 on T11–19 with Halde recruited every run, losing 2–7 units.
 
 ## Chapter 13 — "The Merchant Prince"
 - **Map:** 20×16 palazzo with gardens, a vault and a balcony.

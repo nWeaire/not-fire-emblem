@@ -36,7 +36,10 @@ public partial class SpawnDefinition : Resource
     [Export] public bool HardOnly { get; set; }
     /// <summary>Boss AI: how far it may step from its start to attack (0 = the default, AiController.BossLeash).</summary>
     [Export] public int Leash { get; set; }
-    /// <summary>A tag the AI never goes after (e.g. "civilian": Ch 8's Veiled leave the townsfolk to the mob).</summary>
+    /// <summary>
+    /// Keys the AI leaves alone unless the player commands them ("civilian": Ch 8's Veiled leave the townsfolk to the
+    /// mob; "gull|halde": Ch 12's guards ignore Halde's crew).
+    /// </summary>
     [Export] public string Ignores { get; set; } = "";
 
     public SpawnDef ToDef() => new(

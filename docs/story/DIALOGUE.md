@@ -43,6 +43,8 @@ ALDRIC [neutral]: Another line.
 | **Wren** | Earnest, guilty, a rule-follower learning that rules can be wrong. | "I was ordered to watch. I'm done watching." | — |
 | **Pip** | Quick, cheeky undercity kid; prices everything, owns nothing. Calls Rowan "boss". Brave only when nobody's looking. | "For you, boss, no charge. Well. Small charge. Later." | Where he sleeps |
 | **Seraphine** | Idealistic royal, polite, braver than she is skilled. Learns to lead from Rowan. | "A crown is supposed to *mean* something." | — |
+| **Ysra** | A wyvern rider's bluntness: clipped, proud, honour-bound; dry about everything but her wyvern, Ash. | "Ysra Thane, of the third wing. Don't touch his tail." | Anything soft about the Empress, until Ch 14 |
+| **Halde** | A privateer captain: dry, salty, unhurried; talks business and means conscience. Calls the party "passengers". | "Get your people on my deck, and I'll get you out of this harbour." | That she's doing it for free |
 | **Osmund** | Precise, dry, fussy, devastatingly polite. Calls Rowan "my lord" from day one, with a straight face. Footnotes, etiquette and quiet devotion. | "Strictly speaking, my lord, one does not *punch* a bandit lord. One has him punched." | Anything vulgar. Raises his voice exactly once in the whole game (Ch 15). |
 | **Morvane** | Soft-spoken, reasonable, sorry. Calls everyone "child". Never shouts. | "I take no joy in this. That is rather the point." | Insults. He pities. |
 | **Gloamkin** | No words. Sound cues only (`@sfx gloam_howl`). Severed Gloamkin whimper. | — | — |

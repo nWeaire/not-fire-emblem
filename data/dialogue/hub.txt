@@ -140,6 +140,20 @@ ROWAN [neutral]: You don't want me to go.
 ALDRIC [neutral]: I want you to go with your eyes open. That's different.
 ROWAN [determined]: Right. We go to the capital.
 
+### hub_briefing_ch12
+@bg solmere_harbor
+OSMUND [neutral]: Solmere, my lord. The Free Cities. They have no king, only merchant princes and very good lawyers.
+YSRA [cold]: The crest auction is on the quay at the Gilded Harbor. Tonight. Ash and I will watch from the cliffs.
+SABLE [smile]: I can get us in. I know a man who knows a man who forges invitations. Don't ask.
+ROWAN [neutral]: We look. We listen. We don't start anything. We go now.
+
+### hub_briefing_ch11
+@bg calder_lodgings
+OSMUND [neutral]: The council has given the Princess its blessing, my lord. Mostly because she left before it could refuse.
+SERAPHINE [smile]: I left a very polite note.
+WREN [worried]: The only pass north this late in the year is Ravensgate. The imperial wyvern corps roosts on it.
+ROWAN [determined]: Then we climb past them. Openly. We go now.
+
 ### hub_briefing_ch10
 @bg calder_lodgings
 OSMUND [neutral]: The letter "in the King's hand" went north, my lord. To the Empress. A month ago, by the archive's ledger.

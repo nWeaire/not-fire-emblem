@@ -46,6 +46,12 @@ Rough cost per full character (map sprite + walk/attack, battle still takes + 5 
 | P1 | `enemy_wyvern_rider` (map + battle) | Grey-scaled wyvern, rider in dark iron with a lance; the Dravenhold wyvern corps | `enemy_pegasus_knight` | Ch 10, 11 |
 | P1 | `ally_calder_knight` (map) | Calder royal escort: steel plate with Calder-blue tabard | `enemy_knight` (green ring) | Ch 10 |
 | P1 | Background `border_pass` | A mountain pass over a burning border village | `hill_road` | Ch 10 |
+| P1 | `ysra_wyvern_rider` (map + battle), portrait `ysra` | Ysra Thane: dark braid, scarred cheek, black iron and fur, on her grey wyvern Ash | `enemy_wyvern_rider` → `enemy_pegasus_knight` | Ch 11 on |
+| P1 | `halde_archer` (map + battle), portrait `halde` | Captain Halde Marr: weathered privateer, red coat, tricorn, crossbow | `enemy_archer` | Ch 12 on |
+| P1 | `enemy_gilded` (or per class) | Castellan's house guard: gilded half-plate, white and gold, sun crest | the class looks | Ch 12, 13 |
+| P1 | `ally_sailor` (map) | The Gull's deckhands: striped shirts, axes | `enemy_fighter` | Ch 12 |
+| P1 | Backgrounds `dravenhold_pass`, `solmere_harbor` | A snowy wyvern-roost pass; a gilded harbour with many masts | `hill_road`, `river_road` | Ch 11, 12 |
+| P2 | Ship hull props | Hull sides under the ship decks in Ch 12 (decks are bridge cells today) | — | Ch 12 |
 | P2 | `seraphine_valkyrie`, `ysra_wyvern_lord` | Tier-2 looks | — | after promotion |
 | P2 | `pip_rogue` (map + battle) | Pip promoted: dark leathers, a proper sword, a grin | — | after promotion |
 | P2 | `calder_lodgings` background | The party's rooms in the capital (Act II hub) | `village_hall` | Act II hub |

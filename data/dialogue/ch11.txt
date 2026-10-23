@@ -1,0 +1,51 @@
+# Chapter 11: Wings of Dravenhold
+# Written for the built map (data/maps/ch11.tres). Voices follow docs/story/DIALOGUE.md section 2.
+
+### ch11_pre
+@bg dravenhold_pass
+@music march
+NARRATOR: The road to Dravenhold climbed into the mountains and kept climbing. The first snow lay in the shadows.
+NARRATOR: At the top of the pass stood the wyvern roosts of the imperial corps, where no army had crossed in a century.
+WREN [worried]: There'll be wyverns on every ledge. They nest up there. They'll see us before we're halfway.
+SERAPHINE [determined]: Then let them see us. A princess of Calder, asking for an audience. Openly.
+DORRAN [cold]: With respect, Highness, they'll ask with lances first and listen after.
+ROWAN [neutral]: Then we answer, and keep climbing. Up the road. We go now.
+
+### ch11_start
+@focus 15,12
+NARRATOR: The road switched back and forth up the slope, then squeezed through a single cut in the rock.
+TAMSIN [cold]: That cut is the only way up for us walkers. They'll hold it. Wings go wherever they like.
+ELISE [worried]: One rider over there isn't moving. Just watching. Like Wren did at Dain Hall.
+
+### ch11_ysra
+YSRA [cold]: Close enough, crest-bearer. Talk fast, before my captain remembers I'm here.
+SERAPHINE [determined]: We bring proof the war was started with a forged letter. In my father's name. Not by him.
+YSRA [neutral]: I'd believe it. I'd believe anything now. You know what I saw at court, the day she declared war?
+YSRA [sad]: The Empress doesn't blink anymore. She sits, and she speaks, and her eyes don't move.
+YSRA [cold]: And the grey man stands behind her chair, and she says what he whispers. I'm done flying for him.
+YSRA [determined]: Ysra Thane, of the third wing. My lance, and Ash here. Don't touch his tail.
+
+### ch11_gorge
+@focus 27,6
+@sfx wing_beat
+NARRATOR: More riders rose out of the gorge, beating up the cliff face where no foot soldier could follow.
+KAI [worried]: Okay, that is so unfair. Nobody told me they could just go up cliffs.
+
+### ch11_orvald
+???: You climbed my pass, Calder. Brave. Stupid, but brave. The corps will remember the name of whoever stops you.
+ROWAN [neutral]: Then remember it's Rowan. We're here to talk to your Empress, not to kill your riders.
+???: Every rider here would die for her. Show me you can make us.
+
+### ch11_post
+@bg dravenhold_pass_evening
+@music aftermath
+NARRATOR: At the top of the pass, the road ran down into Dravenhold: grey towns, black forests, and far off, a citadel.
+YSRA [neutral]: The capital. Three days. The Empress holds court there in the snow, and the grey man holds her.
+SERAPHINE [worried]: "The grey man." Who is he?
+YSRA [cold]: Vossk. The Veiled Hand, the court calls him. He came from Calder two winters ago, with a letter of friendship.
+OSMUND [cold]: From Calder. With a letter. Signed, no doubt, on very good paper.
+ELISE [worried]: Holding a crowned empress would take more than one crest. Far more. Where would he get them?
+YSRA [neutral]: Bought, the riders say. From a merchant prince in Solmere who keeps more crests than any king.
+SERAPHINE [determined]: Then we can't just knock on the citadel's door. We need to know what he bought, and break it.
+ALDRIC [cold]: ...
+ROWAN [determined]: Solmere, then. Down the coast by sea. We go now.

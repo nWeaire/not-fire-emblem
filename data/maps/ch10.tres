@@ -241,7 +241,7 @@ SpriteId = "enemy_imperial"
 Level = 9
 Inventory = PackedStringArray("iron_lance")
 Faction = 1
-Position = Vector2i(10, 2)
+Position = Vector2i(26, 2)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_21"]
@@ -251,9 +251,9 @@ Name = "Wyvern Rider"
 Group = "wave6"
 SpriteId = "enemy_imperial"
 Level = 9
-Inventory = PackedStringArray("steel_lance")
+Inventory = PackedStringArray("iron_lance")
 Faction = 1
-Position = Vector2i(16, 2)
+Position = Vector2i(31, 3)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_22"]
@@ -263,9 +263,9 @@ Name = "Wyvern Rider"
 Group = "wave6"
 SpriteId = "enemy_imperial"
 Level = 9
-Inventory = PackedStringArray("iron_lance")
+Inventory = PackedStringArray("steel_lance")
 Faction = 1
-Position = Vector2i(22, 2)
+Position = Vector2i(29, 2)
 Ai = 0
 HardOnly = true
 

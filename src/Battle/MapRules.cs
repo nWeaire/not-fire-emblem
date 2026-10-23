@@ -21,13 +21,16 @@ public sealed record Objectives(
     string? BossKey,                    // DefeatBoss; with another victory, an "or boss KEY" that also wins
     IReadOnlyList<GridPos> Cells,       // Seize: the throne/gate; Escape: the exit cells
     int Turns,                          // Survive: number of turns to hold
-    IReadOnlyList<string> EscapeKeys,   // Escape: units that must leave (the lord always must)
+    IReadOnlyList<string> EscapeKeys,   // Escape: units that must leave (the lord always must); "all" = everyone
     IReadOnlyList<string> MustSurvive,  // extra units whose death is a loss
     IReadOnlyList<ProtectRule> Protect,
     int TurnLimit)                      // 0 = none
 {
     public static readonly Objectives Default = new(VictoryKind.Rout, null, Array.Empty<GridPos>(), 0, Array.Empty<string>(),
         Array.Empty<string>(), Array.Empty<ProtectRule>(), 0);
+
+    /// <summary>Escape maps where the whole party must get out ("escape CELLS all", Ch 12).</summary>
+    public bool EscapeAll => Victory == VictoryKind.Escape && EscapeKeys.Contains("all");
 }
 
 // ---------------------------------------------------------------- triggers
@@ -42,7 +45,10 @@ public sealed record AdjacentCondition(string A, string B) : TriggerCondition;
 public sealed record FlagCondition(string Flag) : TriggerCondition;
 public sealed record EnemiesAtMostCondition(int Count) : TriggerCondition;
 public sealed record HpBelowCondition(string Key, int Percent) : TriggerCondition;
-/// <summary>A Talk command: <see cref="Actor"/> (a key, or "any" player unit) talks to <see cref="Target"/>.</summary>
+/// <summary>
+/// A Talk command: <see cref="Actor"/> (a key, several as "rowan|seraphine", or "any" player unit) talks to
+/// <see cref="Target"/>.
+/// </summary>
 public sealed record TalkCondition(string Actor, string Target) : TriggerCondition;
 /// <summary>A Visit command on a village cell.</summary>
 public sealed record VisitCondition(GridPos Cell) : TriggerCondition;
@@ -82,12 +88,12 @@ public sealed record TriggerDef(string Id, TriggerCondition Condition, IReadOnly
 /// <summary>
 /// Parses the small text language maps use for objectives and triggers, so maps stay readable text.
 /// <code>
-/// Victory: rout | boss KEY (every unit with the key) | seize X,Y | survive N | escape CELLS [KEY...]
+/// Victory: rout | boss KEY (every unit with the key) | seize X,Y | survive N | escape CELLS [KEY...|all]
 ///          and any of them can add "or boss KEY" (Ch 10: "survive 10 or boss commander")
 /// Defeat:  die KEY | protect TAG N | turns N
 /// Trigger: CONDITION [unless GUARD] => EFFECT; EFFECT; ...
 ///   conditions: turn N [player|enemy|ally|neutral] · defeated KEY · enter WHO CELLS · adjacent A B · flag NAME
-///               enemies N (at most N left) · hp KEY PERCENT (below) · talk ACTOR TARGET · visit X,Y · chest X,Y · combat KEY
+///               enemies N (at most N left) · hp KEY PERCENT (below) · talk ACTOR[|ACTOR] TARGET · visit X,Y · chest X,Y · combat KEY
 ///   guards:     flag NAME · joined KEY (KEY is on the player's side), e.g. "turn 3 enemy unless joined brann => ..."
 ///   effects:    scene ID · spawn GROUP · flag NAME · join KEY · faction KEY player|enemy|ally|neutral · give KEY ITEM
 ///               gold N · terrain CELLS SYMBOL · damage KEY N · leave KEY · win · lose

@@ -27,8 +27,12 @@ public partial class BattleController : Node3D
     /// <summary>Show fights on the side-view battle screen; follows (and the B key updates) the saved setting.</summary>
     public bool UseBattleScenes { get => Settings.BattleScenes; set => Settings.BattleScenes = value; }
 
-    /// <summary>Who single-map battles deploy when the map has deploy slots, in order.</summary>
-    private static readonly string[] SkirmishParty = { "rowan", "aldric", "kai", "mira", "brann", "tamsin", "elise", "dorran", "sable" };
+    /// <summary>
+    /// Who single-map battles deploy when the map has deploy slots, in order (after the campaign's forced units for
+    /// that map, e.g. Seraphine in Ch 11).
+    /// </summary>
+    private static readonly string[] SkirmishParty =
+        { "rowan", "aldric", "kai", "mira", "brann", "tamsin", "elise", "dorran", "sable", "wren", "pip", "seraphine", "ysra", "halde" };
 
     /// <summary>
     /// What named units carry by Ch 2, which unit definitions don't: Mira's Fire (Ch 1) and, for testing, a Steel Sword
@@ -131,7 +135,9 @@ public partial class BattleController : Node3D
             var map = db.Map(mapId);
             // Maps that rely on deployment get a default party, fresh from the unit definitions.
             var spawned = map.Spawns.Select(sp => sp.UnitId).OfType<string>().ToHashSet();
-            var party = SkirmishParty.Where(id => db.Units.ContainsKey(id) && !spawned.Contains(id)).Take(map.Slots.Count).ToList();
+            var forced = db.Campaign?.Steps.OfType<BattleStep>().FirstOrDefault(b => b.MapId == mapId)?.Forced ?? Array.Empty<string>();
+            var party = forced.Concat(SkirmishParty).Distinct()
+                .Where(id => db.Units.ContainsKey(id) && !spawned.Contains(id)).Take(map.Slots.Count).ToList();
             var roster = party.ToDictionary(id => id, id => UnitState.FromDef(db.Unit(id)));
             State = BattleSetup.Create(db, map, seed, roster, options, party);
             ApplyStoryClasses(db, mapId);
@@ -524,7 +530,9 @@ public partial class BattleController : Node3D
                     return new AiDecision(unit, new ActCommand(unit.Id, cell, new SeizeAction()), null);
                 // The lord leaves last: once he's gone, the others can't be escorted out.
                 if (ActionRules.CanEscape(State, unit, cell)
-                    && (!unit.IsLord || State.Map.Goals.EscapeKeys.All(k => State.ByKey(k) is not { IsOnMap: true } other || other == unit)))
+                    && (!unit.IsLord || (State.Map.Goals.EscapeAll
+                        ? State.LivingOf(Faction.Player).All(o => o == unit)
+                        : State.Map.Goals.EscapeKeys.All(k => State.ByKey(k) is not { IsOnMap: true } other || other == unit))))
                     return new AiDecision(unit, new ActCommand(unit.Id, cell, new EscapeAction()), null);
                 if (EventDirector.TalkTargets(State, unit, cell).FirstOrDefault() is { } talk)
                     return new AiDecision(unit, new ActCommand(unit.Id, cell, new TalkAction(talk.Id)), null);
@@ -554,10 +562,21 @@ public partial class BattleController : Node3D
         // careful. Units that only must survive still fight, but pull back sooner (above).
         var decisions = State.LivingOf(Faction.Player).Where(u => u.ActionState != ActionState.Done)
             .Select(u => IsVital(u) ? LordDecision(u)
+                : State.Map.Goals.EscapeAll ? FightOrLeave(u)
                 : CarefulAi.Shelter(State, u, State.Reach(u)) is { } shelter ? new AiDecision(u, shelter, null)
                 : AiController.Decide(State, u, AutoplayWeights)).ToList();
         return decisions.Where(d => d.AttackScore is not null).OrderByDescending(d => d.AttackScore).FirstOrDefault()
                ?? decisions.FirstOrDefault(d => !IsVital(d.Unit)) ?? decisions.FirstOrDefault();
+    }
+
+    /// <summary>
+    /// Escape-everyone maps (Ch 12): fight, or go after the enemies left, and head for the exit once none are. (Only the
+    /// lord skirts danger on the way out: a stationary caster covering the gangplank stalled everyone else for 45 turns.)
+    /// </summary>
+    private AiDecision FightOrLeave(BattleUnit unit)
+    {
+        var d = AiController.Decide(State, unit, AutoplayWeights);
+        return d.AttackScore is not null || State.LivingOf(Faction.Enemy).Any() ? d : LordDecision(unit);
     }
 
     /// <summary>The lord, and units the map's escape objective names.</summary>
@@ -570,7 +589,7 @@ public partial class BattleController : Node3D
     private AiDecision LordDecision(BattleUnit lord)
     {
         var goals = State.Map.Goals;
-        bool escaping = goals.Victory == VictoryKind.Escape && goals.EscapeKeys.Any(k => State.ByKey(k) == lord || lord.IsLord);
+        bool escaping = goals.Victory == VictoryKind.Escape && (goals.EscapeAll || goals.EscapeKeys.Any(k => State.ByKey(k) == lord || lord.IsLord));
         var d = AiController.Decide(State, lord, LordWeights);
         // On an escape map the units who must leave just run; elsewhere they fight when it's safe.
         if (d.AttackScore is > 0 && !escaping)

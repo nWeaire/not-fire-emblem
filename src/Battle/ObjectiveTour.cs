@@ -39,6 +39,9 @@ public static class ObjectiveTour
             case VictoryKind.Survive:
                 stops.Add(new TourStop($"Victory: survive {goals.Turns} turns.", Array.Empty<GridPos>()));
                 break;
+            case VictoryKind.Escape when goals.EscapeAll:
+                stops.Add(new TourStop($"Victory: get everyone to the exit. {lords} must leave last.", goals.Cells));
+                break;
             case VictoryKind.Escape:
                 var names = s.Units.Where(u => u.Faction == Faction.Player && u.IsLord).Select(u => u.Name)
                     .Concat(goals.EscapeKeys.Select(k => s.ByKey(k)?.Name).OfType<string>()).Distinct();

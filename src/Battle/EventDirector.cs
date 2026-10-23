@@ -53,7 +53,7 @@ public static class EventDirector
     /// <summary>The pending talk trigger between these two units, if any.</summary>
     public static TriggerDef? TalkTrigger(BattleState s, BattleUnit actor, BattleUnit target) =>
         Pending(s).FirstOrDefault(t => t.Condition is TalkCondition c
-                                       && (c.Actor == "any" ? actor.Faction == Faction.Player : c.Actor == actor.Key)
+                                       && (c.Actor == "any" ? actor.Faction == Faction.Player : c.Actor.Split('|').Contains(actor.Key))
                                        && c.Target == target.Key);
 
     /// <summary>Units <paramref name="actor"/> could talk to from <paramref name="from"/> (adjacent, with a talk trigger).</summary>

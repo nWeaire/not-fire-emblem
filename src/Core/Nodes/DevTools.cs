@@ -41,7 +41,7 @@ public partial class DevTools : Node
     /// </summary>
     public static readonly IReadOnlyDictionary<string, int> CampaignLevels = new Dictionary<string, int>
     {
-        ["prologue"] = 1, ["ch1"] = 2, ["ch2"] = 3, ["ch3"] = 4, ["ch4"] = 5, ["ch5"] = 6, ["ch6"] = 7, ["ch7"] = 8, ["ch8"] = 9, ["ch9"] = 10, ["ch10"] = 11,
+        ["prologue"] = 1, ["ch1"] = 2, ["ch2"] = 3, ["ch3"] = 4, ["ch4"] = 5, ["ch5"] = 6, ["ch6"] = 7, ["ch7"] = 8, ["ch8"] = 9, ["ch9"] = 10, ["ch10"] = 11, ["ch11"] = 12, ["ch12"] = 13,
     };
 
     /// <summary>The --level to use on a map, or null when the flag is unset.</summary>

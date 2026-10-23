@@ -140,6 +140,32 @@ public class MapRulesTests
     }
 
     [Fact]
+    public void Talk_CanNameSeveralActors()
+    {
+        var (s, _) = Start(new TestBattle(".....").Lord(0, 0, "sword")
+            .Named("seraphine", Faction.Player, "merc", 2, 0, "sword")
+            .Named("kai", Faction.Player, "merc", 4, 0, "sword")
+            .Named("ysra", Faction.Enemy, "merc", 3, 0, "sword")
+            .Triggers("talk lord|seraphine ysra => join ysra"));
+        Assert.Single(EventDirector.TalkTargets(s, s.Unit("u1"), new GridPos(2, 0)));
+        Assert.Empty(EventDirector.TalkTargets(s, s.Unit("u2"), new GridPos(4, 0)));
+    }
+
+    [Fact]
+    public void EscapeAll_NeedsEveryLivingUnitOut()
+    {
+        var (s, tm) = Start(new TestBattle(".....", ".....").Lord(3, 0, "sword")
+            .Unit(Faction.Player, "merc", 3, 1, "sword")
+            .Unit(Faction.Enemy, "merc", 0, 0, "sword").WithAi(AiProfile.Stationary)
+            .Victory("escape 4,0 4,1 all"));
+        Assert.True(s.Map.Goals.EscapeAll);
+        Assert.True(tm.Submit(new ActCommand("u0", new GridPos(4, 0), new EscapeAction())).Ok);
+        Assert.Equal(BattleOutcome.InProgress, s.Outcome);
+        Assert.True(tm.Submit(new ActCommand("u1", new GridPos(4, 1), new EscapeAction())).Ok);
+        Assert.Equal(BattleOutcome.Victory, s.Outcome);
+    }
+
+    [Fact]
     public void Seize_OnlyTheLordOnTheMarkedTile()
     {
         var (s, tm) = Start(new TestBattle(".....", ".....").Lord(0, 0, "sword")

@@ -28,7 +28,7 @@ public sealed record SpawnDef(
     bool CrestBearer = false,     // projects Dominion; its death severs the units it dominates
     bool HardOnly = false,        // only placed on Hard difficulty
     int Leash = 0,                // Boss AI: how far it may step from its start to attack (0 = AiController.BossLeash)
-    string? Ignores = null)       // AI never goes after units with this tag (Ch 8's Veiled leave the townsfolk to the mob)
+    string? Ignores = null)       // keys ("civilian", "gull|halde") the AI leaves alone unless the player commands them
 {
     /// <summary>How objectives and triggers refer to this unit.</summary>
     public string? Key => Tag ?? UnitId;
@@ -102,7 +102,7 @@ public sealed record MapDef(
         void Key(string key, string what)
         {
             // Deployed roster units have no spawn on the map but are keyed by their unit id.
-            if (key is not ("actor" or "any" or "player" or "enemy" or "ally") && !keys.Contains(key) && !db.Units.ContainsKey(key))
+            if (key is not ("actor" or "any" or "all" or "player" or "enemy" or "ally" or "neutral") && !keys.Contains(key) && !db.Units.ContainsKey(key))
                 errors.Add($"Map '{Id}' {what} refers to unknown unit key '{key}'.");
         }
         foreach (var spawn in Spawns.Where(s => s.DominatedBy is not null))
@@ -124,7 +124,11 @@ public sealed record MapDef(
                 case EnterCondition c: Key(c.Who, "trigger"); break;
                 case AdjacentCondition c: Key(c.A, "trigger"); Key(c.B, "trigger"); break;
                 case HpBelowCondition c: Key(c.Key, "trigger"); break;
-                case TalkCondition c: Key(c.Actor, "trigger"); Key(c.Target, "trigger"); break;
+                case TalkCondition c:
+                    foreach (var actor in c.Actor.Split('|'))
+                        Key(actor, "trigger");
+                    Key(c.Target, "trigger");
+                    break;
                 case CombatCondition c: Key(c.Key, "trigger"); break;
             }
             foreach (var effect in trigger.Effects)

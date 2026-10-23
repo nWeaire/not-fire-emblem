@@ -1,0 +1,321 @@
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=27 format=3]
+
+[ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
+[ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
+
+[sub_resource type="Resource" id="SpawnDefinition_1"]
+script = ExtResource("2_spawn")
+UnitId = "halde"
+Level = 12
+Faction = 2
+Position = Vector2i(32, 9)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_2"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Gull Deckhand"
+Tag = "gull"
+SpriteId = "ally_sailor"
+Level = 11
+Inventory = PackedStringArray("steel_axe")
+Faction = 2
+Position = Vector2i(30, 8)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_3"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Gull Deckhand"
+Tag = "gull"
+SpriteId = "ally_sailor"
+Level = 11
+Inventory = PackedStringArray("hand_axe")
+Faction = 2
+Position = Vector2i(30, 11)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_4"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Gilded Guard"
+SpriteId = "enemy_gilded"
+Armor = "chainmail"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(7, 12)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_5"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Harbour Sellsword"
+SpriteId = "enemy_myrmidon"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(6, 7)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_6"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Gilded Archer"
+SpriteId = "enemy_gilded"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("steel_bow")
+Faction = 1
+Position = Vector2i(5, 2)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_7"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Harbour Sellsword"
+SpriteId = "enemy_fighter"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("steel_axe")
+Faction = 1
+Position = Vector2i(9, 16)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_8"]
+script = ExtResource("2_spawn")
+ClassId = "thief"
+Name = "Dockside Cutpurse"
+SpriteId = "enemy_thief"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("iron_sword", "chest_key")
+Faction = 1
+Position = Vector2i(4, 5)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_9"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Gilded Knight"
+SpriteId = "enemy_gilded"
+Armor = "iron_plate"
+Ignores = "gull|halde"
+Level = 11
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(14, 6)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_10"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Gilded Knight"
+SpriteId = "enemy_gilded"
+Armor = "iron_plate"
+Ignores = "gull|halde"
+Level = 11
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(16, 13)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_11"]
+script = ExtResource("2_spawn")
+ClassId = "mage"
+Name = "Gilded Mage"
+SpriteId = "enemy_gilded"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("fire")
+Faction = 1
+Position = Vector2i(21, 6)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_12"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Gilded Archer"
+SpriteId = "enemy_gilded"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("steel_bow")
+Faction = 1
+Position = Vector2i(23, 4)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_13"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Harbour Sellsword"
+SpriteId = "enemy_myrmidon"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("killing_edge")
+Faction = 1
+Position = Vector2i(19, 13)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_14"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Gilded Guard"
+SpriteId = "enemy_gilded"
+Armor = "chainmail"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(24, 15)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_15"]
+script = ExtResource("2_spawn")
+ClassId = "mage"
+Name = "Gilded Mage"
+SpriteId = "enemy_gilded"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("thunder")
+Faction = 1
+Position = Vector2i(27, 17)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_16"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Galley Captain Dresh"
+Tag = "dresh"
+SpriteId = "enemy_gilded"
+Armor = "iron_plate"
+Ignores = "gull|halde"
+Level = 12
+Inventory = PackedStringArray("silver_lance")
+Faction = 1
+Position = Vector2i(26, 14)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_17"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Gilded Archer"
+SpriteId = "enemy_gilded"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("steel_bow")
+Faction = 1
+Position = Vector2i(28, 16)
+Ai = 1
+HardOnly = true
+
+[sub_resource type="Resource" id="SpawnDefinition_18"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Gilded Guard"
+Group = "warehouse"
+SpriteId = "enemy_gilded"
+Armor = "chainmail"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(5, 0)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_19"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Harbour Sellsword"
+Group = "warehouse"
+SpriteId = "enemy_myrmidon"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(0, 5)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_20"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Harbour Sellsword"
+Group = "boats"
+SpriteId = "enemy_fighter"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("steel_axe")
+Faction = 1
+Position = Vector2i(18, 6)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_21"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Harbour Sellsword"
+Group = "boats"
+SpriteId = "enemy_myrmidon"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("iron_sword")
+Faction = 1
+Position = Vector2i(21, 13)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_22"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Gilded Guard"
+Group = "auction"
+SpriteId = "enemy_gilded"
+Armor = "chainmail"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(0, 17)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_23"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Gilded Knight"
+Group = "auction"
+SpriteId = "enemy_gilded"
+Armor = "iron_plate"
+Ignores = "gull|halde"
+Level = 10
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(2, 20)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_24"]
+script = ExtResource("2_spawn")
+ClassId = "mage"
+Name = "Gilded Mage"
+Group = "auction"
+SpriteId = "enemy_gilded"
+Ignores = "gull|halde"
+Level = 11
+Inventory = PackedStringArray("elfire")
+Faction = 1
+Position = Vector2i(0, 19)
+Ai = 0
+HardOnly = true
+
+[resource]
+script = ExtResource("1_map")
+Id = "ch12"
+Name = "Chapter 12: The Gilded Harbor"
+TerrainRows = PackedStringArray("##########~~~~~~~~~~~~~~~~~~~~~~~~~", "#WWWW#WWW#~~~~~~~~~~~~~~~~~~~~~~~~~", "#WWWW#WWW#~~~~~~~~~~~~~~~~~~~~~~~~~", "#WWWW#WWW#~~~~~~~~~BBBBBB~~~~~~~~~~", "#WWWWT####~~~~~~~~~BBkBBB~~~~~~~~~~", "##########BBBBBBBBBBBBBBB~~~~~~~~~~", "#######k##BBBBBBBBBBBBBBB~~~~BBBBB~", "#WWW######~~~~~~~~~BBBBBBBBBBBBkBB~", "#WWW######~~~~~~~~~BBBBBB~~~~BBBBB~", "#WWW####k#~~~~~~~~~~~~~~~~~~~BBBBB~", "#WWW######~~~~~~~~~~~~~~~~~~~BBBBB~", "####T#####~~~~~~~~~~~~~~~~~~~BBBBB~", "##########BBBBBBBBBBBBBBB~~~~BBBBB~", "#WWW######BBBBBBBBBBBBBBB~~~~BB~~~~", "#WWW######~~BB~~~~~~~~~BBBBBBBB~~~~", "#WWW##k###~~BB~~~~~~~~~BBBBBB~~~~~~", "##########~~BB~~~~~~~~~BBkBBB~~~~~~", "##########~~BB~~~~~~~~~BBBBBB~~~~~~", "#####################~~BBBBBB~~~~~~", "#########k#######k###~~~~~~~~~~~~~~", "############WWWWW####~~~~~~~~~~~~~~", "############WWWWW####~~~~~~~~~~~~~~")
+HeightRows = PackedStringArray("00000000000000000000000000000000000", "02222022200000000000000000000000000", "02222022200000000000000000000000000", "02222022200000000001111110000000000", "02222000000000000001111110000000000", "00000000000000000001111110000000000", "00000000000000000001111110000111110", "02220000000000000001111110000111110", "02220000000000000001111110000111110", "02220000000000000000000000000111110", "02220000000000000000000000000111110", "00000000000000000000000000000111110", "00000000000000000000000110000111110", "02220000000000000000000110000110000", "02220000000000000000000111111110000", "02220000000000000000000111111000000", "00000000000000000000000111111000000", "00000000000000000000000111111000000", "00000000000000000000000111111000000", "00000000000000000000000000000000000", "00000000000022222000000000000000000", "00000000000022222000000000000000000")
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22"), SubResource("SpawnDefinition_23"), SubResource("SpawnDefinition_24")])
+Victory = "escape 31,8-32,10 all"
+Defeat = PackedStringArray()
+Triggers = PackedStringArray("turn 1 => scene ch12_start", "turn 2 => scene ch12_auction", "talk any halde => scene ch12_halde; join halde", "turn 3 enemy => spawn warehouse", "turn 5 enemy => spawn boats; scene ch12_boats", "turn 7 enemy => spawn auction")
+Highlights = PackedStringArray("halde => Captain Halde Marr of the Gull. Talk to her: she'll take you on, crew and all.", "31,8-32,10 => The Gull's deck. Everyone must get aboard; Rowan goes last.")
+Fog = false
+DeploySlots = "3,18 4,18 5,18 3,19 4,19 5,19 6,18 6,19 2,17 2,19"
+Background = "solmere_harbor"

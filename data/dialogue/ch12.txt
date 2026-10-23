@@ -1,0 +1,51 @@
+# Chapter 12: The Gilded Harbor
+# Written for the built map (data/maps/ch12.tres). Voices follow docs/story/DIALOGUE.md section 2.
+
+### ch12_pre
+@bg solmere_harbor
+@music tension_low
+NARRATOR: Solmere's Gilded Harbor smelled of tar, oranges and money. Every flag in Aldmere flew from its masts.
+NARRATOR: They came ashore as a wool merchant's household: Osmund the merchant, everyone else his very large staff.
+OSMUND [neutral]: Strictly speaking, my lord, I have never sold wool. I have, however, read a great deal about it.
+SABLE [smile]: The auction's in the big hall on the quay. Invitation only. I have an invitation. Don't ask.
+NARRATOR: Inside, under gilded lamps, the merchant princes of Solmere bid on the lots. The lots were crests.
+NARRATOR: Then a steward in Castellan's gold looked twice at Seraphine's face, and turned, and ran.
+SERAPHINE [worried]: He knows me. Rowan, he knows who I am.
+PIP [worried]: Right! Everyone out! Captain with the gull on her flag said she'd take passengers. Last ship out!
+ROWAN [determined]: Then that's our ship. Everyone aboard. I go last. Go now.
+
+### ch12_start
+@focus 31,9
+NARRATOR: Bells rang along the quays. Castellan's guards in gold poured out of the warehouses after them.
+TAMSIN [cold]: The ship with the white gull on the flag. Out past the others. Over the gangplanks, ship to ship.
+
+### ch12_auction
+@focus 4,17
+NARRATOR: Through the hall's open doors the auction went on, as if nothing were happening outside.
+NARRATOR: The auctioneer held up a glass jar. Inside, a little crest burned purple, with nothing to burn on.
+NARRATOR: "Lot thirty-one. A reeve's crest, from the Calder east. Minor, but obedient. Do I hear five thousand?"
+ELISE [sad]: They cut it out of someone. That's what the reeves' names in the letters were. A shopping list.
+ALDRIC [cold]: Keep moving.
+
+### ch12_halde
+HALDE [neutral]: You're the passengers? You're late, you're loud, and half of Castellan's house guard is behind you.
+ROWAN [neutral]: We'll pay. And we'll fight our way aboard if we have to.
+HALDE [smile]: You'll fight your way aboard either way, by the look of it. Fine. I don't like the Gilded House.
+HALDE [cold]: They sell people by the piece in that hall. I've sunk two of their ships. Wouldn't mind a third.
+HALDE [determined]: Halde Marr, captain of the Gull. Get your people on my deck, and I'll get you out of this harbour.
+
+### ch12_boats
+@focus 18,9
+NARRATOR: Rowing boats came across the water from Castellan's galley, packed with sellswords.
+HALDE [cold]: Boarders. Keep them off my ship's planks, if you'd be so kind.
+
+### ch12_post
+@bg solmere_harbor_evening
+@music aftermath
+NARRATOR: The Gull slipped out of the harbour on the evening tide, with Castellan's bells still ringing behind her.
+PIP [smile]: I may have picked up one or two things on the way out. Like the auctioneer's ledger. It was just lying there.
+ELISE [worried]: Every sale, every buyer. And here. Three crests sold to "the Hand", for Dravenhold. Paid in Calder gold.
+HALDE [cold]: Castellan keeps the best ones for himself. Three crests, they say, on one man. The whole harbour fears him.
+SERAPHINE [determined]: Then he's the one who knows how Vossk holds the Empress. He sold him the means.
+ROWAN [determined]: Then we go and ask him. In his own house. Halde, can you take us back in?
+HALDE [smile]: Into the Prince's own palazzo? For you lot, I think I can find a quiet beach.

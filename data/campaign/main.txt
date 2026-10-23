@@ -91,5 +91,17 @@ chapter 10 Chapter 10: The Border of Ash
 scene ch10_pre
 battle ch10 deploy 10 force rowan
 scene ch10_post
+hub hub_briefing_ch11
+
+chapter 11 Chapter 11: Wings of Dravenhold
+scene ch11_pre
+battle ch11 deploy 10 force rowan,seraphine
+scene ch11_post
+hub hub_briefing_ch12
+
+chapter 12 Chapter 12: The Gilded Harbor
+scene ch12_pre
+battle ch12 deploy 10 force rowan,seraphine
+scene ch12_post
 hub
-end Act II continues in Chapter 11: Wings of Dravenhold.
+end Act II continues in Chapter 13: The Merchant Prince.

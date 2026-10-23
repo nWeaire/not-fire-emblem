@@ -36,7 +36,7 @@ NARRATOR: With a roar, the burning cottages fell in on themselves. Where their w
 TAMSIN [neutral]: New way through. Mind your feet.
 
 ### ch10_wyverns
-@focus 16,2
+@focus 28,3
 @sfx wing_beat
 NARRATOR: Shadows swept over the ridge: wyverns, grey-scaled, with riders in iron. They came in low and fast.
 WREN [worried]: The Dravenhold wyvern corps. Bows and wind magic, everyone. And stay out from under them.

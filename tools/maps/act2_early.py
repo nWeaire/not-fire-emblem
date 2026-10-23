@@ -44,6 +44,35 @@ Price = {price}
 INFANTRY, ARMORED, CAVALRY, FLYING = 0, 1, 2, 3
 
 
+def weapon_tres(wid, name, wtype, might, hit, crit, weight, rmin, rmax, price, tier, effective=()):
+    q = lambda xs: ", ".join(f'"{x}"' for x in xs)
+    write(DATA / "weapons" / f"{wid}.tres", f"""[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/WeaponDefinition.cs" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+Id = "{wid}"
+Name = "{name}"
+Type = {wtype}
+Might = {might}
+Hit = {hit}
+Crit = {crit}
+Weight = {weight}
+MinRange = {rmin}
+MaxRange = {rmax}
+Magic = false
+EffectiveAgainst = PackedStringArray({q(effective)})
+Price = {price}
+Tier = {tier}
+""")
+
+
+def weapons():
+    # Halde's crossbow (Ch 12): hits hard, aims well, heavy to carry.
+    weapon_tres("crossbow", "Crossbow", 3, 11, 70, 5, 9, 2, 2, 1600, 2, ["Flying"])
+
+
 def class_tres(cid, name, bases, growths, weapons, promotes_to, promoted, tier, traits, arts=(), spells=(), move=INFANTRY):
     caps = dict(HP=60, Str=30, Mag=30, Dex=30, Spd=30, Lck=30, Def=30, Res=30, Mov=10)
     q = lambda xs: ", ".join(f'"{x}"' for x in xs)
@@ -98,6 +127,10 @@ def units():
          dict(HP=50, Str=30, Mag=5, Dex=55, Spd=75, Lck=70, Def=15, Res=25), ["iron_sword", "vulnerary"], "")
     unit("seraphine", "Seraphine", "troubadour", 9, dict(HP=1, Mag=2, Lck=2, Res=3),
          dict(HP=45, Str=15, Mag=55, Dex=40, Spd=50, Lck=60, Def=15, Res=55), ["vulnerary"], "")
+    unit("halde", "Halde", "archer", 12, dict(HP=2, Str=1, Dex=2, Lck=1),
+         dict(HP=55, Str=45, Mag=5, Dex=55, Spd=35, Lck=40, Def=30, Res=20), ["crossbow", "steel_bow"], "leather_jerkin")
+    unit("ysra", "Ysra", "wyvern_rider", 11, dict(HP=2, Str=2, Dex=1, Def=2),
+         dict(HP=60, Str=50, Mag=5, Dex=45, Spd=35, Lck=30, Def=40, Res=15), ["steel_lance", "javelin"], "chainmail")
 
 
 # ------------------------------------------------------------------ Chapter 8: Riot in the Capital (32×26)
@@ -400,8 +433,10 @@ def ch10():
         imperial("cavalier", ["iron_lance"], (34, 10), 8, "wave2"), imperial("cavalier", ["iron_sword"], (34, 11), 8, "wave2"),
         imperial("soldier", ["iron_lance"], (25, 3), group="wave4"), imperial("soldier", ["steel_lance"], (25, 18), group="wave4"),
         imperial("archer", ["iron_bow"], (26, 3), group="wave4"),
-        imperial("wyvern_rider", ["iron_lance"], (10, 2), group="wave6"), imperial("wyvern_rider", ["steel_lance"], (16, 2), group="wave6"),
-        dict(imperial("wyvern_rider", ["iron_lance"], (22, 2), group="wave6"), HardOnly=True),
+        # The wyverns come in over the ridge's east end: a turn's warning before they can reach Seraphine (session 12
+        # soak: from right above the village they killed her the turn they arrived, 6 tries in a row).
+        imperial("wyvern_rider", ["iron_lance"], (26, 2), group="wave6"), imperial("wyvern_rider", ["iron_lance"], (31, 3), group="wave6"),
+        dict(imperial("wyvern_rider", ["steel_lance"], (29, 2), group="wave6"), HardOnly=True),
         imperial("knight", ["steel_lance"], (33, 6), 10, "wave8"), imperial("cavalier", ["steel_lance"], (34, 15), group="wave8"),
         imperial("soldier", ["steel_lance"], (33, 10), group="wave8"),
     ]
@@ -423,11 +458,191 @@ def ch10():
              ["die seraphine"], triggers, slots, background="border_pass", highlights=highlights)
 
 
+# ------------------------------------------------------------------ Chapter 11: Wings of Dravenhold (32×32)
+
+def ch11():
+    # Heights make the pass: walkers step at most one level, fliers ignore heights (Pathfinder), so every drop of two
+    # or more is a cliff only Wren, Ysra and the wyverns can cross.
+    g = Grid(32, 32)
+    # The south valley (height 0), where the party comes up from Calder.
+    g.spots("F", [(2, 27), (3, 28), (6, 30), (24, 29), (27, 27), (29, 30), (11, 26), (21, 26)])
+    # The gorge (height 0) down the east side, its river, joining the valley.
+    g.vline(27, 3, 24, "~")
+    g.spots("s", [(27, 10), (27, 18)])
+    g.spots("F", [(24, 6), (30, 12), (25, 20), (30, 22)])
+    # The middle shelf (height 2): cliffs to the valley and the gorge, two ramps up from the valley.
+    g.raise_(0, 13, 22, 24, 2)
+    for x in (8, 9, 18, 19):
+        g.heights[24][x] = 1
+        g.heights[23][x] = 1
+    # The upper shelf (height 4), a wall of rock below it but for one ramp (height 3) on the road.
+    g.raise_(0, 2, 22, 10, 4)
+    g.rect(0, 11, 22, 12, "W")
+    g.raise_(0, 11, 22, 12, 5)
+    g.rect(14, 11, 16, 12, "=")
+    g.raise_(14, 11, 16, 12, 3)
+    # The roost: a plateau (height 6) on the upper shelf's west end, one stair up (height 5).
+    g.raise_(1, 3, 5, 8, 6)
+    g.heights[6][6] = 5
+    # The ridge along the north edge.
+    g.rect(0, 0, 31, 1, "M")
+    g.raise_(0, 0, 22, 1, 4)
+    # The road: up the east ramp, across the middle shelf, up the rock ramp, over the upper shelf.
+    g.rect(18, 22, 19, 24, "=")
+    g.rect(16, 18, 19, 19, "=")
+    g.rect(15, 13, 16, 19, "=")
+    g.rect(15, 3, 16, 10, "=")
+    g.spots("F", [(3, 15), (4, 19), (11, 16), (12, 21), (6, 22), (20, 14), (9, 4), (12, 7), (19, 5), (2, 10)])
+    g.spots("M", [(7, 17), (8, 17), (21, 9), (11, 3)])
+    assert_connected(g, (15, 29))
+
+    def imperial(cls, weapon, pos, lvl=10, group="", name=None, **kv):
+        names = {"soldier": "Imperial Soldier", "knight": "Imperial Knight", "archer": "Imperial Archer",
+                 "cavalier": "Imperial Cavalier", "wyvern_rider": "Wyvern Rider", "wyvern_lord": "Wyvern Lord",
+                 "mage": "Imperial Mage"}
+        armor = {"knight": "iron_plate", "soldier": "chainmail", "cavalier": "chainmail"}.get(cls)
+        spawn = dict(ClassId=cls, Name=name or names[cls], SpriteId="enemy_imperial", Level=lvl, Inventory=weapon,
+                     Pos=pos, Group=group, **kv)
+        if armor:
+            spawn["Armor"] = armor
+        return spawn
+
+    spawns = [
+        # Ysra, hanging back on the shelf's edge over the gorge.
+        dict(UnitId="ysra", Faction=ENEMY, Level=11, Pos=(21, 17), Ai=STATIONARY),
+        # The middle shelf.
+        imperial("soldier", ["steel_lance"], (10, 19)), imperial("soldier", ["iron_lance"], (14, 21)),
+        imperial("cavalier", ["iron_sword"], (5, 16)), imperial("cavalier", ["steel_lance"], (12, 14)),
+        imperial("mage", ["thunder"], (18, 15), Ai=GUARD), imperial("archer", ["steel_bow"], (20, 20), Ai=GUARD),
+        # The rock ramp and the upper shelf.
+        imperial("knight", ["steel_lance"], (14, 12), 10, Ai=GUARD), imperial("soldier", ["steel_lance"], (16, 12), 10, Ai=GUARD),
+        imperial("archer", ["iron_bow"], (15, 9), Ai=STATIONARY), imperial("soldier", ["steel_lance"], (19, 7)),
+        imperial("wyvern_lord", ["silver_lance", "steel_axe"], (15, 4), 12, name="Wing-Captain Orvald",
+                 Tag="orvald", Ai=BOSS, IsBoss=True, Leash=4),
+        # The roost.
+        imperial("archer", ["steel_bow"], (3, 5), Ai=STATIONARY), imperial("mage", ["fire"], (2, 7), Ai=STATIONARY),
+        dict(imperial("archer", ["iron_bow"], (5, 4), Ai=STATIONARY), HardOnly=True),
+        # Wyverns in the gorge, and more: T3 up the gorge, T5 over the north ridge.
+        # (Session 12 autoplay: six wyverns plus the captain cost 5-7 units a run; now two, then one a wave.)
+        imperial("wyvern_rider", ["iron_lance"], (25, 14), 9), imperial("wyvern_rider", ["iron_lance"], (29, 8), 9),
+        imperial("wyvern_rider", ["javelin", "iron_lance"], (30, 3), 9, "gorge"),
+        dict(imperial("wyvern_rider", ["iron_lance"], (24, 3), 10, "gorge"), HardOnly=True),
+        imperial("wyvern_rider", ["iron_lance"], (20, 2), 10, "ridge"),
+        dict(imperial("wyvern_lord", ["steel_lance"], (13, 2), 12, "ridge"), HardOnly=True),
+    ]
+    for s in spawns:
+        s.setdefault("Faction", ENEMY)
+        s.setdefault("Ai", AGGRESSIVE)
+    triggers = ["turn 1 => scene ch11_start",
+                "talk rowan|seraphine ysra => scene ch11_ysra; join ysra",
+                "turn 3 enemy => spawn gorge; scene ch11_gorge",
+                "turn 5 enemy => spawn ridge",
+                "combat orvald => scene ch11_orvald"]
+    highlights = ["ysra => A wyvern rider hanging back from the fight. A crest-bearer might talk her round: Rowan or Seraphine.",
+                  "14,11-16,12 => The only way up for anyone on foot. Fliers can go over the cliffs anywhere."]
+    slots = [(15, 29), (16, 29), (14, 29), (17, 29), (15, 30), (16, 30), (13, 29), (18, 29), (14, 30), (17, 30)]
+    map_tres("ch11", "Chapter 11: Wings of Dravenhold", g.rows(), g.height_rows(), spawns, "rout", [],
+             triggers, slots, background="dravenhold_pass", highlights=highlights)
+
+
+# ------------------------------------------------------------------ Chapter 12: The Gilded Harbor (35×22)
+
+def ch12():
+    # Solmere's harbour: the stone quays west and south, wooden piers into the water, three ships moored at the piers
+    # and to each other by gangplanks. Halde's ship, the Gull, is furthest out: everyone must get aboard.
+    g = Grid(35, 22, "~")
+
+    def land(x0, y0, x1, y1, c="#", h=0):
+        g.rect(x0, y0, x1, y1, c)
+        g.raise_(x0, y0, x1, y1, h)
+
+    land(0, 0, 9, 21)           # the west quay
+    land(0, 18, 20, 21)         # the south quay
+    # Warehouses and the auction hall on the quays; crates and carts between.
+    for x0, y0, x1, y1 in [(1, 1, 4, 4), (6, 1, 8, 3), (1, 7, 3, 10), (1, 13, 3, 15), (12, 20, 16, 21)]:
+        g.rect(x0, y0, x1, y1, "W")
+        g.raise_(x0, y0, x1, y1, 2)
+    g.spots("T", [(5, 4), (4, 11)])
+    g.spots("k", [(7, 6), (8, 9), (6, 15), (9, 19), (17, 19)])
+    # Piers (bridge planks over the water).
+    g.rect(10, 5, 18, 6, "B")
+    g.rect(10, 12, 22, 13, "B")
+    g.rect(12, 14, 13, 17, "B")
+    # The ships: decks raised a step, gangplanks between them.
+    for x0, y0, x1, y1 in [(19, 3, 24, 8), (23, 14, 28, 18), (29, 6, 33, 12)]:
+        g.rect(x0, y0, x1, y1, "B")
+        g.raise_(x0, y0, x1, y1, 1)
+    g.rect(25, 7, 28, 7, "B")      # merchant hulk -> the Gull
+    g.rect(23, 12, 24, 13, "B")    # pier -> galley
+    g.raise_(23, 12, 24, 13, 1)
+    g.rect(29, 13, 30, 14, "B")    # galley -> the Gull
+    g.raise_(29, 13, 30, 14, 1)
+    g.spots("k", [(21, 4), (25, 16), (31, 7)])
+    assert_connected(g, (3, 18))
+
+    # Levels: two under the party (13 by Ch 12), elites one under. They leave Halde and her crew alone (Ignores) until
+    # she joins (session 12 autoplay: the ships' guards killed the Gull's crew on T2 and Halde on T3).
+    def gilded(cls, weapon, pos, lvl=10, group="", name=None, **kv):
+        names = {"soldier": "Gilded Guard", "knight": "Gilded Knight", "archer": "Gilded Archer", "mage": "Gilded Mage",
+                 "myrmidon": "Harbour Sellsword", "fighter": "Harbour Sellsword", "thief": "Dockside Cutpurse"}
+        armor = {"knight": "iron_plate", "soldier": "chainmail"}.get(cls)
+        spawn = dict(ClassId=cls, Name=name or names[cls], SpriteId="enemy_gilded" if cls in ("soldier", "knight", "archer", "mage")
+                     else f"enemy_{cls}", Level=lvl, Inventory=weapon, Pos=pos, Group=group, Ignores="gull|halde", **kv)
+        if armor:
+            spawn["Armor"] = armor
+        return spawn
+
+    def deckhand(pos, weapon):
+        return dict(ClassId="fighter", Name="Gull Deckhand", Tag="gull", SpriteId="ally_sailor", Level=11, Faction=ALLY,
+                    Inventory=[weapon], Pos=pos, Ai=GUARD)
+
+    spawns = [
+        # Halde and her crew on the Gull.
+        dict(UnitId="halde", Faction=ALLY, Level=12, Pos=(32, 9), Ai=STATIONARY),
+        deckhand((30, 8), "steel_axe"), deckhand((30, 11), "hand_axe"),
+        # The quays.
+        gilded("soldier", ["steel_lance"], (7, 12)), gilded("myrmidon", ["steel_sword"], (6, 7)),
+        gilded("archer", ["steel_bow"], (5, 2), Ai=STATIONARY), gilded("fighter", ["steel_axe"], (9, 16)),
+        gilded("thief", ["iron_sword", "chest_key"], (4, 5)),
+        # The piers and the merchant hulk.
+        gilded("knight", ["steel_lance"], (14, 6), 11, Ai=GUARD), gilded("knight", ["steel_lance"], (16, 13), 11, Ai=GUARD),
+        gilded("mage", ["fire"], (21, 6), Ai=GUARD), gilded("archer", ["steel_bow"], (23, 4), Ai=STATIONARY),
+        gilded("myrmidon", ["killing_edge"], (19, 13)),
+        # Castellan's galley.
+        gilded("soldier", ["steel_lance"], (24, 15)), gilded("mage", ["thunder"], (27, 17), Ai=STATIONARY),
+        gilded("knight", ["silver_lance"], (26, 14), 12, name="Galley Captain Dresh", Tag="dresh", Ai=GUARD),
+        dict(gilded("archer", ["steel_bow"], (28, 16), Ai=STATIONARY), HardOnly=True),
+        # Reinforcements: T3 from the warehouses, T5 boarding boats at the piers' ends, T7 more from the auction.
+        gilded("soldier", ["steel_lance"], (5, 0), group="warehouse"), gilded("myrmidon", ["steel_sword"], (0, 5), group="warehouse"),
+        # Boarders tie up at the far ends of the piers, by the ships, not in the party's path.
+        gilded("fighter", ["steel_axe"], (18, 6), group="boats"), gilded("myrmidon", ["iron_sword"], (21, 13), group="boats"),
+        gilded("soldier", ["steel_lance"], (0, 17), group="auction"), gilded("knight", ["steel_lance"], (2, 20), group="auction"),
+        dict(gilded("mage", ["elfire"], (0, 19), 11, "auction"), HardOnly=True),
+    ]
+    for s in spawns:
+        s.setdefault("Faction", ENEMY)
+        s.setdefault("Ai", AGGRESSIVE)
+    triggers = ["turn 1 => scene ch12_start",
+                "turn 2 => scene ch12_auction",
+                "talk any halde => scene ch12_halde; join halde",
+                "turn 3 enemy => spawn warehouse",
+                "turn 5 enemy => spawn boats; scene ch12_boats",
+                "turn 7 enemy => spawn auction"]
+    highlights = ["halde => Captain Halde Marr of the Gull. Talk to her: she'll take you on, crew and all.",
+                  "31,8-32,10 => The Gull's deck. Everyone must get aboard; Rowan goes last."]
+    slots = [(3, 18), (4, 18), (5, 18), (3, 19), (4, 19), (5, 19), (6, 18), (6, 19), (2, 17), (2, 19)]
+    map_tres("ch12", "Chapter 12: The Gilded Harbor", g.rows(), g.height_rows(), spawns, "escape 31,8-32,10 all", [],
+             triggers, slots, background="solmere_harbor", highlights=highlights)
+
+
 if __name__ == "__main__":
     terrains()
     items()
+    weapons()
     classes()
     units()
     ch8()
     ch9()
     ch10()
+    ch11()
+    ch12()

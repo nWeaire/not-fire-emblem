@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/UnitDefinition.cs" id="1_unit"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+HP = 2
+Str = 1
+Dex = 2
+Lck = 1
+
+[sub_resource type="Resource" id="StatsDefinition_2"]
+script = ExtResource("2_stats")
+HP = 55
+Str = 45
+Mag = 5
+Dex = 55
+Spd = 35
+Lck = 40
+Def = 30
+Res = 20
+
+[resource]
+script = ExtResource("1_unit")
+Id = "halde"
+Name = "Halde"
+ClassId = "archer"
+Level = 12
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Inventory = PackedStringArray("crossbow", "steel_bow")
+IsLord = false
+Armor = "leather_jerkin"

@@ -131,20 +131,20 @@ public static class ActionRules
     public const string DoorTerrain = "door";
     public const string ChestTerrain = "chest";
     public const string DoorKey = "door_key";
-    public const string ChestKey = "chest_key";
     /// <summary>What an opened door or chest becomes: stone floor.</summary>
     public const string OpenedTerrain = "square";
 
-    /// <summary>Thieves open doors and chests without keys.</summary>
+    /// <summary>Thieves open doors without keys.</summary>
     public static bool HasLocktouch(BattleState s, BattleUnit unit) => s.Db.Class(unit.State.ClassId).HasTrait("Locktouch");
 
-    /// <summary>Locked cells the unit can open from <paramref name="from"/>: doors beside it and a chest under it.</summary>
+    /// <summary>
+    /// Locked cells the unit can open from <paramref name="from"/>: doors beside it (Locktouch or a Door Key) and a
+    /// chest under it (session 14, user request: anyone in the army can loot a chest, no key or thief needed).
+    /// </summary>
     public static IEnumerable<GridPos> Unlockable(BattleState s, BattleUnit unit, GridPos from)
     {
-        bool touch = HasLocktouch(s, unit);
-        bool doorKey = touch || unit.State.Inventory.Contains(DoorKey);
-        bool chestKey = touch || unit.State.Inventory.Contains(ChestKey);
-        if (chestKey && s.Grid[from].Terrain.Id == ChestTerrain)
+        bool doorKey = HasLocktouch(s, unit) || unit.State.Inventory.Contains(DoorKey);
+        if (unit.Faction == Faction.Player && s.Grid[from].Terrain.Id == ChestTerrain)
             yield return from;
         if (!doorKey)
             yield break;

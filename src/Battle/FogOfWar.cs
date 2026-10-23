@@ -7,11 +7,11 @@ namespace NotFireEmblem.Battle;
 
 /// <summary>
 /// Fog of war (GDD §3): on fog maps each side sees only cells within its units' vision radius
-/// (3 + the map's vision bonus, Manhattan). Player and Ally units share their vision. Line of sight isn't modelled.
+/// (4 + the map's vision bonus, Manhattan; 3 until session 14). Player and Ally units share their vision. Line of sight isn't modelled.
 /// </summary>
 public static class FogOfWar
 {
-    public const int BaseVision = 3;
+    public const int BaseVision = 4;
 
     public static HashSet<GridPos> VisibleCells(BattleState s, Faction viewer)
     {

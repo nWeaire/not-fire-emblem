@@ -65,7 +65,7 @@ public sealed record UseItemAction(string ItemId) : BattleAction;
 /// <summary>A crest skill. Ward and Dawn need an adjacent ally; Rally and Mend affect everyone nearby.</summary>
 public sealed record CrestAction(CrestSkill Skill, string? TargetId) : BattleAction;
 
-/// <summary>Opens a locked door next to the unit, or the chest it stands on (Locktouch, or a key that is used up).</summary>
+/// <summary>Opens a locked door next to the unit (Locktouch, or a Door Key that is used up), or the chest it stands on.</summary>
 public sealed record UnlockAction(GridPos Cell) : BattleAction;
 
 /// <summary>Strikes a locked door next to the unit with its weapon; the door breaks on the third strike.</summary>
@@ -219,10 +219,10 @@ public sealed record ActCommand(string UnitId, GridPos Destination, BattleAction
     private static void Unlock(BattleState s, BattleUnit unit, GridPos cell, List<BattleEvent> events)
     {
         bool chest = s.Grid[cell].Terrain.Id == ActionRules.ChestTerrain;
-        if (!ActionRules.HasLocktouch(s, unit))
+        if (!chest && !ActionRules.HasLocktouch(s, unit))
         {
             string? equipped = unit.State.EquippedItemId;
-            unit.State.Inventory.Remove(chest ? ActionRules.ChestKey : ActionRules.DoorKey);
+            unit.State.Inventory.Remove(ActionRules.DoorKey);
             unit.State.EquippedIndex = equipped is null ? -1 : unit.State.Inventory.IndexOf(equipped);
         }
         s.Grid.SetTerrain(cell, s.Db.Terrain(ActionRules.OpenedTerrain));

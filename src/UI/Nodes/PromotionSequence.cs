@@ -121,7 +121,8 @@ void fragment() {
         foreach (var (stat, change) in _changes)
             _stats.AddChild(UiKit.Outlined(UiKit.Label($"{stat} {change:+0;-0}", 22, change > 0 ? UiKit.Good : UiKit.Bad)));
         column.AddChild(_stats);
-        _caption = UiKit.Outlined(UiKit.Label($"What? {_name} is changing!", 30, UiKit.Text, HorizontalAlignment.Center));
+        // Silent while the outfits change; the caption fades in with the reveal.
+        _caption = UiKit.Outlined(UiKit.Label("", 30, UiKit.Text, HorizontalAlignment.Center));
         column.AddChild(_caption);
         _prompt = UiKit.Label("Confirm ▶", 16, UiKit.Muted, HorizontalAlignment.Center);
         _prompt.Modulate = new Color(1, 1, 1, 0);
@@ -212,6 +213,7 @@ void fragment() {
         _whiteness.SetShaderParameter("white", 1 - k);
         _glow.Modulate = _glow.Modulate with { A = 1 - 0.6f * k };
         _stats.Modulate = _stats.Modulate with { A = k };
+        _caption.Modulate = _caption.Modulate with { A = k };
         _prompt.Modulate = _prompt.Modulate with { A = k >= 1 ? 0.6f + 0.4f * Mathf.Sin((float)_t * 4f) : 0 };
     }
 
@@ -220,7 +222,8 @@ void fragment() {
         _revealed = true;
         Show(true);
         _sparkles.Emitting = false;
-        _caption.Text = $"{_name} became a {_newClassName}!";
+        string article = "AEIOU".Contains(char.ToUpperInvariant(_newClassName[0])) ? "an" : "a";
+        _caption.Text = $"{_name} became {article} {_newClassName}!";
         AudioDirector.PlaySfx("level_up");
     }
 

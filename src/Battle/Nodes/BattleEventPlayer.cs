@@ -77,6 +77,7 @@ public partial class BattleEventPlayer : Node
         {
             Battle.ViewOf(unit.Id)?.SetDone(false);
             Battle.ViewOf(unit.Id)?.SetStatus(StatusOf(unit));
+            Battle.RefreshRecruit(unit);
         }
         Battle.Hud.UpdateObjective(Battle.State);
         AudioDirector.PlayMusic(AudioCues.PhaseMusic(p.Phase));

@@ -2,9 +2,33 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-23 (end of session 13)._
+_Last updated: 2026-10-24 (session 14)._
 
 ---
+
+## Session 14: Ch 1–9 playtest notes (uncommitted)
+- **Kai** is no longer made a Cavalier by the campaign (`class kai cavalier` removed): Soldier now promotes to
+  Cavalier (`soldier.tres` PromotesTo), then Paladin, then Vanguard. `hub_merrow_horses` gives him the horse and says so.
+  The user's own saves (slots 0/1, Ch 10) already have Kai as a Paladin, which is unchanged.
+- **Recruitable enemies** (an enemy that a talk trigger would make join: Sable, Wren, Brann, Elise, Pip, Ysra, Halde)
+  get a yellow-green outline and a "Talk: Kai" line under their HP (`EventDirector.Recruiter`,
+  `UnitView.SetRecruitable`, `BattleController.RefreshRecruit`). Hint lines in `ch06_start` (Elise) and `ch07_patrol`
+  (Tamsin), plus a Ch 6 highlight on Sable.
+- **HP:** Elise's personal base HP +3 (18 at Lv 1). Every even level whose HP roll misses still gains 1 max HP
+  (`LevelUpService.Roll`; `RaiseToAverage` matches).
+- **Promotion scene:** no "What? X is changing!" caption; "X became a/an Y!" fades in at the reveal.
+- **Swords:** the Killing Edge is gone; the Silver Sword takes its place (Dain Hall Stores, Ch 12/13 myrmidons; Ch 8/9
+  myrmidons and Sable carry Steel). Old saves map `killing_edge` to `silver_sword` (`SaveData.RenamedItems`). New
+  **Black Steel Sword** (tier 4) and **Mythril Sword** (tier 5) exist for Act III; no shop sells them and the smithy
+  still stops at Silver (`MaxForgeTier` 3). "Mithril Mail" is now spelled "Mythril Mail" (id unchanged).
+- **Chests open for anyone** on the player's side, no key or thief (`ActionRules.Unlockable`). Chest Keys are no longer
+  sold or carried (enemies carry Door Keys instead); the item stays so old saves can sell it.
+- **Ch 9 boss:** Archivist Corvin Lv 10 → 16 with Elfire (was Shadow); his four guards +2 levels, the myrmidon now on
+  every difficulty.
+- **Fog of war** vision 3 → 4 (`FogOfWar.BaseVision`).
+- **Shop** (user's pick "A" from the mockups at https://claude.ai/artifact/9XwQBUTCJMYRX6KWsX4P1K): the item list
+  scrolls in its own box sized to the page (`_shopList`, `ShopListHeight`) and the card stays pinned beside it.
+- Dev: `--hubtab=Shop` opens the hub on a tab (loading a save made at a prep screen goes to prep, not the hub).
 
 ## Session 13: Act II playtest setup and the user's playtest requests
 **Nothing from session 13 is committed yet** (all on `main`'s working tree; build clean, **140 tests pass**, content

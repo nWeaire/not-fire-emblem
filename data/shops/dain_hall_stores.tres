@@ -8,4 +8,4 @@ Id = "dain_hall_stores"
 Name = "Dain Hall Stores"
 Region = "thornvale"
 OpensAtChapter = 7
-Items = PackedStringArray("steel_bow", "thunder", "killing_edge", "brigandine", "iron_ring")
+Items = PackedStringArray("steel_bow", "thunder", "silver_sword", "brigandine", "iron_ring")

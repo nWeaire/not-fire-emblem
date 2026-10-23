@@ -127,7 +127,7 @@ The names are working names; rename freely. Their ids match `data/units/` where 
 |---|---|---|---|---|
 | **Rowan Ashford** (`rowan`) | 18, the farmer's son: messy dark-blue hair, freckles, a linen shirt and patched trousers. Quiet, stubborn, with a dry sense of humour and a deep sense of fairness. Taught the bow and sword by his father, "for wolves". | **Youth** (sword + bow) → *(after Ch 1, at the hub)* **Lord** → Crest Knight → High Lord → **Sovereign** | Prologue | — |
 | **Aldric Ashford** (`aldric`) | Rowan's father, ~50. Gruff, dry, secretive and warm underneath. He fights far too well for a farmer and wears **Warden's hide**, black leather armour stitched with old silver sigils. He is the last of the Crestwardens. | **Warden** (unique, pre-promoted, sword; promotes to Warden Lord at tier 2) | Prologue | Dies Ch 15 |
-| **Kai Merrow** (`kai`) | 18, Rowan's best friend since they could walk: shaggy sandy hair, sunburn, a padded gambeson and his family's old farm spear. A loud, brave horse-rancher's son. Competes with Rowan at everything. In Act III he is the first to tell Rowan to stop. | Soldier → (Ch 5: Merrow horses) Cavalier → Paladin → **Vanguard** | Ch 1 | — |
+| **Kai Merrow** (`kai`) | 18, Rowan's best friend since they could walk: shaggy sandy hair, sunburn, a padded gambeson and his family's old farm spear. A loud, brave horse-rancher's son. Competes with Rowan at everything. In Act III he is the first to tell Rowan to stop. | Soldier → (promotion, Lv 10) Cavalier → Paladin → **Vanguard** | Ch 1 | — |
 | **Mira Fenn** (`mira`) | 18, the village healer's apprentice: a blonde braid, a wool dress and an apron, and a satchel of herbs. Gentle and clever, and tired of being the one who's protected. She has been secretly teaching herself fire magic from a book she shouldn't have. | Acolyte (staff + light fire magic) → Sage → **Oracle** | Ch 1 | — |
 
 ### Companions — Act I (the Thornvale)
@@ -247,7 +247,7 @@ Every new class arrives with a reason, on a map that teaches it.
 | 3 | Archer (Tamsin) | Hunting Gloamkin | Gloam Stalker (spike-thrower, range 2) | Fog of war, bows, forests |
 | 4 | Mage (Elise) | Escaping Halvric's men | Lord's soldiers, cavaliers | Escape objective, cavalry |
 | 5 | Knight (Dorran) | Defending his keep | Gloam Horde, Gloam Brute Alpha | Survive objective, chokepoints |
-| 5→6 | Cavalier (Kai) | Merrow ranch horses (hub event) | — | Movement types |
+| 5→6 | Cavalier (Kai) | Merrow ranch horses (hub event); Kai promotes into it at Lv 10 | — | Movement types |
 | 6 | Myrmidon (Sable) | A mercenary turned | Bandit King + stolen crest | Defeat Boss, swamp terrain |
 | 7 | Pegasus Knight (Wren) | Deserts Halvric | Pegasus patrols, armoured knights | Fliers vs bows, Seize, freeing dominated troops |
 | 9 | Thief (Pip) | Undercity guide | Rogues | Doors, chests, stealing |

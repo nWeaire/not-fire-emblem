@@ -95,7 +95,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
   - T4 (`ch05_gate_cracks`): the gate's bar splits.
   - T5 (`ch05_gate`): the Alpha breaks the gate; the two gate cells become rubble.
   - Severing the Binder ends the map early with a bonus.
-- **Recruit / unlock:** **Dorran**. After the map, the hub event `hub_merrow_horses` lets **Kai** change class to **Cavalier**.
+- **Recruit / unlock:** **Dorran**. After the map, the hub event `hub_merrow_horses` gives **Kai** a horse; he promotes Soldier → **Cavalier** at level 10 (session 14: no free class change).
 - **Scenes:** `ch05_pre`, `ch05_dorran`, `ch05_alpha_gate`, `ch05_harriers`, `ch05_harrier_down`, `ch05_gate_cracks`, `ch05_gate`, `ch05_post` (Dorran to Aldric, privately: "I thought the Wardens all burned.").
 
 ## Chapter 6 — "The Bandit King of Greyfen"
@@ -153,7 +153,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
   over the archive guards.
 - **Recruit:** **Pip** (Thief, Ally, in a bolt-hole off the south hall; `talk any pip`). A cutpurse comes for him.
 - **New systems:** locked **doors** (D) and **chests** (C). **Unlock** opens a door beside the unit or the chest under
-  it: the Thief's Locktouch, or a single-use Door Key / Chest Key (Calder market; some enemies carry them).
+  it: the Thief's Locktouch, a single-use Door Key (Calder market; some enemies carry them) or three strikes. Chests open for anyone (session 14).
   **Steal** (Thief) takes an item an adjacent enemy isn't holding if the thief is at least as fast. Chests are
   `chest X,Y => give actor ITEM` triggers: Speedwing, 1500 gold, Silver Sword, Elixir, Secret Book.
 - **Events:** T1 `ch09_start`; entering the archive `ch09_archive`; the Archivist's quote `ch09_archivist`; T4 cutpurses
@@ -341,7 +341,7 @@ Gear progresses separately from class: classes change the look, gear changes the
 | Brookhollow Trader | Thornvale | Ch 1 (hub) | Iron weapons, Fire, Padded Gambeson, Leather Jerkin, Apprentice Robe, Lucky Charm | 1 |
 | Millbrook Forge | Thornvale | Ch 2 (Brann) | Javelin, Hand Axe, Wind, Traveller's Cloak, Hunter's Gloves | 1 |
 | Ferrow's Keep Armoury | Thornvale | Ch 5 | Steel Sword/Lance/Axe, Chainmail, Iron Plate | 2 |
-| Dain Hall Stores | Thornvale | Ch 7 | Steel Bow, Thunder, Killing Edge, Brigandine, Iron Ring | 2–3 |
+| Dain Hall Stores | Thornvale | Ch 7 | Steel Bow, Thunder, Silver Sword, Brigandine, Iron Ring | 2–3 |
 | Calder Royal Market | Calder | Ch 8 | All steel, Scholar's Robe, Chainmail, Brigandine | 2 |
 | Solmere Bazaar | Solmere | Ch 12 | Silver weapons, Elfire, Mithril Mail, Sage's Vestments, Swift Boots | 3 |
 | Dravenhold Imperial Forge | Dravenhold | Ch 14 | Silver Lance/Axe, Iron and Silver Plate | 2–3 |
@@ -365,7 +365,7 @@ Enemies follow the same tiers: Act I bandits carry iron and leather, Halvric's g
 ## Mapping to current content
 - **Built so far:** `data/maps/prologue.tres` and `ch1.tres`–`ch6.tres`, with the objectives, triggers, recruitments, visits and Dominion described above, chained by `data/campaign/main.txt`. Their scenes are in `data/dialogue/`. Chapters 4–6 come from `tools/maps/act1_ch4_6.py` (its .tres output is canonical afterwards).
   - Ch 4: Elise starts as a Stationary Ally out of the first wave's reach; Dain Hall soldiers come through the toll gate in groups on turns 2–5. Escape: Elise and Rowan through the south road.
-  - Ch 5: Dorran (new `knight` class) joins on turn 1. The gate is wall cells that turn to courtyard on turn 5; a breach in the south wall is the other way in. Killing Binder Hollin wins early with 300 gold. Kai becomes a Cavalier at the hub afterwards (`hub_merrow_horses`).
+  - Ch 5: Dorran (new `knight` class) joins on turn 1. The gate is wall cells that turn to courtyard on turn 5; a breach in the south wall is the other way in. Killing Binder Hollin wins early with 300 gold. Kai gets his horse at the hub afterwards (`hub_merrow_horses`) and promotes to Cavalier at level 10.
   - Ch 6: new `shallows` (s), `reeds` (r) and `stilt` (h) terrain. Kai Talks to Sable; Rusk holds Dominion over his men and his crest goes to Rowan. The T5 pegasus scouts were a scene only until session 10, when they got map units that leave after the scene.
   - Simplifications: Aldric starts as an Ally on Stationary AI and joins on turn 2. Ch 2's "Brann takes damage" is a single turn-3 event. Crest fragments aren't tracked yet.
 - The old systems test map ("Brigands at the Ford", with Brann and Elise) is now `data/maps/test_ford.tres` (`--map=test_ford`). Brann and Elise keep their ids and join at Ch 2 and Ch 4.

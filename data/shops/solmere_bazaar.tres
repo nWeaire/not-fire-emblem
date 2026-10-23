@@ -8,4 +8,4 @@ Id = "solmere_bazaar"
 Name = "Solmere Bazaar"
 Region = "solmere"
 OpensAtChapter = 12
-Items = PackedStringArray("silver_sword", "silver_lance", "silver_axe", "silver_bow", "elfire", "killing_edge", "mithril_mail", "sage_vestments", "swift_boots")
+Items = PackedStringArray("silver_sword", "silver_lance", "silver_axe", "silver_bow", "elfire", "mithril_mail", "sage_vestments", "swift_boots")

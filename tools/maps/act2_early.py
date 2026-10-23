@@ -307,7 +307,7 @@ def ch8():
         civilian((12, 19)), civilian((8, 18)),
         thug("archer", "iron_bow", (10, 22)),
         # The guildhalls.
-        agitator("myrmidon", "killing_edge", (26, 19), 10),
+        agitator("myrmidon", "steel_sword", (26, 19), 10),
         rioter((24, 19)), rioter((27, 19)), rioter((23, 21)),
         civilian((23, 19)), civilian((29, 19)),
         thug("fighter", "iron_axe", (28, 23)), thug("mage", "fire", (30, 14)),
@@ -421,19 +421,20 @@ def ch9():
         cutpurse((18, 25), "vulnerary"), thug("soldier", ["steel_lance"], (20, 25), Ai=GUARD),
         # The north hall and barracks.
         thug("soldier", ["steel_lance"], (8, 9)), thug("mage", ["fire"], (17, 10)),
-        thug("myrmidon", ["steel_sword"], (12, 4), Ai=GUARD), thug("fighter", ["iron_axe", "chest_key"], (14, 5), Ai=GUARD),
+        thug("myrmidon", ["steel_sword"], (12, 4), Ai=GUARD), thug("fighter", ["iron_axe", "door_key"], (14, 5), Ai=GUARD),
         thug("archer", ["steel_bow"], (16, 2), 9, Ai=GUARD),
         # The east passage.
-        thug("myrmidon", ["killing_edge"], (24, 17), 9), thug("soldier", ["steel_lance", "elixir"], (25, 11), 9),
+        thug("myrmidon", ["steel_sword"], (24, 17), 9), thug("soldier", ["steel_lance", "elixir"], (25, 11), 9),
         # The archive: the Archivist (a Binder; his Dominion holds the guards) and his guards.
-        dict(ClassId="binder", Name="Archivist Corvin", Tag="archivist", SpriteId="enemy_binder", Level=10,
-             Inventory=["shadow"], Pos=(24, 3), Ai=BOSS, IsBoss=True, CrestBearer=True, Leash=2),
-        thug("knight", ["steel_lance"], (22, 4), 9, Ai=GUARD, DominatedBy="archivist", Armor="iron_plate"),
-        thug("mage", ["thunder"], (26, 4), 9, Ai=GUARD, DominatedBy="archivist"),
-        thug("archer", ["steel_bow"], (27, 7), 9, Ai=STATIONARY, DominatedBy="archivist"),
-        dict(thug("myrmidon", ["steel_sword"], (21, 2), 10, Ai=GUARD, DominatedBy="archivist"), HardOnly=True),
+        dict(ClassId="binder", Name="Archivist Corvin", Tag="archivist", SpriteId="enemy_binder", Level=16,
+             Inventory=["elfire"], Pos=(24, 3), Ai=BOSS, IsBoss=True, CrestBearer=True, Leash=2),
+        # Session 14 (playtest: "the boss is too easy"): Corvin Lv 16 with Elfire, guards two levels up, the myrmidon always.
+        thug("knight", ["steel_lance"], (22, 4), 11, Ai=GUARD, DominatedBy="archivist", Armor="iron_plate"),
+        thug("mage", ["thunder"], (26, 4), 11, Ai=GUARD, DominatedBy="archivist"),
+        thug("archer", ["steel_bow"], (27, 7), 11, Ai=STATIONARY, DominatedBy="archivist"),
+        thug("myrmidon", ["steel_sword"], (21, 2), 12, Ai=GUARD, DominatedBy="archivist"),
         # Turn 4: cutpurses up through the outfall grates. Turn 6: the night watch of the Veiled from the east.
-        cutpurse((1, 27), "chest_key", 8, "grate"), cutpurse((7, 27), "vulnerary", 8, "grate"),
+        cutpurse((1, 27), "door_key", 8, "grate"), cutpurse((7, 27), "vulnerary", 8, "grate"),
         thug("myrmidon", ["steel_sword"], (27, 10), 9, "watch"), thug("mage", ["fire"], (26, 9), 9, "watch"),
         dict(thug("fighter", ["steel_axe"], (26, 11), 9, "watch"), HardOnly=True),
     ]
@@ -453,7 +454,7 @@ def ch9():
                 "chest 26,26 => give actor secret_book"]
     highlights = ["pip => Someone small is hiding from the Veiled. Talk to him.",
                   "4,6 16,18 21,25 23,7 => Locked doors. A thief or a Door Key opens them.",
-                  "2,2 5,2 18,18 24,24 26,26 => Chests. Stand on one with a thief or a Chest Key to open it."]
+                  "2,2 5,2 18,18 24,24 26,26 => Chests. Anyone can stand on one and open it."]
     slots = [(3, 24), (4, 24), (5, 24), (3, 25), (4, 25), (5, 25), (2, 23), (6, 23), (3, 26), (5, 26)]
     map_tres("ch9", "Chapter 9: Beneath the Crown", g.rows(), g.height_rows(), spawns, "seize 24,2", [],
              triggers, slots, background="calder_undercity", fog=True, highlights=highlights)
@@ -692,11 +693,11 @@ def ch12():
         # The quays.
         gilded("soldier", ["steel_lance"], (7, 12)), gilded("myrmidon", ["steel_sword"], (6, 7)),
         gilded("archer", ["steel_bow"], (5, 2), Ai=STATIONARY), gilded("fighter", ["steel_axe"], (9, 16)),
-        gilded("thief", ["iron_sword", "chest_key"], (4, 5)),
+        gilded("thief", ["iron_sword", "vulnerary"], (4, 5)),
         # The piers and the merchant hulk.
         gilded("knight", ["steel_lance"], (14, 6), 12, Ai=GUARD), gilded("knight", ["steel_lance"], (16, 13), 12, Ai=GUARD),
         gilded("mage", ["fire"], (21, 6), Ai=GUARD), gilded("archer", ["steel_bow"], (23, 4), Ai=STATIONARY),
-        gilded("myrmidon", ["killing_edge"], (19, 13)),
+        gilded("myrmidon", ["silver_sword"], (19, 13)),
         # Castellan's galley.
         gilded("soldier", ["steel_lance"], (24, 15)), gilded("mage", ["thunder"], (27, 17), Ai=STATIONARY),
         gilded("knight", ["silver_lance"], (26, 14), 13, name="Galley Captain Dresh", Tag="dresh", Ai=GUARD),
@@ -796,12 +797,12 @@ def ch13():
         # The gardens.
         gilded("soldier", ["steel_lance"], (10, 16)), gilded("soldier", ["steel_lance"], (21, 16)),
         gilded("cavalier", ["steel_sword"], (6, 14)), gilded("cavalier", ["steel_lance"], (25, 18)),
-        gilded("myrmidon", ["killing_edge"], (15, 13)), gilded("fighter", ["steel_axe"], (20, 13)),
+        gilded("myrmidon", ["silver_sword"], (15, 13)), gilded("fighter", ["steel_axe"], (20, 13)),
         # The balcony: archers and a mage over the gardens.
         gilded("archer", ["steel_bow"], (24, 9), Ai=STATIONARY), gilded("archer", ["silver_bow"], (27, 9), 13, Ai=STATIONARY),
         gilded("mage", ["fire"], (26, 6), Ai=GUARD),
         # The west wing and its vault.
-        gilded("thief", ["steel_sword", "chest_key"], (4, 7)), gilded("knight", ["steel_lance"], (7, 9), Ai=GUARD),
+        gilded("thief", ["steel_sword", "door_key"], (4, 7)), gilded("knight", ["steel_lance"], (7, 9), Ai=GUARD),
         dict(gilded("general", ["silver_lance"], (8, 7), 13, Ai=GUARD), HardOnly=True),
         # Reinforcements: T3 riders round the east of the gardens, T6 the west wing's guard comes out.
         gilded("cavalier", ["steel_lance"], (31, 17), group="east"), gilded("cavalier", ["steel_sword"], (31, 14), group="east"),

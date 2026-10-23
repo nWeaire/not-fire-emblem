@@ -42,7 +42,7 @@ public sealed record ClassDef(
 
 /// <summary>
 /// Equipment never changes a unit's look (the class does); it only changes numbers.
-/// <see cref="Tier"/> is the gear tier (1 iron … 4 legendary) used to stage shops by region.
+/// <see cref="Tier"/> is the gear tier (1 iron, 2 steel, 3 silver, 4 black steel or legendary, 5 mythril) used to stage shops by region.
 /// </summary>
 public sealed record WeaponDef(
     string Id,

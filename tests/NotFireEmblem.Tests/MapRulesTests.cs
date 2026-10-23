@@ -358,10 +358,10 @@ public class MapRulesTests
     [Fact]
     public void Fog_HidesDistantUnits_AndTheAiOnlyAttacksWhatItSees()
     {
-        var (s, tm) = Start(new TestBattle(".........").Lord(0, 0, "sword").Unit(Faction.Enemy, "merc", 5, 0, "sword").Fog());
+        var (s, tm) = Start(new TestBattle("...........").Lord(0, 0, "sword").Unit(Faction.Enemy, "merc", 6, 0, "sword").Fog());
         Assert.False(s.CanSee(Faction.Player, s.Unit("u1")));
-        Assert.Contains(new GridPos(3, 0), s.VisibleCells(Faction.Player));
-        Assert.DoesNotContain(new GridPos(4, 0), s.VisibleCells(Faction.Player));
+        Assert.Contains(new GridPos(4, 0), s.VisibleCells(Faction.Player));
+        Assert.DoesNotContain(new GridPos(5, 0), s.VisibleCells(Faction.Player));
         Assert.Empty(BattleQueries.DangerZone(s, Faction.Player));
         EndPhase(tm);
         var decision = AiController.Decide(s, s.Unit("u1"));
@@ -517,13 +517,14 @@ public class MapRulesTests
     }
 
     [Fact]
-    public void Chests_GiveTheirContents_ToTheThiefWhoOpensThem()
+    public void Chests_GiveTheirContents_ToAnyoneInTheArmyWhoOpensThem()
     {
         var (s, tm) = Start(new TestBattle("C....").Lord(4, 0, "sword")
-            .Unit(Faction.Player, "thief", 1, 0, "sword")
+            .Unit(Faction.Player, "merc", 1, 0, "sword")
             .Unit(Faction.Enemy, "merc", 3, 0, "sword").WithAi(AiProfile.Stationary)
             .Triggers("chest 0,0 => give actor energy_drop; gold 500"));
-        Assert.Empty(ActionRules.Unlockable(s, s.Unit("u0"), new GridPos(4, 0)));
+        Assert.Empty(ActionRules.Unlockable(s, s.Unit("u0"), new GridPos(4, 0))); // not on it
+        Assert.Empty(ActionRules.Unlockable(s, s.Unit("u2"), new GridPos(0, 0))); // enemies don't loot
         var r = tm.Submit(new ActCommand("u1", new GridPos(0, 0), new UnlockAction(new GridPos(0, 0))));
         Assert.True(r.Ok, r.Error);
         Assert.Contains("energy_drop", s.Unit("u1").State.Inventory);

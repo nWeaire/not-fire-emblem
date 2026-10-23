@@ -251,6 +251,7 @@ public partial class BattleController : Node3D
         {
             ViewOf(unit.Id)?.SetDone(unit.Faction == State.Phase && unit.ActionState == ActionState.Done);
             ViewOf(unit.Id)?.SetStatus(BattleEventPlayer.StatusOf(unit));
+            RefreshRecruit(unit);
         }
         AudioDirector.PlayMusic(AudioCues.PhaseMusic(State.Phase));
         await Hud.ShowBanner($"Turn {State.Turn} · {State.Phase} Phase", UnitView.ColorFor(State.Phase).Lightened(0.3f));
@@ -484,7 +485,22 @@ public partial class BattleController : Node3D
         view.Position = CellWorld(unit.Pos);
         view.FaceToward(view.Position + (unit.Faction == Faction.Player ? Vector3.Forward : Vector3.Back));
         _views[unit.Id] = view;
+        RefreshRecruit(unit);
         return view;
+    }
+
+    /// <summary>Marks an enemy that a talk would recruit (yellow-green, "Talk: Kai"), or clears the mark.</summary>
+    public void RefreshRecruit(BattleUnit unit)
+    {
+        if (ViewOf(unit.Id) is not { } view)
+            return;
+        string hint = EventDirector.Recruiter(State, unit) switch
+        {
+            null => "",
+            "any" => "Talk to recruit",
+            var actors => "Talk: " + string.Join(" or ", actors.Split('|').Select(k => State.ByKey(k)?.Name ?? k)),
+        };
+        view.SetRecruitable(hint);
     }
 
     /// <summary>

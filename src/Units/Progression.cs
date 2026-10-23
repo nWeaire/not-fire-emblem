@@ -98,6 +98,8 @@ public static class LevelUpService
                 continue;
             int growth = cls.Growths[stat] + unit.Def.Growths[stat];
             int points = (growth * levels + 50) / 100;
+            if (stat == Stat.HP)
+                points = Math.Max(points, EvenLevelsCrossed(unit.Level, levels));
             if (cls.Caps[stat] > 0)
                 points = Math.Clamp(cls.Caps[stat] - current[stat], 0, points);
             gains = gains.With(stat, points);
@@ -106,6 +108,9 @@ public static class LevelUpService
         unit.Level += levels;
         unit.Exp = 0;
     }
+
+    /// <summary>How many even levels a unit reaches going up <paramref name="levels"/> from <paramref name="from"/>.</summary>
+    private static int EvenLevelsCrossed(int from, int levels) => (from + levels) / 2 - from / 2;
 
     /// <summary>Rolls and applies one level.</summary>
     public static StatBlock Roll(ContentDatabase db, UnitState unit, IRng rng)
@@ -124,6 +129,9 @@ public static class LevelUpService
             int points = growth / 100 + (rng.Next(100) < growth % 100 ? 1 : 0);
             gains = gains.With(stat, points);
         }
+        // Max HP rises at least every other level: an even level whose HP roll missed still gains one.
+        if (gains[Stat.HP] == 0 && (unit.Level + 1) % 2 == 0 && !(cls.Caps[Stat.HP] > 0 && current[Stat.HP] >= cls.Caps[Stat.HP]))
+            gains = gains.With(Stat.HP, 1);
         // No empty levels: if every roll missed, the highest-growth stat that isn't capped still rises.
         if (StatBlock.All.All(stat => gains[stat] == 0))
         {

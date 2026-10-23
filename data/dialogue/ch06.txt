@@ -14,7 +14,10 @@ ROWAN [determined]: Then where did he get a crest?
 @focus 17,9
 KAI [smile]: Hang on. The swordswoman on the stilt house. Red headband. That's Sable!
 ROWAN [neutral]: You know her?
-KAI [smile]: She grew up two farms over. She still owes me eight silver. Let me talk to her.
+KAI [smile]: She grew up two farms over. She still owes me eight silver.
+ELISE [neutral]: Look at her, though. Rusk's men all move together, like the fingers of one hand. She doesn't.
+ELISE [neutral]: Whatever holds them hasn't got hold of her. She can still choose.
+KAI [determined]: Then she'll choose us. Let me talk to her.
 
 ### ch06_sable
 SABLE [smile]: Kai Merrow. You still owe me eight silver.

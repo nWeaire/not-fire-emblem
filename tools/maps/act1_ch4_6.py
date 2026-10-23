@@ -167,7 +167,7 @@ def units():
     unit("dorran", "Dorran", "knight", 8, dict(HP=4, Str=2, Dex=2, Spd=1, Lck=2, Def=2, Res=1),
          dict(HP=60, Str=40, Mag=0, Dex=35, Spd=20, Lck=25, Def=45, Res=15), ["steel_lance", "javelin"], "iron_plate")
     unit("sable", "Sable", "myrmidon", 6, dict(HP=1, Str=1, Dex=3, Spd=4, Lck=2, Def=0, Res=1),
-         dict(HP=50, Str=40, Mag=5, Dex=60, Spd=65, Lck=40, Def=20, Res=25), ["iron_sword", "killing_edge"],
+         dict(HP=50, Str=40, Mag=5, Dex=60, Spd=65, Lck=40, Def=20, Res=25), ["iron_sword", "steel_sword"],
          "leather_jerkin")
 
 
@@ -272,7 +272,8 @@ def ch6():
                 "combat rusk => scene ch06_boss",
                 "defeated rusk => scene ch06_rusk"]
     map_tres("ch6", "Chapter 6: The Bandit King of Greyfen", rows, heights, spawns, "boss rusk", [], triggers,
-             [(1, 10), (2, 10), (1, 11), (2, 11), (1, 12), (2, 12), (1, 13), (2, 13)], background="greyfen")
+             [(1, 10), (2, 10), (1, 11), (2, 11), (1, 12), (2, 12), (1, 13), (2, 13)], background="greyfen",
+             highlights=["sable => Sable, a sellsword on the stilt house. Rusk's hold doesn't reach her: Kai can talk her round."])
 
 
 if __name__ == "__main__":

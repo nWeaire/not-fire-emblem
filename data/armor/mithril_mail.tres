@@ -11,7 +11,7 @@ Res = 3
 [resource]
 script = ExtResource("1_armor")
 Id = "mithril_mail"
-Name = "Mithril Mail"
+Name = "Mythril Mail"
 Slot = 0
 Class = 1
 Weight = 2

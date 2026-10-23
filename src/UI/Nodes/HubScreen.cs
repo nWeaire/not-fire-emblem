@@ -125,6 +125,13 @@ public partial class HubScreen : Control
         // FollowFocus: keyboard and pad selection scroll the list to whatever is selected.
         var scroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, FollowFocus = true };
         panel.AddChild(scroll);
+        _scroll = scroll;
+        // The shop's own list box fills what the page shows, so the item card beside it never scrolls away.
+        scroll.Resized += () =>
+        {
+            if (IsInstanceValid(_shopList))
+                _shopList.CustomMinimumSize = new Vector2(0, ShopListHeight());
+        };
         _content = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         _content.AddThemeConstantOverride("separation", 6);
         scroll.AddChild(_content);
@@ -133,6 +140,8 @@ public partial class HubScreen : Control
         right.AddChild(_status);
 
         _unitId = S.ActiveRoster.FirstOrDefault()?.Def.Id;
+        if (Enum.TryParse<Tab>(DevTools.HubTab, ignoreCase: true, out var startTab))
+            _tab = startTab;
         BuildTour();
         Refresh();
         // --promotiondemo=unit:class plays the promotion scene for checking it; nothing is promoted.
@@ -360,11 +369,19 @@ public partial class HubScreen : Control
     private bool _selling;
     private string? _shopItem;
     private VBoxContainer _card = null!;
+    private ScrollContainer _scroll = null!;
+    private ScrollContainer? _shopList;
+    private Control? _shopModes;
+
+    /// <summary>The visible page height under the Buy / Sell tabs.</summary>
+    private float ShopListHeight() =>
+        Mathf.Max(160f, _scroll.Size.Y - (_shopModes is { } m && IsInstanceValid(m) ? m.GetCombinedMinimumSize().Y : 44f) - 12f);
 
     /// <summary>
     /// The shop (session 7, the user's pick: "list and detail card"): Buy / Sell tabs; a short list of icon, name and
     /// price (greyed when the buyer can't use or afford it); a card with the selected item's numbers and, below, only
     /// how it differs from what the buyer has now. The buyer is picked on the card; Z buys or sells the item.
+    /// Session 14 (user's pick "A"): the list scrolls in its own box and the card stays pinned beside it.
     /// </summary>
     private void BuildShop()
     {
@@ -372,6 +389,7 @@ public partial class HubScreen : Control
         var modes = new HBoxContainer();
         modes.AddThemeConstantOverride("separation", 8);
         _content.AddChild(modes);
+        _shopModes = modes;
         foreach (bool sell in new[] { false, true })
         {
             var tab = UiKit.Button(sell ? "Sell" : "Buy", () => { _selling = sell; _shopItem = null; Refresh(); }, 110);
@@ -383,10 +401,17 @@ public partial class HubScreen : Control
         var split = new HBoxContainer();
         split.AddThemeConstantOverride("separation", 16);
         _content.AddChild(split);
-        var list = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsStretchRatio = 1.1f };
+        _shopList = new ScrollContainer
+        {
+            HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, FollowFocus = true,
+            SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsStretchRatio = 1.1f,
+            CustomMinimumSize = new Vector2(0, ShopListHeight()),
+        };
+        split.AddChild(_shopList);
+        var list = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         list.AddThemeConstantOverride("separation", 4);
-        split.AddChild(list);
-        _card = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        _shopList.AddChild(list);
+        _card = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsVertical = SizeFlags.ShrinkBegin };
         _card.AddThemeConstantOverride("separation", 8);
         split.AddChild(_card);
 
@@ -568,7 +593,7 @@ public partial class HubScreen : Control
             return i.Kind switch
             {
                 ItemKind.Heal => i.Amount > 0 ? $"Heals {i.Amount} HP" : "Heals fully",
-                ItemKind.Key => i.Id == "chest_key" ? "Opens one chest" : "Opens one locked door",
+                ItemKind.Key => i.Id == "chest_key" ? "Chests open without it now: sell it" : "Opens one locked door",
                 _ => $"{i.Stat} +{i.Amount}",
             };
         return "";

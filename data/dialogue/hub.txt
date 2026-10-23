@@ -108,8 +108,9 @@ NARRATOR: Kai's family's ranch had come through the summer with its fences broke
 KAI [laugh]: Rowan! Look who my mum's been hiding! Thistle. Fastest mare in the Thornvale.
 ROWAN [smile]: You're going to ride into battle.
 KAI [smile]: I'm going to ride into battle *faster than you*. Bet I get more Gloamkin from up here.
-DORRAN [neutral]: Keep your lance low and your heels down, lad. The horse does the hard part.
-NARRATOR: Kai became a Cavalier.
+DORRAN [neutral]: Not yet, you're not. A lance from a saddle is a different animal. Earn it on foot first, lad.
+KAI [sad]: ...Fine. But she's mine the day I'm ready.
+NARRATOR: At level 10, Kai can promote from Soldier to Cavalier.
 
 ### hub_briefing_ch06
 @bg village_hall

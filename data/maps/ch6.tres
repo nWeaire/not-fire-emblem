@@ -241,6 +241,7 @@ Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubRes
 Victory = "boss rusk"
 Defeat = PackedStringArray()
 Triggers = PackedStringArray("talk kai sable => scene ch06_sable; join sable", "turn 1 => scene ch06_start", "turn 5 => spawn scouts; scene ch06_scouts; leave scouts", "visit 5,6 => scene ch06_house; give actor elixir", "combat rusk => scene ch06_boss", "defeated rusk => scene ch06_rusk")
+Highlights = PackedStringArray("sable => Sable, a sellsword on the stilt house. Rusk's hold doesn't reach her: Kai can talk her round.")
 Fog = false
 DeploySlots = "1,17 2,17 1,18 2,18 1,19 2,19 1,20 2,20"
 Background = "greyfen"

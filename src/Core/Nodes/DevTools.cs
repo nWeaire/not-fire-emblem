@@ -27,6 +27,7 @@ namespace NotFireEmblem.Core;
 ///                            quit: with --newgame --autoplay it makes a campaign save to playtest a later chapter from;
 ///                            add --level=auto for the party a player would have (recruits, campaign level, Steel Sword)
 ///   --promotiondemo=U:C      the hub plays unit U's promotion scene into class C (nothing is promoted)
+///   --hubtab=NAME            the hub opens on that tab (Shop, Smithy, Promotion ...) for screenshots
 /// BattleController also reads --seed=&lt;n&gt; (battle RNG); Boot reads --map=&lt;id&gt; (e.g. prologue, ch1, test_ford).
 /// </summary>
 public partial class DevTools : Node
@@ -45,6 +46,8 @@ public partial class DevTools : Node
     public static (int Chapter, int Slot)? SaveAtHub { get; private set; }
     /// <summary>--promotiondemo=unit:class: the hub plays that unit's promotion scene without promoting.</summary>
     public static (string Unit, string Class)? PromotionDemo { get; private set; }
+    /// <summary>--hubtab=NAME: the hub tab to open on (e.g. "Shop").</summary>
+    public static string? HubTab { get; private set; }
 
     /// <summary>
     /// About where a party stands entering each map in a real campaign (session 11: autoplay soak levels, rounded up
@@ -95,6 +98,9 @@ public partial class DevTools : Node
                     break;
                 case "--fogstyle":
                     FogStyle = int.Parse(parts[1]);
+                    break;
+                case "--hubtab":
+                    HubTab = parts[1];
                     break;
                 case "--focus":
                     var xy = parts[1].Split(',');

@@ -54,7 +54,6 @@ scene ch05_pre
 battle ch5 deploy 7 force rowan
 scene ch05_post
 scene hub_merrow_horses
-class kai cavalier
 hub hub_briefing_ch06
 
 chapter 6 Chapter 6: The Bandit King of Greyfen

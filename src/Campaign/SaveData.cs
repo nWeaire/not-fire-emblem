@@ -81,10 +81,10 @@ public sealed record SaveData(
                 Level = u.Level, Exp = u.Exp, Gains = StatBlock.FromArray(u.Gains), EquippedIndex = u.EquippedIndex,
                 ArmorId = u.ArmorId, AccessoryId = u.AccessoryId, Status = u.Status,
             };
-            state.Inventory.AddRange(u.Inventory.Where(db.IsInventoryItem));
+            state.Inventory.AddRange(u.Inventory.Select(Renamed).Where(db.IsInventoryItem));
             s.Roster.Add(state);
         }
-        s.Convoy.AddRange(Convoy.Where(db.IsItem));
+        s.Convoy.AddRange(Convoy.Select(Renamed).Where(db.IsItem));
         s.Flags.UnionWith(Flags);
         s.Unlocks.UnionWith(Unlocks);
         foreach (var (k, v) in SupportPoints) s.SupportPoints[k] = v;
@@ -92,6 +92,11 @@ public sealed record SaveData(
         s.SeenScenes.UnionWith(SeenScenes);
         return s;
     }
+
+    /// <summary>Items whose ids changed since older saves were written (session 14: the Killing Edge became the Silver Sword).</summary>
+    private static readonly Dictionary<string, string> RenamedItems = new() { ["killing_edge"] = "silver_sword" };
+
+    private static string Renamed(string id) => RenamedItems.GetValueOrDefault(id, id);
 
     public string ToJson() => JsonSerializer.Serialize(this, Json);
 

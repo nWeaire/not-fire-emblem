@@ -56,16 +56,31 @@ public class ProgressionTests
         var db = TestContent.Create();
         var def = new UnitDef("x", "x", "merc", 1, default, new StatBlock(0, 100, 0, 0, 50, 0, 0, 0, 0), Array.Empty<string>(), false);
         var unit = UnitState.FromDef(def);
+        unit.Level = 2;
         unit.Exp = 60;
         var levels = LevelUpService.AddExp(db, unit, 50, new ScriptedRng(99, 99, 99, 99, 10, 99, 99, 99));
         var level = Assert.Single(levels);
-        Assert.Equal(2, level.Level);
-        Assert.Equal(2, unit.Level);
+        Assert.Equal(3, level.Level);
+        Assert.Equal(3, unit.Level);
         Assert.Equal(10, unit.Exp);
         Assert.Equal(1, level.Gains.Str);
         Assert.Equal(1, level.Gains.Spd);
         Assert.Equal(0, level.Gains.HP);
         Assert.Equal(level.Gains, unit.Gains);
+    }
+
+    [Fact]
+    public void LevelUp_RaisesMaxHp_AtLeastEveryOtherLevel()
+    {
+        var db = TestContent.Create();
+        var def = new UnitDef("x", "x", "merc", 1, default, new StatBlock(0, 100, 0, 0, 0, 0, 0, 0, 0), Array.Empty<string>(), false);
+        var unit = UnitState.FromDef(def);
+        var rng = new ScriptedRng(Enumerable.Repeat(99, 40).ToArray());
+        var levels = LevelUpService.AddExp(db, unit, 400, rng);
+        Assert.Equal(new[] { 1, 0, 1, 0 }, levels.Select(l => l.Gains.HP)); // levels 2 and 4 rise even though every roll missed
+        unit.Level = 1;
+        LevelUpService.RaiseToAverage(db, unit, 9);
+        Assert.True(unit.Gains.HP >= 2 + 4);
     }
 
     [Fact]

@@ -16,6 +16,8 @@ public partial class UnitView : Node3D
     public static readonly Color EnemyColor = new(0.9f, 0.25f, 0.2f);
     public static readonly Color AllyColor = new(0.3f, 0.8f, 0.35f);
     public static readonly Color NeutralColor = new(0.95f, 0.72f, 0.2f);
+    /// <summary>The outline of an enemy who can be recruited by talking to it (Sable, Wren …).</summary>
+    public static readonly Color RecruitColor = new(0.8f, 1f, 0.2f);
 
     /// <summary>World size of one sprite pixel: the map's shared art pixel (a 48 px frame stands 1.5 cells tall).</summary>
     private const float SpritePixelSize = NotFireEmblem.Grid.MapView.ArtPixelSize;
@@ -45,6 +47,8 @@ public partial class UnitView : Node3D
     private string _name = "";
     private string _title = "";
     private string _status = "";
+    private string _recruit = "";
+    private Faction _faction;
     private int _hp;
     private int _maxHp;
     private Vector3 _facing = Vector3.Back;
@@ -83,6 +87,7 @@ public partial class UnitView : Node3D
         _name = name;
         _title = title;
         _baseColor = ColorFor(faction);
+        _faction = faction;
         Name = $"Unit_{unitId}";
 
         _model = new Node3D();
@@ -333,7 +338,7 @@ public partial class UnitView : Node3D
         _hp = hp;
         _maxHp = maxHp;
         float ratio = maxHp > 0 ? hp / (float)maxHp : 0f;
-        _label.Text = $"{_name}\n{hp}/{maxHp}" + (_status.Length > 0 ? $"\n{_status}" : "");
+        _label.Text = $"{_name}\n{hp}/{maxHp}" + (_status.Length > 0 ? $"\n{_status}" : "") + (_recruit.Length > 0 ? $"\n{_recruit}" : "");
         _label.Modulate = ratio > 0.5f ? Colors.White : ratio > 0.25f ? new Color(1f, 0.85f, 0.3f) : new Color(1f, 0.4f, 0.35f);
     }
 
@@ -354,12 +359,36 @@ public partial class UnitView : Node3D
     /// <summary>A unit joined another side (Talk, story events): recolour it.</summary>
     public void SetFaction(Faction faction)
     {
-        _baseColor = ColorFor(faction);
+        _faction = faction;
+        _recruit = "";
+        Recolour(OutlineFor(faction), ColorFor(faction));
+        SetHp(_hp, _maxHp);
+    }
+
+    /// <summary>
+    /// An enemy who can be talked into joining: a yellow-green outline and a hint under its HP ("Talk: Kai").
+    /// An empty hint puts the faction's colour back.
+    /// </summary>
+    public void SetRecruitable(string hint)
+    {
+        if (hint == _recruit)
+            return;
+        _recruit = hint;
+        if (hint.Length > 0)
+            Recolour(RecruitColor, RecruitColor);
+        else
+            Recolour(OutlineFor(_faction), ColorFor(_faction));
+        SetHp(_hp, _maxHp);
+    }
+
+    private void Recolour(Color outline, Color body)
+    {
+        _baseColor = body;
         if (_material is not null)
             _material.AlbedoColor = _baseColor;
         if (_sprite is not null && _plainFrames is not null)
         {
-            _sprite.SpriteFrames = SpriteLibrary.Outlined(_plainFrames, OutlineFor(faction));
+            _sprite.SpriteFrames = SpriteLibrary.Outlined(_plainFrames, outline);
             PlayAnim(_anim);
         }
     }

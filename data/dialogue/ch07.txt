@@ -23,7 +23,8 @@ DORRAN [neutral]: Knights at the keep door, too. Plate's slow, my lord. Go round
 @focus 24,12
 NARRATOR: Three pegasi dropped out of the clouds over the east wall. Two dived at once. The third hung back.
 KAI [worried]: The scouts from Greyfen! Hang on, that one's not attacking. She's just... watching.
-ROWAN [neutral]: Her eyes are clear. She's not one of his. Let me talk to her.
+TAMSIN [neutral]: Watch how she flies. The other two turn like one bird. She turns like herself.
+ROWAN [neutral]: Then whatever holds this garrison doesn't hold her. She can still choose. Let me talk to her.
 
 ### ch07_wren
 WREN [worried]: Stay back! I— I'm Lord Halvric's sky patrol. I'm meant to stop you.

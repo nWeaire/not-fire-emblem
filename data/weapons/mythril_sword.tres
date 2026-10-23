@@ -4,16 +4,16 @@
 
 [resource]
 script = ExtResource("1_weapon")
-Id = "killing_edge"
-Name = "Killing Edge"
+Id = "mythril_sword"
+Name = "Mythril Sword"
 Type = 0
-Might = 7
-Hit = 85
-Crit = 30
-Weight = 3
+Might = 18
+Hit = 90
+Crit = 10
+Weight = 5
 MinRange = 1
 MaxRange = 1
 Magic = false
 EffectiveAgainst = PackedStringArray()
-Price = 1500
-Tier = 3
+Price = 6000
+Tier = 5

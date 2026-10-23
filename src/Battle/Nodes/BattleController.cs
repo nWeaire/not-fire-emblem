@@ -545,7 +545,7 @@ public partial class BattleController : Node3D
         foreach (var unit in State.LivingOf(Faction.Player).Where(u => u.ActionState == ActionState.Ready).OrderBy(u => u.Id))
         {
             var reach = State.Reach(unit);
-            var care = CarefulAi.Heal(State, unit, reach)
+            var care = CarefulAi.Heal(State, unit, reach, safeOnly: IsVital(unit) || MustSurvive(unit))
                        ?? CarefulAi.Recover(State, unit, reach, IsVital(unit) || MustSurvive(unit) ? 0.5 : 0.35, needsItem: !IsVital(unit));
             if (care is not null && care.Validate(State).Ok)
                 return new AiDecision(unit, care, null);
@@ -601,21 +601,33 @@ public partial class BattleController : Node3D
                     if (reach.CanStop(path[i]))
                         return new AiDecision(lord, new ActCommand(lord.Id, path[i], new WaitAction()), null);
         }
-        // Rout/Boss maps: once nobody else can fight, the lord must press on, or a boss who holds his post and a
-        // lord who waits for a safe attack stare at each other until turn 60.
-        if (goals.Victory is VictoryKind.Rout or VictoryKind.DefeatBoss
+        // Rout/Boss/Seize maps: once nobody else can fight, the lord must press on, or a boss who holds his post and a
+        // lord who waits for a safe attack stare at each other until turn 60 (session 12: Ch 7's lord, alone, waited
+        // for the throne room to empty while Halvric sat on the seize tile).
+        if (goals.Victory is VictoryKind.Rout or VictoryKind.DefeatBoss or VictoryKind.Seize
             && !State.LivingOf(Faction.Player).Any(u => u != lord && !IsVital(u) && State.Db.TryWeapon(u.State.EquippedItemId) is not null))
         {
-            var target = (goals.Victory == VictoryKind.DefeatBoss && goals.BossKey is { } key
-                             ? State.AllByKey(key).Where(u => u.IsOnMap).OrderBy(u => u.Pos.DistanceTo(lord.Pos)).FirstOrDefault() : null)
-                         ?? State.LivingOf(Faction.Enemy).OrderBy(e => e.Pos.DistanceTo(lord.Pos)).FirstOrDefault();
-            var path = target is null ? null : Pathfinder.FindPath(State.Grid, lord.Pos, target.Pos, State.MoveType(lord));
+            GridPos? dest;
+            bool onto = false; // walk onto the cell itself (an empty seize tile), not just up to it
+            if (goals.Victory == VictoryKind.Seize)
+            {
+                var cell = goals.Cells.OrderBy(c => c.DistanceTo(lord.Pos)).First();
+                onto = State.UnitAt(cell) is null;
+                dest = cell;
+            }
+            else
+            {
+                dest = ((goals.Victory == VictoryKind.DefeatBoss && goals.BossKey is { } key
+                            ? State.AllByKey(key).Where(u => u.IsOnMap).OrderBy(u => u.Pos.DistanceTo(lord.Pos)).FirstOrDefault() : null)
+                        ?? State.LivingOf(Faction.Enemy).OrderBy(e => e.Pos.DistanceTo(lord.Pos)).FirstOrDefault())?.Pos;
+            }
+            var path = dest is { } to ? Pathfinder.FindPath(State.Grid, lord.Pos, to, State.MoveType(lord)) : null;
             if (path is not null)
             {
                 // The furthest step along the way that at most one enemy can reach next phase.
                 var reach = State.Reach(lord);
                 var threats = AiController.ThreatCounts(State, lord.Faction);
-                for (int i = path.Count - 2; i > 0; i--)
+                for (int i = path.Count - (onto ? 1 : 2); i > 0; i--)
                     if (reach.CanStop(path[i]) && threats.GetValueOrDefault(path[i]) <= 1)
                         return new AiDecision(lord, new ActCommand(lord.Id, path[i], new WaitAction()), null);
             }

@@ -123,6 +123,23 @@ public class MapRulesTests
     }
 
     [Fact]
+    public void SurviveOrBoss_FellingTheBossWinsEarly()
+    {
+        var goals = MapScript.ParseObjectives("survive 10 or boss commander", null);
+        Assert.Equal((VictoryKind.Survive, 10, "commander"), (goals.Victory, goals.Turns, goals.BossKey));
+        Assert.Throws<FormatException>(() => MapScript.ParseObjectives("survive 10 or rout", null));
+
+        var (s, tm) = Start(new TestBattle(".....").Lord(0, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 1, 0, "sword").With(sp => sp with { Tag = "commander" })
+            .Unit(Faction.Enemy, "merc", 4, 0, "sword")
+            .Victory("survive 10 or boss commander"));
+        Assert.Contains("or defeat", ObjectiveEvaluator.Describe(s));
+        ByKey(s, "commander").CurrentHp = 1;
+        Assert.True(tm.Submit(new ActCommand("u0", new GridPos(0, 0), new AttackAction(ByKey(s, "commander").Id, new WeaponAttack("sword")))).Ok);
+        Assert.Equal(BattleOutcome.Victory, s.Outcome);
+    }
+
+    [Fact]
     public void Seize_OnlyTheLordOnTheMarkedTile()
     {
         var (s, tm) = Start(new TestBattle(".....", ".....").Lord(0, 0, "sword")

@@ -1,0 +1,324 @@
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=28 format=3]
+
+[ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
+[ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
+
+[sub_resource type="Resource" id="SpawnDefinition_1"]
+script = ExtResource("2_spawn")
+UnitId = "seraphine"
+Level = 9
+Faction = 0
+Position = Vector2i(12, 10)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_2"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Calder Escort"
+SpriteId = "ally_calder_knight"
+Armor = "iron_plate"
+Level = 10
+Inventory = PackedStringArray("steel_lance")
+Faction = 2
+Position = Vector2i(13, 9)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_3"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Calder Escort"
+SpriteId = "ally_calder_knight"
+Armor = "iron_plate"
+Level = 10
+Inventory = PackedStringArray("steel_lance")
+Faction = 2
+Position = Vector2i(13, 12)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_4"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Imperial Soldier"
+SpriteId = "enemy_imperial"
+Armor = "chainmail"
+Level = 9
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(17, 9)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_5"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Imperial Soldier"
+SpriteId = "enemy_imperial"
+Armor = "chainmail"
+Level = 8
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(17, 12)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_6"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Imperial Archer"
+SpriteId = "enemy_imperial"
+Level = 8
+Inventory = PackedStringArray("iron_bow")
+Faction = 1
+Position = Vector2i(18, 8)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_7"]
+script = ExtResource("2_spawn")
+ClassId = "cavalier"
+Name = "Imperial Cavalier"
+SpriteId = "enemy_imperial"
+Armor = "chainmail"
+Level = 8
+Inventory = PackedStringArray("iron_sword")
+Faction = 1
+Position = Vector2i(18, 15)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_8"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Imperial Herald"
+Tag = "herald"
+SpriteId = "enemy_imperial"
+Armor = "chainmail"
+Level = 9
+Inventory = PackedStringArray("steel_lance", "vulnerary")
+Faction = 1
+Position = Vector2i(22, 10)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_9"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Commander Hesk"
+Tag = "commander"
+SpriteId = "enemy_imperial"
+Armor = "iron_plate"
+Level = 13
+Inventory = PackedStringArray("silver_lance", "javelin")
+Faction = 1
+Position = Vector2i(31, 10)
+Ai = 3
+IsBoss = true
+
+[sub_resource type="Resource" id="SpawnDefinition_10"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Imperial Knight"
+SpriteId = "enemy_imperial"
+Armor = "iron_plate"
+Level = 10
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(30, 9)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_11"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Imperial Knight"
+SpriteId = "enemy_imperial"
+Armor = "iron_plate"
+Level = 10
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(30, 12)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_12"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Imperial Archer"
+SpriteId = "enemy_imperial"
+Level = 9
+Inventory = PackedStringArray("steel_bow")
+Faction = 1
+Position = Vector2i(32, 8)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_13"]
+script = ExtResource("2_spawn")
+ClassId = "mage"
+Name = "Imperial Mage"
+SpriteId = "enemy_imperial"
+Level = 9
+Inventory = PackedStringArray("thunder")
+Faction = 1
+Position = Vector2i(32, 13)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_14"]
+script = ExtResource("2_spawn")
+ClassId = "cavalier"
+Name = "Imperial Cavalier"
+SpriteId = "enemy_imperial"
+Armor = "chainmail"
+Level = 10
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(29, 6)
+Ai = 0
+HardOnly = true
+
+[sub_resource type="Resource" id="SpawnDefinition_15"]
+script = ExtResource("2_spawn")
+ClassId = "cavalier"
+Name = "Imperial Cavalier"
+Group = "wave2"
+SpriteId = "enemy_imperial"
+Armor = "chainmail"
+Level = 8
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(34, 10)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_16"]
+script = ExtResource("2_spawn")
+ClassId = "cavalier"
+Name = "Imperial Cavalier"
+Group = "wave2"
+SpriteId = "enemy_imperial"
+Armor = "chainmail"
+Level = 8
+Inventory = PackedStringArray("iron_sword")
+Faction = 1
+Position = Vector2i(34, 11)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_17"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Imperial Soldier"
+Group = "wave4"
+SpriteId = "enemy_imperial"
+Armor = "chainmail"
+Level = 9
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(25, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_18"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Imperial Soldier"
+Group = "wave4"
+SpriteId = "enemy_imperial"
+Armor = "chainmail"
+Level = 9
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(25, 18)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_19"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Imperial Archer"
+Group = "wave4"
+SpriteId = "enemy_imperial"
+Level = 9
+Inventory = PackedStringArray("iron_bow")
+Faction = 1
+Position = Vector2i(26, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_20"]
+script = ExtResource("2_spawn")
+ClassId = "wyvern_rider"
+Name = "Wyvern Rider"
+Group = "wave6"
+SpriteId = "enemy_imperial"
+Level = 9
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(10, 2)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_21"]
+script = ExtResource("2_spawn")
+ClassId = "wyvern_rider"
+Name = "Wyvern Rider"
+Group = "wave6"
+SpriteId = "enemy_imperial"
+Level = 9
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(16, 2)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_22"]
+script = ExtResource("2_spawn")
+ClassId = "wyvern_rider"
+Name = "Wyvern Rider"
+Group = "wave6"
+SpriteId = "enemy_imperial"
+Level = 9
+Inventory = PackedStringArray("iron_lance")
+Faction = 1
+Position = Vector2i(22, 2)
+Ai = 0
+HardOnly = true
+
+[sub_resource type="Resource" id="SpawnDefinition_23"]
+script = ExtResource("2_spawn")
+ClassId = "knight"
+Name = "Imperial Knight"
+Group = "wave8"
+SpriteId = "enemy_imperial"
+Armor = "iron_plate"
+Level = 10
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(33, 6)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_24"]
+script = ExtResource("2_spawn")
+ClassId = "cavalier"
+Name = "Imperial Cavalier"
+Group = "wave8"
+SpriteId = "enemy_imperial"
+Armor = "chainmail"
+Level = 9
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(34, 15)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_25"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Imperial Soldier"
+Group = "wave8"
+SpriteId = "enemy_imperial"
+Armor = "chainmail"
+Level = 9
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(33, 10)
+Ai = 0
+
+[resource]
+script = ExtResource("1_map")
+Id = "ch10"
+Name = "Chapter 10: The Border of Ash"
+TerrainRows = PackedStringArray("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", "PPPFFFFFPPPPPMMPPPPPPPPPFFFFPPPPPPP", "PPPPPPPPPPPPPP::::::::PPPPPPWPPPPPP", "PPPPPPPPPPPPPP::::::::PFPPPPWPPPPPP", "PPPPPPPPPPPFPPPPPPPPPPPPPPPPWPPPPPP", "PPPPPPPPPPPPPPWWWP^^^PPPPPPPWPTPPPP", "PPPPPPPPPPPPPPWTWPWTWPPPPPPPWPPPPPP", "PPPPPPPPPPPPPPPPPPPPPPPPPPPPWPPPTPP", "PPPPPPPPPPPPPPPPPPPPPPPPPPPPWPPPPPP", "===================================", "===================================", "PPPPPPPPPPPPPPPPPPPPPPPPPPPPWPPPPPP", "PPPPPPPPPPPPPPWWWPP^^^PPPPPPWPPPTPP", "PPPPPPPPPPPPPPWTWPPWTWPPPPPPWPTPPPP", "PPPPPPPPPPPPFPPPPPPPPPPPPPPPWPPPPPP", "PPPPPPPPPPPPPPP:::::::PFPPPPWPPPPPP", "PPPPPPPPPPPPPPP:::::::PPPPPPWPPPPPP", "PPPPPPPPPPPPPPPPPPPPPPPPPPPPWPPPPPP", "PPPPPPPPFFFFFPPPPPPPMMPPPPPFFFFFPPP", "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
+HeightRows = PackedStringArray("00000000000000000000000000000000000", "00000000000000000000000000000000000", "00000000000000000000000000000000000", "00000000000000000000000000001000000", "00000000000000000000000000001000000", "00000000000000000000000000001000000", "00000000000000000000000000001000000", "00000000000000000000000000001000000", "00000000000000000000000000001000000", "00000000000000000000000000001000000", "00000000000000000000000000000000000", "00000000000000000000000000000000000", "00000000000000000000000000001000000", "00000000000000000000000000001000000", "00000000000000000000000000001000000", "00000000000000000000000000001000000", "00000000000000000000000000001000000", "00000000000000000000000000001000000", "00000000000000000000000000001000000", "00000000000000000000000000000000000", "00000000000000000000000000000000000", "00000000000000000000000000000000000")
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22"), SubResource("SpawnDefinition_23"), SubResource("SpawnDefinition_24"), SubResource("SpawnDefinition_25")])
+Victory = "survive 10 or boss commander"
+Defeat = PackedStringArray("die seraphine")
+Triggers = PackedStringArray("turn 1 => scene ch10_start; scene ch10_seraphine", "defeated herald => scene ch10_insult", "turn 2 enemy => spawn wave2", "turn 4 enemy => spawn wave4", "turn 5 => terrain 19,6-20,6 20,13-21,13 x; scene ch10_collapse", "turn 6 enemy => spawn wave6; scene ch10_wyverns", "turn 8 enemy => spawn wave8", "combat commander => scene ch10_commander")
+Highlights = PackedStringArray("seraphine => Princess Seraphine. Her escort is falling; if she falls, so does the kingdom's hope.", "commander => Commander Hesk leads the raid from the camp. Beat him and his soldiers stand down.")
+Fog = false
+DeploySlots = "7,10 7,11 6,10 6,11 6,9 6,12 5,10 5,11 5,9 5,12"
+Background = "border_pass"

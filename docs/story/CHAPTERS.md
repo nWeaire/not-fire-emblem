@@ -162,11 +162,20 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
   east watch do most of it); autoplay's party isn't promoted, a campaign party at level 10 would be.
 
 ## Chapter 10 — "The Border of Ash"
-- **Map:** 22×14 border pass. A burning village sits mid-map.
-- **Win:** Survive 10 turns, *or* defeat the imperial commander. **Lose:** default, or Seraphine dies.
-- **Events:** Seraphine's escort is ambushed; she joins at T1 as a Player unit with **protect** status. In `ch10_insult`, a captured imperial reads the forged insult that started the war.
-- **Recruit / unlock:** **Seraphine** (Troubadour; the second crest-bearer).
-- **Scenes:** `ch10_pre`, `ch10_seraphine`, `ch10_insult`, `ch10_post`.
+- **Map (built, session 12):** 35×22 border pass (`tools/maps/act2_early.py`): ridges north and south, the border road
+  from Calder (west, deploy) through the burning village of Kestrel Ford to the Dravenhold camp (east, a palisade).
+- **Win:** `survive 10 or boss commander` (new grammar: any victory can add "or boss KEY"). **Lose:** default, or
+  Seraphine dies (`die seraphine`).
+- **Units:** **Seraphine** (new Troubadour class: mounted, staff, Heal; promotes to Valkyrie) is a Player unit from
+  turn 1, ambushed with two Calder Escort knights (Ally) at the village's west edge. Commander Hesk (Imperial Knight
+  L13, Boss, leash 3) holds the camp. Imperials use `SpriteId enemy_imperial` (class looks until art exists).
+- **Events:** T1 `ch10_start` + `ch10_seraphine`; the Imperial Herald's fall plays `ch10_insult` (the forged letter in
+  King Osric's name); waves T2 (riders), T4 (both flanks), T6 (new **Wyvern Riders** over the north ridge,
+  `ch10_wyverns`, new `wing_beat` sound), T8 (the camp); T5 the burnt cottages collapse into rubble (`ch10_collapse`).
+- **Scenes:** `ch10_pre`, `ch10_start`, `ch10_seraphine`, `ch10_insult`, `ch10_collapse`, `ch10_wyverns`,
+  `ch10_commander`, `ch10_post` (Seraphine resolves to ride to the Empress).
+- **Autoplay at level 11 (seeds 1–6):** wins 5/6 on T7–10 (usually by felling Hesk), losing 1–5 units; the loss was a
+  wyvern diving on Seraphine on T7. Autoplay healers who must survive now only heal from cells no enemy can reach.
 
 ## Chapter 11 — "Wings of Dravenhold"
 - **Map:** 20×20 mountain pass with cliffs (only fliers can cross) and narrow paths.

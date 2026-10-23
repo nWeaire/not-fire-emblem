@@ -269,6 +269,8 @@ public static class UiKit
         ["calder_palace"] = "dain_hall",
         ["calder_lodgings"] = "village_hall",
         ["calder_undercity"] = "dain_hall",
+        ["border_pass"] = "hill_road",
+        ["dravenhold_pass"] = "hill_road",
     };
 
     /// <summary>assets/backgrounds/&lt;id&gt;.png (or its placeholder), or null.</summary>

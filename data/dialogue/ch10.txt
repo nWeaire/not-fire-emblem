@@ -1,0 +1,58 @@
+# Chapter 10: The Border of Ash
+# Written for the built map (data/maps/ch10.tres). Voices follow docs/story/DIALOGUE.md section 2.
+
+### ch10_pre
+@bg border_pass_smoke
+@music tension_high
+NARRATOR: They rode north-east for four days, along a road that emptied as they went. Everyone else was riding the other way.
+OSMUND [worried]: The council is in uproar, my lord. Princess Seraphine left the capital two days before us.
+OSMUND [worried]: Without the council's leave. With twelve guards. To speak to the Dravenhold commander herself.
+KAI [smile]: Huh. I like her already.
+DORRAN [cold]: Twelve guards, against an army that thinks we started a war. I'd like her better alive.
+NARRATOR: Over the last rise, smoke. Kestrel Ford, the last village before the border, was burning.
+ROWAN [determined]: There. On the road. Calder blue. Go.
+
+### ch10_start
+@focus 12,10
+NARRATOR: Two knights in Calder blue stood back to back in the road. Between them, a young woman on a grey horse.
+NARRATOR: She wore no armour. She held a healer's staff like a sword, and she was not running.
+
+### ch10_seraphine
+SERAPHINE [determined]: Hold the road! If they want me, they can come and look me in the eye. Who are you?
+ROWAN [neutral]: Rowan, from the Thornvale. We've got proof this war's a lie. We need you alive to show it.
+SERAPHINE [smile]: Then we agree on something already. I am Seraphine of Calder. Help me, and I'll help you.
+ELISE [worried]: Rowan, her hand. She's a crest-bearer. Small, and pale, but there. Not purple.
+ALDRIC [neutral]: Keep her behind the line. Hold until they tire, or take their commander. Those are the choices.
+
+### ch10_insult
+NARRATOR: The herald fell to his knees in the road. A letter slid from his coat, its seal stamped with Calder's crown.
+SERAPHINE [worried]: That's my father's seal. Read it. Please.
+NARRATOR: Elise read it aloud. It called the Empress a crowned wolf, and promised Calder would take the northern passes.
+SERAPHINE [angry]: My father never wrote that. He can barely write at all, now. His hands shake.
+ELISE [cold]: Same paper as the archive. Same hand. It's the forgery, Rowan. This is what started the war.
+
+### ch10_collapse
+NARRATOR: With a roar, the burning cottages fell in on themselves. Where their walls had stood was only smoking rubble.
+TAMSIN [neutral]: New way through. Mind your feet.
+
+### ch10_wyverns
+@focus 16,2
+@sfx wing_beat
+NARRATOR: Shadows swept over the ridge: wyverns, grey-scaled, with riders in iron. They came in low and fast.
+WREN [worried]: The Dravenhold wyvern corps. Bows and wind magic, everyone. And stay out from under them.
+
+### ch10_commander
+???: Calder sends a princess and a mob of farmers to fight the Empire's anger? It is an insult on an insult.
+ROWAN [neutral]: The insult was forged. We have the proof. Stop and read it.
+???: The Empress has read it. That is why I am here.
+
+### ch10_post
+@bg border_pass_evening
+@music aftermath
+NARRATOR: The raiders pulled back across the border at dusk, carrying their wounded. Nobody followed them.
+SERAPHINE [sad]: They came to burn a village because of a letter my father never wrote. And I came to talk, and couldn't.
+ROWAN [neutral]: You stayed. That's more than talking.
+SERAPHINE [determined]: Then I'll keep staying. If the Empress believes that letter, the Empress needs to see it's false.
+SERAPHINE [determined]: I'm going to Dravenhold. Through the mountains, to the Empress herself. Will you come?
+OSMUND [worried]: My lord, the heir to the throne of Calder is proposing to ride into an enemy empire. In autumn.
+ROWAN [determined]: Then we'd better go with her. We go now.

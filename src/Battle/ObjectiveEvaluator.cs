@@ -29,10 +29,13 @@ public static class ObjectiveEvaluator
         if (goals.TurnLimit > 0 && s.Turn > goals.TurnLimit)
             return BattleOutcome.Defeat;
 
+        // "or boss KEY": felling that boss wins whatever the main goal is.
+        if (goals.Victory != VictoryKind.DefeatBoss && goals.BossKey is { } alt && BossDown(s, alt))
+            return BattleOutcome.Victory;
         bool won = goals.Victory switch
         {
             VictoryKind.Rout => !s.LivingOf(Faction.Enemy).Any(),
-            VictoryKind.DefeatBoss => s.AllByKey(goals.BossKey!).Any() && s.AllByKey(goals.BossKey!).All(u => !u.IsOnMap),
+            VictoryKind.DefeatBoss => BossDown(s, goals.BossKey!),
             VictoryKind.Seize => s.Seized,
             VictoryKind.Survive => s.SurviveComplete,
             VictoryKind.Escape => EscapeDone(s),
@@ -40,6 +43,8 @@ public static class ObjectiveEvaluator
         };
         return won ? BattleOutcome.Victory : BattleOutcome.InProgress;
     }
+
+    private static bool BossDown(BattleState s, string key) => s.AllByKey(key).Any() && s.AllByKey(key).All(u => !u.IsOnMap);
 
     /// <summary>"Defeat Halvric", or for a group sharing the key "Defeat the Agitators (3 left)".</summary>
     private static string DescribeBoss(BattleState s, string key)
@@ -72,6 +77,8 @@ public static class ObjectiveEvaluator
             VictoryKind.Escape => "Escape: " + string.Join(", ", EscapeNames(s)) + " to the exit",
             _ => "",
         };
+        if (goals.Victory != VictoryKind.DefeatBoss && goals.BossKey is { } alt)
+            goal += ",\nor " + DescribeBoss(s, alt).ToLowerInvariant()[..1] + DescribeBoss(s, alt)[1..];
         var extra = goals.MustSurvive.Select(k => s.ByKey(k)?.Name).OfType<string>().Select(n => $"{n} must survive")
             .Concat(goals.Protect.Select(r => $"Protect the {r.Tag}s ({s.TagLosses.GetValueOrDefault(r.Tag)}/{r.MaxLosses} lost)"));
         if (goals.TurnLimit > 0)

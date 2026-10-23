@@ -45,6 +45,8 @@ public static class ObjectiveTour
                 stops.Add(new TourStop($"Victory: get {string.Join(", ", names)} to the exit.", goals.Cells));
                 break;
         }
+        if (goals.Victory != VictoryKind.DefeatBoss && goals.BossKey is { } alt && s.ByKey(alt) is { IsOnMap: true } boss)
+            stops.Add(new TourStop($"Or win at once: defeat {boss.Name}.", At(boss)));
         foreach (var key in goals.MustSurvive)
             if (s.ByKey(key) is { } unit)
                 stops.Add(new TourStop($"Defeat if {unit.Name} falls.", At(unit)));

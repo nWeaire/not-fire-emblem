@@ -15,15 +15,18 @@ public static class CarefulAi
     /// <summary>A friend below this share of HP is worth a heal spell.</summary>
     public const double HealBelow = 0.75;
 
-    /// <summary>Heals the most hurt friend in reach (the lord first when tied), or null.</summary>
-    public static IBattleCommand? Heal(BattleState s, BattleUnit unit, ReachMap reach)
+    /// <summary>
+    /// Heals the most hurt friend in reach (the lord first when tied), or null. With <paramref name="safeOnly"/> (a
+    /// healer who must survive, like Ch 10's Seraphine) it only heals from cells no enemy can reach next phase.
+    /// </summary>
+    public static IBattleCommand? Heal(BattleState s, BattleUnit unit, ReachMap reach, bool safeOnly = false)
     {
         var threats = new System.Lazy<Dictionary<GridPos, int>>(() => Threats(s, unit.Faction));
         foreach (var spell in ActionRules.ReadySpells(s, unit))
         {
             var best = reach.StopCells.OrderBy(c => c.Y).ThenBy(c => c.X)
                 .SelectMany(c => ActionRules.HealTargets(s, unit, c, spell.Id).Select(t => (Cell: c, Target: t)))
-                .Where(x => HpRatio(s, x.Target) < HealBelow)
+                .Where(x => HpRatio(s, x.Target) < HealBelow && (!safeOnly || threats.Value.GetValueOrDefault(x.Cell) == 0))
                 .OrderBy(x => HpRatio(s, x.Target))
                 .ThenByDescending(x => x.Target.IsLord)
                 .ThenBy(x => threats.Value.GetValueOrDefault(x.Cell))

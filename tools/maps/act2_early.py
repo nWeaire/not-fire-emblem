@@ -41,7 +41,10 @@ Price = {price}
 """)
 
 
-def class_tres(cid, name, bases, growths, weapons, promotes_to, promoted, tier, traits, arts=()):
+INFANTRY, ARMORED, CAVALRY, FLYING = 0, 1, 2, 3
+
+
+def class_tres(cid, name, bases, growths, weapons, promotes_to, promoted, tier, traits, arts=(), spells=(), move=INFANTRY):
     caps = dict(HP=60, Str=30, Mag=30, Dex=30, Spd=30, Lck=30, Def=30, Res=30, Mov=10)
     q = lambda xs: ", ".join(f'"{x}"' for x in xs)
     write(DATA / "classes" / f"{cid}.tres", f"""[gd_resource type="Resource" script_class="ClassDefinition" load_steps=6 format=3]
@@ -59,7 +62,7 @@ Name = "{name}"
 Bases = SubResource("StatsDefinition_1")
 Growths = SubResource("StatsDefinition_2")
 Caps = SubResource("StatsDefinition_3")
-MovementType = 0
+MovementType = {move}
 UsableWeapons = PackedStringArray({q(weapons)})
 PromotesTo = PackedStringArray({q(promotes_to)})
 IsPromoted = {"true" if promoted else "false"}
@@ -67,7 +70,7 @@ MaxArmor = 0
 Tier = {tier}
 Traits = PackedStringArray({q(traits)})
 Arts = PackedStringArray({q(arts)})
-Spells = PackedStringArray()
+Spells = PackedStringArray({q(spells)})
 """)
 
 
@@ -77,11 +80,24 @@ def classes():
                dict(HP=5, Str=5, Dex=10, Spd=15, Lck=10), ["Sword"], ["rogue"], False, 1, ["Locktouch", "Steal"])
     class_tres("rogue", "Rogue", dict(HP=22, Str=6, Mag=1, Dex=10, Spd=13, Lck=7, Def=4, Res=3, Mov=7),
                dict(HP=10, Str=5, Dex=10, Spd=10, Lck=10), ["Sword"], [], True, 2, ["Locktouch", "Steal"])
+    # Seraphine's line (Troubadour -> Valkyrie -> Lightbearer): a mounted healer who learns attack magic on promotion.
+    class_tres("troubadour", "Troubadour", dict(HP=15, Mag=5, Dex=4, Spd=7, Lck=6, Def=2, Res=6, Mov=7),
+               dict(HP=5, Mag=10, Spd=5, Res=10), ["WhiteMagic"], ["valkyrie"], False, 1, [], spells=["heal"], move=CAVALRY)
+    class_tres("valkyrie", "Valkyrie", dict(HP=20, Mag=8, Dex=6, Spd=9, Lck=7, Def=4, Res=9, Mov=8),
+               dict(HP=10, Mag=10, Spd=5, Res=10), ["WhiteMagic", "BlackMagic"], [], True, 2, [], spells=["heal", "physic"],
+               move=CAVALRY)
+    # Dravenhold's wyvern corps (Ch 10 on; Ysra in Ch 11): heavy fliers, lances; bows and Wind are effective.
+    class_tres("wyvern_rider", "Wyvern Rider", dict(HP=20, Str=7, Dex=6, Spd=5, Lck=2, Def=8, Mov=7),
+               dict(HP=10, Str=10, Def=10), ["Lance"], ["wyvern_lord"], False, 1, [], move=FLYING)
+    class_tres("wyvern_lord", "Wyvern Lord", dict(HP=26, Str=10, Dex=8, Spd=7, Lck=3, Def=11, Res=2, Mov=8),
+               dict(HP=10, Str=10, Def=10), ["Lance", "Axe"], [], True, 2, [], move=FLYING)
 
 
 def units():
     unit("pip", "Pip", "thief", 6, dict(HP=1, Dex=2, Spd=3, Lck=4),
          dict(HP=50, Str=30, Mag=5, Dex=55, Spd=75, Lck=70, Def=15, Res=25), ["iron_sword", "vulnerary"], "")
+    unit("seraphine", "Seraphine", "troubadour", 9, dict(HP=1, Mag=2, Lck=2, Res=3),
+         dict(HP=45, Str=15, Mag=55, Dex=40, Spd=50, Lck=60, Def=15, Res=55), ["vulnerary"], "")
 
 
 # ------------------------------------------------------------------ Chapter 8: Riot in the Capital (32×26)
@@ -322,6 +338,91 @@ def ch9():
     finish("ch9", {"Lighting": "night"})
 
 
+# ------------------------------------------------------------------ Chapter 10: The Border of Ash (35×22)
+
+def ch10():
+    g = Grid(35, 22)
+    # Ridges along the north and south edges (mountain and pine), the pass between them.
+    g.rect(0, 0, 34, 1, "M")
+    g.rect(0, 20, 34, 21, "M")
+    for x0, x1 in [(3, 7), (24, 27)]:
+        g.rect(x0, 2, x1, 2, "F")
+    for x0, x1 in [(8, 12), (27, 31)]:
+        g.rect(x0, 19, x1, 19, "F")
+    g.spots("M", [(13, 2), (14, 2), (20, 19), (21, 19)])
+    # The border road from Calder (west) to the Dravenhold camp (east).
+    g.rect(0, 10, 34, 11, "=")
+    # The burning village in the middle: cottages (some ablaze), its fields.
+    for x, y in [(14, 6), (18, 6), (14, 13), (19, 13)]:
+        g.house(x, y)
+    g.spots("^", [(18, 6), (19, 6), (20, 6), (19, 13), (20, 13), (21, 13)])
+    g.rect(14, 3, 21, 4, ":")
+    g.rect(15, 16, 21, 17, ":")
+    g.spots("F", [(11, 5), (12, 15), (23, 4), (23, 16)])
+    # The Dravenhold camp: a palisade with a gate on the road, tents (forts) inside.
+    g.vline(28, 3, 18, "W")
+    g.raise_(28, 3, 28, 18, 1)
+    g.spots("=", [(28, 10), (28, 11)])
+    g.raise_(28, 10, 28, 11, 0)
+    g.spots("T", [(30, 6), (32, 8), (30, 14), (32, 13)])
+    assert_connected(g, (2, 10))
+
+    # Levels: a step under the party (11 by Ch 10), the commander above it.
+    def imperial(cls, weapon, pos, lvl=9, group="", name=None, **kv):
+        names = {"soldier": "Imperial Soldier", "knight": "Imperial Knight", "archer": "Imperial Archer",
+                 "cavalier": "Imperial Cavalier", "wyvern_rider": "Wyvern Rider", "mage": "Imperial Mage"}
+        armor = {"knight": "iron_plate", "soldier": "chainmail", "cavalier": "chainmail"}.get(cls)
+        spawn = dict(ClassId=cls, Name=name or names[cls], SpriteId="enemy_imperial", Level=lvl, Inventory=weapon,
+                     Pos=pos, Group=group, **kv)
+        if armor:
+            spawn["Armor"] = armor
+        return spawn
+
+    def escort(pos):
+        return dict(ClassId="knight", Name="Calder Escort", SpriteId="ally_calder_knight", Level=10, Faction=ALLY,
+                    Inventory=["steel_lance"], Pos=pos, Armor="iron_plate", Ai=AGGRESSIVE)
+
+    spawns = [
+        # Seraphine and what's left of her escort, ambushed at the village's west edge.
+        dict(UnitId="seraphine", Faction=PLAYER, Level=9, Pos=(12, 10)),
+        escort((13, 9)), escort((13, 12)),
+        # The ambush: they reach the escort on turn 1; the party is a turn away.
+        imperial("soldier", ["iron_lance"], (17, 9)), imperial("soldier", ["iron_lance"], (17, 12), 8),
+        imperial("archer", ["iron_bow"], (18, 8), 8), imperial("cavalier", ["iron_sword"], (18, 15), 8),
+        imperial("soldier", ["steel_lance", "vulnerary"], (22, 10), name="Imperial Herald", Tag="herald"),
+        # The camp.
+        imperial("knight", ["silver_lance", "javelin"], (31, 10), 13, name="Commander Hesk", Tag="commander",
+                 Ai=BOSS, IsBoss=True, Leash=3),
+        imperial("knight", ["steel_lance"], (30, 9), 10, Ai=GUARD), imperial("knight", ["steel_lance"], (30, 12), 10, Ai=GUARD),
+        imperial("archer", ["steel_bow"], (32, 8), Ai=STATIONARY), imperial("mage", ["thunder"], (32, 13), Ai=GUARD),
+        dict(imperial("cavalier", ["steel_lance"], (29, 6), 10), HardOnly=True),
+        # Waves: T2 riders down the road, T4 both flanks, T6 wyverns over the north ridge, T8 the camp empties.
+        imperial("cavalier", ["iron_lance"], (34, 10), 8, "wave2"), imperial("cavalier", ["iron_sword"], (34, 11), 8, "wave2"),
+        imperial("soldier", ["iron_lance"], (25, 3), group="wave4"), imperial("soldier", ["steel_lance"], (25, 18), group="wave4"),
+        imperial("archer", ["iron_bow"], (26, 3), group="wave4"),
+        imperial("wyvern_rider", ["iron_lance"], (10, 2), group="wave6"), imperial("wyvern_rider", ["steel_lance"], (16, 2), group="wave6"),
+        dict(imperial("wyvern_rider", ["iron_lance"], (22, 2), group="wave6"), HardOnly=True),
+        imperial("knight", ["steel_lance"], (33, 6), 10, "wave8"), imperial("cavalier", ["steel_lance"], (34, 15), group="wave8"),
+        imperial("soldier", ["steel_lance"], (33, 10), group="wave8"),
+    ]
+    for s in spawns:
+        s.setdefault("Faction", ENEMY)
+        s.setdefault("Ai", AGGRESSIVE)
+    triggers = ["turn 1 => scene ch10_start; scene ch10_seraphine",
+                "defeated herald => scene ch10_insult",
+                "turn 2 enemy => spawn wave2",
+                "turn 4 enemy => spawn wave4",
+                "turn 5 => terrain 19,6-20,6 20,13-21,13 x; scene ch10_collapse",
+                "turn 6 enemy => spawn wave6; scene ch10_wyverns",
+                "turn 8 enemy => spawn wave8",
+                "combat commander => scene ch10_commander"]
+    highlights = ["seraphine => Princess Seraphine. Her escort is falling; if she falls, so does the kingdom's hope.",
+                  "commander => Commander Hesk leads the raid from the camp. Beat him and his soldiers stand down."]
+    slots = [(7, 10), (7, 11), (6, 10), (6, 11), (6, 9), (6, 12), (5, 10), (5, 11), (5, 9), (5, 12)]
+    map_tres("ch10", "Chapter 10: The Border of Ash", g.rows(), g.height_rows(), spawns, "survive 10 or boss commander",
+             ["die seraphine"], triggers, slots, background="border_pass", highlights=highlights)
+
+
 if __name__ == "__main__":
     terrains()
     items()
@@ -329,3 +430,4 @@ if __name__ == "__main__":
     units()
     ch8()
     ch9()
+    ch10()

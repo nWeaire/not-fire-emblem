@@ -140,6 +140,13 @@ ROWAN [neutral]: You don't want me to go.
 ALDRIC [neutral]: I want you to go with your eyes open. That's different.
 ROWAN [determined]: Right. We go to the capital.
 
+### hub_briefing_ch10
+@bg calder_lodgings
+OSMUND [neutral]: The letter "in the King's hand" went north, my lord. To the Empress. A month ago, by the archive's ledger.
+ELISE [worried]: If she believed it, Dravenhold is already marching. The border villages will see them first.
+SABLE [neutral]: Kestrel Ford's the first village past the pass. If there's a war, it starts there.
+ROWAN [determined]: Then that's where we go. We go now.
+
 ### hub_briefing_ch09
 @bg calder_lodgings
 OSMUND [neutral]: The palace has given us rooms, my lord. Very fine rooms. With a view of the guard who watches our door.

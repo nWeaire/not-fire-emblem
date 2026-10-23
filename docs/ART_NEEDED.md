@@ -41,6 +41,12 @@ Rough cost per full character (map sprite + walk/attack, battle still takes + 5 
 | P1 | `enemy_thief` (map + battle) | Undercity cutpurse: hooded, lean, knife-and-short-sword, dark rags | `enemy_myrmidon` (`BattleUnit.PlaceholderSprites`) | Ch 9 |
 | P1 | Prop `chest_N.png` | A treasure chest on a stone floor (32 px billboard like the crates) | `crates` prop | Ch 9 |
 | P1 | Background `calder_undercity` | Lantern-lit sewers and cellars under Calder | `dain_hall` | Ch 9 |
+| P1 | `seraphine_troubadour` (map + battle), portrait `seraphine` | Princess Seraphine: 17, fair hair in a travel braid, Calder-blue riding coat, healer's staff, grey horse; a small pale crest on the back of her hand | the class look (`enemy_troubadour` → `enemy_cavalier`) | Ch 10 on |
+| P1 | `enemy_imperial` (or `enemy_imperial_<classId>`: soldier, knight, archer, cavalier, mage) | Dravenhold imperial troops: dark iron, grey-white tabards with a red wolf, fur at the collar | the class looks `enemy_<classId>` | Ch 10, 11, 14 |
+| P1 | `enemy_wyvern_rider` (map + battle) | Grey-scaled wyvern, rider in dark iron with a lance; the Dravenhold wyvern corps | `enemy_pegasus_knight` | Ch 10, 11 |
+| P1 | `ally_calder_knight` (map) | Calder royal escort: steel plate with Calder-blue tabard | `enemy_knight` (green ring) | Ch 10 |
+| P1 | Background `border_pass` | A mountain pass over a burning border village | `hill_road` | Ch 10 |
+| P2 | `seraphine_valkyrie`, `ysra_wyvern_lord` | Tier-2 looks | — | after promotion |
 | P2 | `pip_rogue` (map + battle) | Pip promoted: dark leathers, a proper sword, a grin | — | after promotion |
 | P2 | `calder_lodgings` background | The party's rooms in the capital (Act II hub) | `village_hall` | Act II hub |
 

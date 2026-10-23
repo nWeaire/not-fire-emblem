@@ -203,7 +203,17 @@ def gloam_roar():
     return lowpass(growl * rough * 0.5 + lowpass(noise(1.3), 900) * 0.4, 2200) * np.minimum(1, t / 0.08) * np.exp(-t * 1.4)
 
 
+def wing_beat():
+    """Wyverns overhead (Ch 10): three heavy, slowing gusts, each a falling whoosh over a leathery thump."""
+    out = np.zeros(int(SR * 1.5))
+    for i, start in enumerate((0.0, 0.45, 0.95)):
+        seg = whoosh(0.5, 110, 650) * (0.9 - 0.2 * i) + lowpass(noise(0.5), 180) * decay(0.5, 16) * 0.7
+        s = int(start * SR)
+        out[s:s + len(seg)] += seg[:len(out) - s]
+    return out * 0.8
+
+
 SFX = {f.__name__: f for f in (cursor, confirm, cancel, select, step, phase_change, visit, dialogue_blip,
                                sword_swing, axe_swing, lance_thrust, miss, hit, hit_heavy, critical, kill, heal,
                                bow_shot, fire_cast, dark_cast, claw, crest_rise, crest_burn, floorboards,
-                               gloam_howl, gloam_roar)}
+                               gloam_howl, gloam_roar, wing_beat)}

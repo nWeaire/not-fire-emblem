@@ -85,5 +85,11 @@ chapter 9 Chapter 9: Beneath the Crown
 scene ch09_pre
 battle ch9 deploy 10 force rowan
 scene ch09_letters
+hub hub_briefing_ch10
+
+chapter 10 Chapter 10: The Border of Ash
+scene ch10_pre
+battle ch10 deploy 10 force rowan
+scene ch10_post
 hub
-end Act II continues in Chapter 10: The Border of Ash.
+end Act II continues in Chapter 11: Wings of Dravenhold.

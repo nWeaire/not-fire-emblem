@@ -18,7 +18,7 @@ public sealed record ProtectRule(string Tag, int MaxLosses);
 /// </summary>
 public sealed record Objectives(
     VictoryKind Victory,
-    string? BossKey,
+    string? BossKey,                    // DefeatBoss; with another victory, an "or boss KEY" that also wins
     IReadOnlyList<GridPos> Cells,       // Seize: the throne/gate; Escape: the exit cells
     int Turns,                          // Survive: number of turns to hold
     IReadOnlyList<string> EscapeKeys,   // Escape: units that must leave (the lord always must)
@@ -83,6 +83,7 @@ public sealed record TriggerDef(string Id, TriggerCondition Condition, IReadOnly
 /// Parses the small text language maps use for objectives and triggers, so maps stay readable text.
 /// <code>
 /// Victory: rout | boss KEY (every unit with the key) | seize X,Y | survive N | escape CELLS [KEY...]
+///          and any of them can add "or boss KEY" (Ch 10: "survive 10 or boss commander")
 /// Defeat:  die KEY | protect TAG N | turns N
 /// Trigger: CONDITION [unless GUARD] => EFFECT; EFFECT; ...
 ///   conditions: turn N [player|enemy|ally|neutral] · defeated KEY · enter WHO CELLS · adjacent A B · flag NAME
@@ -99,6 +100,15 @@ public static class MapScript
     public static Objectives ParseObjectives(string? victory, IEnumerable<string>? defeat)
     {
         var o = Objectives.Default;
+        string? orBoss = null;
+        if (victory is not null && victory.Split(" or ", 2, StringSplitOptions.TrimEntries) is [var first, var alternative])
+        {
+            var alt = Tokens(alternative);
+            if (alt is not ["boss", var key])
+                throw new FormatException($"Only 'or boss KEY' can follow a victory condition, in '{victory}'.");
+            orBoss = key;
+            victory = first;
+        }
         if (!string.IsNullOrWhiteSpace(victory))
         {
             var t = Tokens(victory);
@@ -133,6 +143,8 @@ public static class MapScript
                 default: throw new FormatException($"Unknown defeat condition '{line}'.");
             }
         }
+        if (orBoss is not null)
+            o = o with { BossKey = orBoss };
         return o with { MustSurvive = mustSurvive, Protect = protect, TurnLimit = turnLimit };
     }
 

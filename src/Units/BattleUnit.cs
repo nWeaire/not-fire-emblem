@@ -66,6 +66,10 @@ public sealed class BattleUnit
         ["ally_townsfolk"] = "ally_villager",
         ["enemy_thief"] = "enemy_myrmidon",
         ["enemy_rogue"] = "enemy_myrmidon",
+        ["enemy_troubadour"] = "enemy_cavalier",
+        ["enemy_valkyrie"] = "enemy_cavalier",
+        ["enemy_wyvern_rider"] = "enemy_pegasus_knight",
+        ["enemy_wyvern_lord"] = "enemy_pegasus_knight",
     };
 
     /// <summary>

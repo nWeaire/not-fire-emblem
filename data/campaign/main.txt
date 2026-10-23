@@ -119,5 +119,12 @@ scene ch14_pre
 battle ch14 deploy 10 force rowan,seraphine
 scene ch14_post
 gold 1500
-hub
-end Act II continues in Chapter 15: The Grey Chancellor.
+hub hub_briefing_ch15
+
+chapter 15 Chapter 15: The Grey Chancellor
+scene ch15_pre
+battle ch15 deploy 12 force rowan,aldric
+leave aldric
+scene ch15_aldric_dies
+scene ch15_crest_flickers
+end Act II is over. To be continued in Act III: The Hollow Path.

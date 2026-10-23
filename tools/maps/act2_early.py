@@ -127,6 +127,9 @@ def classes():
                dict(HP=10, Str=10, Def=10), ["Lance", "Axe"], [], True, 2, [], move=FLYING)
     tier2_classes()
     crestbound_classes()
+    # The Hollowed (Ch 15 on): soldiers consumed by the Hollow Crest. Grey, silent, relentless; any blade they find.
+    class_tres("hollowed", "Hollowed", dict(HP=26, Str=9, Dex=6, Spd=5, Def=7, Res=2, Mov=5),
+               dict(HP=10, Str=5, Def=5), ["Sword", "Lance", "Axe"], [], False, 1, ["Hollowed"], armor=MEDIUM)
 
 
 def tier2_classes():
@@ -915,6 +918,70 @@ def ch14():
     finish("ch14", {"Lighting": "snow"})
 
 
+# ------------------------------------------------------------------ Chapter 15: The Grey Chancellor (26×22)
+
+def ch15():
+    # Calder's great hall, at the peace summit: pillars, Morvane on the dais (north), the main doors (south) and the
+    # west door, barred until Aldric stays behind (T5). Hold for five turns, then everyone out by turn 10.
+    g = Grid(26, 22, "W")
+    g.raise_(0, 0, 25, 21, 3)
+    g.rect(1, 1, 24, 20, "#")
+    g.raise_(1, 1, 24, 20, 0)
+    g.rect(9, 1, 16, 3, "#")
+    g.raise_(9, 1, 16, 3, 1)           # the dais
+    g.spots("Y", [(12, 1), (13, 1)])
+    for x, y in [(5, 5), (5, 10), (5, 15), (20, 5), (20, 10), (20, 15), (9, 8), (16, 8), (9, 13), (16, 13)]:
+        g.put(x, y, "W")
+        g.raise_(x, y, x, y, 3)
+    g.spots("k", [(10, 10), (11, 10), (14, 10), (15, 10)])   # the summit table, overturned
+    g.spots("G", [(12, 21), (13, 21), (0, 9), (0, 10), (0, 11)])  # the main doors, and the wide west door (barred)
+    g.raise_(12, 21, 13, 21, 0)
+    g.raise_(0, 9, 0, 11, 0)
+    assert_connected(g, (12, 15))
+
+    def hollowed(weapon, pos, lvl=14, group="", **kv):
+        return dict(ClassId="hollowed", Name="Hollowed", SpriteId="enemy_hollowed", Level=lvl, Inventory=[weapon],
+                    Pos=pos, Group=group, **kv)
+
+    def guard(name, cls, weapon, pos, lvl=14, **kv):
+        return dict(ClassId=cls, Name=name, SpriteId="ally_calder_knight" if cls == "knight" else "enemy_imperial",
+                    Level=lvl, Inventory=[weapon], Pos=pos, Faction=ALLY, Ai=AGGRESSIVE, **kv)
+
+    spawns = [
+        # Morvane: unbeatable today. He takes the King's crest, and the hall fills with the Hollowed.
+        dict(ClassId="binder", Name="Morvane, the Grey Chancellor", Tag="morvane", SpriteId="boss_morvane", Level=22,
+             Inventory=["shadow"], Pos=(12, 2), Ai=BOSS, IsBoss=True, Invulnerable=True, Leash=1),
+        # Aldric is deployed (forced); the Empress and the summit's guards fight beside the party.
+        dict(UnitId="ysolde", Faction=ALLY, Level=15, Pos=(17, 12), Ai=AGGRESSIVE),
+        guard("Calder Guard", "knight", "steel_lance", (8, 12)), guard("Calder Guard", "knight", "steel_lance", (8, 15)),
+        guard("Dravenhold Guard", "soldier", "steel_lance", (18, 15)),
+        # The first of the Hollowed, already in the hall.
+        hollowed("steel_sword", (12, 19)), hollowed("steel_lance", (13, 19)),
+        hollowed("steel_axe", (3, 2)), hollowed("steel_sword", (22, 2)),
+    ]
+    # Every turn more come: through the main doors (south) and out of the alcoves by the dais (north corners).
+    doors = [(12, 20), (13, 20), (2, 1), (23, 1), (1, 3), (24, 3)]
+    weapons = ["steel_sword", "steel_lance", "steel_axe"]
+    for turn in range(1, 9):
+        count = 2 if turn < 3 else 3 if turn < 6 else 4
+        for i in range(count):
+            spawns.append(hollowed(weapons[(turn + i) % 3], doors[(turn * 2 + i) % len(doors)], 13 + turn // 3, f"wave{turn}"))
+        if turn >= 4:
+            spawns.append(dict(hollowed(weapons[turn % 3], doors[(turn + 3) % len(doors)], 15, f"wave{turn}"), HardOnly=True))
+    for s in spawns:
+        s.setdefault("Faction", ENEMY)
+        s.setdefault("Ai", AGGRESSIVE)
+    triggers = ["turn 1 => scene ch15_reveal",
+                "combat morvane => scene ch15_morvane",
+                "turn 5 => scene ch15_aldric_stays; leave aldric; terrain 0,9-0,11 #"]
+    triggers += [f"turn {t} enemy => spawn wave{t}" for t in range(1, 9)]
+    highlights = ["morvane => Morvane. Nothing the party has can hurt him yet. Keep away from the dais.",
+                  "0,9-0,11 => The west door. Barred for now. Everyone must get out through it, Rowan last, by turn 10."]
+    slots = [(10, 14), (11, 14), (12, 14), (13, 14), (14, 14), (15, 14), (11, 16), (12, 16), (13, 16), (14, 16), (10, 16), (15, 16)]
+    map_tres("ch15", "Chapter 15: The Grey Chancellor", g.rows(), g.height_rows(), spawns, "escape 0,9-0,11 all",
+             ["die aldric", "turns 10"], triggers, slots, background="calder_palace", highlights=highlights)
+
+
 if __name__ == "__main__":
     terrains()
     items()
@@ -929,3 +996,4 @@ if __name__ == "__main__":
     ch12()
     ch13()
     ch14()
+    ch15()

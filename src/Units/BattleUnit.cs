@@ -34,6 +34,8 @@ public sealed class BattleUnit
     /// <summary>Key of the crest-bearer whose Dominion holds this unit.</summary>
     public string? DominatedBy { get; set; }
     public bool CrestBearer { get; init; }
+    /// <summary>Takes no damage at all (Ch 15's Morvane): every forecast against it shows "—".</summary>
+    public bool Invulnerable { get; init; }
     /// <summary>Beaten, not killed: at 0 HP the unit is subdued and leaves the map alive (Ch 14's Empress).</summary>
     public bool NonLethal { get; init; }
     /// <summary>How far this unit's Dominion reaches; 0 = the usual (BattleState.DominionRadius).</summary>
@@ -84,6 +86,7 @@ public sealed class BattleUnit
         ["enemy_warrior"] = "enemy_fighter",
         ["enemy_sage"] = "enemy_mage",
         ["enemy_paladin"] = "enemy_cavalier",
+        ["enemy_hollowed"] = "enemy_soldier",
     };
 
     /// <summary>

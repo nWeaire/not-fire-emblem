@@ -126,6 +126,17 @@ def aftermath():
     return s, True
 
 
+def loss():
+    """Ch 15, Aldric's door: a slow D minor lament, solo strings over choir, the bass barely moving."""
+    s = Song(56, 8)
+    ch = ["Dm", "Bb", "F", "C", "Dm", "Gm", "A", "Dm"]
+    s.melody("A4:2 F4:1 D4:1 | D5:3 C5:1 | A4:2 C5:1 A4:1 | G4:4 | F4:2 G4:1 A4:1 | Bb4:2 D5:1 G4:1 | A4:2 C#5:2 | D5:4",
+             "strings", 0.7)
+    s.pad(ch, "choir", 4, 0.5)
+    s.bassline(ch, ((0, 4),), octave=2, vel=0.4)
+    return s, True
+
+
 def march():
     """The road out: Bb major brass march with snare."""
     s = Song(104, 8)
@@ -215,5 +226,5 @@ def level_up():
     return s, False
 
 
-SONGS = {f.__name__: f for f in (title, calm_farm, hub, prep, tension_low, tension_high, battle_urgent, aftermath,
+SONGS = {f.__name__: f for f in (title, calm_farm, hub, prep, tension_low, tension_high, battle_urgent, aftermath, loss,
                                  march, forest_tension, player_phase, enemy_phase, victory, defeat, level_up)}

@@ -58,6 +58,9 @@ Rough cost per full character (map sprite + walk/attack, battle still takes + 5 
 | P1 | `boss_vossk` (map + battle), portraits `vossk`, `ysolde` | Vossk: a grey-robed, hollow-cheeked man with crests crawling over both hands; Ysolde: a tall empress in black iron and white fur, silver lance, on a black wyvern | `enemy_binder`; Ysolde `enemy_wyvern_lord` → `enemy_pegasus_knight` | Ch 14 |
 | P1 | `enemy_veiled` (mage) | Veiled caster in grey and purple robes | `enemy_mage` | Ch 14 |
 | P1 | Snow terrain tiles (plain, road, forest in snow) and a `dravenhold_citadel` background | Ch 14's citadel; the map uses `Lighting = "snow"` (a cold wash and snowfall) until then | `dain_hall` backdrop | Ch 14 |
+| P1 | `boss_morvane` (map + battle), portrait `morvane` (also listed above) | The Grey Chancellor in his true light: grey robes, gentle face, a hundred crests faint under his skin | `enemy_binder` | Ch 15 |
+| P1 | `enemy_hollowed` (map + battle) | The Hollowed: soldiers grey as ash, eyes empty, armour hanging off them, any blade they found | `enemy_soldier` | Ch 15, Act III |
+| P2 | Background `hall_ruin` | Calder's great hall after the battle: overturned tables, a broken door | `dain_hall` | Ch 15 |
 | P2 | Ship hull props | Hull sides under the ship decks in Ch 12 (decks are bridge cells today) | — | Ch 12 |
 | P2 | `seraphine_valkyrie`, `ysra_wyvern_lord` | Tier-2 looks | — | after promotion |
 | P2 | `pip_rogue` (map + battle) | Pip promoted: dark leathers, a proper sword, a grin | — | after promotion |

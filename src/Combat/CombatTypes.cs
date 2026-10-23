@@ -37,7 +37,8 @@ public sealed record CombatantForecast(
     int AttackSpeed,
     int StrikeCount,
     int TriangleAdvantage, // +1 advantage, -1 disadvantage, 0 neutral
-    bool Effective);
+    bool Effective,
+    bool Harmless = false); // the foe can't be hurt at all (Ch 15's Morvane): shown as "—"
 
 public sealed record PlannedStrike(bool ByAttacker, int Damage, int Hit, int Crit);
 

@@ -1,0 +1,64 @@
+# Chapter 15: The Grey Chancellor
+# Written for the built map (data/maps/ch15.tres). ch15_aldric_stays, ch15_aldric_dies and ch15_crest_flickers are the
+# canon scripts from docs/story/DIALOGUE.md section 5 (only the @focus cell follows the built map).
+
+### ch15_pre
+@bg calder_palace
+@music tension_low
+NARRATOR: For the first time in a generation, three crowns sat at one table in the great hall of Calder.
+NARRATOR: King Osric, frail and grey, at its head. The Empress of Dravenhold. Captains of Solmere, in borrowed finery.
+SERAPHINE [smile]: Father signed the treaty this morning. With his own hand. It shook, but it was his.
+YSOLDE [neutral]: Dravenhold has signed. The captains are arguing about the wine. That means they will sign too.
+OSMUND [worried]: My lord. The Chancellor has not taken his seat. He is standing behind the King's chair.
+ALDRIC [cold]: Stay near me. All of you. Don't let go of your weapons.
+ROWAN [worried]: Father?
+ALDRIC [cold]: Just do it, son.
+
+### ch15_reveal
+@focus 12,2
+NARRATOR: Morvane laid a gentle hand on the old King's shoulder, the way a nurse soothes a sick man.
+MORVANE [sad]: Peace. You have all worked so hard for it. I am sorry, truly, that it has to be my peace.
+NARRATOR: The King's crest, a small, tired gold thing, rose out of his hand and into the Chancellor's. Osric slumped.
+SERAPHINE [hurt]: FATHER!
+NARRATOR: Every door in the hall burst open. Grey soldiers came through them, silent, eyes empty, swords drawn.
+OSMUND [angry]: YOU! Twenty years I have waited to say it to your face! MURDERER! You murdered the Wardens!
+MORVANE [neutral]: Osmund Thorne. You always did ask too many questions, my dear Steward. Sit down.
+ELISE [worried]: Rowan, those aren't soldiers anymore. The crest is gone out of them. They're hollow.
+ALDRIC [determined]: West door's barred. Hold the hall. I'll get it open. Hold until I do.
+
+### ch15_morvane
+MORVANE [sad]: Child, you cannot hurt me. Not with that little light. Put your sword down; I take no joy in this.
+ROWAN [cold]: Then you won't mind if I keep trying.
+MORVANE [neutral]: I take no joy in it. That is rather the point.
+
+### ch15_aldric_stays
+@focus 1,10
+ALDRIC [determined]: Rowan. Take them through the west door.
+ROWAN [angry]: No. We fight him together—
+ALDRIC [neutral]: You can't fight him. Not yet. *I* can hold a door.
+MORVANE [cold]: Aldric of the Wardens. I wondered where you'd gone. A farm. How very... humble.
+ALDRIC [cold]: Twenty years, Morvane. I've been ready for twenty years.
+MORVANE [sad]: I know. That's why I'm sorry.
+ALDRIC [smile]: Rowan. Eat first. Panic after.
+ROWAN [hurt]: Father—
+ALDRIC [angry]: *GO.*
+@flag aldric_stays
+
+### ch15_aldric_dies
+@bg hall_ruin
+@music loss
+NARRATOR: He held the door for as long as a man can hold a door. Then a little longer.
+MORVANE [sad]: Rest, Warden. You were the last of a good order. I mean that.
+ALDRIC [hurt]: ...Lyra... I kept him... safe...
+@sfx sword_fall
+@flag aldric_dead
+NARRATOR: On the far side of the hall, Rowan heard the sword fall.
+
+### ch15_crest_flickers
+@sfx crest_corrupt
+ROWAN [cold]: ...
+MIRA [worried]: Rowan. Your hand.
+NARRATOR: For a heartbeat, the white crest was the colour of a bruise.
+ROWAN [cold]: I'm going to find him.
+ROWAN [cold]: And I'm going to end him.
+@flag crest_shrouded

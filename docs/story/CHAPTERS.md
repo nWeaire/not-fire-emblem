@@ -235,7 +235,17 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
   Enemy casters are Mages, not Sages: a promoted caster's tome scales off its level + 10.
 
 ## Chapter 15 — "The Grey Chancellor"
-- **Map:** 16×14 great hall in Calder: pillars, a dais, side doors to escape through.
+- **Built (session 12):** 26×22 great hall (`tools/maps/act2_early.py`): pillars, the dais (north), the main doors
+  (south) and a wide west door, barred (gate) until T5. Deploy 12, Rowan and Aldric forced. Empress Ysolde and three
+  summit guards fight beside the party as allies. The Hollowed (new class) come through the main doors and the dais
+  alcoves every turn (groups `wave1`..`wave8`). **Morvane** (Binder L22, Boss, leash 1) is **Invulnerable** (new
+  per-spawn flag: no damage, no crits, the forecast shows "—"; the AI never targets him).
+- **Win / lose as built:** `escape 0,9-0,11 all` (everyone out, Rowan last; units a script took off the map, i.e. Aldric,
+  don't count) with `die aldric` (before his scene) and `turns 10`. T5: `ch15_aldric_stays; leave aldric; terrain
+  0,9-0,11 #` (the door opens). After the battle the campaign's `leave aldric` removes him from the roster, then
+  `ch15_aldric_dies` and `ch15_crest_flickers` (new `loss` music, `sword_fall` and `crest_corrupt` sounds), and Act II ends.
+- **Autoplay at level 16 (seeds 1–4):** wins 3/4 (T9–10), losing 2–5; the escape is tight.
+- **Map (outline):** 16×14 great hall in Calder: pillars, a dais, side doors to escape through.
 - **Party:** everyone the player chooses, plus **Aldric** (forced).
 - **Win:** Survive 5 turns, *then* `ch15_aldric_stays`. The rest of the army escapes through the side doors. **Lose:** Rowan dies, or the turn limit passes with Rowan still in the hall.
 - **Enemies:** **Morvane** (invulnerable; a "Boss" that cannot be damaged; every attack forecast shows "—"), and Hollowed spawning from every door.

@@ -30,7 +30,8 @@ public sealed record SpawnDef(
     int Leash = 0,                // Boss AI: how far it may step from its start to attack (0 = AiController.BossLeash)
     string? Ignores = null,       // keys ("civilian", "gull|halde") the AI leaves alone unless the player commands them
     int DominionRadius = 0,       // how far this bearer's Dominion reaches (0 = BattleState.DominionRadius, 3)
-    bool NonLethal = false)       // at 0 HP the unit is subdued, not killed (Ch 14's Empress)
+    bool NonLethal = false,       // at 0 HP the unit is subdued, not killed (Ch 14's Empress)
+    bool Invulnerable = false)    // takes no damage at all (Ch 15's Morvane)
 {
     /// <summary>How objectives and triggers refer to this unit.</summary>
     public string? Key => Tag ?? UnitId;

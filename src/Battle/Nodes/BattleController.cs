@@ -630,7 +630,24 @@ public partial class BattleController : Node3D
     private AiDecision FightOrLeave(BattleUnit unit)
     {
         var d = AiController.Decide(State, unit, AutoplayWeights);
-        return d.AttackScore is not null || State.LivingOf(Faction.Enemy).Any() ? d : LordDecision(unit);
+        var goals = State.Map.Goals;
+        // Endless waves or an unbeatable foe under a turn limit (Ch 15): once an exit is open, just go.
+        bool hurry = goals.TurnLimit > 0 && goals.Cells.Any(c => State.Grid[c].Terrain.CostFor(State.MoveType(unit)) > 0);
+        bool foesLeft = State.LivingOf(Faction.Enemy).Any(e => !e.Invulnerable);
+        if (!hurry && (d.AttackScore is not null || foesLeft))
+            return d;
+        if (!hurry)
+            return LordDecision(unit);
+        // In a hurry, take the shortest way to the exit, danger or not (the lord's careful walk stalled in a doorway full
+        // of Hollowed); escaping itself is offered first, by AutoplayDecision, whenever an exit is in reach.
+        var reach = State.Reach(unit);
+        var exit = goals.Cells.OrderBy(c => c.DistanceTo(unit.Pos)).First();
+        var path = Pathfinder.FindPath(State.Grid, unit.Pos, exit, State.MoveType(unit));
+        if (path is not null)
+            for (int i = path.Count - 1; i > 0; i--)
+                if (reach.CanStop(path[i]))
+                    return new AiDecision(unit, new ActCommand(unit.Id, path[i], new WaitAction()), null);
+        return d;
     }
 
     /// <summary>The lord, and units the map's escape objective names.</summary>
@@ -659,10 +676,13 @@ public partial class BattleController : Node3D
                 var threats = AiController.ThreatCounts(State, lord.Faction);
                 int? StepsLeft(GridPos c) => Pathfinder.FindPath(State.Grid, c, goal, State.MoveType(lord))?.Count;
                 int now = StepsLeft(lord.Pos) ?? int.MaxValue;
-                // Only cells that get him closer (or hold), so dodging danger never turns into circling the map.
+                // Only cells that get him closer (or hold), so dodging danger never turns into circling the map. A lord
+                // who must leave last waits beside the exit, not on it (Ch 15: he blocked one of the door's cells).
+                bool waitForOthers = lord.IsLord && goals.EscapeAll && State.LivingOf(Faction.Player).Any(o => o != lord);
                 var best = reach.StopCells
                     .Select(c => (Cell: c, Steps: StepsLeft(c)))
-                    .Where(x => x.Steps is not null && x.Steps <= now)
+                    .Where(x => x.Steps is not null && (x.Steps <= now || waitForOthers && goals.Cells.Contains(lord.Pos)))
+                    .Where(x => !waitForOthers || !goals.Cells.Contains(x.Cell))
                     .OrderBy(x => x.Steps + EscapeDangerSteps * threats.GetValueOrDefault(x.Cell))
                     .ThenBy(x => x.Cell.Y).ThenBy(x => x.Cell.X)
                     .Select(x => x.Cell).DefaultIfEmpty(lord.Pos).First();

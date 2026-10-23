@@ -416,7 +416,7 @@ public partial class BattleHud : CanvasLayer
         }
 
         static string Arrow(int advantage) => advantage > 0 ? " ▲" : advantage < 0 ? " ▼" : "";
-        static string Dmg(CombatantForecast c) => !c.CanStrike ? "--" : c.StrikeCount > 1 ? $"{c.Damage} ×{c.StrikeCount}" : $"{c.Damage}";
+        static string Dmg(CombatantForecast c) => !c.CanStrike ? "--" : c.Harmless ? "—" : c.StrikeCount > 1 ? $"{c.Damage} ×{c.StrikeCount}" : $"{c.Damage}";
         static string Pct(CombatantForecast c, int v) => c.CanStrike ? $"{v}" : "--";
 
         var a = f.Attacker;

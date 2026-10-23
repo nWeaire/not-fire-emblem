@@ -45,6 +45,8 @@ public partial class SpawnDefinition : Resource
     [Export] public int DominionRadius { get; set; }
     /// <summary>At 0 HP the unit is subdued (leaves the map alive), not killed: an enemy you mustn't kill.</summary>
     [Export] public bool NonLethal { get; set; }
+    /// <summary>Takes no damage at all (Ch 15's Morvane, whom the party can't yet hurt).</summary>
+    [Export] public bool Invulnerable { get; set; }
 
     public SpawnDef ToDef() => new(
         string.IsNullOrEmpty(UnitId) ? null : UnitId,
@@ -66,5 +68,6 @@ public partial class SpawnDefinition : Resource
         Leash,
         string.IsNullOrEmpty(Ignores) ? null : Ignores,
         DominionRadius,
-        NonLethal);
+        NonLethal,
+        Invulnerable);
 }

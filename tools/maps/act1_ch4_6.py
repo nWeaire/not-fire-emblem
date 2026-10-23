@@ -87,6 +87,8 @@ def spawn_block(i, s):
         lines.append("HardOnly = true")
     if s.get("Leash"):
         lines.append(f"Leash = {s['Leash']}")
+    if s.get("Invulnerable"):
+        lines.append("Invulnerable = true")
     if s.get("NonLethal"):
         lines.append("NonLethal = true")
     if s.get("DominionRadius"):

@@ -140,6 +140,14 @@ ROWAN [neutral]: You don't want me to go.
 ALDRIC [neutral]: I want you to go with your eyes open. That's different.
 ROWAN [determined]: Right. We go to the capital.
 
+### hub_briefing_ch15
+@bg calder_lodgings
+OSMUND [neutral]: The summit is tomorrow, my lord. In the great hall. Every crown in Aldmere, at one table.
+SERAPHINE [determined]: Father will sign. Ysolde will sign. And then we tell the court what the Chancellor has done.
+ALDRIC [cold]: Tell the court after. Tomorrow, keep your sword on.
+ROWAN [neutral]: You think he'll try something. In front of everyone.
+ALDRIC [cold]: I think he's been waiting twenty years for everyone to be in one room.
+
 ### hub_briefing_ch14
 @bg solmere_harbor
 HALDE [neutral]: The Gull can make Dravenhold's coast in six days, if the weather holds. It won't. It's the north.

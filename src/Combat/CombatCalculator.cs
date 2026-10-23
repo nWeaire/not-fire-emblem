@@ -152,7 +152,7 @@ public static class CombatCalculator
         if (!effective && Pierces(s, myWeapon, them))
             unitDefense -= unitDefense * LancePiercePercent / 100;
         int defense = unitDefense + terrainDef;
-        int damage = Math.Max(0, attack - defense);
+        int damage = them.Invulnerable ? 0 : Math.Max(0, attack - defense);
 
         int heightBonus = s.Grid[myPos].Height > s.Grid[theirPos].Height ? HeightHitBonus : 0;
         var myBonus = s.CombatBonus(me, myPos);
@@ -161,7 +161,7 @@ public static class CombatCalculator
         int avoid = theirAs * 2 + theirStats.Lck / 2 + terrainAvoid + theirBonus.Avoid;
         int displayedHit = Math.Clamp(hit - avoid, 0, 100);
 
-        int crit = Math.Clamp((myStats.Dex + myStats.Lck) / 2 + myWeapon.Crit + myBonus.Crit - theirStats.Lck, 0, 100);
+        int crit = them.Invulnerable ? 0 : Math.Clamp((myStats.Dex + myStats.Lck) / 2 + myWeapon.Crit + myBonus.Crit - theirStats.Lck, 0, 100);
 
         return new PlannedStrike(byAttacker, damage, displayedHit, crit);
     }
@@ -196,7 +196,8 @@ public static class CombatCalculator
             strikeCount,
             weapon is null ? 0 : WeaponTriangle.Advantage(weapon.Type, opposingWeapon?.Type),
             // The forecast's "!" marks any edge against this foe: effectiveness or a lance's piercing.
-            weapon is not null && strike is not null && (IsEffective(s, weapon, opponent) || Pierces(s, weapon, opponent)));
+            weapon is not null && strike is not null && (IsEffective(s, weapon, opponent) || Pierces(s, weapon, opponent)),
+            opponent.Invulnerable);
 
     /// <summary>Rolls the forecast's strikes in order. Stops as soon as either side dies.</summary>
     public static CombatResult Resolve(CombatForecast forecast, IRng rng)

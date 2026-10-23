@@ -507,4 +507,18 @@ public class MapRulesTests
         Assert.Contains("beaten", s.Flags);
         Assert.DoesNotContain("killed", s.Flags);
     }
+
+    [Fact]
+    public void Invulnerable_TakesNoDamage_AndTheForecastSaysSo()
+    {
+        var (s, tm) = Start(new TestBattle(".....").Lord(0, 0, "killer")
+            .Unit(Faction.Enemy, "merc", 1, 0, "sword").With(sp => sp with { Tag = "morvane", Invulnerable = true })
+            .Unit(Faction.Enemy, "merc", 4, 0, "sword").WithAi(AiProfile.Stationary));
+        var morvane = s.ByKey("morvane")!;
+        var forecast = CombatCalculator.Forecast(s, s.Unit("u0"), new GridPos(0, 0), morvane, new WeaponAttack("killer"));
+        Assert.Equal((0, 0, true), (forecast.Attacker.Damage, forecast.Attacker.Crit, forecast.Attacker.Harmless));
+        int hp = morvane.CurrentHp;
+        Assert.True(tm.Submit(new ActCommand("u0", new GridPos(0, 0), new AttackAction(morvane.Id, new WeaponAttack("killer")))).Ok);
+        Assert.Equal(hp, morvane.CurrentHp);
+    }
 }

@@ -93,10 +93,12 @@ public static class AiController
     /// <summary>
     /// Whether the AI would go after <paramref name="target"/>: any hostile unit, except that Neutral units (rioters)
     /// only start fights with Ally units (civilians), never the player's army, and nobody goes after the keys its
-    /// spawn ignores ("civilian", "gull|halde") while those units aren't under the player's command.
+    /// spawn ignores ("civilian", "gull|halde") while those units aren't under the player's command. Nobody goes
+    /// after a unit that can't be hurt (Ch 15's Morvane).
     /// </summary>
     public static bool Picks(BattleUnit unit, BattleUnit target) =>
-        unit.Faction.IsHostileTo(target.Faction) && (unit.Faction != Faction.Neutral || target.Faction == Faction.Ally)
+        unit.Faction.IsHostileTo(target.Faction) && !target.Invulnerable
+        && (unit.Faction != Faction.Neutral || target.Faction == Faction.Ally)
         && (unit.Ignores is null || target.Faction == Faction.Player || !unit.Ignores.Split('|').Contains(target.Key));
 
     /// <summary>Healer profile: heal the most injured friend it can reach.</summary>

@@ -200,7 +200,7 @@ public static class EventDirector
                     s.Grid.SetTerrain(cell, terrain);
                 events.Add(new TerrainChanged(e.Cells));
                 break;
-            case DamageEffect e when Resolve(s, e.Key, actor) is { IsOnMap: true } u:
+            case DamageEffect e when Resolve(s, e.Key, actor) is { IsOnMap: true, Invulnerable: false } u:
                 int dealt = System.Math.Min(e.Amount, u.CurrentHp - 1);
                 u.CurrentHp -= dealt;
                 events.Add(new UnitDamaged(u.Id, dealt, u.CurrentHp));

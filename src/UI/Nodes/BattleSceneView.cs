@@ -893,7 +893,7 @@ public partial class BattleSceneView : CanvasLayer
             string arrow = f.TriangleAdvantage > 0 ? "  ▲" : f.TriangleAdvantage < 0 ? "  ▼" : "";
             _weapon.Text = (f.WeaponName ?? "—") + arrow;
             _values[0].Text = f.CanStrike ? $"{f.Hit}" : "--";
-            _values[1].Text = f.CanStrike ? $"{f.Damage}{(f.StrikeCount > 1 ? "×2" : "")}" : "--";
+            _values[1].Text = !f.CanStrike ? "--" : f.Harmless ? "—" : $"{f.Damage}{(f.StrikeCount > 1 ? "×2" : "")}";
             _values[2].Text = f.CanStrike ? $"{f.Crit}" : "--";
             _fill.BgColor = faction switch
             {

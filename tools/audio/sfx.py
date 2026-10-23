@@ -203,6 +203,27 @@ def gloam_roar():
     return lowpass(growl * rough * 0.5 + lowpass(noise(1.3), 900) * 0.4, 2200) * np.minimum(1, t / 0.08) * np.exp(-t * 1.4)
 
 
+def sword_fall():
+    """Ch 15: a sword dropped on a stone floor, far off: a bright clang, two smaller bounces, a long ring."""
+    out = np.zeros(int(SR * 1.6))
+    for start, vel in ((0.0, 1.0), (0.22, 0.45), (0.36, 0.25)):
+        t = t_axis(1.2)
+        ring = mix(np.sin(2 * np.pi * 1870 * t), np.sin(2 * np.pi * 2810 * t) * 0.6, np.sin(2 * np.pi * 4230 * t) * 0.3)
+        clang = ring * decay(1.2, 3.5) * 0.35 + highpass(noise(1.2), 3000) * decay(1.2, 40) * 0.5
+        s = int(start * SR)
+        out[s:s + len(clang)] += (clang * vel)[: len(out) - s]
+    return lowpass(out, 6000) * 0.8
+
+
+def crest_corrupt():
+    """Ch 15: Rowan's crest flickers purple: the crest's rising choir, soured by a beating, sinking drone."""
+    t = t_axis(2.0)
+    choir = mix(*(np.sin(2 * np.pi * f * t) * 0.16 for f in (hz(midi("D5")), hz(midi("A5")), hz(midi("D6")))))
+    sour = (np.sin(2 * np.pi * 146.8 * t * (1 - 0.1 * t)) + np.sin(2 * np.pi * 155.6 * t * (1 - 0.1 * t))) * 0.35
+    whisper = bandpass(noise(2.0), 1200, 3500) * 0.12
+    return mix(choir * np.exp(-t * 1.2), sour * np.minimum(1, t / 0.6), whisper) * np.minimum(1, t / 0.1) * np.exp(-np.maximum(0, t - 1.4) * 3)
+
+
 def wing_beat():
     """Wyverns overhead (Ch 10): three heavy, slowing gusts, each a falling whoosh over a leathery thump."""
     out = np.zeros(int(SR * 1.5))
@@ -216,4 +237,4 @@ def wing_beat():
 SFX = {f.__name__: f for f in (cursor, confirm, cancel, select, step, phase_change, visit, dialogue_blip,
                                sword_swing, axe_swing, lance_thrust, miss, hit, hit_heavy, critical, kill, heal,
                                bow_shot, fire_cast, dark_cast, claw, crest_rise, crest_burn, floorboards,
-                               gloam_howl, gloam_roar, wing_beat)}
+                               gloam_howl, gloam_roar, wing_beat, sword_fall, crest_corrupt)}

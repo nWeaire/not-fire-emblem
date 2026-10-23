@@ -440,6 +440,8 @@ public partial class BattleController : Node3D
         foreach (var trigger in State.Map.AllTriggers.Where(t => !State.FiredTriggers.Contains(t.Id)))
             if (trigger.Condition is VisitCondition v)
                 markers.Add((v.Cell, CellOverlay.VisitColor));
+            else if (trigger.Condition is ChestCondition c && State.Grid[c.Cell].Terrain.Id == ActionRules.ChestTerrain)
+                markers.Add((c.Cell, CellOverlay.VisitColor));
         MarkerOverlay.ShowCells(markers);
     }
 

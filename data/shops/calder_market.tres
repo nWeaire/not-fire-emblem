@@ -8,4 +8,4 @@ Id = "calder_market"
 Name = "Calder Royal Market"
 Region = "calder"
 OpensAtChapter = 8
-Items = PackedStringArray("steel_sword", "steel_lance", "steel_axe", "steel_bow", "thunder", "vulnerary", "elixir", "chainmail", "brigandine", "scholars_robe", "iron_ring")
+Items = PackedStringArray("steel_sword", "steel_lance", "steel_axe", "steel_bow", "thunder", "vulnerary", "elixir", "door_key", "chest_key", "chainmail", "brigandine", "scholars_robe", "iron_ring")

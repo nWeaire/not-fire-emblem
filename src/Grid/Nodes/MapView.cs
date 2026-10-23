@@ -139,7 +139,7 @@ public partial class MapView : Node3D
     /// </summary>
     private string TileFor(string terrainId) => _artSet == "farm"
         ? terrainId switch { "wall" => "plain", "fort" or "square" => "road", _ => terrainId }
-        : terrainId is "throne" or "barricade" or "rubble" or "gate" ? "square" : terrainId;
+        : terrainId is "throne" or "barricade" or "rubble" or "gate" or "door" or "chest" ? "square" : terrainId;
 
     /// <summary>
     /// Water is never turned at random (session 9: odd vertical tiles in a horizontal river). Each connected body of
@@ -226,8 +226,13 @@ public partial class MapView : Node3D
             case "stilt" when Props("stilt_house").Count > 0:
                 AddBillboard(Props("stilt_house")[(int)(Hash(p, 80) % (uint)Props("stilt_house").Count)], top);
                 return;
-            case "gate" when ResourceLoader.Exists($"{GateRoot}/leaf.png"):
+            case "gate" or "door" when ResourceLoader.Exists($"{GateRoot}/leaf.png"):
                 AddGate(grid, p, top);
+                return;
+            // A chest prop (crates stand in until chest art exists, docs/ART_NEEDED.md section 0).
+            case "chest" when Props("chest").Count + Props("crates").Count > 0:
+                var chest = Props("chest").Count > 0 ? Props("chest") : Props("crates");
+                AddBillboard(chest[(int)(Hash(p, 97) % (uint)chest.Count)], top);
                 return;
             case "wall" when _artSet == "farm" && ResourceLoader.Exists(HedgeTexture):
                 AddHedge(grid, p, top);
@@ -349,7 +354,7 @@ public partial class MapView : Node3D
     /// </summary>
     private void AddGate(BattleGrid grid, GridPos p, Vector3 top)
     {
-        bool IsGate(int x, int y) => grid.InBounds(new GridPos(x, y)) && grid[new GridPos(x, y)].Terrain.Id == "gate";
+        bool IsGate(int x, int y) => grid.InBounds(new GridPos(x, y)) && grid[new GridPos(x, y)].Terrain.Id is "gate" or "door";
         bool northSouth = IsGate(p.X, p.Y - 1) || IsGate(p.X, p.Y + 1);
         if (!northSouth && !(IsGate(p.X - 1, p.Y) || IsGate(p.X + 1, p.Y)))
         {

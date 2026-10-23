@@ -50,6 +50,8 @@ public partial class BattleEventPlayer : Node
         UnitDamaged d => PlayDamaged(d),
         UnitTalked t => PlayTalk(t),
         CellVisited v => Info(v.UnitId, "Visited", null),
+        LockOpened o => Info(o.UnitId, o.Chest ? "Opened" : "Unlocked", null),
+        ItemStolen t => Info(t.ThiefId, $"Stole {Battle.State.Db.ItemName(t.ItemId)}", $"Stole {Battle.State.Db.ItemName(t.ItemId)}"),
         CellSeized s => Banner("Seized!", UiKit.Accent),
         UnitEscaped x => PlayLeave(x.UnitId, "Escaped"),
         UnitDeparted d => PlayLeave(d.UnitId, null),

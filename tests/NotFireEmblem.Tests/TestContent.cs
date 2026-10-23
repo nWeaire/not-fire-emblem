@@ -28,6 +28,9 @@ public static class TestContent
         db.Add(new TerrainDef("wall", "Wall", '#', Costs(0, 0, 0, 0), 0, 0, 0, true, "#808080"));
         db.Add(new TerrainDef("mountain", "Mountain", 'M', Costs(3, 0, 0, 1), 30, 2, 0, false, "#806040"));
         db.Add(new TerrainDef("water", "Water", '~', Costs(0, 0, 0, 1), 0, 0, 0, false, "#0000ff"));
+        db.Add(new TerrainDef("square", "Square", '=', Costs(1, 1, 1, 1), 0, 0, 0, false, "#909090"));
+        db.Add(new TerrainDef("door", "Locked Door", 'D', Costs(0, 0, 0, 0), 0, 0, 0, true, "#704020"));
+        db.Add(new TerrainDef("chest", "Chest", 'C', Costs(1, 1, 1, 1), 0, 0, 0, false, "#c09030"));
 
         // A "plain" statline: 20 HP, 10 Str/Mag, 10 Dex, 10 Spd, 0 Lck, 5 Def/Res, 5 Mov.
         var basic = Stats(20, 10, 10, 10, 10, 0, 5, 5, 5);
@@ -59,6 +62,9 @@ public static class TestContent
         db.Add(Weapon("claws", WeaponType.Fist, 5, 100, 0, 0));
         db.Add(new ItemDef("vulnerary", "Vulnerary", ItemKind.Heal, 10, Stat.HP, 300));
         db.Add(new ItemDef("energy_drop", "Energy Drop", ItemKind.StatBoost, 2, Stat.Str, 2500));
+        db.Add(new ItemDef("door_key", "Door Key", ItemKind.Key, 0, Stat.HP, 100));
+        db.Add(new ItemDef("chest_key", "Chest Key", ItemKind.Key, 0, Stat.HP, 150));
+        db.Add(Class("thief", MovementType.Infantry, basic with { Spd = 12 }, WeaponType.Sword) with { Traits = new[] { "Locktouch", "Steal" } });
         db.Add(new ArtDef("smash", "Smash", WeaponType.Sword, 3, -10, 0, 0, 2));
         db.Add(new ArtDef("quiet_cut", "Quiet Cut", WeaponType.Sword, 0, 0, 0, 0, 1, NoCounter: true));
         db.Add(new ArtDef("long_reach", "Long Reach", WeaponType.Sword, 0, 0, 0, 1, 1));

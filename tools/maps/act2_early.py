@@ -1,14 +1,87 @@
-"""Writes the Act II maps (docs/story/CHAPTERS.md), at the Act I scale (session 7: +60% per side over the outline).
+"""Writes the Act II maps (docs/story/CHAPTERS.md), at the Act I scale (session 7: +60% per side over the outline),
+and the content they bring in: door and chest terrain, keys, the Thief and Rogue classes, and Pip.
 
 Each map is painted onto a grid like act1_early.py. The .tres files it writes are canonical afterwards (edit them
 directly); rerunning this overwrites them.
     python tools/maps/act2_early.py
-Dialogue @focus cells for these maps live in data/dialogue/ch08.txt (and later chapters).
+Dialogue @focus cells for these maps live in data/dialogue/ch08.txt and ch09.txt.
 """
-from act1_ch4_6 import PLAYER, ENEMY, ALLY, AGGRESSIVE, STATIONARY, GUARD, map_tres
-from act1_early import Grid, assert_connected
+from act1_ch4_6 import DATA, PLAYER, ENEMY, ALLY, AGGRESSIVE, STATIONARY, GUARD, BOSS, map_tres, stats, terrain, unit, write
+from act1_early import Grid, assert_connected, finish
 
 NEUTRAL = 3
+
+
+# ------------------------------------------------------------------ content
+
+def terrains():
+    # Locked doors: impassable to everyone, block sight; drawn like Ch 5's gate. Opened (Unlock) they become floor (#).
+    terrain("door", "Locked Door", "D", 0, 0, 0, 0, 0, 0, "Color(0.45, 0.30, 0.16, 1)")
+    path = DATA / "terrain" / "door.tres"
+    path.write_text(path.read_text(encoding="utf-8").replace("BlocksSight = false", "BlocksSight = true"),
+                    encoding="utf-8", newline="\n")
+    # Chests: floor with a chest on it. Stand on it and Unlock (Locktouch or a Chest Key) for what's inside.
+    terrain("chest", "Chest", "C", 1, 1, 1, 1, 0, 0, "Color(0.72, 0.55, 0.20, 1)")
+
+
+def items():
+    for iid, name, price in [("door_key", "Door Key", 100), ("chest_key", "Chest Key", 150)]:
+        write(DATA / "items" / f"{iid}.tres", f"""[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ItemDefinition.cs" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+Id = "{iid}"
+Name = "{name}"
+Kind = 2
+Amount = 0
+Stat = 0
+Price = {price}
+""")
+
+
+def class_tres(cid, name, bases, growths, weapons, promotes_to, promoted, tier, traits, arts=()):
+    caps = dict(HP=60, Str=30, Mag=30, Dex=30, Spd=30, Lck=30, Def=30, Res=30, Mov=10)
+    q = lambda xs: ", ".join(f'"{x}"' for x in xs)
+    write(DATA / "classes" / f"{cid}.tres", f"""[gd_resource type="Resource" script_class="ClassDefinition" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ClassDefinition.cs" id="1_class"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+{stats("StatsDefinition_1", **bases)}
+{stats("StatsDefinition_2", **growths)}
+{stats("StatsDefinition_3", **caps)}
+[resource]
+script = ExtResource("1_class")
+Id = "{cid}"
+Name = "{name}"
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Caps = SubResource("StatsDefinition_3")
+MovementType = 0
+UsableWeapons = PackedStringArray({q(weapons)})
+PromotesTo = PackedStringArray({q(promotes_to)})
+IsPromoted = {"true" if promoted else "false"}
+MaxArmor = 0
+Tier = {tier}
+Traits = PackedStringArray({q(traits)})
+Arts = PackedStringArray({q(arts)})
+Spells = PackedStringArray()
+""")
+
+
+def classes():
+    # Pip's line (STORY §6: Thief -> Rogue -> Shadowstep). Fast and lucky, light swords, opens locks and steals.
+    class_tres("thief", "Thief", dict(HP=16, Str=3, Dex=5, Spd=9, Lck=5, Def=2, Res=1, Mov=6),
+               dict(HP=5, Str=5, Dex=10, Spd=15, Lck=10), ["Sword"], ["rogue"], False, 1, ["Locktouch", "Steal"])
+    class_tres("rogue", "Rogue", dict(HP=22, Str=6, Mag=1, Dex=10, Spd=13, Lck=7, Def=4, Res=3, Mov=7),
+               dict(HP=10, Str=5, Dex=10, Spd=10, Lck=10), ["Sword"], [], True, 2, ["Locktouch", "Steal"])
+
+
+def units():
+    unit("pip", "Pip", "thief", 6, dict(HP=1, Dex=2, Spd=3, Lck=4),
+         dict(HP=50, Str=30, Mag=5, Dex=55, Spd=75, Lck=70, Def=15, Res=25), ["iron_sword", "vulnerary"], "")
 
 
 # ------------------------------------------------------------------ Chapter 8: Riot in the Capital (32×26)
@@ -121,4 +194,8 @@ def ch8():
 
 
 if __name__ == "__main__":
+    terrains()
+    items()
+    classes()
+    units()
     ch8()

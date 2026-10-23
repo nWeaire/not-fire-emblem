@@ -40,6 +40,8 @@ public interface IBattleCommand
 [JsonDerivedType(typeof(EscapeAction), "escape")]
 [JsonDerivedType(typeof(UseItemAction), "item")]
 [JsonDerivedType(typeof(CrestAction), "crest")]
+[JsonDerivedType(typeof(UnlockAction), "unlock")]
+[JsonDerivedType(typeof(StealAction), "steal")]
 public abstract record BattleAction;
 
 public sealed record WaitAction : BattleAction;
@@ -61,6 +63,12 @@ public sealed record UseItemAction(string ItemId) : BattleAction;
 
 /// <summary>A crest skill. Ward and Dawn need an adjacent ally; Rally and Mend affect everyone nearby.</summary>
 public sealed record CrestAction(CrestSkill Skill, string? TargetId) : BattleAction;
+
+/// <summary>Opens a locked door next to the unit, or the chest it stands on (Locktouch, or a key that is used up).</summary>
+public sealed record UnlockAction(GridPos Cell) : BattleAction;
+
+/// <summary>A thief takes an item the adjacent enemy isn't wielding (the enemy must not be faster).</summary>
+public sealed record StealAction(string TargetId, string ItemId) : BattleAction;
 
 /// <summary>
 /// Moves a unit and then acts, atomically. The UI previews the move on its own; nothing changes in the
@@ -123,6 +131,12 @@ public sealed record ActCommand(string UnitId, GridPos Destination, BattleAction
                 break;
             case CrestAction crest:
                 UseCrest(s, unit, crest, events);
+                break;
+            case UnlockAction unlock:
+                Unlock(s, unit, unlock.Cell, events);
+                break;
+            case StealAction steal:
+                Steal(unit, s.Unit(steal.TargetId), steal.ItemId, events);
                 break;
         }
 
@@ -193,6 +207,34 @@ public sealed record ActCommand(string UnitId, GridPos Destination, BattleAction
                 events.Add(new UnitBuffed(unit.Id, item.Name, bonus));
                 break;
         }
+    }
+
+    private static void Unlock(BattleState s, BattleUnit unit, GridPos cell, List<BattleEvent> events)
+    {
+        bool chest = s.Grid[cell].Terrain.Id == ActionRules.ChestTerrain;
+        if (!ActionRules.HasLocktouch(s, unit))
+        {
+            string? equipped = unit.State.EquippedItemId;
+            unit.State.Inventory.Remove(chest ? ActionRules.ChestKey : ActionRules.DoorKey);
+            unit.State.EquippedIndex = equipped is null ? -1 : unit.State.Inventory.IndexOf(equipped);
+        }
+        s.Grid.SetTerrain(cell, s.Db.Terrain(ActionRules.OpenedTerrain));
+        events.Add(new TerrainChanged(new[] { cell }));
+        events.Add(new LockOpened(unit.Id, cell, chest));
+        if (chest)
+            EventDirector.FireChest(s, unit, cell, events);
+    }
+
+    private static void Steal(BattleUnit thief, BattleUnit target, string itemId, List<BattleEvent> events)
+    {
+        string? equipped = target.State.EquippedItemId;
+        var inventory = target.State.Inventory;
+        // Never the item in hand: take the first other copy.
+        int index = Enumerable.Range(0, inventory.Count).First(i => inventory[i] == itemId && i != target.State.EquippedIndex);
+        inventory.RemoveAt(index);
+        target.State.EquippedIndex = equipped is null ? -1 : inventory.IndexOf(equipped);
+        thief.State.Inventory.Add(itemId);
+        events.Add(new ItemStolen(thief.Id, target.Id, itemId));
     }
 
     private static void UseCrest(BattleState s, BattleUnit lord, CrestAction crest, List<BattleEvent> events)

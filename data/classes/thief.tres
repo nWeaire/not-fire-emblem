@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="ClassDefinition" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ClassDefinition.cs" id="1_class"]
+[ext_resource type="Script" path="res://src/Units/Resources/StatsDefinition.cs" id="2_stats"]
+
+[sub_resource type="Resource" id="StatsDefinition_1"]
+script = ExtResource("2_stats")
+HP = 16
+Str = 3
+Dex = 5
+Spd = 9
+Lck = 5
+Def = 2
+Res = 1
+Mov = 6
+
+[sub_resource type="Resource" id="StatsDefinition_2"]
+script = ExtResource("2_stats")
+HP = 5
+Str = 5
+Dex = 10
+Spd = 15
+Lck = 10
+
+[sub_resource type="Resource" id="StatsDefinition_3"]
+script = ExtResource("2_stats")
+HP = 60
+Str = 30
+Mag = 30
+Dex = 30
+Spd = 30
+Lck = 30
+Def = 30
+Res = 30
+Mov = 10
+
+[resource]
+script = ExtResource("1_class")
+Id = "thief"
+Name = "Thief"
+Bases = SubResource("StatsDefinition_1")
+Growths = SubResource("StatsDefinition_2")
+Caps = SubResource("StatsDefinition_3")
+MovementType = 0
+UsableWeapons = PackedStringArray("Sword")
+PromotesTo = PackedStringArray("rogue")
+IsPromoted = false
+MaxArmor = 0
+Tier = 1
+Traits = PackedStringArray("Locktouch", "Steal")
+Arts = PackedStringArray()
+Spells = PackedStringArray()

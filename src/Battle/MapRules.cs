@@ -46,6 +46,8 @@ public sealed record HpBelowCondition(string Key, int Percent) : TriggerConditio
 public sealed record TalkCondition(string Actor, string Target) : TriggerCondition;
 /// <summary>A Visit command on a village cell.</summary>
 public sealed record VisitCondition(GridPos Cell) : TriggerCondition;
+/// <summary>The chest on this cell is opened (Unlock); its effects are the chest's contents.</summary>
+public sealed record ChestCondition(GridPos Cell) : TriggerCondition;
 /// <summary>The first time the unit enters combat (boss quotes play before the fight).</summary>
 public sealed record CombatCondition(string Key) : TriggerCondition;
 
@@ -84,7 +86,7 @@ public sealed record TriggerDef(string Id, TriggerCondition Condition, IReadOnly
 /// Defeat:  die KEY | protect TAG N | turns N
 /// Trigger: CONDITION [unless GUARD] => EFFECT; EFFECT; ...
 ///   conditions: turn N [player|enemy|ally|neutral] · defeated KEY · enter WHO CELLS · adjacent A B · flag NAME
-///               enemies N (at most N left) · hp KEY PERCENT (below) · talk ACTOR TARGET · visit X,Y · combat KEY
+///               enemies N (at most N left) · hp KEY PERCENT (below) · talk ACTOR TARGET · visit X,Y · chest X,Y · combat KEY
 ///   guards:     flag NAME · joined KEY (KEY is on the player's side), e.g. "turn 3 enemy unless joined brann => ..."
 ///   effects:    scene ID · spawn GROUP · flag NAME · join KEY · faction KEY player|enemy|ally|neutral · give KEY ITEM
 ///               gold N · terrain CELLS SYMBOL · damage KEY N · leave KEY · win · lose
@@ -196,6 +198,7 @@ public static class MapScript
             "hp" => new HpBelowCondition(Arg(t, 1, line), Int(Arg(t, 2, line))),
             "talk" => new TalkCondition(Arg(t, 1, line), Arg(t, 2, line)),
             "visit" => new VisitCondition(DialogueParser.ParseCell(Arg(t, 1, line))),
+            "chest" => new ChestCondition(DialogueParser.ParseCell(Arg(t, 1, line))),
             "combat" => new CombatCondition(Arg(t, 1, line)),
             _ => throw new FormatException($"Unknown trigger condition '{text}' in '{line}'."),
         };

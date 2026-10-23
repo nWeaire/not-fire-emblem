@@ -97,7 +97,8 @@ public sealed record SupportDef(string PartnerId, int C, int B, int A)
     public int Threshold(int rank) => rank switch { 1 => C, 2 => B, 3 => A, _ => int.MaxValue };
 }
 
-public enum ItemKind { Heal, StatBoost }
+/// <summary>Key items (Door Key, Chest Key) are used up by the Unlock action, not from the Item menu.</summary>
+public enum ItemKind { Heal, StatBoost, Key }
 
 /// <summary>A consumable or key item carried in the 5-slot inventory. Used up when used.</summary>
 public sealed record ItemDef(

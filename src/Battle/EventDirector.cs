@@ -70,6 +70,13 @@ public static class EventDirector
             Fire(s, t, actor, events);
     }
 
+    /// <summary>A chest's contents: fires the cell's "chest X,Y" trigger, if any, for the unit that opened it.</summary>
+    public static void FireChest(BattleState s, BattleUnit actor, GridPos cell, List<BattleEvent> events)
+    {
+        if (Pending(s).FirstOrDefault(t => t.Condition is ChestCondition c && c.Cell == cell) is { } t)
+            Fire(s, t, actor, events);
+    }
+
     public static void FireVisit(BattleState s, BattleUnit actor, List<BattleEvent> events)
     {
         s.VisitedCells.Add(actor.Pos);

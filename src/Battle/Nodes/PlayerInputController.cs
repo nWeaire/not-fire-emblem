@@ -465,6 +465,18 @@ public partial class PlayerInputController : Node
             options.Add(("Seize", () => Submit(new ActCommand(unit.Id, from, new SeizeAction()))));
         if (ActionRules.CanEscape(S, unit, from))
             options.Add(("Escape", () => Submit(new ActCommand(unit.Id, from, new EscapeAction()))));
+        var locks = ActionRules.Unlockable(S, unit, from).ToList();
+        if (locks.Contains(from))
+            options.Add(("Open Chest", () => Submit(new ActCommand(unit.Id, from, new UnlockAction(from)))));
+        var doors = locks.Where(c => c != from).ToList();
+        if (doors.Count == 1)
+            options.Add(("Unlock", () => Submit(new ActCommand(unit.Id, from, new UnlockAction(doors[0])))));
+        else if (doors.Count > 1)
+            options.Add(("Unlock", () => OpenSubMenu(doors.Select(d => (DoorLabel(from, d),
+                (Action)(() => Submit(new ActCommand(unit.Id, from, new UnlockAction(d)))))).ToList(), OpenActionMenu)));
+        var marks = ActionRules.StealTargets(S, unit, from).ToList();
+        if (marks.Count > 0)
+            options.Add(("Steal", () => OpenPick(marks, t => $"Steal from {t.Name}", OpenSteal)));
         var crest = ActionRules.ReadyCrestSkills(S, unit, from).ToList();
         if (crest.Count > 0)
             options.Add(("Crest", () => OpenCrest(crest)));
@@ -510,6 +522,19 @@ public partial class PlayerInputController : Node
             PickFor(spells[0]);
         else
             OpenSubMenu(spells.Select(sp => ($"{sp.Name} ({unit.UsesLeft.GetValueOrDefault(sp.Id)})", (Action)(() => PickFor(sp)))).ToList(), OpenActionMenu);
+    }
+
+    /// <summary>"North door" etc., from the acting unit's cell.</summary>
+    private static string DoorLabel(GridPos from, GridPos door) =>
+        (door.X - from.X, door.Y - from.Y) switch { (0, -1) => "North door", (1, 0) => "East door", (0, 1) => "South door", _ => "West door" };
+
+    /// <summary>Steal: pick one of the target's items it isn't holding.</summary>
+    private void OpenSteal(BattleUnit target)
+    {
+        var unit = _selected!;
+        var from = _dest;
+        OpenSubMenu(ActionRules.Stealable(target).Select(id => (S.Db.ItemName(id),
+            (Action)(() => Submit(new ActCommand(unit.Id, from, new StealAction(target.Id, id)))))).ToList(), OpenActionMenu);
     }
 
     private void OpenItems(List<ItemDef> items)

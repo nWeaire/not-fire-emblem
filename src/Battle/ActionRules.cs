@@ -69,6 +69,15 @@ public static class ActionRules
                 return UsableItems(s, unit).Any(i => i.Id == use.ItemId)
                     ? ValidationResult.Valid
                     : ValidationResult.Fail("That item can't be used now.");
+            case UnlockAction unlock:
+                return Unlockable(s, unit, from).Contains(unlock.Cell)
+                    ? ValidationResult.Valid
+                    : ValidationResult.Fail("Nothing to unlock there.");
+            case StealAction steal:
+                return StealTargets(s, unit, from).FirstOrDefault(t => t.Id == steal.TargetId) is { } mark
+                       && Stealable(mark).Contains(steal.ItemId)
+                    ? ValidationResult.Valid
+                    : ValidationResult.Fail("Nothing to steal.");
             case CrestAction crest:
                 return CrestTargets(s, unit, from, crest.Skill) is { } targets && (crest.TargetId is null
                     ? crest.Skill is CrestSkill.Rally or CrestSkill.Mend
@@ -112,6 +121,47 @@ public static class ActionRules
 
     public static bool CanEscape(BattleState s, BattleUnit unit, GridPos from) =>
         unit.Faction == Faction.Player && s.Map.Goals.Victory == VictoryKind.Escape && s.Map.Goals.Cells.Contains(from);
+
+    // ------------------------------------------------------------------ locks and thieves (Ch 9)
+
+    public const string DoorTerrain = "door";
+    public const string ChestTerrain = "chest";
+    public const string DoorKey = "door_key";
+    public const string ChestKey = "chest_key";
+    /// <summary>What an opened door or chest becomes: stone floor.</summary>
+    public const string OpenedTerrain = "square";
+
+    /// <summary>Thieves open doors and chests without keys.</summary>
+    public static bool HasLocktouch(BattleState s, BattleUnit unit) => s.Db.Class(unit.State.ClassId).HasTrait("Locktouch");
+
+    /// <summary>Locked cells the unit can open from <paramref name="from"/>: doors beside it and a chest under it.</summary>
+    public static IEnumerable<GridPos> Unlockable(BattleState s, BattleUnit unit, GridPos from)
+    {
+        bool touch = HasLocktouch(s, unit);
+        bool doorKey = touch || unit.State.Inventory.Contains(DoorKey);
+        bool chestKey = touch || unit.State.Inventory.Contains(ChestKey);
+        if (chestKey && s.Grid[from].Terrain.Id == ChestTerrain)
+            yield return from;
+        if (!doorKey)
+            yield break;
+        foreach (var cell in new[] { new GridPos(from.X, from.Y - 1), new GridPos(from.X + 1, from.Y), new GridPos(from.X, from.Y + 1), new GridPos(from.X - 1, from.Y) })
+            if (s.Grid.InBounds(cell) && s.Grid[cell].Terrain.Id == DoorTerrain)
+                yield return cell;
+    }
+
+    /// <summary>Adjacent enemies a thief can rob: not faster than the thief, carrying something not in hand.</summary>
+    public static IEnumerable<BattleUnit> StealTargets(BattleState s, BattleUnit thief, GridPos from)
+    {
+        if (!s.Db.Class(thief.State.ClassId).HasTrait("Steal") || thief.State.Inventory.Count >= UnitState.MaxInventory)
+            return Enumerable.Empty<BattleUnit>();
+        int speed = s.Stats(thief).Spd;
+        return s.Living.Where(t => t.Faction.IsHostileTo(thief.Faction) && t.Pos.DistanceTo(from) == 1 && s.CanSee(thief.Faction, t)
+                                   && s.Stats(t).Spd <= speed && Stealable(t).Any());
+    }
+
+    /// <summary>What can be stolen from a unit: anything it carries except the weapon in its hand.</summary>
+    public static IEnumerable<string> Stealable(BattleUnit target) =>
+        target.State.Inventory.Where((_, i) => i != target.State.EquippedIndex).Distinct();
 
     /// <summary>Consumables the unit could use on itself right now.</summary>
     public static IEnumerable<ItemDef> UsableItems(BattleState s, BattleUnit unit) =>

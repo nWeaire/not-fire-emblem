@@ -389,4 +389,58 @@ public class MapRulesTests
         s.Defeat(s.Unit("u3"));
         Assert.Equal(BattleOutcome.Victory, ObjectiveEvaluator.Evaluate(s));
     }
+
+    // ------------------------------------------------------------------ locks and thieves (Ch 9)
+
+    [Fact]
+    public void Doors_OpenWithLocktouchOrAKey_ThatIsUsedUp()
+    {
+        var (s, tm) = Start(new TestBattle("..D..", ".....").Lord(1, 0, "sword", "door_key")
+            .Unit(Faction.Player, "thief", 1, 1, "sword")
+            .Unit(Faction.Enemy, "merc", 4, 1, "sword").WithAi(AiProfile.Stationary));
+        var door = new GridPos(2, 0);
+        Assert.Equal(new[] { door }, ActionRules.Unlockable(s, s.Unit("u0"), new GridPos(1, 0)));
+        Assert.Empty(ActionRules.Unlockable(s, s.Unit("u1"), new GridPos(1, 1))); // not beside it
+        Assert.Equal(new[] { door }, ActionRules.Unlockable(s, s.Unit("u1"), new GridPos(2, 1)));
+
+        var r = tm.Submit(new ActCommand("u0", new GridPos(1, 0), new UnlockAction(door)));
+        Assert.True(r.Ok, r.Error);
+        Assert.Equal("square", s.Grid[door].Terrain.Id);
+        Assert.Equal(new[] { "sword" }, s.Unit("u0").State.Inventory);
+        Assert.Equal("sword", s.Unit("u0").State.EquippedItemId);
+        Assert.Contains(r.Events, e => e is LockOpened { Chest: false });
+    }
+
+    [Fact]
+    public void Chests_GiveTheirContents_ToTheThiefWhoOpensThem()
+    {
+        var (s, tm) = Start(new TestBattle("C....").Lord(4, 0, "sword")
+            .Unit(Faction.Player, "thief", 1, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 3, 0, "sword").WithAi(AiProfile.Stationary)
+            .Triggers("chest 0,0 => give actor energy_drop; gold 500"));
+        Assert.Empty(ActionRules.Unlockable(s, s.Unit("u0"), new GridPos(4, 0)));
+        var r = tm.Submit(new ActCommand("u1", new GridPos(0, 0), new UnlockAction(new GridPos(0, 0))));
+        Assert.True(r.Ok, r.Error);
+        Assert.Contains("energy_drop", s.Unit("u1").State.Inventory);
+        Assert.Equal(500, s.GoldGained);
+        Assert.Equal("square", s.Grid[new GridPos(0, 0)].Terrain.Id);
+    }
+
+    [Fact]
+    public void Steal_TakesWhatIsNotInHand_FromAnEnemyNoFaster()
+    {
+        var (s, tm) = Start(new TestBattle(".....").Lord(4, 0, "sword")
+            .Unit(Faction.Player, "thief", 0, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 1, 0, "sword", "vulnerary", "killer").WithAi(AiProfile.Stationary));
+        var mark = s.Unit("u2");
+        Assert.Equal(new[] { "vulnerary", "killer" }, ActionRules.Stealable(mark));
+        Assert.Empty(ActionRules.StealTargets(s, s.Unit("u0"), new GridPos(3, 0))); // the lord isn't a thief
+
+        var r = tm.Submit(new ActCommand("u1", new GridPos(0, 0), new StealAction("u2", "killer")));
+        Assert.True(r.Ok, r.Error);
+        Assert.Equal(new[] { "sword", "vulnerary" }, mark.State.Inventory);
+        Assert.Equal("sword", mark.State.EquippedItemId);
+        Assert.Contains("killer", s.Unit("u1").State.Inventory);
+        Assert.False(tm.Submit(new ActCommand("u0", new GridPos(4, 0), new StealAction("u2", "sword"))).Ok);
+    }
 }

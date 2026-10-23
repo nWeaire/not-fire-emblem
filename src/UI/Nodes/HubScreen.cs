@@ -541,6 +541,7 @@ public partial class HubScreen : Control
             return i.Kind switch
             {
                 ItemKind.Heal => i.Amount > 0 ? $"Heals {i.Amount} HP" : "Heals fully",
+                ItemKind.Key => i.Id == "chest_key" ? "Opens one chest" : "Opens one locked door",
                 _ => $"{i.Stat} +{i.Amount}",
             };
         return "";

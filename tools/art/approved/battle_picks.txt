@@ -38,3 +38,14 @@ enemy_gloam_harrier 0 claws
 enemy_gloam_shade 1 dark
 enemy_sellsword 0 sword
 enemy_axeman 0 axe
+pip_thief 3 (session 12)
+seraphine_troubadour 1 (session 12)
+ysra_wyvern_rider 3 (session 12)
+halde_archer 2 (session 12)
+ysolde_wyvern_lord 4 (session 12)
+enemy_wyvern_rider 3 (session 12)
+boss_castellan 1 (session 12)
+boss_vossk 0 (session 12)
+boss_morvane 0 (session 12)
+enemy_hollowed 0 (session 12)
+enemy_thief 2 (session 12)

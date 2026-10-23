@@ -58,7 +58,11 @@ chapter; DIALOGUE.md §2 has voices for Pip, Ysra, Halde, Castellan, Vossk and Y
 - **Story additions to the outline:** Ch 11's end sails south to Solmere (Vossk's crests were bought there); Halde's
   Gull carries the party in Ch 12–14; Castellan's last words ("He drinks them, boy. I only sold him the cups.") lead
   to Elise's pattern scene; Osmund raises his voice (the once) at Morvane in Ch 15's reveal.
-- **Art:** no PixelLab credit spent on Act II yet (**~$2.21 left**). Everything Act II needs is listed with its
+- **Art (end of session, after the user added $10):** Act II portraits, the new cast's, bosses' and three common
+  enemies' map + battle sprites, and the ten Act II backgrounds are in (ART_NEEDED §0 "Done"). Still on stand-ins:
+  agitators, Veiled thugs/mages, imperial and Gilded troops, townsfolk/rioters, Calder guards, sailors, tier 2/3
+  outfits, snow tiles, chest/ship props. Not yet checked in game (map scale of the wyverns and Castellan).
+- **Art (during the Act II build):** no PixelLab credit spent at first (**~$2.21 left** then). Everything Act II needs is listed with its
   stand-in in `docs/ART_NEEDED.md` §0 (portraits, the new cast's sprites, Veiled/imperial/Gilded/Hollowed enemies,
   Calder/Solmere/Dravenhold backgrounds, snow tiles, chest and ship props, tier 2/3 outfits).
 - **Autoplay results** (single maps at campaign level, promoted): every Act II map is won by autoplay; Ch 8–9 cost

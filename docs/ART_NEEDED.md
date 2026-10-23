@@ -29,6 +29,16 @@ Act II is being built systems-first. Every unit, portrait and backdrop below alr
 stand-in is named so the real art can drop in under the same id (or the spawn's `SpriteId` can be pointed at it).
 Rough cost per full character (map sprite + walk/attack, battle still takes + 5 animations): about $0.45.
 
+**Done (session 12, user's picks):** portraits `pip` #1, `seraphine` #2, `ysra` #3, `halde` #1, `morvane` #1,
+`castellan` #1, `vossk` #3, `ysolde` #3 (the bottom light bar cleared); map + battle sprites for `pip_thief`,
+`seraphine_troubadour`, `ysra_wyvern_rider`, `halde_archer`, `ysolde_wyvern_lord`, `enemy_wyvern_rider`, `boss_castellan`,
+`boss_vossk`, `boss_morvane`, `enemy_hollowed`, `enemy_thief` (still picks in `approved/battle_picks.txt`; baked-in
+effects erased or dropped by hand, Halde's attack/critical redone so she keeps her crossbow); backgrounds
+`calder_square`, `calder_streets`, `calder_palace`, `calder_lodgings`, `calder_undercity`, `border_pass`, `dravenhold_pass`,
+`solmere_harbor`, `solmere_palazzo`, `dravenhold_citadel` (take 0 installed; other takes in `takes/backgrounds/`). The rows
+below that these cover are done. Not yet checked in game: the wyverns and Castellan fill their 48 px map frames and
+may want `SpriteLibrary.MapScales` like the Gloam Shade.
+
 | Priority | Id | Who / what | Stand-in today | Used in |
 |---|---|---|---|---|
 | P1 | `enemy_veiled_agitator` (map + battle; or `_<classId>` per class) | Veiled agent dressed as a townsman: plain grey cloak, purple sigil glowing on the wrist, sword/tome/axe variants | the class look `enemy_<classId>` | Ch 8 |

@@ -225,6 +225,40 @@ CHARACTERS = {
         desc="tall grim 55 year old lord in heavy ornate steel plate armour, swept-back grey hair, short grey beard, "
              "deep green and gold surcoat and cloak, faint purple glow in his eyes and a glowing purple crest sigil on "
              "his gauntlet, silver lance"),
+    # Act II (session 12): the new party members, the bosses, and the commonest new enemies.
+    "pip_thief": dict(weapon="sword", sets=("map",),
+        desc="cheeky scrawny 15 year old street thief boy, messy dark brown hair under a battered brown cap, oversized "
+             "patched brown coat, bare feet, short iron sword held low"),
+    "seraphine_troubadour": dict(weapon="staff", sets=("map",), template="horse",
+        desc="young princess riding a grey horse, fair golden hair in a braid, thin silver circlet, Calder-blue riding "
+             "coat with silver trim, holding a white healer's staff"),
+    "ysra_wyvern_rider": dict(weapon="lance", sets=("map",), template="horse",
+        desc="young woman knight with a dark braid riding a grey-scaled wyvern with big leathery wings and a long "
+             "tail, black iron armour with white fur at the collar, steel lance"),
+    "halde_archer": dict(weapon="bow", sets=("map",),
+        desc="weathered privateer captain woman, auburn hair under a dark tricorn hat, long red sea coat, brown boots, "
+             "heavy wooden crossbow"),
+    "boss_castellan": dict(weapon="lance", sets=("map",),
+        desc="heavy smug merchant prince in gilded silver plate armour, oiled dark curls, small pointed beard, gold "
+             "chains, purple glowing sigils on both gauntlets, silver lance"),
+    "boss_vossk": dict(weapon="dark", sets=("map",),
+        desc="pale hollow-cheeked man with a shaved head in grey and purple hooded robes, purple sigils crawling over "
+             "both hands, holding a dark tome"),
+    "boss_morvane": dict(weapon="dark", sets=("map",),
+        desc="gentle grey-haired old chancellor in long plain grey court robes, neat grey beard, hands folded, a faint "
+             "purple glow around his hands"),
+    "ysolde_wyvern_lord": dict(weapon="lance", sets=("map",), template="horse",
+        desc="tall fierce empress in black iron armour and a white fur mantle, black iron crown, black hair streaked "
+             "with white, riding a black-scaled wyvern with big leathery wings, silver lance"),
+    "enemy_wyvern_rider": dict(weapon="lance", sets=("map",), template="horse",
+        desc="imperial wyvern rider in dark iron armour with a closed helm and a grey-white tabard with a red wolf, "
+             "riding a grey-scaled wyvern with big leathery wings, iron lance"),
+    "enemy_hollowed": dict(weapon="sword", sets=("map",),
+        desc="hollowed soldier, ash-grey skin, empty pale eyes, rusted dented armour hanging off him, torn grey "
+             "tabard, chipped iron sword, slack expressionless face"),
+    "enemy_thief": dict(weapon="sword", sets=("map",),
+        desc="lean undercity cutpurse, dark hood and scarf over the lower face, patched dark leathers, a long knife and "
+             "a short sword"),
     # Session 12: Halvric's hired garrison in Ch 7 (they borrowed the bandit myrmidon / fighter looks).
     "enemy_sellsword": dict(weapon="sword", sets=("map",),
         desc="hired garrison swordsman, short dark hair, stubble, faint purple glow in the eyes, deep green Dain Hall "
@@ -275,6 +309,23 @@ PORTRAITS = {
              "eyes, soot smudges on his cheek, scorched leather smith's apron over a plain linen shirt",
     "osmund": "fussy precise old royal steward, about 60, neat grey beard, round spectacles, dry polite expression, "
               "high-collared bottle-green coat with brass buttons, a white quill tucked behind his ear",
+    # Act II (session 12).
+    "pip": "cheeky scrawny 15 year old street thief boy, messy dark brown hair under a battered cap, freckles, "
+           "mischievous grin, oversized patched brown coat with the collar turned up",
+    "seraphine": "brave idealistic 17 year old princess, fair golden hair in a travelling braid, clear grey eyes, a "
+                 "thin silver circlet, Calder-blue riding coat with silver trim",
+    "ysra": "blunt proud young woman wyvern rider, dark hair in a tight braid, a thin scar across one cheek, sharp "
+            "dark eyes, black iron gorget over grey-white fur",
+    "halde": "weathered privateer captain woman, about 35, sun-darkened skin, auburn hair tied back under a dark "
+             "tricorn hat, a gold earring, dry half smile, long red sea coat",
+    "morvane": "gentle soft-spoken grey-haired chancellor, about 60, kind tired eyes, neat grey beard, plain grey "
+               "high-collared court robes, a faint purple shimmer in his pupils",
+    "castellan": "heavy smug merchant prince, about 50, oiled dark curls, small pointed beard, heavy-lidded amused "
+                 "eyes, gilded silver gorget and gold chains, faint purple glow at his throat",
+    "vossk": "hollow-cheeked pale man, about 45, shaved head, calm devout expression, grey and purple hooded robes, "
+             "faint purple sigils crawling up his neck",
+    "ysolde": "tall fierce empress, about 40, black hair streaked with white, pale stern face, a black iron crown, "
+              "white fur mantle over black iron armour",
 }
 
 # ------------------------------------------------------------------ backgrounds (generate-image-v2, 240x135)
@@ -303,6 +354,27 @@ BACKGROUNDS = {
     "thornwood": "a dark thorny old forest, twisted trees, brambles, mist, mossy ground in the lower half",
     "dain_hall": "the great hall of a stone castle, tall pillars, green and gold banners, a raised stone throne at "
                  "the far end, tall arched windows with storm clouds outside, flagstone floor in the lower half",
+    # Act II (session 12): story and battle backdrops (UiKit.PlaceholderBackgrounds lists today's stand-ins).
+    "calder_square": "the grand fountain square of an old capital city, tall stone townhouses with blue awnings, "
+                     "market stalls, a palace on a hill behind, cobbled square in the lower half",
+    "calder_streets": "a narrow street of an old capital city, tall stone and timber houses, hanging signs and "
+                      "lanterns, blue banners, cobbled street in the lower half",
+    "calder_palace": "a royal audience hall, tall pillars, deep blue banners with a silver crown, a long carpet to a "
+                     "throne, high arched windows, polished stone floor in the lower half",
+    "calder_lodgings": "comfortable rooms in a capital city inn, wooden beams, a writing desk covered in maps and "
+                       "letters, a window over city rooftops, plank floor in the lower half",
+    "calder_undercity": "underground sewers and cellars beneath a city, brick arches, a dark canal, lanterns, old "
+                        "stone stairs, wet flagstones in the lower half",
+    "border_pass": "a mountain border pass road, a small village of cottages burning in the distance with smoke, "
+                   "rocky slopes, dirt road in the lower half",
+    "dravenhold_pass": "a high snowy mountain pass, black pines, sheer grey cliffs, wyvern roosts on far crags, snow "
+                       "and rock path in the lower half",
+    "solmere_harbor": "a rich harbour city, many tall ships at wooden piers, gilded warehouses, gulls, orange tiled "
+                      "roofs, stone quay in the lower half",
+    "solmere_palazzo": "the gilded great hall of a merchant prince's palace, mirrors and gold leaf, marble pillars, "
+                       "chandeliers, chequered marble floor in the lower half",
+    "dravenhold_citadel": "a black stone imperial citadel courtyard in falling snow, iron gates, braziers, banners "
+                          "with a red wolf, snowy flagstones in the lower half",
     # Hub mockup (session 7): Brookhollow from above, buildings to click (shop, forge, chapel, hall).
     "town_overview": "a small medieval farming village seen from above at a high three-quarter angle, a village "
                      "square with a stone well, timber and thatch cottages, a general store with a hanging sign, a "

@@ -4,7 +4,7 @@ using NotFireEmblem.Grid;
 namespace NotFireEmblem.Units;
 
 /// <summary>Why a unit left the map without dying.</summary>
-public enum MapExit { None, Escaped, Surrendered, Departed, Subdued }
+public enum MapExit { None, Escaped, Surrendered, Departed, Subdued, Retreated }
 
 /// <summary>A unit's battle-only wrapper: position, faction, turn state, current HP and battle statuses.</summary>
 public sealed class BattleUnit

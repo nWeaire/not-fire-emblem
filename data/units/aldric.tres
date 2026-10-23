@@ -33,3 +33,4 @@ Inventory = PackedStringArray("steel_sword")
 IsLord = false
 Armor = "wardens_hide"
 Arts = PackedStringArray("wardens_edge")
+Retreats = true

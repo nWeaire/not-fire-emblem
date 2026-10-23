@@ -384,6 +384,8 @@ def ch3():
 # ------------------------------------------------------------------ Chapter 4: The Scholar of Calder (26×26)
 
 def ch4():
+    # Session 12: data/maps/ch4.tres mixes Dain Hall Sellswords (iron sword) and Axemen (iron axe) in among the lance
+    # soldiers, edited by hand; port that here before rerunning this for Ch 4.
     g = Grid(26, 26)
     # Hill country: rocky hills in the corners (raised), woods along the flanks.
     for x0, y0, x1, y1 in [(0, 0, 3, 3), (22, 0, 25, 3), (0, 22, 2, 25), (23, 22, 25, 25)]:
@@ -401,6 +403,8 @@ def ch4():
     g.vline(13, 0, 25)
     g.hline(4, 3, 10, "W")
     g.hline(4, 15, 22, "W")
+    g.raise_(3, 4, 10, 4, 2)   # session 12 playtest: real stone walls, not flat ones
+    g.raise_(15, 4, 22, 4, 2)
     # The waystation to the south-east: three buildings (forts) where the party can rest.
     g.spots("T", [(20, 20), (21, 21), (22, 21)])
     g.spots("P", [(10, 25), (11, 25), (14, 25), (15, 25)])

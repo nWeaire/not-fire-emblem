@@ -56,6 +56,7 @@ public partial class BattleEventPlayer : Node
         UnitEscaped x => PlayLeave(x.UnitId, "Escaped"),
         UnitDeparted d => PlayLeave(d.UnitId, null),
         UnitSubdued u => PlayLeave(u.UnitId, "Subdued"),
+        UnitRetreated r => PlayLeave(r.UnitId, "Retreats, wounded"),
         CrestSevered s => PlaySevered(s),
         UnitStunnedSkip s => Info(s.UnitId, "Stunned", null),
         ExpGained x => PlayExp(x),

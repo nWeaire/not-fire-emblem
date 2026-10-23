@@ -18,6 +18,7 @@ namespace NotFireEmblem.Core;
 ///   --newgame / --load=N     (title screen) start a campaign at once
 ///   --resume                 (title screen) resume the suspended battle
 ///   --exp=N                  player units start each battle with N EXP (to test level-ups)
+///   --fogstyle=N             fog of war drawn in style N (FogLooks.Styles: 0 flat squares, 1 murk, 2 mist, ...)
 ///   --hideunits              the battle map shows no units or HUD (screenshots of the map art alone)
 ///   --focus=X,Y              the battle camera and cursor start on this cell instead of the lord
 ///   --level=N|auto           single battles (--map): player units below level N are raised to it with average gains;
@@ -32,6 +33,8 @@ public partial class DevTools : Node
     public static int? StartExp { get; private set; }
     public static bool HideUnits { get; private set; }
     public static NotFireEmblem.Grid.GridPos? FocusCell { get; private set; }
+    /// <summary>--fogstyle=N: how fog of war is drawn (FogLooks.Styles); null = the game's choice.</summary>
+    public static int? FogStyle { get; private set; }
     /// <summary>--level: a level, or 0 for "auto" (the map's entry in <see cref="CampaignLevels"/>); null when unset.</summary>
     public static int? PartyLevel { get; private set; }
 
@@ -73,6 +76,9 @@ public partial class DevTools : Node
                     break;
                 case "--level":
                     PartyLevel = parts[1] == "auto" ? 0 : int.Parse(parts[1]);
+                    break;
+                case "--fogstyle":
+                    FogStyle = int.Parse(parts[1]);
                     break;
                 case "--focus":
                     var xy = parts[1].Split(',');

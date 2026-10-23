@@ -33,4 +33,5 @@ Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray()
 IsLord = false
 Spells = PackedStringArray("prayer")
+Retreats = true
 Crestbound = "oracle"

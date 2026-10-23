@@ -16,6 +16,20 @@ public static class BattleProgress
     /// </summary>
     public static void Defeat(BattleState s, BattleUnit unit, List<BattleEvent> events)
     {
+        // Story-critical units (UnitDef.Retreats) retreat wounded instead of dying, unless the map says they must
+        // survive (then their fall loses the battle, as before). Session 12: the user's answer to "what if Aldric dies
+        // before Ch 15?".
+        if (unit.IsRosterUnit && unit.State.Def.Retreats && unit.Faction == Faction.Player
+            && !s.Map.Goals.MustSurvive.Contains(unit.Key ?? ""))
+        {
+            unit.CurrentHp = 1;
+            s.RemoveFromMap(unit, MapExit.Retreated);
+            events.Add(new UnitRetreated(unit.Id));
+            string scene = $"retreat_{unit.State.Def.Id}";
+            if (s.Db.Scenes.ContainsKey(scene))
+                events.Add(new DialogueRequested(scene));
+            return;
+        }
         if (unit.NonLethal)
         {
             // Beaten, not killed (Ch 14's Empress): off the map, alive.

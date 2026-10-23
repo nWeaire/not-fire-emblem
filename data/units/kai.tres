@@ -36,4 +36,5 @@ IsLord = false
 Armor = "padded_gambeson"
 Arts = PackedStringArray("spear_rush")
 Supports = PackedStringArray("mira:8,20,35")
+Retreats = true
 Crestbound = "vanguard"

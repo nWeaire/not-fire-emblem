@@ -521,4 +521,33 @@ public class MapRulesTests
         Assert.True(tm.Submit(new ActCommand("u0", new GridPos(0, 0), new AttackAction(morvane.Id, new WeaponAttack("killer")))).Ok);
         Assert.Equal(hp, morvane.CurrentHp);
     }
+
+    [Fact]
+    public void StoryCriticalUnits_RetreatInsteadOfDying_UnlessTheyMustSurvive()
+    {
+        foreach (bool mustSurvive in new[] { false, true })
+        {
+            var b = new TestBattle(".....").Lord(4, 0, "sword")
+                .Unit(Faction.Enemy, "merc", 1, 0, "killer").WithAi(AiProfile.Stationary);
+            b.Db.Add(new UnitDef("father", "Father", "merc", 1, default, default, new[] { "sword" }, false, Retreats: true));
+            b.With(sp => sp).Defeat(mustSurvive ? new[] { "die father" } : System.Array.Empty<string>());
+            var map = b.Map() with { Spawns = b.Map().Spawns.Append(new SpawnDef("father", null, null, 1, System.Array.Empty<string>(), Faction.Player, new GridPos(0, 0))).ToList() };
+            var s = BattleSetup.Create(b.Db, map, 1);
+            var tm = new TurnManager(s);
+            tm.StartBattle();
+            var father = s.ByKey("father")!;
+            father.CurrentHp = 1;
+            Assert.True(tm.Submit(new ActCommand(father.Id, new GridPos(0, 0), new AttackAction("u1", new WeaponAttack("sword")))).Ok);
+            if (mustSurvive)
+            {
+                Assert.True(father.IsDefeated);
+                Assert.Equal(BattleOutcome.Defeat, s.Outcome);
+            }
+            else
+            {
+                Assert.False(father.IsDefeated);
+                Assert.Equal(MapExit.Retreated, father.Exit);
+            }
+        }
+    }
 }

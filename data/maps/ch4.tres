@@ -25,24 +25,24 @@ Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_3"]
 script = ExtResource("2_spawn")
-ClassId = "soldier"
-Name = "Dain Hall Soldier"
-SpriteId = "enemy_soldier"
+ClassId = "myrmidon"
+Name = "Dain Hall Sellsword"
+SpriteId = "enemy_sellsword"
 Armor = "padded_gambeson"
 Level = 4
-Inventory = PackedStringArray("iron_lance")
+Inventory = PackedStringArray("iron_sword")
 Faction = 1
 Position = Vector2i(13, 3)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_4"]
 script = ExtResource("2_spawn")
-ClassId = "soldier"
-Name = "Dain Hall Soldier"
-SpriteId = "enemy_soldier"
+ClassId = "fighter"
+Name = "Dain Hall Axeman"
+SpriteId = "enemy_axeman"
 Armor = "padded_gambeson"
 Level = 5
-Inventory = PackedStringArray("iron_lance")
+Inventory = PackedStringArray("iron_axe")
 Faction = 1
 Position = Vector2i(16, 2)
 Ai = 0
@@ -72,38 +72,38 @@ Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_7"]
 script = ExtResource("2_spawn")
-ClassId = "soldier"
-Name = "Dain Hall Soldier"
-SpriteId = "enemy_soldier"
+ClassId = "myrmidon"
+Name = "Dain Hall Sellsword"
+SpriteId = "enemy_sellsword"
 Armor = "padded_gambeson"
 Level = 4
-Inventory = PackedStringArray("iron_lance")
+Inventory = PackedStringArray("iron_sword")
 Faction = 1
 Position = Vector2i(15, 3)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_8"]
 script = ExtResource("2_spawn")
-ClassId = "soldier"
-Name = "Dain Hall Soldier"
+ClassId = "myrmidon"
+Name = "Dain Hall Sellsword"
 Group = "north2"
-SpriteId = "enemy_soldier"
+SpriteId = "enemy_sellsword"
 Armor = "padded_gambeson"
 Level = 4
-Inventory = PackedStringArray("iron_lance")
+Inventory = PackedStringArray("iron_sword")
 Faction = 1
 Position = Vector2i(12, 0)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_9"]
 script = ExtResource("2_spawn")
-ClassId = "soldier"
-Name = "Dain Hall Soldier"
+ClassId = "fighter"
+Name = "Dain Hall Axeman"
 Group = "north2"
-SpriteId = "enemy_soldier"
+SpriteId = "enemy_axeman"
 Armor = "padded_gambeson"
 Level = 4
-Inventory = PackedStringArray("iron_lance")
+Inventory = PackedStringArray("iron_axe")
 Faction = 1
 Position = Vector2i(13, 0)
 Ai = 0
@@ -135,26 +135,26 @@ Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_12"]
 script = ExtResource("2_spawn")
-ClassId = "soldier"
-Name = "Dain Hall Soldier"
+ClassId = "fighter"
+Name = "Dain Hall Axeman"
 Group = "north4"
-SpriteId = "enemy_soldier"
+SpriteId = "enemy_axeman"
 Armor = "padded_gambeson"
 Level = 5
-Inventory = PackedStringArray("iron_lance")
+Inventory = PackedStringArray("iron_axe")
 Faction = 1
 Position = Vector2i(13, 0)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_13"]
 script = ExtResource("2_spawn")
-ClassId = "soldier"
-Name = "Dain Hall Soldier"
+ClassId = "myrmidon"
+Name = "Dain Hall Sellsword"
 Group = "north5"
-SpriteId = "enemy_soldier"
+SpriteId = "enemy_sellsword"
 Armor = "padded_gambeson"
 Level = 5
-Inventory = PackedStringArray("iron_lance")
+Inventory = PackedStringArray("iron_sword")
 Faction = 1
 Position = Vector2i(12, 0)
 Ai = 0
@@ -174,13 +174,13 @@ HardOnly = true
 
 [sub_resource type="Resource" id="SpawnDefinition_15"]
 script = ExtResource("2_spawn")
-ClassId = "soldier"
-Name = "Dain Hall Soldier"
+ClassId = "fighter"
+Name = "Dain Hall Axeman"
 Group = "woods3"
-SpriteId = "enemy_soldier"
+SpriteId = "enemy_axeman"
 Armor = "padded_gambeson"
 Level = 5
-Inventory = PackedStringArray("iron_lance")
+Inventory = PackedStringArray("iron_axe")
 Faction = 1
 Position = Vector2i(7, 16)
 Ai = 0
@@ -212,13 +212,13 @@ Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_18"]
 script = ExtResource("2_spawn")
-ClassId = "soldier"
-Name = "Dain Hall Soldier"
+ClassId = "myrmidon"
+Name = "Dain Hall Sellsword"
 Group = "woods5"
-SpriteId = "enemy_soldier"
+SpriteId = "enemy_sellsword"
 Armor = "padded_gambeson"
 Level = 5
-Inventory = PackedStringArray("iron_lance")
+Inventory = PackedStringArray("iron_sword")
 Faction = 1
 Position = Vector2i(5, 22)
 Ai = 0
@@ -266,7 +266,7 @@ script = ExtResource("1_map")
 Id = "ch4"
 Name = "Chapter 4: The Scholar of Calder"
 TerrainRows = PackedStringArray("MMMMFFFFPPPP==PPPPFFFFMMMM", "MMMMFFFFPPPP==PPPPFFFFMMMM", "MMMMFFFFPPPP==PPPPFFFFMMMM", "MMMMPPPPPPPP==PPPPPPPPMMMM", "PPPWWWWWWWWP==PWWWWWWWWPPP", "PPPPPPPPPPPP==PPPPPPPPPPPP", "PPPPPPPPP,PP==PP,PPPP,PPPP", "PPPPFFFFPP,P==PPPPPPPPPPPP", "FFFPFFFFPPPP==P,PPFFFFPFFF", "FFFPFFFFPPPP==PPPPFFFFPFFF", "FFFPFFFFPP,P==PPPPFFFFPFFF", "FFFPPPPPPPPP==PPPPFFFFPFFF", "FFFP,PPPPPPP==PPPPPPPPPFFF", "PPPPPP,PP,PP==PPP,PPPPPPPP", "FFPPPPPPPPPP==PPPPPP,PPPFF", "FFPPPFFFFPPP==PPPPPPPPPPFF", "FFPPPFFFFPPP==PPPPPPPPPPFF", "FFPPPFFFFPPP==PPPPPPPPPPFF", "FFPPPFFFFPPP==PPPPPPPPPPFF", "FFPPPPPPPPPP==PPPFFFPPPPFF", "PPPFFFFP,PPP==PPPFFFTPPPPP", "PPPFFFFPPPPP==PPPFFFPTTPPP", "MMMFFFFPPPPP==PPPPPPPPPMMM", "MMMFFFFPP,PP==PP,PPPPPPMMM", "MMMPPPPPPPPP==PPPPP,PPPMMM", "MMMPPPPPPPPP==PPPPPPPPPMMM")
-HeightRows = PackedStringArray("22220000000000000000002222", "22220000000000000000002222", "22220000000000000000002222", "22220000000000000000002222", "11110000000000000000001111", "11110000000000000000001111", "11110000000000000000001111", "11110000000000000000001111", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "22200000000000000000000222", "22200000000000000000000222", "22200000000000000000000222", "22200000000000000000000222")
+HeightRows = PackedStringArray("22220000000000000000002222", "22220000000000000000002222", "22220000000000000000002222", "22220000000000000000002222", "11122222222000022222222111", "11110000000000000000001111", "11110000000000000000001111", "11110000000000000000001111", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "00000000000000000000000000", "22200000000000000000000222", "22200000000000000000000222", "22200000000000000000000222", "22200000000000000000000222")
 Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21")])
 Victory = "escape 10,25-15,25 elise rowan"
 Defeat = PackedStringArray("die elise")

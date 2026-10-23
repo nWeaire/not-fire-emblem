@@ -32,4 +32,5 @@ Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray("vulnerary")
 IsLord = false
 Armor = ""
+Retreats = true
 Crestbound = "lightbearer"

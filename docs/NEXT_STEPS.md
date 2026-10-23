@@ -2,9 +2,67 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-23 (session 12)._
+_Last updated: 2026-10-23 (end of session 12)._
 
 ---
+
+## Session 12 (late): Act I playtest notes
+- **Fog of war** is now drifting layered fog over the hidden cells (the user's pick, "Eerie mist": a dim floor and two
+  pale violet-grey mist layers), drawn as map-wide planes sampling a one-pixel-per-cell mask with linear filtering
+  (soft edges) and pulled toward the camera between the props and the units, so it covers the trees in its cells
+  (`FogLooks`, `FogPlane`, `BattleController.DefaultFogStyle = 2`). `--fogstyle=N` shows the others (0 the old flat
+  squares, 1 dark murk, 3 green ghost fog, 4 purple shroud); the pick sheets were Ch 3 and Ch 9.
+- **Ch 4:** the toll-gate palisade along the north is raised into real stone walls (height 2), and the Dain Hall troops
+  are mixed: 5 Sellswords (iron sword), 4 Axemen (iron axe), 5 lance soldiers, the archers and the sergeant (hand edit of
+  `ch4.tres`; `act1_early.py` notes it). Ch 7 was mixed last session; Ch 6's Dain Hall units are the pegasus scouts.
+- **Gold:** +150 a battle (`VictoryGold` = 300 + 50 × chapter).
+- **Story-critical units retreat** (the user's answer to "what if Aldric dies before Ch 15?"): `UnitDef.Retreats`
+  (Aldric, Kai, Mira, Seraphine) at 0 HP leave the field wounded (`MapExit.Retreated`, `UnitRetreated`, a
+  `retreat_<id>` line from `data/dialogue/retreats.txt`) and are back next chapter, even in Classic. Where a map says
+  the unit must survive (`die KEY`, e.g. Aldric in Ch 15), falling still loses. Other companions keep permadeath.
+- **Soak:** the full campaign ran from a new game into Act II with no script errors, then stuck on Ch 12 (10 losses):
+  autoplay never promoted anyone in the hub, and on escape maps walked the unarmed Seraphine at the guards. Autoplay
+  now promotes everyone eligible in the hub and shelters unarmed units until it's time to leave.
+
+## Session 12 (later): Act II built, systems first
+The user asked to build Act II with the maps scaled like Act I (+60% per side), systems and functionality first, art
+placeholders until PixelLab credits come. **All eight chapters (Ch 8–15) are built and chained in the campaign**;
+`data/campaign/main.txt` now ends with the Act II text after Ch 15. Maps come from `tools/maps/act2_early.py` (also
+the Act II content: door/chest terrain, keys, crossbow, classes, Pip/Seraphine/Ysra/Halde/Ysolde); dialogue in
+`data/dialogue/ch08.txt`–`ch15.txt` plus `hub_briefing_ch08`–`ch15` in `hub.txt`. CHAPTERS.md has a "built" entry per
+chapter; DIALOGUE.md §2 has voices for Pip, Ysra, Halde, Castellan, Vossk and Ysolde.
+- **New systems (all with unit tests, 134 in total):**
+  - **Neutral faction** (Ch 8 rioters): its own phase after the enemy's; only starts fights with Ally units.
+  - **Shared-key Dominion**: several bearers can share a key; a fallen non-crest holder calms only the units round it
+    ("Calmed!"); `boss KEY` needs every unit with the key down; `defeated KEY` fires for any of them.
+  - **Per-spawn `Ignores`** (keys the AI leaves alone while the player doesn't command them), **`DominionRadius`**,
+    **`NonLethal`** (subdued at 0 HP, `subdued KEY` trigger, freed not sent away by severance), **`Invulnerable`**
+    (no damage, "—" in the forecast, the AI never targets it). The map writer now also writes `Leash` (it had been
+    dropping it: Ch 9–11's boss leashes apply now).
+  - **Locked doors and chests** (`D`/`C` terrain), the **Unlock** action (Thief's Locktouch or single-use Door/Chest
+    Keys, sold in Calder), `chest X,Y => ...` triggers, and the Thief's **Steal**.
+  - **Victory grammar:** `... or boss KEY` (Ch 10), `escape CELLS all` (everyone out, the lord last; units a script
+    removed don't count), `talk a|b TARGET` (several actors).
+  - **Classes:** Thief/Rogue, Troubadour/Valkyrie, Wyvern Rider/Lord, Hollowed; the missing tier 2 **General** (lance
+    and axe), **Swordmaster**, **Falcon Knight** (Dorran, Sable and Wren couldn't promote after Ch 7); thirteen tier 3
+    **Crestbound** classes, one per companion (`UnitDef.Crestbound`, offered from tier 2 at crest tier 3; signature
+    arts still to design). Art falls back through earlier outfits (`Outfits.Earlier`).
+  - **Placeholders:** `BattleUnit.PlaceholderSprites` (stand-in looks, then the class look) and
+    `UiKit.PlaceholderBackgrounds`, so data uses the real ids today. `Lighting = "snow"` (cold wash + snowfall).
+  - **Audio:** synthesized `wing_beat`, `sword_fall`, `crest_corrupt` and the `loss` lament.
+  - **Dev:** single-map tests use the campaign's crest tier for the map, and `--level` promotes at 10 when the crest
+    allows (an Act II party is tier 2); `--map=... --autoplay` quits after the result; content validation failures
+    stop the game booting (the unit tests can't load .tres files, so boot once after data changes).
+  - **Autoplay:** a lone lord presses on to a seize tile too (the soak stuck on Ch 7 at T61); must-survive healers heal
+    from safety; escape-all maps fight, then leave (in a hurry under a turn limit), the lord waiting beside the exit.
+- **Story additions to the outline:** Ch 11's end sails south to Solmere (Vossk's crests were bought there); Halde's
+  Gull carries the party in Ch 12–14; Castellan's last words ("He drinks them, boy. I only sold him the cups.") lead
+  to Elise's pattern scene; Osmund raises his voice (the once) at Morvane in Ch 15's reveal.
+- **Art:** no PixelLab credit spent on Act II yet (**~$2.21 left**). Everything Act II needs is listed with its
+  stand-in in `docs/ART_NEEDED.md` §0 (portraits, the new cast's sprites, Veiled/imperial/Gilded/Hollowed enemies,
+  Calder/Solmere/Dravenhold backgrounds, snow tiles, chest and ship props, tier 2/3 outfits).
+- **Autoplay results** (single maps at campaign level, promoted): every Act II map is won by autoplay; Ch 8–9 cost
+  3–8 units (an unpromoted level 9–10 party), Ch 10–14 0–4 (probably easy for a human), Ch 15 wins 3/4 (tight escape).
 
 ## Session 12: polish before Act II
 - **Ch 7 garrison art:** new `enemy_sellsword` and `enemy_axeman` looks (deep green Dain Hall tabard over mail, purple
@@ -79,7 +137,24 @@ _Last updated: 2026-10-23 (session 12)._
 - **Gold** checked with the user: fine for now (table: 150 + 50 × chapter plus story gold, ~5,000 over Act I).
 - **Dev:** `--focus=X,Y` starts the battle camera on a cell (with `--hideunits` for map-art screenshots).
 
-## Where things stand (end of session 11)
+## Where things stand (end of session 12)
+- **Acts I and II are playable end to end** (Prologue to Ch 15); Act II is new and **not hand-playtested yet**. All on
+  `main`, committed, **not pushed** (the user asked to commit; pushing wasn't confirmed).
+- **Tests:** 134 pass. Content validates on boot.
+- **PixelLab:** about $2.21 credit left; Act II runs on placeholders.
+
+## Next (plan for session 13)
+1. **Hand playtest Act II** (`--map=ch8` … `ch15` with `--level=auto`, or a campaign save at Ch 7): balance (Ch 8–9
+   hardest, 10–14 maybe easy), the riot's neutral phase, doors/chests/Steal with Pip, Seraphine's escort, the cliffs,
+   the Gull escape, the vault, the Empress (subdued, not killed), and Ch 15's door.
+2. **Decide with the user:** story-critical units in Classic (Seraphine leads Calder in Act III, but can die in
+   Ch 10–15 today: retreat instead of dying?); the **Old Warden Vault** side map for Lyra's Blade ("Rowan's weapon from
+   Ch 15 on", needs Aldric, so before Ch 15: not built); the Act II hub (still Brookhollow's hall; `calder_lodgings`
+   is a placeholder); Crestbound signature arts.
+3. **Art** when credits come: ART_NEEDED §0, portraits and the new cast first.
+4. **Act III** ("The Hollow Path", Ch 16–22) after that.
+
+## Where things stood (end of session 11)
 - **Act I is playable end to end and hand-playtested.** Everything from sessions 10 and 11 is merged into `main` and
   pushed to GitHub (`43b16002`); `act1-scale` is merged (fast-forward) and only exists locally. The repo is on `main`.
 - **Windows build** re-exported to `build/windows/The Radiant Crest.exe` + `.pck` (gitignored) from `43b16002`; it
@@ -87,7 +162,7 @@ _Last updated: 2026-10-23 (session 12)._
 - **Tests:** 120 pass. Full autoplay soak reaches CAMPAIGN COMPLETE with no script errors.
 - **PixelLab:** about $2.85 credit left.
 
-## Next (plan for session 12)
+## Next (plan for session 12, done)
 1. **Testing workflow:** single battles at campaign strength with `--map=<id> --level=auto` (story classes and items
    included); `--level=auto` on a normal launch also applies to Battle Select. Retry from the Esc menu.
 2. **Polish:** done in session 12 (garrison art, `act1_ch7.py` ported); knights with axes skipped.

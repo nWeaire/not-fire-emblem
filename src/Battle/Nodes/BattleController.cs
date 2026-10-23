@@ -190,6 +190,8 @@ public partial class BattleController : Node3D
             AddSnow();
         foreach (var overlay in new[] { RangeOverlay, PathOverlay, DangerOverlay, FogOverlay, MarkerOverlay })
             overlay.Init(State.Grid);
+        if (State.Map.Fog)
+            BuildFogLayers();
         Cursor.Init(State.Grid);
         UpdateCrestSprites(rebuild: false);
         foreach (var unit in State.Living)
@@ -481,6 +483,24 @@ public partial class BattleController : Node3D
         }
     }
 
+    /// <summary>The fog of war style in use (FogLooks.Styles; --fogstyle overrides).</summary>
+    public const int DefaultFogStyle = 2; // "Eerie mist", the user's pick (session 12)
+
+    private readonly List<FogPlane> _fogLayers = new();
+
+    /// <summary>Fog styles past 0 draw drifting fog in layers over the hidden cells, instead of the flat squares.</summary>
+    private void BuildFogLayers()
+    {
+        int style = Math.Clamp(DevTools.FogStyle ?? DefaultFogStyle, 0, FogLooks.Styles.Count - 1);
+        foreach (var layer in FogLooks.Styles[style].Layers)
+        {
+            var plane = new FogPlane { Name = "FogLayer" };
+            FogOverlay.GetParent().AddChild(plane);
+            plane.Setup(State.Grid, layer);
+            _fogLayers.Add(plane);
+        }
+    }
+
     /// <summary>Re-applies fog (hidden cells and enemy views) and the objective/visit markers.</summary>
     public void RefreshMapState()
     {
@@ -488,7 +508,16 @@ public partial class BattleController : Node3D
         if (State.Map.Fog)
         {
             var visible = State.VisibleCells(Faction.Player);
-            FogOverlay.ShowCells(State.Grid.AllPositions().Where(p => !visible.Contains(p)).Select(p => (p, CellOverlay.FogColor)).ToList());
+            var hidden = State.Grid.AllPositions().Where(p => !visible.Contains(p)).ToList();
+            if (_fogLayers.Count == 0)
+            {
+                FogOverlay.ShowCells(hidden.Select(p => (p, CellOverlay.FogColor)).ToList());
+            }
+            else
+            {
+                foreach (var layer in _fogLayers)
+                    layer.ShowCells(hidden);
+            }
         }
         foreach (var unit in State.Living)
             ViewOf(unit.Id)?.SetHidden(!State.CanSee(Faction.Player, unit));
@@ -616,8 +645,8 @@ public partial class BattleController : Node3D
         // careful. Units that only must survive still fight, but pull back sooner (above).
         var decisions = State.LivingOf(Faction.Player).Where(u => u.ActionState != ActionState.Done)
             .Select(u => IsVital(u) ? LordDecision(u)
+                : !TimeToLeave(u) && CarefulAi.Shelter(State, u, State.Reach(u)) is { } shelter ? new AiDecision(u, shelter, null)
                 : State.Map.Goals.EscapeAll ? FightOrLeave(u)
-                : CarefulAi.Shelter(State, u, State.Reach(u)) is { } shelter ? new AiDecision(u, shelter, null)
                 : AiController.Decide(State, u, AutoplayWeights)).ToList();
         return decisions.Where(d => d.AttackScore is not null).OrderByDescending(d => d.AttackScore).FirstOrDefault()
                ?? decisions.FirstOrDefault(d => !IsVital(d.Unit)) ?? decisions.FirstOrDefault();
@@ -627,14 +656,23 @@ public partial class BattleController : Node3D
     /// Escape-everyone maps (Ch 12): fight, or go after the enemies left, and head for the exit once none are. (Only the
     /// lord skirts danger on the way out: a stationary caster covering the gangplank stalled everyone else for 45 turns.)
     /// </summary>
+    /// <summary>
+    /// Escape-everyone maps: in a hurry when there's a turn limit and an exit is open (Ch 15's endless Hollowed and an
+    /// unbeatable Morvane), else once no foe that can be hurt is left.
+    /// </summary>
+    private bool Hurry(BattleUnit unit) =>
+        State.Map.Goals.EscapeAll && State.Map.Goals.TurnLimit > 0
+        && State.Map.Goals.Cells.Any(c => State.Grid[c].Terrain.CostFor(State.MoveType(unit)) > 0);
+
+    private bool TimeToLeave(BattleUnit unit) =>
+        State.Map.Goals.EscapeAll && (Hurry(unit) || !State.LivingOf(Faction.Enemy).Any(e => !e.Invulnerable));
+
     private AiDecision FightOrLeave(BattleUnit unit)
     {
         var d = AiController.Decide(State, unit, AutoplayWeights);
         var goals = State.Map.Goals;
-        // Endless waves or an unbeatable foe under a turn limit (Ch 15): once an exit is open, just go.
-        bool hurry = goals.TurnLimit > 0 && goals.Cells.Any(c => State.Grid[c].Terrain.CostFor(State.MoveType(unit)) > 0);
-        bool foesLeft = State.LivingOf(Faction.Enemy).Any(e => !e.Invulnerable);
-        if (!hurry && (d.AttackScore is not null || foesLeft))
+        bool hurry = Hurry(unit);
+        if (!TimeToLeave(unit))
             return d;
         if (!hurry)
             return LordDecision(unit);

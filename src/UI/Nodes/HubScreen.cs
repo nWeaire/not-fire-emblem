@@ -136,7 +136,18 @@ public partial class HubScreen : Control
         BuildTour();
         Refresh();
         if (DevTools.AutoAdvance)
+        {
+            // Soak runs promote everyone who can, as a player would (session 12: an unpromoted Act II army stalled on Ch 12).
+            if (DevTools.Autoplay)
+                foreach (var unit in S.ActiveRoster.ToList())
+                    foreach (var target in PromotionService.Targets(Db, unit).ToList())
+                        if (HubService.Promote(Db, S, unit, target) is null)
+                        {
+                            GD.Print($"AUTOPLAY promoted {unit.Def.Name} to {Db.Class(target).Name}");
+                            break;
+                        }
             GetTree().CreateTimer(0.5).Timeout += CampaignFlow.LeaveHub;
+        }
     }
 
     /// <summary>Back (X / Esc / B): from anywhere in the hub, the selection jumps to Party at the top of the places list.</summary>

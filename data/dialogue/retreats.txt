@@ -1,0 +1,14 @@
+# Retreat lines: story-critical units (UnitDef.Retreats) who fall are carried off the field wounded instead of dying,
+# and are back next chapter (session 12). BattleProgress.Defeat plays "retreat_<unitId>" if it exists.
+
+### retreat_aldric
+ALDRIC [hurt]: Hah. Getting slow. Keep moving, son. I'll be sore, not dead. Eat first.
+
+### retreat_kai
+KAI [hurt]: Ow. Okay. That one's on me. I'm out, Rowan, don't you dare stop for me!
+
+### retreat_mira
+MIRA [hurt]: I can't... stand. Don't look back at me. Finish it, then come and find me.
+
+### retreat_seraphine
+SERAPHINE [hurt]: I'm sorry, I can't hold on any longer. Win this. For all of us.

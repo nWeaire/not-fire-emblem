@@ -160,10 +160,11 @@ public sealed class CampaignRunner
     /// fallen units die (Classic) or recover (Casual), and gold, items, flags and support points are added.
     /// </summary>
     /// <summary>
-    /// Gold for every victory, rising through the campaign (Prologue 150, Ch 1 200 … Ch 7 500): about one new item a
-    /// battle (session 9 playtest: 500 + 150 a chapter left 1850 to spend after Ch 2, enough to re-equip everyone).
+    /// Gold for every victory, rising through the campaign (Prologue 300, Ch 1 350 … Ch 7 650, Ch 15 1050): about one
+    /// new item a battle (session 9 playtest: 500 + 150 a chapter left 1850 to spend after Ch 2; session 12 playtest:
+    /// +150 a battle).
     /// </summary>
-    public static int VictoryGold(int chapter) => 150 + 50 * chapter;
+    public static int VictoryGold(int chapter) => 300 + 50 * chapter;
 
     /// <summary>EXP every deployed roster unit still standing at the end of a won battle receives.</summary>
     public const int SurvivorExp = 20;

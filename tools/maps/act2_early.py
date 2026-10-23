@@ -199,11 +199,20 @@ def tier1_routes():
         path.write_text(text, encoding="utf-8", newline="\n")
 
 
+def retreats(uid):
+    """Marks a unit story-critical: at 0 HP it retreats wounded instead of dying (UnitDef.Retreats)."""
+    path = DATA / "units" / f"{uid}.tres"
+    text = path.read_text(encoding="utf-8")
+    if "Retreats = true" not in text:
+        path.write_text(text.rstrip("\n") + "\nRetreats = true\n", encoding="utf-8", newline="\n")
+
+
 def units():
     unit("pip", "Pip", "thief", 6, dict(HP=1, Dex=2, Spd=3, Lck=4),
          dict(HP=50, Str=30, Mag=5, Dex=55, Spd=75, Lck=70, Def=15, Res=25), ["iron_sword", "vulnerary"], "")
     unit("seraphine", "Seraphine", "troubadour", 9, dict(HP=1, Mag=2, Lck=2, Res=3),
          dict(HP=45, Str=15, Mag=55, Dex=40, Spd=50, Lck=60, Def=15, Res=55), ["vulnerary"], "")
+    retreats("seraphine")  # story-critical: she leads Calder in Act III
     unit("halde", "Halde", "archer", 12, dict(HP=2, Str=1, Dex=2, Lck=1),
          dict(HP=55, Str=45, Mag=5, Dex=55, Spd=35, Lck=40, Def=30, Res=20), ["crossbow", "steel_bow"], "leather_jerkin")
     # Empress Ysolde: Ch 14's dominated enemy you mustn't kill (NonLethal); an NPC ally for the finale.

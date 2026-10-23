@@ -69,7 +69,7 @@ Armor = "{armor}"
 
 def spawn_block(i, s):
     lines = [f'[sub_resource type="Resource" id="SpawnDefinition_{i}"]', 'script = ExtResource("2_spawn")']
-    for key in ("UnitId", "ClassId", "Name", "Tag", "Group", "DominatedBy", "SpriteId", "Armor"):
+    for key in ("UnitId", "ClassId", "Name", "Tag", "Group", "DominatedBy", "SpriteId", "Armor", "Ignores"):
         if s.get(key):
             lines.append(f'{key} = "{s[key]}"')
     lines.append(f"Level = {s.get('Level', 1)}")

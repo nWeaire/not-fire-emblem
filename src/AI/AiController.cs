@@ -92,10 +92,12 @@ public static class AiController
 
     /// <summary>
     /// Whether the AI would go after <paramref name="target"/>: any hostile unit, except that Neutral units (rioters)
-    /// only start fights with Ally units (civilians), never the player's army.
+    /// only start fights with Ally units (civilians), never the player's army, and nobody goes after the tag its
+    /// spawn ignores.
     /// </summary>
     public static bool Picks(BattleUnit unit, BattleUnit target) =>
-        unit.Faction.IsHostileTo(target.Faction) && (unit.Faction != Faction.Neutral || target.Faction == Faction.Ally);
+        unit.Faction.IsHostileTo(target.Faction) && (unit.Faction != Faction.Neutral || target.Faction == Faction.Ally)
+        && (unit.Ignores is null || target.Tag != unit.Ignores);
 
     /// <summary>Healer profile: heal the most injured friend it can reach.</summary>
     private static IBattleCommand? BestHeal(BattleState s, BattleUnit unit, ReachMap reach)

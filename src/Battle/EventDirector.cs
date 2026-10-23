@@ -96,7 +96,9 @@ public static class EventDirector
         switch (condition)
         {
             case DefeatedCondition c:
-                return s.ByKey(c.Key) is { IsOnMap: false, Exit: not (MapExit.Escaped or MapExit.Departed) } u && (who = u) is not null;
+                // Any unit with the key (several can share one, like Ch 8's agitators).
+                who = s.AllByKey(c.Key).FirstOrDefault(u => u is { IsOnMap: false, Exit: not (MapExit.Escaped or MapExit.Departed) });
+                return who is not null;
             case EnterCondition c:
                 who = Matching(s, c.Who).FirstOrDefault(u => c.Cells.Contains(u.Pos));
                 return who is not null;

@@ -101,6 +101,7 @@ public static class BattleSetup
             Tag = spawn.Tag,
             DominatedBy = spawn.DominatedBy,
             CrestBearer = spawn.CrestBearer,
+            Ignores = spawn.Ignores,
         };
         RefillUses(db, unit, options.CrestTier);
         return unit;

@@ -259,11 +259,25 @@ public static class UiKit
         return rect;
     }
 
-    /// <summary>assets/backgrounds/&lt;id&gt;.png, or null.</summary>
+    /// <summary>
+    /// Pictures that stand in for backgrounds not drawn yet (docs/ART_NEEDED.md): a missing id uses its stand-in.
+    /// </summary>
+    private static readonly Dictionary<string, string> PlaceholderBackgrounds = new()
+    {
+        ["calder_square"] = "town_overview",
+        ["calder_streets"] = "town_overview",
+        ["calder_palace"] = "dain_hall",
+        ["calder_lodgings"] = "village_hall",
+        ["calder_undercity"] = "thornwood",
+    };
+
+    /// <summary>assets/backgrounds/&lt;id&gt;.png (or its placeholder), or null.</summary>
     public static Texture2D? Background(string id)
     {
         string path = $"res://assets/backgrounds/{id}.png";
-        return ResourceLoader.Exists(path) ? ResourceLoader.Load<Texture2D>(path) : null;
+        if (ResourceLoader.Exists(path))
+            return ResourceLoader.Load<Texture2D>(path);
+        return PlaceholderBackgrounds.TryGetValue(id, out var stand) ? Background(stand) : null;
     }
 
     /// <summary>A stable colour from a string (placeholder portraits and backgrounds).</summary>

@@ -353,6 +353,19 @@ public class MapRulesTests
     }
 
     [Fact]
+    public void Ignores_KeepsTheAiOffThatTag()
+    {
+        var (s, _) = Start(new TestBattle("........").Lord(7, 0, "sword")
+            .Unit(Faction.Ally, "merc", 1, 0).With(sp => sp with { Tag = "civilian" })
+            .Unit(Faction.Enemy, "merc", 2, 0, "sword").With(sp => sp with { Ignores = "civilian" }));
+        var thug = s.Unit("u2");
+        Assert.False(AiController.Picks(thug, s.Unit("u1")));
+        // It walks past the townsperson beside it to go for the lord.
+        var act = Assert.IsType<ActCommand>(AiController.Decide(s, thug).Command);
+        Assert.Equal("u0", Assert.IsType<AttackAction>(act.Action).TargetId);
+    }
+
+    [Fact]
     public void Agitators_ShareAKey_EachCalmsOnlyTheCrowdAroundHim()
     {
         var (s, tm) = Start(new TestBattle("..............", "..............").Lord(0, 0, "sword")

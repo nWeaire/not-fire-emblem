@@ -71,5 +71,13 @@ scene ch07_post
 crest 2
 gold 800
 scene hub_act1_end
+hub hub_briefing_ch08
+
+# ACT II: THE BURNING CROWNS
+chapter 8 Chapter 8: Riot in the Capital
+scene ch08_pre
+battle ch8 deploy 10 force rowan
+scene ch08_post_morvane
+scene ch08_aldric_leaves
 hub
-end Act I is over. To be continued in Act II: The Burning Crowns.
+end Act II continues in Chapter 9: Beneath the Crown.

@@ -1,0 +1,432 @@
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=37 format=3]
+
+[ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
+[ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
+
+[sub_resource type="Resource" id="SpawnDefinition_1"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Veiled Agitator"
+Tag = "agitator"
+SpriteId = "enemy_myrmidon"
+Armor = "padded_gambeson"
+Ignores = "civilian"
+Level = 9
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(6, 6)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_2"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Rioter"
+DominatedBy = "agitator"
+SpriteId = "ally_villager"
+Level = 3
+Inventory = PackedStringArray("cudgel")
+Faction = 3
+Position = Vector2i(5, 7)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_3"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Rioter"
+DominatedBy = "agitator"
+SpriteId = "ally_villager"
+Level = 3
+Inventory = PackedStringArray("cudgel")
+Faction = 3
+Position = Vector2i(7, 6)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_4"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Rioter"
+DominatedBy = "agitator"
+SpriteId = "ally_villager"
+Level = 3
+Inventory = PackedStringArray("cudgel")
+Faction = 3
+Position = Vector2i(4, 11)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_5"]
+script = ExtResource("2_spawn")
+ClassId = "villager"
+Name = "Townsfolk"
+Tag = "civilian"
+SpriteId = "ally_villager"
+Level = 1
+Faction = 2
+Position = Vector2i(4, 6)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_6"]
+script = ExtResource("2_spawn")
+ClassId = "villager"
+Name = "Townsfolk"
+Tag = "civilian"
+SpriteId = "ally_villager"
+Level = 1
+Faction = 2
+Position = Vector2i(2, 11)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_7"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Veiled Thug"
+SpriteId = "enemy_myrmidon"
+Ignores = "civilian"
+Level = 8
+Inventory = PackedStringArray("iron_sword")
+Faction = 1
+Position = Vector2i(9, 11)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_8"]
+script = ExtResource("2_spawn")
+ClassId = "mage"
+Name = "Veiled Agitator"
+Tag = "agitator"
+SpriteId = "enemy_mage"
+Armor = "padded_gambeson"
+Ignores = "civilian"
+Level = 9
+Inventory = PackedStringArray("fire")
+Faction = 1
+Position = Vector2i(23, 8)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_9"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Rioter"
+DominatedBy = "agitator"
+SpriteId = "ally_villager"
+Level = 3
+Inventory = PackedStringArray("cudgel")
+Faction = 3
+Position = Vector2i(22, 8)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_10"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Rioter"
+DominatedBy = "agitator"
+SpriteId = "ally_villager"
+Level = 3
+Inventory = PackedStringArray("cudgel")
+Faction = 3
+Position = Vector2i(24, 10)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_11"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Rioter"
+DominatedBy = "agitator"
+SpriteId = "ally_villager"
+Level = 3
+Inventory = PackedStringArray("cudgel")
+Faction = 3
+Position = Vector2i(26, 8)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_12"]
+script = ExtResource("2_spawn")
+ClassId = "villager"
+Name = "Townsfolk"
+Tag = "civilian"
+SpriteId = "ally_villager"
+Level = 1
+Faction = 2
+Position = Vector2i(24, 5)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_13"]
+script = ExtResource("2_spawn")
+ClassId = "villager"
+Name = "Townsfolk"
+Tag = "civilian"
+SpriteId = "ally_villager"
+Level = 1
+Faction = 2
+Position = Vector2i(28, 10)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_14"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Veiled Thug"
+SpriteId = "enemy_archer"
+Ignores = "civilian"
+Level = 8
+Inventory = PackedStringArray("iron_bow")
+Faction = 1
+Position = Vector2i(20, 5)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_15"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Veiled Thug"
+SpriteId = "enemy_soldier"
+Ignores = "civilian"
+Level = 8
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(27, 11)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_16"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Veiled Agitator"
+Tag = "agitator"
+SpriteId = "enemy_fighter"
+Armor = "padded_gambeson"
+Ignores = "civilian"
+Level = 9
+Inventory = PackedStringArray("steel_axe")
+Faction = 1
+Position = Vector2i(6, 19)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_17"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Rioter"
+DominatedBy = "agitator"
+SpriteId = "ally_villager"
+Level = 3
+Inventory = PackedStringArray("cudgel")
+Faction = 3
+Position = Vector2i(5, 17)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_18"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Rioter"
+DominatedBy = "agitator"
+SpriteId = "ally_villager"
+Level = 3
+Inventory = PackedStringArray("cudgel")
+Faction = 3
+Position = Vector2i(7, 20)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_19"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Rioter"
+DominatedBy = "agitator"
+SpriteId = "ally_villager"
+Level = 3
+Inventory = PackedStringArray("cudgel")
+Faction = 3
+Position = Vector2i(4, 20)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_20"]
+script = ExtResource("2_spawn")
+ClassId = "villager"
+Name = "Townsfolk"
+Tag = "civilian"
+SpriteId = "ally_villager"
+Level = 1
+Faction = 2
+Position = Vector2i(12, 19)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_21"]
+script = ExtResource("2_spawn")
+ClassId = "villager"
+Name = "Townsfolk"
+Tag = "civilian"
+SpriteId = "ally_villager"
+Level = 1
+Faction = 2
+Position = Vector2i(8, 18)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_22"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Veiled Thug"
+SpriteId = "enemy_archer"
+Ignores = "civilian"
+Level = 8
+Inventory = PackedStringArray("iron_bow")
+Faction = 1
+Position = Vector2i(10, 22)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_23"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Veiled Agitator"
+Tag = "agitator"
+SpriteId = "enemy_myrmidon"
+Armor = "padded_gambeson"
+Ignores = "civilian"
+Level = 10
+Inventory = PackedStringArray("killing_edge")
+Faction = 1
+Position = Vector2i(26, 19)
+Ai = 2
+
+[sub_resource type="Resource" id="SpawnDefinition_24"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Rioter"
+DominatedBy = "agitator"
+SpriteId = "ally_villager"
+Level = 3
+Inventory = PackedStringArray("cudgel")
+Faction = 3
+Position = Vector2i(24, 19)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_25"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Rioter"
+DominatedBy = "agitator"
+SpriteId = "ally_villager"
+Level = 3
+Inventory = PackedStringArray("cudgel")
+Faction = 3
+Position = Vector2i(27, 19)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_26"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Rioter"
+DominatedBy = "agitator"
+SpriteId = "ally_villager"
+Level = 3
+Inventory = PackedStringArray("cudgel")
+Faction = 3
+Position = Vector2i(23, 21)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_27"]
+script = ExtResource("2_spawn")
+ClassId = "villager"
+Name = "Townsfolk"
+Tag = "civilian"
+SpriteId = "ally_villager"
+Level = 1
+Faction = 2
+Position = Vector2i(23, 19)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_28"]
+script = ExtResource("2_spawn")
+ClassId = "villager"
+Name = "Townsfolk"
+Tag = "civilian"
+SpriteId = "ally_villager"
+Level = 1
+Faction = 2
+Position = Vector2i(29, 19)
+Ai = 1
+
+[sub_resource type="Resource" id="SpawnDefinition_29"]
+script = ExtResource("2_spawn")
+ClassId = "fighter"
+Name = "Veiled Thug"
+SpriteId = "enemy_fighter"
+Ignores = "civilian"
+Level = 8
+Inventory = PackedStringArray("iron_axe")
+Faction = 1
+Position = Vector2i(28, 23)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_30"]
+script = ExtResource("2_spawn")
+ClassId = "mage"
+Name = "Veiled Thug"
+SpriteId = "enemy_mage"
+Ignores = "civilian"
+Level = 8
+Inventory = PackedStringArray("fire")
+Faction = 1
+Position = Vector2i(30, 14)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_31"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Veiled Thug"
+SpriteId = "enemy_myrmidon"
+Ignores = "civilian"
+Level = 8
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(21, 14)
+Ai = 0
+HardOnly = true
+
+[sub_resource type="Resource" id="SpawnDefinition_32"]
+script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Veiled Thug"
+Group = "veiled"
+SpriteId = "enemy_myrmidon"
+Ignores = "civilian"
+Level = 9
+Inventory = PackedStringArray("iron_sword")
+Faction = 1
+Position = Vector2i(0, 13)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_33"]
+script = ExtResource("2_spawn")
+ClassId = "soldier"
+Name = "Veiled Thug"
+Group = "veiled"
+SpriteId = "enemy_soldier"
+Ignores = "civilian"
+Level = 9
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(31, 12)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_34"]
+script = ExtResource("2_spawn")
+ClassId = "archer"
+Name = "Veiled Thug"
+Group = "veiled"
+SpriteId = "enemy_archer"
+Ignores = "civilian"
+Level = 9
+Inventory = PackedStringArray("steel_bow")
+Faction = 1
+Position = Vector2i(31, 13)
+Ai = 0
+HardOnly = true
+
+[resource]
+script = ExtResource("1_map")
+Id = "ch8"
+Name = "Chapter 8: Riot in the Capital"
+TerrainRows = PackedStringArray("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", "WWWWWWWWWWWWWWWGGWWWWWWWWWWWWWWW", "###############==###############", "#WWWWW##WWWWW##==##WWWW####WWWW#", "#WWWWW##WWWWW##==##WWWW#T##WWWW#", "#WWWWW##WWWWW##==##########WWWW#", "####T#####T####==##########WWWW#", "######WWWW#####==##k#k#k#k###T##", "#WWW##WWWW#WW##==###############", "#WWW##WWWW#WW##==##k#k#k#k##k###", "#WWW##WWWW#WW##==###############", "################################", "==============#~~#==============", "==============#~~#==============", "################################", "###############==########WWWWWW#", "##F,,,,,F,#WWW#==##WWWW##WWWWWW#", "##,,,,,,,,#WWW#==##WWWW##WWWWWW#", "##,,,F,,,,#WWW#==##WWWW###k#####", "##,,,,,,,,##T##==######T#####T##", "##,,,,,,,F#####==#####k#WWWWW###", "##,F,,,,,,#####==##WWW##WWWWW###", "###############==##WWW##WWWWW###", "#WWWWWW########==##WWW##########", "#WWWWWW########==###############", "WWWWWWWWWWWWWWW==WWWWWWWWWWWWWWW")
+HeightRows = PackedStringArray("22222222222222222222222222222222", "22222222222222200222222222222222", "00000000000000000000000000000000", "02222200222220000001111000022220", "02222200222220000001111000022220", "02222200222220000000000000022220", "00000000000000000000000000022220", "00000011110000000000000000000000", "02220011110220000000000000000000", "02220011110220000000000000000000", "02220011110220000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000002222220", "00000000000222000002222002222220", "00000000000222000002222002222220", "00000000000222000002222000000000", "00000000000000000000000000000000", "00000000000000000000000022222000", "00000000000000000001110022222000", "00000000000000000001110022222000", "01111110000000000001110000000000", "01111110000000000000000000000000", "22222222222222200222222222222222")
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22"), SubResource("SpawnDefinition_23"), SubResource("SpawnDefinition_24"), SubResource("SpawnDefinition_25"), SubResource("SpawnDefinition_26"), SubResource("SpawnDefinition_27"), SubResource("SpawnDefinition_28"), SubResource("SpawnDefinition_29"), SubResource("SpawnDefinition_30"), SubResource("SpawnDefinition_31"), SubResource("SpawnDefinition_32"), SubResource("SpawnDefinition_33"), SubResource("SpawnDefinition_34")])
+Victory = "boss agitator"
+Defeat = PackedStringArray("protect civilian 4")
+Triggers = PackedStringArray("turn 1 => scene ch08_start", "defeated agitator => scene ch08_agitator", "turn 4 enemy => spawn veiled; scene ch08_veiled", "visit 4,6 => scene ch08_tenement; give actor elixir", "visit 29,7 => scene ch08_cloth_merchant; gold 400")
+Highlights = PackedStringArray("agitator => Veiled agitators wear a purple sigil. Rioters near one fight harder; drop him and they go home.", "4,6 29,7 => Doors you can visit.")
+Fog = false
+DeploySlots = "15,23 16,23 14,23 17,23 15,22 16,22 13,23 18,23 14,24 17,24"
+Background = "calder_square"

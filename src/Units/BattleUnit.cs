@@ -34,6 +34,8 @@ public sealed class BattleUnit
     /// <summary>Key of the crest-bearer whose Dominion holds this unit.</summary>
     public string? DominatedBy { get; set; }
     public bool CrestBearer { get; init; }
+    /// <summary>A tag the AI never goes after (see SpawnDef.Ignores).</summary>
+    public string? Ignores { get; init; }
     /// <summary>Own phases still to skip (severed beasts are stunned for one).</summary>
     public int StunnedPhases { get; set; }
     /// <summary>Crest skill buffs (Ward, Rally); cleared at the start of this unit's next phase.</summary>

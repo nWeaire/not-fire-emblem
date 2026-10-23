@@ -1,0 +1,63 @@
+# Chapter 8: Riot in the Capital
+# Written for the built map (data/maps/ch8.tres). Voices follow docs/story/DIALOGUE.md section 2.
+
+### ch08_pre
+@bg calder_streets_smoke
+@music tension_high
+NARRATOR: Calder was the oldest city in Aldmere. Its walls had stood for six hundred years without once being breached.
+NARRATOR: On the morning Rowan arrived, the gates stood open and unguarded, and smoke was rising from the grand square.
+OSMUND [worried]: That is the guild street. And that... that is the fountain square. I used to buy my ink there.
+KAI [worried]: Why's everyone shouting? Is it a festival? Tell me it's a festival.
+DORRAN [cold]: It's a riot, lad. Bread, taxes, the war talk from the north. Pick one. They've picked all three.
+ELISE [worried]: Riots don't usually have leaders who stand back and point. Look. There, by the market.
+ALDRIC [neutral]: These are townsfolk with axe handles, not soldiers. Don't cut them down if you can help it.
+ROWAN [determined]: Then we find whoever's pointing. Get the people clear. We go now.
+
+### ch08_start
+@focus 15,12
+NARRATOR: Townsfolk with tools and torches surged round the fountain. The ones who could not fight ran for doorways.
+NARRATOR: In each corner of the square, a figure in a plain grey cloak stood a little apart from the crowd, calling out.
+TAMSIN [cold]: Four of them. Grey cloaks. They don't throw anything. They just keep the pack running.
+MIRA [determined]: And the crowd's going for anyone who can't fight back. We have to get there first.
+
+### ch08_agitator
+NARRATOR: The grey-cloaked man fell. His sleeve slid back, and a sigil glowed on his wrist, purple as a bruise.
+NARRATOR: Around him, the shouting simply stopped. A baker lowered his rolling pin and stared at it as if it were a snake.
+ELISE [worried]: Purple. Like the Binders. But that isn't a crest. It's a copy of one, burned in. A badge.
+ALDRIC [cold]: Veiled. They've a hand in the capital now.
+
+### ch08_veiled
+@focus 2,12
+NARRATOR: Men in grey came down the guild street from both ends, no longer bothering to look like townsfolk.
+SABLE [neutral]: Here's the rest of the show. Good. I was getting tired of not hitting anyone.
+
+### ch08_tenement
+NARRATOR: An old woman pulled the door open a crack. "You're the ones sending the mob home? Here. My son's, from the war."
+NARRATOR: She pressed a stoppered bottle into their hands, then shut the door and barred it again.
+
+### ch08_cloth_merchant
+NARRATOR: The cloth merchant had been counting the minutes until the mob broke his shutters. He counted out coins instead.
+NARRATOR: "For the shutters I still have," he said. "And for whoever buys a coat from me tomorrow."
+
+### ch08_post_morvane
+@bg calder_palace
+@music aftermath
+NARRATOR: The palace sent for them before the fires were out. A steward in Calder blue led them up a hundred steps.
+NARRATOR: The Chancellor met them himself: a grey-robed man with a gentle face and quiet hands, who bowed to a farm boy.
+MORVANE [smile]: Rowan of Ashford. I have read your letters, child. Every one. You have done the realm a kindness.
+MORVANE [neutral]: The Thornvale, and now our own square. Calder is in your debt, and I do not say that lightly.
+ROWAN [neutral]: The men leading the riot had purple sigils. Like Halvric's crest. Someone sent them.
+MORVANE [sad]: Yes. I feared as much. There is a sickness spreading, child, and it wears many faces.
+MORVANE [neutral]: Rest here. The palace is at your disposal. We shall speak of what can be done.
+NARRATOR: Rowan turned to say something to Aldric. The place where Aldric had been standing was empty.
+
+### ch08_aldric_leaves
+@bg calder_streets_evening
+@music tension_low
+NARRATOR: They found him in the stable yard, brushing down a horse that was not his.
+ROWAN [worried]: You walked out.
+ALDRIC [cold]: I needed air.
+ROWAN [neutral]: You don't need air. You've stood in a burning barn without needing air.
+ALDRIC [neutral]: Leave it, son. Not tonight.
+OSMUND [worried]: My lord. I served at that court until the spring the Chancellor was appointed. Twenty years ago.
+OSMUND [worried]: He was grey-haired then. He is grey-haired now. Strictly speaking, he has not aged a single day.

@@ -139,3 +139,11 @@ ALDRIC [cold]: ...
 ROWAN [neutral]: You don't want me to go.
 ALDRIC [neutral]: I want you to go with your eyes open. That's different.
 ROWAN [determined]: Right. We go to the capital.
+
+### hub_briefing_ch08
+@bg village_hall
+OSMUND [neutral]: Calder, my lord. Nine days' ride west, and the Chancellor's letter in my coat, sealed and unopened.
+OSMUND [neutral]: I have not seen the capital in twenty years. I left it, strictly speaking, in some haste.
+ELISE [smile]: The royal archive! I can finally give them my report. Forty pages. Fifty, now. Sorry. Sixty.
+ALDRIC [neutral]: Keep your crest hand gloved in the city. People talk.
+ROWAN [determined]: Right. We go now.

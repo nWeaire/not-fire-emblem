@@ -27,7 +27,8 @@ public sealed record SpawnDef(
     string? DominatedBy = null,   // key of the crest-bearer whose Dominion holds this unit
     bool CrestBearer = false,     // projects Dominion; its death severs the units it dominates
     bool HardOnly = false,        // only placed on Hard difficulty
-    int Leash = 0)                // Boss AI: how far it may step from its start to attack (0 = AiController.BossLeash)
+    int Leash = 0,                // Boss AI: how far it may step from its start to attack (0 = AiController.BossLeash)
+    string? Ignores = null)       // AI never goes after units with this tag (Ch 8's Veiled leave the townsfolk to the mob)
 {
     /// <summary>How objectives and triggers refer to this unit.</summary>
     public string? Key => Tag ?? UnitId;

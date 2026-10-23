@@ -24,6 +24,21 @@ Clean UI panel, name plate and fonts.
 
 ---
 
+## 0. Act II (session 12 on): placeholders in use, art to make when credits come
+Act II is being built systems-first. Every unit, portrait and backdrop below already works with a stand-in; the
+stand-in is named so the real art can drop in under the same id (or the spawn's `SpriteId` can be pointed at it).
+Rough cost per full character (map sprite + walk/attack, battle still takes + 5 animations): about $0.45.
+
+| Priority | Id | Who / what | Stand-in today | Used in |
+|---|---|---|---|---|
+| P1 | `enemy_veiled_agitator` (map + battle) | Veiled agent dressed as a townsman: plain grey cloak, purple sigil glowing on the wrist, sword/tome/axe variants | `enemy_myrmidon` / `enemy_mage` / `enemy_fighter` | Ch 8 |
+| P1 | `enemy_veiled_thug` (map + battle) | Veiled street muscle: grey hooded cloak over leather, purple-trimmed | bandit `enemy_*` looks | Ch 8, Ch 9 |
+| P1 | `neutral_rioter` (map + battle) | Calder townsman with a cudgel and a torch, angry; amber outline in game | `ally_villager` | Ch 8 |
+| P1 | `ally_townsfolk` (map) | Calder townsfolk in city clothes (Calder blue scarves, aprons) | `ally_villager` (a farmer) | Ch 8 |
+| P1 | Portrait `morvane` | The Grey Chancellor: gentle, grey-robed, grey-haired, kind eyes (STORY §5) | initials | Ch 8 on |
+| P1 | Backgrounds `calder_square`, `calder_streets`, `calder_palace` | The fountain square and market; a Calder street; the palace audience hall (Calder blue) | `town_overview`, `town_overview`, `dain_hall` (`UiKit.PlaceholderBackgrounds`) | Ch 8 |
+| P2 | `calder_lodgings` background | The party's rooms in the capital (Act II hub) | `village_hall` | Act II hub |
+
 ## 1. Map sprites (48 px, 4 directions, `walk` `attack`; idle falls back to the still rotation)
 Folder: `assets/sprites/units/<spriteId>/`. Units find art through `BattleUnit.SpriteCandidates()`:
 `<spriteId>_<classId>` first, then `<spriteId>`.

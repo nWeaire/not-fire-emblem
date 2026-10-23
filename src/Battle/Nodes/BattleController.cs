@@ -669,6 +669,12 @@ public partial class BattleController : Node3D
         if (DevTools.Autoplay)
         {
             GD.Print($"AUTOPLAY RESULT: {State.Outcome} on turn {State.Turn}");
+            // A single map tested on its own (--map=... --autoplay) ends there, so runs can be batched.
+            if (!IsCampaign && !DevTools.AutoAdvance)
+            {
+                GetTree().Quit();
+                return;
+            }
             // The autoplay is deterministic enough that a map it can't win is lost the same way on every retry.
             if (++_autoplayLosses >= AutoplayMaxLosses)
             {

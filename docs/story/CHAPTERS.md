@@ -127,10 +127,20 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 ## ACT II — THE BURNING CROWNS
 
 ## Chapter 8 — "Riot in the Capital"
-- **Map:** 20×16 city square with market stalls and alleys. Rioters are a new **neutral** faction.
-- **Win:** Defeat the 4 agitators (Veiled agents in disguise). **Lose:** default, or 4 civilians die.
-- **Events:** the agitators wear purple sigils. Morvane's first appearance is in `ch08_post`, where he thanks Rowan warmly. Aldric leaves the room.
-- **Scenes:** `ch08_pre`, `ch08_agitator`, `ch08_post_morvane`, `ch08_aldric_leaves`.
+- **Map (built, session 12):** 32×26 grand square of Calder (`tools/maps/act2_early.py`): the shut palace gate north, the
+  city gate south (deploy), the royal avenue and guild street crossing at the fountain, north-west tenement alleys, the
+  north-east market (stalls are barricades), the south-west Lantern Garden and the south-east guildhalls.
+- **Rioters** are the new **Neutral** faction (amber): their own phase after the enemy's, and they only start fights
+  with Ally units (the townsfolk), never the army, though they fight back. They carry cudgels (Mt 1).
+- **Agitators** (4 Veiled, Tag `agitator`, Guard) hold Dominion over the rioters near them (`DominatedBy agitator`,
+  shared key: any agitator within 3 cells riles them). When one falls, the rioters round him who no other agitator
+  holds calm down and go home ("Calmed!"). The Veiled (`Ignores civilian`) leave the townsfolk to the mob.
+- **Win:** `boss agitator` (every unit with the key). **Lose:** default, or 4 townsfolk (`protect civilian 4`).
+- **Events:** T1 `ch08_start`; the first agitator down, `ch08_agitator` (the sigil is a burned-in badge, not a crest);
+  T4 Veiled thugs from both ends of the guild street (`ch08_veiled`); two visit doors (an Elixir, 400 gold).
+- **Scenes:** `ch08_pre`, `ch08_start`, `ch08_agitator`, `ch08_veiled`, `ch08_post_morvane` (Morvane's first
+  appearance; Aldric leaves the room), `ch08_aldric_leaves` (Osmund: the Chancellor hasn't aged in twenty years).
+- **Autoplay at level 9 (seeds 1–4):** wins 4/4 on T8–12, losing 0–2 townsfolk (the market's, furthest from the gate).
 
 ## Chapter 9 — "Beneath the Crown"
 - **Map:** 18×18 undercity with locked doors, treasure rooms and sewers. **Fog ON.**

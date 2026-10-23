@@ -56,7 +56,7 @@ public static class ObjectiveTour
         if (goals.TurnLimit > 0)
             stops.Add(new TourStop($"Defeat if the battle runs past turn {goals.TurnLimit}.", Array.Empty<GridPos>()));
         foreach (var h in s.Map.AllHighlights)
-            stops.Add(new TourStop(h.Caption, h.Key is null ? h.Cells : At(s.ByKey(h.Key))));
+            stops.Add(new TourStop(h.Caption, h.Key is null ? h.Cells : s.AllByKey(h.Key).SelectMany(At).ToList()));
         return stops;
     }
 

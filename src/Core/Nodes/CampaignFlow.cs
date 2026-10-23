@@ -75,8 +75,17 @@ public static class CampaignFlow
                     Node.GoTo(GameSessionNode.BattleScene);
                 }
                 break;
-            case HubStep:
+            case HubStep hub:
                 SaveService.Save(0, runner.Session);
+                if (DevTools.SaveAtHub is { } at && hub.BriefingSceneId == $"hub_briefing_ch{at.Chapter:D2}")
+                {
+                    if (DevTools.PartyLevelFor($"ch{at.Chapter}") is { } level)
+                        runner.PrepareTestParty(level);
+                    GD.Print(SaveService.Save(at.Slot, runner.Session, force: true)
+                             ?? $"SAVED AT HUB before Ch {at.Chapter} to {SaveService.SlotName(at.Slot)}");
+                    Node.GetTree().Quit();
+                    return;
+                }
                 Node.GoTo(GameSessionNode.HubScene);
                 break;
             case EndStep end:

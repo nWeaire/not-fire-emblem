@@ -246,6 +246,10 @@ public class ProgressionTests
         Assert.Equal((0, 0, 0), s.CombatBonus(lord, new GridPos(3, 0)));
         tm.Submit(new ActCommand("u0", lord.Pos, new AttackAction("u2", new WeaponAttack("sword"))));
         Assert.Equal(1, s.SupportPoints[Supports.PairKey("lord", "partner")]);
+        // Standing together earns at most AdjacentCap a battle, however many actions they take side by side.
+        for (int i = 0; i < 10; i++)
+            BattleProgress.SupportTick(s, lord);
+        Assert.Equal(Supports.AdjacentCap, s.SupportPoints[Supports.PairKey("lord", "partner")]);
         Assert.Equal(1, Supports.Unlocked(s.Db, "lord", "partner", 10, 0));
         Assert.Null(Supports.Unlocked(s.Db, "lord", "partner", 9, 0));
         Assert.Equal("support_lord_partner_C", Supports.SceneId("partner", "lord", 1));

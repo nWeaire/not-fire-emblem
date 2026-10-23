@@ -73,6 +73,10 @@ public static class ActionRules
                 return Unlockable(s, unit, from).Contains(unlock.Cell)
                     ? ValidationResult.Valid
                     : ValidationResult.Fail("Nothing to unlock there.");
+            case BreakDoorAction strike:
+                return BreakableDoors(s, unit, from).Contains(strike.Cell)
+                    ? ValidationResult.Valid
+                    : ValidationResult.Fail("No door to break there.");
             case StealAction steal:
                 return StealTargets(s, unit, from).FirstOrDefault(t => t.Id == steal.TargetId) is { } mark
                        && Stealable(mark).Contains(steal.ItemId)
@@ -143,6 +147,19 @@ public static class ActionRules
         if (chestKey && s.Grid[from].Terrain.Id == ChestTerrain)
             yield return from;
         if (!doorKey)
+            yield break;
+        foreach (var cell in new[] { new GridPos(from.X, from.Y - 1), new GridPos(from.X + 1, from.Y), new GridPos(from.X, from.Y + 1), new GridPos(from.X - 1, from.Y) })
+            if (s.Grid.InBounds(cell) && s.Grid[cell].Terrain.Id == DoorTerrain)
+                yield return cell;
+    }
+
+    /// <summary>Strikes it takes to break a locked door without a key.</summary>
+    public const int DoorHits = 3;
+
+    /// <summary>Locked doors beside <paramref name="from"/> that the unit can strike: anyone carrying a weapon.</summary>
+    public static IEnumerable<GridPos> BreakableDoors(BattleState s, BattleUnit unit, GridPos from)
+    {
+        if (!CombatCalculator.AttackChoices(s.Db, unit).Any())
             yield break;
         foreach (var cell in new[] { new GridPos(from.X, from.Y - 1), new GridPos(from.X + 1, from.Y), new GridPos(from.X, from.Y + 1), new GridPos(from.X - 1, from.Y) })
             if (s.Grid.InBounds(cell) && s.Grid[cell].Terrain.Id == DoorTerrain)

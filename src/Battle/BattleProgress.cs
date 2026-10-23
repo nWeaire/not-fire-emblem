@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NotFireEmblem.Combat;
@@ -12,7 +13,7 @@ public static class BattleProgress
     /// Removes a fallen unit. A fallen crest-bearer severs everyone it dominated (STORY §4.3): beasts are stunned
     /// for their next phase, dominated humans surrender and leave the map. Anyone else others are dominated by (Ch 8's
     /// agitators, who share one key) only lets go of the units within their Dominion range that no other unit with
-    /// the key still holds.
+    /// the key still holds, and those come to their senses where they stand: unarmed townsfolk on the Ally side.
     /// </summary>
     public static void Defeat(BattleState s, BattleUnit unit, List<BattleEvent> events)
     {
@@ -44,6 +45,7 @@ public static class BattleProgress
             return;
         var stunned = new List<string>();
         var surrendered = new List<string>();
+        var calmed = new List<string>();
         var released = s.Living.Where(u => u.DominatedBy == key);
         if (!unit.CrestBearer)
             released = released.Where(u => u.Pos.DistanceTo(unit.Pos) <= BattleState.RadiusOf(unit) && !s.IsDominated(u));
@@ -52,7 +54,14 @@ public static class BattleProgress
             held.DominatedBy = null;
             if (held.NonLethal)
                 continue; // freed, not sent away: a trigger decides what they do next (Ch 14's Empress wakes)
-            if (s.Db.Class(held.State.ClassId).HasTrait("Beast"))
+            bool beast = s.Db.Class(held.State.ClassId).HasTrait("Beast");
+            if (!unit.CrestBearer && !beast)
+            {
+                // Session 13 (user request): Ch 8's rioters turn green and become civilians when their agitator drops.
+                Calm(s, held);
+                calmed.Add(held.Id);
+            }
+            else if (beast)
             {
                 held.StunnedPhases = 1;
                 stunned.Add(held.Id);
@@ -63,8 +72,22 @@ public static class BattleProgress
                 surrendered.Add(held.Id);
             }
         }
-        if (stunned.Count + surrendered.Count > 0)
-            events.Add(new CrestSevered(unit.Id, stunned, surrendered));
+        if (stunned.Count + surrendered.Count + calmed.Count > 0)
+            events.Add(new CrestSevered(unit.Id, stunned, surrendered, calmed));
+    }
+
+    /// <summary>A released rioter drops their weapon and stands as one of the townsfolk (Ally, villager, holds still).</summary>
+    private static void Calm(BattleState s, BattleUnit unit)
+    {
+        unit.Faction = Faction.Ally;
+        if (s.Db.Classes.ContainsKey("villager"))
+            unit.State.ClassId = "villager";
+        unit.State.Inventory.Clear();
+        unit.State.EquippedIndex = -1;
+        unit.AiProfile = AiProfile.Stationary;
+        unit.Renamed = "Townsfolk";
+        unit.SpriteId = "ally_townsfolk";
+        unit.CurrentHp = System.Math.Min(unit.CurrentHp, s.Stats(unit).HP);
     }
 
     /// <summary>Gives EXP to a roster unit and rolls any level-ups with the battle's RNG.</summary>
@@ -78,7 +101,7 @@ public static class BattleProgress
         events.Add(new ExpGained(unit.Id, amount, unit.State.Exp, levels));
     }
 
-    /// <summary>+1 support point with every support partner standing next to <paramref name="unit"/>.</summary>
+    /// <summary>+1 support point with every support partner standing next to <paramref name="unit"/>, up to Supports.AdjacentCap a battle.</summary>
     public static void SupportTick(BattleState s, BattleUnit unit)
     {
         if (!unit.IsRosterUnit)
@@ -88,7 +111,7 @@ public static class BattleProgress
             if (Supports.Find(s.Db, unit.State.Def.Id, partner.State.Def.Id) is null)
                 continue;
             string key = Supports.PairKey(unit.State.Def.Id, partner.State.Def.Id);
-            s.SupportPoints[key] = s.SupportPoints.GetValueOrDefault(key) + Supports.AdjacentPoints;
+            s.SupportPoints[key] = Math.Min(Supports.AdjacentCap, s.SupportPoints.GetValueOrDefault(key) + Supports.AdjacentPoints);
         }
     }
 

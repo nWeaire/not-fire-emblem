@@ -39,7 +39,7 @@ public partial class ResultsScreen : Control
                 column.AddChild(UiKit.Label("Joined: " + string.Join(", ", report.Recruited), 16, UiKit.Good));
             if (report.Fallen.Count > 0)
             {
-                bool classic = node.Session?.Mode == GameMode.Classic;
+                bool classic = node.Session?.Mode == GameMode.IronMan;
                 column.AddChild(UiKit.Label((classic ? "Lost: " : "Retreated (will return): ") + string.Join(", ", report.Fallen), 16,
                     classic ? UiKit.Bad : UiKit.Muted));
             }

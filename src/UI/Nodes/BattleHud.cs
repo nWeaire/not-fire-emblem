@@ -35,6 +35,10 @@ public partial class BattleHud : CanvasLayer
     private VBoxContainer _menuList = null!;
     private readonly List<Button> _menuButtons = new();
     private readonly List<string> _menuOptions = new();
+    private readonly List<AbilityInfo?> _menuAbilities = new();
+    private PanelContainer _abilityPanel = null!;
+    private Label _abilityTitle = null!;
+    private Label _abilityBody = null!;
     private PanelContainer _forecastPanel = null!;
     private GridContainer _forecastGrid = null!;
     private Label _forecastHint = null!;
@@ -117,6 +121,18 @@ public partial class BattleHud : CanvasLayer
         _menuList = new VBoxContainer();
         _menuPanel.AddChild(_menuList);
         _menuPanel.Visible = false;
+
+        // Ability box (top-right): what the highlighted art, spell or crest skill does.
+        _abilityPanel = Panel(root, Control.LayoutPreset.TopRight, new Vector2(-16, 16));
+        var abilityBox = new VBoxContainer();
+        abilityBox.AddThemeConstantOverride("separation", 4);
+        _abilityPanel.AddChild(abilityBox);
+        _abilityTitle = new Label { Modulate = Accent };
+        abilityBox.AddChild(_abilityTitle);
+        _abilityBody = new Label { AutowrapMode = TextServer.AutowrapMode.WordSmart, CustomMinimumSize = new Vector2(320, 0) };
+        _abilityBody.AddThemeFontSizeOverride("font_size", UiKit.Px(16));
+        abilityBox.AddChild(_abilityBody);
+        _abilityPanel.Visible = false;
 
         // Forecast (top-centre)
         _forecastPanel = Panel(root, Control.LayoutPreset.CenterTop, new Vector2(0, 16));
@@ -358,13 +374,16 @@ public partial class BattleHud : CanvasLayer
 
     // ------------------------------------------------------------------ action menu
 
-    public void ShowMenu(IReadOnlyList<string> options, int selected)
+    /// <param name="abilities">Per option, the ability it uses (null for plain actions): explained in the ability box while selected.</param>
+    public void ShowMenu(IReadOnlyList<string> options, int selected, IReadOnlyList<AbilityInfo?>? abilities = null)
     {
         foreach (var child in _menuList.GetChildren())
             child.QueueFree();
         _menuButtons.Clear();
         _menuOptions.Clear();
         _menuOptions.AddRange(options);
+        _menuAbilities.Clear();
+        _menuAbilities.AddRange(options.Select((_, i) => abilities is not null && i < abilities.Count ? abilities[i] : null));
         for (int i = 0; i < options.Count; i++)
         {
             int index = i;
@@ -391,9 +410,24 @@ public partial class BattleHud : CanvasLayer
             _menuButtons[i].Modulate = i == selected ? Accent : Colors.White;
             _menuButtons[i].Text = (i == selected ? "▶ " : "   ") + _menuOptions[i];
         }
+        ShowAbility(selected >= 0 && selected < _menuAbilities.Count ? _menuAbilities[selected] : null);
     }
 
-    public void HideMenu() => _menuPanel.Visible = false;
+    public void HideMenu()
+    {
+        _menuPanel.Visible = false;
+        ShowAbility(null);
+    }
+
+    /// <summary>The ability box (top-right); null hides it.</summary>
+    public void ShowAbility(AbilityInfo? info)
+    {
+        _abilityPanel.Visible = info is not null;
+        if (info is null)
+            return;
+        _abilityTitle.Text = info.Title;
+        _abilityBody.Text = info.Body;
+    }
 
     // ------------------------------------------------------------------ forecast
 
@@ -432,7 +466,11 @@ public partial class BattleHud : CanvasLayer
         _forecastPanel.Visible = true;
     }
 
-    public void HideForecast() => _forecastPanel.Visible = false;
+    public void HideForecast()
+    {
+        _forecastPanel.Visible = false;
+        ShowAbility(null);
+    }
 
     /// <summary>A plain text preview in the forecast panel (heal amounts, talk and trade targets...).</summary>
     public void ShowPreview(string text)

@@ -51,6 +51,7 @@ public partial class BattleEventPlayer : Node
         UnitTalked t => PlayTalk(t),
         CellVisited v => Info(v.UnitId, "Visited", null),
         LockOpened o => Info(o.UnitId, o.Chest ? "Opened" : "Unlocked", null),
+        DoorStruck d => PlayDoorStruck(d),
         ItemStolen t => Info(t.ThiefId, $"Stole {Battle.State.Db.ItemName(t.ItemId)}", $"Stole {Battle.State.Db.ItemName(t.ItemId)}"),
         CellSeized s => Banner("Seized!", UiKit.Accent),
         UnitEscaped x => PlayLeave(x.UnitId, "Escaped"),
@@ -63,7 +64,7 @@ public partial class BattleEventPlayer : Node
         UnitHealed h => PlayHeal(h),
         UnitBuffed b => Info(b.UnitId, $"{b.Source} {Bonus(b.Bonus)}", null),
         UnitRefreshed r => Info(r.UnitId, "Dawn: act again!", null),
-        CrestSkillUsed c => Banner(c.Skill.ToString(), new Color(1f, 1f, 0.85f), 0.4f),
+        CrestSkillUsed c => PlayCrestSkill(c),
         ItemUsed u => Info(u.UnitId, Battle.State.Db.ItemName(u.ItemId), null),
         ItemsTraded t => Info(t.UnitId, "Traded", null),
         _ => Task.CompletedTask,
@@ -310,6 +311,128 @@ public partial class BattleEventPlayer : Node
         layer.QueueFree();
     }
 
+    /// <summary>How each crest skill's light looks where it lands.</summary>
+    private static Color CrestSkillColor(CrestSkill skill) => skill switch
+    {
+        CrestSkill.Ward => new Color(0.65f, 0.85f, 1f),
+        CrestSkill.Rally => new Color(1f, 0.85f, 0.4f),
+        CrestSkill.Mend => new Color(0.5f, 1f, 0.6f),
+        _ => new Color(1f, 0.8f, 0.85f),
+    };
+
+    /// <summary>
+    /// Rowan's crest rises over his head and swells (bigger at higher tiers), flares, and fades. It follows him on
+    /// screen while the camera moves. Returns once it has flared; the fade finishes on its own.
+    /// </summary>
+    private async Task RaiseCrest(BattleUnit lord)
+    {
+        var camera = Battle.Camera.Camera;
+        int tier = Mathf.Max(1, Battle.State.Options.CrestTier);
+        var layer = new Control { MouseFilter = Control.MouseFilterEnum.Ignore };
+        Battle.Hud.AddChild(layer);
+        layer.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+        float size = 72f + 12f * tier;
+        var emblem = new CrestEmblem("rowan", tier, radiant: true, size) { Modulate = Colors.White with { A = 0f } };
+        layer.AddChild(emblem);
+        emblem.Size = new Vector2(size, size);
+        emblem.PivotOffset = emblem.Size / 2f;
+        emblem.Scale = Vector2.One * 0.4f;
+        // Over his head (a unit stands about 1.5 cells tall), then floating a little higher as it grows.
+        Vector2 Head() => camera.UnprojectPosition(Battle.CellWorld(lord.Pos) + Vector3.Up * (CrestHeight + 1.5f));
+        float lift = 0f;
+        void Follow() => emblem.Position = Head() - emblem.Size / 2f + Vector2.Up * lift;
+        Follow();
+        AudioDirector.PlaySfx("crest_rise");
+        var grow = CreateTween().SetParallel();
+        grow.TweenProperty(emblem, "modulate:a", 1f, 0.35f);
+        grow.TweenProperty(emblem, "scale", Vector2.One * (0.9f + 0.15f * tier), 1.0f).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+        grow.TweenMethod(Callable.From<float>(v => lift = v), 0f, 26f + 6f * tier, 1.0f).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+        _ = Battle.ViewOf(lord.Id)?.Glow(new Color(1.6f, 1.6f, 1.8f), 1.2f);
+        while (grow.IsRunning())
+        {
+            Follow();
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+        var flare = CreateTween();
+        flare.TweenProperty(emblem, "modulate", new Color(2.5f, 2.5f, 2.5f), 0.15f);
+        flare.TweenProperty(emblem, "modulate", new Color(1.3f, 1.3f, 1.3f, 0f), 0.6f);
+        flare.TweenCallback(Callable.From(layer.QueueFree));
+        await ToSignal(GetTree().CreateTimer(0.15f, processAlways: false), SceneTreeTimer.SignalName.Timeout);
+        AudioDirector.PlaySfx("crest_burn");
+        _ = FollowUntilGone(layer, Follow);
+    }
+
+    private async Task FollowUntilGone(Node layer, System.Action follow)
+    {
+        while (IsInstanceValid(layer) && !layer.IsQueuedForDeletion())
+        {
+            follow();
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+    }
+
+    /// <summary>The crest's light lands on these units: a burst of rings and sparks round each, and they glow.</summary>
+    private async Task Bless(IEnumerable<BattleUnit> units, Color tint)
+    {
+        var camera = Battle.Camera.Camera;
+        float strength = 0.8f + 0.25f * Mathf.Max(1, Battle.State.Options.CrestTier);
+        foreach (var unit in units)
+        {
+            var u = unit;
+            Battle.Hud.AddChild(new CrestBurst
+            {
+                Anchor = () => camera.UnprojectPosition(Battle.CellWorld(u.Pos) + Vector3.Up * 0.1f),
+                Tint = tint,
+                Strength = strength,
+            });
+            _ = Battle.ViewOf(u.Id)?.Glow((tint * 1.8f) with { A = 1f }, 1.1f);
+        }
+        await Wait(0.9f);
+    }
+
+    /// <summary>A crest skill: its name, the crest rising over Rowan, then its light round each target.</summary>
+    private async Task PlayCrestSkill(CrestSkillUsed c)
+    {
+        var lord = Battle.State.Unit(c.UnitId);
+        Battle.Camera.Focus(Battle.CellWorld(lord.Pos));
+        _ = Banner(c.Skill.ToString(), new Color(1f, 1f, 0.85f), 0.4f);
+        await RaiseCrest(lord);
+        var targets = c.TargetIds.Select(Battle.State.TryUnit).OfType<BattleUnit>().Where(t => t.IsOnMap).ToList();
+        if (c.Skill == CrestSkill.Mend)
+            AudioDirector.PlaySfx("heal");
+        await Bless(targets, CrestSkillColor(c.Skill));
+    }
+
+    /// <summary>
+    /// Before turn 1 (session 13): Rowan's crest rises and swells over him, and its light washes over the whole army,
+    /// who glow white. Only a show: it changes nothing. Grander at each crest tier.
+    /// </summary>
+    public async Task PlayCrestBlessing(BattleUnit lord)
+    {
+        Battle.Camera.Focus(Battle.CellWorld(lord.Pos));
+        await Wait(0.3f);
+        await RaiseCrest(lord);
+        await Bless(Battle.State.LivingOf(Faction.Player), Colors.White);
+    }
+
+    /// <summary>A unit lunges at a locked door: a thud, the count, and on the last strike it gives way.</summary>
+    private async Task PlayDoorStruck(DoorStruck d)
+    {
+        var unit = Battle.State.Unit(d.UnitId);
+        var door = Battle.CellWorld(d.Cell);
+        Battle.Camera.Focus(door);
+        if (Battle.ViewOf(d.UnitId) is { } view)
+        {
+            view.FaceToward(door);
+            AudioDirector.PlaySfx(AudioCues.Swing(Battle.State.Db, unit.State));
+            await view.Lunge(door);
+        }
+        bool broken = d.Hits >= d.Needed;
+        AudioDirector.PlaySfx(broken ? "hit_heavy" : "hit");
+        Popup(door, broken ? "Broken!" : $"Door {d.Hits}/{d.Needed}", broken ? UiKit.Accent : Colors.White);
+        await Wait(0.35f);
+    }
+
     private Task SetDone(UnitActionStateChanged a)
     {
         Battle.ViewOf(a.UnitId)?.SetDone(a.State == ActionState.Done);
@@ -410,6 +533,14 @@ public partial class BattleEventPlayer : Node
         }
         foreach (var id in s.Surrendered)
             _ = PlayLeave(id, crest ? "Surrenders" : "Goes home");
+        foreach (var id in s.Calmed)
+        {
+            // New look (townsfolk art, green ring) in place of the rioter's.
+            if (Battle.ViewOf(id) is { } old)
+                old.QueueFree();
+            var view = Battle.SpawnView(Battle.State.Unit(id));
+            Popup(view.Position, "Calmed", UiKit.Good);
+        }
         await Wait(0.5f);
     }
 

@@ -216,6 +216,7 @@ public partial class BattleController : Node3D
             else
             {
                 await ShowObjectives(lord);
+                await ShowCrestBlessing(lord);
                 await EventPlayer.Play(Turns.StartBattle());
             }
             await ContinueUntilPlayerInput();
@@ -287,6 +288,26 @@ public partial class BattleController : Node3D
         Hud.ShowCaption(null);
         RefreshMapState();
         Camera.Focus(CellWorld(lord.Pos));
+    }
+
+    /// <summary>
+    /// Before turn 1, once the crest has woken (session 13, user request): it rises over Rowan and its light washes over
+    /// the army (a show only). The first battle at each crest tier in the campaign, the party says how it feels
+    /// (crest_blessing_N, lines only from those deployed).
+    /// </summary>
+    private async Task ShowCrestBlessing(BattleUnit lord)
+    {
+        int tier = State.Options.CrestTier;
+        if (tier <= 0 || !lord.IsLord || DevTools.Autoplay)
+            return;
+        await EventPlayer.PlayCrestBlessing(lord);
+        string sceneId = $"crest_blessing_{tier}";
+        if (!IsCampaign || GameSessionNode.Instance.Session is not { } session || session.SeenScenes.Contains(sceneId)
+            || !State.Db.Scenes.TryGetValue(sceneId, out var scene))
+            return;
+        session.SeenScenes.Add(sceneId);
+        var present = State.LivingOf(Faction.Player).Select(u => u.State.Def.Id).ToHashSet();
+        await Hud.Dialogue.Play(scene.OnlySpeakers(present), State.Db);
     }
 
     public override void _UnhandledInput(InputEvent e)

@@ -107,6 +107,24 @@ public class MapRulesTests
         Assert.Equal(new[] { "rowan" }, scenes[0].Speakers);
     }
 
+    [Fact]
+    public void Dialogue_OnlySpeakers_DropsAbsentCharactersButKeepsTheNarrator()
+    {
+        var scene = DialogueParser.Parse("""
+            ### crest_blessing_2
+            @sfx crest_rise
+            NARRATOR: The crest climbed higher.
+            KAI [laugh]: I could lift a horse.
+            MIRA [smile]: It's stronger.
+            ROWAN: Right.
+            """)[0];
+        var only = scene.OnlySpeakers(new HashSet<string> { "rowan", "mira" });
+        Assert.Equal(new[] { "mira", "rowan" }, only.Speakers);
+        Assert.IsType<SoundLine>(only.Lines[0]);
+        Assert.True(((SpeakLine)only.Lines[1]).IsNarrator);
+        Assert.Equal(4, only.Lines.Count);
+    }
+
     // ------------------------------------------------------------------ objectives
 
     [Fact]
@@ -162,6 +180,18 @@ public class MapRulesTests
         Assert.True(tm.Submit(new ActCommand("u0", new GridPos(4, 0), new EscapeAction())).Ok);
         Assert.Equal(BattleOutcome.InProgress, s.Outcome);
         Assert.True(tm.Submit(new ActCommand("u1", new GridPos(4, 1), new EscapeAction())).Ok);
+        Assert.Equal(BattleOutcome.Victory, s.Outcome);
+    }
+
+    [Fact]
+    public void EscapeAll_RetreatedUnitsNeedNotEscape()
+    {
+        var (s, tm) = Start(new TestBattle(".....", ".....").Lord(3, 0, "sword")
+            .Unit(Faction.Player, "merc", 3, 1, "sword")
+            .Unit(Faction.Enemy, "merc", 0, 0, "sword").WithAi(AiProfile.Stationary)
+            .Victory("escape 4,0 4,1 all"));
+        s.RemoveFromMap(s.Unit("u1"), MapExit.Retreated);
+        Assert.True(tm.Submit(new ActCommand("u0", new GridPos(4, 0), new EscapeAction())).Ok);
         Assert.Equal(BattleOutcome.Victory, s.Outcome);
     }
 
@@ -423,7 +453,14 @@ public class MapRulesTests
         s.Unit("u1").CurrentHp = 1;
         var r = tm.Submit(new ActCommand("u0", new GridPos(0, 0), new AttackAction("u1", new WeaponAttack("sword"))));
         var calmed = r.Events.OfType<CrestSevered>().Single();
-        Assert.Equal(new[] { "u2" }, calmed.Surrendered);
+        Assert.Equal(new[] { "u2" }, calmed.Calmed);
+        Assert.Empty(calmed.Surrendered);
+        // The freed rioter stays, as one of the townsfolk: on the Ally side (green), unarmed.
+        var townsfolk = s.Unit("u2");
+        Assert.True(townsfolk.IsOnMap);
+        Assert.Equal(Faction.Ally, townsfolk.Faction);
+        Assert.Equal("Townsfolk", townsfolk.Name);
+        Assert.Empty(townsfolk.State.Inventory);
         Assert.True(s.Unit("u4").IsOnMap);
         Assert.True(s.IsDominated(s.Unit("u4")));
         Assert.Equal(BattleOutcome.InProgress, s.Outcome);
@@ -452,6 +489,31 @@ public class MapRulesTests
         Assert.Equal(new[] { "sword" }, s.Unit("u0").State.Inventory);
         Assert.Equal("sword", s.Unit("u0").State.EquippedItemId);
         Assert.Contains(r.Events, e => e is LockOpened { Chest: false });
+    }
+
+    [Fact]
+    public void Doors_BreakAfterThreeStrikes_FromAnyoneArmed()
+    {
+        var (s, tm) = Start(new TestBattle("..D..", ".....").Lord(1, 0, "sword")
+            .Unit(Faction.Player, "merc", 3, 0, "sword")
+            .Unit(Faction.Player, "merc", 2, 1, "sword")
+            .Unit(Faction.Player, "merc", 0, 1)
+            .Unit(Faction.Enemy, "merc", 4, 1, "sword").WithAi(AiProfile.Stationary));
+        var door = new GridPos(2, 0);
+        Assert.Empty(ActionRules.BreakableDoors(s, s.Unit("u3"), new GridPos(1, 0))); // unarmed
+        Assert.Empty(ActionRules.BreakableDoors(s, s.Unit("u0"), new GridPos(0, 0))); // not beside it
+
+        foreach (var (id, from, hits) in new[] { ("u0", new GridPos(1, 0), 1), ("u1", new GridPos(3, 0), 2) })
+        {
+            var r = tm.Submit(new ActCommand(id, from, new BreakDoorAction(door)));
+            Assert.True(r.Ok, r.Error);
+            Assert.Contains(r.Events, e => e is DoorStruck { Hits: var h, Needed: 3 } && h == hits);
+            Assert.Equal("door", s.Grid[door].Terrain.Id);
+        }
+        var last = tm.Submit(new ActCommand("u2", new GridPos(2, 1), new BreakDoorAction(door)));
+        Assert.True(last.Ok, last.Error);
+        Assert.Equal("square", s.Grid[door].Terrain.Id);
+        Assert.Contains(last.Events, e => e is TerrainChanged);
     }
 
     [Fact]

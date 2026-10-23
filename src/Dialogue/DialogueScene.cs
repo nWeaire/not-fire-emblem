@@ -38,6 +38,13 @@ public sealed record DialogueScene(string Id, IReadOnlyList<DialogueLine> Lines)
     /// <summary>The unit ids that speak in this scene (no narrator or hidden speakers).</summary>
     public IEnumerable<string> Speakers =>
         Lines.OfType<SpeakLine>().Select(l => l.Speaker).Where(s => s is not ("narrator" or "???")).Distinct();
+
+    /// <summary>
+    /// The scene without the lines of speakers who aren't here (scenes written for whoever was deployed, like the crest
+    /// blessings); the narrator and hidden speakers always stay.
+    /// </summary>
+    public DialogueScene OnlySpeakers(IReadOnlySet<string> present) =>
+        this with { Lines = Lines.Where(l => l is not SpeakLine s || s.IsNarrator || s.Speaker == "???" || present.Contains(s.Speaker)).ToList() };
 }
 
 /// <summary>

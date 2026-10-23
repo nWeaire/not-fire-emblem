@@ -18,7 +18,7 @@ public class CampaignTests
             .Unit(Faction.Enemy, "merc", 4, 1, "sword");
         var db = b.Db;
         db.Add(new UnitDef("partner", "Partner", "merc", 1, default, default, new[] { "sword" }, false,
-            Supports: new[] { new SupportDef("lord", 5, 20, 30) }));
+            Supports: new[] { new SupportDef("lord", 2, 20, 30) }));
         db.Add(b.Map() with { DeploySlots = new[] { new GridPos(1, 0), new GridPos(0, 1) } });
         db.Add(new ShopDef("shop", "Shop", "thornvale", 0, new[] { "iron_sword", "vulnerary" }));
         db.Campaign = CampaignParser.Parse("""
@@ -66,7 +66,7 @@ public class CampaignTests
     public void Victory_WritesTheBattleBack_DefeatLeavesTheRosterUntouched()
     {
         var db = Db();
-        var session = new GameSession();
+        var session = new GameSession { Mode = GameMode.IronMan };
         var runner = new CampaignRunner(db, session);
         session.Join(db, "partner");
         runner.NextInteractive();
@@ -133,7 +133,7 @@ public class CampaignTests
     public void SaveData_RoundTrips()
     {
         var db = Db();
-        var session = new GameSession { Mode = GameMode.Casual, Difficulty = Difficulty.Hard, StepIndex = 4, Chapter = 2, Gold = 1234, CrestTier = 1 };
+        var session = new GameSession { Mode = GameMode.IronMan, Difficulty = Difficulty.Hard, StepIndex = 4, Chapter = 2, Gold = 1234, CrestTier = 1 };
         var lord = session.Join(db, "lord");
         lord.Level = 5;
         lord.Exp = 42;
@@ -148,7 +148,7 @@ public class CampaignTests
 
         var json = SaveData.FromSession(session, "Ch 2").ToJson();
         var loaded = SaveData.FromJson(json).ToSession(db);
-        Assert.Equal(GameMode.Casual, loaded.Mode);
+        Assert.Equal(GameMode.IronMan, loaded.Mode);
         Assert.Equal(Difficulty.Hard, loaded.Difficulty);
         Assert.Equal(4, loaded.StepIndex);
         Assert.Equal(1234, loaded.Gold);

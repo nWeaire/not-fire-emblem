@@ -437,6 +437,8 @@ public partial class PlayerInputController : Node
         var unit = _selected!;
         var from = _dest;
         var options = new List<(string, Action)>();
+        // The ability each entry uses (arts, a lone healing spell), explained in the ability box when highlighted.
+        var abilities = new Dictionary<int, AbilityInfo>();
         _artPreference = null;
         var attackTargets = ActionRules.AttackTargets(S, unit, from).ToList();
         if (attackTargets.Count > 0)
@@ -447,6 +449,7 @@ public partial class PlayerInputController : Node
                      .GroupBy(a => a.ArtId).Select(g => g.First()))
         {
             var def = S.Db.Art(art.ArtId);
+            abilities[options.Count] = AbilityText.Art(def);
             options.Add(($"{def.Name} ({unit.UsesLeft.GetValueOrDefault(art.ArtId)}/{def.Uses})", () =>
             {
                 _artPreference = art;
@@ -454,6 +457,8 @@ public partial class PlayerInputController : Node
             }));
         }
         var healSpells = ActionRules.ReadySpells(S, unit).Where(sp => ActionRules.HealTargets(S, unit, from, sp.Id).Any()).ToList();
+        if (healSpells.Count == 1)
+            abilities[options.Count] = AbilityText.Spell(healSpells[0]);
         if (healSpells.Count > 0)
             options.Add(("Heal", () => OpenHeal(healSpells)));
         var talk = EventDirector.TalkTargets(S, unit, from).ToList();
@@ -474,6 +479,14 @@ public partial class PlayerInputController : Node
         else if (doors.Count > 1)
             options.Add(("Unlock", () => OpenSubMenu(doors.Select(d => (DoorLabel(from, d),
                 (Action)(() => Submit(new ActCommand(unit.Id, from, new UnlockAction(d)))))).ToList(), OpenActionMenu)));
+        // Anyone armed can batter a locked door instead (three strikes); it's listed after Unlock, which is quicker.
+        var breakable = ActionRules.BreakableDoors(S, unit, from).ToList();
+        string StrikeLabel(GridPos d) => $"{ActionRules.DoorHits - S.DoorStrikes.GetValueOrDefault(d)} to go";
+        if (breakable.Count == 1)
+            options.Add(($"Break Door ({StrikeLabel(breakable[0])})", () => Submit(new ActCommand(unit.Id, from, new BreakDoorAction(breakable[0])))));
+        else if (breakable.Count > 1)
+            options.Add(("Break Door", () => OpenSubMenu(breakable.Select(d => ($"{DoorLabel(from, d)} ({StrikeLabel(d)})",
+                (Action)(() => Submit(new ActCommand(unit.Id, from, new BreakDoorAction(d)))))).ToList(), OpenActionMenu)));
         var marks = ActionRules.StealTargets(S, unit, from).ToList();
         if (marks.Count > 0)
             options.Add(("Steal", () => OpenPick(marks, t => $"Steal from {t.Name}", OpenSteal)));
@@ -489,24 +502,24 @@ public partial class PlayerInputController : Node
         options.Add(("Wait", () => Submit(new ActCommand(unit.Id, from, new WaitAction()))));
 
         _back = null;
-        OpenMenu(Mode.ActionMenu, options);
+        OpenMenu(Mode.ActionMenu, options, options.Select((_, i) => abilities.GetValueOrDefault(i)).ToList());
         ShowAttackRangeFrom(unit, from);
         _b.Hud.ShowUnit(S, unit);
     }
 
-    private void OpenMenu(Mode mode, IReadOnlyList<(string Label, Action Choose)> options)
+    private void OpenMenu(Mode mode, IReadOnlyList<(string Label, Action Choose)> options, IReadOnlyList<AbilityInfo?>? abilities = null)
     {
         _menu.Clear();
         _menu.AddRange(options);
         _menuIndex = 0;
         _mode = mode;
-        _b.Hud.ShowMenu(_menu.Select(m => m.Label).ToList(), _menuIndex);
+        _b.Hud.ShowMenu(_menu.Select(m => m.Label).ToList(), _menuIndex, abilities);
     }
 
-    private void OpenSubMenu(IReadOnlyList<(string Label, Action Choose)> options, Action back)
+    private void OpenSubMenu(IReadOnlyList<(string Label, Action Choose)> options, Action back, IReadOnlyList<AbilityInfo?>? abilities = null)
     {
         _b.Hud.HideMenu();
-        OpenMenu(Mode.SubMenu, options);
+        OpenMenu(Mode.SubMenu, options, abilities);
         _back = back;
     }
 
@@ -521,7 +534,8 @@ public partial class PlayerInputController : Node
         if (spells.Count == 1)
             PickFor(spells[0]);
         else
-            OpenSubMenu(spells.Select(sp => ($"{sp.Name} ({unit.UsesLeft.GetValueOrDefault(sp.Id)})", (Action)(() => PickFor(sp)))).ToList(), OpenActionMenu);
+            OpenSubMenu(spells.Select(sp => ($"{sp.Name} ({unit.UsesLeft.GetValueOrDefault(sp.Id)})", (Action)(() => PickFor(sp)))).ToList(), OpenActionMenu,
+                spells.Select(sp => (AbilityInfo?)AbilityText.Spell(sp)).ToList());
     }
 
     /// <summary>"North door" etc., from the acting unit's cell.</summary>
@@ -553,7 +567,6 @@ public partial class PlayerInputController : Node
             string label = $"{skill} ({unit.UsesLeft.GetValueOrDefault(CrestSkills.UseKey(skill))})";
             options.Add((label, () =>
             {
-                _b.Hud.Toast(CrestSkills.Describe(skill), new Color(1f, 1f, 0.85f));
                 if (skill is CrestSkill.Rally or CrestSkill.Mend)
                 {
                     Submit(new ActCommand(unit.Id, _dest, new CrestAction(skill, null)));
@@ -564,7 +577,7 @@ public partial class PlayerInputController : Node
                     () => OpenCrest(skills));
             }));
         }
-        OpenSubMenu(options, OpenActionMenu);
+        OpenSubMenu(options, OpenActionMenu, skills.Select(k => (AbilityInfo?)AbilityText.Crest(k)).ToList());
     }
 
     private void OpenTrade(BattleUnit partner)
@@ -665,6 +678,7 @@ public partial class PlayerInputController : Node
         if (S.HasFriendBeside(unit, _dest))
             hint = $"Ally beside you: +{BattleState.AdjacentHit} Hit, +{BattleState.AdjacentAvoid} Avoid\n" + hint;
         _b.Hud.ShowForecast(forecast, hint);
+        _b.Hud.ShowAbility(choice is ArtAttack chosenArt ? AbilityText.Art(S.Db.Art(chosenArt.ArtId)) : null);
         _b.Hud.ShowUnit(S, target);
         _b.Hud.ShowTerrain(S, target.Pos);
     }

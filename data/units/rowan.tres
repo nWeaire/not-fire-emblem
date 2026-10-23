@@ -34,5 +34,5 @@ Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray("old_sword", "vulnerary")
 IsLord = true
 Arts = PackedStringArray("sunder")
-Supports = PackedStringArray("kai:8,20,35", "mira:8,20,35", "aldric:10,22,40")
+Supports = PackedStringArray("kai:12,30,55", "mira:12,30,55", "aldric:12,32,60")
 Crestbound = "high_lord"

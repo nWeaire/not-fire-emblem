@@ -13,7 +13,7 @@ public sealed class GameSession
 {
     public const int ConvoyCapacity = 100;
 
-    public GameMode Mode { get; set; } = GameMode.Classic;
+    public GameMode Mode { get; set; } = GameMode.Casual;
     public Difficulty Difficulty { get; set; } = Difficulty.Normal;
 
     /// <summary>Index of the current step in the campaign script.</summary>

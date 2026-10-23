@@ -25,7 +25,9 @@ public sealed class BattleUnit
     public bool IsDefeated { get; set; }
     public MapExit Exit { get; set; }
     /// <summary>Which art set represents this unit (see SpawnDef.ResolveSpriteId).</summary>
-    public string SpriteId { get; init; } = "";
+    public string SpriteId { get; set; } = "";
+    /// <summary>A name given mid-battle (Ch 8's calmed rioters become Townsfolk); null keeps the definition's.</summary>
+    public string? Renamed { get; set; }
 
     /// <summary>How objectives and triggers refer to this unit (spawn tag, else unit id).</summary>
     public string? Key { get; init; }
@@ -56,7 +58,7 @@ public sealed class BattleUnit
 
     public bool IsOnMap => !IsDefeated && Exit == MapExit.None;
 
-    public string Name => State.Def.Name;
+    public string Name => Renamed ?? State.Def.Name;
     public bool IsLord => State.Def.IsLord;
 
     /// <summary>Earlier classes, nearest first (see Outfits.Earlier): their outfits stand in for art not drawn yet.</summary>

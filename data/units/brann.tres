@@ -31,5 +31,5 @@ Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray("iron_axe", "hand_axe")
 IsLord = false
 Arts = PackedStringArray("smash")
-Supports = PackedStringArray("tamsin:6,18,30")
+Supports = PackedStringArray("tamsin:10,25,45")
 Crestbound = "ironheart"

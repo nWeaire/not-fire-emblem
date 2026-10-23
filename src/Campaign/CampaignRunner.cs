@@ -109,6 +109,34 @@ public sealed class CampaignRunner
         }
     }
 
+    /// <summary>
+    /// Dev saves (--saveathub with --level): makes an autoplayed party look like a player's at this point. Everyone a
+    /// map so far recruits (Talk / "join" triggers) is on the roster and alive unless the story sent them away, raised to
+    /// <paramref name="level"/> like the campaign, and Rowan carries a Steel Sword.
+    /// </summary>
+    public void PrepareTestParty(int level)
+    {
+        var past = Steps.Take(Session.StepIndex).ToList();
+        var left = past.OfType<LeaveStep>().Select(l => l.UnitId).ToHashSet();
+        foreach (var step in past.OfType<BattleStep>())
+        {
+            var map = Db.Map(step.MapId);
+            var recruits = map.AllTriggers.SelectMany(t => t.Effects).OfType<FactionEffect>()
+                .Where(f => f.Faction == Faction.Player)
+                .Select(f => map.Spawns.FirstOrDefault(sp => sp.Tag == f.Key || sp.UnitId == f.Key)?.UnitId)
+                .OfType<string>().Where(id => Db.Units.ContainsKey(id) && !left.Contains(id));
+            foreach (var id in recruits)
+                Session.Join(Db, id).Status = UnitStatus.Active;
+        }
+        foreach (var unit in Session.ActiveRoster)
+            LevelUpService.RaiseLikeCampaign(Db, unit, level, Session.CrestTier);
+        if (Session.Unit("rowan") is { } rowan && !rowan.Inventory.Contains("steel_sword") && rowan.Inventory.Count < UnitState.MaxInventory)
+        {
+            rowan.Inventory.Insert(0, "steel_sword");
+            rowan.EquippedIndex = 0;
+        }
+    }
+
     // ------------------------------------------------------------------ battles
 
     /// <summary>Roster unit ids the map places itself (story-fixed spawns); they are always deployed.</summary>
@@ -157,7 +185,7 @@ public sealed class CampaignRunner
 
     /// <summary>
     /// Writes a won battle back into the session: roster units (including recruits) replace their roster copies,
-    /// fallen units die (Classic) or recover (Casual), and gold, items, flags and support points are added.
+    /// fallen units die (Iron Man) or recover (Casual), and gold, items, flags and support points are added.
     /// </summary>
     /// <summary>
     /// Gold for every victory, rising through the campaign (Prologue 300, Ch 1 350 … Ch 7 650, Ch 15 1050): about one
@@ -187,7 +215,7 @@ public sealed class CampaignRunner
             if (battleUnit.IsDefeated)
             {
                 fallen.Add(state.Def.Name);
-                state.Status = Session.Mode == GameMode.Classic ? UnitStatus.Dead : UnitStatus.Active;
+                state.Status = Session.Mode == GameMode.IronMan ? UnitStatus.Dead : UnitStatus.Active;
             }
             else
             {

@@ -1,0 +1,41 @@
+# Crest blessings (session 13). Before turn 1 of every battle once the crest has woken, Rowan's crest rises and its
+# light washes over the army (a show only). The first battle at each crest tier plays crest_blessing_<tier>;
+# lines from units who aren't deployed are dropped (DialogueScene.OnlySpeakers), so write each line to stand alone.
+# Tier 1: Ch 1 (only Rowan and Aldric on the field at the start). Tier 2: Ch 8. Tier 3: Ch 14. Tier 4: Act III.
+
+### crest_blessing_1
+@sfx crest_rise
+NARRATOR: The mark on Rowan's hand warmed. White light lifted off it and washed over the burning street.
+ROWAN [worried]: ...It's doing something. I didn't tell it to.
+ALDRIC [neutral]: You did. You looked at us and wanted us standing. That's all it needs.
+ALDRIC [determined]: Feel that? Steadier hands. A lighter blade. Use it. Don't lean on it.
+ROWAN [determined]: Right.
+
+### crest_blessing_2
+@sfx crest_rise
+NARRATOR: The crest climbed higher over Rowan than it ever had, and its light came down on everyone at once.
+KAI [laugh]: Whoa. Okay. I feel like I could lift a horse. Bet I could lift two.
+MIRA [smile]: It's stronger. It used to feel like a warm hand. Now it feels like a wall at your back.
+ELISE [smile]: A Knight's Crest. It reaches further, holds more people. Fascinating. Sorry. Terrible. Fascinating.
+DORRAN [neutral]: I've stood in lines under a lord's crest before, my lord. Never one that felt like this.
+ALDRIC [neutral]: Don't let it go to your head. Let it go to your feet. Stand where they can see you.
+ROWAN [determined]: ...Right. Let's go.
+
+### crest_blessing_3
+@sfx crest_rise
+NARRATOR: Over the snow, the crest blazed. Its light fell like warm rain, and the cold went out of every hand.
+SERAPHINE [determined]: So this is a Lord's Crest. I was raised under a crown, and I never once felt one do this.
+KAI [smile]: I'm not even cold. I should be cold. Rowan, you're a walking fireplace.
+MIRA [smile]: The cuts closing... that isn't me. That's you. Don't waste it on Kai.
+YSRA [neutral]: In Dravenhold a crest is something the throne does to you. This is something you do for us.
+PIP [laugh]: Boss, if you could bottle that, we'd be rich by Tuesday.
+ROWAN [neutral]: Stay close. It reaches further now. Doesn't mean I want you far.
+
+### crest_blessing_4
+@sfx crest_rise
+NARRATOR: The crest rose, and kept rising, until it hung over the field like a second sun.
+MIRA [worried]: Rowan... it's so bright. Is it hurting you?
+ROWAN [neutral]: No. It's not taking anything. It's giving.
+KAI [determined]: Then I'm not wasting a drop of it. Come on. Everyone, with him.
+SERAPHINE [determined]: Whatever comes, we stand in that light. Together.
+ELISE [smile]: A Sovereign's Crest. No book I've read gets this far. I'm writing the next one.

@@ -33,7 +33,7 @@ public partial class TitleScreen : Control
     private Control _column = null!;
     private Control? _intro;
     private Tween? _introTween;
-    private GameMode _mode = GameMode.Classic;
+    private GameMode _mode = GameMode.Casual;
     private Difficulty _difficulty = Difficulty.Normal;
 
     public override void _Ready()
@@ -171,7 +171,7 @@ public partial class TitleScreen : Control
         }
     }
 
-    // Autoplay soak runs play Casual: in Classic one early death snowballed into Rowan alone by Ch 3, stalemated to turn 60.
+    // Autoplay soak runs play Casual: in Iron Man one early death snowballed into Rowan alone by Ch 3, stalemated to turn 60.
     private void StartNew() => CampaignFlow.NewGame(DevTools.Autoplay ? GameMode.Casual : _mode, _difficulty);
 
     private void Clear()
@@ -207,10 +207,12 @@ public partial class TitleScreen : Control
         Clear();
         _menu.AddChild(UiKit.Title("New Game", 24));
         var mode = new OptionButton();
-        mode.AddItem("Classic: fallen units are lost");
-        mode.AddItem("Casual: fallen units return after battle");
-        mode.Selected = (int)_mode;
-        mode.ItemSelected += i => _mode = (GameMode)(int)i;
+        // Casual first (the default), then Iron Man.
+        var modes = new[] { GameMode.Casual, GameMode.IronMan };
+        mode.AddItem("Casual: fallen allies return after battle");
+        mode.AddItem("Iron Man: allies who fall in combat are lost");
+        mode.Selected = Array.IndexOf(modes, _mode);
+        mode.ItemSelected += i => _mode = modes[i];
         _menu.AddChild(UiKit.Label("Mode", 14, UiKit.Muted));
         _menu.AddChild(mode);
         var difficulty = new OptionButton();

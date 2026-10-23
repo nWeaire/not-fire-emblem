@@ -61,9 +61,9 @@ public static class ObjectiveEvaluator
         var goals = s.Map.Goals;
         bool lordOut = s.Units.Where(u => u.Faction == Faction.Player && u.IsLord).All(u => u.Exit == MapExit.Escaped);
         if (goals.EscapeAll)
-            // Units a script took off the map (Ch 15: Aldric stays behind) don't have to escape.
-            return lordOut && s.Units.Where(u => u.Faction == Faction.Player && !u.IsDefeated && u.Exit != MapExit.Departed)
-                .All(u => u.Exit == MapExit.Escaped);
+            // Only units still on the map have to escape: one a script took off (Ch 15: Aldric stays behind) or one
+            // that retreated wounded doesn't (Ch 12 waited forever for a retreated Aldric).
+            return lordOut && !s.Units.Any(u => u.Faction == Faction.Player && u.IsOnMap);
         bool keysOut = goals.EscapeKeys.All(k => s.ByKey(k) is { Exit: MapExit.Escaped });
         return lordOut && keysOut;
     }

@@ -48,6 +48,8 @@ public sealed class BattleState
     public HashSet<string> Flags { get; } = new();
     public HashSet<string> FiredTriggers { get; } = new();
     public HashSet<GridPos> VisitedCells { get; } = new();
+    /// <summary>Strikes each locked door has taken (Break Door); it gives way at ActionRules.DoorHits.</summary>
+    public Dictionary<GridPos, int> DoorStrikes { get; } = new();
     /// <summary>Gold and items picked up this battle; they go to the session on victory.</summary>
     public int GoldGained { get; set; }
     public List<string> ItemsToConvoy { get; } = new();

@@ -30,7 +30,7 @@ public partial class UnitDefinition : Resource
     [Export] public string[] Supports { get; set; } = Array.Empty<string>();
     /// <summary>The unit's own tier-3 class, reached from its tier-2 class at crest tier 3 (empty = none).</summary>
     [Export] public string Crestbound { get; set; } = "";
-    /// <summary>Story-critical: at 0 HP the unit retreats wounded and is back next chapter, even in Classic.</summary>
+    /// <summary>Story-critical: at 0 HP the unit retreats wounded and is back next chapter, even in Iron Man.</summary>
     [Export] public bool Retreats { get; set; }
 
     public UnitDef ToDef() => new(

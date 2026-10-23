@@ -2,9 +2,58 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-23 (end of session 12)._
+_Last updated: 2026-10-23 (end of session 13)._
 
 ---
+
+## Session 13: Act II playtest setup and the user's playtest requests
+**Nothing from session 13 is committed yet** (all on `main`'s working tree; build clean, **140 tests pass**, content
+validates on boot). Commit it first next session.
+
+- **Playtest save:** the user's Act II save is **Slot 2** (Ch 8 hub, Casual, crest tier 2; the user has since promoted
+  Aldric/Mira/Dorran and spent gold). Made with the new `--saveathub=N[:SLOT]` flag (autoplay never writes saves
+  otherwise; with `--level=auto` it adds every recruit so far, the campaign level and Rowan's Steel Sword:
+  `CampaignRunner.PrepareTestParty`). Backups: `slot0.before-act2-soak.json`, `slot2.autoplay-raw.json` in the save
+  folder. The user's own Ch 4 saves (slots 0/1) are untouched.
+- **Bug fixed: Ch 12 looped forever** (Player/Ally phases flicking) when Aldric/Seraphine *retreated*: `escape … all`
+  waited for them to escape. Now only units still on the map must escape (`ObjectiveEvaluator.EscapeDone`).
+- **Promotion scene** (user: "Pokémon evolution"): `UI/Nodes/PromotionSequence.cs` over the hub: battle sprite whitens,
+  old/new outfits flicker faster and faster, flash, reveal with "X became a Y!" and class stat changes. Confirm skips /
+  closes. `--promotiondemo=unit:class` plays it without promoting.
+- **Ch 8 rioters:** when an agitator falls, the rioters he held become green Ally **Townsfolk** (villager, unarmed,
+  stationary, townsfolk sprite) instead of walking off (`BattleProgress.Calm`, `CrestSevered.Calmed`). They don't count
+  toward `protect civilian 4` (the user can ask to change that).
+- **Hub:** "To convoy" → **"To town"** on item buttons (the Convoy counter and battle "(to convoy)" text unchanged).
+  Hovering the crest name lists Rowan's crest skills.
+- **Ability box** (top-right of the battle HUD, `BattleHud.ShowAbility`): explains the highlighted crest skill, combat
+  art (menu or Tab while targeting) or healing spell, text built from the data (`Units/AbilityText.cs`). No hints or
+  tooltips on the menu itself (user's call; nothing for the plain "Crest" entry).
+- **Crest animations:** using a crest skill raises Rowan's crest over his head (bigger per tier), then rings and sparks
+  in the skill's colour round each target (`RaiseCrest`, `Bless`, `UI/Nodes/CrestBurst.cs`). **Battle-start blessing**:
+  before turn 1 (crest tier ≥ 1, not under autoplay) the crest rises and the whole army glows white; a show only.
+  The first battle at each tier in a campaign plays `crest_blessing_<tier>` (`data/dialogue/crest.txt`; lines from
+  undeployed speakers are dropped, `DialogueScene.OnlySpeakers`; seen ids go in `SeenScenes`). Skill animation is
+  not yet seen on screen (autoplay never uses crest skills).
+- **Breakable doors** (Ch 9, Ch 13): any armed unit beside a locked door gets **Break Door (N to go)**; 3 strikes open
+  it (`BreakDoorAction`, `BattleState.DoorStrikes`, `DoorStruck` event). Keys/Pip still open at once; chests unchanged.
+- **Modes:** new games default to **Casual**; Classic is renamed **Iron Man** (`GameMode.IronMan = 0`, saves store the
+  number, so old saves keep their mode). Picker lists Casual first.
+- **Supports slowed** (user: A not before mid Act II): at most 5 points a pair per battle (survive 2, side by side up to
+  `Supports.AdjacentCap` 3); thresholds Rowan×Kai/Mira and Kai×Mira 12/30/55, Rowan×Aldric 12/32/60, Brann×Tamsin
+  10/25/45 (fastest A ≈ Ch 11). Pacing rule in DIALOGUE.md §6. **Risk:** Rowan×Aldric must reach A before Ch 15 and
+  needs ~4 points a battle; existing saves keep their old points.
+- **Ch 5 Gloam Alpha** ~30% less damage: Alpha Claws Mt 8 → 4, class base Str 13 → 11 (hits Tamsin 15, was ~21).
+  Autoplay still loses Ch 5 often (long-standing).
+- Dev: CLAUDE.md documents `--saveathub`. Autoplay soak from a new game reached Ch 12 before the fix above.
+
+## Next (plan for session 14)
+1. **Commit session 13** (ask about pushing).
+2. Keep **hand playtesting Act II** from Slot 2 (Ch 8 onward): the calmed townsfolk, the tier-2 blessing scene,
+   Break Door in Ch 9, the promotion scene, the ability box, crest skill animations (not yet seen).
+3. Decide with the user: calmed rioters counting toward Ch 8's civilian losses; guaranteeing Rowan×Aldric A before
+   Ch 15; renaming "Convoy" elsewhere to "Town"; resetting Slot 2's support points to the new pacing.
+4. Then the session-12 list below: story-critical units, the Old Warden Vault, the Act II hub, Crestbound arts, art,
+   Act III.
 
 ## Session 12 (late): Act I playtest notes
 - **Fog of war** is now drifting layered fog over the hidden cells (the user's pick, "Eerie mist": a dim floor and two
@@ -147,7 +196,7 @@ chapter; DIALOGUE.md §2 has voices for Pip, Ysra, Halde, Castellan, Vossk and Y
 - **Tests:** 134 pass. Content validates on boot.
 - **PixelLab:** about $2.21 credit left; Act II runs on placeholders.
 
-## Next (plan for session 13)
+## Next (plan for session 13; item 1 started, the rest carried into session 14)
 1. **Hand playtest Act II** (`--map=ch8` … `ch15` with `--level=auto`, or a campaign save at Ch 7): balance (Ch 8–9
    hardest, 10–14 maybe easy), the riot's neutral phase, doors/chests/Steal with Pip, Seraphine's escort, the cliffs,
    the Gull escape, the vault, the Empress (subdued, not killed), and Ch 15's door.

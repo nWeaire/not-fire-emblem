@@ -243,8 +243,12 @@ public static class CrestSkills
 /// <summary>Support pairs, points and ranks (GDD §5).</summary>
 public static class Supports
 {
+    // Pacing (session 13, user: "A shouldn't come until halfway through Act II"): a pair gains at most
+    // SurvivePoints + AdjacentCap = 5 points a battle, so the thresholds in data/units are battles together × 5.
     public const int AdjacentPoints = 1;
-    public const int SurvivePoints = 5;
+    /// <summary>Most points a pair can earn by standing together in one battle.</summary>
+    public const int AdjacentCap = 3;
+    public const int SurvivePoints = 2;
     public static readonly string[] RankNames = { "-", "C", "B", "A" };
 
     /// <summary>Order-independent key for a pair of unit ids.</summary>

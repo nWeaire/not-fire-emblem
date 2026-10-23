@@ -135,6 +135,9 @@ public partial class HubScreen : Control
         _unitId = S.ActiveRoster.FirstOrDefault()?.Def.Id;
         BuildTour();
         Refresh();
+        // --promotiondemo=unit:class plays the promotion scene for checking it; nothing is promoted.
+        if (DevTools.PromotionDemo is { } demo && S.Unit(demo.Unit) is { } demoUnit)
+            AddChild(new PromotionSequence(Db, demoUnit, demoUnit.ClassId, demo.Class, S.CrestTier));
         if (DevTools.AutoAdvance)
         {
             // Soak runs promote everyone who can, as a player would (session 12: an unpromoted Act II army stalled on Ch 12).
@@ -167,8 +170,12 @@ public partial class HubScreen : Control
         var crestLabel = UiKit.Label(CrestName(S.CrestTier), 16, S.CrestTier > 0 ? UiKit.Text : UiKit.Muted);
         crestLabel.SizeFlagsVertical = SizeFlags.ShrinkCenter;
         _crestRow.AddChild(crestLabel);
+        // Hovering the crest lists what it lets Rowan do, and what the next tier brings.
+        _crestRow.MouseFilter = MouseFilterEnum.Pass;
+        crestLabel.MouseFilter = MouseFilterEnum.Pass;
+        crestLabel.TooltipText = CrestTooltip(S.CrestTier);
         _gold.Text = $"{S.Gold} G";
-        _chapter.Text = $"{S.ChapterTitle}  ·  {S.Mode}, {S.Difficulty}";
+        _chapter.Text = $"{S.ChapterTitle}  ·  {S.Mode.Name()}, {S.Difficulty}";
         _convoy.Text = $"Convoy {S.Convoy.Count}/{GameSession.ConvoyCapacity}";
         _osmund.Text = OsmundLine();
         _tourTargets.Clear();
@@ -236,6 +243,15 @@ public partial class HubScreen : Control
             : "What shall we attend to, my lord?",
     };
 
+    private static string CrestTooltip(int tier)
+    {
+        var skills = Enum.GetValues<CrestSkill>();
+        var lines = skills.Where(k => CrestSkills.Tier(k) <= tier).Select(k => $"{CrestSkills.Describe(k)} ({CrestSkills.Uses(k)}× a battle)").ToList();
+        if (skills.FirstOrDefault(k => CrestSkills.Tier(k) > tier) is var next && CrestSkills.Tier(next) > tier)
+            lines.Add($"Next, at the {CrestName(CrestSkills.Tier(next))}: {CrestSkills.Describe(next)}");
+        return lines.Count == 0 ? "The crest hasn't woken yet." : "Rowan's crest skills (Crest, in his action menu):\n" + string.Join("\n", lines);
+    }
+
     private static string CrestName(int tier) => tier switch
     {
         0 => "Unmarked",
@@ -302,7 +318,7 @@ public partial class HubScreen : Control
                 row.AddChild(equip);
                 _tourTargets.TryAdd($"equip:{u.Def.Id}:{itemId}", equip);
             }
-            row.AddChild(Small("To convoy", () => Do(() => HubService.TakeFromUnit(Db, S, u, slot), "Sent to the convoy.")));
+            row.AddChild(Small("To town", () => Do(() => HubService.TakeFromUnit(Db, S, u, slot), "Sent to town.")));
         }
         if (u.Inventory.Count == 0)
             Row("   (empty)", 14, UiKit.Muted);
@@ -601,9 +617,26 @@ public partial class HubScreen : Control
                 string? why = HubService.CannotPromote(Db, S, unit, target);
                 string crestbound = Db.Class(target).Tier == 3 ? " (Crestbound)" : "";
                 var row = Row($"   {unit.Def.Name} ({cls.Name} Lv {unit.Level}) → {Db.Class(target).Name}{crestbound}" + (why is null ? "" : $"   — {why}"));
-                row.AddChild(Small("Promote", () => Do(() => HubService.Promote(Db, S, unit, target), $"{unit.Def.Name} is now a {Db.Class(target).Name}!"), why is null));
+                row.AddChild(Small("Promote", () => Promote(unit, target), why is null));
             }
         }
+    }
+
+    /// <summary>Promotes, then plays the promotion scene over the hub; the hub refreshes once it closes.</summary>
+    private void Promote(UnitState unit, string target)
+    {
+        string oldClass = unit.ClassId;
+        if (HubService.Promote(Db, S, unit, target) is { } error)
+        {
+            Do(() => error, "");
+            return;
+        }
+        int focus = UiKit.FocusIndex(_content);
+        AddChild(new PromotionSequence(Db, unit, oldClass, target, S.CrestTier, () =>
+        {
+            Do(() => null, $"{unit.Def.Name} is now a {Db.Class(target).Name}!");
+            UiKit.RestoreFocus(_content, Math.Max(0, focus));
+        }));
     }
 
     // ------------------------------------------------------------------ supports

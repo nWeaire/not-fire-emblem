@@ -426,7 +426,7 @@ Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubRes
 Victory = "boss agitator"
 Defeat = PackedStringArray("protect civilian 4")
 Triggers = PackedStringArray("turn 1 => scene ch08_start", "defeated agitator => scene ch08_agitator", "turn 4 enemy => spawn veiled; scene ch08_veiled", "visit 4,6 => scene ch08_tenement; give actor elixir", "visit 29,7 => scene ch08_cloth_merchant; gold 400")
-Highlights = PackedStringArray("agitator => Veiled agitators wear a purple sigil. Rioters near one fight harder; drop him and they go home.", "4,6 29,7 => Doors you can visit.")
+Highlights = PackedStringArray("agitator => Veiled agitators wear a purple sigil. Rioters near one fight harder; drop him and they come to their senses.", "4,6 29,7 => Doors you can visit.")
 Fog = false
 DeploySlots = "15,23 16,23 14,23 17,23 15,22 16,22 13,23 18,23 14,24 17,24"
 Background = "calder_square"

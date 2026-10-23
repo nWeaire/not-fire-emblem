@@ -17,10 +17,11 @@ public static class SaveService
 
     public static string SlotName(int slot) => slot == 0 ? "Autosave" : $"Slot {slot}";
 
-    public static string? Save(int slot, GameSession session)
+    /// <param name="force">Write even under autoplay (--saveathub asked for this save).</param>
+    public static string? Save(int slot, GameSession session, bool force = false)
     {
         // Autoplay test runs share the player's save folder; they must never overwrite real saves.
-        if (DevTools.Autoplay)
+        if (DevTools.Autoplay && !force)
             return null;
         DirAccess.MakeDirRecursiveAbsolute(Dir);
         string label = $"{session.ChapterTitle} · {Time.GetDatetimeStringFromSystem(false, true)}";

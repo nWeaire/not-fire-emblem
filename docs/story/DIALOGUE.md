@@ -374,6 +374,10 @@ NARRATOR: Most evenings.
 
 Each pair has C/B/A ranks. Conversation ids follow `support_<a>_<b>_<rank>`, with ids sorted alphabetically.
 
+**Pacing:** a pair earns at most 5 points a battle (2 for surviving it together, up to 3 for fighting side by side),
+so set the thresholds (`Supports` on the unit, `partner:C,B,A`) at about 5 × the battles you want: C after ~2–3
+battles together, B around the middle, A no earlier than halfway through Act II (Ch 11). Pairs from Ch 1 use 12/30/55.
+
 | Pair | Theme (C → A) |
 |---|---|
 | Rowan × Kai | Rivalry → Kai admits he's scared of being left behind → *(post-Ch 20)* "You came back." |

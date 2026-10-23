@@ -23,6 +23,10 @@ namespace NotFireEmblem.Core;
 ///   --focus=X,Y              the battle camera and cursor start on this cell instead of the lord
 ///   --level=N|auto           single battles (--map): player units below level N are raised to it with average gains;
 ///                            auto picks the map's campaign level (<see cref="CampaignLevels"/>)
+///   --saveathub=N[:SLOT]     on reaching the hub before chapter N, save to SLOT (default 2; even under autoplay) and
+///                            quit: with --newgame --autoplay it makes a campaign save to playtest a later chapter from;
+///                            add --level=auto for the party a player would have (recruits, campaign level, Steel Sword)
+///   --promotiondemo=U:C      the hub plays unit U's promotion scene into class C (nothing is promoted)
 /// BattleController also reads --seed=&lt;n&gt; (battle RNG); Boot reads --map=&lt;id&gt; (e.g. prologue, ch1, test_ford).
 /// </summary>
 public partial class DevTools : Node
@@ -37,6 +41,10 @@ public partial class DevTools : Node
     public static int? FogStyle { get; private set; }
     /// <summary>--level: a level, or 0 for "auto" (the map's entry in <see cref="CampaignLevels"/>); null when unset.</summary>
     public static int? PartyLevel { get; private set; }
+    /// <summary>--saveathub: the chapter whose hub to save at, and the slot.</summary>
+    public static (int Chapter, int Slot)? SaveAtHub { get; private set; }
+    /// <summary>--promotiondemo=unit:class: the hub plays that unit's promotion scene without promoting.</summary>
+    public static (string Unit, string Class)? PromotionDemo { get; private set; }
 
     /// <summary>
     /// About where a party stands entering each map in a real campaign (session 11: autoplay soak levels, rounded up
@@ -76,6 +84,14 @@ public partial class DevTools : Node
                     break;
                 case "--level":
                     PartyLevel = parts[1] == "auto" ? 0 : int.Parse(parts[1]);
+                    break;
+                case "--saveathub":
+                    var at = parts[1].Split(':');
+                    SaveAtHub = (int.Parse(at[0]), at.Length > 1 ? int.Parse(at[1]) : 2);
+                    break;
+                case "--promotiondemo":
+                    var demo = parts[1].Split(':');
+                    PromotionDemo = (demo[0], demo[1]);
                     break;
                 case "--fogstyle":
                     FogStyle = int.Parse(parts[1]);

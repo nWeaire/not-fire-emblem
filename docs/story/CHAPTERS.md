@@ -134,7 +134,9 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
   with Ally units (the townsfolk), never the army, though they fight back. They carry cudgels (Mt 1).
 - **Agitators** (4 Veiled, Tag `agitator`, Guard) hold Dominion over the rioters near them (`DominatedBy agitator`,
   shared key: any agitator within 3 cells riles them). When one falls, the rioters round him who no other agitator
-  holds calm down and go home ("Calmed!"). The Veiled (`Ignores civilian`) leave the townsfolk to the mob.
+  holds calm down ("Calmed!") and stay where they stand as unarmed Townsfolk on the Ally side (green, holding
+  still; they don't count toward the `protect civilian` losses). The Veiled (`Ignores civilian`) leave the townsfolk
+  to the mob.
 - **Win:** `boss agitator` (every unit with the key). **Lose:** default, or 4 townsfolk (`protect civilian 4`).
 - **Events:** T1 `ch08_start`; the first agitator down, `ch08_agitator` (the sigil is a burned-in badge, not a crest);
   T4 Veiled thugs from both ends of the guild street (`ch08_veiled`); two visit doors (an Elixir, 400 gold).

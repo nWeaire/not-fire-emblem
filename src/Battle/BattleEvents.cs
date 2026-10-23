@@ -49,6 +49,8 @@ public sealed record UnitTalked(string UnitId, string TargetId) : BattleEvent;
 public sealed record CellVisited(string UnitId, GridPos Cell) : BattleEvent;
 /// <summary>A locked door beside the unit, or the chest under it, was opened (by Locktouch or a key).</summary>
 public sealed record LockOpened(string UnitId, GridPos Cell, bool Chest) : BattleEvent;
+/// <summary>A unit struck a locked door: <see cref="Hits"/> of <see cref="Needed"/>; at Needed it broke open.</summary>
+public sealed record DoorStruck(string UnitId, GridPos Cell, int Hits, int Needed) : BattleEvent;
 /// <summary>A story-critical unit fell and was carried off the field, wounded (back next chapter).</summary>
 public sealed record UnitRetreated(string UnitId) : BattleEvent;
 /// <summary>A non-lethal unit was beaten: it leaves the map alive.</summary>
@@ -64,7 +66,9 @@ public sealed record UnitEscaped(string UnitId) : BattleEvent;
 public sealed record UnitDeparted(string UnitId) : BattleEvent;
 
 /// <summary>A crest-bearer fell: <see cref="Stunned"/> beasts lose their next phase, <see cref="Surrendered"/> humans leave.</summary>
-public sealed record CrestSevered(string BearerId, IReadOnlyList<string> Stunned, IReadOnlyList<string> Surrendered) : BattleEvent;
+/// <summary>Calmed: released rioters who stay on the map as Ally townsfolk (a fallen non-crest holder, Ch 8).</summary>
+public sealed record CrestSevered(string BearerId, IReadOnlyList<string> Stunned, IReadOnlyList<string> Surrendered,
+    IReadOnlyList<string> Calmed) : BattleEvent;
 
 /// <summary>A stunned unit skipped its phase.</summary>
 public sealed record UnitStunnedSkip(string UnitId) : BattleEvent;

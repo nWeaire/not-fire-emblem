@@ -92,7 +92,7 @@ public sealed record UnitDef(
     IReadOnlyList<string>? Spells = null,
     IReadOnlyList<SupportDef>? Supports = null,
     string? Crestbound = null,  // the unit's own tier-3 class (STORY §4.2: a unique third tier per companion)
-    bool Retreats = false);     // story-critical: at 0 HP the unit retreats wounded instead of dying, even in Classic
+    bool Retreats = false);     // story-critical: at 0 HP the unit retreats wounded instead of dying, even in Iron Man
 
 /// <summary>A support pairing seen from one unit: the points needed for ranks C, B and A.</summary>
 public sealed record SupportDef(string PartnerId, int C, int B, int A)

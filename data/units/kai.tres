@@ -35,6 +35,6 @@ Inventory = PackedStringArray("iron_lance", "vulnerary")
 IsLord = false
 Armor = "padded_gambeson"
 Arts = PackedStringArray("spear_rush")
-Supports = PackedStringArray("mira:8,20,35")
+Supports = PackedStringArray("mira:12,30,55")
 Retreats = true
 Crestbound = "vanguard"

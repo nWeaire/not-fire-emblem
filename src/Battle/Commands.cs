@@ -42,6 +42,7 @@ public interface IBattleCommand
 [JsonDerivedType(typeof(CrestAction), "crest")]
 [JsonDerivedType(typeof(UnlockAction), "unlock")]
 [JsonDerivedType(typeof(StealAction), "steal")]
+[JsonDerivedType(typeof(BreakDoorAction), "breakdoor")]
 public abstract record BattleAction;
 
 public sealed record WaitAction : BattleAction;
@@ -66,6 +67,9 @@ public sealed record CrestAction(CrestSkill Skill, string? TargetId) : BattleAct
 
 /// <summary>Opens a locked door next to the unit, or the chest it stands on (Locktouch, or a key that is used up).</summary>
 public sealed record UnlockAction(GridPos Cell) : BattleAction;
+
+/// <summary>Strikes a locked door next to the unit with its weapon; the door breaks on the third strike.</summary>
+public sealed record BreakDoorAction(GridPos Cell) : BattleAction;
 
 /// <summary>A thief takes an item the adjacent enemy isn't wielding (the enemy must not be faster).</summary>
 public sealed record StealAction(string TargetId, string ItemId) : BattleAction;
@@ -134,6 +138,9 @@ public sealed record ActCommand(string UnitId, GridPos Destination, BattleAction
                 break;
             case UnlockAction unlock:
                 Unlock(s, unit, unlock.Cell, events);
+                break;
+            case BreakDoorAction strike:
+                StrikeDoor(s, unit, strike.Cell, events);
                 break;
             case StealAction steal:
                 Steal(unit, s.Unit(steal.TargetId), steal.ItemId, events);
@@ -223,6 +230,19 @@ public sealed record ActCommand(string UnitId, GridPos Destination, BattleAction
         events.Add(new LockOpened(unit.Id, cell, chest));
         if (chest)
             EventDirector.FireChest(s, unit, cell, events);
+    }
+
+    /// <summary>Session 13 (user request): doors don't need keys or Pip, just time. Three strikes break one open.</summary>
+    private static void StrikeDoor(BattleState s, BattleUnit unit, GridPos cell, List<BattleEvent> events)
+    {
+        int hits = s.DoorStrikes.GetValueOrDefault(cell) + 1;
+        s.DoorStrikes[cell] = hits;
+        events.Add(new DoorStruck(unit.Id, cell, hits, ActionRules.DoorHits));
+        if (hits < ActionRules.DoorHits)
+            return;
+        s.DoorStrikes.Remove(cell);
+        s.Grid.SetTerrain(cell, s.Db.Terrain(ActionRules.OpenedTerrain));
+        events.Add(new TerrainChanged(new[] { cell }));
     }
 
     private static void Steal(BattleUnit thief, BattleUnit target, string itemId, List<BattleEvent> events)

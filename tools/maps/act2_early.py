@@ -324,7 +324,7 @@ def ch8():
                 "turn 4 enemy => spawn veiled; scene ch08_veiled",
                 "visit 4,6 => scene ch08_tenement; give actor elixir",
                 "visit 29,7 => scene ch08_cloth_merchant; gold 400"]
-    highlights = ["agitator => Veiled agitators wear a purple sigil. Rioters near one fight harder; drop him and they go home.",
+    highlights = ["agitator => Veiled agitators wear a purple sigil. Rioters near one fight harder; drop him and they come to their senses.",
                   "4,6 29,7 => Doors you can visit."]
     slots = [(15, 23), (16, 23), (14, 23), (17, 23), (15, 22), (16, 22), (13, 23), (18, 23), (14, 24), (17, 24)]
     map_tres("ch8", "Chapter 8: Riot in the Capital", g.rows(), g.height_rows(), spawns, "boss agitator",

@@ -2,11 +2,41 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-24 (session 14)._
+_Last updated: 2026-10-24 (end of session 14)._
 
 ---
 
-## Session 14: Ch 1–9 playtest notes (uncommitted)
+## Where things stand (end of session 14)
+- **Everything is committed and pushed to `main`** (last commit: "Level cap 10; recruitable enemies can't be
+  attacked"). Build clean, **144 tests pass**. Only `assets/ExampleFiles/` (reference images) and
+  `tools/art/takes/` are untracked, on purpose.
+- The user commits straight to `main` (session 14: a branch was made, then merged and deleted at their request).
+- **Saves:** slots 0/1 are the user's new playthrough (Ch 6; Aldric Lv 12 and Mira Lv 11 are above the new cap and
+  keep their stats). Slot 2 is the Act II playtest save (Ch 8 hub). A copy of all saves from early session 14 is in
+  the session scratchpad only (not kept).
+
+## Next (plan for session 15)
+1. **Hand playtest Ch 10–15** (never played by hand) and the **Old Warden Vault** (`--map=vault --level=auto`, or the
+   hub before Ch 15): the seals, Ser Caddoc, the altar and Lyra's Blade. Also see the **Side Maps** tab on screen (not
+   yet seen) and re-check Ch 9 (tougher Corvin), fog 4, chests for anyone, the pinned shop card.
+2. **Watch the level cap** in play: units stall at 10 while the crest gates promotion (tier 2 after Ch 7, tier 3
+   after Ch 13). The user chose this on purpose (session 14, "option 1": no banked EXP, so players don't lean on one
+   unit); only revisit if they ask.
+3. **Decide with the user:** Ch 11 is a rout and Ysra can't be attacked while Rowan is on the field, so she must be
+   recruited to win (an exception is possible); calmed rioters and Ch 8's civilian count; Rowan×Aldric A before Ch 15;
+   "Convoy" → "Town" everywhere; where Black Steel / Mythril are first sold and whether the smithy forges past Silver.
+4. Then: the Act II hub (still Brookhollow's hall), Crestbound signature arts, art (ART_NEEDED §0, incl. Ser Caddoc
+   and a vault background), Act III ("The Hollow Path", Ch 16–22; paralogues can use side maps).
+
+## Session 14 (end): level cap and recruit protection
+- **Level cap 10** (`ExpCalculator.LevelCap`, was 20): at 10 a unit earns no EXP until it promotes; the hub's Party
+  page says "EXP max: promote to grow". Promoted classes count as +10 levels per tier for EXP (was +20).
+- **Recruitable enemies can't be attacked** (`ActionRules.SparedRecruit`): not in the attack menu, and rejected by the
+  rules (so autoplay can't either), while a unit who could recruit them is on the field
+  (`EventDirector.Recruiter` now checks that too; the yellow-green mark follows the same rule). Their own attacks
+  still draw counters.
+
+## Session 14: Ch 1–9 playtest notes
 - **Kai** is no longer made a Cavalier by the campaign (`class kai cavalier` removed): Soldier now promotes to
   Cavalier (`soldier.tres` PromotesTo), then Paladin, then Vanguard. `hub_merrow_horses` gives him the horse and says so.
   The user's own saves (slots 0/1, Ch 10) already have Kai as a Paladin, which is unchanged.
@@ -85,7 +115,7 @@ validates on boot). Commit it first next session.
   Autoplay still loses Ch 5 often (long-standing).
 - Dev: CLAUDE.md documents `--saveathub`. Autoplay soak from a new game reached Ch 12 before the fix above.
 
-## Next (plan for session 14)
+## Next (plan for session 14; done or carried into session 15)
 1. **Commit session 13** (ask about pushing).
 2. Keep **hand playtesting Act II** from Slot 2 (Ch 8 onward): the calmed townsfolk, the tier-2 blessing scene,
    Break Door in Ch 9, the promotion scene, the ability box, crest skill animations (not yet seen).

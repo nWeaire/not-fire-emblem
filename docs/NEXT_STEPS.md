@@ -19,7 +19,8 @@ _Last updated: 2026-10-24 (session 14)._
 - **Promotion scene:** no "What? X is changing!" caption; "X became a/an Y!" fades in at the reveal.
 - **Swords:** the Killing Edge is gone; the Silver Sword takes its place (Dain Hall Stores, Ch 12/13 myrmidons; Ch 8/9
   myrmidons and Sable carry Steel). Old saves map `killing_edge` to `silver_sword` (`SaveData.RenamedItems`). New
-  **Black Steel Sword** (tier 4) and **Mythril Sword** (tier 5) exist for Act III; no shop sells them and the smithy
+  **Black Steel** (tier 4) and **Mythril** (tier 5) swords, lances, axes and bows exist for Act III (Black Steel: Silver
+  +3 Mt, -5 Hit, 5 Crt, +2 Wt, 3500 G; Mythril: +5 Mt, +10 Hit, 10 Crt, -3 Wt, 6000 G); no shop sells them and the smithy
   still stops at Silver (`MaxForgeTier` 3). "Mithril Mail" is now spelled "Mythril Mail" (id unchanged).
 - **Chests open for anyone** on the player's side, no key or thief (`ActionRules.Unlockable`). Chest Keys are no longer
   sold or carried (enemies carry Door Keys instead); the item stays so old saves can sell it.

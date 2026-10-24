@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/WeaponDefinition.cs" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+Id = "black_steel_bow"
+Name = "Black Steel Bow"
+Type = 3
+Might = 16
+Hit = 70
+Crit = 5
+Weight = 9
+MinRange = 2
+MaxRange = 2
+Magic = false
+EffectiveAgainst = PackedStringArray()
+Price = 3500
+Tier = 4

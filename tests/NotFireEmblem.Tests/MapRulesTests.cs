@@ -230,6 +230,21 @@ public class MapRulesTests
     }
 
     [Fact]
+    public void RecruitableEnemies_CantBeAttacked_UntilTheTalkIsGone()
+    {
+        var (s, tm) = Start(new TestBattle("....", "....").Lord(0, 0, "sword")
+            .Named("sable", Faction.Enemy, "merc", 1, 0, "sword").WithAi(AiProfile.Stationary)
+            .Unit(Faction.Enemy, "merc", 3, 1, "sword").WithAi(AiProfile.Stationary)
+            .Triggers("talk lord sable => join sable"));
+        var sable = s.Unit("u1");
+        Assert.DoesNotContain(sable, ActionRules.AttackTargets(s, s.Unit("u0"), new GridPos(0, 0)));
+        var choice = CombatCalculator.AttackChoices(s.Db, s.Unit("u0")).First();
+        Assert.False(tm.Submit(new ActCommand("u0", new GridPos(0, 0), new AttackAction("u1", choice))).Ok);
+        Assert.True(tm.Submit(new ActCommand("u0", new GridPos(0, 0), new TalkAction("u1"))).Ok);
+        Assert.Equal(Faction.Player, sable.Faction);
+    }
+
+    [Fact]
     public void Survive_WinsWhenThePlayerPhaseAfterTheLastTurnBegins()
     {
         var (s, tm) = Start(new TestBattle("........").Lord(0, 0, "sword").Unit(Faction.Enemy, "merc", 7, 0).Victory("survive 2"));

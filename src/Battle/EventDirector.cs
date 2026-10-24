@@ -62,13 +62,14 @@ public static class EventDirector
 
     /// <summary>
     /// Who can recruit this enemy by talking to it (a talk trigger that makes it join): the trigger's actor
-    /// ("kai", "rowan|seraphine", "any"), or null if it can't be recruited.
+    /// ("kai", "rowan|seraphine", "any"), or null if it can't be recruited, or nobody who could is still on the field.
     /// </summary>
     public static string? Recruiter(BattleState s, BattleUnit target) =>
         target.Faction != Faction.Enemy ? null
         : Pending(s).Where(t => t.Condition is TalkCondition c && c.Target == target.Key
                                 && t.Effects.Any(e => e is FactionEffect { Faction: Faction.Player } f && f.Key == target.Key))
-            .Select(t => ((TalkCondition)t.Condition).Actor).FirstOrDefault();
+            .Select(t => ((TalkCondition)t.Condition).Actor)
+            .FirstOrDefault(actor => actor == "any" || actor.Split('|').Any(k => s.ByKey(k) is { IsOnMap: true, Faction: Faction.Player }));
 
     public static TriggerDef? VisitTrigger(BattleState s, GridPos cell) =>
         Pending(s).FirstOrDefault(t => t.Condition is VisitCondition c && c.Cell == cell);

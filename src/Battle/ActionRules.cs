@@ -29,6 +29,8 @@ public static class ActionRules
                     return ValidationResult.Fail("Target is not on the map.");
                 if (!unit.Faction.IsHostileTo(target.Faction))
                     return ValidationResult.Fail($"{target.Name} is not hostile.");
+                if (SparedRecruit(s, unit, target))
+                    return ValidationResult.Fail($"{target.Name} could be recruited: talk instead.");
                 if (!s.CanSee(unit.Faction, target))
                     return ValidationResult.Fail($"{target.Name} can't be seen.");
                 if (!unit.State.Inventory.Contains(attack.Choice.WeaponId))
@@ -97,9 +99,16 @@ public static class ActionRules
     public static IEnumerable<BattleUnit> AttackTargets(BattleState s, BattleUnit unit, GridPos from)
     {
         var choices = CombatCalculator.AttackChoices(s.Db, unit).ToList();
-        return s.Living.Where(t => t.Faction.IsHostileTo(unit.Faction) && s.CanSee(unit.Faction, t)
+        return s.Living.Where(t => t.Faction.IsHostileTo(unit.Faction) && s.CanSee(unit.Faction, t) && !SparedRecruit(s, unit, t)
                                    && choices.Any(c => CombatCalculator.InRange(s.Db, c, from.DistanceTo(t.Pos))));
     }
+
+    /// <summary>
+    /// Session 14 (user request): the army can't attack an enemy that a talk would recruit (Sable, Wren...), so nobody
+    /// kills one by accident. Their own attacks still draw counters.
+    /// </summary>
+    public static bool SparedRecruit(BattleState s, BattleUnit attacker, BattleUnit target) =>
+        attacker.Faction.IsPlayerSide() && EventDirector.Recruiter(s, target) is not null;
 
     /// <summary>Spells the unit knows with uses left.</summary>
     public static IEnumerable<SpellDef> ReadySpells(BattleState s, BattleUnit unit) =>

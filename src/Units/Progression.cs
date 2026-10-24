@@ -12,13 +12,14 @@ public sealed record LevelUp(int Level, StatBlock Gains);
 public static class ExpCalculator
 {
     public const int ExpPerLevel = 100;
-    public const int LevelCap = 20;
+    /// <summary>Session 14 (user request): every class tops out at 10, the promotion level; past it only promotion helps.</summary>
+    public const int LevelCap = 10;
     public const int HealExp = 12;
     public const int BossKillBonus = 40;
 
-    /// <summary>Promoted classes count as 20 levels higher per tier above the first.</summary>
+    /// <summary>Promoted classes count as a full class's levels (the cap) higher per tier above the first.</summary>
     public static int EffectiveLevel(ContentDatabase db, UnitState unit) =>
-        unit.Level + 20 * Math.Max(0, db.Class(unit.ClassId).Tier - 1);
+        unit.Level + LevelCap * Math.Max(0, db.Class(unit.ClassId).Tier - 1);
 
     /// <summary>
     /// EXP for one combat: (31 + level difference) / 3 when damage was dealt, else 1; a kill adds

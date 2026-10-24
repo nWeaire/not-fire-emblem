@@ -31,8 +31,8 @@ public class ProgressionTests
         Assert.Equal(30, ExpCalculator.CombatExp(db, me, Unit("merc", 1), dealtDamage: true, killed: true, foeIsBoss: false));
         Assert.Equal(70, ExpCalculator.CombatExp(db, me, Unit("merc", 1), dealtDamage: true, killed: true, foeIsBoss: true));
         Assert.Equal(12, ExpCalculator.CombatExp(db, me, Unit("merc", 6), dealtDamage: true, killed: false, foeIsBoss: false));
-        Assert.Equal(17, ExpCalculator.CombatExp(db, me, Unit("hero", 1), dealtDamage: true, killed: false, foeIsBoss: false));
-        Assert.Equal(0, ExpCalculator.CombatExp(db, Unit("merc", 20), me, true, true, false));
+        Assert.Equal(13, ExpCalculator.CombatExp(db, me, Unit("hero", 1), dealtDamage: true, killed: false, foeIsBoss: false)); // promoted: +10 levels
+        Assert.Equal(0, ExpCalculator.CombatExp(db, Unit("merc", 10), me, true, true, false)); // at the cap (10)
     }
 
     [Fact]

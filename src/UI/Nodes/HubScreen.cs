@@ -316,7 +316,7 @@ public partial class HubScreen : Control
 
         var stats = StatCalculator.Effective(Db, u);
         var cls = Db.Class(u.ClassId);
-        Row($"{u.Def.Name} — {cls.Name} (tier {cls.Tier})   Lv {u.Level}   EXP {u.Exp}/100", 20, UiKit.Accent);
+        Row($"{u.Def.Name} — {cls.Name} (tier {cls.Tier})   Lv {u.Level}   " + (u.Level >= ExpCalculator.LevelCap ? "EXP max: promote to grow" : $"EXP {u.Exp}/100"), 20, UiKit.Accent);
         Row($"HP {stats.HP}   Str {stats.Str}   Mag {stats.Mag}   Dex {stats.Dex}   Spd {stats.Spd}   Lck {stats.Lck}   Def {stats.Def}   Res {stats.Res}   Mov {stats.Mov}");
         var arts = Abilities.Arts(Db, u).Select(a => a.Name).Concat(Abilities.Spells(Db, u).Select(sp => sp.Name)).ToList();
         if (arts.Count > 0)

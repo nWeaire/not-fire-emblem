@@ -16,10 +16,11 @@ namespace NotFireEmblem.UI;
 /// </summary>
 public partial class HubScreen : Control
 {
-    private enum Tab { Party, Shop, Smithy, Promotion, Supports, Save, Settings }
+    private enum Tab { Party, Shop, Smithy, Promotion, Supports, SideMaps, Save, Settings }
 
     private ContentDatabase Db => GameSessionNode.Instance.Content;
     private GameSession S => GameSessionNode.Instance.Session!;
+    private List<SideStep> SideMaps => GameSessionNode.Instance.Runner?.AvailableSideMaps().ToList() ?? new List<SideStep>();
 
     private static readonly Color GoldColor = new(0.95f, 0.79f, 0.3f);
 
@@ -191,8 +192,14 @@ public partial class HubScreen : Control
         // Rebuilding frees the focused button: remember where the keyboard was and put it back after.
         int tabFocus = UiKit.FocusIndex(_tabs), contentFocus = UiKit.FocusIndex(_content);
         UiKit.ClearChildren(_tabs);
+        var sideMaps = SideMaps;
+        if (_tab == Tab.SideMaps && sideMaps.Count == 0)
+            _tab = Tab.Party;
         foreach (var tab in Enum.GetValues<Tab>())
         {
+            // Side Maps only shows while one is on offer.
+            if (tab == Tab.SideMaps && sideMaps.Count == 0)
+                continue;
             bool open = tab switch
             {
                 Tab.Shop => S.Unlocks.Contains("shop"),
@@ -201,8 +208,9 @@ public partial class HubScreen : Control
                 Tab.Supports => S.Unlocks.Contains("supports"),
                 _ => true,
             };
-            int supports = tab == Tab.Supports ? S.AvailableSupports(Db).Count() : 0;
-            var button = UiKit.Button(tab + (supports > 0 ? $" ({supports})" : "") + (open ? "" : " 🔒"), () =>
+            int supports = tab == Tab.Supports ? S.AvailableSupports(Db).Count() : tab == Tab.SideMaps ? sideMaps.Count : 0;
+            string name = tab == Tab.SideMaps ? "Side Maps" : tab.ToString();
+            var button = UiKit.Button(name + (supports > 0 ? $" ({supports})" : "") + (open ? "" : " 🔒"), () =>
             {
                 _tab = tab;
                 _status.Text = "";
@@ -222,6 +230,7 @@ public partial class HubScreen : Control
             case Tab.Smithy: BuildSmithy(); break;
             case Tab.Promotion: BuildPromotion(); break;
             case Tab.Supports: BuildSupports(); break;
+            case Tab.SideMaps: BuildSideMaps(sideMaps); break;
             case Tab.Save: BuildSave(); break;
             case Tab.Settings: _content.AddChild(new SettingsPanel()); break;
         }
@@ -247,6 +256,8 @@ public partial class HubScreen : Control
         Tab.Promotion => "The crest decides what you are, my lord. The armourer decides whether you survive being it.",
         Tab.Supports => "Your companions have been talking. Occasionally to each other.",
         Tab.Save => "I keep a ledger of everything. You may as well, too.",
+        Tab.SideMaps => "Not every road we owe is the one ahead of us, my lord.",
+        _ when SideMaps.Count > 0 => "Before we march, my lord: there is somewhere off the road worth a look. See Side Maps.",
         _ => S.AvailableSupports(Db).Any()
             ? "Some of your companions wish a word with each other, my lord."
             : "What shall we attend to, my lord?",
@@ -360,6 +371,28 @@ public partial class HubScreen : Control
     private static string BonusText(StatBlock bonuses) =>
         string.Join(" ", StatBlock.All.Where(s => bonuses[s] != 0).Select(s => $"{s} {bonuses[s]:+0;-0}"));
 
+    // ------------------------------------------------------------------ side maps
+
+    /// <summary>Optional battles on offer (SideStep): what each is, whether it's the last chance, and a button to go.</summary>
+    private void BuildSideMaps(List<SideStep> sideMaps)
+    {
+        Row("Optional battles. Win or lose, the army comes back here and the story waits.", 14, UiKit.Muted);
+        foreach (var side in sideMaps)
+        {
+            var map = Db.Map(side.MapId);
+            Row(map.Name, 20, UiKit.Accent);
+            if (side.Blurb.Length > 0)
+                Row(side.Blurb);
+            if (side.Forced.Count > 0)
+                Row("Needs " + string.Join(" and ", side.Forced.Select(id => Db.Unit(id).Name)) + ".", 14, UiKit.Muted);
+            if (side.Until > 0 && S.Chapter + 1 >= side.Until)
+                Row("Last chance: it's gone once you march on.", 14, UiKit.Bad);
+            var go = UiKit.Button("Set Out ▶", () => CampaignFlow.StartSideMap(side), 200);
+            _content.AddChild(go);
+            _tourTargets.TryAdd($"side:{side.MapId}", go);
+        }
+    }
+
     // ------------------------------------------------------------------ shop
 
     private static readonly Color DimColor = new(0.55f, 0.56f, 0.62f);
@@ -408,9 +441,13 @@ public partial class HubScreen : Control
             CustomMinimumSize = new Vector2(0, ShopListHeight()),
         };
         split.AddChild(_shopList);
+        // Room on the right for the scroll bar, so it doesn't cover the prices.
+        var listMargin = new MarginContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        listMargin.AddThemeConstantOverride("margin_right", UiKit.Px(18));
+        _shopList.AddChild(listMargin);
         var list = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         list.AddThemeConstantOverride("separation", 4);
-        _shopList.AddChild(list);
+        listMargin.AddChild(list);
         _card = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsVertical = SizeFlags.ShrinkBegin };
         _card.AddThemeConstantOverride("separation", 8);
         split.AddChild(_card);

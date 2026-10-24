@@ -17,17 +17,18 @@ public sealed record SuspendData(
     SaveData Session,
     ulong Seed,
     List<string> Deployed,
-    List<IBattleCommand> Commands)
+    List<IBattleCommand> Commands,
+    string? SideMap = null)   // the side map being played (SideStep), or null for the campaign's own battle
 {
     public const int CurrentVersion = 1;
 
     private static readonly JsonSerializerOptions Json = new() { WriteIndented = true };
 
-    public static SuspendData FromBattle(GameSession session, BattleLaunch launch, BattleState state)
+    public static SuspendData FromBattle(GameSession session, BattleLaunch launch, BattleState state, string? sideMap = null)
     {
-        string label = $"{session.ChapterTitle} · Turn {state.Turn}";
+        string label = sideMap is null ? $"{session.ChapterTitle} · Turn {state.Turn}" : $"{state.Map.Name} · Turn {state.Turn}";
         return new SuspendData(CurrentVersion, label, SaveData.FromSession(session, label), launch.Seed,
-            launch.Deployed.ToList(), state.CommandLog.ToList());
+            launch.Deployed.ToList(), state.CommandLog.ToList(), sideMap);
     }
 
     public string ToJson() => JsonSerializer.Serialize(this, Json);

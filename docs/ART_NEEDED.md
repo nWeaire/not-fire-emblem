@@ -29,6 +29,8 @@ Act II is being built systems-first. Every unit, portrait and backdrop below alr
 stand-in is named so the real art can drop in under the same id (or the spawn's `SpriteId` can be pointed at it).
 Rough cost per full character (map sprite + walk/attack, battle still takes + 5 animations): about $0.45.
 
+- **Side map "The Old Warden Vault"** (session 14): Ser Caddoc, the Hollow Warden (boss; stands in as `enemy_hollowed`; a portrait for `CADDOC`), and a vault / ruined chapterhouse background (stands in as `hill_road`).
+
 **Done (session 12, user's picks):** portraits `pip` #1, `seraphine` #2, `ysra` #3, `halde` #1, `morvane` #1,
 `castellan` #1, `vossk` #3, `ysolde` #3 (the bottom light bar cleared); map + battle sprites for `pip_thief`,
 `seraphine_troubadour`, `ysra_wyvern_rider`, `halde_archer`, `ysolde_wyvern_lord`, `enemy_wyvern_rider`, `boss_castellan`,

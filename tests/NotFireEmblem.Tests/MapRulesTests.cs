@@ -209,6 +209,27 @@ public class MapRulesTests
     }
 
     [Fact]
+    public void WardenSeal_OpensForOneUnit_AndTheAltarGivesItsItemBeforeTheSeize()
+    {
+        // The Old Warden Vault in small: a wall only "aldric" can open, and an altar that hands over a sword as the
+        // lord seizes it.
+        var (s, tm) = Start(new TestBattle("..#..", "..#..").Lord(0, 0, "sword")
+            .Named("aldric", Faction.Player, "merc", 0, 1, "sword")
+            .Unit(Faction.Enemy, "merc", 4, 1, "sword").WithAi(AiProfile.Stationary)
+            .Victory("seize 4,0")
+            .Triggers("enter aldric 1,0-1,1 => terrain 2,0-2,1 =", "enter lord 4,0 => give lord energy_drop"));
+        Assert.True(tm.Submit(new ActCommand("u0", new GridPos(1, 0), new WaitAction())).Ok);
+        Assert.Equal("wall", s.Grid[new GridPos(2, 0)].Terrain.Id); // the lord can't open it
+        Assert.True(tm.Submit(new ActCommand("u1", new GridPos(1, 1), new WaitAction())).Ok);
+        Assert.Equal("square", s.Grid[new GridPos(2, 0)].Terrain.Id);
+        EndPhase(tm); // the enemy phase; everyone on the player's side has acted
+        var r = tm.Submit(new ActCommand("u0", new GridPos(4, 0), new SeizeAction()));
+        Assert.True(r.Ok, r.Error);
+        Assert.Contains("energy_drop", s.Unit("u0").State.Inventory);
+        Assert.Equal(BattleOutcome.Victory, s.Outcome);
+    }
+
+    [Fact]
     public void Survive_WinsWhenThePlayerPhaseAfterTheLastTurnBegins()
     {
         var (s, tm) = Start(new TestBattle("........").Lord(0, 0, "sword").Unit(Faction.Enemy, "merc", 7, 0).Victory("survive 2"));

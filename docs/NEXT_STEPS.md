@@ -31,6 +31,20 @@ _Last updated: 2026-10-24 (session 14)._
   scrolls in its own box sized to the page (`_shopList`, `ShopListHeight`) and the card stays pinned beside it.
 - Dev: `--hubtab=Shop` opens the hub on a tab (loading a save made at a prep screen goes to prep, not the hub).
 
+## Session 14 (later): side maps and the Old Warden Vault
+- **Side maps** (new system, for the vault now and the Act III paralogues later): a campaign line
+  `side MAP [deploy N] [force a,b] [until N] : blurb` (`SideStep`) makes the hub offer an optional battle from that
+  point until chapter N, until it's won (flag `side_won:MAP`), or while a forced unit is dead. Hub tab **Side Maps**
+  (only shown when one is on offer; "Last chance" when it goes at the next march). Flow (`CampaignFlow.StartSideMap`):
+  `<map>_pre` scene, prep (with **Back to Camp**), battle, results, `<map>_post` scene, back to the same hub; the
+  campaign step never moves. Losing offers **Back to Camp** as well as Retry. Suspends remember the side map
+  (`SuspendData.SideMap`). Single battles (`--map=vault`) use the campaign's crest tier and `--level=auto` 16.
+- **The Old Warden Vault** (`vault`): see CHAPTERS.md, Paralogues. Offered at the hub before Ch 15 only. **Lyra's
+  Blade** buffed to Mt 14 (was 11, under the Silver Sword's 13), Wt 5. Not hand-played yet; autoplay can't do it (it
+  never walks Aldric to a seal), so soak runs skip it (autoplay never picks side maps anyway).
+- Art needed: Ser Caddoc (uses `enemy_hollowed` + boss ring), a vault background (uses `hill_road`).
+- Shop: the list's scroll bar no longer covers the prices (right margin inside the list box).
+
 ## Session 13: Act II playtest setup and the user's playtest requests
 **Nothing from session 13 is committed yet** (all on `main`'s working tree; build clean, **140 tests pass**, content
 validates on boot). Commit it first next session.

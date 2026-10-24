@@ -45,6 +45,11 @@ public class ContentFilesTests
                 Assert.True(scenes.ContainsKey(s.SceneId), $"Campaign scene '{s.SceneId}' is missing.");
             if (step is HubStep { BriefingSceneId: { } b })
                 Assert.True(scenes.ContainsKey(b), $"Briefing scene '{b}' is missing.");
+            if (step is SideStep side)
+            {
+                Assert.True(File.Exists(Path.Combine(DataDir(), "maps", $"{side.MapId}.tres")), $"Side map '{side.MapId}' is missing.");
+                Assert.True(scenes.ContainsKey($"{side.MapId}_pre"), $"Side map '{side.MapId}' has no _pre scene.");
+            }
         }
         Assert.IsType<EndStep>(campaign.Steps[^1]);
     }

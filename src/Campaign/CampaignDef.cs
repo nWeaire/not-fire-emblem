@@ -23,6 +23,16 @@ public sealed record ItemStep(string ItemId) : CampaignStep;
 public sealed record FlagStep(string Flag) : CampaignStep;
 /// <summary>Unlocks a hub feature ("smithy", "promotion", "supports", "shop").</summary>
 public sealed record UnlockStep(string Feature) : CampaignStep;
+/// <summary>
+/// An optional side map (session 14: the Old Warden Vault). From this step on, the hub offers it until the player plays
+/// and wins it, or until the campaign reaches chapter <see cref="Until"/> (0 = no limit). Its scenes are
+/// "&lt;map&gt;_pre" (before the prep screen) and "&lt;map&gt;_post" (after the results), when they exist. Playing it
+/// doesn't advance the campaign: the hub comes back afterwards.
+/// </summary>
+public sealed record SideStep(string MapId, int Deploy, IReadOnlyList<string> Forced, int Until, string Blurb) : CampaignStep
+{
+    public BattleStep Battle => new(MapId, Deploy, Forced);
+}
 /// <summary>Opens the hub. The briefing scene plays when the player chooses to march on.</summary>
 public sealed record HubStep(string? BriefingSceneId) : CampaignStep;
 /// <summary>The end of the content built so far.</summary>
@@ -46,6 +56,11 @@ public sealed record CampaignDef(IReadOnlyList<CampaignStep> Steps)
                     errors.Add($"Campaign step {i}: unknown scene '{s.SceneId}'."); break;
                 case HubStep { BriefingSceneId: { } b } when !db.Scenes.ContainsKey(b):
                     errors.Add($"Campaign step {i}: unknown briefing scene '{b}'."); break;
+                case SideStep side:
+                    if (!db.Maps.ContainsKey(side.MapId))
+                        errors.Add($"Campaign step {i}: unknown side map '{side.MapId}'.");
+                    foreach (var f in side.Forced) Unit(f, i);
+                    break;
                 case BattleStep b:
                     if (!db.Maps.ContainsKey(b.MapId))
                         errors.Add($"Campaign step {i}: unknown map '{b.MapId}'.");
@@ -74,6 +89,7 @@ public sealed record CampaignDef(IReadOnlyList<CampaignStep> Steps)
 /// battle ch1 [deploy 5] [force rowan,aldric]
 /// join kai · leave aldric · class rowan lord · crest 1 · gold 500 · item vulnerary · flag name
 /// unlock smithy · hub [briefing_scene] · end To be continued...
+/// side vault [deploy 8] [force rowan,aldric] [until 15] : what the hub says about it
 /// </code>
 /// </summary>
 public static class CampaignParser
@@ -98,6 +114,7 @@ public static class CampaignParser
                 "chapter" => new ChapterStep(Int(1), Rest(2)),
                 "scene" => new SceneStep(Arg(1)),
                 "battle" => ParseBattle(t, lineNo),
+                "side" => ParseSide(line, lineNo),
                 "join" => new JoinStep(Arg(1)),
                 "leave" => new LeaveStep(Arg(1)),
                 "class" => new ClassStep(Arg(1), Arg(2)),
@@ -112,6 +129,23 @@ public static class CampaignParser
             });
         }
         return new CampaignDef(steps);
+    }
+
+    private static SideStep ParseSide(string line, int lineNo)
+    {
+        var parts = line.Split(" : ", 2);
+        var t = parts[0].Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        int until = 0;
+        var battleTokens = new List<string>();
+        for (int i = 0; i < t.Length; i++)
+        {
+            if (t[i] == "until" && i + 1 < t.Length)
+                until = int.TryParse(t[++i], out int v) ? v : throw new FormatException($"campaign:{lineNo}: expected a chapter after 'until'.");
+            else
+                battleTokens.Add(t[i]);
+        }
+        var battle = ParseBattle(battleTokens.ToArray(), lineNo);
+        return new SideStep(battle.MapId, battle.Deploy, battle.Forced, until, parts.Length > 1 ? parts[1].Trim() : "");
     }
 
     private static BattleStep ParseBattle(string[] t, int lineNo)

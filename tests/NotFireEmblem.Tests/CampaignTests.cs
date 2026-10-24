@@ -47,6 +47,37 @@ public class CampaignTests
     }
 
     [Fact]
+    public void SideMaps_AreOfferedFromTheirStep_UntilWonOrTheirChapter()
+    {
+        var db = Db();
+        db.Campaign = CampaignParser.Parse("""
+            chapter 1 One
+            join lord
+            side test deploy 2 force lord until 2 : An optional battle.
+            hub
+            chapter 2 Two
+            hub
+            end The end.
+            """);
+        var side = Assert.IsType<SideStep>(db.Campaign.Steps[2]);
+        Assert.Equal(("test", 2, 2, "An optional battle."), (side.MapId, side.Deploy, side.Until, side.Blurb));
+        Assert.Equal(new[] { "lord" }, side.Forced);
+
+        var runner = new CampaignRunner(db, new GameSession());
+        Assert.IsType<HubStep>(runner.NextInteractive());
+        Assert.Equal(new[] { side }, runner.AvailableSideMaps());
+        runner.Session.Flags.Add(CampaignRunner.SideWonFlag("test"));
+        Assert.Empty(runner.AvailableSideMaps());
+        runner.Session.Flags.Clear();
+        runner.Session.Unit("lord")!.Status = UnitStatus.Dead; // needs the lord
+        Assert.Empty(runner.AvailableSideMaps());
+        runner.Session.Unit("lord")!.Status = UnitStatus.Active;
+        runner.Complete();
+        Assert.IsType<HubStep>(runner.NextInteractive());
+        Assert.Empty(runner.AvailableSideMaps()); // chapter 2: gone
+    }
+
+    [Fact]
     public void Runner_AppliesAutomaticSteps_AndStopsAtScenesBattlesAndTheHub()
     {
         var db = Db();

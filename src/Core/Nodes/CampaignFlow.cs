@@ -36,7 +36,9 @@ public static class CampaignFlow
             return false;
         Node.StartSession(data.Session.ToSession(Node.Content));
         var runner = Node.Runner!;
-        if (runner.Current is not BattleStep battle)
+        Node.PendingSide = data.SideMap is { } sideId ? runner.SideMap(sideId) : null;
+        var battle = Node.PendingSide?.Battle ?? runner.Current as BattleStep;
+        if (battle is null)
         {
             SaveService.ClearSuspend();
             Advance();
@@ -64,16 +66,7 @@ public static class CampaignFlow
                 PlayScene(scene.SceneId, StoryReturn.CampaignStep);
                 break;
             case BattleStep battle:
-                Node.PendingBattleStep = battle;
-                if (runner.NeedsPrep(battle))
-                {
-                    Node.GoTo(GameSessionNode.PrepScene);
-                }
-                else
-                {
-                    Node.PendingBattle = runner.Launch(battle);
-                    Node.GoTo(GameSessionNode.BattleScene);
-                }
+                GoToBattle(battle);
                 break;
             case HubStep hub:
                 SaveService.Save(0, runner.Session);
@@ -100,6 +93,61 @@ public static class CampaignFlow
         }
     }
 
+    /// <summary>The prep screen if the player chooses who to bring, else straight into the battle.</summary>
+    private static void GoToBattle(BattleStep battle)
+    {
+        var runner = Node.Runner!;
+        Node.PendingBattleStep = battle;
+        if (runner.NeedsPrep(battle))
+        {
+            Node.GoTo(GameSessionNode.PrepScene);
+        }
+        else
+        {
+            Node.PendingBattle = runner.Launch(battle);
+            Node.GoTo(GameSessionNode.BattleScene);
+        }
+    }
+
+    // ------------------------------------------------------------------ side maps (from the hub)
+
+    /// <summary>The hub's side map button: its "_pre" scene, then prep and the battle. The campaign step stays the hub.</summary>
+    public static void StartSideMap(SideStep side)
+    {
+        Node.PendingSide = side;
+        string pre = $"{side.MapId}_pre";
+        if (Node.Content.Scenes.ContainsKey(pre))
+            PlayScene(pre, StoryReturn.SideBattle);
+        else
+            GoToBattle(side.Battle);
+    }
+
+    /// <summary>Gives up on the side map (lost, or backed out of): back to the hub, nothing kept.</summary>
+    public static void LeaveSideMap()
+    {
+        SaveService.ClearSuspend();
+        Node.PendingSide = null;
+        Node.PendingBattle = null;
+        Node.PendingBattleStep = null;
+        Advance();
+    }
+
+    /// <summary>The results screen's Continue: after a side map, its "_post" scene and the hub again; else the campaign.</summary>
+    public static void ResultsDone()
+    {
+        if (Node.PendingSide is { } side)
+        {
+            Node.PendingSide = null;
+            string post = $"{side.MapId}_post";
+            if (Node.Content.Scenes.ContainsKey(post))
+            {
+                PlayScene(post, StoryReturn.Hub);
+                return;
+            }
+        }
+        Advance();
+    }
+
     public static void PlayScene(string? sceneId, StoryReturn after)
     {
         Node.PendingSceneId = sceneId;
@@ -116,6 +164,14 @@ public static class CampaignFlow
             case StoryReturn.CampaignStep:
                 runner?.Complete();
                 Advance();
+                break;
+            case StoryReturn.SideBattle:
+                if (Node.PendingSceneId is { } pre)
+                    runner?.SceneWatched(pre);
+                if (Node.PendingSide is { } side)
+                    GoToBattle(side.Battle);
+                else
+                    Advance();
                 break;
             case StoryReturn.Briefing:
                 // The hub's "march on": the briefing finishes the hub step.
@@ -158,7 +214,11 @@ public static class CampaignFlow
     {
         var runner = Node.Runner!;
         Node.LastReport = runner.ApplyVictory(state);
-        runner.Complete();
+        // A side map leaves the campaign where it was (the hub); it just stops being offered.
+        if (Node.PendingSide is { } side)
+            runner.Session.Flags.Add(CampaignRunner.SideWonFlag(side.MapId));
+        else
+            runner.Complete();
         // Autosave after every battle (slot 0, separate from the manual slots), as well as on reaching the hub.
         SaveService.Save(0, runner.Session);
         Node.PendingBattle = null;

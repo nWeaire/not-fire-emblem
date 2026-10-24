@@ -46,10 +46,10 @@ public partial class ResultsScreen : Control
             if (report.NewSupports.Count > 0)
                 column.AddChild(UiKit.Label("New support conversations: " + string.Join(", ", report.NewSupports), 16, UiKit.Good));
         }
-        var button = UiKit.Button("Continue", CampaignFlow.Advance, 220);
+        var button = UiKit.Button("Continue", CampaignFlow.ResultsDone, 220);
         column.AddChild(button);
         button.CallDeferred(Control.MethodName.GrabFocus);
         if (DevTools.AutoAdvance)
-            GetTree().CreateTimer(0.5).Timeout += CampaignFlow.Advance;
+            GetTree().CreateTimer(0.5).Timeout += CampaignFlow.ResultsDone;
     }
 }

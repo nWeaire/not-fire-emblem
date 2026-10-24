@@ -360,7 +360,14 @@ Enemies follow the same tiers: Act I bandits carry iron and leather, Halvric's g
 ## Paralogues & optional content
 - One per companion, unlocked from Ch 20, as listed under Ch 22.
 - **Act I side map, "The Merrow Ranch":** Kai's family's horses, an early Cavalier option.
-- **Act II side map, "The Old Warden Vault":** Aldric and Rowan find Lyra's sword; it is Rowan's personal weapon from Ch 15 on.
+- **Act II side map, "The Old Warden Vault"** (built session 14: `data/maps/vault.tres` from `tools/maps/side_vault.py`,
+  scenes in `data/dialogue/vault.txt`): Aldric and Rowan find Lyra's sword; it is Rowan's personal weapon from Ch 15 on.
+  Offered only by the hub before Ch 15 (Side Maps tab; needs Rowan and Aldric; deploy 8). The ruined Crestwarden
+  chapterhouse in the hills west of Calder, at dusk: a Veiled Keeper holds Gloamkin in the woods, Hollowed watch the
+  courtyard. Two Warden seals open only when Aldric steps onto the plinth row in front of each (the first wakes three
+  Hollowed behind the party); Ser Caddoc, a Warden Morvane hollowed twenty years ago, guards the hall (Aldric knew him).
+  Turn 5: a Gloam pack from the woods. Chests: a Talisman, 2000 gold. Victory: Rowan seizes the altar (and takes the
+  blade); defeat if Aldric falls. Aldric still won't say her name or the story: "After the summit, son."
 
 ## Mapping to current content
 - **Built so far:** `data/maps/prologue.tres` and `ch1.tres`–`ch6.tres`, with the objectives, triggers, recruitments, visits and Dominion described above, chained by `data/campaign/main.txt`. Their scenes are in `data/dialogue/`. Chapters 4–6 come from `tools/maps/act1_ch4_6.py` (its .tres output is canonical afterwards).

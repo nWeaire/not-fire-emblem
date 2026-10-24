@@ -1,0 +1,78 @@
+# Side map: The Old Warden Vault (offered by the hub before Ch 15; data/maps/vault.tres, tools/maps/side_vault.py).
+# Aldric takes Rowan to the ruined Crestwarden chapterhouse for his mother's sword. He still won't say her name or
+# the whole truth (that waits for Ch 19); he promises it "after the summit", which he doesn't live to see.
+# Voices follow docs/story/DIALOGUE.md section 2.
+
+### vault_pre
+@bg hill_road
+@music tension_low
+NARRATOR: The evening before the summit, Aldric came to Rowan's door with his cloak on and his sword at his hip.
+ALDRIC [neutral]: Get your boots. There's somewhere I should have taken you a long time ago.
+ROWAN [worried]: Now? The summit's tomorrow.
+ALDRIC [cold]: That's why now.
+NARRATOR: Two hours west of Calder, in the hills, the road ran out at a gate with no wall left around it.
+ALDRIC [neutral]: It was a house once. People lived here who looked after people like you.
+ROWAN [neutral]: Crest-bearers.
+ALDRIC [neutral]: Bring whoever you trust. It won't be empty. Nothing he knows about ever is.
+
+### vault_start
+@focus 12,10
+@sfx gloam_howl
+NARRATOR: Grey shapes stood in the courtyard, the way people stand at a graveside. None of them breathed.
+KAI [worried]: Those are people. Were people.
+ALDRIC [cold]: Hollowed. He leaves them where he wants a door watched.
+ALDRIC [neutral]: The doors are sealed. Wardens' seals; they open for a Warden's mark. Get me to them.
+ROWAN [determined]: Right. Keep him covered. We go now.
+
+### vault_seal_outer
+@focus 12,10
+@sfx crest_rise
+NARRATOR: Aldric pressed his palm to the stone. Old silver lines lit under his glove, and the seal ground open.
+ROWAN [worried]: Your hand. That's a crest.
+ALDRIC [neutral]: It's a mark. Not the same thing. Mind your back, son.
+@sfx gloam_roar
+NARRATOR: Behind them, in the courtyard, the fallen grey shapes began to stand up again.
+
+### vault_seal_inner
+@focus 12,5
+@sfx crest_rise
+NARRATOR: The second seal knew him faster than the first. It opened as if it had been waiting.
+ALDRIC [sad]: Twenty years. Still remembers me. More than I deserve.
+
+### vault_pack
+@focus 12,22
+@sfx gloam_howl
+NARRATOR: Howling rose from the woods below the gate. Something had smelled them coming.
+DORRAN [neutral]: Gloamkin on the road behind us, my lord. Whatever we're here for, take it quickly.
+
+### vault_caddoc
+CADDOC [cold]: ...Aldric. You came back. The quiet said you would.
+ALDRIC [hurt]: Caddoc. Oh, you old fool. He kept you.
+CADDOC [cold]: Nobody is kept. We are quiet now. It is better. Put down your sword and see.
+ALDRIC [cold]: I'll put it down when you're resting. Not before.
+
+### vault_caddoc_falls
+CADDOC [sad]: ...Aldric? It's cold. Why is it cold in here?
+ALDRIC [sad]: It's all right. Go on. I'll lock up.
+NARRATOR: Aldric stood over him a long moment. Then he wiped his blade and didn't say anything else.
+
+### vault_keeper
+NARRATOR: The Veiled keeper fell, and the Gloamkin he held shook their heads, as if waking from a long, bad dream.
+
+### vault_blade
+@focus 12,2
+@sfx sword_fall
+NARRATOR: The sword lay on the altar under twenty years of dust: plain steel, a worn grip, a faded ribbon on the hilt.
+ROWAN [neutral]: This is it?
+ALDRIC [neutral]: That's it. It was your mother's. She'd want it in your hand, not on a shelf.
+ROWAN [worried]: You've never told me one thing about her. Not one.
+ALDRIC [sad]: I know. After the summit, son. All of it. You've my word.
+NARRATOR: Rowan lifted the blade. It was lighter than it looked, and it sat in his hand as if it had been made for it.
+
+### vault_post
+@bg calder_lodgings
+@music hub
+NARRATOR: They came back to Calder after midnight. Nobody asked where they had been.
+ROWAN [neutral]: After the summit. You said.
+ALDRIC [neutral]: I did. Get some sleep. Big day.
+NARRATOR: It was the last promise Aldric Ashford ever made.

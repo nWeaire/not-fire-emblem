@@ -1,6 +1,7 @@
 # The campaign, in story order (see docs/story/CHAPTERS.md). One step per line; parsed by CampaignParser.
 #   chapter N TITLE · scene ID · battle MAP [deploy N] [force a,b] · join/leave UNIT · class UNIT CLASS
 #   crest N · gold N · item ID · flag NAME · unlock FEATURE · hub [BRIEFING_SCENE] · end TEXT
+#   side MAP [deploy N] [force a,b] [until N] : blurb   (an optional battle the hub offers from here until chapter N)
 # Units who join mid-battle (Aldric, Kai, Mira, Brann, Tamsin) enter the roster when the battle is won.
 
 chapter 0 Prologue: Embers at Ashford Farm
@@ -118,6 +119,8 @@ scene ch14_pre
 battle ch14 deploy 10 force rowan,seraphine
 scene ch14_post
 gold 1500
+# Optional (hub "Side Maps", this hub only): Lyra's Blade for Rowan. Scenes vault_pre / vault_post.
+side vault deploy 8 force rowan,aldric until 15 : Aldric wants to take you somewhere before the summit: a ruined house in the hills, where his old order kept something for you.
 hub hub_briefing_ch15
 
 chapter 15 Chapter 15: The Grey Chancellor

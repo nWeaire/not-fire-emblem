@@ -48,7 +48,7 @@ public partial class BattleController : Node3D
     private void ApplyStoryClasses(ContentDatabase db, string mapId)
     {
         var steps = db.Campaign?.Steps;
-        int battle = steps?.ToList().FindIndex(st => st is BattleStep b && b.MapId == mapId) ?? -1;
+        int battle = steps?.ToList().FindIndex(st => st is BattleStep b && b.MapId == mapId || st is SideStep side && side.MapId == mapId) ?? -1;
         if (steps is null || battle < 0)
             return;
         foreach (var change in steps.Take(battle).OfType<ClassStep>())
@@ -63,7 +63,7 @@ public partial class BattleController : Node3D
     private static int StoryCrestTier(ContentDatabase db, string mapId)
     {
         var steps = db.Campaign?.Steps;
-        int battle = steps?.ToList().FindIndex(st => st is BattleStep b && b.MapId == mapId) ?? -1;
+        int battle = steps?.ToList().FindIndex(st => st is BattleStep b && b.MapId == mapId || st is SideStep side && side.MapId == mapId) ?? -1;
         if (steps is null || battle < 0)
             return 1;
         return steps.Take(battle).OfType<CrestStep>().Select(c => c.Tier).DefaultIfEmpty(0).Max();
@@ -399,7 +399,7 @@ public partial class BattleController : Node3D
     private void SuspendBattle()
     {
         var node = GameSessionNode.Instance;
-        if (SaveService.Suspend(SuspendData.FromBattle(node.Session!, node.PendingBattle!, State)) is { } error)
+        if (SaveService.Suspend(SuspendData.FromBattle(node.Session!, node.PendingBattle!, State, node.PendingSide?.MapId)) is { } error)
         {
             GD.PushError(error);
             return;
@@ -841,6 +841,9 @@ public partial class BattleController : Node3D
             return;
         }
         var buttons = new List<(string, Action)> { (IsCampaign ? "Retry Battle" : "Play Again", RetryBattle) };
+        // A lost side map costs nothing: the army can go back to the hub and carry on with the story.
+        if (IsCampaign && node.PendingSide is not null)
+            buttons.Add(("Back to Camp", CampaignFlow.LeaveSideMap));
         buttons.Add(("Title Screen", () =>
         {
             node.EndSession();

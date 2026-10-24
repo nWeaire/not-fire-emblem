@@ -30,6 +30,8 @@ public partial class GameSessionNode : Node
     /// <summary>The battle the Battle scene should start (campaign), with its step.</summary>
     public BattleLaunch? PendingBattle { get; set; }
     public BattleStep? PendingBattleStep { get; set; }
+    /// <summary>The side map being played from the hub (its scenes, prep, battle and results), or null.</summary>
+    public SideStep? PendingSide { get; set; }
     /// <summary>A resumed suspend: the commands the Battle scene replays before handing over control.</summary>
     public System.Collections.Generic.IReadOnlyList<Battle.IBattleCommand>? PendingReplay { get; set; }
     /// <summary>A map to fight outside the campaign (title-screen skirmish / chapter select).</summary>
@@ -77,6 +79,7 @@ public partial class GameSessionNode : Node
         Runner = null;
         PendingBattle = null;
         PendingBattleStep = null;
+        PendingSide = null;
         PendingReplay = null;
     }
 
@@ -95,4 +98,4 @@ public partial class GameSessionNode : Node
 }
 
 /// <summary>Where the Story screen goes when its scene ends.</summary>
-public enum StoryReturn { CampaignStep, Hub, Briefing, Title }
+public enum StoryReturn { CampaignStep, Hub, Briefing, Title, SideBattle }

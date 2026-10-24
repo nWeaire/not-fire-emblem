@@ -104,6 +104,9 @@ public sealed class CampaignRunner
             case UnlockStep u:
                 Session.Unlocks.Add(u.Feature);
                 return true;
+            case SideStep:
+                return true; // offered by the hub from here on (AvailableSideMaps)
+
             default:
                 return false;
         }
@@ -136,6 +139,23 @@ public sealed class CampaignRunner
             rowan.EquippedIndex = 0;
         }
     }
+
+    // ------------------------------------------------------------------ side maps
+
+    /// <summary>The flag a won side map sets, so the hub stops offering it.</summary>
+    public static string SideWonFlag(string mapId) => $"side_won:{mapId}";
+
+    /// <summary>
+    /// Side maps the hub offers now: opened by a "side" step already passed, not yet won, the campaign not yet at its
+    /// "until" chapter, and every unit it needs still with the army.
+    /// </summary>
+    public IEnumerable<SideStep> AvailableSideMaps() =>
+        Steps.Take(Session.StepIndex).OfType<SideStep>()
+            .Where(side => (side.Until <= 0 || Session.Chapter < side.Until)
+                           && !Session.Flags.Contains(SideWonFlag(side.MapId))
+                           && side.Forced.All(id => Session.Unit(id) is { Status: not UnitStatus.Dead }));
+
+    public SideStep? SideMap(string mapId) => Steps.OfType<SideStep>().FirstOrDefault(side => side.MapId == mapId);
 
     // ------------------------------------------------------------------ battles
 

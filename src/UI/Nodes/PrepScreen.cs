@@ -55,6 +55,9 @@ public partial class PrepScreen : Control
             node.GoTo(GameSessionNode.BattleScene);
         });
         buttons.AddChild(_start);
+        // A side map is optional: the player can still turn back to the hub from here.
+        if (node.PendingSide is not null)
+            buttons.AddChild(UiKit.Button("Back to Camp", CampaignFlow.LeaveSideMap));
         Refresh();
         _start.CallDeferred(Control.MethodName.GrabFocus);
         if (DevTools.AutoAdvance)

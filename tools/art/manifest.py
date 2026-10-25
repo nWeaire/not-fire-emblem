@@ -325,6 +325,64 @@ CHARACTERS = {
     "ally_sailor": dict(weapon="axe", sets=("map",),
         desc="weathered privateer deckhand, red-and-white striped shirt, dark bandana, rolled canvas trousers, bare "
              "forearms, a hand axe"),
+    # Session 15, second batch ($30 top-up): the rest of Act II's stand-ins (ART_NEEDED "Outstanding", groups
+    # 1-5). Armoured variants carry great weapons, mounted ones ordinary swords and axes (the user's call).
+    "boss_caddoc": dict(weapon="lance", sets=("map",),
+        desc='hollowed old knight, a Warden of twenty years ago, ash-grey skin, empty pale eyes, tarnished black leather armour with dull silver plates and sigils, a torn black cloak, a long silver lance held like a guard'),
+    "enemy_imperial_knight_sword": dict(weapon="sword", sets=("map",),
+        desc='heavy Dravenhold imperial knight in thick dark iron plate with a closed wolf-snouted helm, grey-white tabard with a red wolf, white fur at the collar, a huge two-handed great sword'),
+    "enemy_imperial_knight_axe": dict(weapon="axe", sets=("map",),
+        desc='heavy Dravenhold imperial knight in thick dark iron plate with a closed wolf-snouted helm, grey-white tabard with a red wolf, white fur at the collar, a huge two-handed great axe'),
+    "enemy_imperial_general": dict(weapon="lance", sets=("map",),
+        desc='massive Dravenhold imperial general in towering dark iron plate with a horned wolf helm, a long red cloak and a white fur mantle, grey-white tabard with a red wolf, a heavy iron tower shield, silver lance'),
+    "enemy_imperial_general_axe": dict(weapon="axe", sets=("map",),
+        desc='massive Dravenhold imperial general in towering dark iron plate with a horned wolf helm, a long red cloak and a white fur mantle, grey-white tabard with a red wolf, a huge two-handed great axe'),
+    "enemy_imperial_general_sword": dict(weapon="sword", sets=("map",),
+        desc='massive Dravenhold imperial general in towering dark iron plate with a horned wolf helm, a long red cloak and a white fur mantle, grey-white tabard with a red wolf, a huge two-handed great sword'),
+    "enemy_imperial_wyvern_rider_axe": dict(weapon="axe", sets=("map",), template="horse",
+        desc='imperial wyvern rider in dark iron armour with a closed helm and a grey-white tabard with a red wolf, riding a grey-scaled wyvern with big leathery wings, an ordinary one-handed steel axe'),
+    "enemy_imperial_wyvern_lord": dict(weapon="lance", sets=("map",), template="horse",
+        desc='imperial wyvern lord, a veteran commander in heavy dark iron armour with a red-plumed helm and a white fur mantle, grey-white tabard with a red wolf, riding a big dark grey wyvern with huge leathery wings, steel lance'),
+    "enemy_gilded_archer": dict(weapon="bow", sets=("map",),
+        desc='Solmere Gilded House archer in a white and gold tabard with a golden sun crest over a light gilded mail shirt, gilded cap with a short plume, quiver on the back, longbow'),
+    "enemy_gilded_mage": dict(weapon="anima", sets=("map",),
+        desc='Solmere Gilded House battle mage in long white and gold robes with a golden sun crest, a gilded collar and rings, holding an open red tome'),
+    "enemy_gilded_cavalier": dict(weapon="lance", sets=("map",), template="horse",
+        desc='Solmere Gilded House cavalry knight in gilded half-plate, white and gold tabard with a golden sun crest, plumed gilded helm, riding a white horse with a gold and white caparison, steel lance'),
+    "enemy_gilded_cavalier_sword": dict(weapon="sword", sets=("map",), template="horse",
+        desc='Solmere Gilded House cavalry knight in gilded half-plate, white and gold tabard with a golden sun crest, plumed gilded helm, riding a white horse with a gold and white caparison, an ordinary one-handed steel sword'),
+    "enemy_gilded_general": dict(weapon="lance", sets=("map",),
+        desc='massive Solmere Gilded House general in towering white-and-gold plate armour with a crested gilded helm, a golden sun crest on the chest, a long white cloak, a big gilded tower shield, silver lance'),
+    "enemy_veiled_thug_soldier": dict(weapon="lance", sets=("map",),
+        desc='Veiled street thug in a grey hooded cloak over dark leather armour with purple trim, a grey scarf over the lower face, a faint purple sigil glowing on the wrist, a plain iron spear'),
+    "enemy_veiled_thug_fighter": dict(weapon="axe", sets=("map",),
+        desc='burly Veiled street thug in a grey hooded cloak over dark leather armour with purple trim, a grey scarf over the lower face, a faint purple sigil glowing on the wrist, a heavy iron axe'),
+    "enemy_veiled_thug_archer": dict(weapon="bow", sets=("map",),
+        desc='a single Veiled street thug standing alone, one person only, in a grey hooded cloak over dark leather armour with purple trim, a grey scarf over the lower face, a faint purple sigil glowing on the wrist, a short bow and a quiver'),
+    "enemy_veiled_thug_mage": dict(weapon="anima", sets=("map",),
+        desc='Veiled street mage in a grey hooded cloak with purple trim over dark robes, a grey scarf over the lower face, purple sigils glowing on both wrists, holding a dark red tome'),
+    "enemy_veiled_thug_knight": dict(weapon="lance", sets=("map",),
+        desc='Veiled enforcer in heavy dark grey plate armour with purple trim and a hooded grey cloak over it, closed helm with a faint purple glow in the visor, a heavy iron lance and a dark shield'),
+    "enemy_veiled_agitator_myrmidon": dict(weapon="sword", sets=("map",),
+        desc='Veiled agitator disguised as a Calder townsman, plain grey cloak over ordinary city clothes, a purple sigil glowing on the wrist, a hard sly face, a short steel sword'),
+    "enemy_veiled_agitator_mage": dict(weapon="anima", sets=("map",),
+        desc='Veiled agitator disguised as a Calder townsman, plain grey cloak over ordinary city clothes, a purple sigil glowing on the wrist, a hard sly face, an open red tome'),
+    "enemy_veiled_agitator_fighter": dict(weapon="axe", sets=("map",),
+        desc='burly Veiled agitator disguised as a Calder townsman, plain grey cloak over ordinary city clothes, a purple sigil glowing on the wrist, a hard sly face, a hand axe'),
+    "enemy_veiled_mage": dict(weapon="anima", sets=("map",),
+        desc='Veiled caster in long grey and purple robes with a deep hood, a pale masked face, purple sigils crawling over both hands, holding a dark tome'),
+    "dorran_general": dict(weapon="lance", sets=("map",),
+        desc='stocky 60 year old general, short white hair, thick grey moustache, weathered stern face, heavy polished steel plate armour with gold trim over a deep green tabard, a green cape, a big steel tower shield, silver lance'),
+    "sable_swordmaster": dict(weapon="sword", sets=("map",),
+        desc='confident young woman swordmaster, short black hair with a long red headband trailing behind, scar on one cheek, fitted black leather coat with red trim and a red sash, a long slim curved sword'),
+    "wren_falcon_knight": dict(weapon="lance", sets=("map",), template="horse",
+        desc='young woman falcon knight, short chestnut bob, polished steel breastplate and pauldrons over a deep green tabard with gold trim, long green cape, riding a white winged pegasus with gold-trimmed barding, steel lance'),
+    "seraphine_valkyrie": dict(weapon="staff", sets=("map",), template="horse",
+        desc="young princess valkyrie always seated on her white horse with Calder-blue barding, fair golden hair in a braid, a silver circlet, a silver breastplate over a long Calder-blue coat with silver trim, a white cape, a white and gold healer's staff"),
+    "ysra_wyvern_lord": dict(weapon="lance", sets=("map",), template="horse",
+        desc='young woman wyvern lord with a dark braid riding a big grey-scaled wyvern with huge leathery wings, heavy black iron armour with a white fur mantle and a short black cape, a long steel lance'),
+    "pip_rogue": dict(weapon="sword", sets=("map",),
+        desc='cheeky lean 16 year old rogue, messy dark brown hair, a grin, fitted dark brown leathers with many pockets and a short dark cloak, soft boots, a proper steel sword held low'),
     "ally_villager": dict(weapon="none", sets=("map",),
         desc="plain village farmer man, brown hair, beige linen shirt, green wool vest, brown trousers, no weapon"),
 }
@@ -338,6 +396,8 @@ PORTRAIT_STYLE = ("Game Boy Advance Fire Emblem dialogue portrait, anime bust sh
                   "three-quarter view, 16-bit GBA pixel art, about 16 colours, hard cel shading, bold dark outline, "
                   "no gradients, like Fire Emblem: The Blazing Blade")
 PORTRAITS = {
+    "caddoc": "hollowed old knight, about 60, ash-grey skin, empty pale eyes, gaunt face with a grey beard, tarnished black "
+              "leather armour with dull silver sigils, a torn black cloak hood, sorrowful and silent",
     "aldric": "gruff 50 year old man, short grey-streaked dark hair, short grey-streaked beard, weathered stern face, "
               "black leather armour collar with faint silver stitched sigils, dark grey cloak",
     "tamsin": "sardonic young woman hunter, short messy auburn hair, sharp green eyes, green hood down, brown leather "
@@ -443,6 +503,12 @@ BACKGROUNDS = {
     "title_vista": "a grand sweeping vista of a peaceful fantasy kingdom at sunrise seen from a high hilltop, "
                    "rolling green valleys and farmland, a winding river, small villages, a castle on a distant "
                    "crag, snow-capped mountains on the horizon, golden dawn sky with soft clouds",
+    # Session 15: the Old Warden Vault (stood in as hill_road) and Calder's great hall after Ch 15 (as dain_hall).
+    "warden_vault": "the inside of an ancient ruined chapterhouse vault of the Wardens, cold grey stone pillars and "
+                    "arches, broken stone seals glowing faintly white on the floor, a dusty stone altar at the back, "
+                    "shafts of pale light from cracks in the roof, stone floor across the lower half",
+    "hall_ruin": "a royal great hall after a battle, Calder-blue banners torn and hanging, overturned long tables and "
+                 "broken chairs, a smashed oak door, scattered papers, stone floor across the lower half, grey light",
 }
 
 # ------------------------------------------------------------------ terrain (create-tiles-pro, 32 px)
@@ -503,8 +569,12 @@ PROPS.update({
     "cart": "one broken wooden hand cart lying on its side with a cracked wheel",
     "rubble": "one low pile of broken grey stone blocks and rubble from a collapsed wall",
 })
+# Session 15: locked chest cells (Ch 9, the vault) used crates until now (MapView looks for chest_N.png).
+PROPS.update({
+    "chest": "one closed wooden treasure chest with a rounded lid, iron bands and a heavy iron lock, sitting on the ground",
+})
 PROP_SIZE = {"tuft": 32, "flowers": 32, "crop": 32, "bush": 32, "wheat": 32, "fence": 32, "hedge": 32,
-             "fence_straight": 32, "wagon": 32, "stall": 32, "crates": 32, "barrels": 32, "cart": 32, "rubble": 32,
+             "fence_straight": 32, "wagon": 32, "stall": 32, "crates": 32, "barrels": 32, "cart": 32, "rubble": 32, "chest": 32,
              "tuft_s": 16, "flowers_s": 16, "crop_s": 16, "bush_s": 24, "cottage_s": 32, "peak_s": 32, "reed_s": 16, "stilt_house_s": 32}  # others are 64
 
 TILESETS = {

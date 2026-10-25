@@ -135,7 +135,7 @@ def vault():
     ]
     slots = [(10, 21), (11, 21), (14, 21), (15, 21), (10, 22), (11, 22), (14, 22), (15, 22), (12, 22), (13, 22)]
     map_tres("vault", "Side Map: The Old Warden Vault", g.rows(), g.height_rows(), spawns, f"seize {ALTAR[0]},{ALTAR[1]}",
-             ["die aldric"], triggers, slots, background="hill_road", highlights=highlights)
+             ["die aldric"], triggers, slots, background="warden_vault", highlights=highlights)
     finish("vault", {"Lighting": "night"})
 
 

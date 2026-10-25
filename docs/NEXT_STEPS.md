@@ -2,11 +2,32 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-25 (session 15, mid-session commit)._
+_Last updated: 2026-10-25 (end of session 15)._
 
 ---
 
-## Session 15 (so far): Act II hand playtest Ch 10–14, the first Act II art batch
+## Where things stand (end of session 15)
+- **Everything is committed and pushed to `main`.** Build clean, **147 tests pass**. Untracked on purpose:
+  `assets/ExampleFiles/` and `tools/art/takes/`.
+- **Act II has its art**: no stand-ins left except snow tiles and ship hulls (ART_NEEDED §0). **PixelLab: $17.30 left.**
+- Saves unchanged since session 14 (slots 0/1 the user's playthrough, slot 2 the Act II playtest save at Ch 8).
+
+## Next (plan for session 16)
+1. **Hand playtest Ch 15** and the **Old Warden Vault** (`--map=vault --level=auto`, or the hub before Ch 15), and see
+   the **Side Maps** tab. These were left from the session-15 list.
+2. **Look at the new art in game**: batch two (Caddoc, Imperial generals/great weapons, Gilded, Veiled, the tier-2
+   cast) hasn't been seen by the user. Updating the gallery page (https://claude.ai/artifact/Ciy27oRTDuhtVnczR9rfbm,
+   built by a script in the session scratchpad, so rebuild it) with batch two would help.
+3. **Ask again:** give **Seraphine (L9) and Ysra (L11)** real stats for their join level (they have level-1 stats, as
+   Halde and Ysolde did). Then the session-14 decisions: Ch 11 Ysra must be recruited to win (she dies to counters
+   easily); calmed rioters and Ch 8's civilian count; Rowan×Aldric A before Ch 15; "Convoy" → "Town"; where Black
+   Steel / Mythril are sold; smithy past Silver.
+4. **Art with the $17.30** (ART_NEEDED "Outstanding"): tier 3 Crestbound outfits ($6.10), generic promoted enemies
+   ($2.80), polish ($0.80); snow tiles and ship hulls need terrain code first. Parallelise `generate.py`'s download step
+   first (it fetches one character at a time, ~1 min each).
+5. Then: the Act II hub, Crestbound signature arts, Act III ("The Hollow Path", Ch 16–22).
+
+## Session 15: Act II hand playtest Ch 10–14 and the Act II art
 - **Hand playtested and signed off by the user:** Ch 10, 11, 12, 13, 14 (details in each chapter's CHAPTERS.md entry).
   Still to play: **Ch 15**, the **Old Warden Vault** and the Side Maps tab; then the session-14 decisions list below.
 - **Ch 10:** ridge ambushes (T3, T7 at the start of the Player Phase) and camp reinforcements (T3, T5, T9); `ch10_flanks`.
@@ -20,9 +41,18 @@ _Last updated: 2026-10-25 (session 15, mid-session commit)._
   Fixed for those two by hand; **Seraphine (L9) and Ysra (L11) still have it** (asked the user, no answer yet). Act I
   recruits were balanced around it, so leave them.
 - **Bug fixed:** `--level=auto` promotions skipped the unit's earlier outfits (Seraphine showed as a plain cavalier).
-- **Art ($5.78 spent, ~$0 left):** 12 full characters and 3 map-only allies (ART_NEEDED §0 "Done in session 15"), the
-  outstanding list with costs (~$14 for all of Act II), weapon-variant sprite lookup (`BattleUnit.WeaponArt`), the
-  effect cleaner `tools/art/keep_figure.py`, Ser Caddoc on his real id `boss_caddoc` (placeholder `enemy_hollowed`).
+- **Art, batch one ($5.78):** 12 full characters and 3 map-only allies; weapon-variant sprite lookup
+  (`BattleUnit.WeaponArt`: `<spriteId>_<classId>_<weapon type>`), the effect cleaner `tools/art/keep_figure.py`, a
+  gallery page (https://claude.ai/artifact/Ciy27oRTDuhtVnczR9rfbm, batch one only). The user's notes: the Imperial
+  Archer's attack (bow became a spear) and the Swordsman's (chopped into the floor) were redone; `animate_still.py`'s
+  default sword and bow wordings were fixed for future sprites.
+- **Art, batch two ($12.72 of a $30 top-up):** the rest of Act II: Ser Caddoc (+ portrait; on his real id
+  `boss_caddoc`), Imperial knights/generals with great weapons, wyvern rider (axe) and lord, the rest of the Gilded and
+  Veiled, the tier-2 cast (Dorran, Sable, Wren, Seraphine, Ysra, Pip), backgrounds `warden_vault` (the vault uses it)
+  and `hall_ruin`, `chest_0..3` props. Picks in `tools/art/approved/battle_picks.txt`. Details: ART_NEEDED §0.
+- **Memory:** a background art batch was killed once when the machine ran low on memory (a game was open); the
+  scripts resume without paying twice. Auto mode's safety check failed repeatedly on art commands at one point; the
+  user switched out of auto mode to get past it.
 - `tools/maps/act2_early.py` also rewrites `brann`, `kai` and `rowan.tres` with stale values: after a rerun,
   `git checkout -- data/units/brann.tres data/units/kai.tres data/units/rowan.tres`.
 

@@ -4,7 +4,7 @@
 # Voices follow docs/story/DIALOGUE.md section 2.
 
 ### vault_pre
-@bg hill_road
+@bg warden_vault
 @music tension_low
 NARRATOR: The evening before the summit, Aldric came to Rowan's door with his cloak on and his sword at his hip.
 ALDRIC [neutral]: Get your boots. There's somewhere I should have taken you a long time ago.

@@ -1,1 +1,2 @@
 # Session 9 siege props (takes/props/<id>/take_N -> assets/sprites/props/<id>_i): wagon 0,13,2; stall 0,6,4; crates 0,2,15; barrels 1,7,13; cart 2,6,12; rubble 1,4,6,10,14
+chest: takes 0,1,5,9 -> chest_0..3 (session 15)

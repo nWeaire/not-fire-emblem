@@ -41,8 +41,15 @@ ACTIONS = {
 }
 ATTACKS = {  # weapon: attack ending back in stance (the critical keeps the manifest's text and ends mid-strike)
     # "from high behind" drew a second sword behind Aldric: name a single blade and keep it in his hands.
-    "sword": "raises his one sword overhead with both hands, steps forward to the RIGHT and slashes it down in front in a "
-             "wide fast arc, then returns to the same stance. Only one sword, always held in the hands",
+    # Session 15: "slashes it down in front" ended with the Imperial Swordsman's blade in the floor (as Aldric's did in
+    # session 7). Keep the cut level, at the enemy's chest, and say where the blade must not go.
+    "sword": "steps forward to the RIGHT and swings his one sword in a fast horizontal slash at chest height, the blade "
+             "level and pointing at the enemy to the right, never down at the ground, then returns to the same stance. "
+             "Only one sword, always held in the hands",
+    # Session 15: the Imperial Archer's bow straightened into a spear and was jabbed forward.
+    "bow": "holds the curved wooden longbow upright in the front hand, draws the string back to the cheek and looses an "
+           "arrow that flies off to the RIGHT, then lowers the bow. The bow stays a curved bow the whole time and is "
+           "never thrust or swung",
     # The model drew fireballs for a plain "swipes ... in a savage rake": say it's melee, with nothing thrown.
     "claws": "lunges to the RIGHT and rakes both clawed hands down through the air in front, a melee swipe with "
              "nothing thrown and no fire, then returns to the same stance",

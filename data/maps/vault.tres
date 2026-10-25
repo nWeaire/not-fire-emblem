@@ -272,5 +272,5 @@ Triggers = PackedStringArray("turn 1 => scene vault_start", "enter aldric 11,11-
 Highlights = PackedStringArray("11,11-14,11 => A Warden seal bars the hall. Only Aldric's sigil opens it: bring him to the plinth.", "11,6-14,6 => A second seal guards the altar room. Aldric opens this one too.", "12,2 => The vault altar. Rowan must reach it.", "aldric => Aldric must survive.")
 Fog = false
 DeploySlots = "10,21 11,21 14,21 15,21 10,22 11,22 14,22 15,22 12,22 13,22"
-Background = "hill_road"
+Background = "warden_vault"
 Lighting = "night"

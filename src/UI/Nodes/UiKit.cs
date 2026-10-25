@@ -275,6 +275,7 @@ public static class UiKit
         ["solmere_palazzo"] = "dain_hall",
         ["dravenhold_citadel"] = "dain_hall",
         ["hall_ruin"] = "dain_hall",
+        ["warden_vault"] = "hill_road",
     };
 
     /// <summary>assets/backgrounds/&lt;id&gt;.png (or its placeholder), or null.</summary>

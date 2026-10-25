@@ -37,28 +37,39 @@ Rough cost per full character (map sprite + walk/attack, battle still takes + 5 
 `enemy_gilded_knight`; `enemy_veiled_thug_myrmidon`; `neutral_rioter` (club); map only: `ally_townsfolk` (drawn at 75%,
 `SpriteLibrary.MapScales`), `ally_calder_knight`, `ally_sailor`. Not yet seen on the battle screen by the user.
 
-### Outstanding, in order (the plan for the next top-up)
+**Done in session 15, second batch** ($12.72 of a $30 top-up; **$17.30 left**): `boss_caddoc` + portrait `caddoc`;
+`enemy_imperial_` `knight_sword`, `knight_axe` (great weapons), `general` (+ `_axe`, `_sword`), `wyvern_rider_axe`,
+`wyvern_lord`; `enemy_gilded_` `archer`, `mage`, `cavalier`, `cavalier_sword`, `general`; `enemy_veiled_thug_` `soldier`,
+`fighter`, `archer`, `mage`, `knight`; `enemy_veiled_agitator_` `myrmidon`, `mage`, `fighter`; `enemy_veiled_mage`; tier 2
+`dorran_general`, `sable_swordmaster`, `wren_falcon_knight`, `seraphine_valkyrie`, `ysra_wyvern_lord`, `pip_rogue`;
+backgrounds `warden_vault` (the vault now uses it) and `hall_ruin`; props `chest_0..3`. The Imperial Archer's and
+Swordsman's attacks were redone (the bow turned into a spear; the sword chopped into the floor): `animate_still.py`'s
+default sword and bow wordings now ask for a level slash and a bow that stays a bow. **Act II has no stand-ins left**
+except snow tiles and ship hulls. Not yet looked at by the user except batch one (gallery:
+https://claude.ai/artifact/Ciy27oRTDuhtVnczR9rfbm, batch one only).
+
+### Outstanding, in order (the plan for the next spend)
 Costs measured in session 15: a full character (map sprite + walk/attack, 9 still takes, 5 battle animations) is about
 **$0.47**, a map-only ally about **$0.17**, a portrait, background or prop take set about **$0.08**. Add 10–15% for redos.
 Weapon variants are looked up as `<spriteId>_<classId>_<weapon type>` (`BattleUnit.WeaponArt`, generic units only), so a
 new variant shows up in game with no data change. **Armoured** variants (knight, general) carry *great* swords and axes;
 **mounted** ones (cavalier, paladin, wyverns) ordinary-sized ones (the user's call). In game they're the normal weapons.
+Workflow: `generate.py chars --set map --no-anims` (check the looks: PixelLab sometimes draws two figures side by side,
+or a rider without the horse), then without `--no-anims`, `battle_stills.py`, pick takes, `animate_still.py`, then
+`keep_figure.py` (`--pale`, `--arcs`, `--drop-bright`; `--battle` for battle sprites) to erase painted-in effects. The
+download step fetches one character at a time (~1 min each): parallelise it before a big batch.
 
 | # | Group | Ids | ≈ Cost |
 |---|---|---|---|
-| 1 | Ser Caddoc (vault boss) + portrait `caddoc` | `boss_caddoc` (spawn's `SpriteId`), portrait | $0.55 |
-| 2 | Imperial variants | `enemy_imperial_knight_sword`, `_knight_axe` (great weapons), `enemy_imperial_general` (+ `_axe`, `_sword`), `enemy_imperial_wyvern_rider_axe`, `enemy_wyvern_lord` (generic) | $3.30 |
-| 3 | Gilded | `enemy_gilded_archer`, `_mage`, `_cavalier`, `_cavalier_sword`, `_general` | $2.35 |
-| 4 | Veiled | `enemy_veiled_thug_` `soldier`, `fighter`, `archer`, `mage`, `knight`; `enemy_veiled_agitator_` `myrmidon`, `mage`, `fighter`; `enemy_veiled_mage` | $4.25 |
-| 5 | Tier 2 cast | `dorran_general`, `sable_swordmaster`, `wren_falcon_knight`, `seraphine_valkyrie`, `ysra_wyvern_lord`, `pip_rogue` | $2.80 |
-| 6 | Small items | backgrounds `vault`, `hall_ruin`; snow tiles; chest and ship-hull props | $0.50 |
-| 7 | Tier 3 Crestbound | 13 outfits (row below) | $6.10 |
-| 8 | Generic promoted enemies | `enemy_paladin`, `_sniper`, `_troubadour`/`_valkyrie`, `_swordmaster`, `_warrior`, `_sage` | $2.80 |
-| 9 | Polish | weapon/item icons, crest effects, level-up flourish (P2/P3 rows) | $0.80 |
+| 1 | Tier 3 Crestbound | 13 outfits (row below), seen after Ch 13 | $6.10 |
+| 2 | Generic promoted enemies | `enemy_paladin`, `_sniper`, `_troubadour`/`_valkyrie`, `_swordmaster`, `_warrior`, `_sage` | $2.80 |
+| 3 | Polish | weapon/item icons, crest effects, level-up flourish (P2/P3 rows) | $0.80 |
+| 4 | Needs code first | snow terrain tiles (Ch 14), ship hull props (Ch 12) | $0.30 |
 
-Groups 1–6 (all of Act II without stand-ins) ≈ **$14**; everything here ≈ **$24**; Act III's new cast, enemies and
-backgrounds probably another **$10–15**. Known leftovers to touch up by hand: a faint smoke wisp in the Imperial mage's
-battle attack and a pale glow in one critical frame; the swordsman's critical sword glows blue (kept on purpose).
+Act III's new cast, enemies and backgrounds: probably another **$10–15**. Known leftovers to touch up by hand: a faint
+smoke wisp in the Imperial mage's battle attack; the Veiled agitator (tome)'s critical holds a stick-like shape where the
+tome was; small sparks in a few map attack frames (agitator mage, Sable, Pip); the Imperial Swordsman's and Sable's
+blue sword gleam on criticals is kept on purpose.
 
 **Done (session 12, user's picks):** portraits `pip` #1, `seraphine` #2, `ysra` #3, `halde` #1, `morvane` #1,
 `castellan` #1, `vossk` #3, `ysolde` #3 (the bottom light bar cleared); map + battle sprites for `pip_thief`,

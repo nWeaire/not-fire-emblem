@@ -31,6 +31,11 @@ YSRA [determined]: Ysra Thane, of the third wing. My lance, and Ash here. Don't 
 NARRATOR: More riders rose out of the gorge, beating up the cliff face where no foot soldier could follow.
 KAI [worried]: Okay, that is so unfair. Nobody told me they could just go up cliffs.
 
+### ch11_north
+@focus 14,3
+NARRATOR: Boots on the high road. A column of imperial foot came over the top of the pass and started down.
+DORRAN [cold]: Reinforcements from the north. They'll come through that cut to meet us. Let them, and hold it.
+
 ### ch11_orvald
 ???: You climbed my pass, Calder. Brave. Stupid, but brave. The corps will remember the name of whoever stops you.
 ROWAN [neutral]: Then remember it's Rowan. We're here to talk to your Empress, not to kill your riders.

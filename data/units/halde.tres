@@ -5,10 +5,13 @@
 
 [sub_resource type="Resource" id="StatsDefinition_1"]
 script = ExtResource("2_stats")
-HP = 2
-Str = 1
-Dex = 2
-Lck = 1
+HP = 12
+Str = 7
+Dex = 8
+Spd = 5
+Lck = 5
+Def = 4
+Res = 3
 
 [sub_resource type="Resource" id="StatsDefinition_2"]
 script = ExtResource("2_stats")
@@ -26,7 +29,7 @@ script = ExtResource("1_unit")
 Id = "halde"
 Name = "Halde"
 ClassId = "archer"
-Level = 12
+Level = 9
 Bases = SubResource("StatsDefinition_1")
 Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray("crossbow", "steel_bow")

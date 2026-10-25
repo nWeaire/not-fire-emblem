@@ -28,11 +28,12 @@ ELISE [sad]: They cut it out of someone. That's what the reeves' names in the le
 ALDRIC [cold]: Keep moving.
 
 ### ch12_halde
-HALDE [neutral]: You're the passengers? You're late, you're loud, and half of Castellan's house guard is behind you.
-ROWAN [neutral]: We'll pay. And we'll fight our way aboard if we have to.
-HALDE [smile]: You'll fight your way aboard either way, by the look of it. Fine. I don't like the Gilded House.
-HALDE [cold]: They sell people by the piece in that hall. I've sunk two of their ships. Wouldn't mind a third.
-HALDE [determined]: Halde Marr, captain of the Gull. Get your people on my deck, and I'll get you out of this harbour.
+@focus 32,9
+NARRATOR: Out past the other ships, a woman in a sea coat stood on the Gull's rail with a crossbow on her shoulder.
+ROWAN [determined]: Captain! The Gull! We're your passengers! Can you take us?
+HALDE [neutral]: You're late, you're loud, and half of Castellan's house guard is behind you!
+HALDE [smile]: Good. I don't like the Gilded House. They sell people by the piece in that hall.
+HALDE [determined]: Halde Marr, captain of the Gull! Get over those ships to my deck. I'll hold it for you. Move!
 
 ### ch12_boats
 @focus 18,9

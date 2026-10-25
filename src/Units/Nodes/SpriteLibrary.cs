@@ -139,9 +139,10 @@ public static class SpriteLibrary
 
     /// <summary>
     /// Map sprites drawn smaller than the shared pixel scale, by sprite id. The Gloam Shade's robe fills its whole
-    /// 48 px frame, so it stood a head taller and wider than everyone else (session 11 playtest).
+    /// 48 px frame, so it stood a head taller and wider than everyone else (session 11 playtest). The Calder
+    /// townswoman (session 15) is drawn the same way.
     /// </summary>
-    private static readonly Dictionary<string, float> MapScales = new() { ["enemy_gloam_shade"] = 0.75f };
+    private static readonly Dictionary<string, float> MapScales = new() { ["enemy_gloam_shade"] = 0.75f, ["ally_townsfolk"] = 0.75f };
 
     /// <summary>The map-sprite scale for the unit's current outfit (1 for almost everyone).</summary>
     public static float MapScale(BattleUnit unit) =>

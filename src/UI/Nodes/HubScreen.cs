@@ -555,7 +555,8 @@ public partial class HubScreen : Control
     private string Numbers(string itemId)
     {
         if (Db.TryWeapon(itemId) is { } w)
-            return $"Mt {w.Might} · Hit {w.Hit} · Crt {w.Crit} · Rng {Range(w)} · Wt {w.Weight}";
+            return $"Mt {w.Might} · Hit {w.Hit} · Crt {w.Crit} · Rng {Range(w)} · Wt {w.Weight}"
+                   + (w.Pierces ? " · Pierces armour" : "") + (w.SingleStrike ? " · Never strikes twice" : "");
         if (Db.TryArmor(itemId) is { } a)
             return string.Join(" · ", StatBlock.All.Where(s => a.Bonuses[s] != 0).Select(s => $"{s} {a.Bonuses[s]:+0;-0}")
                 .Append(a.Weight > 0 ? $"Wt {a.Weight}" : null).OfType<string>());

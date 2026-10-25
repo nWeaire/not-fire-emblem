@@ -174,7 +174,10 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Events:** T1 `ch10_start` + `ch10_seraphine`; the Imperial Herald's fall plays `ch10_insult` (the forged letter in
   King Osric's name); waves T2 (riders), T4 (both flanks), T6 (new **Wyvern Riders** over the north ridge,
   `ch10_wyverns`, new `wing_beat` sound), T8 (the camp); T5 the burnt cottages collapse into rubble (`ch10_collapse`).
-- **Scenes:** `ch10_pre`, `ch10_start`, `ch10_seraphine`, `ch10_insult`, `ch10_collapse`, `ch10_wyverns`,
+  Session 15 (playtest: too easy): T3 ambushes off both ridges by the deploy zone plus the camp (`flank3`, `camp3`,
+  `ch10_flanks`), T5 and T9 more through the camp (`camp5`, `camp9`), T7 both ridges above the village at the start of
+  the Player Phase (`flank7`, so there is a move to answer them). Imperial Swordsmen and Axemen join the lances.
+- **Scenes:** `ch10_pre`, `ch10_start`, `ch10_seraphine`, `ch10_flanks`, `ch10_insult`, `ch10_collapse`, `ch10_wyverns`,
   `ch10_commander`, `ch10_post` (Seraphine resolves to ride to the Empress).
 - **Autoplay at level 11 (seeds 1–6):** wins 5/6 on T7–10 (usually by felling Hesk), losing 1–5 units; the loss was a
   wyvern diving on Seraphine on T7. Autoplay healers who must survive now only heal from cells no enemy can reach.
@@ -187,7 +190,11 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Win:** Rout. **Enemies:** imperials, wyvern riders (two, then one on T3 up the gorge, one on T5 over the ridge),
   Wing-Captain Orvald (Wyvern Lord L12, Boss). **Recruit:** **Ysra** (Wyvern Rider, Enemy, Stationary on the shelf's
   edge) on Talk from Rowan *or* Seraphine (new grammar: `talk rowan|seraphine ysra`).
-- **Scenes:** `ch11_pre`, `ch11_start`, `ch11_ysra` ("The Empress doesn't blink anymore."), `ch11_gorge`, `ch11_orvald`,
+- **Session 15 (playtest):** the roost's archers and mage were Stationary and never came down, so the rout ended with a
+  climb to idle units; they're Aggressive now (the ramp-top archer a Guard). Reinforcements come down from the upper
+  shelf's north edge on T4 (`north4`: lance, axe, sword, mage, archer; `ch11_north`) and T7 (`north7`: knight, axe,
+  sword, cavalier). Autoplay (seeds 1–4): wins 4/4 on T9–12, losing 1–2 units besides Ysra (killed by counters, T3).
+- **Scenes:** `ch11_pre`, `ch11_start`, `ch11_ysra` ("The Empress doesn't blink anymore."), `ch11_gorge`, `ch11_north`, `ch11_orvald`,
   `ch11_post` (Vossk bought his crests from a merchant prince in Solmere: the party sails south).
 - **Autoplay at level 12 (seeds 1–4):** wins 4/4 on T11–15, losing 3–8 units; autoplay kills Ysra before talking.
 
@@ -195,10 +202,11 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Map (built, session 12):** 35×22 Solmere harbour: stone quays west and south (warehouses, the auction hall),
   wooden piers into the water, three ships (decks a step up) joined by gangplanks; Halde's ship, the Gull, is furthest.
 - **Win:** `escape 31,8-32,10 all` (new: every living unit must get aboard, Rowan last). **Recruit:** **Halde**
-  (Archer with the new **Crossbow**; Ally on her deck; `talk any halde`). Her deckhands (Ally, Tag `gull`) defend the
+  (Archer with the new **Crossbow**; on her deck; joins on T1, shouting across the water in `ch12_halde`; session 15, was `talk any halde`; session 15 also: Level 9 with real bases, 28 HP, was "Level 12" with level-1 stats; the crossbow pierces armour but never strikes twice). Her deckhands (Ally, Tag `gull`) defend the
   ship; Castellan's Gilded Guard ignore the Gull's crew (`Ignores gull|halde`) until Halde joins.
-- **Events:** T2 `ch12_auction` (lot thirty-one: a reeve's crest in a jar); reinforcements T3 (warehouses), T5
-  (boarders at the piers' ends, `ch12_boats`), T7 (the auction hall).
+- **Events:** T2 `ch12_auction` (lot thirty-one: a reeve's crest in a jar); reinforcements T2 (warehouses), T4 and T6
+  (the auction hall, behind the party), T5 (boarders at the piers' ends, `ch12_boats`). Session 15 (playtest: a little
+  easy): the pursuit was T3 and T7 with two units each; now 3, 4 and 4, so it pushes the party to the Gull.
 - **Scenes:** `ch12_pre`, `ch12_start`, `ch12_auction`, `ch12_halde`, `ch12_boats`, `ch12_post` (the stolen ledger: three
   crests sold to "the Hand"; Castellan keeps three himself).
 - **Autoplay at level 13 (seeds 1–4):** wins 4/4 on T11–19 with Halde recruited every run, losing 2–7 units.
@@ -235,6 +243,11 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
   `ch14_ysolde_wakes`, `ch14_post` (Dravenhold withdraws; the summit in Calder is agreed).
 - **Autoplay (level 15, now promoted to tier 2 like a campaign party):** wins 3/3, losing 0–2 units: likely easy.
   Enemy casters are Mages, not Sages: a promoted caster's tome scales off its level + 10.
+- **Session 15 (playtest):** the melee enemies were all lances: now a mix (knights with a steel sword or axe, an axeman,
+  a swordsman, a wyvern rider with an axe; knights and generals can use swords and axes, wyvern riders axes). **Ysolde**
+  had level-1 stats ("level 16": 30 HP) and flew at the party on T1: now Level 8 with 45 HP, Str 18, Def 15, Res 18,
+  Boss AI with leash 4 (holds the courtyard), and the **Empress's Ward** (accessory: no effective damage, so bows and
+  Wind no longer triple/double on her). Autoplay: subduing her takes 3–4 units.
 
 ## Chapter 15 — "The Grey Chancellor"
 - **Built (session 12):** 26×22 great hall (`tools/maps/act2_early.py`): pillars, the dais (north), the main doors

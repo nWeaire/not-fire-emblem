@@ -44,7 +44,7 @@ Price = {price}
 INFANTRY, ARMORED, CAVALRY, FLYING = 0, 1, 2, 3
 
 
-def weapon_tres(wid, name, wtype, might, hit, crit, weight, rmin, rmax, price, tier, effective=()):
+def weapon_tres(wid, name, wtype, might, hit, crit, weight, rmin, rmax, price, tier, effective=(), extra=""):
     q = lambda xs: ", ".join(f'"{x}"' for x in xs)
     write(DATA / "weapons" / f"{wid}.tres", f"""[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
 
@@ -65,12 +65,13 @@ Magic = false
 EffectiveAgainst = PackedStringArray({q(effective)})
 Price = {price}
 Tier = {tier}
-""")
+{extra}""")
 
 
 def weapons():
-    # Halde's crossbow (Ch 12): hits hard, aims well, heavy to carry.
-    weapon_tres("crossbow", "Crossbow", 3, 11, 70, 5, 9, 2, 2, 1600, 2, ["Flying"])
+    # Halde's crossbow (Ch 12): hits hard, aims well, heavy to carry. Session 15: pierces armour like a lance, but
+    # only ever one bolt a combat.
+    weapon_tres("crossbow", "Crossbow", 3, 11, 70, 5, 9, 2, 2, 1600, 2, ["Flying"], "Pierces = true\nSingleStrike = true\n")
 
 
 LIGHT, MEDIUM, HEAVY = 0, 1, 2  # ArmorClass: the heaviest body armour a class can wear
@@ -122,7 +123,7 @@ def classes():
                move=CAVALRY)
     # Dravenhold's wyvern corps (Ch 10 on; Ysra in Ch 11): heavy fliers, lances; bows and Wind are effective.
     class_tres("wyvern_rider", "Wyvern Rider", dict(HP=20, Str=7, Dex=6, Spd=5, Lck=2, Def=8, Mov=7),
-               dict(HP=10, Str=10, Def=10), ["Lance"], ["wyvern_lord"], False, 1, [], move=FLYING)
+               dict(HP=10, Str=10, Def=10), ["Lance", "Axe"], ["wyvern_lord"], False, 1, [], move=FLYING)
     class_tres("wyvern_lord", "Wyvern Lord", dict(HP=26, Str=10, Dex=8, Spd=7, Lck=3, Def=11, Res=2, Mov=8),
                dict(HP=10, Str=10, Def=10), ["Lance", "Axe"], [], True, 2, [], move=FLYING)
     tier2_classes()
@@ -134,9 +135,10 @@ def classes():
 
 def tier2_classes():
     # Tier 2 for the Act I companions who had none (session 12): Dorran, Sable and Wren couldn't promote after Ch 7.
-    # The General takes up axes too (the "knights that can use axes" idea from session 11).
+    # The General takes up axes too (the "knights that can use axes" idea from session 11). Session 15: knights and
+    # generals use swords and axes as well (drawn as great swords and great axes; ART_NEEDED), so armoured enemies aren't all lances.
     class_tres("general", "General", dict(HP=28, Str=10, Dex=7, Spd=4, Lck=2, Def=14, Res=3, Mov=5),
-               dict(HP=15, Str=5, Def=15), ["Lance", "Axe"], [], True, 2, [], move=ARMORED, armor=HEAVY, promotes_from="knight")
+               dict(HP=15, Str=5, Def=15), ["Lance", "Axe", "Sword"], [], True, 2, [], move=ARMORED, armor=HEAVY, promotes_from="knight")
     class_tres("swordmaster", "Swordmaster", dict(HP=22, Str=8, Dex=12, Spd=14, Lck=5, Def=6, Res=3, Mov=6),
                dict(HP=5, Str=5, Dex=10, Spd=15), ["Sword"], [], True, 2, [], arts=["swift_cut"], promotes_from="myrmidon")
     class_tres("falcon_knight", "Falcon Knight", dict(HP=22, Str=7, Mag=3, Dex=9, Spd=13, Lck=7, Def=6, Res=9, Mov=8),
@@ -207,17 +209,31 @@ def retreats(uid):
         path.write_text(text.rstrip("\n") + "\nRetreats = true\n", encoding="utf-8", newline="\n")
 
 
+def wears(uid, accessory):
+    """Gives a unit an accessory (the unit writer only writes body armour)."""
+    path = DATA / "units" / f"{uid}.tres"
+    text = path.read_text(encoding="utf-8")
+    if "Accessory =" not in text:
+        path.write_text(text.rstrip("\n") + f'\nAccessory = "{accessory}"\n', encoding="utf-8", newline="\n")
+
+
 def units():
     unit("pip", "Pip", "thief", 6, dict(HP=1, Dex=2, Spd=3, Lck=4),
          dict(HP=50, Str=30, Mag=5, Dex=55, Spd=75, Lck=70, Def=15, Res=25), ["iron_sword", "vulnerary"], "")
     unit("seraphine", "Seraphine", "troubadour", 9, dict(HP=1, Mag=2, Lck=2, Res=3),
          dict(HP=45, Str=15, Mag=55, Dex=40, Spd=50, Lck=60, Def=15, Res=55), ["vulnerary"], "")
     retreats("seraphine")  # story-critical: she leads Calder in Act III
-    unit("halde", "Halde", "archer", 12, dict(HP=2, Str=1, Dex=2, Lck=1),
+    # Session 15 (playtest: "way too weak"): recruits get no gains for their starting level, so as a "level 12" archer
+    # she had level-1 stats (18 HP) and sat over the level cap. Now level 9 with bases for her age: 28 HP.
+    unit("halde", "Halde", "archer", 9, dict(HP=12, Str=7, Dex=8, Spd=5, Lck=5, Def=4, Res=3),
          dict(HP=55, Str=45, Mag=5, Dex=55, Spd=35, Lck=40, Def=30, Res=20), ["crossbow", "steel_bow"], "leather_jerkin")
     # Empress Ysolde: Ch 14's dominated enemy you mustn't kill (NonLethal); an NPC ally for the finale.
-    unit("ysolde", "Ysolde", "wyvern_lord", 16, dict(HP=4, Str=2, Dex=2, Spd=2, Lck=3, Def=2, Res=3),
+    # Session 15 (playtest: weaker than most of Ch 14's grunts): recruits get no gains for their level, so "level 16" had
+    # level-1 stats (30 HP, Res 5). Now level 8 with an Empress's bases: 45 HP, Str 18, Spd 15, Def 15, Res 18 (Elise
+    # doubled her for 39 with Res 12).
+    unit("ysolde", "Ysolde", "wyvern_lord", 8, dict(HP=19, Str=8, Dex=6, Spd=8, Lck=7, Def=4, Res=16),
          dict(HP=50, Str=50, Mag=10, Dex=45, Spd=40, Lck=40, Def=40, Res=30), ["silver_lance", "steel_axe"], "")
+    wears("ysolde", "empress_ward")
     unit("ysra", "Ysra", "wyvern_rider", 11, dict(HP=2, Str=2, Dex=1, Def=2),
          dict(HP=60, Str=50, Mag=5, Dex=45, Spd=35, Lck=30, Def=40, Res=15), ["steel_lance", "javelin"], "chainmail")
 
@@ -493,7 +509,8 @@ def ch10():
     # Levels: a step under the party (11 by Ch 10), the commander above it.
     def imperial(cls, weapon, pos, lvl=9, group="", name=None, **kv):
         names = {"soldier": "Imperial Soldier", "knight": "Imperial Knight", "archer": "Imperial Archer",
-                 "cavalier": "Imperial Cavalier", "wyvern_rider": "Wyvern Rider", "mage": "Imperial Mage"}
+                 "cavalier": "Imperial Cavalier", "wyvern_rider": "Wyvern Rider", "mage": "Imperial Mage",
+                 "myrmidon": "Imperial Swordsman", "fighter": "Imperial Axeman"}
         armor = {"knight": "iron_plate", "soldier": "chainmail", "cavalier": "chainmail"}.get(cls)
         spawn = dict(ClassId=cls, Name=name or names[cls], SpriteId="enemy_imperial", Level=lvl, Inventory=weapon,
                      Pos=pos, Group=group, **kv)
@@ -528,7 +545,25 @@ def ch10():
         imperial("wyvern_rider", ["iron_lance"], (26, 2), group="wave6"), imperial("wyvern_rider", ["iron_lance"], (31, 3), group="wave6"),
         dict(imperial("wyvern_rider", ["steel_lance"], (29, 2), group="wave6"), HardOnly=True),
         imperial("knight", ["steel_lance"], (33, 6), 10, "wave8"), imperial("cavalier", ["steel_lance"], (34, 15), group="wave8"),
-        imperial("soldier", ["steel_lance"], (33, 10), group="wave8"),
+        imperial("soldier", ["steel_lance"], (33, 10), group="wave8"), imperial("fighter", ["steel_axe"], (34, 12), group="wave8"),
+        # Session 15 playtest (too easy for a survive map): ambushes off both ridges, and more from the camp behind Hesk.
+        # T3 the ridges by the deploy zone, so the rear isn't safe once the party moves east.
+        imperial("soldier", ["steel_lance"], (5, 2), group="flank3"), imperial("fighter", ["iron_axe"], (8, 2), group="flank3"),
+        imperial("archer", ["iron_bow"], (10, 2), group="flank3"),
+        imperial("soldier", ["iron_lance"], (6, 19), group="flank3"), imperial("myrmidon", ["steel_sword"], (9, 19), group="flank3"),
+        imperial("mage", ["thunder"], (11, 19), group="flank3"),
+        # T7 the ridges above the village.
+        imperial("cavalier", ["steel_lance"], (15, 3), 10, "flank7"), imperial("fighter", ["steel_axe"], (17, 3), group="flank7"),
+        imperial("archer", ["steel_bow"], (12, 2), group="flank7"),
+        imperial("cavalier", ["steel_sword"], (16, 17), 10, "flank7"), imperial("myrmidon", ["steel_sword"], (18, 17), group="flank7"),
+        dict(imperial("mage", ["thunder"], (14, 19), group="flank7"), HardOnly=True),
+        # Reinforcements through the camp on T3, T5 and T9 (T8 is the camp emptying, above).
+        imperial("soldier", ["iron_lance"], (34, 9), group="camp3"), imperial("fighter", ["iron_axe"], (34, 12), group="camp3"),
+        imperial("archer", ["iron_bow"], (33, 7), group="camp3"),
+        imperial("cavalier", ["steel_lance"], (34, 10), group="camp5"), imperial("knight", ["steel_lance"], (34, 11), 10, "camp5"),
+        imperial("mage", ["thunder"], (33, 14), group="camp5"),
+        imperial("cavalier", ["steel_lance"], (34, 10), 10, "camp9"), imperial("cavalier", ["steel_sword"], (34, 11), 10, "camp9"),
+        imperial("myrmidon", ["steel_sword"], (33, 13), group="camp9"),
     ]
     for s in spawns:
         s.setdefault("Faction", ENEMY)
@@ -536,10 +571,14 @@ def ch10():
     triggers = ["turn 1 => scene ch10_start; scene ch10_seraphine",
                 "defeated herald => scene ch10_insult",
                 "turn 2 enemy => spawn wave2",
+                "turn 3 enemy => spawn flank3; spawn camp3; scene ch10_flanks",
                 "turn 4 enemy => spawn wave4",
                 "turn 5 => terrain 19,6-20,6 20,13-21,13 x; scene ch10_collapse",
+                "turn 5 enemy => spawn camp5",
                 "turn 6 enemy => spawn wave6; scene ch10_wyverns",
+                "turn 7 => spawn flank7",  # player phase: a move to answer them before they strike (they appear beside the village)
                 "turn 8 enemy => spawn wave8",
+                "turn 9 enemy => spawn camp9",
                 "combat commander => scene ch10_commander"]
     highlights = ["seraphine => Princess Seraphine. Her escort is falling; if she falls, so does the kingdom's hope.",
                   "commander => Commander Hesk leads the raid from the camp. Beat him and his soldiers stand down."]
@@ -589,7 +628,7 @@ def ch11():
     def imperial(cls, weapon, pos, lvl=10, group="", name=None, **kv):
         names = {"soldier": "Imperial Soldier", "knight": "Imperial Knight", "archer": "Imperial Archer",
                  "cavalier": "Imperial Cavalier", "wyvern_rider": "Wyvern Rider", "wyvern_lord": "Wyvern Lord",
-                 "mage": "Imperial Mage"}
+                 "mage": "Imperial Mage", "myrmidon": "Imperial Swordsman", "fighter": "Imperial Axeman"}
         armor = {"knight": "iron_plate", "soldier": "chainmail", "cavalier": "chainmail"}.get(cls)
         spawn = dict(ClassId=cls, Name=name or names[cls], SpriteId="enemy_imperial", Level=lvl, Inventory=weapon,
                      Pos=pos, Group=group, **kv)
@@ -606,12 +645,20 @@ def ch11():
         imperial("mage", ["thunder"], (18, 15), Ai=GUARD), imperial("archer", ["steel_bow"], (20, 20), Ai=GUARD),
         # The rock ramp and the upper shelf.
         imperial("knight", ["steel_lance"], (14, 12), 10, Ai=GUARD), imperial("soldier", ["steel_lance"], (16, 12), 10, Ai=GUARD),
-        imperial("archer", ["iron_bow"], (15, 9), Ai=STATIONARY), imperial("soldier", ["steel_lance"], (19, 7)),
+        imperial("archer", ["iron_bow"], (15, 9), Ai=GUARD), imperial("soldier", ["steel_lance"], (19, 7)),
         imperial("wyvern_lord", ["silver_lance", "steel_axe"], (15, 4), 12, name="Wing-Captain Orvald",
                  Tag="orvald", Ai=BOSS, IsBoss=True, Leash=4),
-        # The roost.
-        imperial("archer", ["steel_bow"], (3, 5), Ai=STATIONARY), imperial("mage", ["fire"], (2, 7), Ai=STATIONARY),
-        dict(imperial("archer", ["iron_bow"], (5, 4), Ai=STATIONARY), HardOnly=True),
+        # The roost. Session 15 playtest: as Stationary units they never came down, so the rout ended with a climb to
+        # two idle units; now they come to the fight.
+        imperial("archer", ["steel_bow"], (3, 5)), imperial("mage", ["fire"], (2, 7)),
+        dict(imperial("archer", ["iron_bow"], (5, 4)), HardOnly=True),
+        # Session 15: reinforcements down from the north edge of the upper shelf, T4 and T7, to the ramp and beyond.
+        imperial("soldier", ["steel_lance"], (8, 2), group="north4"), imperial("fighter", ["steel_axe"], (10, 2), group="north4"),
+        imperial("myrmidon", ["steel_sword"], (13, 3), group="north4"), imperial("mage", ["thunder"], (18, 2), group="north4"),
+        imperial("archer", ["steel_bow"], (20, 3), group="north4"),
+        imperial("knight", ["steel_lance"], (12, 2), 11, "north7"), imperial("fighter", ["steel_axe"], (17, 2), group="north7"),
+        imperial("myrmidon", ["steel_sword"], (19, 3), group="north7"), imperial("cavalier", ["steel_lance"], (9, 2), group="north7"),
+        dict(imperial("mage", ["thunder"], (14, 2), group="north7"), HardOnly=True),
         # Wyverns in the gorge, and more: T3 up the gorge, T5 over the north ridge.
         # (Session 12 autoplay: six wyverns plus the captain cost 5-7 units a run; now two, then one a wave.)
         imperial("wyvern_rider", ["iron_lance"], (25, 14), 9), imperial("wyvern_rider", ["iron_lance"], (29, 8), 9),
@@ -626,7 +673,9 @@ def ch11():
     triggers = ["turn 1 => scene ch11_start",
                 "talk rowan|seraphine ysra => scene ch11_ysra; join ysra",
                 "turn 3 enemy => spawn gorge; scene ch11_gorge",
+                "turn 4 enemy => spawn north4; scene ch11_north",
                 "turn 5 enemy => spawn ridge",
+                "turn 7 enemy => spawn north7",
                 "combat orvald => scene ch11_orvald"]
     highlights = ["ysra => A wyvern rider hanging back from the fight. A crest-bearer might talk her round: Rowan or Seraphine.",
                   "14,11-16,12 => The only way up for anyone on foot. Fliers can go over the cliffs anywhere."]
@@ -674,7 +723,8 @@ def ch12():
     # she joins (session 12 autoplay: the ships' guards killed the Gull's crew on T2 and Halde on T3).
     def gilded(cls, weapon, pos, lvl=11, group="", name=None, **kv):
         names = {"soldier": "Gilded Guard", "knight": "Gilded Knight", "archer": "Gilded Archer", "mage": "Gilded Mage",
-                 "myrmidon": "Harbour Sellsword", "fighter": "Harbour Sellsword", "thief": "Dockside Cutpurse"}
+                 "myrmidon": "Harbour Sellsword", "fighter": "Harbour Sellsword", "thief": "Dockside Cutpurse",
+                 "cavalier": "Gilded Rider"}
         armor = {"knight": "iron_plate", "soldier": "chainmail"}.get(cls)
         spawn = dict(ClassId=cls, Name=name or names[cls], SpriteId="enemy_gilded" if cls in ("soldier", "knight", "archer", "mage")
                      else f"enemy_{cls}", Level=lvl, Inventory=weapon, Pos=pos, Group=group, Ignores="gull|halde", **kv)
@@ -688,7 +738,7 @@ def ch12():
 
     spawns = [
         # Halde and her crew on the Gull.
-        dict(UnitId="halde", Faction=ALLY, Level=12, Pos=(32, 9), Ai=STATIONARY),
+        dict(UnitId="halde", Faction=ALLY, Level=9, Pos=(32, 9), Ai=STATIONARY),
         deckhand((30, 8), "steel_axe"), deckhand((30, 11), "hand_axe"),
         # The quays.
         gilded("soldier", ["steel_lance"], (7, 12)), gilded("myrmidon", ["steel_sword"], (6, 7)),
@@ -702,23 +752,30 @@ def ch12():
         gilded("soldier", ["steel_lance"], (24, 15)), gilded("mage", ["thunder"], (27, 17), Ai=STATIONARY),
         gilded("knight", ["silver_lance"], (26, 14), 13, name="Galley Captain Dresh", Tag="dresh", Ai=GUARD),
         dict(gilded("archer", ["steel_bow"], (28, 16), Ai=STATIONARY), HardOnly=True),
-        # Reinforcements: T3 from the warehouses, T5 boarding boats at the piers' ends, T7 more from the auction.
+        # Reinforcements: T2 from the warehouses, T5 boarding boats at the piers' ends, T4 and T6 from the auction.
+        # Session 15 playtest (too easy): the pursuit behind the party comes sooner and bigger (was T3 and T7, 2 each),
+        # so it pushes the party to the Gull.
         gilded("soldier", ["steel_lance"], (5, 0), group="warehouse"), gilded("myrmidon", ["steel_sword"], (0, 5), group="warehouse"),
+        gilded("archer", ["steel_bow"], (0, 2), group="warehouse"),
         # Boarders tie up at the far ends of the piers, by the ships, not in the party's path.
         gilded("fighter", ["steel_axe"], (18, 6), group="boats"), gilded("myrmidon", ["iron_sword"], (21, 13), group="boats"),
         gilded("soldier", ["steel_lance"], (0, 17), group="auction"), gilded("knight", ["steel_lance"], (2, 20), group="auction"),
+        gilded("fighter", ["steel_axe"], (0, 18), group="auction"), gilded("cavalier", ["steel_lance"], (1, 21), group="auction"),
         dict(gilded("mage", ["elfire"], (0, 19), 11, "auction"), HardOnly=True),
+        gilded("soldier", ["steel_lance"], (0, 17), group="auction2"), gilded("myrmidon", ["steel_sword"], (0, 20), group="auction2"),
+        gilded("mage", ["fire"], (1, 21), group="auction2"), gilded("cavalier", ["steel_sword"], (0, 19), group="auction2"),
     ]
     for s in spawns:
         s.setdefault("Faction", ENEMY)
         s.setdefault("Ai", AGGRESSIVE)
-    triggers = ["turn 1 => scene ch12_start",
+    # Halde joins at once, shouting across the water (session 15: picking her up as the party left felt odd).
+    triggers = ["turn 1 => scene ch12_start; scene ch12_halde; join halde",
                 "turn 2 => scene ch12_auction",
-                "talk any halde => scene ch12_halde; join halde",
-                "turn 3 enemy => spawn warehouse",
+                "turn 2 enemy => spawn warehouse",
+                "turn 4 enemy => spawn auction",
                 "turn 5 enemy => spawn boats; scene ch12_boats",
-                "turn 7 enemy => spawn auction"]
-    highlights = ["halde => Captain Halde Marr of the Gull. Talk to her: she'll take you on, crew and all.",
+                "turn 6 enemy => spawn auction2"]
+    highlights = ["halde => Captain Halde Marr of the Gull. She's with you: hold her deck until everyone is aboard.",
                   "31,8-32,10 => The Gull's deck. Everyone must get aboard; Rowan goes last."]
     slots = [(3, 18), (4, 18), (5, 18), (3, 19), (4, 19), (5, 19), (6, 18), (6, 19), (2, 17), (2, 19)]
     map_tres("ch12", "Chapter 12: The Gilded Harbor", g.rows(), g.height_rows(), spawns, "escape 31,8-32,10 all", [],
@@ -875,7 +932,8 @@ def ch14():
     def imperial(cls, weapon, pos, lvl=13, group="", name=None, **kv):
         names = {"soldier": "Imperial Guard", "knight": "Imperial Knight", "general": "Imperial General",
                  "archer": "Imperial Archer", "sniper": "Imperial Marksman", "wyvern_rider": "Wyvern Rider",
-                 "wyvern_lord": "Wyvern Lord", "mage": "Veiled Mage", "cavalier": "Imperial Cavalier"}
+                 "wyvern_lord": "Wyvern Lord", "mage": "Veiled Mage", "cavalier": "Imperial Cavalier",
+                 "fighter": "Imperial Axeman", "myrmidon": "Imperial Swordsman"}
         armor = {"knight": "iron_plate", "general": "silver_plate", "soldier": "chainmail", "cavalier": "chainmail"}.get(cls)
         spawn = dict(ClassId=cls, Name=name or names[cls], SpriteId="enemy_veiled" if cls == "mage" else "enemy_imperial",
                      Level=lvl, Inventory=weapon, Pos=pos, Group=group, DominatedBy="vossk", **kv)
@@ -889,23 +947,27 @@ def ch14():
              Inventory=["shadow", "elixir"], Pos=(15, 3), Armor="sage_vestments", Ai=BOSS, IsBoss=True, CrestBearer=True,
              DominionRadius=4, Leash=2),
         # The Empress: she fights, but she must not die (NonLethal: beaten, she is subdued).
-        dict(UnitId="ysolde", Level=15, Pos=(16, 14), Ai=GUARD, DominatedBy="vossk", NonLethal=True),
+        # Session 15: she holds the courtyard (Boss AI, leash 4) rather than flying at the party on T1 (a Guard, she
+        # woke at once: the deploy zone sits on the edge of her alert range).
+        dict(UnitId="ysolde", Level=8, Pos=(16, 14), Ai=BOSS, Leash=4, DominatedBy="vossk", NonLethal=True),
         # The throne hall.
         imperial("general", ["silver_lance"], (14, 5), 14, Ai=GUARD), imperial("general", ["steel_axe"], (17, 5), 14, Ai=GUARD),
         imperial("mage", ["fire"], (13, 8), 12, Ai=GUARD), imperial("mage", ["thunder"], (18, 8), 12, Ai=GUARD),
-        # The courtyard.
-        imperial("knight", ["steel_lance"], (12, 16)), imperial("knight", ["steel_lance"], (19, 16)),
-        imperial("soldier", ["steel_lance"], (9, 18)), imperial("soldier", ["silver_lance"], (22, 18), 13),
+        # The courtyard. Session 15 playtest: every melee enemy carried a lance; now a mix of lance, axe and sword,
+        # armoured and mounted units included.
+        imperial("knight", ["steel_sword"], (12, 16)), imperial("knight", ["steel_axe"], (19, 16)),
+        imperial("fighter", ["steel_axe"], (9, 18)), imperial("soldier", ["silver_lance"], (22, 18), 13),
+        imperial("myrmidon", ["steel_sword"], (13, 20)),
         imperial("cavalier", ["steel_sword"], (4, 19)), imperial("cavalier", ["steel_lance"], (27, 19)),
         imperial("archer", ["steel_bow"], (10, 12), 13, Ai=STATIONARY), imperial("archer", ["steel_bow"], (21, 12), 13, Ai=STATIONARY),
-        imperial("wyvern_rider", ["steel_lance"], (6, 13)),
+        imperial("wyvern_rider", ["steel_axe"], (6, 13)),
         dict(imperial("wyvern_lord", ["silver_lance"], (25, 13), 13), HardOnly=True),
         # Reinforcements: T3 wyverns over the outer wall, T5 the guard down the side stairs, T7 more of both.
-        imperial("wyvern_rider", ["iron_lance"], (2, 23), group="walls"), imperial("wyvern_rider", ["javelin", "iron_lance"], (29, 23), group="walls"),
-        imperial("soldier", ["steel_lance"], (3, 11), group="stairs"), imperial("knight", ["steel_lance"], (28, 11), group="stairs"),
+        imperial("wyvern_rider", ["steel_axe"], (2, 23), group="walls"), imperial("wyvern_rider", ["javelin", "iron_lance"], (29, 23), group="walls"),
+        imperial("soldier", ["steel_lance"], (3, 11), group="stairs"), imperial("knight", ["steel_sword"], (28, 11), group="stairs"),
         imperial("mage", ["fire"], (3, 10), 11, "late"),
         dict(imperial("wyvern_rider", ["steel_lance"], (16, 21), group="late"), HardOnly=True),
-        dict(imperial("general", ["steel_lance"], (28, 10), 13, "late"), HardOnly=True),
+        dict(imperial("general", ["silver_sword"], (28, 10), 13, "late"), HardOnly=True),
     ]
     for s in spawns:
         s.setdefault("Faction", ENEMY)

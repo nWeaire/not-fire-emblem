@@ -96,7 +96,7 @@ def vault():
         hollowed("steel_axe", (8, 15), Ai=GUARD), hollowed("steel_lance", (20, 14), Ai=GUARD),
         dict(hollowed("silver_sword", (12, 12), 15), HardOnly=True),
         # The hall: Ser Caddoc, a Warden who didn't escape, and the hall guard.
-        dict(ClassId="warden_lord", Name="Ser Caddoc, the Hollow Warden", Tag="caddoc", SpriteId="enemy_hollowed",
+        dict(ClassId="warden_lord", Name="Ser Caddoc, the Hollow Warden", Tag="caddoc", SpriteId="boss_caddoc",
              Level=16, Inventory=["silver_lance", "javelin"], Pos=(12, 7), Ai=BOSS, IsBoss=True, Leash=2,
              Armor="iron_plate"),
         dict(ClassId="knight", Name="Hollowed Knight", SpriteId="enemy_hollowed", Level=15, Inventory=["steel_lance"],

@@ -5954,6 +5954,189 @@
           "type": "generations"
         }
       },
+      "map:ally_calder_knight": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "ca5cc57a-7cf4-4428-a181-cb579daf1fea",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.016393317196104262
+              },
+              {
+                "type": "usd",
+                "usd": 0.012277124696307713
+              },
+              {
+                "type": "usd",
+                "usd": 0.011928111341264513
+              },
+              {
+                "type": "usd",
+                "usd": 0.010132297356923422
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "74455651-e0fd-4527-aa5a-c2126566518e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011574700620439318
+              },
+              {
+                "type": "usd",
+                "usd": 0.0085720354186164
+              },
+              {
+                "type": "usd",
+                "usd": 0.012122826099395752
+              },
+              {
+                "type": "usd",
+                "usd": 0.00974548496140374
+              }
+            ]
+          }
+        },
+        "character_id": "213fc363-c53b-41b9-9f90-93552faabfa7",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:ally_sailor": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "57ed9008-50a3-47db-ad64-8e5b62a2f1a3",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.017567428138520982
+              },
+              {
+                "type": "usd",
+                "usd": 0.016485867579778036
+              },
+              {
+                "type": "usd",
+                "usd": 0.016929156594806247
+              },
+              {
+                "type": "usd",
+                "usd": 0.013780481974283856
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "998e6b9c-4353-4dcd-9683-b8f419ac0ecf",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009557383166419135
+              },
+              {
+                "type": "usd",
+                "usd": 0.009458913034862942
+              },
+              {
+                "type": "usd",
+                "usd": 0.009506160232755873
+              },
+              {
+                "type": "usd",
+                "usd": 0.01059707506497701
+              }
+            ]
+          }
+        },
+        "character_id": "df064f11-9828-4f7b-bc28-0429bf0eb2b0",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:ally_townsfolk": {
+        "animations": {
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "ae3974e7-b5b4-4c73-8ac4-2b241b634e67",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009125580973095364
+              },
+              {
+                "type": "usd",
+                "usd": 0.008805217663447062
+              },
+              {
+                "type": "usd",
+                "usd": 0.011302750322553847
+              },
+              {
+                "type": "usd",
+                "usd": 0.010542942232555814
+              }
+            ]
+          }
+        },
+        "character_id": "bbf5b07f-a144-4bd7-9968-dc1e59dca9b4",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:ally_townsfolk_take1": {
+        "character_id": "597b8fcf-711e-4d0a-ac75-7f00c750272d",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:ally_villager": {
         "animations": {
           "walk": {
@@ -7162,6 +7345,142 @@
           "type": "generations"
         }
       },
+      "map:enemy_gilded_knight": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "983fb2bc-0528-4c3c-99c8-52f19cf357ee",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.018875472916497125
+              },
+              {
+                "type": "usd",
+                "usd": 0.013692282676696779
+              },
+              {
+                "type": "usd",
+                "usd": 0.011620569070180258
+              },
+              {
+                "type": "usd",
+                "usd": 0.012634839932123821
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "a85cb779-d415-4111-9e9f-feb0e8f32e37",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01141430213716295
+              },
+              {
+                "type": "usd",
+                "usd": 0.011271346065733167
+              },
+              {
+                "type": "usd",
+                "usd": 0.012211144712236194
+              },
+              {
+                "type": "usd",
+                "usd": 0.01080183023876614
+              }
+            ]
+          }
+        },
+        "character_id": "e85af6de-de0d-4905-a982-57366d651b0f",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:enemy_gilded_soldier": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "e4e02e0b-0844-4f2a-b0cb-de0808ca25e6",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01184156224462721
+              },
+              {
+                "type": "usd",
+                "usd": 0.013249347156948515
+              },
+              {
+                "type": "usd",
+                "usd": 0.01292326553662618
+              },
+              {
+                "type": "usd",
+                "usd": 0.012340198092990452
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "e33f09a2-9968-47fd-b229-a562c7324367",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009149095879660712
+              },
+              {
+                "type": "usd",
+                "usd": 0.011875308063295153
+              },
+              {
+                "type": "usd",
+                "usd": 0.011129682593875461
+              },
+              {
+                "type": "usd",
+                "usd": 0.011489723364512126
+              }
+            ]
+          }
+        },
+        "character_id": "193300ea-3d5b-48d7-9e6f-00571e929ed1",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:enemy_gloam_alpha": {
         "animations": {
           "attack": {
@@ -7621,6 +7940,550 @@
           }
         },
         "character_id": "edd1528a-953c-44c8-9508-eac564f06afb",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:enemy_imperial_archer": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "62d039f9-5565-4165-8f60-639a030b7a66",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.012610965914196439
+              },
+              {
+                "type": "usd",
+                "usd": 0.01373226136631436
+              },
+              {
+                "type": "usd",
+                "usd": 0.015926723188824123
+              },
+              {
+                "type": "usd",
+                "usd": 0.012717543654971653
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "e695e841-2703-4308-a991-be2ce5527b5e",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008607897520065308
+              },
+              {
+                "type": "usd",
+                "usd": 0.009076515780554878
+              },
+              {
+                "type": "usd",
+                "usd": 0.008963114711973402
+              },
+              {
+                "type": "usd",
+                "usd": 0.011507075203789605
+              }
+            ]
+          }
+        },
+        "character_id": "f93eb5f5-8495-44be-aacb-073f9386f786",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:enemy_imperial_cavalier": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "761985b7-6117-4b03-9143-b30e82d7d058",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.017781765540440878
+              },
+              {
+                "type": "usd",
+                "usd": 0.014878491534127129
+              },
+              {
+                "type": "usd",
+                "usd": 0.013549197249942357
+              },
+              {
+                "type": "usd",
+                "usd": 0.012843472242355346
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "cbb0b86b-3a17-44c5-8137-f07cd4d75ab9",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011959140327241685
+              },
+              {
+                "type": "usd",
+                "usd": 0.012614893012576633
+              },
+              {
+                "type": "usd",
+                "usd": 0.013949969318177966
+              },
+              {
+                "type": "usd",
+                "usd": 0.01600670305887858
+              }
+            ]
+          }
+        },
+        "character_id": "c2da3052-d0d8-4b68-8004-35664726e546",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:enemy_imperial_cavalier_sword": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "0c2b567e-922f-4883-af6b-a1469de5f269",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011648394902547201
+              },
+              {
+                "type": "usd",
+                "usd": 0.01441184253162808
+              },
+              {
+                "type": "usd",
+                "usd": 0.01526981027921041
+              },
+              {
+                "type": "usd",
+                "usd": 0.012217026684019302
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "9acdb374-84ac-4e07-b230-793a7acb36dc",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.013050142314698962
+              },
+              {
+                "type": "usd",
+                "usd": 0.009417962630589805
+              },
+              {
+                "type": "usd",
+                "usd": 0.013502422544691299
+              },
+              {
+                "type": "usd",
+                "usd": 0.010557105461756389
+              }
+            ]
+          }
+        },
+        "character_id": "46cb41cd-4ae4-4a5c-8185-aa6d2e856de8",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:enemy_imperial_fighter": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "106c80a0-294d-4341-805d-d28a00a6891f",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.015125202788247003
+              },
+              {
+                "type": "usd",
+                "usd": 0.013961787170834013
+              },
+              {
+                "type": "usd",
+                "usd": 0.015388557301627265
+              },
+              {
+                "type": "usd",
+                "usd": 0.01313044293721517
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "b83d005d-a85d-41b7-8632-1596da0d7947",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01028257409731547
+              },
+              {
+                "type": "usd",
+                "usd": 0.015343920946121217
+              },
+              {
+                "type": "usd",
+                "usd": 0.010561172644297283
+              },
+              {
+                "type": "usd",
+                "usd": 0.008426010158326891
+              }
+            ]
+          }
+        },
+        "character_id": "7315ad62-f3e4-45fd-80c6-6577f31453bc",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:enemy_imperial_knight": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "4577b9a9-d59f-4dcd-b7e0-56d5e2f53fd8",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.015849721590677896
+              },
+              {
+                "type": "usd",
+                "usd": 0.013177773555119832
+              },
+              {
+                "type": "usd",
+                "usd": 0.01524831978480021
+              },
+              {
+                "type": "usd",
+                "usd": 0.010497210264205933
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "c1c026b4-3949-4282-8f28-ee38164d9292",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.00922393684917026
+              },
+              {
+                "type": "usd",
+                "usd": 0.009091137462192112
+              },
+              {
+                "type": "usd",
+                "usd": 0.008894277016321818
+              },
+              {
+                "type": "usd",
+                "usd": 0.011740251170264351
+              }
+            ]
+          }
+        },
+        "character_id": "9a7dbc30-f8cf-426c-8c6d-fab4ddf7387b",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:enemy_imperial_mage": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "c8ae5c3c-6d93-4783-8bbc-db4e49c0f28b",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01977985906600952
+              },
+              {
+                "type": "usd",
+                "usd": 0.011381375551223755
+              },
+              {
+                "type": "usd",
+                "usd": 0.012595096508661906
+              },
+              {
+                "type": "usd",
+                "usd": 0.010621498823165893
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "6c489097-891e-4410-8ceb-bda2367882c1",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008947186814414131
+              },
+              {
+                "type": "usd",
+                "usd": 0.013550262557135689
+              },
+              {
+                "type": "usd",
+                "usd": 0.00852960851457384
+              },
+              {
+                "type": "usd",
+                "usd": 0.011918040540483264
+              }
+            ]
+          }
+        },
+        "character_id": "396b603c-4e8f-48e7-96db-4fccd108f5af",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:enemy_imperial_myrmidon": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "79bb813f-88aa-464c-ab4d-b93f5eb22209",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.019100860648685034
+              },
+              {
+                "type": "usd",
+                "usd": 0.018432575119866266
+              },
+              {
+                "type": "usd",
+                "usd": 0.014042315562566122
+              },
+              {
+                "type": "usd",
+                "usd": 0.012435653898451065
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "c0adc5f2-153a-40bc-8be4-dbd624431771",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009874407556321886
+              },
+              {
+                "type": "usd",
+                "usd": 0.008782130108939277
+              },
+              {
+                "type": "usd",
+                "usd": 0.009814587513605755
+              },
+              {
+                "type": "usd",
+                "usd": 0.00885026608573066
+              }
+            ]
+          }
+        },
+        "character_id": "b39ca2f2-79da-4d68-9548-773242e46e63",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:enemy_imperial_soldier": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "5137e8e1-7570-4ca5-a39f-07e5e61ab517",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.014002684566709733
+              },
+              {
+                "type": "usd",
+                "usd": 0.01765078541967604
+              },
+              {
+                "type": "usd",
+                "usd": 0.012796133783128527
+              },
+              {
+                "type": "usd",
+                "usd": 0.018729509936438668
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "286b5d1d-b7cd-4cfb-9ff3-844369db15a3",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008780900902218289
+              },
+              {
+                "type": "usd",
+                "usd": 0.009113376935323079
+              },
+              {
+                "type": "usd",
+                "usd": 0.009715834273232355
+              },
+              {
+                "type": "usd",
+                "usd": 0.008434102323320177
+              }
+            ]
+          }
+        },
+        "character_id": "5e617de3-3399-4d88-880b-15c10095908d",
         "status": "completed",
         "usage": {
           "type": "usd",
@@ -8097,6 +8960,74 @@
           }
         },
         "character_id": "cdbcb4d5-9a4c-4bb0-8d28-5faae999049a",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:enemy_veiled_thug_myrmidon": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "85147de3-1bcd-432e-ba49-6ef86e13e9cd",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01679089625676473
+              },
+              {
+                "type": "usd",
+                "usd": 0.01030182441075643
+              },
+              {
+                "type": "usd",
+                "usd": 0.015586513572269017
+              },
+              {
+                "type": "usd",
+                "usd": 0.011901327980889215
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "aa3bf64f-91b0-4e88-82d2-208768b9c611",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.012113150358200073
+              },
+              {
+                "type": "usd",
+                "usd": 0.01108251976966858
+              },
+              {
+                "type": "usd",
+                "usd": 0.011631194273630779
+              },
+              {
+                "type": "usd",
+                "usd": 0.009083982838524712
+              }
+            ]
+          }
+        },
+        "character_id": "4bc0af9e-fd83-47c2-91e6-e44a9ba9d6b2",
         "status": "completed",
         "usage": {
           "type": "usd",
@@ -8841,6 +9772,105 @@
         "usage": {
           "generations": 10.0,
           "type": "generations"
+        }
+      },
+      "map:neutral_rioter": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "a627b49f-e6e9-4e8c-a89b-40b3b9731188",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.016169279840257435
+              },
+              {
+                "type": "usd",
+                "usd": 0.010697331455018786
+              },
+              {
+                "type": "usd",
+                "usd": 0.0209929669962989
+              },
+              {
+                "type": "usd",
+                "usd": 0.021789140515857276
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "0a6d2db1-2873-4b85-a4d7-101afeaae6b1",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011759597857793173
+              },
+              {
+                "type": "usd",
+                "usd": 0.011252056254280938
+              },
+              {
+                "type": "usd",
+                "usd": 0.00991080951690674
+              },
+              {
+                "type": "usd",
+                "usd": 0.008691979143354627
+              }
+            ]
+          }
+        },
+        "character_id": "adb0207c-5347-4725-ae7d-bc9c1c156e6a",
+        "status": "completed",
+        "superseded": {
+          "attack_axe_wording": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "9e7b8d02-5e80-4f60-9b61-6595a773d8a5",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01460837157567342
+              },
+              {
+                "type": "usd",
+                "usd": 0.014382170809639824
+              },
+              {
+                "type": "usd",
+                "usd": 0.013139289644029405
+              },
+              {
+                "type": "usd",
+                "usd": 0.015963130076726277
+              }
+            ]
+          }
+        },
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
         }
       },
       "map:pilot_nso_rowan": {
@@ -10325,6 +11355,24 @@
           "type": "generations"
         }
       },
+      "enemy_gilded_knight": {
+        "job": "3491d16a-93a0-41c2-9319-de196f67063b",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "enemy_gilded_soldier": {
+        "job": "57164d86-c64f-491d-b8b9-21e0d5df0a59",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "enemy_gloam_alpha": {
         "job": "423e530f-af47-48b5-a127-c4ed906c1202",
         "status": "completed",
@@ -10388,6 +11436,78 @@
           "usd": 0.115
         }
       },
+      "enemy_imperial_archer": {
+        "job": "08060652-d6b5-49a3-af16-87a54d8d5097",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "enemy_imperial_cavalier": {
+        "job": "b2a93516-05f1-43c3-b704-9f5696f6ea5f",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "enemy_imperial_cavalier_sword": {
+        "job": "83672e02-166f-4648-9708-0d83349e8a24",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "enemy_imperial_fighter": {
+        "job": "e0887dee-a061-430e-b97d-41823228730c",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "enemy_imperial_knight": {
+        "job": "8c52b2af-1502-470f-817f-47828744dd1f",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "enemy_imperial_mage": {
+        "job": "53f46189-ec3f-41c9-8655-076e5d891a02",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "enemy_imperial_myrmidon": {
+        "job": "86215c49-058a-403a-9ddd-ae708d15f0a4",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "enemy_imperial_soldier": {
+        "job": "eae6ee7a-0e52-4928-a27e-a77b5c31e2ee",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "enemy_knight": {
         "job": "24459b07-66ae-478c-9ce6-9e068c6efefe",
         "status": "completed",
@@ -10444,6 +11564,15 @@
       },
       "enemy_thief": {
         "job": "94a478c6-d867-4c61-9683-6f251b4bf913",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "enemy_veiled_thug_myrmidon": {
+        "job": "997e314d-fbca-4563-9c19-dffad7d3a028",
         "status": "completed",
         "takes": 9,
         "usage": {
@@ -10566,6 +11695,15 @@
         "usage": {
           "generations": 15.0,
           "type": "generations"
+        }
+      },
+      "neutral_rioter": {
+        "job": "aa29fc84-07f4-46ec-9b04-f677a9cfcdd5",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
         }
       },
       "pip_thief": {
@@ -11700,6 +12838,110 @@
           }
         }
       },
+      "enemy_gilded_knight": {
+        "attack": {
+          "frames": 9,
+          "job": "2e34e5fd-3dc4-4478-b444-96c11adbd2f0",
+          "status": "completed",
+          "still": "approved/refs/enemy_gilded_knight_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.026002467672030127
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "5b6164d8-c5a2-4b90-91c0-9c4b32358cda",
+          "status": "completed",
+          "still": "approved/refs/enemy_gilded_knight_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.028963241517543793
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "e8fc8d8c-ddfb-4b77-accb-4c11b52a5fa9",
+          "status": "completed",
+          "still": "approved/refs/enemy_gilded_knight_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.030683093547821047
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "6d4b0722-39f2-48ae-8039-03402c313059",
+          "status": "completed",
+          "still": "approved/refs/enemy_gilded_knight_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.0290564695265558
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "86a06431-772f-4bdb-944c-5fe69a179bdc",
+          "status": "completed",
+          "still": "approved/refs/enemy_gilded_knight_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02554490115245183
+          }
+        }
+      },
+      "enemy_gilded_soldier": {
+        "attack": {
+          "frames": 9,
+          "job": "519558b0-c14b-4d76-a301-66cb77a6f342",
+          "status": "completed",
+          "still": "approved/refs/enemy_gilded_soldier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.025804990920755597
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "017c7bd6-bd53-45ec-a0b4-c250661a45d7",
+          "status": "completed",
+          "still": "approved/refs/enemy_gilded_soldier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.030628048015965352
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "9a4be4d5-125c-4430-8a90-1856b87d6516",
+          "status": "completed",
+          "still": "approved/refs/enemy_gilded_soldier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.023244036111566755
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "d56e8764-729f-474a-b8a4-482ba1157271",
+          "status": "completed",
+          "still": "approved/refs/enemy_gilded_soldier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.026284366554684108
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "1e408163-8892-464c-828c-b5d3d2ae1483",
+          "status": "completed",
+          "still": "approved/refs/enemy_gilded_soldier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02284269102414449
+          }
+        }
+      },
       "enemy_gloam_alpha": {
         "attack": {
           "frames": 9,
@@ -12064,6 +13306,422 @@
           }
         }
       },
+      "enemy_imperial_archer": {
+        "attack": {
+          "frames": 9,
+          "job": "d3b4c8e4-9ab4-4faa-b150-0f00de08d757",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_archer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03539750552177429
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "ff18684b-f0c4-4ae5-bc31-9a937809f0cd",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_archer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02721817445755005
+          }
+        },
+        "dodge": {
+          "frames": 5,
+          "job": "431c8aa7-5239-4d3b-a0be-6d6578688cbd",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_archer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.020211730811331007
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "c0d0b607-ef9c-4f6b-bea0-bb67cbf92455",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_archer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.027370399978425768
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "880af46a-0164-4b51-bd6b-0dd4cff4445d",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_archer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.022822142601013184
+          }
+        }
+      },
+      "enemy_imperial_cavalier": {
+        "attack": {
+          "frames": 9,
+          "job": "102a21f6-088f-4347-9618-5c9b70350d1a",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_cavalier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02202677040629917
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "a7177297-2b32-4fbd-bade-1604b7198bb6",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_cavalier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03598298672172758
+          }
+        },
+        "dodge": {
+          "frames": 6,
+          "job": "fc5e4fb4-bca7-4f00-9def-0e60b619944f",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_cavalier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02771111186345418
+          }
+        },
+        "hit": {
+          "frames": 3,
+          "job": "e944c0b2-3174-40aa-8aa6-3c6f1cada7eb",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_cavalier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02964475930399365
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "c2df6fcc-a56c-42d4-9de2-df50aaa3b256",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_cavalier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.023251603967613645
+          }
+        }
+      },
+      "enemy_imperial_cavalier_sword": {
+        "attack": {
+          "frames": 9,
+          "job": "9564e78f-6af3-4830-b257-b1b11f40764d",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_cavalier_sword_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.029970598982440103
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "2d917920-a785-425c-9d84-be94076f7606",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_cavalier_sword_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.030322497520181867
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "c9209100-3ffd-4491-9e53-10f754a44f85",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_cavalier_sword_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.023958710067802005
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "6d1de88a-5c72-4e54-bbf9-4d4d15ee916a",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_cavalier_sword_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.023742348399427203
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "0ca072e5-cbf5-4df9-8fff-0f83d531f49f",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_cavalier_sword_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.031986394266287486
+          }
+        }
+      },
+      "enemy_imperial_fighter": {
+        "attack": {
+          "frames": 9,
+          "job": "d64d7ed3-8ff6-424a-b0a1-9baa6c1db201",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_fighter_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02426832983228895
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "7dbf3a1a-97a0-4e09-a34c-a80950c74f0d",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_fighter_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.0365796776149008
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "bf7ff878-1baa-4c16-87aa-d74cc3a48eb1",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_fighter_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.025018809848361544
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "7b259123-06f7-47ac-9050-0fa95aa3099b",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_fighter_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.028957279172208576
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "dba65fb6-6fd4-4970-9aca-55fee268c011",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_fighter_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.021475909213225047
+          }
+        }
+      },
+      "enemy_imperial_knight": {
+        "attack": {
+          "frames": 9,
+          "job": "3ca442b8-7d92-47a2-b134-f095a431d076",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_knight_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.07821888562705781
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "f95c35b9-ef5f-4af6-8e6f-7719b9c7e405",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_knight_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.025632016751501292
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "bda0f63f-6643-453a-8dea-53d86a79533f",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_knight_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.023208146466149222
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "cf926627-ca2d-440f-a6e2-064b0adc28eb",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_knight_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.028303858286804623
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "905e8b3b-3544-4910-8928-219b363e667c",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_knight_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02994885273112191
+          }
+        }
+      },
+      "enemy_imperial_mage": {
+        "attack": {
+          "frames": 9,
+          "job": "3d5344cf-d84c-4e6e-a804-49378a67ce60",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_mage_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.0285794193148613
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "0e67fb60-15b9-464e-aa17-55778c29c027",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_mage_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.0335054063267178
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "9dec3c62-8657-4c81-93e7-dcd02a33b014",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_mage_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03371973954968982
+          }
+        },
+        "hit": {
+          "frames": 2,
+          "job": "0887173b-cac8-45ca-8fb9-3fae2e7d48cb",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_mage_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.018931251645088194
+          }
+        },
+        "idle": {
+          "frames": 4,
+          "job": "d94ede49-8813-4ee0-aa28-c6d2bc5946d1",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_mage_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.023998061074150933
+          }
+        }
+      },
+      "enemy_imperial_myrmidon": {
+        "attack": {
+          "frames": 9,
+          "job": "d21d906b-234f-4e41-a44d-83fcfcd3e325",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_myrmidon_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.030094161834981703
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "caa864ec-181c-409d-95ed-d6be0c1dc8be",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_myrmidon_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.04563575845956802
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "9e83d7be-6827-47f0-bd6e-49a5f315599f",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_myrmidon_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03281485425101386
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "599952b9-1a84-48ea-addf-cb8067668476",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_myrmidon_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.020645428107844456
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "a6991fb0-86c1-4fcd-8f14-1c4dca1aa77b",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_myrmidon_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02003561293416553
+          }
+        }
+      },
+      "enemy_imperial_soldier": {
+        "attack": {
+          "frames": 9,
+          "job": "807483f2-3e9b-424f-8251-a345d930a169",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_soldier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02718021876944436
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "bc891cdf-ad70-4007-b8a1-6ba0df158b19",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_soldier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.039785045862197874
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "affedb22-ee3c-4a28-8951-7f739e13803c",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_soldier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02569239562749863
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "c8b793f0-e407-4a00-8e45-ae2b06d12882",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_soldier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.019090074353747898
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "8541d980-9f63-47dd-ab4c-262ba1d48f3b",
+          "status": "completed",
+          "still": "approved/refs/enemy_imperial_soldier_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.020453299164772034
+          }
+        }
+      },
       "enemy_knight": {
         "attack": {
           "frames": 9,
@@ -12425,6 +14083,58 @@
           "usage": {
             "type": "usd",
             "usd": 0.021400706900490653
+          }
+        }
+      },
+      "enemy_veiled_thug_myrmidon": {
+        "attack": {
+          "frames": 9,
+          "job": "8c5f51ca-2933-433f-88b4-98ecad61f655",
+          "status": "completed",
+          "still": "approved/refs/enemy_veiled_thug_myrmidon_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02158854873312844
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "bfbebcca-ebb7-4514-a41f-84b70f1a8660",
+          "status": "completed",
+          "still": "approved/refs/enemy_veiled_thug_myrmidon_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.026062061780028872
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "2948e02f-11a1-46e3-8d24-b09739c949e8",
+          "status": "completed",
+          "still": "approved/refs/enemy_veiled_thug_myrmidon_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03253574252790875
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "91a85e9a-8f0c-4bc4-a3cb-ace9a50755dd",
+          "status": "completed",
+          "still": "approved/refs/enemy_veiled_thug_myrmidon_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.022069575217035082
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "8f812c44-c19c-4b9a-9407-f63e915706d5",
+          "status": "completed",
+          "still": "approved/refs/enemy_veiled_thug_myrmidon_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.018709284318817986
           }
         }
       },
@@ -12945,6 +14655,58 @@
           "usage": {
             "generations": 1.0,
             "type": "generations"
+          }
+        }
+      },
+      "neutral_rioter": {
+        "attack": {
+          "frames": 9,
+          "job": "16ee647d-0a02-4332-b5c5-33bf1def9943",
+          "status": "completed",
+          "still": "approved/refs/neutral_rioter_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02308008459541533
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "5c84db3d-8383-4c42-a498-747bfd496d1e",
+          "status": "completed",
+          "still": "approved/refs/neutral_rioter_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.028912938482231566
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "d7eb3773-39ad-43b7-bde5-690241bc800f",
+          "status": "completed",
+          "still": "approved/refs/neutral_rioter_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02221884580453237
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "92836a5a-c043-4c27-b22a-ff1a5b4d05e0",
+          "status": "completed",
+          "still": "approved/refs/neutral_rioter_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03346681894858678
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "35b604f6-1bab-4c59-b8b1-90e475fb3a4f",
+          "status": "completed",
+          "still": "approved/refs/neutral_rioter_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02582657426595688
           }
         }
       },

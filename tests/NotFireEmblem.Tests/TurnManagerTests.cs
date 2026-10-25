@@ -31,7 +31,8 @@ public class TurnManagerTests
         Assert.Equal("enemy_merc", s.Unit("u2").SpriteId);
         // Outfit, then plain id, then the class's generic look while the unit's own art isn't drawn.
         Assert.Equal(new[] { "lord_merc", "lord", "enemy_merc" }, s.Unit("u0").SpriteCandidates());
-        Assert.Equal(new[] { "enemy_merc_merc", "enemy_merc" }, s.Unit("u2").SpriteCandidates());
+        // Generic units try their weapon's variant first ("enemy_imperial_knight_axe").
+        Assert.Equal(new[] { "enemy_merc_merc_sword", "enemy_merc_merc", "enemy_merc" }, s.Unit("u2").SpriteCandidates());
     }
 
     [Fact]

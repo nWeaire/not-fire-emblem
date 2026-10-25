@@ -17,3 +17,5 @@ Magic = false
 EffectiveAgainst = PackedStringArray("Flying")
 Price = 1600
 Tier = 2
+Pierces = true
+SingleStrike = true

@@ -2,9 +2,30 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-24 (end of session 14)._
+_Last updated: 2026-10-25 (session 15, mid-session commit)._
 
 ---
+
+## Session 15 (so far): Act II hand playtest Ch 10–14, the first Act II art batch
+- **Hand playtested and signed off by the user:** Ch 10, 11, 12, 13, 14 (details in each chapter's CHAPTERS.md entry).
+  Still to play: **Ch 15**, the **Old Warden Vault** and the Side Maps tab; then the session-14 decisions list below.
+- **Ch 10:** ridge ambushes (T3, T7 at the start of the Player Phase) and camp reinforcements (T3, T5, T9); `ch10_flanks`.
+- **Ch 11:** the roost's archers/mage come down (were Stationary), north-edge waves T4/T7; `ch11_north`.
+- **Ch 12:** pursuit sooner and bigger (T2, T4, T6); **Halde joins on T1** by shouting across the water (no Talk).
+- **Ch 14:** mixed weapons (knights and generals now use swords and axes too, wyvern riders axes); **Ysolde** Level 8,
+  45 HP, Boss AI leash 4, and the new **Empress's Ward** (accessory, `ArmorDef.Ward`: no effective damage on her).
+- **Rules:** bosses get two-thirds of their level as extra Res (`BattleSetup.BossResBonus`; mages one-shot bosses);
+  the **crossbow** pierces armour and never strikes twice (`WeaponDef.Pierces`, `SingleStrike`).
+- **Bug: named recruits get no gains for their starting level** (Halde "L12" and Ysolde "L16" had level-1 stats).
+  Fixed for those two by hand; **Seraphine (L9) and Ysra (L11) still have it** (asked the user, no answer yet). Act I
+  recruits were balanced around it, so leave them.
+- **Bug fixed:** `--level=auto` promotions skipped the unit's earlier outfits (Seraphine showed as a plain cavalier).
+- **Art ($5.78 spent, ~$0 left):** 12 full characters and 3 map-only allies (ART_NEEDED §0 "Done in session 15"), the
+  outstanding list with costs (~$14 for all of Act II), weapon-variant sprite lookup (`BattleUnit.WeaponArt`), the
+  effect cleaner `tools/art/keep_figure.py`, Ser Caddoc on his real id `boss_caddoc` (placeholder `enemy_hollowed`).
+- `tools/maps/act2_early.py` also rewrites `brann`, `kai` and `rowan.tres` with stale values: after a rerun,
+  `git checkout -- data/units/brann.tres data/units/kai.tres data/units/rowan.tres`.
+
 
 ## Where things stand (end of session 14)
 - **Everything is committed and pushed to `main`** (last commit: "Level cap 10; recruitable enemies can't be

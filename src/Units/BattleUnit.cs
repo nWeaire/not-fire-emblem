@@ -62,7 +62,14 @@ public sealed class BattleUnit
     public bool IsLord => State.Def.IsLord;
 
     /// <summary>Earlier classes, nearest first (see Outfits.Earlier): their outfits stand in for art not drawn yet.</summary>
-    public IReadOnlyList<string> EarlierClasses { get; init; } = System.Array.Empty<string>();
+    public IReadOnlyList<string> EarlierClasses { get; set; } = System.Array.Empty<string>();
+
+    /// <summary>
+    /// Generic units only: the starting weapon's type in lower case ("sword", "axe"), so a weapon variant's art
+    /// ("enemy_imperial_knight_axe") wins over the class look (session 15: armoured units with great weapons, mounted
+    /// ones with plain swords and axes). Null for named units, whose look follows their class.
+    /// </summary>
+    public string? WeaponArt { get; init; }
 
     /// <summary>The lord's crest is awake: his sprite shows it ("_crest" art variants, when they exist).</summary>
     public bool ShowsCrest { get; set; }
@@ -89,6 +96,7 @@ public sealed class BattleUnit
         ["enemy_sage"] = "enemy_mage",
         ["enemy_paladin"] = "enemy_cavalier",
         ["enemy_hollowed"] = "enemy_soldier",
+        ["boss_caddoc"] = "enemy_hollowed",
     };
 
     /// <summary>
@@ -103,6 +111,8 @@ public sealed class BattleUnit
             yield return $"{SpriteId}_{State.ClassId}_crest";
             yield return $"{SpriteId}_crest";
         }
+        if (WeaponArt is not null)
+            yield return $"{SpriteId}_{State.ClassId}_{WeaponArt}";
         yield return $"{SpriteId}_{State.ClassId}";
         foreach (var earlier in EarlierClasses)
             yield return $"{SpriteId}_{earlier}";
@@ -112,6 +122,8 @@ public sealed class BattleUnit
         string generic = $"enemy_{State.ClassId}";
         if (generic == SpriteId)
             yield break;
+        if (WeaponArt is not null)
+            yield return $"{generic}_{WeaponArt}";
         yield return generic;
         if (PlaceholderSprites.TryGetValue(generic, out var genericStand))
             yield return genericStand;

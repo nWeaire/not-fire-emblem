@@ -31,6 +31,12 @@ NARRATOR: Elise read it aloud. It called the Empress a crowned wolf, and promise
 SERAPHINE [angry]: My father never wrote that. He can barely write at all, now. His hands shake.
 ELISE [cold]: Same paper as the archive. Same hand. It's the forgery, Rowan. This is what started the war.
 
+### ch10_flanks
+@focus 8,3
+NARRATOR: Iron glinted in the pines above the road. Soldiers were coming down off both ridges, behind the line.
+SERAPHINE [worried]: They're on the slopes, behind us! They let us ride past them.
+ALDRIC [cold]: And more through the camp gate. Close up. Nobody stands alone tonight.
+
 ### ch10_collapse
 NARRATOR: With a roar, the burning cottages fell in on themselves. Where their walls had stood was only smoking rubble.
 TAMSIN [neutral]: New way through. Mind your feet.

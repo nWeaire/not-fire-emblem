@@ -58,7 +58,9 @@ public sealed record WeaponDef(
     IReadOnlyList<string> EffectiveAgainst, // movement type names, e.g. "Flying"
     int Price,
     int Tier = 1,
-    string? PersonalTo = null); // unit id for unique weapons only that unit can wield
+    string? PersonalTo = null, // unit id for unique weapons only that unit can wield
+    bool Pierces = false,      // pierces armour like a lance (CombatCalculator.LancePiercePercent)
+    bool SingleStrike = false); // never strikes twice in one combat, however fast the wielder
 
 public enum ArmorSlot { Body, Accessory }
 
@@ -75,7 +77,8 @@ public sealed record ArmorDef(
     int Weight,
     int Price,
     int Tier = 1,
-    string? PersonalTo = null);
+    string? PersonalTo = null,
+    bool Ward = false); // the wearer takes no effective damage (bows and Wind on a flier, Thunder on armour...)
 
 public sealed record UnitDef(
     string Id,

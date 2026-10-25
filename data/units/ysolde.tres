@@ -5,13 +5,13 @@
 
 [sub_resource type="Resource" id="StatsDefinition_1"]
 script = ExtResource("2_stats")
-HP = 4
-Str = 2
-Dex = 2
-Spd = 2
-Lck = 3
-Def = 2
-Res = 3
+HP = 19
+Str = 8
+Dex = 6
+Spd = 8
+Lck = 7
+Def = 4
+Res = 16
 
 [sub_resource type="Resource" id="StatsDefinition_2"]
 script = ExtResource("2_stats")
@@ -29,9 +29,10 @@ script = ExtResource("1_unit")
 Id = "ysolde"
 Name = "Ysolde"
 ClassId = "wyvern_lord"
-Level = 16
+Level = 8
 Bases = SubResource("StatsDefinition_1")
 Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray("silver_lance", "steel_axe")
 IsLord = false
 Armor = ""
+Accessory = "empress_ward"

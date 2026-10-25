@@ -24,8 +24,12 @@ public partial class WeaponDefinition : Resource
     [Export] public int Tier { get; set; } = 1;
     /// <summary>Unit id for a unique weapon only that unit can wield; empty = anyone.</summary>
     [Export] public string PersonalTo { get; set; } = "";
+    /// <summary>Pierces armour as lances do (ignores half an armoured target's Def). Lances always pierce.</summary>
+    [Export] public bool Pierces { get; set; }
+    /// <summary>Never strikes twice in one combat (the crossbow), however fast the wielder.</summary>
+    [Export] public bool SingleStrike { get; set; }
 
     public WeaponDef ToDef() =>
         new(Id, Name, Type, Might, Hit, Crit, Weight, MinRange, MaxRange, Magic, EffectiveAgainst.ToArray(), Price, Tier,
-            string.IsNullOrEmpty(PersonalTo) ? null : PersonalTo);
+            string.IsNullOrEmpty(PersonalTo) ? null : PersonalTo, Pierces, SingleStrike);
 }

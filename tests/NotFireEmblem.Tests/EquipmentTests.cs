@@ -135,4 +135,19 @@ public class EquipmentTests
         Assert.Equal("jerkin", s.Units[0].State.ArmorId);
         Assert.Empty(map.Validate(b.Db));
     }
+
+    [Fact]
+    public void Bosses_GetExtraResForTheirLevel()
+    {
+        var b = new TestBattle("..");
+        var map = new MapDef("m", "M", new[] { ".." }, Array.Empty<string>(), new[]
+        {
+            new SpawnDef(null, "merc", "Grunt", 15, new[] { "sword" }, Faction.Enemy, new NotFireEmblem.Grid.GridPos(0, 0)),
+            new SpawnDef(null, "merc", "Boss", 15, new[] { "sword" }, Faction.Enemy, new NotFireEmblem.Grid.GridPos(1, 0), IsBoss: true),
+        });
+        var s = BattleSetup.Create(b.Db, map, 1);
+        Assert.Equal(10, BattleSetup.BossResBonus(15));
+        Assert.Equal(s.Stats(s.Units[0]).Res + 10, s.Stats(s.Units[1]).Res);
+        Assert.Equal(s.Stats(s.Units[0]).Def, s.Stats(s.Units[1]).Def);
+    }
 }

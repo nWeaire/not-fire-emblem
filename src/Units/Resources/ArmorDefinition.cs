@@ -20,8 +20,10 @@ public partial class ArmorDefinition : Resource
     [Export] public int Tier { get; set; } = 1;
     /// <summary>Unit id for personal (unique) gear; empty = anyone allowed by class.</summary>
     [Export] public string PersonalTo { get; set; } = "";
+    /// <summary>The wearer takes no effective damage (no ×3 bows on a flier, no doubled Wind or Thunder).</summary>
+    [Export] public bool Ward { get; set; }
 
     public ArmorDef ToDef() => new(
         Id, Name, Slot, Class, StatsDefinition.ToBlock(Bonuses), Weight, Price, Tier,
-        string.IsNullOrEmpty(PersonalTo) ? null : PersonalTo);
+        string.IsNullOrEmpty(PersonalTo) ? null : PersonalTo, Ward);
 }

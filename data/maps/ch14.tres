@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapDefinition" load_steps=26 format=3]
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=27 format=3]
 
 [ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
 [ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
@@ -24,10 +24,11 @@ DominionRadius = 4
 script = ExtResource("2_spawn")
 UnitId = "ysolde"
 DominatedBy = "vossk"
-Level = 15
+Level = 8
 Faction = 1
 Position = Vector2i(16, 14)
-Ai = 2
+Ai = 3
+Leash = 4
 NonLethal = true
 
 [sub_resource type="Resource" id="SpawnDefinition_3"]
@@ -88,7 +89,7 @@ DominatedBy = "vossk"
 SpriteId = "enemy_imperial"
 Armor = "iron_plate"
 Level = 13
-Inventory = PackedStringArray("steel_lance")
+Inventory = PackedStringArray("steel_sword")
 Faction = 1
 Position = Vector2i(12, 16)
 Ai = 0
@@ -101,20 +102,19 @@ DominatedBy = "vossk"
 SpriteId = "enemy_imperial"
 Armor = "iron_plate"
 Level = 13
-Inventory = PackedStringArray("steel_lance")
+Inventory = PackedStringArray("steel_axe")
 Faction = 1
 Position = Vector2i(19, 16)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_9"]
 script = ExtResource("2_spawn")
-ClassId = "soldier"
-Name = "Imperial Guard"
+ClassId = "fighter"
+Name = "Imperial Axeman"
 DominatedBy = "vossk"
 SpriteId = "enemy_imperial"
-Armor = "chainmail"
 Level = 13
-Inventory = PackedStringArray("steel_lance")
+Inventory = PackedStringArray("steel_axe")
 Faction = 1
 Position = Vector2i(9, 18)
 Ai = 0
@@ -134,6 +134,18 @@ Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_11"]
 script = ExtResource("2_spawn")
+ClassId = "myrmidon"
+Name = "Imperial Swordsman"
+DominatedBy = "vossk"
+SpriteId = "enemy_imperial"
+Level = 13
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(13, 20)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_12"]
+script = ExtResource("2_spawn")
 ClassId = "cavalier"
 Name = "Imperial Cavalier"
 DominatedBy = "vossk"
@@ -145,7 +157,7 @@ Faction = 1
 Position = Vector2i(4, 19)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_12"]
+[sub_resource type="Resource" id="SpawnDefinition_13"]
 script = ExtResource("2_spawn")
 ClassId = "cavalier"
 Name = "Imperial Cavalier"
@@ -158,7 +170,7 @@ Faction = 1
 Position = Vector2i(27, 19)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_13"]
+[sub_resource type="Resource" id="SpawnDefinition_14"]
 script = ExtResource("2_spawn")
 ClassId = "archer"
 Name = "Imperial Archer"
@@ -170,7 +182,7 @@ Faction = 1
 Position = Vector2i(10, 12)
 Ai = 1
 
-[sub_resource type="Resource" id="SpawnDefinition_14"]
+[sub_resource type="Resource" id="SpawnDefinition_15"]
 script = ExtResource("2_spawn")
 ClassId = "archer"
 Name = "Imperial Archer"
@@ -182,19 +194,19 @@ Faction = 1
 Position = Vector2i(21, 12)
 Ai = 1
 
-[sub_resource type="Resource" id="SpawnDefinition_15"]
+[sub_resource type="Resource" id="SpawnDefinition_16"]
 script = ExtResource("2_spawn")
 ClassId = "wyvern_rider"
 Name = "Wyvern Rider"
 DominatedBy = "vossk"
 SpriteId = "enemy_imperial"
 Level = 13
-Inventory = PackedStringArray("steel_lance")
+Inventory = PackedStringArray("steel_axe")
 Faction = 1
 Position = Vector2i(6, 13)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_16"]
+[sub_resource type="Resource" id="SpawnDefinition_17"]
 script = ExtResource("2_spawn")
 ClassId = "wyvern_lord"
 Name = "Wyvern Lord"
@@ -207,7 +219,7 @@ Position = Vector2i(25, 13)
 Ai = 0
 HardOnly = true
 
-[sub_resource type="Resource" id="SpawnDefinition_17"]
+[sub_resource type="Resource" id="SpawnDefinition_18"]
 script = ExtResource("2_spawn")
 ClassId = "wyvern_rider"
 Name = "Wyvern Rider"
@@ -215,12 +227,12 @@ Group = "walls"
 DominatedBy = "vossk"
 SpriteId = "enemy_imperial"
 Level = 13
-Inventory = PackedStringArray("iron_lance")
+Inventory = PackedStringArray("steel_axe")
 Faction = 1
 Position = Vector2i(2, 23)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_18"]
+[sub_resource type="Resource" id="SpawnDefinition_19"]
 script = ExtResource("2_spawn")
 ClassId = "wyvern_rider"
 Name = "Wyvern Rider"
@@ -233,7 +245,7 @@ Faction = 1
 Position = Vector2i(29, 23)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_19"]
+[sub_resource type="Resource" id="SpawnDefinition_20"]
 script = ExtResource("2_spawn")
 ClassId = "soldier"
 Name = "Imperial Guard"
@@ -247,7 +259,7 @@ Faction = 1
 Position = Vector2i(3, 11)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_20"]
+[sub_resource type="Resource" id="SpawnDefinition_21"]
 script = ExtResource("2_spawn")
 ClassId = "knight"
 Name = "Imperial Knight"
@@ -256,12 +268,12 @@ DominatedBy = "vossk"
 SpriteId = "enemy_imperial"
 Armor = "iron_plate"
 Level = 13
-Inventory = PackedStringArray("steel_lance")
+Inventory = PackedStringArray("steel_sword")
 Faction = 1
 Position = Vector2i(28, 11)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_21"]
+[sub_resource type="Resource" id="SpawnDefinition_22"]
 script = ExtResource("2_spawn")
 ClassId = "mage"
 Name = "Veiled Mage"
@@ -274,7 +286,7 @@ Faction = 1
 Position = Vector2i(3, 10)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_22"]
+[sub_resource type="Resource" id="SpawnDefinition_23"]
 script = ExtResource("2_spawn")
 ClassId = "wyvern_rider"
 Name = "Wyvern Rider"
@@ -288,7 +300,7 @@ Position = Vector2i(16, 21)
 Ai = 0
 HardOnly = true
 
-[sub_resource type="Resource" id="SpawnDefinition_23"]
+[sub_resource type="Resource" id="SpawnDefinition_24"]
 script = ExtResource("2_spawn")
 ClassId = "general"
 Name = "Imperial General"
@@ -297,7 +309,7 @@ DominatedBy = "vossk"
 SpriteId = "enemy_imperial"
 Armor = "silver_plate"
 Level = 13
-Inventory = PackedStringArray("steel_lance")
+Inventory = PackedStringArray("silver_sword")
 Faction = 1
 Position = Vector2i(28, 10)
 Ai = 0
@@ -309,7 +321,7 @@ Id = "ch14"
 Name = "Chapter 14: The Empress Unbound"
 TerrainRows = PackedStringArray("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", "WWWWWWWW################WWWWWWWW", "WWWWWWWW#######YY#######WWWWWWWW", "WWWWWWWW###W########W###WWWWWWWW", "WWWWWWWW################WWWWWWWW", "WWWWWWWW################WWWWWWWW", "WWWWWWWW###W########W###WWWWWWWW", "WWW=WWWW################WWWW=WWW", "WWW=WWWW################WWWW=WWW", "WWW=WWWW################WWWW=WWW", "WWW=WWWWWWWWWWW==WWWWWWWWWWW=WWW", "PPPPPPPPPPPPPPP==PPPPPPPPPPPPPPP", "PPPPFPPPFPPPPPP==PxPPPPFPPPFPPPP", "PPPPPPPPPPPkPPP==PPPPPPPPPPPPPPP", "PPPPP~~~PPPPPPP==PPPPPPP~~~PPPPP", "PPPPP~~~PPPPPPP==PPPkPPP~~~PPPPP", "PPPPP~~~PPPPPPP==PPPPPPP~~~PPPPP", "PFPPPPPPPPPPPxP==PPPPPPPPPPPPPFP", "PPPPPPPPPPPFPPP==PPPFPPPPPPPPPPP", "PPPPPPPPPkPPPPP==PPPPPkPPPPPPPPP", "PPPPPPPPPPPPPPP==PPPPPPPPPPPPPPP", "WWWWWWWWWWWWWWW==WWWWWWWWWWWWWWW", "PPPPPPPPPPPPPPP==PPPPPPPPPPPPPPP", "PPFPPPPPPPPPPPP==PPPPPPPPPFPPPPP", "PPPPPPPPPFPPPPP==PPPPPPPPPPPPPPP", "PPPPPPPPPPPPPPP==PPPPPFPPPPPPPPP", "PPPPPFPPPPPPPPP==PPPPPPPPPPPPFPP", "PPPPPPPPPPPPPPP==PPPPPPPPPPPPPPP")
 HeightRows = PackedStringArray("33333333333333333333333333333333", "33333333333333333333333333333333", "33333333111111111111111133333333", "33333333111111111111111133333333", "33333333111311111111311133333333", "33333333111111111111111133333333", "33333333111111111111111133333333", "33333333111311111111311133333333", "33333333111111111111111133333333", "33323333111111111111111133332333", "33313333111111111111111133331333", "33303333333333311333333333330333", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "22222222222222200222222222222222", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000", "00000000000000000000000000000000")
-Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22"), SubResource("SpawnDefinition_23")])
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22"), SubResource("SpawnDefinition_23"), SubResource("SpawnDefinition_24")])
 Victory = "boss vossk"
 Defeat = PackedStringArray()
 Triggers = PackedStringArray("turn 1 => scene ch14_start", "combat ysolde => scene ch14_empress", "talk ysra|seraphine ysolde => scene ch14_ysolde_talk", "subdued ysolde => scene ch14_ysolde_subdued", "enter player 8,2-23,10 => scene ch14_hall", "combat vossk => scene ch14_vossk", "defeated vossk => scene ch14_ysolde_wakes; faction ysolde ally", "turn 3 enemy => spawn walls", "turn 5 enemy => spawn stairs", "turn 7 enemy => spawn late")

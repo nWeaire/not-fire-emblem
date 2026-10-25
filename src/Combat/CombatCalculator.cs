@@ -28,6 +28,7 @@ public static class CombatCalculator
     /// <summary>
     /// Lances pierce (session 11): against an armoured target (the Armored trait or movement type) they ignore this
     /// share of its Def, terrain aside. A weapon already effective against it (Heavy Spear) gets its ×3 instead.
+    /// Other weapons marked <see cref="WeaponDef.Pierces"/> (the crossbow, session 15) do the same.
     /// </summary>
     public const int LancePiercePercent = 50;
 
@@ -121,9 +122,9 @@ public static class CombatCalculator
         var strikes = new List<PlannedStrike> { aSide };
         if (dSide is not null)
             strikes.Add(dSide);
-        if (aAs - dAs >= FollowUpThreshold)
+        if (aAs - dAs >= FollowUpThreshold && !attackWeapon.SingleStrike)
             strikes.Add(aSide);
-        else if (dSide is not null && dAs - aAs >= FollowUpThreshold)
+        else if (dSide is not null && dAs - aAs >= FollowUpThreshold && !counterWeapon!.SingleStrike)
             strikes.Add(dSide);
 
         return new CombatForecast(
@@ -166,18 +167,26 @@ public static class CombatCalculator
         return new PlannedStrike(byAttacker, damage, displayedHit, crit);
     }
 
-    /// <summary>Effective against the target's movement type ("Flying") or one of its class traits ("Beast").</summary>
+    /// <summary>
+    /// Effective against the target's movement type ("Flying") or one of its class traits ("Beast"), unless the target
+    /// wears a ward (<see cref="ArmorDef.Ward"/>, the Empress's in Ch 14).
+    /// </summary>
     private static bool IsEffective(BattleState s, WeaponDef weapon, BattleUnit target)
     {
+        if (Warded(s, target))
+            return false;
         var moveType = StatCalculator.MovementTypeOf(s.Db, target.State).ToString();
         var cls = s.Db.Class(target.State.ClassId);
         return weapon.EffectiveAgainst.Any(e =>
             string.Equals(e, moveType, StringComparison.OrdinalIgnoreCase) || cls.HasTrait(e));
     }
 
-    /// <summary>A lance (not a tome) against an armoured target; see <see cref="LancePiercePercent"/>.</summary>
+    private static bool Warded(BattleState s, BattleUnit target) =>
+        new[] { target.State.ArmorId, target.State.AccessoryId }.Any(id => id is not null && s.Db.TryArmor(id) is { Ward: true });
+
+    /// <summary>A lance or piercing weapon (not a tome) against an armoured target; see <see cref="LancePiercePercent"/>.</summary>
     private static bool Pierces(BattleState s, WeaponDef weapon, BattleUnit target) =>
-        weapon.Type == WeaponType.Lance && !weapon.Magic
+        (weapon.Type == WeaponType.Lance || weapon.Pierces) && !weapon.Magic
         && (StatCalculator.MovementTypeOf(s.Db, target.State) == MovementType.Armored || s.Db.Class(target.State.ClassId).HasTrait("Armored"));
 
     private static CombatantForecast Summary(

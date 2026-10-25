@@ -166,6 +166,9 @@ public partial class BattleController : Node3D
                 }
                 GD.Print($"Party raised to level {level}");
             }
+            // Story classes and --level promotions change classes after setup: refresh the outfit fallbacks.
+            foreach (var unit in State.Units.Where(u => u.IsRosterUnit))
+                unit.EarlierClasses = Outfits.Earlier(db, unit.State.ClassId);
             GD.Print($"Battle '{mapId}' seed {seed}");
         }
         if (State.Options.Difficulty == Difficulty.Hard)

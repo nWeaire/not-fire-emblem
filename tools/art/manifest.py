@@ -37,6 +37,8 @@ MAP_ATTACKS = {
     "claws": "lunges forward and rakes with its claws, then recoils",
     "spikes": "rears back and hurls a bone spike forward, then recovers",
     "anima": "thrusts the tome forward and hurls a ball of fire",
+    # Session 15: the rioter's cudgel became an axe under the axe wording.
+    "club": "raises a heavy wooden club overhead and clubs down hard, the same plain wooden club the whole time",
 }
 BATTLE_ATTACKS = {
     # weapon: (standard attack, critical)
@@ -57,6 +59,10 @@ BATTLE_ATTACKS = {
               "crouches, leaps forward and slashes both claws down in a frenzied double rake"),
     "spikes": ("rears back and hurls a bone spike forward, then recovers",
                "rips two bone spikes from its back and hurls them forward in a vicious double throw"),
+    "club": ("raises the heavy wooden club and swings it down in a hard blow, then returns to stance. The same plain "
+             "wooden club the whole time, no blade",
+             "raises the wooden club high overhead with both hands and smashes it down in a wild furious blow. The same "
+             "plain wooden club the whole time, no blade"),
     "anima": ("holds the tome forward and hurls a ball of fire from the free hand, then lowers it",
               "the tome blazes as flames swirl around the caster, then a huge fireball is hurled forward"),
 }
@@ -266,6 +272,59 @@ CHARACTERS = {
     "enemy_axeman": dict(weapon="axe", sets=("map",),
         desc="burly garrison axeman, iron nasal helmet, thick beard, faint purple glow in the eyes, deep green Dain "
              "Hall tabard over a chainmail shirt, leather gloves, brown boots, iron battle axe"),
+    # Session 15 (ART_NEEDED §0, group one): the commonest Act II stand-ins, by how many spawns use them.
+    # Dravenhold's army (Ch 10, 11, 14; SpriteId enemy_imperial, so enemy_imperial_<classId>).
+    "enemy_imperial_soldier": dict(weapon="lance", sets=("map",),
+        desc="Dravenhold imperial soldier in dark iron armour with a grey-white tabard bearing a red wolf, white fur at the collar, open-faced iron helm, steel spear"),
+    "enemy_imperial_archer": dict(weapon="bow", sets=("map",),
+        desc="Dravenhold imperial archer in a dark iron mail shirt with a grey-white tabard bearing a red wolf, white "
+             "fur at the collar, iron cap, quiver on the back, longbow"),
+    "enemy_imperial_cavalier": dict(weapon="lance", sets=("map",), template="horse",
+        desc="Dravenhold imperial cavalry knight in dark iron armour with a grey-white tabard bearing a red wolf, white "
+             "fur at the collar, riding a dark grey warhorse with a grey-white caparison, steel lance"),
+    # Weapon variants (BattleUnit.WeaponArt): "<sprite>_<class>_<weapon type>". Mounted units carry ordinary-sized
+    # swords and axes; armoured ones are drawn with great swords and great axes (the user's call, session 15).
+    "enemy_imperial_cavalier_sword": dict(weapon="sword", sets=("map",), template="horse",
+        desc="Dravenhold imperial cavalry knight in dark iron armour with a grey-white tabard bearing a red wolf, white "
+             "fur at the collar, riding a dark grey warhorse with a grey-white caparison, an ordinary one-handed steel "
+             "sword"),
+    "enemy_imperial_mage": dict(weapon="anima", sets=("map",),
+        desc="Dravenhold imperial battle mage in long grey-white robes with a red wolf on the chest, dark iron "
+             "pauldrons, white fur collar, holding an open tome crackling with yellow lightning"),
+    "enemy_imperial_knight": dict(weapon="lance", sets=("map",),
+        desc="heavy Dravenhold imperial knight in thick dark iron plate with a closed wolf-snouted helm, grey-white "
+             "tabard with a red wolf, white fur at the collar, big dark iron tower shield, steel lance"),
+    "enemy_imperial_fighter": dict(weapon="axe", sets=("map",),
+        desc="burly Dravenhold imperial axeman in a dark iron mail shirt with a grey-white tabard bearing a red wolf, "
+             "white fur mantle, horned iron helm, big steel battle axe"),
+    "enemy_imperial_myrmidon": dict(weapon="sword", sets=("map",),
+        desc="lean Dravenhold imperial swordsman in dark iron scale armour with a grey-white tabard bearing a red wolf, "
+             "white fur at the collar, no helmet, short dark hair, straight steel sword"),
+    # Castellan's house guard (Ch 12, 13; SpriteId enemy_gilded).
+    "enemy_gilded_soldier": dict(weapon="lance", sets=("map",),
+        desc="Solmere Gilded House guard in polished gilded half-plate, white and gold tabard with a golden sun crest, plumed gilded helm, gold-tipped steel spear"),
+    "enemy_gilded_knight": dict(weapon="lance", sets=("map",),
+        desc="heavy Solmere Gilded House knight in thick white-and-gold plate armour with a closed gilded helm, golden "
+             "sun crest on the chest, big gilded round shield, steel lance"),
+    # The Veiled in Calder (Ch 8, 9; SpriteId enemy_veiled_thug).
+    "enemy_veiled_thug_myrmidon": dict(weapon="sword", sets=("map",),
+        desc="Veiled street thug in a grey hooded cloak over dark leather armour with purple trim, a grey scarf over "
+             "the lower face, a faint purple sigil glowing on the wrist, steel sword"),
+    # Ch 8's riot (Neutral; amber outline in game) and the townsfolk it calms into.
+    "neutral_rioter": dict(weapon="club", sets=("map",),
+        desc="angry Calder townsman rioter, rolled-up sleeves, brown work vest, blue neckerchief, a faint purple glow "
+             "in the eyes, a heavy wooden cudgel raised in one hand"),
+    "ally_townsfolk": dict(weapon="none", sets=("map",),
+        # Take 1 drew two women side by side in three of the four views (kept in state.json as ally_townsfolk_take1).
+        desc="a single Calder townswoman standing alone, one person only, in city clothes, a blue headscarf, cream "
+             "blouse, long brown skirt and a white apron, empty hands, no weapon"),
+    # Seraphine's escort (Ch 10, 15) and the Gull's crew (Ch 12): map sprites only.
+    "ally_calder_knight": dict(weapon="lance", sets=("map",),
+        desc="Calder royal escort knight in polished steel plate armour with a Calder-blue tabard and silver trim, "
+             "open steel helm, blue cape, steel lance and a kite shield"),
+    "ally_sailor": dict(weapon="axe", sets=("map",),
+        desc="weathered privateer deckhand, red-and-white striped shirt, dark bandana, rolled canvas trousers, bare "
+             "forearms, a hand axe"),
     "ally_villager": dict(weapon="none", sets=("map",),
         desc="plain village farmer man, brown hair, beige linen shirt, green wool vest, brown trousers, no weapon"),
 }

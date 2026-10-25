@@ -122,6 +122,36 @@ public class CombatTests
     }
 
     [Fact]
+    public void Crossbows_PierceArmour_ButNeverStrikeTwice()
+    {
+        // A fast archer (Spd +10) doubles a knight with a bow; a crossbow fires once but ignores 2 of the knight's 5 Def.
+        var b = new TestBattle("...").Unit(Faction.Player, "archer", 0, 0, "bow", "crossbow").Unit(Faction.Enemy, "knight", 2, 0, "lance");
+        b.Db.Add(b.Db.Weapon("bow") with { Id = "crossbow", Name = "Crossbow", Pierces = true, SingleStrike = true });
+        var s = b.Build();
+        s.Units[0].State.Gains = new StatBlock(HP: 0, Str: 0, Mag: 0, Dex: 0, Spd: 10, Lck: 0, Def: 0, Res: 0, Mov: 0);
+        var bow = Forecast(s, "bow");
+        Assert.Equal(2, bow.Strikes.Count);
+        Assert.Equal(10 + 5 - 5, bow.Attacker.Damage);
+        var crossbow = Forecast(s, "crossbow");
+        Assert.Single(crossbow.Strikes);
+        Assert.True(crossbow.Attacker.Effective);
+        Assert.Equal(10 + 5 - 3, crossbow.Attacker.Damage);
+    }
+
+    [Fact]
+    public void A_Ward_StopsEffectiveDamage()
+    {
+        // Bows are effective against fliers (x3 might); a warded flier takes plain bow damage.
+        var b = new TestBattle("...").Unit(Faction.Player, "archer", 0, 0, "bow").Unit(Faction.Enemy, "flier", 2, 0, "lance");
+        b.Db.Add(new ArmorDef("ward", "Ward", ArmorSlot.Accessory, ArmorClass.Light, default, 0, 0, Ward: true));
+        var s = b.Build();
+        Assert.Equal(10 + 15 - 5, Forecast(s, "bow").Attacker.Damage);
+        s.Units[1].State.AccessoryId = "ward";
+        Assert.False(Forecast(s, "bow").Attacker.Effective);
+        Assert.Equal(10 + 5 - 5, Forecast(s, "bow").Attacker.Damage);
+    }
+
+    [Fact]
     public void DefenderOutOfRange_CannotCounter()
     {
         var s = new TestBattle("...").Unit(Faction.Player, "archer", 0, 0, "bow").Unit(Faction.Enemy, "merc", 2, 0, "sword").Build();

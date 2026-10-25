@@ -17,6 +17,14 @@ public static class BattleSetup
     public const int HardLevelBonus = 3;
 
     /// <summary>
+    /// Bosses get this share of their level as extra Res (session 15 playtest: mages one-shot most bosses; Elise's
+    /// Thunder did 23 a hit to Castellan, now about 13).
+    /// </summary>
+    public const int BossResPercentOfLevel = 67;
+
+    public static int BossResBonus(int level) => level * BossResPercentOfLevel / 100;
+
+    /// <summary>
     /// Builds a battle from a map.
     /// <list type="bullet">
     /// <item><paramref name="roster"/> supplies persistent states for named units (keyed by unit id); named units
@@ -73,7 +81,10 @@ public static class BattleSetup
             int statLevel = level + (options.Difficulty == Difficulty.Hard && spawn.Faction == Faction.Enemy ? HardLevelBonus : 0);
             var def = new UnitDef($"generic_{cls.Id}", spawn.Name ?? cls.Name, cls.Id, level, default, GenericGrowths, spawn.Inventory, false,
                 spawn.Armor);
-            unitState = UnitState.FromDef(def, StatCalculator.GenericGains(cls, GenericGrowths, statLevel));
+            var gains = StatCalculator.GenericGains(cls, GenericGrowths, statLevel);
+            if (spawn.IsBoss)
+                gains = gains.With(Stat.Res, gains.Res + BossResBonus(level));
+            unitState = UnitState.FromDef(def, gains);
         }
 
         if (unitState.EquippedItemId is null || db.TryWeapon(unitState.EquippedItemId) is null)
@@ -106,6 +117,7 @@ public static class BattleSetup
             Invulnerable = spawn.Invulnerable,
             Ignores = spawn.Ignores,
             EarlierClasses = spawn.UnitId is null ? System.Array.Empty<string>() : Outfits.Earlier(db, unitState.ClassId),
+            WeaponArt = spawn.UnitId is null ? db.TryWeapon(unitState.EquippedItemId)?.Type.ToString().ToLowerInvariant() : null,
         };
         RefillUses(db, unit, options.CrestTier);
         return unit;

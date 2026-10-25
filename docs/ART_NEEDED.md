@@ -31,6 +31,35 @@ Rough cost per full character (map sprite + walk/attack, battle still takes + 5 
 
 - **Side map "The Old Warden Vault"** (session 14): Ser Caddoc, the Hollow Warden (boss; stands in as `enemy_hollowed`; a portrait for `CADDOC`), and a vault / ruined chapterhouse background (stands in as `hill_road`).
 
+**Done in session 15** ($5.78 spent; map sprites with walk + attack, battle sprites from still picks in
+`approved/battle_picks.txt`, effects cleaned with `tools/art/keep_figure.py`): `enemy_imperial_` `soldier`, `archer`,
+`cavalier`, `cavalier_sword` (first weapon variant), `mage`, `knight`, `fighter`, `myrmidon`; `enemy_gilded_soldier`,
+`enemy_gilded_knight`; `enemy_veiled_thug_myrmidon`; `neutral_rioter` (club); map only: `ally_townsfolk` (drawn at 75%,
+`SpriteLibrary.MapScales`), `ally_calder_knight`, `ally_sailor`. Not yet seen on the battle screen by the user.
+
+### Outstanding, in order (the plan for the next top-up)
+Costs measured in session 15: a full character (map sprite + walk/attack, 9 still takes, 5 battle animations) is about
+**$0.47**, a map-only ally about **$0.17**, a portrait, background or prop take set about **$0.08**. Add 10–15% for redos.
+Weapon variants are looked up as `<spriteId>_<classId>_<weapon type>` (`BattleUnit.WeaponArt`, generic units only), so a
+new variant shows up in game with no data change. **Armoured** variants (knight, general) carry *great* swords and axes;
+**mounted** ones (cavalier, paladin, wyverns) ordinary-sized ones (the user's call). In game they're the normal weapons.
+
+| # | Group | Ids | ≈ Cost |
+|---|---|---|---|
+| 1 | Ser Caddoc (vault boss) + portrait `caddoc` | `boss_caddoc` (spawn's `SpriteId`), portrait | $0.55 |
+| 2 | Imperial variants | `enemy_imperial_knight_sword`, `_knight_axe` (great weapons), `enemy_imperial_general` (+ `_axe`, `_sword`), `enemy_imperial_wyvern_rider_axe`, `enemy_wyvern_lord` (generic) | $3.30 |
+| 3 | Gilded | `enemy_gilded_archer`, `_mage`, `_cavalier`, `_cavalier_sword`, `_general` | $2.35 |
+| 4 | Veiled | `enemy_veiled_thug_` `soldier`, `fighter`, `archer`, `mage`, `knight`; `enemy_veiled_agitator_` `myrmidon`, `mage`, `fighter`; `enemy_veiled_mage` | $4.25 |
+| 5 | Tier 2 cast | `dorran_general`, `sable_swordmaster`, `wren_falcon_knight`, `seraphine_valkyrie`, `ysra_wyvern_lord`, `pip_rogue` | $2.80 |
+| 6 | Small items | backgrounds `vault`, `hall_ruin`; snow tiles; chest and ship-hull props | $0.50 |
+| 7 | Tier 3 Crestbound | 13 outfits (row below) | $6.10 |
+| 8 | Generic promoted enemies | `enemy_paladin`, `_sniper`, `_troubadour`/`_valkyrie`, `_swordmaster`, `_warrior`, `_sage` | $2.80 |
+| 9 | Polish | weapon/item icons, crest effects, level-up flourish (P2/P3 rows) | $0.80 |
+
+Groups 1–6 (all of Act II without stand-ins) ≈ **$14**; everything here ≈ **$24**; Act III's new cast, enemies and
+backgrounds probably another **$10–15**. Known leftovers to touch up by hand: a faint smoke wisp in the Imperial mage's
+battle attack and a pale glow in one critical frame; the swordsman's critical sword glows blue (kept on purpose).
+
 **Done (session 12, user's picks):** portraits `pip` #1, `seraphine` #2, `ysra` #3, `halde` #1, `morvane` #1,
 `castellan` #1, `vossk` #3, `ysolde` #3 (the bottom light bar cleared); map + battle sprites for `pip_thief`,
 `seraphine_troubadour`, `ysra_wyvern_rider`, `halde_archer`, `ysolde_wyvern_lord`, `enemy_wyvern_rider`, `boss_castellan`,
@@ -55,6 +84,7 @@ may want `SpriteLibrary.MapScales` like the Gloam Shade.
 | P1 | Background `calder_undercity` | Lantern-lit sewers and cellars under Calder | `dain_hall` | Ch 9 |
 | P1 | `seraphine_troubadour` (map + battle), portrait `seraphine` | Princess Seraphine: 17, fair hair in a travel braid, Calder-blue riding coat, healer's staff, grey horse; a small pale crest on the back of her hand | the class look (`enemy_troubadour` → `enemy_cavalier`) | Ch 10 on |
 | P1 | `enemy_imperial` (or `enemy_imperial_<classId>`: soldier, knight, archer, cavalier, mage) | Dravenhold imperial troops: dark iron, grey-white tabards with a red wolf, fur at the collar | the class looks `enemy_<classId>` | Ch 10, 11, 14 |
+| P1 | Weapon variants of the armoured and mounted enemies (session 15: knights and generals now carry swords and axes as well as lances, wyvern riders axes; Ch 14 mixes them) | **Armoured** (knight, general): drawn with **big weapons**, a great sword or a great axe (the weapons are still the ordinary iron/steel/silver swords and axes in game; it's only the look). **Mounted** (cavalier, paladin, wyvern rider/lord): **ordinary-sized** swords and axes, so they look normal | the lance-holding class look | Ch 10 on |
 | P1 | `enemy_wyvern_rider` (map + battle) | Grey-scaled wyvern, rider in dark iron with a lance; the Dravenhold wyvern corps | `enemy_pegasus_knight` | Ch 10, 11 |
 | P1 | `ally_calder_knight` (map) | Calder royal escort: steel plate with Calder-blue tabard | `enemy_knight` (green ring) | Ch 10 |
 | P1 | Background `border_pass` | A mountain pass over a burning border village | `hill_road` | Ch 10 |

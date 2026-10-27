@@ -59,6 +59,30 @@ public class MapRulesTests
     }
 
     [Fact]
+    public void Countdown_TimedEscape_WaitsForTheDoorThenCountsToTheLimit()
+    {
+        // Ch 15: the exit is barred until a turn-5 trigger opens it; everyone must be out by turn 10.
+        var s = new TestBattle("..........")
+            .Lord(5, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 9, 0, "sword")
+            .Victory("escape 0,0 all").Defeat("turns 10")
+            .Triggers("turn 5 => terrain 0,0 #", "turn 3 enemy => terrain 9,0 #")
+            .Build();
+        Assert.Equal("The way out opens in 4 turns", ObjectiveTour.Countdown(s));
+        s.Turn = 4;
+        Assert.Equal("The way out opens next turn", ObjectiveTour.Countdown(s));
+        s.Turn = 5;
+        Assert.Equal("6 turns to escape", ObjectiveTour.Countdown(s));
+        s.Turn = 10;
+        Assert.Equal("Last turn to escape!", ObjectiveTour.Countdown(s));
+
+        var open = new TestBattle("..........").Lord(5, 0, "sword").Victory("escape 0,0").Defeat("turns 3").Build();
+        Assert.Equal("3 turns to escape", ObjectiveTour.Countdown(open));
+        var untimed = new TestBattle("..........").Lord(5, 0, "sword").Victory("escape 0,0").Build();
+        Assert.Null(ObjectiveTour.Countdown(untimed));
+    }
+
+    [Fact]
     public void MapScript_ParsesObjectivesAndTriggers()
     {
         var o = MapScript.ParseObjectives("escape 7,15-8,15 elise", new[] { "die aldric", "protect villager 3", "turns 20" });
@@ -608,7 +632,7 @@ public class MapRulesTests
     }
 
     [Fact]
-    public void Invulnerable_TakesNoDamage_AndTheForecastSaysSo()
+    public void Invulnerable_TakesNoDamage_AndCantBeAttacked()
     {
         var (s, tm) = Start(new TestBattle(".....").Lord(0, 0, "killer")
             .Unit(Faction.Enemy, "merc", 1, 0, "sword").With(sp => sp with { Tag = "morvane", Invulnerable = true })
@@ -616,9 +640,8 @@ public class MapRulesTests
         var morvane = s.ByKey("morvane")!;
         var forecast = CombatCalculator.Forecast(s, s.Unit("u0"), new GridPos(0, 0), morvane, new WeaponAttack("killer"));
         Assert.Equal((0, 0, true), (forecast.Attacker.Damage, forecast.Attacker.Crit, forecast.Attacker.Harmless));
-        int hp = morvane.CurrentHp;
-        Assert.True(tm.Submit(new ActCommand("u0", new GridPos(0, 0), new AttackAction(morvane.Id, new WeaponAttack("killer")))).Ok);
-        Assert.Equal(hp, morvane.CurrentHp);
+        Assert.DoesNotContain(morvane, ActionRules.AttackTargets(s, s.Unit("u0"), new GridPos(0, 0)));
+        Assert.False(tm.Submit(new ActCommand("u0", new GridPos(0, 0), new AttackAction(morvane.Id, new WeaponAttack("killer")))).Ok);
     }
 
     [Fact]

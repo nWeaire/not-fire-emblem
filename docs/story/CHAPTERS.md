@@ -260,6 +260,10 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
   0,9-0,11 #` (the door opens). After the battle the campaign's `leave aldric` removes him from the roster, then
   `ch15_aldric_dies` and `ch15_crest_flickers` (new `loss` music, `sword_fall` and `crest_corrupt` sounds), and Act II ends.
 - **Autoplay at level 16 (seeds 1–4):** wins 3/4 (T9–10), losing 2–5; the escape is tight.
+- **Session 16 (hand playtest: the goal wasn't clear, Aldric died attacking Morvane):** a turn countdown ("The way out
+  opens in N turns", then "N turns to escape"), Morvane can't be attacked at all, Aldric and Ysolde say "hold, then
+  run" at the end of `ch15_reveal`, and 13 Hollowed at the start (was 4): five hold the west door (two Stationary on
+  1,9 and 1,11, three Guard), four more come from the top right.
 - **Map (outline):** 16×14 great hall in Calder: pillars, a dais, side doors to escape through.
 - **Party:** everyone the player chooses, plus **Aldric** (forced).
 - **Win:** Survive 5 turns, *then* `ch15_aldric_stays`. The rest of the army escapes through the side doors. **Lose:** Rowan dies, or the turn limit passes with Rowan still in the hall.

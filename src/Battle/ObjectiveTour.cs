@@ -65,18 +65,33 @@ public static class ObjectiveTour
         return stops;
     }
 
-    /// <summary>The turn countdown for Survive maps at the start of a player phase, else null.</summary>
+    /// <summary>The turn countdown shown at the start of a player phase (Survive maps, timed escapes), else null.</summary>
+    /// Session 16 (playtest: Ch 15 read as a fight): escape maps with a turn limit count down too, first to the turn a
+    /// trigger opens the way out (terrain changed on an exit cell), then to the limit.
     public static string? Countdown(BattleState s)
     {
         var goals = s.Map.Goals;
-        if (goals.Victory != VictoryKind.Survive)
+        if (goals.Victory == VictoryKind.Survive)
+            return Left(goals.Turns - s.Turn + 1, "Last turn!", n => $"{n} turns to survive");
+        if (goals.Victory != VictoryKind.Escape || goals.TurnLimit <= 0)
             return null;
-        int left = goals.Turns - s.Turn + 1;
-        return left switch
-        {
-            <= 0 => null,
-            1 => "Last turn!",
-            _ => $"{left} turns to survive",
-        };
+        if (ExitOpensOn(s) is { } opens && s.Turn < opens)
+            return opens - s.Turn == 1 ? "The way out opens next turn" : $"The way out opens in {opens - s.Turn} turns";
+        return Left(goals.TurnLimit - s.Turn + 1, "Last turn to escape!", n => $"{n} turns to escape");
     }
+
+    private static string? Left(int left, string last, Func<int, string> more) => left switch
+    {
+        <= 0 => null,
+        1 => last,
+        _ => more(left),
+    };
+
+    /// <summary>The player turn on which a trigger changes the terrain of an exit cell (Ch 15's barred door), if any.</summary>
+    private static int? ExitOpensOn(BattleState s) =>
+        s.Map.AllTriggers
+            .Where(t => t.Condition is TurnStartCondition { Phase: Faction.Player }
+                        && t.Effects.OfType<TerrainEffect>().Any(e => e.Cells.Intersect(s.Map.Goals.Cells).Any()))
+            .Select(t => (int?)((TurnStartCondition)t.Condition).Turn)
+            .Min();
 }

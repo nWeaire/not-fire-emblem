@@ -2,32 +2,59 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-25 (end of session 15)._
+_Last updated: 2026-10-27 (end of session 16)._
 
 ---
 
-## Where things stand (end of session 15)
-- **Everything is committed and pushed to `main`.** Build clean, **147 tests pass**. Untracked on purpose:
+## Where things stand (end of session 16)
+- **Everything is committed and pushed to `main`.** Build clean, **148 tests pass**. Untracked on purpose:
   `assets/ExampleFiles/` and `tools/art/takes/`.
-- **Act II has its art**: no stand-ins left except snow tiles and ship hulls (ART_NEEDED §0). **PixelLab: $17.30 left.**
-- Saves unchanged since session 14 (slots 0/1 the user's playthrough, slot 2 the Act II playtest save at Ch 8).
+- **PixelLab: ≈ $17.04 left.**
+- **Saves:** slots 0/1 the user's playthrough, slot 2 the Act II playtest save (Ch 8 hub; unchanged, a copy was in the
+  session scratchpad). Slot 3 was **not** made (see item 4 below): still the old Act I test save. The old slot 3 (an Act I test save) is backed up as
+  `slot3.before-session16.json` in the save folder.
 
-## Next (plan for session 16)
-1. **Hand playtest Ch 15** and the **Old Warden Vault** (`--map=vault --level=auto`, or the hub before Ch 15), and see
-   the **Side Maps** tab. These were left from the session-15 list.
-2. **Look at the new art in game**: batch two (Caddoc, Imperial generals/great weapons, Gilded, Veiled, the tier-2
-   cast) hasn't been seen by the user. Updating the gallery page (https://claude.ai/artifact/Ciy27oRTDuhtVnczR9rfbm,
-   built by a script in the session scratchpad, so rebuild it) with batch two would help.
-3. ~~Seraphine and Ysra real stats~~ (done, session 16). **Ask again** the session-14 decisions: Ch 11 Ysra must be recruited to win (she dies to counters
-   easily); calmed rioters and Ch 8's civilian count; Rowan×Aldric A before Ch 15; "Convoy" → "Town"; where Black
-   Steel / Mythril are sold; smithy past Silver.
-4. **Art with the $17.30** (ART_NEEDED "Outstanding"): tier 3 Crestbound outfits ($6.10), generic promoted enemies
+## Next (plan for session 17)
+1. **Hand playtest Ch 15 again** with the session-16 changes (countdown, Morvane not attackable, Aldric/Ysolde lines,
+   13 Hollowed at the start: 5 holding the west door, 4 more in the top right). Autoplay at level 16 (seeds 1–4) now
+   wins **2/4** (was 3/4): T8 and T10, losing 6–7 units (guards included); losses on T4 (Aldric fell before his scene)
+   and T9 (Rowan). Autoplay is weaker than a player, so judge by hand; if too hard, make the two door blockers Guard
+   instead of Stationary, or drop one top-right Hollowed.
+2. **Hand playtest the Old Warden Vault** (`--map=vault --level=auto`) and the **Side Maps** tab (from slot 3 if it was
+   made: the hub before Ch 15). Still never played by hand.
+3. **Ask again** the session-14 decisions: Ch 11's rout needs Ysra recruited (autoplay now walks a recruiter over;
+   a player may not know to: count the rout as won with only a spared recruit left?); calmed rioters and Ch 8's
+   civilian count; Rowan×Aldric A before Ch 15; "Convoy" → "Town"; where Black Steel / Mythril are sold; smithy past
+   Silver.
+4. **Autoplay stalls, so slot 3 (the hub before Ch 15, for the Side Maps tab) couldn't be made.** The party waits every
+   turn once the last foes hold back: **Ch 7** from a new game (two runs: by T11 Rowan, Aldric, Mira and Elise wait
+   instead of pushing to the throne at 15,1; the lone-lord push only fires when the lord is alone) and **Ch 11** from
+   slot 2 (`--load=2`; two runs: Wing-Captain Orvald, Boss AI with leash 4, and Ysra left, nobody goes after him). Fix:
+   when nothing is in reach and only Boss/Stationary foes are left, advance on them (and `SeekRecruit` for Ysra, new
+   this session but not yet exercised). Then: `--load=2 --autoplay --skipdialogue --autoadvance --speed=10
+   --saveathub=15:3 --level=auto`.
+5. **Art with the ≈ $17** (ART_NEEDED "Outstanding"): tier 3 Crestbound outfits ($6.10), generic promoted enemies
    ($2.80), polish ($0.80); snow tiles and ship hulls need terrain code first. Parallelise `generate.py`'s download step
-   first (it fetches one character at a time, ~1 min each).
-5. Then: the Act II hub, Crestbound signature arts, Act III ("The Hollow Path", Ch 16–22).
+   first (it fetches one character at a time, ~1 min each). Check new battle animations on a contact sheet before
+   calling them done (session 16's axe fixes).
+6. Then: the Act II hub, Crestbound signature arts, Act III ("The Hollow Path", Ch 16–22).
 
 ## Session 16
-- **Seraphine and Ysra** have real stats for their join level (see the Session 15 bug note below).
+- **Seraphine and Ysra** have real stats for their join level (see the Session 15 bug note below): Seraphine L9 23 HP,
+  Mag 13, Res 15; Ysra L10 (was L11, over the cap) 31 HP, Str 14, Def 15.
+- **Ch 15 playtest** (user: "theres 6 enemies, im meant to escape? and is morvane invincible?"; Aldric swung at
+  Morvane for 0 and died to him, a loss):
+  - **Countdown** on timed escape maps (`ObjectiveTour.Countdown`): "The way out opens in N turns" until a player-turn
+    trigger changes an exit cell's terrain, then "N turns to escape" / "Last turn to escape!".
+  - **Invulnerable units can't be attacked** (`ActionRules`: not in `AttackTargets`, rejected by validation). Morvane
+    still attacks; `ch15_morvane` plays then.
+  - **Lines** at the end of `ch15_reveal`: Aldric "nobody goes near the Chancellor. Nothing we carry can touch him", and
+    Ysolde "when that door gives, we run".
+  - **More Hollowed** (user request, `act2_early.py` ch15): two Stationary on 1,9 and 1,11 and three Guard at 2,10 / 3,8 /
+    3,12 hold the west door; four Aggressive in the top right (21,3 / 23,5 / 22,7 / 19,6). The door highlight says so.
+- **Autoplay:** when the only foes left are recruits it may not attack, it walks a unit who can talk to one over
+  (`BattleController.SeekRecruit`; Ch 11's Ysra stalled a run at T61). Autoplay needs a window and `--skipdialogue` on
+  maps with scenes: `--headless` runs never get past the first turn, and without `--skipdialogue` they wait on dialogue.
 - **Gallery** (https://claude.ai/artifact/Ciy27oRTDuhtVnczR9rfbm) now shows batch two too (rebuilt from the published
   page by a scratchpad script; not kept).
 - **Axe animations redone ($0.26; PixelLab ≈ $17.04 left).** User: the wyvern rider's axe fused with the wyvern's head,

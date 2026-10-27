@@ -31,6 +31,8 @@ public static class ActionRules
                     return ValidationResult.Fail($"{target.Name} is not hostile.");
                 if (SparedRecruit(s, unit, target))
                     return ValidationResult.Fail($"{target.Name} could be recruited: talk instead.");
+                if (target.Invulnerable)
+                    return ValidationResult.Fail($"Nothing can hurt {target.Name}.");
                 if (!s.CanSee(unit.Faction, target))
                     return ValidationResult.Fail($"{target.Name} can't be seen.");
                 if (!unit.State.Inventory.Contains(attack.Choice.WeaponId))
@@ -95,12 +97,15 @@ public static class ActionRules
         }
     }
 
-    /// <summary>Visible hostile units the unit could attack from <paramref name="from"/> with any choice.</summary>
+    /// <summary>
+    /// Visible hostile units the unit could attack from <paramref name="from"/> with any choice. Invulnerable units
+    /// (Ch 15's Morvane) are never targets (session 16 playtest: Aldric swung at him for 0 and died to the counter).
+    /// </summary>
     public static IEnumerable<BattleUnit> AttackTargets(BattleState s, BattleUnit unit, GridPos from)
     {
         var choices = CombatCalculator.AttackChoices(s.Db, unit).ToList();
         return s.Living.Where(t => t.Faction.IsHostileTo(unit.Faction) && s.CanSee(unit.Faction, t) && !SparedRecruit(s, unit, t)
-                                   && choices.Any(c => CombatCalculator.InRange(s.Db, c, from.DistanceTo(t.Pos))));
+                                   && !t.Invulnerable && choices.Any(c => CombatCalculator.InRange(s.Db, c, from.DistanceTo(t.Pos))));
     }
 
     /// <summary>

@@ -1033,6 +1033,13 @@ def ch15():
         # The first of the Hollowed, already in the hall.
         hollowed("steel_sword", (12, 19)), hollowed("steel_lance", (13, 19)),
         hollowed("steel_axe", (3, 2)), hollowed("steel_sword", (22, 2)),
+        # Session 16 (playtest: "only 6 enemies"): Hollowed hold the west door, so the way out must be cut open...
+        hollowed("steel_lance", (1, 9), Ai=STATIONARY), hollowed("steel_axe", (1, 11), Ai=STATIONARY),
+        hollowed("steel_sword", (2, 10), Ai=GUARD), hollowed("steel_lance", (3, 8), Ai=GUARD),
+        hollowed("steel_axe", (3, 12), Ai=GUARD),
+        # ...and more come down from the top right of the hall.
+        hollowed("steel_sword", (21, 3)), hollowed("steel_lance", (23, 5)), hollowed("steel_axe", (22, 7)),
+        hollowed("steel_lance", (19, 6)),
     ]
     # Every turn more come: through the main doors (south) and out of the alcoves by the dais (north corners).
     doors = [(12, 20), (13, 20), (2, 1), (23, 1), (1, 3), (24, 3)]
@@ -1051,7 +1058,8 @@ def ch15():
                 "turn 5 => scene ch15_aldric_stays; leave aldric; terrain 0,9-0,11 #"]
     triggers += [f"turn {t} enemy => spawn wave{t}" for t in range(1, 9)]
     highlights = ["morvane => Morvane. Nothing the party has can hurt him yet. Keep away from the dais.",
-                  "0,9-0,11 => The west door. Barred for now. Everyone must get out through it, Rowan last, by turn 10."]
+                  "0,9-0,11 => The west door. Barred until turn 5, and the Hollowed hold it. Cut through: everyone "
+                  "must get out, Rowan last, by turn 10."]
     slots = [(10, 14), (11, 14), (12, 14), (13, 14), (14, 14), (15, 14), (11, 16), (12, 16), (13, 16), (14, 16), (10, 16), (15, 16)]
     map_tres("ch15", "Chapter 15: The Grey Chancellor", g.rows(), g.height_rows(), spawns, "escape 0,9-0,11 all",
              ["die aldric", "turns 10"], triggers, slots, background="calder_palace", highlights=highlights)

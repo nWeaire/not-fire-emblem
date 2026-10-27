@@ -681,6 +681,8 @@ public partial class BattleController : Node3D
             if (care is not null && care.Validate(State).Ok)
                 return new AiDecision(unit, care, null);
         }
+        if (SeekRecruit() is { } seek)
+            return seek;
         // Everyone else fights like the enemy AI; vital units (the lord, and anyone who must escape) are far more
         // careful. Units that only must survive still fight, but pull back sooner (above).
         var decisions = State.LivingOf(Faction.Player).Where(u => u.ActionState != ActionState.Done)
@@ -726,6 +728,41 @@ public partial class BattleController : Node3D
                 if (reach.CanStop(path[i]))
                     return new AiDecision(unit, new ActCommand(unit.Id, path[i], new WaitAction()), null);
         return d;
+    }
+
+    /// <summary>
+    /// Recruitable enemies can't be attacked (<see cref="ActionRules.SparedRecruit"/>), so once they're the only foes
+    /// left, walk a unit who can talk to one toward it; the talk itself is offered above once it's in reach.
+    /// (Session 16: Ch 11's Ysra, stationary on her shelf, stalled the soak at turn 61.)
+    /// </summary>
+    private AiDecision? SeekRecruit()
+    {
+        var foes = State.LivingOf(Faction.Enemy).Where(e => e.IsOnMap && !e.Invulnerable).ToList();
+        var recruits = foes.Where(e => EventDirector.Recruiter(State, e) is not null).ToList();
+        if (recruits.Count == 0 || recruits.Count < foes.Count)
+            return null;
+        foreach (var recruit in recruits)
+        {
+            var actors = EventDirector.Recruiter(State, recruit)!;
+            var talkers = State.LivingOf(Faction.Player)
+                .Where(u => u.ActionState == ActionState.Ready
+                            && (actors == "any" || actors.Split('|').Any(k => State.ByKey(k) == u)))
+                .OrderBy(u => u.Pos.DistanceTo(recruit.Pos));
+            foreach (var unit in talkers)
+            {
+                var reach = State.Reach(unit);
+                foreach (var beside in recruit.Pos.Neighbors().Where(State.Grid.InBounds).OrderBy(c => c.DistanceTo(unit.Pos)))
+                {
+                    var path = Pathfinder.FindPath(State.Grid, unit.Pos, beside, State.MoveType(unit));
+                    if (path is null)
+                        continue;
+                    for (int i = path.Count - 1; i > 0; i--)
+                        if (reach.CanStop(path[i]))
+                            return new AiDecision(unit, new ActCommand(unit.Id, path[i], new WaitAction()), null);
+                }
+            }
+        }
+        return null;
     }
 
     /// <summary>The lord, and units the map's escape objective names.</summary>

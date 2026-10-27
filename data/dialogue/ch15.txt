@@ -25,6 +25,8 @@ OSMUND [angry]: YOU! Twenty years I have waited to say it to your face! MURDERER
 MORVANE [neutral]: Osmund Thorne. You always did ask too many questions, my dear Steward. Sit down.
 ELISE [worried]: Rowan, those aren't soldiers anymore. The crest is gone out of them. They're hollow.
 ALDRIC [determined]: West door's barred. Hold the hall. I'll get it open. Hold until I do.
+ALDRIC [cold]: And nobody goes near the Chancellor. Nothing we carry can touch him. Not yet.
+YSOLDE [neutral]: Then we hold, and when that door gives, we run. There is no shame in it. Only in staying.
 
 ### ch15_morvane
 MORVANE [sad]: Child, you cannot hurt me. Not with that little light. Put your sword down; I take no joy in this.

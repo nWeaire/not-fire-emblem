@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapDefinition" load_steps=42 format=3]
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=51 format=3]
 
 [ext_resource type="Script" path="res://src/Battle/Resources/MapDefinition.cs" id="1_map"]
 [ext_resource type="Script" path="res://src/Battle/Resources/SpawnDefinition.cs" id="2_spawn"]
@@ -107,142 +107,132 @@ Ai = 0
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave1"
 SpriteId = "enemy_hollowed"
-Level = 13
+Level = 14
 Inventory = PackedStringArray("steel_lance")
 Faction = 1
-Position = Vector2i(2, 1)
-Ai = 0
+Position = Vector2i(1, 9)
+Ai = 1
 
 [sub_resource type="Resource" id="SpawnDefinition_11"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave1"
 SpriteId = "enemy_hollowed"
-Level = 13
+Level = 14
 Inventory = PackedStringArray("steel_axe")
 Faction = 1
-Position = Vector2i(23, 1)
-Ai = 0
+Position = Vector2i(1, 11)
+Ai = 1
 
 [sub_resource type="Resource" id="SpawnDefinition_12"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave2"
 SpriteId = "enemy_hollowed"
-Level = 13
-Inventory = PackedStringArray("steel_axe")
+Level = 14
+Inventory = PackedStringArray("steel_sword")
 Faction = 1
-Position = Vector2i(1, 3)
-Ai = 0
+Position = Vector2i(2, 10)
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_13"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave2"
 SpriteId = "enemy_hollowed"
-Level = 13
-Inventory = PackedStringArray("steel_sword")
+Level = 14
+Inventory = PackedStringArray("steel_lance")
 Faction = 1
-Position = Vector2i(24, 3)
-Ai = 0
+Position = Vector2i(3, 8)
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_14"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave3"
 SpriteId = "enemy_hollowed"
 Level = 14
-Inventory = PackedStringArray("steel_sword")
+Inventory = PackedStringArray("steel_axe")
 Faction = 1
-Position = Vector2i(12, 20)
-Ai = 0
+Position = Vector2i(3, 12)
+Ai = 2
 
 [sub_resource type="Resource" id="SpawnDefinition_15"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave3"
 SpriteId = "enemy_hollowed"
 Level = 14
-Inventory = PackedStringArray("steel_lance")
+Inventory = PackedStringArray("steel_sword")
 Faction = 1
-Position = Vector2i(13, 20)
+Position = Vector2i(21, 3)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_16"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave3"
 SpriteId = "enemy_hollowed"
 Level = 14
-Inventory = PackedStringArray("steel_axe")
+Inventory = PackedStringArray("steel_lance")
 Faction = 1
-Position = Vector2i(2, 1)
+Position = Vector2i(23, 5)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_17"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave4"
 SpriteId = "enemy_hollowed"
 Level = 14
-Inventory = PackedStringArray("steel_lance")
+Inventory = PackedStringArray("steel_axe")
 Faction = 1
-Position = Vector2i(2, 1)
+Position = Vector2i(22, 7)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_18"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave4"
 SpriteId = "enemy_hollowed"
 Level = 14
-Inventory = PackedStringArray("steel_axe")
+Inventory = PackedStringArray("steel_lance")
 Faction = 1
-Position = Vector2i(23, 1)
+Position = Vector2i(19, 6)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_19"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave4"
+Group = "wave1"
 SpriteId = "enemy_hollowed"
-Level = 14
-Inventory = PackedStringArray("steel_sword")
+Level = 13
+Inventory = PackedStringArray("steel_lance")
 Faction = 1
-Position = Vector2i(1, 3)
+Position = Vector2i(2, 1)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_20"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave4"
+Group = "wave1"
 SpriteId = "enemy_hollowed"
-Level = 15
-Inventory = PackedStringArray("steel_lance")
+Level = 13
+Inventory = PackedStringArray("steel_axe")
 Faction = 1
-Position = Vector2i(13, 20)
+Position = Vector2i(23, 1)
 Ai = 0
-HardOnly = true
 
 [sub_resource type="Resource" id="SpawnDefinition_21"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave5"
+Group = "wave2"
 SpriteId = "enemy_hollowed"
-Level = 14
+Level = 13
 Inventory = PackedStringArray("steel_axe")
 Faction = 1
 Position = Vector2i(1, 3)
@@ -252,9 +242,9 @@ Ai = 0
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave5"
+Group = "wave2"
 SpriteId = "enemy_hollowed"
-Level = 14
+Level = 13
 Inventory = PackedStringArray("steel_sword")
 Faction = 1
 Position = Vector2i(24, 3)
@@ -264,10 +254,10 @@ Ai = 0
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
-Group = "wave5"
+Group = "wave3"
 SpriteId = "enemy_hollowed"
 Level = 14
-Inventory = PackedStringArray("steel_lance")
+Inventory = PackedStringArray("steel_sword")
 Faction = 1
 Position = Vector2i(12, 20)
 Ai = 0
@@ -276,6 +266,115 @@ Ai = 0
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
+Group = "wave3"
+SpriteId = "enemy_hollowed"
+Level = 14
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(13, 20)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_25"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave3"
+SpriteId = "enemy_hollowed"
+Level = 14
+Inventory = PackedStringArray("steel_axe")
+Faction = 1
+Position = Vector2i(2, 1)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_26"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave4"
+SpriteId = "enemy_hollowed"
+Level = 14
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(2, 1)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_27"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave4"
+SpriteId = "enemy_hollowed"
+Level = 14
+Inventory = PackedStringArray("steel_axe")
+Faction = 1
+Position = Vector2i(23, 1)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_28"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave4"
+SpriteId = "enemy_hollowed"
+Level = 14
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(1, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_29"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave4"
+SpriteId = "enemy_hollowed"
+Level = 15
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(13, 20)
+Ai = 0
+HardOnly = true
+
+[sub_resource type="Resource" id="SpawnDefinition_30"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave5"
+SpriteId = "enemy_hollowed"
+Level = 14
+Inventory = PackedStringArray("steel_axe")
+Faction = 1
+Position = Vector2i(1, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_31"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave5"
+SpriteId = "enemy_hollowed"
+Level = 14
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(24, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_32"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave5"
+SpriteId = "enemy_hollowed"
+Level = 14
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(12, 20)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_33"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
 Group = "wave5"
 SpriteId = "enemy_hollowed"
 Level = 15
@@ -285,7 +384,7 @@ Position = Vector2i(2, 1)
 Ai = 0
 HardOnly = true
 
-[sub_resource type="Resource" id="SpawnDefinition_25"]
+[sub_resource type="Resource" id="SpawnDefinition_34"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
@@ -297,7 +396,7 @@ Faction = 1
 Position = Vector2i(12, 20)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_26"]
+[sub_resource type="Resource" id="SpawnDefinition_35"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
@@ -307,122 +406,122 @@ Level = 15
 Inventory = PackedStringArray("steel_lance")
 Faction = 1
 Position = Vector2i(13, 20)
-Ai = 0
-
-[sub_resource type="Resource" id="SpawnDefinition_27"]
-script = ExtResource("2_spawn")
-ClassId = "hollowed"
-Name = "Hollowed"
-Group = "wave6"
-SpriteId = "enemy_hollowed"
-Level = 15
-Inventory = PackedStringArray("steel_axe")
-Faction = 1
-Position = Vector2i(2, 1)
-Ai = 0
-
-[sub_resource type="Resource" id="SpawnDefinition_28"]
-script = ExtResource("2_spawn")
-ClassId = "hollowed"
-Name = "Hollowed"
-Group = "wave6"
-SpriteId = "enemy_hollowed"
-Level = 15
-Inventory = PackedStringArray("steel_sword")
-Faction = 1
-Position = Vector2i(23, 1)
-Ai = 0
-
-[sub_resource type="Resource" id="SpawnDefinition_29"]
-script = ExtResource("2_spawn")
-ClassId = "hollowed"
-Name = "Hollowed"
-Group = "wave6"
-SpriteId = "enemy_hollowed"
-Level = 15
-Inventory = PackedStringArray("steel_sword")
-Faction = 1
-Position = Vector2i(23, 1)
-Ai = 0
-HardOnly = true
-
-[sub_resource type="Resource" id="SpawnDefinition_30"]
-script = ExtResource("2_spawn")
-ClassId = "hollowed"
-Name = "Hollowed"
-Group = "wave7"
-SpriteId = "enemy_hollowed"
-Level = 15
-Inventory = PackedStringArray("steel_lance")
-Faction = 1
-Position = Vector2i(2, 1)
-Ai = 0
-
-[sub_resource type="Resource" id="SpawnDefinition_31"]
-script = ExtResource("2_spawn")
-ClassId = "hollowed"
-Name = "Hollowed"
-Group = "wave7"
-SpriteId = "enemy_hollowed"
-Level = 15
-Inventory = PackedStringArray("steel_axe")
-Faction = 1
-Position = Vector2i(23, 1)
-Ai = 0
-
-[sub_resource type="Resource" id="SpawnDefinition_32"]
-script = ExtResource("2_spawn")
-ClassId = "hollowed"
-Name = "Hollowed"
-Group = "wave7"
-SpriteId = "enemy_hollowed"
-Level = 15
-Inventory = PackedStringArray("steel_sword")
-Faction = 1
-Position = Vector2i(1, 3)
-Ai = 0
-
-[sub_resource type="Resource" id="SpawnDefinition_33"]
-script = ExtResource("2_spawn")
-ClassId = "hollowed"
-Name = "Hollowed"
-Group = "wave7"
-SpriteId = "enemy_hollowed"
-Level = 15
-Inventory = PackedStringArray("steel_lance")
-Faction = 1
-Position = Vector2i(24, 3)
-Ai = 0
-
-[sub_resource type="Resource" id="SpawnDefinition_34"]
-script = ExtResource("2_spawn")
-ClassId = "hollowed"
-Name = "Hollowed"
-Group = "wave7"
-SpriteId = "enemy_hollowed"
-Level = 15
-Inventory = PackedStringArray("steel_lance")
-Faction = 1
-Position = Vector2i(1, 3)
-Ai = 0
-HardOnly = true
-
-[sub_resource type="Resource" id="SpawnDefinition_35"]
-script = ExtResource("2_spawn")
-ClassId = "hollowed"
-Name = "Hollowed"
-Group = "wave8"
-SpriteId = "enemy_hollowed"
-Level = 15
-Inventory = PackedStringArray("steel_axe")
-Faction = 1
-Position = Vector2i(1, 3)
 Ai = 0
 
 [sub_resource type="Resource" id="SpawnDefinition_36"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
+Group = "wave6"
+SpriteId = "enemy_hollowed"
+Level = 15
+Inventory = PackedStringArray("steel_axe")
+Faction = 1
+Position = Vector2i(2, 1)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_37"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave6"
+SpriteId = "enemy_hollowed"
+Level = 15
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(23, 1)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_38"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave6"
+SpriteId = "enemy_hollowed"
+Level = 15
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(23, 1)
+Ai = 0
+HardOnly = true
+
+[sub_resource type="Resource" id="SpawnDefinition_39"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave7"
+SpriteId = "enemy_hollowed"
+Level = 15
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(2, 1)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_40"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave7"
+SpriteId = "enemy_hollowed"
+Level = 15
+Inventory = PackedStringArray("steel_axe")
+Faction = 1
+Position = Vector2i(23, 1)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_41"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave7"
+SpriteId = "enemy_hollowed"
+Level = 15
+Inventory = PackedStringArray("steel_sword")
+Faction = 1
+Position = Vector2i(1, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_42"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave7"
+SpriteId = "enemy_hollowed"
+Level = 15
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(24, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_43"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave7"
+SpriteId = "enemy_hollowed"
+Level = 15
+Inventory = PackedStringArray("steel_lance")
+Faction = 1
+Position = Vector2i(1, 3)
+Ai = 0
+HardOnly = true
+
+[sub_resource type="Resource" id="SpawnDefinition_44"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
+Group = "wave8"
+SpriteId = "enemy_hollowed"
+Level = 15
+Inventory = PackedStringArray("steel_axe")
+Faction = 1
+Position = Vector2i(1, 3)
+Ai = 0
+
+[sub_resource type="Resource" id="SpawnDefinition_45"]
+script = ExtResource("2_spawn")
+ClassId = "hollowed"
+Name = "Hollowed"
 Group = "wave8"
 SpriteId = "enemy_hollowed"
 Level = 15
@@ -431,7 +530,7 @@ Faction = 1
 Position = Vector2i(24, 3)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_37"]
+[sub_resource type="Resource" id="SpawnDefinition_46"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
@@ -443,7 +542,7 @@ Faction = 1
 Position = Vector2i(12, 20)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_38"]
+[sub_resource type="Resource" id="SpawnDefinition_47"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
@@ -455,7 +554,7 @@ Faction = 1
 Position = Vector2i(13, 20)
 Ai = 0
 
-[sub_resource type="Resource" id="SpawnDefinition_39"]
+[sub_resource type="Resource" id="SpawnDefinition_48"]
 script = ExtResource("2_spawn")
 ClassId = "hollowed"
 Name = "Hollowed"
@@ -474,11 +573,11 @@ Id = "ch15"
 Name = "Chapter 15: The Grey Chancellor"
 TerrainRows = PackedStringArray("WWWWWWWWWWWWWWWWWWWWWWWWWW", "W###########YY###########W", "W########################W", "W########################W", "W########################W", "W####W##############W####W", "W########################W", "W########################W", "W########W######W########W", "G########################W", "G####W####kk##kk####W####W", "G########################W", "W########################W", "W########W######W########W", "W########################W", "W####W##############W####W", "W########################W", "W########################W", "W########################W", "W########################W", "W########################W", "WWWWWWWWWWWWGGWWWWWWWWWWWW")
 HeightRows = PackedStringArray("33333333333333333333333333", "30000000011111111000000003", "30000000011111111000000003", "30000000011111111000000003", "30000000000000000000000003", "30000300000000000000300003", "30000000000000000000000003", "30000000000000000000000003", "30000000030000003000000003", "00000000000000000000000003", "00000300000000000000300003", "00000000000000000000000003", "30000000000000000000000003", "30000000030000003000000003", "30000000000000000000000003", "30000300000000000000300003", "30000000000000000000000003", "30000000000000000000000003", "30000000000000000000000003", "30000000000000000000000003", "30000000000000000000000003", "33333333333300333333333333")
-Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22"), SubResource("SpawnDefinition_23"), SubResource("SpawnDefinition_24"), SubResource("SpawnDefinition_25"), SubResource("SpawnDefinition_26"), SubResource("SpawnDefinition_27"), SubResource("SpawnDefinition_28"), SubResource("SpawnDefinition_29"), SubResource("SpawnDefinition_30"), SubResource("SpawnDefinition_31"), SubResource("SpawnDefinition_32"), SubResource("SpawnDefinition_33"), SubResource("SpawnDefinition_34"), SubResource("SpawnDefinition_35"), SubResource("SpawnDefinition_36"), SubResource("SpawnDefinition_37"), SubResource("SpawnDefinition_38"), SubResource("SpawnDefinition_39")])
+Spawns = Array[ExtResource("2_spawn")]([SubResource("SpawnDefinition_1"), SubResource("SpawnDefinition_2"), SubResource("SpawnDefinition_3"), SubResource("SpawnDefinition_4"), SubResource("SpawnDefinition_5"), SubResource("SpawnDefinition_6"), SubResource("SpawnDefinition_7"), SubResource("SpawnDefinition_8"), SubResource("SpawnDefinition_9"), SubResource("SpawnDefinition_10"), SubResource("SpawnDefinition_11"), SubResource("SpawnDefinition_12"), SubResource("SpawnDefinition_13"), SubResource("SpawnDefinition_14"), SubResource("SpawnDefinition_15"), SubResource("SpawnDefinition_16"), SubResource("SpawnDefinition_17"), SubResource("SpawnDefinition_18"), SubResource("SpawnDefinition_19"), SubResource("SpawnDefinition_20"), SubResource("SpawnDefinition_21"), SubResource("SpawnDefinition_22"), SubResource("SpawnDefinition_23"), SubResource("SpawnDefinition_24"), SubResource("SpawnDefinition_25"), SubResource("SpawnDefinition_26"), SubResource("SpawnDefinition_27"), SubResource("SpawnDefinition_28"), SubResource("SpawnDefinition_29"), SubResource("SpawnDefinition_30"), SubResource("SpawnDefinition_31"), SubResource("SpawnDefinition_32"), SubResource("SpawnDefinition_33"), SubResource("SpawnDefinition_34"), SubResource("SpawnDefinition_35"), SubResource("SpawnDefinition_36"), SubResource("SpawnDefinition_37"), SubResource("SpawnDefinition_38"), SubResource("SpawnDefinition_39"), SubResource("SpawnDefinition_40"), SubResource("SpawnDefinition_41"), SubResource("SpawnDefinition_42"), SubResource("SpawnDefinition_43"), SubResource("SpawnDefinition_44"), SubResource("SpawnDefinition_45"), SubResource("SpawnDefinition_46"), SubResource("SpawnDefinition_47"), SubResource("SpawnDefinition_48")])
 Victory = "escape 0,9-0,11 all"
 Defeat = PackedStringArray("die aldric", "turns 10")
 Triggers = PackedStringArray("turn 1 => scene ch15_reveal", "combat morvane => scene ch15_morvane", "turn 5 => scene ch15_aldric_stays; leave aldric; terrain 0,9-0,11 #", "turn 1 enemy => spawn wave1", "turn 2 enemy => spawn wave2", "turn 3 enemy => spawn wave3", "turn 4 enemy => spawn wave4", "turn 5 enemy => spawn wave5", "turn 6 enemy => spawn wave6", "turn 7 enemy => spawn wave7", "turn 8 enemy => spawn wave8")
-Highlights = PackedStringArray("morvane => Morvane. Nothing the party has can hurt him yet. Keep away from the dais.", "0,9-0,11 => The west door. Barred for now. Everyone must get out through it, Rowan last, by turn 10.")
+Highlights = PackedStringArray("morvane => Morvane. Nothing the party has can hurt him yet. Keep away from the dais.", "0,9-0,11 => The west door. Barred until turn 5, and the Hollowed hold it. Cut through: everyone must get out, Rowan last, by turn 10.")
 Fog = false
 DeploySlots = "10,14 11,14 12,14 13,14 14,14 15,14 11,16 12,16 13,16 14,16 10,16 15,16"
 Background = "calder_palace"

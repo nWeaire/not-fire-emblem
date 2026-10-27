@@ -220,7 +220,8 @@ def wears(uid, accessory):
 def units():
     unit("pip", "Pip", "thief", 6, dict(HP=1, Dex=2, Spd=3, Lck=4),
          dict(HP=50, Str=30, Mag=5, Dex=55, Spd=75, Lck=70, Def=15, Res=25), ["iron_sword", "vulnerary"], "")
-    unit("seraphine", "Seraphine", "troubadour", 9, dict(HP=1, Mag=2, Lck=2, Res=3),
+    # Session 16: level-9 bases (average gains for her level, a little over, like Halde): 23 HP, Mag 13, Res 15.
+    unit("seraphine", "Seraphine", "troubadour", 9, dict(HP=8, Str=1, Mag=8, Dex=3, Spd=5, Lck=7, Def=2, Res=9),
          dict(HP=45, Str=15, Mag=55, Dex=40, Spd=50, Lck=60, Def=15, Res=55), ["vulnerary"], "")
     retreats("seraphine")  # story-critical: she leads Calder in Act III
     # Session 15 (playtest: "way too weak"): recruits get no gains for their starting level, so as a "level 12" archer
@@ -234,7 +235,9 @@ def units():
     unit("ysolde", "Ysolde", "wyvern_lord", 8, dict(HP=19, Str=8, Dex=6, Spd=8, Lck=7, Def=4, Res=16),
          dict(HP=50, Str=50, Mag=10, Dex=45, Spd=40, Lck=40, Def=40, Res=30), ["silver_lance", "steel_axe"], "")
     wears("ysolde", "empress_ward")
-    unit("ysra", "Ysra", "wyvern_rider", 11, dict(HP=2, Str=2, Dex=1, Def=2),
+    # Session 16: was "level 11" with level-1 stats (over the level cap too). Now level 10 with bases for it: 31 HP,
+    # Str 14, Def 15 (she died to counters in Ch 11 before).
+    unit("ysra", "Ysra", "wyvern_rider", 10, dict(HP=11, Str=7, Dex=5, Spd=4, Lck=3, Def=7, Res=2),
          dict(HP=60, Str=50, Mag=5, Dex=45, Spd=35, Lck=30, Def=40, Res=15), ["steel_lance", "javelin"], "chainmail")
 
 
@@ -638,7 +641,7 @@ def ch11():
 
     spawns = [
         # Ysra, hanging back on the shelf's edge over the gorge.
-        dict(UnitId="ysra", Faction=ENEMY, Level=11, Pos=(21, 17), Ai=STATIONARY),
+        dict(UnitId="ysra", Faction=ENEMY, Level=10, Pos=(21, 17), Ai=STATIONARY),
         # The middle shelf.
         imperial("soldier", ["steel_lance"], (10, 19)), imperial("soldier", ["iron_lance"], (14, 21)),
         imperial("cavalier", ["iron_sword"], (5, 16)), imperial("cavalier", ["steel_lance"], (12, 14)),

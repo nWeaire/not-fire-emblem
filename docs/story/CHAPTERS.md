@@ -168,7 +168,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
   from Calder (west, deploy) through the burning village of Kestrel Ford to the Dravenhold camp (east, a palisade).
 - **Win:** `survive 10 or boss commander` (new grammar: any victory can add "or boss KEY"). **Lose:** default, or
   Seraphine dies (`die seraphine`).
-- **Units:** **Seraphine** (new Troubadour class: mounted, staff, Heal; promotes to Valkyrie) is a Player unit from
+- **Units:** **Seraphine** (new Troubadour class: mounted, staff, Heal; promotes to Valkyrie; Level 9 with real bases since session 16, 23 HP, Mag 13) is a Player unit from
   turn 1, ambushed with two Calder Escort knights (Ally) at the village's west edge. Commander Hesk (Imperial Knight
   L13, Boss, leash 3) holds the camp. Imperials use `SpriteId enemy_imperial` (class looks until art exists).
 - **Events:** T1 `ch10_start` + `ch10_seraphine`; the Imperial Herald's fall plays `ch10_insult` (the forged letter in
@@ -188,7 +188,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
   climbs by two ramps to a middle shelf (height 2), then one rock ramp (the only way up on foot) to the upper shelf
   (height 4); a roost plateau (height 6) on its west end; a gorge (height 0) down the east side, below the cliffs.
 - **Win:** Rout. **Enemies:** imperials, wyvern riders (two, then one on T3 up the gorge, one on T5 over the ridge),
-  Wing-Captain Orvald (Wyvern Lord L12, Boss). **Recruit:** **Ysra** (Wyvern Rider, Enemy, Stationary on the shelf's
+  Wing-Captain Orvald (Wyvern Lord L12, Boss). **Recruit:** **Ysra** (Wyvern Rider Level 10 with real bases since session 16, 31 HP, Def 15; was "L11" with level-1 stats; Enemy, Stationary on the shelf's
   edge) on Talk from Rowan *or* Seraphine (new grammar: `talk rowan|seraphine ysra`).
 - **Session 15 (playtest):** the roost's archers and mage were Stationary and never came down, so the rout ended with a
   climb to idle units; they're Aggressive now (the ramp-top archer a Guard). Reinforcements come down from the upper

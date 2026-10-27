@@ -5,10 +5,13 @@
 
 [sub_resource type="Resource" id="StatsDefinition_1"]
 script = ExtResource("2_stats")
-HP = 2
-Str = 2
-Dex = 1
-Def = 2
+HP = 11
+Str = 7
+Dex = 5
+Spd = 4
+Lck = 3
+Def = 7
+Res = 2
 
 [sub_resource type="Resource" id="StatsDefinition_2"]
 script = ExtResource("2_stats")
@@ -26,7 +29,7 @@ script = ExtResource("1_unit")
 Id = "ysra"
 Name = "Ysra"
 ClassId = "wyvern_rider"
-Level = 11
+Level = 10
 Bases = SubResource("StatsDefinition_1")
 Growths = SubResource("StatsDefinition_2")
 Inventory = PackedStringArray("steel_lance", "javelin")

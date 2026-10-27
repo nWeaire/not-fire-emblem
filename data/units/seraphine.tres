@@ -5,10 +5,14 @@
 
 [sub_resource type="Resource" id="StatsDefinition_1"]
 script = ExtResource("2_stats")
-HP = 1
-Mag = 2
-Lck = 2
-Res = 3
+HP = 8
+Str = 1
+Mag = 8
+Dex = 3
+Spd = 5
+Lck = 7
+Def = 2
+Res = 9
 
 [sub_resource type="Resource" id="StatsDefinition_2"]
 script = ExtResource("2_stats")

@@ -6,7 +6,7 @@
 [sub_resource type="Resource" id="SpawnDefinition_1"]
 script = ExtResource("2_spawn")
 UnitId = "ysra"
-Level = 11
+Level = 10
 Faction = 1
 Position = Vector2i(21, 17)
 Ai = 1

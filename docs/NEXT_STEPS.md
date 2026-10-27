@@ -18,8 +18,7 @@ _Last updated: 2026-10-25 (end of session 15)._
 2. **Look at the new art in game**: batch two (Caddoc, Imperial generals/great weapons, Gilded, Veiled, the tier-2
    cast) hasn't been seen by the user. Updating the gallery page (https://claude.ai/artifact/Ciy27oRTDuhtVnczR9rfbm,
    built by a script in the session scratchpad, so rebuild it) with batch two would help.
-3. **Ask again:** give **Seraphine (L9) and Ysra (L11)** real stats for their join level (they have level-1 stats, as
-   Halde and Ysolde did). Then the session-14 decisions: Ch 11 Ysra must be recruited to win (she dies to counters
+3. ~~Seraphine and Ysra real stats~~ (done, session 16). **Ask again** the session-14 decisions: Ch 11 Ysra must be recruited to win (she dies to counters
    easily); calmed rioters and Ch 8's civilian count; Rowan×Aldric A before Ch 15; "Convoy" → "Town"; where Black
    Steel / Mythril are sold; smithy past Silver.
 4. **Art with the $17.30** (ART_NEEDED "Outstanding"): tier 3 Crestbound outfits ($6.10), generic promoted enemies
@@ -38,7 +37,7 @@ _Last updated: 2026-10-25 (end of session 15)._
 - **Rules:** bosses get two-thirds of their level as extra Res (`BattleSetup.BossResBonus`; mages one-shot bosses);
   the **crossbow** pierces armour and never strikes twice (`WeaponDef.Pierces`, `SingleStrike`).
 - **Bug: named recruits get no gains for their starting level** (Halde "L12" and Ysolde "L16" had level-1 stats).
-  Fixed for those two by hand; **Seraphine (L9) and Ysra (L11) still have it** (asked the user, no answer yet). Act I
+  Fixed for those two by hand; Seraphine and Ysra fixed in session 16 (Seraphine L9: 23 HP, Mag 13, Res 15; Ysra L10, was L11: 31 HP, Str 14, Def 15). Act I
   recruits were balanced around it, so leave them.
 - **Bug fixed:** `--level=auto` promotions skipped the unit's earlier outfits (Seraphine showed as a plain cavalier).
 - **Art, batch one ($5.78):** 12 full characters and 3 map-only allies; weapon-variant sprite lookup

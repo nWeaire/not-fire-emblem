@@ -10,6 +10,10 @@ Usage (from the repo root):
     # Aldric's attack (session 7): the shared sword wording swung into the ground; his uses a level slash.
     python tools/art/animate_still.py tools/art/approved/refs/aldric_warden_battle.png aldric_warden --weapon sword \
         --only attack --redo attack --attack "steps forward to the RIGHT and ..."   (see NEXT_STEPS, session 7)
+    # Session 16: the wyvern rider's axe fused with the wyvern's head; --note keeps it clear in every animation.
+    python tools/art/animate_still.py tools/art/approved/refs/enemy_imperial_wyvern_rider_axe_battle.png \
+        enemy_imperial_wyvern_rider_axe --weapon axe --only attack critical hit dodge --redo attack critical hit dodge \
+        --attack "..." --critical "..." --note "..."   (wordings: NEXT_STEPS, session 16)
 
 The still must face right on a transparent background. It is placed on a wider canvas (--width, default 128) so
 lunges have room; the height is kept so the battle screen draws it 1:1. Each request is recorded in state.json
@@ -101,6 +105,7 @@ def main() -> int:
     parser.add_argument("--clean-only", action="store_true", help="re-run the effect filter on saved frames; never spends")
     parser.add_argument("--attack", help="attack wording for this character, instead of the weapon's (ATTACKS)")
     parser.add_argument("--critical", help="critical wording for this character, instead of the manifest's")
+    parser.add_argument("--note", help="a sentence added to every animation's wording (e.g. where the weapon must stay)")
     args = parser.parse_args()
 
     still = Image.open(args.still).convert("RGBA")
@@ -138,6 +143,8 @@ def main() -> int:
             action, to_stance = args.critical, False  # a critical ends mid-strike
         if action and name in ("hit", "dodge", "idle"):
             action = f"{action}. Keeps holding the {args.weapon} the whole time. {CLEAN}"
+        if action and args.note:
+            action = f"{action}. {args.note}"
         body = {"first_frame": b64png(first), "action": f"{action}. {RIGHT}" if action else anim["action"],
                 "frame_count": anim["frames"], "no_background": True}
         if to_stance:

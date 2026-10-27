@@ -26,6 +26,26 @@ _Last updated: 2026-10-25 (end of session 15)._
    first (it fetches one character at a time, ~1 min each).
 5. Then: the Act II hub, Crestbound signature arts, Act III ("The Hollow Path", Ch 16–22).
 
+## Session 16
+- **Seraphine and Ysra** have real stats for their join level (see the Session 15 bug note below).
+- **Gallery** (https://claude.ai/artifact/Ciy27oRTDuhtVnczR9rfbm) now shows batch two too (rebuilt from the published
+  page by a scratchpad script; not kept).
+- **Axe animations redone ($0.26; PixelLab ≈ $17.04 left).** User: the wyvern rider's axe fused with the wyvern's head,
+  the Veiled axemen's critical put the axe through the body. `animate_still.py` has a new `--note` (a sentence added
+  to every animation's wording). Wordings that worked:
+  - `enemy_imperial_wyvern_rider_axe` attack: "the rider, sitting high on the wyvern's back, swings his one axe in a
+    level sweep out to the RIGHT at his own shoulder height, the axe passing above and ahead of the wyvern's head ...";
+    critical: "the wyvern rears up and surges forward ... the rider raises his one axe high overhead and brings it round
+    in a big arc that ends with the axe held out far ahead of the wyvern's head to the right, above its snout";
+    `--note` "The axe ... always stays above the wyvern's head and neck or out ahead of its snout: never in front of the
+    wyvern's neck, chest or legs". The dodge needed its own `--note` (the rider leans back LEFT, axe raised beside his
+    helmet, never leaning along the neck). Use the same for other mounted axe users.
+  - `enemy_veiled_thug_fighter` / `enemy_veiled_agitator_fighter` critical: "raises his one axe high overhead with both
+    hands on the handle, the blade up above and behind his head, then leaps forward to the RIGHT and chops it down in a
+    big arc out in front of him ... The axe's handle and blade always stay outside his body and cloak". The agitator's
+    frames 8–9 had cyan sparks, erased by hand.
+  - Old frames: in git history (before this commit).
+
 ## Session 15: Act II hand playtest Ch 10–14 and the Act II art
 - **Hand playtested and signed off by the user:** Ch 10, 11, 12, 13, 14 (details in each chapter's CHAPTERS.md entry).
   Still to play: **Ch 15**, the **Old Warden Vault** and the Side Maps tab; then the session-14 decisions list below.

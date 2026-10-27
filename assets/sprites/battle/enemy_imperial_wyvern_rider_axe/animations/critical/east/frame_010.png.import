@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b411mlli3oqef"
-path="res://.godot/imported/frame_003.png-f637327c4eb86531926a7cd7c6074798.ctex"
+uid="uid://0de56s7a6ak0"
+path="res://.godot/imported/frame_010.png-519bf4d0a36eaafa77506022cd02f777.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battle/enemy_imperial_wyvern_rider_axe/animations/hit/east/frame_003.png"
-dest_files=["res://.godot/imported/frame_003.png-f637327c4eb86531926a7cd7c6074798.ctex"]
+source_file="res://assets/sprites/battle/enemy_imperial_wyvern_rider_axe/animations/critical/east/frame_010.png"
+dest_files=["res://.godot/imported/frame_010.png-519bf4d0a36eaafa77506022cd02f777.ctex"]
 
 [params]
 

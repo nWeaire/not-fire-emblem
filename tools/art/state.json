@@ -16570,42 +16570,42 @@
       "enemy_imperial_wyvern_rider_axe": {
         "attack": {
           "frames": 9,
-          "job": "549cdc8b-dd3b-4535-b896-f6d3c9737eb8",
+          "job": "1ca3877f-e6f2-476f-9d05-170cc9439d8b",
           "status": "completed",
-          "still": "approved/refs/enemy_imperial_wyvern_rider_axe_battle.png",
+          "still": "tools/art/approved/refs/enemy_imperial_wyvern_rider_axe_battle.png",
           "usage": {
             "type": "usd",
-            "usd": 0.027538380291726852
+            "usd": 0.029698582298225827
           }
         },
         "critical": {
           "frames": 13,
-          "job": "2809ba13-0284-4ce3-94c4-a4fb2156bc79",
+          "job": "a21fde59-5ac8-44f9-b80b-6a421c1bc3f5",
           "status": "completed",
-          "still": "approved/refs/enemy_imperial_wyvern_rider_axe_battle.png",
+          "still": "tools/art/approved/refs/enemy_imperial_wyvern_rider_axe_battle.png",
           "usage": {
             "type": "usd",
-            "usd": 0.04434073090553284
+            "usd": 0.04885247584846285
           }
         },
         "dodge": {
-          "frames": 6,
-          "job": "76951ea0-f496-4469-96bf-bb5b941e0ddd",
+          "frames": 7,
+          "job": "6a965959-6a34-4c69-9859-9ac53796e2d8",
           "status": "completed",
-          "still": "approved/refs/enemy_imperial_wyvern_rider_axe_battle.png",
+          "still": "tools/art/approved/refs/enemy_imperial_wyvern_rider_axe_battle.png",
           "usage": {
             "type": "usd",
-            "usd": 0.0294427796403567
+            "usd": 0.036426437152756584
           }
         },
         "hit": {
-          "frames": 4,
-          "job": "f9823bb8-7525-4873-9101-88f34836abd6",
+          "frames": 3,
+          "job": "d1b9bed9-0340-414e-b26c-573ef5965b02",
           "status": "completed",
-          "still": "approved/refs/enemy_imperial_wyvern_rider_axe_battle.png",
+          "still": "tools/art/approved/refs/enemy_imperial_wyvern_rider_axe_battle.png",
           "usage": {
             "type": "usd",
-            "usd": 0.019408949355284373
+            "usd": 0.019266411277982926
           }
         },
         "idle": {
@@ -16996,12 +16996,12 @@
         },
         "critical": {
           "frames": 13,
-          "job": "d1a9ea6d-9e8a-4e0b-bc6c-4238ce3a310e",
+          "job": "1ebfb45a-75de-44e2-aff1-c74ddf420802",
           "status": "completed",
-          "still": "approved/refs/enemy_veiled_agitator_fighter_battle.png",
+          "still": "tools/art/approved/refs/enemy_veiled_agitator_fighter_battle.png",
           "usage": {
             "type": "usd",
-            "usd": 0.03420692916048897
+            "usd": 0.037491587115658656
           }
         },
         "dodge": {
@@ -17256,12 +17256,12 @@
         },
         "critical": {
           "frames": 13,
-          "job": "8b7b859c-add2-4171-8473-654dcb7dead8",
+          "job": "d2788c8b-75d8-4ec8-afea-47d7992954e3",
           "status": "completed",
-          "still": "approved/refs/enemy_veiled_thug_fighter_battle.png",
+          "still": "tools/art/approved/refs/enemy_veiled_thug_fighter_battle.png",
           "usage": {
             "type": "usd",
-            "usd": 0.029701991875966387
+            "usd": 0.05184031533532672
           }
         },
         "dodge": {

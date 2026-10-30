@@ -284,15 +284,15 @@ public partial class BattleHud : CanvasLayer
 
         foreach (var child in _unitSections.GetChildren())
             child.QueueFree();
-        var weapons = new List<(string Text, bool Equipped)>();
-        var items = new List<string>();
+        var weapons = new List<(string Id, string Text, bool Equipped)>();
+        var items = new List<(string Id, string Text)>();
         for (int i = 0; i < unit.State.Inventory.Count; i++)
         {
             string id = unit.State.Inventory[i];
             if (db.TryWeapon(id) is { } w)
-                weapons.Add((w.Name, i == unit.State.EquippedIndex));
+                weapons.Add((id, w.Name, i == unit.State.EquippedIndex));
             else
-                items.Add(db.TryItem(id)?.Name ?? id);
+                items.Add((id, db.TryItem(id)?.Name ?? id));
         }
         var spells = Abilities.Spells(db, unit.State).Select(sp => $"{sp.Name} {unit.UsesLeft.GetValueOrDefault(sp.Id)}/{sp.Uses}")
             .Concat(Abilities.Arts(db, unit.State).Select(a => $"{a.Name} {unit.UsesLeft.GetValueOrDefault(a.Id)}/{a.Uses}"))
@@ -301,13 +301,14 @@ public partial class BattleHud : CanvasLayer
         if (weapons.Count > 0)
         {
             _unitSections.AddChild(UiKit.Caps("Weapons", 12));
-            foreach (var (text, equipped) in weapons)
-                _unitSections.AddChild(UiKit.Label((equipped ? "▶ " : "   ") + text, 15, equipped ? UiKit.Text : UiKit.Muted));
+            foreach (var (id, text, equipped) in weapons)
+                _unitSections.AddChild(IconLine(db, id, (equipped ? "▶ " : "   ") + text, equipped ? UiKit.Text : UiKit.Muted));
         }
         if (items.Count > 0)
         {
             _unitSections.AddChild(UiKit.Caps("Items", 12));
-            _unitSections.AddChild(UiKit.Label("   " + string.Join(", ", items), 15));
+            foreach (var (id, text) in items)
+                _unitSections.AddChild(IconLine(db, id, "   " + text, UiKit.Text));
         }
         if (spells.Count > 0)
         {
@@ -369,6 +370,19 @@ public partial class BattleHud : CanvasLayer
 
     private static string BonusText(StatBlock bonuses) =>
         string.Join(" ", StatBlock.All.Where(s => bonuses[s] != 0).Select(s => $"{s} {bonuses[s]:+0;-0}"));
+
+    /// <summary>An inventory line in the unit panel: the item's icon (when there's art) and its name.</summary>
+    private static Control IconLine(ContentDatabase db, string itemId, string text, Color color)
+    {
+        var label = UiKit.Label(text, 15, color);
+        if (ItemIcons.Rect(db, itemId, 18) is not { } icon)
+            return label;
+        var row = new HBoxContainer();
+        row.AddThemeConstantOverride("separation", 4);
+        row.AddChild(icon);
+        row.AddChild(label);
+        return row;
+    }
 
     private static string RangeText(WeaponDef w) => w.MinRange == w.MaxRange ? $"{w.MinRange}" : $"{w.MinRange}-{w.MaxRange}";
 
@@ -541,8 +555,12 @@ public partial class BattleHud : CanvasLayer
         _levelText.Text = $"LEVEL UP!   {name} — {className} Lv {level.Level}\n\n" + string.Join("\n", rows);
         _levelPanel.Visible = true;
         _levelPanel.Modulate = Colors.White with { A = 0f };
+        // A little pop as it appears (session 17 polish), with the gold sparkles on the map.
+        _levelPanel.PivotOffset = _levelPanel.Size / 2f;
+        _levelPanel.Scale = new Vector2(0.85f, 0.85f);
         var tween = CreateTween();
         tween.TweenProperty(_levelPanel, "modulate:a", 1f, 0.15f);
+        tween.Parallel().TweenProperty(_levelPanel, "scale", Vector2.One, 0.25f).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
         tween.TweenInterval(1.6f);
         tween.TweenProperty(_levelPanel, "modulate:a", 0f, 0.25f);
         await ToSignal(tween, Tween.SignalName.Finished);

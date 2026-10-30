@@ -7,7 +7,7 @@ Usage (from the repo root):
     python tools/art/generate.py portraits [--only ID ...]     # 4 takes each into tools/art/takes/portraits/
     python tools/art/generate.py backgrounds [--only ID ...]   # assets/backgrounds/<id>.png
     python tools/art/generate.py tiles [--only SET ...]        # 16 tiles each into tools/art/takes/tiles/<set>/
-    python tools/art/generate.py download [--only ID ...]      # re-fetch finished characters; never spends
+    python tools/art/generate.py download [--only ID ...] [--overwrite]   # fetch finished characters; never spends
 
 Every request is recorded in tools/art/state.json under "gba" as soon as it is submitted, so an interrupted run
 resumes without paying again. Create tools/art/STOP to stop new submissions. --reserve N (default 50) stops
@@ -23,6 +23,7 @@ import os
 import shutil
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import manifest as M
@@ -33,6 +34,10 @@ STOP = Path(__file__).with_name("STOP")
 TAKES = Path(__file__).with_name("takes")
 SETS = {"map": M.MAP, "battle": M.BATTLE}
 MAX_JOBS = 8  # PixelLab Tier 1 concurrency
+# Downloads (session 17): one character used to take about a minute, file by file. Frames are fetched FRAME_WORKERS
+# at a time and CHAR_WORKERS characters at once (asset URLs are public storage, not the rate-limited API).
+FRAME_WORKERS = 16
+CHAR_WORKERS = 4
 
 
 # ------------------------------------------------------------------ state
@@ -190,11 +195,21 @@ def run_characters(r: Runner, ids: list[str], sets: list[str], anims: bool) -> N
         r.drain()
 
     # 3. Download.
-    for sid in ids:
-        for set_name in sets:
-            entry = chars.get(char_key(set_name, sid))
-            if entry and entry.get("status") == "completed":
-                download_character(r.client, set_name, sid, entry)
+    download_characters(r.client, chars, ids, sets, r.args.overwrite)
+
+
+def download_characters(client: PixelLab, chars: dict, ids: list[str], sets: list[str], overwrite: bool) -> None:
+    """
+    Downloads every finished character in ids, several at once. Characters already on disk are skipped unless
+    overwrite is set: many have hand-cleaned or hand-dropped frames (session 17: a re-fetch undid Sable's).
+    """
+    jobs = [(set_name, sid, chars[char_key(set_name, sid)]) for sid in ids for set_name in sets
+            if chars.get(char_key(set_name, sid), {}).get("status") == "completed"
+            and (overwrite or not (REPO_ROOT / SETS[set_name]["out"] / sid / "rotations").exists()
+                 or not (REPO_ROOT / SETS[set_name]["out"] / sid / "animations").exists())]
+    with ThreadPoolExecutor(CHAR_WORKERS) as pool:
+        for future in [pool.submit(download_character, client, *job) for job in jobs]:
+            future.result()  # re-raise any failure
 
 
 def request_animation(r: Runner, entry: dict, what: str, name: str, anim: dict, directions: list[str]) -> None:
@@ -233,28 +248,33 @@ def download_character(client: PixelLab, set_name: str, sid: str, entry: dict) -
     s = SETS[set_name]
     out = REPO_ROOT / s["out"] / sid
     detail = client.get(f"/characters/{entry['character_id']}")
-    for direction, url in (detail.get("rotation_urls") or {}).items():
-        if url and direction in s["directions"]:
-            client.download(url, out / "rotations" / f"{direction}.png")
+    files = [(url, out / "rotations" / f"{direction}.png")
+             for direction, url in (detail.get("rotation_urls") or {}).items() if url and direction in s["directions"]]
     names = {a.get("group_id"): n for n, a in entry.get("animations", {}).items()}
     for group in detail.get("animations", []):
         name = names.get(group.get("animation_group_id"))
         if not name:
             continue
         for d in group.get("directions", []):
-            if d["direction"] not in s["directions"]:
-                continue
-            for i, url in enumerate(d.get("frames", [])):
-                for attempt in range(4):
-                    try:
-                        client.download(url, out / "animations" / name / d["direction"] / f"frame_{i:03d}.png")
-                        break
-                    except Exception as e:  # storage sometimes answers 525; the asset is fine
-                        if attempt == 3:
-                            raise
-                        print(f"    retry download ({e})")
-                        time.sleep(3)
-    print(f"  downloaded {set_name}:{sid} -> {out.relative_to(REPO_ROOT)}")
+            if d["direction"] in s["directions"]:
+                files += [(url, out / "animations" / name / d["direction"] / f"frame_{i:03d}.png")
+                          for i, url in enumerate(d.get("frames", []))]
+
+    def fetch(item):
+        url, dest = item
+        for attempt in range(4):
+            try:
+                client.download(url, dest)
+                return
+            except Exception as e:  # storage sometimes answers 525; the asset is fine
+                if attempt == 3:
+                    raise
+                print(f"    retry download ({e})")
+                time.sleep(3)
+
+    with ThreadPoolExecutor(FRAME_WORKERS) as pool:
+        list(pool.map(fetch, files))
+    print(f"  downloaded {set_name}:{sid} ({len(files)} files) -> {out.relative_to(REPO_ROOT)}")
 
 
 # ------------------------------------------------------------------ images (portraits, backgrounds)
@@ -322,10 +342,11 @@ def run_backgrounds(r: Runner, ids: list[str]) -> None:
 
 def run_props(r: Runner, ids: list[str]) -> None:
     done_map = r.state["gba"]["props"]
-    style = REPO_ROOT / "assets" / "sprites" / "units" / "rowan_youth" / "rotations" / "south.png"
+    default_style = REPO_ROOT / "assets" / "sprites" / "units" / "rowan_youth" / "rotations" / "south.png"
     for pid in ids:
         if done_map.get(pid, {}).get("status") == "completed":
             continue
+        style = M.PROP_STYLE_REFS.get(pid, default_style)
         response = r.submit(f"prop {pid}", "/generate-image-v2", {
             "description": f"{M.PROPS[pid]}. {M.PROP_STYLES.get(pid, M.PROP_STYLE)}",
             "image_size": {"width": M.PROP_SIZE.get(pid, 64), "height": M.PROP_SIZE.get(pid, 64)},
@@ -411,6 +432,7 @@ def main() -> int:
     parser.add_argument("--only", nargs="*", default=[])
     parser.add_argument("--set", choices=list(SETS), action="append")
     parser.add_argument("--no-anims", action="store_true")
+    parser.add_argument("--overwrite", action="store_true", help="re-download characters already on disk")
     parser.add_argument("--reserve", type=float, default=50)
     args = parser.parse_args()
     state = load_state()
@@ -431,11 +453,7 @@ def main() -> int:
             print(json.dumps(client.balance(), indent=2))
             return 0
         if args.command == "download":
-            for sid in ids:
-                for set_name in sets:
-                    entry = state["gba"]["characters"].get(char_key(set_name, sid))
-                    if entry and entry.get("status") == "completed":
-                        download_character(client, set_name, sid, entry)
+            download_characters(client, state["gba"]["characters"], ids, sets, args.overwrite)
             return 0
         r = Runner(client, state, args)
         try:

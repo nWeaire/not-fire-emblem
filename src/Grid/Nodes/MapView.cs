@@ -110,6 +110,37 @@ public partial class MapView : Node3D
             AddProps(grid, cell.Terrain.Id, new Vector3(center.X, top, center.Z), p);
             if (cell.Terrain.Id == "wall" && _artSet != "farm")
                 AddWallDecor(grid, p, new Vector3(center.X, top, center.Z));
+            if (cell.Terrain.Id == "bridge" && grid[p].Height > 0)
+                AddBulwarks(grid, p, new Vector3(center.X, top, center.Z));
+        }
+        AddMasts(grid);
+    }
+
+    /// <summary>
+    /// A mast (prop "mast") in the middle of each ship: every group of at least nine joined raised bridge cells
+    /// (Ch 12's decks; gangplanks are too small to count). Looks only.
+    /// </summary>
+    private void AddMasts(BattleGrid grid)
+    {
+        var masts = Props("mast");
+        if (masts.Count == 0)
+            return;
+        var seen = new HashSet<GridPos>();
+        foreach (var start in grid.AllPositions())
+        {
+            if (grid[start].Terrain.Id != "bridge" || grid[start].Height == 0 || !seen.Add(start))
+                continue;
+            var deck = new List<GridPos> { start };
+            for (int i = 0; i < deck.Count; i++)
+                foreach (var n in deck[i].Neighbors())
+                    if (grid.InBounds(n) && grid[n].Terrain.Id == "bridge" && grid[n].Height > 0 && seen.Add(n))
+                        deck.Add(n);
+            if (deck.Count < 9)
+                continue;
+            float cx = (float)deck.Average(c => c.X), cy = (float)deck.Average(c => c.Y);
+            var middle = deck.OrderBy(c => (c.X - cx) * (c.X - cx) + (c.Y - cy) * (c.Y - cy)).ThenBy(c => c.Y).ThenBy(c => c.X).First();
+            var top = new Vector3(middle.X * GridMetrics.CellSize, GridMetrics.SurfaceY(grid, middle), middle.Y * GridMetrics.CellSize);
+            AddBillboard(masts[(int)(Hash(middle, 150) % (uint)masts.Count)], top);
         }
     }
 
@@ -135,11 +166,16 @@ public partial class MapView : Node3D
 
     /// <summary>
     /// The tile set a terrain draws with. Farm maps (ArtSet "farm") have no stone: walls are hedgerows on grass,
-    /// cottages stand on a dirt yard and squares are packed earth.
+    /// cottages stand on a dirt yard and squares are packed earth. Other art sets use their own "&lt;set&gt;_&lt;tile&gt;"
+    /// tiles where they exist (session 17: "snow" for Ch 14's citadel), else the usual ones.
     /// </summary>
-    private string TileFor(string terrainId) => _artSet == "farm"
-        ? terrainId switch { "wall" => "plain", "fort" or "square" => "road", _ => terrainId }
-        : terrainId is "throne" or "barricade" or "rubble" or "gate" or "door" or "chest" ? "square" : terrainId;
+    private string TileFor(string terrainId)
+    {
+        string tile = _artSet == "farm"
+            ? terrainId switch { "wall" => "plain", "fort" or "square" => "road", _ => terrainId }
+            : terrainId is "throne" or "barricade" or "rubble" or "gate" or "door" or "chest" ? "square" : terrainId;
+        return _artSet is { } set && set != "farm" && Tiles($"{set}_{tile}").Count > 0 ? $"{set}_{tile}" : tile;
+    }
 
     /// <summary>
     /// Water is never turned at random (session 9: odd vertical tiles in a horizontal river). Each connected body of
@@ -199,7 +235,9 @@ public partial class MapView : Node3D
             case "forest" when Props("pine").Count + Props("oak").Count > 0:
                 for (int i = 0; i < 2; i++)
                 {
-                    var kind = Props(Hash(p, 10 + i) % 3 == 0 ? "oak" : "pine");
+                    // A themed map with its own pines but no oaks (snow) plants pines only.
+                    bool pinesOnly = Themed && LoadProps($"{_artSet}_pine").Count > 0 && LoadProps($"{_artSet}_oak").Count == 0;
+                    var kind = Props(!pinesOnly && Hash(p, 10 + i) % 3 == 0 ? "oak" : "pine");
                     if (kind.Count == 0)
                         kind = Props("pine").Count > 0 ? Props("pine") : Props("oak");
                     var offset = new Vector3(Jitter(i) * 0.5f, 0f, Jitter(i + 7) * 0.5f);
@@ -232,7 +270,8 @@ public partial class MapView : Node3D
             // A chest prop (crates stand in until chest art exists, docs/ART_NEEDED.md section 0).
             case "chest" when Props("chest").Count + Props("crates").Count > 0:
                 var chest = Props("chest").Count > 0 ? Props("chest") : Props("crates");
-                AddBillboard(chest[(int)(Hash(p, 97) % (uint)chest.Count)], top);
+                // Smaller than the crates (session 17 playtest: "the chest looks too big").
+                AddBillboard(chest[(int)(Hash(p, 97) % (uint)chest.Count)], top, scale: ChestScale);
                 return;
             case "wall" when _artSet == "farm" && ResourceLoader.Exists(HedgeTexture):
                 AddHedge(grid, p, top);
@@ -542,7 +581,7 @@ public partial class MapView : Node3D
     /// sprite is pulled toward the camera (see _Process), which would put its shadow away from its base, so with
     /// <paramref name="shadow"/> an invisible copy stands on the true ground point and casts the shadow instead.
     /// </summary>
-    private void AddBillboard(Texture2D texture, Vector3 ground, bool shadow = true)
+    private void AddBillboard(Texture2D texture, Vector3 ground, bool shadow = true, float scale = 1f)
     {
         Sprite3D Make(GeometryInstance3D.ShadowCastingSetting cast) => new()
         {
@@ -551,7 +590,7 @@ public partial class MapView : Node3D
             TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
             AlphaCut = SpriteBase3D.AlphaCutMode.Discard,
             Shaded = false,
-            PixelSize = ArtPixelSize,
+            PixelSize = ArtPixelSize * scale,
             Offset = new Vector2(0f, texture.GetHeight() / 2f), // the art is cropped, so this stands it on the ground
             Position = ground,
             CastShadow = cast,
@@ -614,6 +653,9 @@ public partial class MapView : Node3D
     /// <summary>One variant of a decoration prop (picked by the cell hash), if that prop has art.</summary>
     private void AddDecor(string id, GridPos p, int salt, Vector3 ground)
     {
+        // Themed maps (Ch 14's snow) only scatter decorations drawn for them: green tufts and bushes looked wrong on snow.
+        if (Themed && LoadProps($"{_artSet}_{id}").Count == 0)
+            return;
         var art = Props(id);
         // Only the taller decorations cast shadows; grass tufts and flowers are too small to show one.
         if (art.Count > 0)
@@ -639,7 +681,11 @@ public partial class MapView : Node3D
     private List<Texture2D> SiegeProps() =>
         _siegeProps ??= new[] { "wagon", "stall", "crates", "barrels", "cart" }.SelectMany(Props).ToList();
 
-    private List<Texture2D> Props(string id)
+    /// <summary>A prop's art: the map's art set version ("snow_pine") when there is one, else the usual.</summary>
+    private List<Texture2D> Props(string id) =>
+        _artSet is { } set && LoadProps($"{set}_{id}") is { Count: > 0 } themed ? themed : LoadProps(id);
+
+    private List<Texture2D> LoadProps(string id)
     {
         if (_props.TryGetValue(id, out var cached))
             return cached;
@@ -656,6 +702,9 @@ public partial class MapView : Node3D
 
     private StandardMaterial3D SideMaterial(string terrainId, string colorHex, GridPos p)
     {
+        // Raised bridge blocks are Ch 12's ship decks: their sides are the hulls (tools/art/hull_texture.py).
+        if (terrainId == "bridge" && SideTextureMaterial("hull", HullTexture) is { } hull)
+            return hull;
         if (_artSet != "farm" && StoneSides.Contains(terrainId) && StoneSideMaterial(terrainId == "wall" && Hash(p, 120) % 4 == 0 ? 1 : 0) is { } stone)
             return stone;
         if (NoEarthSides.Contains(terrainId) || !ResourceLoader.Exists(SideTexture))
@@ -696,6 +745,61 @@ public partial class MapView : Node3D
                 Uv1Triplanar = true,
                 Uv1Scale = Vector3.One,
                 // Cell centres sit on whole numbers: shift half a cell so each face shows one whole tile.
+                Uv1Offset = new Vector3(0.5f, 0f, 0.5f),
+                Roughness = 0.95f,
+            };
+            _materials[key] = material;
+        }
+        return material;
+    }
+
+    private const float ChestScale = 0.7f;
+
+    /// <summary>An art set with its own tiles and props (not "farm", which only swaps tiles round).</summary>
+    private bool Themed => _artSet is { } set && set != "farm";
+    private const string HullTexture = "res://assets/textures/hull_side.png";
+    private const float BulwarkHeight = 0.2f, BulwarkThickness = 0.07f;
+
+    /// <summary>
+    /// A ship deck (a raised bridge cell) gets a low hull rail along each edge over open water, so the ships read as
+    /// ships, not raised docks (session 17). Edges onto gangplanks, piers or land stay open. Looks only: no effect on
+    /// movement.
+    /// </summary>
+    private void AddBulwarks(BattleGrid grid, GridPos p, Vector3 top)
+    {
+        if (SideTextureMaterial("hull", HullTexture) is not { } hull)
+            return;
+        foreach (var (dx, dy) in new[] { (0, 1), (1, 0), (0, -1), (-1, 0) })
+        {
+            var n = new GridPos(p.X + dx, p.Y + dy);
+            if (grid.InBounds(n) && grid[n].Terrain.Id != "water")
+                continue;
+            float half = GridMetrics.CellSize / 2f - BulwarkThickness / 2f;
+            var size = dx == 0 ? new Vector3(GridMetrics.CellSize, BulwarkHeight, BulwarkThickness)
+                               : new Vector3(BulwarkThickness, BulwarkHeight, GridMetrics.CellSize);
+            AddChild(new MeshInstance3D
+            {
+                Mesh = new BoxMesh { Size = size },
+                MaterialOverride = hull,
+                Position = top + new Vector3(dx * half, BulwarkHeight / 2f, dy * half),
+            });
+        }
+    }
+
+    /// <summary>A side texture laid one tile per cell face, like the masonry. Null when the art is missing.</summary>
+    private StandardMaterial3D? SideTextureMaterial(string key, string path)
+    {
+        if (!ResourceLoader.Exists(path))
+            return null;
+        if (!_materials.TryGetValue(key, out var material))
+        {
+            material = new StandardMaterial3D
+            {
+                AlbedoTexture = ResourceLoader.Load<Texture2D>(path),
+                AlbedoColor = new Color(0.82f, 0.82f, 0.82f),
+                TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
+                Uv1Triplanar = true,
+                Uv1Scale = Vector3.One,
                 Uv1Offset = new Vector3(0.5f, 0f, 0.5f),
                 Roughness = 0.95f,
             };

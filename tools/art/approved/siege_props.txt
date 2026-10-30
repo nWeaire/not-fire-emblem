@@ -3,3 +3,9 @@ chest: takes 0,1,5,9 -> chest_0..3 (session 15)
 
 # Session 17 (user: chests should face the camera): chest_0..3 = takes 0, 3, 8, 11 of tools/art/takes/props/chest_front/
 # (prop "chest_front", a straight-on front elevation; the session-15 three-quarter "chest" takes are superseded).
+# Later in session 17 (user: chest_front "too big, and in a different art style"): chest_0..3 = chest_front2 takes
+# 0, 1, 9, 12 (the old chest as style image), cropped; drawn at 70% (MapView.ChestScale).
+# mast_0..1 = mast takes 0, 5; snow_pine_0..3 = snow_pine takes 0, 1, 6, 9 (all cropped).
+# Snow tiles (takes/tiles/snow): snow_plain 0/4/8, snow_road 5/9, snow_forest 6/10, snow_wall 11/7.
+# Icons (assets/ui/icons, cropped): sword 0, lance 1, axe 0, bow 0, claw 0, tome_red 4, tome_white 6, potion 0,
+# booster 4, key 2, armor 1, ring 0.

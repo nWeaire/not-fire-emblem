@@ -281,10 +281,12 @@ public partial class HubScreen : Control
         _ => "Sovereign's Crest",
     };
 
-    private HBoxContainer Row(string text, int size = 15, Color? color = null)
+    private HBoxContainer Row(string text, int size = 15, Color? color = null, Control? lead = null)
     {
         var row = new HBoxContainer();
         row.AddThemeConstantOverride("separation", 8);
+        if (lead is not null)
+            row.AddChild(lead);
         var label = UiKit.Label(text, size, color);
         label.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         // Long lines wrap inside the panel instead of pushing it past the window edge.
@@ -331,7 +333,7 @@ public partial class HubScreen : Control
             var w = Db.TryWeapon(itemId);
             string text = (i == u.EquippedIndex ? "▶ " : "   ") + Db.ItemName(itemId)
                           + (w is null ? "" : $"   Mt {w.Might}  Hit {w.Hit}  Crt {w.Crit}  Wt {w.Weight}  Rng {w.MinRange}-{w.MaxRange}");
-            var row = Row(text);
+            var row = Row(text, lead: ItemIcons.Rect(Db, itemId));
             if (w is not null && CombatCalculator.CanWield(Db, u, w) && i != u.EquippedIndex)
             {
                 var equip = Small("Equip", () => Do(() => { u.EquippedIndex = slot; return null; }, $"{u.Def.Name} equips {w.Name}."));
@@ -347,7 +349,8 @@ public partial class HubScreen : Control
         foreach (var (slot, worn) in new[] { (ArmorSlot.Body, u.ArmorId), (ArmorSlot.Accessory, u.AccessoryId) })
         {
             var armor = Db.TryArmor(worn);
-            var row = Row($"   {slot}: {(armor is null ? "—" : $"{armor.Name}  {BonusText(armor.Bonuses)}  Wt {armor.Weight}")}");
+            var row = Row($"   {slot}: {(armor is null ? "—" : $"{armor.Name}  {BonusText(armor.Bonuses)}  Wt {armor.Weight}")}",
+                lead: armor is null ? null : ItemIcons.Rect(Db, armor.Id));
             if (armor is not null)
                 row.AddChild(Small("Take off", () => Do(() => HubService.TakeOff(S, u, slot), "Taken off.")));
         }
@@ -356,7 +359,7 @@ public partial class HubScreen : Control
         foreach (var itemId in S.Convoy.Distinct().OrderBy(Db.ItemName))
         {
             int count = S.Convoy.Count(x => x == itemId);
-            var row = Row($"   {Db.ItemName(itemId)}{(count > 1 ? $" ×{count}" : "")}");
+            var row = Row($"   {Db.ItemName(itemId)}{(count > 1 ? $" ×{count}" : "")}", lead: ItemIcons.Rect(Db, itemId));
             if (Db.IsInventoryItem(itemId))
                 row.AddChild(Small("Give", () => Do(() => HubService.GiveToUnit(Db, S, u, itemId), $"Given to {u.Def.Name}."),
                     u.Inventory.Count < UnitState.MaxInventory));
@@ -467,7 +470,8 @@ public partial class HubScreen : Control
             var row = new HBoxContainer();
             row.AddThemeConstantOverride("separation", 8);
             list.AddChild(row);
-            var button = UiKit.Button($"{Icon(itemId)}  {Db.ItemName(itemId)}{(count > 1 ? $" ×{count}" : "")}", () =>
+            var icon = ItemIcons.For(Db, itemId);
+            var button = UiKit.Button($"{(icon is null ? Icon(itemId) + "  " : "")}{Db.ItemName(itemId)}{(count > 1 ? $" ×{count}" : "")}", () =>
             {
                 if (_selling)
                     Do(() => HubService.Sell(Db, S, itemId), $"Sold {Db.ItemName(itemId)}.");
@@ -476,6 +480,12 @@ public partial class HubScreen : Control
             }, 0);
             button.Alignment = HorizontalAlignment.Left;
             button.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+            if (icon is not null)
+            {
+                button.Icon = icon;
+                button.AddThemeConstantOverride("icon_max_width", UiKit.Px(22));
+                button.TextureFilter = TextureFilterEnum.Nearest;
+            }
             bool usable = _selling || (S.Gold >= price && (buyer is null || CanUse(buyer, itemId)));
             if (!usable)
                 button.Modulate = DimColor;
@@ -511,7 +521,13 @@ public partial class HubScreen : Control
             return;
         var title = UiKit.Label(Db.ItemName(itemId), 22, UiKit.Accent);
         title.AutowrapMode = TextServer.AutowrapMode.WordSmart;
-        _card.AddChild(title);
+        title.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        var heading = new HBoxContainer();
+        heading.AddThemeConstantOverride("separation", 10);
+        if (ItemIcons.Rect(Db, itemId, 32) is { } picture)
+            heading.AddChild(picture);
+        heading.AddChild(title);
+        _card.AddChild(heading);
         _card.AddChild(UiKit.Label(Kind(itemId), 14, UiKit.Muted));
         var stats = UiKit.Label(Numbers(itemId), 16);
         stats.AutowrapMode = TextServer.AutowrapMode.WordSmart;

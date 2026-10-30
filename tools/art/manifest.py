@@ -385,6 +385,84 @@ CHARACTERS = {
         desc='cheeky lean 16 year old rogue, messy dark brown hair, a grin, fitted dark brown leathers with many pockets and a short dark cloak, soft boots, a proper steel sword held low'),
     "ally_villager": dict(weapon="none", sets=("map",),
         desc="plain village farmer man, brown hair, beige linen shirt, green wool vest, brown trousers, no weapon"),
+    # Session 17: the last of the art before Act III (ART_NEEDED "Outstanding"). Halde's tier 2 (she promotes to Sniper).
+    "halde_sniper": dict(weapon="bow", sets=("map",),
+        desc="weathered privateer captain woman, auburn hair under a black tricorn hat with a red feather, long red sea "
+             "coat with brass buttons over a dark leather vest, a brass spyglass at her belt, tall boots, heavy steel "
+             "crossbow"),
+    # Tier 3 Crestbound (Rowan's Lord's Crest, Ch 13 on): each a grander take on the tier 2 look, all with a soft
+    # white-gold crest glowing somewhere on them (the crest's light shared with them).
+    "rowan_high_lord": dict(weapon="sword", sets=("map",),
+        desc="18 year old high lord, messy dark blue hair, polished silver plate armour with dark blue enamel and gold "
+             "trim, a long royal blue cape, a bright white-gold crest glowing on the back of his hand, ornate silver "
+             "sword"),
+    "kai_vanguard": dict(weapon="lance", sets=("map",), template="horse",
+        desc="confident 19 year old vanguard knight riding a big chestnut warhorse in green and gold barding, shaggy "
+             "sandy blond hair, no helmet, rust red neckerchief, polished steel plate with gold trim over a dark green "
+             "tabard, a white-gold crest glowing on his pauldron, long silver lance"),
+    "mira_oracle": dict(weapon="staff", sets=("map",),
+        desc="young oracle woman, long blonde braid with gold ribbons, flowing white and pale gold robes with a deep "
+             "blue mantle, a white-gold crest glowing on her brow, tall silver staff topped with a glowing white "
+             "crystal"),
+    "elise_crestscribe": dict(weapon="anima", sets=("map",),
+        desc="young scholar mage woman, long auburn hair, green eyes, deep blue and grey scholar's robes with gold "
+             "embroidered script, a satchel of papers, white-gold crest sigils floating around her, holding an open "
+             "glowing tome with a flame above its pages"),
+    "brann_ironheart": dict(weapon="axe", sets=("map",),
+        desc="huge burly young warrior smith, short brown beard, dark steel plate armour he forged himself over chain, "
+             "a fur mantle, a white-gold crest glowing on his chest plate, massive steel war axe"),
+    # Take 1 of tamsin_wildstalker, pip_shadowstep and enemy_sniper drew two figures side by side (kept in state.json
+    # as <key>_take1); "a single ... standing alone, one person only" fixed the same thing in session 15.
+    "tamsin_wildstalker": dict(weapon="bow", sets=("map",),
+        desc="a single lean young woman ranger standing alone, one person only, short messy auburn hair, a wolf-pelt hooded mantle, dark green leather armour, "
+             "quiver on her back, a white-gold crest glowing on her bracer, tall carved longbow"),
+    "halde_corsair": dict(weapon="bow", sets=("map",),
+        desc="weathered privateer admiral woman, auburn hair under a grand black tricorn with gold braid, long crimson "
+             "coat with gold trim and epaulettes, a cutlass at her hip, a white-gold crest glowing on her coat, heavy "
+             "ornate crossbow"),
+    "dorran_bulwark": dict(weapon="lance", sets=("map",),
+        desc="stocky 60 year old bulwark knight, short white hair, thick grey moustache, massive gleaming steel and "
+             "gold plate armour over a deep green tabard, a green cape, a huge tower shield bearing a white-gold "
+             "glowing crest, a long silver lance (a spear, not a sword) held upright in his other hand"),
+    "sable_blade_dancer": dict(weapon="sword", sets=("map",),
+        desc="graceful young woman blade dancer, short black hair with a long red headband trailing behind, scar on "
+             "one cheek, fitted black and crimson leather with flowing red sashes, a white-gold crest glowing on her "
+             "wrist, a long slim curved sword"),
+    "wren_skyward": dict(weapon="lance", sets=("map",), template="horse",
+        desc="young woman sky knight, short chestnut bob, gleaming silver armour with green and gold trim, a long green "
+             "cape, riding a white winged pegasus with golden armour, a white-gold crest glowing on her breastplate, "
+             "silver lance"),
+    "pip_shadowstep": dict(weapon="sword", sets=("map",),
+        desc="a single lean 16 year old shadow rogue standing alone, one person only, messy dark brown hair, a grin, close-fitting dark grey and black leathers "
+             "with a deep hooded short cloak, soft boots, a white-gold crest glowing faintly on his hand, a slim steel "
+             "sword held low"),
+    "seraphine_lightbearer": dict(weapon="staff", sets=("map",), template="horse",
+        desc="young princess lightbearer always seated on her white horse in Calder-blue and silver barding, fair "
+             "golden hair in a braid, a silver crown circlet, silver armour over a white and Calder-blue gown, a white "
+             "cape, a bright white-gold crest glowing on her hand, a white and gold healer's staff"),
+    "ysra_dragonheart": dict(weapon="lance", sets=("map",), template="horse",
+        desc="young woman dragon knight with a dark braid riding a huge dark grey wyvern with golden-tipped wings, "
+             "heavy black iron armour with gold trim and a white fur mantle, a white-gold crest glowing on her "
+             "shoulder, a long silver lance"),
+    # Generic promoted enemies (Act III): hardened veteran mercenaries, the tier 2 of the bandit looks.
+    "enemy_paladin": dict(weapon="lance", sets=("map",), template="horse",
+        desc="veteran mercenary paladin in dark steel plate with a closed helm, a dark red tabard, riding a black "
+             "warhorse with dark red barding, faint purple glow in the visor, steel lance"),
+    "enemy_sniper": dict(weapon="bow", sets=("map",),
+        desc="a single veteran mercenary sniper standing alone, one person only, dark hooded cloak, a red scarf over the lower face, studded leather armour, "
+             "quiver on the back, tall dark recurve longbow"),
+    "enemy_valkyrie": dict(weapon="staff", sets=("map",), template="horse",
+        desc="mercenary battle cleric woman always seated on a grey horse in dark red barding, dark plate breastplate "
+             "over dark red robes, a hood, faint purple glow in the eyes, a dark iron staff"),
+    "enemy_swordmaster": dict(weapon="sword", sets=("map",),
+        desc="veteran mercenary swordmaster, long dark hair tied back, scarred face, dark red wrapped coat with "
+             "leather bracers and a sash, faint purple glow in the eyes, a long curved steel sword"),
+    "enemy_warrior": dict(weapon="axe", sets=("map",),
+        desc="hulking veteran mercenary warrior, horned iron helm, thick black beard, dark chainmail with a fur mantle, "
+             "bare muscular arms, faint purple glow in the eyes, huge steel battle axe"),
+    "enemy_sage": dict(weapon="anima", sets=("map",),
+        desc="veteran rogue sage, older man with a grey beard, deep red and black hooded robes with gold trim, faint "
+             "purple glow in the eyes, holding an open red tome with a flame above the free hand"),
 }
 
 # Later outfits (tier 3+) go here until their classes exist.
@@ -583,7 +661,45 @@ PROP_STYLES = {
     "chest_front": ("single object, Game Boy Advance Fire Emblem map sprite style, 16-bit pixel art, straight-on front "
                     "view, bold dark outline, flat bright colours, transparent background, centered, fills the frame"),
 }
-PROP_SIZE = {"chest_front": 32, "tuft": 32, "flowers": 32, "crop": 32, "bush": 32, "wheat": 32, "fence": 32, "hedge": 32,
+# Session 17, second try (user: chest_front was "too big, and in a different art style to everything else"): the shared
+# prop style with only the angle changed, and the old three-quarter chest as the style image so palette and detail match.
+PROPS.update({
+    "chest_front2": "one closed wooden treasure chest with a rounded lid, iron bands and a heavy iron lock, the front of "
+                    "the chest facing the viewer, sitting on the ground",
+})
+PROP_STYLES["chest_front2"] = PROP_STYLE.replace("seen from a low three-quarter top-down angle",
+                                                 "seen from the front at a low angle, its front face toward the viewer")
+PROP_STYLE_REFS = {"chest_front2": APPROVED / "refs" / "chest_style.png"}
+PROP_SIZE_EXTRA = {"chest_front2": 32}
+
+# Session 17: Ch 14's snowy trees (ArtSet "snow" props: MapView uses snow_<id> art where it exists) and the ships' masts
+# in Ch 12 (MapView stands one in the middle of each ship deck).
+PROPS.update({
+    "snow_pine": "one tall dark green pine tree heavy with white snow on its branches, short brown trunk",
+    "mast": "one tall wooden ship's mast with a furled cream canvas sail tied to its yard, rope rigging running down "
+            "both sides, a small red pennant at the top, standing upright",
+})
+# Session 17: item icons for the shop, inventories and the unit panel (UI/IconLibrary: icon_<id>.png in assets/ui/icons).
+ICON_STYLE = ("Game Boy Advance Fire Emblem inventory item icon, 16-bit pixel art, one single object drawn diagonally "
+              "and centered, bold dark outline, bright flat colours with simple shading, transparent background, fills "
+              "the frame")
+ICONS = {
+    "icon_sword": "a straight steel sword with a brown leather grip and a gold crossguard",
+    "icon_lance": "a long steel-tipped spear with a wooden shaft",
+    "icon_axe": "a single-bladed steel battle axe with a wooden handle",
+    "icon_bow": "a curved wooden longbow with its string",
+    "icon_claw": "three curved bone-white beast claws",
+    "icon_tome_red": "a closed red leather spell book with a gold flame emblem on the cover",
+    "icon_tome_white": "a closed white and gold leather spell book with a shining light emblem on the cover",
+    "icon_potion": "a small round glass bottle of glowing green healing potion with a cork",
+    "icon_booster": "a sparkling blue crystal gem",
+    "icon_key": "an old iron key with a round bow",
+    "icon_armor": "a steel breastplate armour piece",
+    "icon_ring": "a gold ring set with a red gemstone",
+}
+PROPS.update(ICONS)
+PROP_STYLES.update({k: ICON_STYLE for k in ICONS})
+PROP_SIZE = {**{k: 32 for k in ICONS}, **PROP_SIZE_EXTRA, "chest_front": 32, "tuft": 32, "flowers": 32, "crop": 32, "bush": 32, "wheat": 32, "fence": 32, "hedge": 32,
              "fence_straight": 32, "wagon": 32, "stall": 32, "crates": 32, "barrels": 32, "cart": 32, "rubble": 32, "chest": 32,
              "tuft_s": 16, "flowers_s": 16, "crop_s": 16, "bush_s": 24, "cottage_s": 32, "peak_s": 32, "reed_s": 16, "stilt_house_s": 32}  # others are 64
 
@@ -612,4 +728,10 @@ TILESETS = {
                 ("house", "red tiled cottage roof"),
                 ("chapel", "grey slate chapel roof"),
                 ("cliff", "brown earth cliff face with stones")],
+    # Session 17: Ch 14's Dravenhold citadel in the snow (ArtSet "snow": MapView draws snow_<tile> where it exists).
+    "snow": [("plain", "fresh white snow covering the ground, a few grass tips poking through, soft blue shadows"),
+             ("road", "a trodden snowy road of grey cobbles showing through packed snow and slush, no edges, fills the "
+                      "whole tile"),
+             ("forest", "snowy ground under pine trees, white snow with scattered brown pine needles and twigs"),
+             ("wall", "the top of a grey stone castle wall seen from above, capped with a thick layer of white snow")],
 }

@@ -34,7 +34,18 @@ _Last updated: 2026-10-30 (session 17)._
   silver, more risen); selecting a unit marks the cells only it can set off in yellow (Aldric's seal plinths); chests
   redrawn straight on to the camera (prop `chest_front`, takes 0/3/8/11, paid by subscription generations, the
   ≈ $17.04 untouched; `manifest.PROP_STYLES` gives a prop its own style). Ch 15 too easy with Black Steel: Hollowed
-  level 18–19 with silver; the goal on escape-all maps is just "Escape!". Neither rebalance is hand-tested yet.
+  level 18–19 with silver; the goal on escape-all maps is just "Escape!". **Both hand-played again from slot 3: the
+  user signed them off ("chapter 15 and the side mission feel a lot better now").**
+- **Art push before Act III (user: "everything done and polished before moving onto act 3"):** `generate.py`
+  downloads in parallel (16 files, 4 characters at once; ~15 s for 4 characters, was ~4 min) and skips characters
+  already on disk unless `--overwrite` (a re-fetch undid Sable's hand-cleaned frames once; restored from git). New
+  manifest entries: `halde_sniper` (her missing tier 2), the 13 Crestbound outfits, `enemy_paladin/_sniper/_valkyrie/
+  _swordmaster/_warrior/_sage`, 12 `ICONS`, `mast`, `snow_pine`, `chest_front2` (the old chest as its style image,
+  `PROP_STYLE_REFS`) and the `snow` tile set. Map looks: 17 good at the first take; Tamsin's, Pip's and the enemy
+  Sniper's drew two figures (old takes kept as `map:<id>_take1`, redone "a single ... one person only").
+  Code: Ch 14 `ArtSet = "snow"` (MapView draws `<set>_<tile>` / `<set>_<prop>` art where it exists), ship hulls and
+  rails and masts for Ch 12, item icons (`UI/ItemIcons`), level-up / severance sparkles, the Dominion aura, chests
+  drawn at 70%.
 
 ## Next (plan for session 18)
 1. **Hand playtest Ch 15 from slot 3** (`--load=3`: real prep screen, 10 units). If too hard at 10: the two door

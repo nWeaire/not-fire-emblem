@@ -393,6 +393,51 @@ public partial class UnitView : Node3D
         }
     }
 
+    private MeshInstance3D? _dominion;
+    private static ShaderMaterial? _dominionMaterial;
+
+    /// <summary>
+    /// A slow purple pulse on the ground under a unit held by a crest-bearer's Dominion (its +2 Str/Def from the
+    /// bearer standing near). Session 17 polish: before, only the forecast's numbers showed it.
+    /// </summary>
+    public void SetDominated(bool dominated)
+    {
+        if (!dominated)
+        {
+            _dominion?.QueueFree();
+            _dominion = null;
+            return;
+        }
+        if (_dominion is not null)
+            return;
+        _dominionMaterial ??= new ShaderMaterial
+        {
+            Shader = new Shader
+            {
+                Code = """
+                    shader_type spatial;
+                    render_mode unshaded, blend_add, depth_draw_never, cull_disabled, shadows_disabled;
+                    void fragment() {
+                        float r = length(UV * 2.0 - 1.0);
+                        float ring = smoothstep(0.45, 0.7, r) * (1.0 - smoothstep(0.82, 1.0, r));
+                        float pulse = 0.55 + 0.45 * sin(TIME * 2.6);
+                        ALBEDO = vec3(0.62, 0.28, 0.95);
+                        ALPHA = ring * pulse * 0.85;
+                    }
+                    """,
+            },
+        };
+        _dominion = new MeshInstance3D
+        {
+            Mesh = new QuadMesh { Size = new Vector2(0.9f, 0.9f) },
+            MaterialOverride = _dominionMaterial,
+            Rotation = new Vector3(-Mathf.Pi / 2f, 0f, 0f),
+            Position = new Vector3(0f, 0.02f, 0f),
+            CastShadow = GeometryInstance3D.ShadowCastingSetting.Off,
+        };
+        AddChild(_dominion);
+    }
+
     /// <summary>Reinforcements fade in from above.</summary>
     public async Task Appear()
     {

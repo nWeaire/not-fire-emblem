@@ -526,6 +526,9 @@ public partial class BattleEventPlayer : Node
     {
         // A crest's fall severs its hold; a fallen ringleader (Ch 8's agitators) just leaves a crowd that calms down.
         bool crest = Battle.State.TryUnit(s.BearerId) is { CrestBearer: true };
+        // The crest's light bursts out of where its bearer fell.
+        if (crest && Battle.State.TryUnit(s.BearerId) is { } bearer)
+            _ = Sparkles(Battle.CellWorld(bearer.Pos) + Vector3.Up * 0.6f, SeverColors, 46, 40f, 70f, burst: true);
         await Battle.Hud.ShowBanner(crest ? "Severed!" : "Calmed!", new Color(0.85f, 0.75f, 1f), 0.5f);
         foreach (var id in s.Stunned)
         {
@@ -565,6 +568,8 @@ public partial class BattleEventPlayer : Node
             var stats = Battle.State.Stats(unit);
             Battle.ViewOf(x.UnitId)?.SetHp(unit.CurrentHp, stats.HP);
             AudioDirector.PlaySfx("level_up");
+            if (Battle.ViewOf(x.UnitId) is { } leveled)
+                _ = Sparkles(leveled.GlobalPosition + Vector3.Up * 0.6f, LevelUpColors, 34, 34f, 80f, burst: true);
             await Battle.Hud.ShowLevelUp(unit.Name, Battle.State.Db.Class(unit.State.ClassId).Name, level, stats);
         }
     }
@@ -585,30 +590,43 @@ public partial class BattleEventPlayer : Node
     }
 
     /// <summary>Green and white pixel sparkles rising round a healed unit (screen space, so they keep their size).</summary>
-    private async Task HealSparkles(Vector3 world)
+    private Task HealSparkles(Vector3 world) =>
+        Sparkles(world, new[] { Colors.White, new Color(0.7f, 1f, 0.75f), new Color(0.35f, 0.9f, 0.45f) }, 18, 28f, 55f);
+
+    private static readonly Color[] LevelUpColors = { Colors.White, new(1f, 0.92f, 0.55f), new(1f, 0.78f, 0.25f) };
+    private static readonly Color[] SeverColors = { Colors.White, new(0.85f, 0.7f, 1f), new(0.62f, 0.28f, 0.95f) };
+
+    /// <summary>
+    /// Pixel sparkles rising round a point (screen space, so they keep their size): heals (green), level-ups (gold,
+    /// session 17) and a severed crest (purple and white, session 17). <paramref name="burst"/> also throws them
+    /// outward first, for the bigger moments.
+    /// </summary>
+    private async Task Sparkles(Vector3 world, Color[] colors, int count, float spread, float rise, bool burst = false)
     {
         var camera = Battle.Camera.Camera;
         var layer = new Control { MouseFilter = Control.MouseFilterEnum.Ignore };
         Battle.Hud.AddChild(layer);
         var rng = new RandomNumberGenerator { Seed = (ulong)Engine.GetProcessFrames() };
-        var colors = new[] { Colors.White, new Color(0.7f, 1f, 0.75f), new Color(0.35f, 0.9f, 0.45f) };
         var sparks = new List<(ColorRect Rect, Vector2 Offset, float Delay, float Rise)>();
-        for (int i = 0; i < 18; i++)
+        for (int i = 0; i < count; i++)
         {
             float s = rng.RandiRange(1, 2) * 3f;
             var rect = new ColorRect { Color = colors[rng.RandiRange(0, colors.Length - 1)], Size = new Vector2(s, s), MouseFilter = Control.MouseFilterEnum.Ignore };
             layer.AddChild(rect);
-            sparks.Add((rect, new Vector2(rng.RandfRange(-28f, 28f), rng.RandfRange(-20f, 30f)), rng.RandfRange(0f, 0.35f), rng.RandfRange(40f, 70f)));
+            var offset = burst
+                ? Vector2.FromAngle(rng.RandfRange(0f, Mathf.Tau)) * rng.RandfRange(spread * 0.6f, spread * 1.6f)
+                : new Vector2(rng.RandfRange(-spread, spread), rng.RandfRange(-20f, 30f));
+            sparks.Add((rect, offset, rng.RandfRange(0f, burst ? 0.15f : 0.35f), rng.RandfRange(rise * 0.7f, rise * 1.3f)));
         }
         const float life = 0.9f;
         for (float t = 0f; t < life + 0.35f; t += (float)GetProcessDeltaTime())
         {
             var centre = camera.UnprojectPosition(world);
-            foreach (var (rect, offset, delay, rise) in sparks)
+            foreach (var (rect, offset, delay, up) in sparks)
             {
                 float k = Mathf.Clamp((t - delay) / life, 0f, 1f);
                 rect.Visible = t >= delay && k < 1f;
-                rect.Position = centre + offset + new Vector2(0f, -rise * k);
+                rect.Position = centre + offset * (burst ? 0.4f + k : 1f) + new Vector2(0f, -up * k);
                 rect.Modulate = Colors.White with { A = 1f - k };
             }
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);

@@ -90,3 +90,25 @@ seraphine_valkyrie 0 (session 15)
 ysra_wyvern_lord 2 (session 15)
 pip_rogue 0 (session 15)
 caddoc portrait: take 1 (session 15)
+
+# Session 17: Halde's tier 2, the 13 Crestbound and 6 promoted enemies (takes in tools/art/takes/stills/<id>/).
+halde_sniper 1
+rowan_high_lord 1
+kai_vanguard 1
+mira_oracle 1
+elise_crestscribe 1
+brann_ironheart 1
+tamsin_wildstalker 4
+halde_corsair 1
+dorran_bulwark 2  # the second set (take1 drew a sword)
+sable_blade_dancer 1
+wren_skyward 0
+pip_shadowstep 1
+seraphine_lightbearer 1
+ysra_dragonheart 2
+enemy_paladin 1
+enemy_sniper 1
+enemy_valkyrie 0
+enemy_swordmaster 0
+enemy_warrior 1
+enemy_sage 2

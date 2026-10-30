@@ -567,7 +567,10 @@ public partial class BattleController : Node3D
             }
         }
         foreach (var unit in State.Living)
+        {
             ViewOf(unit.Id)?.SetHidden(!State.CanSee(Faction.Player, unit));
+            ViewOf(unit.Id)?.SetDominated(State.IsDominated(unit));
+        }
 
         var markers = new List<(GridPos, Color)>();
         var goals = State.Map.Goals;

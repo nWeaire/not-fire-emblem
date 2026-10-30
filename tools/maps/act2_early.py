@@ -990,7 +990,8 @@ def ch14():
     slots = [(15, 26), (16, 26), (14, 26), (17, 26), (15, 27), (16, 27), (14, 27), (17, 27), (13, 26), (18, 26)]
     map_tres("ch14", "Chapter 14: The Empress Unbound", g.rows(), g.height_rows(), spawns, "boss vossk", [],
              triggers, slots, background="dravenhold_citadel", highlights=highlights)
-    finish("ch14", {"Lighting": "snow"})
+    # Session 17: snow tiles and snowy pines (MapView uses snow_<tile> / snow_<prop> art where it exists).
+    finish("ch14", {"Lighting": "snow", "ArtSet": "snow"})
 
 
 # ------------------------------------------------------------------ Chapter 15: The Grey Chancellor (26×22)

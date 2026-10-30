@@ -59,12 +59,19 @@ or a rider without the horse), then without `--no-anims`, `battle_stills.py`, pi
 `keep_figure.py` (`--pale`, `--arcs`, `--drop-bright`; `--battle` for battle sprites) to erase painted-in effects. The
 download step fetches one character at a time (~1 min each): parallelise it before a big batch.
 
+**All four groups done in session 17** (≈ $10.10; ≈ $6.70 left): map + battle sprites for `halde_sniper` (her
+missing tier 2), the 13 Crestbound outfits and `enemy_paladin/_sniper/_valkyrie/_swordmaster/_warrior/_sage` (picks in
+`approved/battle_picks.txt`; Dorran's Bulwark was redone because take set one drew a sword); 12 item icons; snow tiles
+and snowy pines (Ch 14, `ArtSet = "snow"`); masts and code-drawn hulls for Ch 12's ships; chests redrawn front-on in
+the old chest's style. Effects in painted frames were erased (`keep_figure.py`) or the frames swapped/dropped by hand;
+originals in `takes/map_raw/`. An enemy Troubadour look wasn't made (no map uses one).
+
 | # | Group | Ids | ≈ Cost |
 |---|---|---|---|
-| 1 | Tier 3 Crestbound | 13 outfits (row below), seen after Ch 13 | $6.10 |
-| 2 | Generic promoted enemies | `enemy_paladin`, `_sniper`, `_troubadour`/`_valkyrie`, `_swordmaster`, `_warrior`, `_sage` | $2.80 |
-| 3 | Polish | weapon/item icons, crest effects, level-up flourish (P2/P3 rows) | $0.80 |
-| 4 | Needs code first | snow terrain tiles (Ch 14), ship hull props (Ch 12) | $0.30 |
+| 1 | Tier 3 Crestbound | 13 outfits (row below), seen after Ch 13 | done |
+| 2 | Generic promoted enemies | `enemy_paladin`, `_sniper`, `_valkyrie`, `_swordmaster`, `_warrior`, `_sage` | done |
+| 3 | Polish | weapon/item icons, crest effects, level-up flourish (P2/P3 rows) | done |
+| 4 | Needs code first | snow terrain tiles (Ch 14), ship hulls (Ch 12) | done |
 
 Act III's new cast, enemies and backgrounds: probably another **$10–15**. Known leftovers to touch up by hand: a faint
 smoke wisp in the Imperial mage's battle attack; the Veiled agitator (tome)'s critical holds a stick-like shape where the
@@ -107,14 +114,14 @@ may want `SpriteLibrary.MapScales` like the Gloam Shade.
 | P1 | `boss_castellan` (map + battle), portrait `castellan` | Prince Castellan: heavy, silver-plated, rings on every finger, three purple crests (both hands, throat) | `enemy_general` → `enemy_knight` | Ch 13 |
 | P1 | Background `solmere_palazzo` | A gilded great hall with mirrors; gardens on cliffs above the sea | `dain_hall` | Ch 13 |
 | P1 | Tier 2: `dorran_general`, `sable_swordmaster`, `wren_falcon_knight` (map + battle) | The classes added in session 12 | their tier 1 looks (`Outfits.Earlier`) | after promotion |
-| P2 | Tier 3 Crestbound outfits: `rowan_high_lord`, `kai_vanguard`, `mira_oracle`, `elise_crestscribe`, `brann_ironheart`, `tamsin_wildstalker`, `halde_corsair`, `dorran_bulwark`, `sable_blade_dancer`, `wren_skyward`, `pip_shadowstep`, `seraphine_lightbearer`, `ysra_dragonheart` | Grander again than tier 2 (ART_DIRECTION, outfits follow class tier) | their tier 2 looks (`Outfits.Earlier`) | Ch 13 on |
+| Done (session 17) | Tier 3 Crestbound outfits: `rowan_high_lord`, `kai_vanguard`, `mira_oracle`, `elise_crestscribe`, `brann_ironheart`, `tamsin_wildstalker`, `halde_corsair`, `dorran_bulwark`, `sable_blade_dancer`, `wren_skyward`, `pip_shadowstep`, `seraphine_lightbearer`, `ysra_dragonheart` | Grander again than tier 2 (ART_DIRECTION, outfits follow class tier) | their tier 2 looks (`Outfits.Earlier`) | Ch 13 on |
 | P1 | `boss_vossk` (map + battle), portraits `vossk`, `ysolde` | Vossk: a grey-robed, hollow-cheeked man with crests crawling over both hands; Ysolde: a tall empress in black iron and white fur, silver lance, on a black wyvern | `enemy_binder`; Ysolde `enemy_wyvern_lord` → `enemy_pegasus_knight` | Ch 14 |
 | P1 | `enemy_veiled` (mage) | Veiled caster in grey and purple robes | `enemy_mage` | Ch 14 |
-| P1 | Snow terrain tiles (plain, road, forest in snow) and a `dravenhold_citadel` background | Ch 14's citadel; the map uses `Lighting = "snow"` (a cold wash and snowfall) until then | `dain_hall` backdrop | Ch 14 |
+| Done (session 17) | Snow terrain tiles (plain, road, forest in snow, wall tops; `snow_*`) and a `dravenhold_citadel` background | Ch 14's citadel; the map uses `Lighting = "snow"` (a cold wash and snowfall) until then | `dain_hall` backdrop | Ch 14 |
 | P1 | `boss_morvane` (map + battle), portrait `morvane` (also listed above) | The Grey Chancellor in his true light: grey robes, gentle face, a hundred crests faint under his skin | `enemy_binder` | Ch 15 |
 | P1 | `enemy_hollowed` (map + battle) | The Hollowed: soldiers grey as ash, eyes empty, armour hanging off them, any blade they found | `enemy_soldier` | Ch 15, Act III |
 | P2 | Background `hall_ruin` | Calder's great hall after the battle: overturned tables, a broken door | `dain_hall` | Ch 15 |
-| P2 | Ship hull props | Hull sides under the ship decks in Ch 12 (decks are bridge cells today) | — | Ch 12 |
+| Done (session 17, code) | Ship hulls | Raised bridge blocks (Ch 12's decks) get hull-plank sides and a low hull rail along edges over open water (`MapView.AddBulwarks`, texture `assets/textures/hull_side.png` from `tools/art/hull_texture.py`), plus a `mast` prop in the middle of each deck of 9+ cells (`AddMasts`) | — | Ch 12 |
 | P2 | `seraphine_valkyrie`, `ysra_wyvern_lord` | Tier-2 looks | — | after promotion |
 | P2 | `pip_rogue` (map + battle) | Pip promoted: dark leathers, a proper sword, a grin | — | after promotion |
 | P2 | `calder_lodgings` background | The party's rooms in the capital (Act II hub) | `village_hall` | Act II hub |
@@ -161,7 +168,7 @@ Folder: `assets/textures/terrain/<terrainId>[_N].png` (32 px top-down; `_N` are 
 ## 6. UI
 | Priority | Item |
 |---|---|
-| P2 | Icons: weapon types (sword, lance, axe, bow, tome, staff, fist), items (vulnerary, boosters, seals), stats |
+| Session 17 | Icons: `assets/ui/icons/icon_<kind>.png` (sword, lance, axe, bow, claw, tome_red, tome_white, potion, booster, key, armor, ring; prompts `manifest.ICONS`), shown by `UI/ItemIcons` in the hub's party, town and shop screens and the battle unit panel (text glyphs until the art exists). Stat icons not done |
 | Done | Crest emblems (`assets/crests/`), shown in the hub and unit panel; the Clean UI theme and fonts |
 | P3 | Title logo; grid cursor and selection arrow art |
 
@@ -169,8 +176,8 @@ Folder: `assets/textures/terrain/<terrainId>[_N].png` (32 px top-down; `_N` are 
 | Priority | Item |
 |---|---|
 | Done (session 7, in code) | Spell effects: Fire (fireball + embers), Shadow (orbs gather and collapse), Wind, Thunder (bolt), Light; Heal sparkles on the map (`BattleSceneView.CastSpell`, `BattleEventPlayer.HealSparkles`). Pixel-art effect sprites could replace them later. |
-| P2 | Crest effects: the crest rising from a fallen Binder, Ward / Rally / Mend / Dawn auras, Severance burst |
-| P3 | Level-up flourish; hit sparks; Dominion aura on dominated enemies |
+| Done (session 13 / 17, code) | Crest effects: Rowan's crest rising and the Ward / Rally / Mend / Dawn rings (`CrestBurst`, session 13); a purple-and-white Severance burst where a crest-bearer falls (session 17, `BattleEventPlayer.Sparkles`) |
+| Done (session 17, code) | Level-up flourish (gold sparkle burst, the panel pops in); Dominion aura (a slow purple ring under units a bearer holds, `UnitView.SetDominated`). Hit sparks were already on the battle screen (`assets/vfx/`) |
 
 ## 8. Audio
 Done in session 5: all music and sound effects are synthesized by `tools/audio/build.py` (instruments in

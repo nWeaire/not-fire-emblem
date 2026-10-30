@@ -6752,6 +6752,74 @@
           "type": "generations"
         }
       },
+      "map:brann_ironheart": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "70e3635c-2910-412c-a41c-ecb184a1adf4",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01253524817360772
+              },
+              {
+                "type": "usd",
+                "usd": 0.013944058312310114
+              },
+              {
+                "type": "usd",
+                "usd": 0.015632430288526747
+              },
+              {
+                "type": "usd",
+                "usd": 0.012149982690811158
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "bc3664f3-d8e8-4ead-a1a6-9c83462f7e69",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011257455984751384
+              },
+              {
+                "type": "usd",
+                "usd": 0.009838552448484632
+              },
+              {
+                "type": "usd",
+                "usd": 0.011036694765090942
+              },
+              {
+                "type": "usd",
+                "usd": 0.025095827976862592
+              }
+            ]
+          }
+        },
+        "character_id": "6ff1a510-d9ba-4d81-969a-eb4b43866a4d",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:brann_warrior": {
         "animations": {
           "attack": {
@@ -6818,6 +6886,74 @@
         "usage": {
           "generations": 10.0,
           "type": "generations"
+        }
+      },
+      "map:dorran_bulwark": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "b56cd6b5-66c7-4d3c-9157-d854df40c2a9",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.012096925920910306
+              },
+              {
+                "type": "usd",
+                "usd": 0.01673617431852553
+              },
+              {
+                "type": "usd",
+                "usd": 0.014415516058603924
+              },
+              {
+                "type": "usd",
+                "usd": 0.013961272266176012
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "0db14df0-e0d7-48ce-b68a-16f5c68b8517",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.010766779926088122
+              },
+              {
+                "type": "usd",
+                "usd": 0.008909329493840535
+              },
+              {
+                "type": "usd",
+                "usd": 0.009770732005437216
+              },
+              {
+                "type": "usd",
+                "usd": 0.011940699603822496
+              }
+            ]
+          }
+        },
+        "character_id": "940ec28a-dd72-493b-970c-93db577e2876",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
         }
       },
       "map:dorran_general": {
@@ -6950,6 +7086,74 @@
           }
         },
         "character_id": "e03a813c-58c2-44e9-aed0-a22f6bb3e81e",
+        "status": "completed",
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
+      "map:elise_crestscribe": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "25e23ef1-9571-4498-9ff1-c6fafd3117a5",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.012787698984146119
+              },
+              {
+                "type": "usd",
+                "usd": 0.01787325437863668
+              },
+              {
+                "type": "usd",
+                "usd": 0.014386937697728475
+              },
+              {
+                "type": "usd",
+                "usd": 0.01739985129568312
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "642a50de-12d7-485a-bd84-02b8bfa91404",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008829385121663412
+              },
+              {
+                "type": "usd",
+                "usd": 0.008652414904700385
+              },
+              {
+                "type": "usd",
+                "usd": 0.008662253379821778
+              },
+              {
+                "type": "usd",
+                "usd": 0.012784087419509888
+              }
+            ]
+          }
+        },
+        "character_id": "aef4dadb-2b72-4a0b-bcd8-dcd7146594b3",
         "status": "completed",
         "usage": {
           "generations": 10.0,
@@ -9627,6 +9831,74 @@
           "type": "generations"
         }
       },
+      "map:enemy_paladin": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "a2b82f41-9de7-4bfc-83c3-b1f6b2caf521",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011941125048531426
+              },
+              {
+                "type": "usd",
+                "usd": 0.012736641565958658
+              },
+              {
+                "type": "usd",
+                "usd": 0.014752690765592786
+              },
+              {
+                "type": "usd",
+                "usd": 0.016824945555792916
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "c0b5c4b5-d547-4829-a76d-85a26e1b9ec2",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.010271904230117798
+              },
+              {
+                "type": "usd",
+                "usd": 0.01178951915105184
+              },
+              {
+                "type": "usd",
+                "usd": 0.009676708698272706
+              },
+              {
+                "type": "usd",
+                "usd": 0.012218214829762777
+              }
+            ]
+          }
+        },
+        "character_id": "b917a1b0-5605-4cd4-a360-575b846e0e67",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:enemy_pegasus_knight": {
         "animations": {
           "attack": {
@@ -9695,6 +9967,74 @@
           "type": "generations"
         }
       },
+      "map:enemy_sage": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "1942fe73-7b6c-4545-8d7b-9b33d71fe785",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01570091316435072
+              },
+              {
+                "type": "usd",
+                "usd": 0.017636184957292345
+              },
+              {
+                "type": "usd",
+                "usd": 0.01509207778506809
+              },
+              {
+                "type": "usd",
+                "usd": 0.013466579304801093
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "29eb658f-294f-49bb-91c0-586b52854a65",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009868724902470906
+              },
+              {
+                "type": "usd",
+                "usd": 0.010735180960761176
+              },
+              {
+                "type": "usd",
+                "usd": 0.00891329918967353
+              },
+              {
+                "type": "usd",
+                "usd": 0.009409090677897136
+              }
+            ]
+          }
+        },
+        "character_id": "828f3538-eaf6-4305-a8cb-0b6e7e206a32",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:enemy_sellsword": {
         "animations": {
           "attack": {
@@ -9757,6 +10097,82 @@
           }
         },
         "character_id": "7ce0e96a-a006-4e23-b946-550ad8ebdd05",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:enemy_sniper": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "a4e96c0e-14ae-4ec8-88e8-a4421eadfa24",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.04035582976871067
+              },
+              {
+                "type": "usd",
+                "usd": 0.017136092609829373
+              },
+              {
+                "type": "usd",
+                "usd": 0.014515598191155329
+              },
+              {
+                "type": "usd",
+                "usd": 0.011537780788209703
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "90125fd2-147c-4ea7-b963-61360ed01828",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.010046744134691027
+              },
+              {
+                "type": "usd",
+                "usd": 0.009974743127822877
+              },
+              {
+                "type": "usd",
+                "usd": 0.009382058514489068
+              },
+              {
+                "type": "usd",
+                "usd": 0.00876922451125251
+              }
+            ]
+          }
+        },
+        "character_id": "554dd69d-c4e4-4b14-b600-2db2355f9f3f",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:enemy_sniper_take1": {
+        "character_id": "1e5c1202-610a-40c0-bd57-3d24c7548dea",
         "status": "completed",
         "usage": {
           "type": "usd",
@@ -9831,6 +10247,74 @@
           "type": "generations"
         }
       },
+      "map:enemy_swordmaster": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "e62df540-e3e2-493a-9349-b6bc5cb6f5a8",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.0130673848523034
+              },
+              {
+                "type": "usd",
+                "usd": 0.019074676434199016
+              },
+              {
+                "type": "usd",
+                "usd": 0.014335323095321657
+              },
+              {
+                "type": "usd",
+                "usd": 0.016808083295822143
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "1de110a1-31eb-40a5-8703-6b76fb5590d6",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011531275669733684
+              },
+              {
+                "type": "usd",
+                "usd": 0.009713079929351807
+              },
+              {
+                "type": "usd",
+                "usd": 0.00905191034740872
+              },
+              {
+                "type": "usd",
+                "usd": 0.009063314543830024
+              }
+            ]
+          }
+        },
+        "character_id": "0b9b173b-1ae2-4e05-b16d-6507a4ac63e1",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:enemy_thief": {
         "animations": {
           "attack": {
@@ -9893,6 +10377,74 @@
           }
         },
         "character_id": "cdbcb4d5-9a4c-4bb0-8d28-5faae999049a",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:enemy_valkyrie": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "974f28b1-8cb1-43a5-aa76-da4bd1ae28ef",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011172487311893041
+              },
+              {
+                "type": "usd",
+                "usd": 0.012431340561972724
+              },
+              {
+                "type": "usd",
+                "usd": 0.012262588845358954
+              },
+              {
+                "type": "usd",
+                "usd": 0.011540725231170654
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "63c892d8-3aff-422e-a464-f56323a86bcb",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.012508761723836264
+              },
+              {
+                "type": "usd",
+                "usd": 0.014330592367384168
+              },
+              {
+                "type": "usd",
+                "usd": 0.01223934186829461
+              },
+              {
+                "type": "usd",
+                "usd": 0.012543435864978367
+              }
+            ]
+          }
+        },
+        "character_id": "850b0e19-eb34-4c8c-88fe-6d518e6c5361",
         "status": "completed",
         "usage": {
           "type": "usd",
@@ -10587,6 +11139,74 @@
           "usd": 0.08
         }
       },
+      "map:enemy_warrior": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "d8a444d5-41db-4d66-8c54-19c608754152",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.013672692007488677
+              },
+              {
+                "type": "usd",
+                "usd": 0.01776549013455709
+              },
+              {
+                "type": "usd",
+                "usd": 0.015315678305096097
+              },
+              {
+                "type": "usd",
+                "usd": 0.014418136146333482
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "1cd44da9-9b68-4165-93c4-be877992e9db",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009509103828006321
+              },
+              {
+                "type": "usd",
+                "usd": 0.00948443471060859
+              },
+              {
+                "type": "usd",
+                "usd": 0.009106024238798353
+              },
+              {
+                "type": "usd",
+                "usd": 0.012603362639745076
+              }
+            ]
+          }
+        },
+        "character_id": "33573f66-0e48-43e7-bb7e-d5c8e94c9d40",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:enemy_wyvern_rider": {
         "animations": {
           "attack": {
@@ -10717,6 +11337,142 @@
           }
         },
         "character_id": "afdd23b4-21d6-45bc-a866-f06f4ff26f59",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:halde_corsair": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "64a36a8b-095c-4d4f-b7b4-2ce95ae6e4a3",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.012106917301813762
+              },
+              {
+                "type": "usd",
+                "usd": 0.014623119698630439
+              },
+              {
+                "type": "usd",
+                "usd": 0.011097563399208917
+              },
+              {
+                "type": "usd",
+                "usd": 0.013590488354365032
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "7fe19c42-73f0-4683-ac6f-b1ee2864eb5f",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009404481410980225
+              },
+              {
+                "type": "usd",
+                "usd": 0.008665387074152629
+              },
+              {
+                "type": "usd",
+                "usd": 0.01303020034896003
+              },
+              {
+                "type": "usd",
+                "usd": 0.009838294956419203
+              }
+            ]
+          }
+        },
+        "character_id": "7cbbbb80-2d54-4b76-9524-58f9c3cb197e",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:halde_sniper": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "32c05432-0721-40fd-b001-498f497e7015",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01088807045088874
+              },
+              {
+                "type": "usd",
+                "usd": 0.015217088831795587
+              },
+              {
+                "type": "usd",
+                "usd": 0.016862528800964355
+              },
+              {
+                "type": "usd",
+                "usd": 0.012211280557844375
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "81024ed3-6730-46fd-9f7f-31b0956fbe7a",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011088058392206827
+              },
+              {
+                "type": "usd",
+                "usd": 0.011166548490524293
+              },
+              {
+                "type": "usd",
+                "usd": 0.008989803049299453
+              },
+              {
+                "type": "usd",
+                "usd": 0.008965750694274903
+              }
+            ]
+          }
+        },
+        "character_id": "014ed03c-d41f-4832-b2f3-771a572a4235",
         "status": "completed",
         "usage": {
           "type": "usd",
@@ -11194,6 +11950,74 @@
           "usd": 0.08
         }
       },
+      "map:kai_vanguard": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "988b6846-d440-4685-82fc-7d9435261dbc",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011433099746704102
+              },
+              {
+                "type": "usd",
+                "usd": 0.013043962584601509
+              },
+              {
+                "type": "usd",
+                "usd": 0.010508254289627076
+              },
+              {
+                "type": "usd",
+                "usd": 0.013620854748619928
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "843810f7-d519-44c7-bd30-503d544a5e63",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.010322142998377483
+              },
+              {
+                "type": "usd",
+                "usd": 0.012010543929206
+              },
+              {
+                "type": "usd",
+                "usd": 0.011573220332463583
+              },
+              {
+                "type": "usd",
+                "usd": 0.01266605798403422
+              }
+            ]
+          }
+        },
+        "character_id": "80c49041-ed94-4685-b8e7-609792db4517",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:mira_acolyte": {
         "adopted": true,
         "animations": {
@@ -11258,6 +12082,74 @@
         },
         "character_id": "87180fa6-c885-41fd-9b8a-0742d3c2f4bd",
         "status": "completed"
+      },
+      "map:mira_oracle": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "3277dc02-4eff-40d5-866b-e9a67362d698",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011185253832075331
+              },
+              {
+                "type": "usd",
+                "usd": 0.013474127054214479
+              },
+              {
+                "type": "usd",
+                "usd": 0.013485751840803358
+              },
+              {
+                "type": "usd",
+                "usd": 0.014588945812649197
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "c6d9bf58-0b8a-42c8-ac53-54bbf2b25d53",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.012093382623460557
+              },
+              {
+                "type": "usd",
+                "usd": 0.008886945830451118
+              },
+              {
+                "type": "usd",
+                "usd": 0.013636057032479179
+              },
+              {
+                "type": "usd",
+                "usd": 0.009173567771911622
+              }
+            ]
+          }
+        },
+        "character_id": "7642209f-4bdc-4401-82a4-464c293032b9",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
       },
       "map:mira_sage": {
         "animations": {
@@ -11502,6 +12394,82 @@
           "usd": 0.08
         }
       },
+      "map:pip_shadowstep": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "e1b1a987-abf8-489b-88d8-339b89010326",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01286099828614129
+              },
+              {
+                "type": "usd",
+                "usd": 0.011940375884373983
+              },
+              {
+                "type": "usd",
+                "usd": 0.01692098601659139
+              },
+              {
+                "type": "usd",
+                "usd": 0.014580054389105902
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "8eefaa51-53b8-429a-8deb-2e1f29add164",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009231640895207723
+              },
+              {
+                "type": "usd",
+                "usd": 0.01069031784269545
+              },
+              {
+                "type": "usd",
+                "usd": 0.009196591085857814
+              },
+              {
+                "type": "usd",
+                "usd": 0.008833803123897976
+              }
+            ]
+          }
+        },
+        "character_id": "328327ad-d5fa-49ed-9a64-c8040f37bfec",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:pip_shadowstep_take1": {
+        "character_id": "2b1dae64-961c-48fc-9595-0cc1dfe15111",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:pip_thief": {
         "animations": {
           "attack": {
@@ -11638,6 +12606,74 @@
           "type": "generations"
         }
       },
+      "map:rowan_high_lord": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "30e631fc-2dda-4d47-8df2-cfd489436dfa",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.015460474226209855
+              },
+              {
+                "type": "usd",
+                "usd": 0.01825244540638394
+              },
+              {
+                "type": "usd",
+                "usd": 0.011762887345419991
+              },
+              {
+                "type": "usd",
+                "usd": 0.011747048245535956
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "4cefcdaf-fb67-400a-9d61-3c9df84dcc92",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.013077983935674033
+              },
+              {
+                "type": "usd",
+                "usd": 0.011528320338990953
+              },
+              {
+                "type": "usd",
+                "usd": 0.0109157874584198
+              },
+              {
+                "type": "usd",
+                "usd": 0.008048443423377143
+              }
+            ]
+          }
+        },
+        "character_id": "1612028a-10f5-44c6-a6a6-409dea432bae",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:rowan_lord": {
         "animations": {
           "attack": {
@@ -11771,6 +12807,74 @@
         "character_id": "cc3f5f68-665d-49f3-bd00-71690f384851",
         "status": "completed"
       },
+      "map:sable_blade_dancer": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "86b55689-2de6-4881-9f77-a45b03233991",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.014189796977572972
+              },
+              {
+                "type": "usd",
+                "usd": 0.017543581750657823
+              },
+              {
+                "type": "usd",
+                "usd": 0.01826165148946974
+              },
+              {
+                "type": "usd",
+                "usd": 0.015445047219594322
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "21522e0b-aaff-4651-ba43-7731e4117dc2",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008948759979671903
+              },
+              {
+                "type": "usd",
+                "usd": 0.008550581057866415
+              },
+              {
+                "type": "usd",
+                "usd": 0.008367910120222304
+              },
+              {
+                "type": "usd",
+                "usd": 0.009099661800596449
+              }
+            ]
+          }
+        },
+        "character_id": "12212ead-e5ff-4ae0-a1c0-4c8d53b5f5d7",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:sable_myrmidon": {
         "animations": {
           "attack": {
@@ -11901,6 +13005,74 @@
           }
         },
         "character_id": "5b5c9e8f-305b-4229-b147-b6f4d16ecaac",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:seraphine_lightbearer": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "26248732-8465-4f58-8237-02f5408d6c8b",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.010703939040501913
+              },
+              {
+                "type": "usd",
+                "usd": 0.013540629519356622
+              },
+              {
+                "type": "usd",
+                "usd": 0.017051843881607055
+              },
+              {
+                "type": "usd",
+                "usd": 0.014928921673032974
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "6ea82c3c-92a2-43b1-84d1-26aedd2deed1",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.012617925590938993
+              },
+              {
+                "type": "usd",
+                "usd": 0.016835777706570097
+              },
+              {
+                "type": "usd",
+                "usd": 0.009661629968219333
+              },
+              {
+                "type": "usd",
+                "usd": 0.015597567319869995
+              }
+            ]
+          }
+        },
+        "character_id": "50c6db6c-d1fd-45a4-b5e4-d98d14e8ac70",
         "status": "completed",
         "usage": {
           "type": "usd",
@@ -12187,6 +13359,82 @@
           "type": "generations"
         }
       },
+      "map:tamsin_wildstalker": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "10ca4621-a65f-4225-a536-bcb97b3facf6",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01452783523665534
+              },
+              {
+                "type": "usd",
+                "usd": 0.013035054074393378
+              },
+              {
+                "type": "usd",
+                "usd": 0.01293877527448866
+              },
+              {
+                "type": "usd",
+                "usd": 0.013639325830671522
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "b82421ca-f1af-4a79-af39-6a6b7a97f20b",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.008701230923334758
+              },
+              {
+                "type": "usd",
+                "usd": 0.008551758474773831
+              },
+              {
+                "type": "usd",
+                "usd": 0.010072161912918091
+              },
+              {
+                "type": "usd",
+                "usd": 0.011989093409644234
+              }
+            ]
+          }
+        },
+        "character_id": "bd09e62c-a461-48d7-a2bd-0e808da1c9de",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:tamsin_wildstalker_take1": {
+        "character_id": "7562ef7e-b5af-427a-9990-6a49375790ce",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:wren_falcon_knight": {
         "animations": {
           "attack": {
@@ -12323,6 +13571,74 @@
           "usd": 0.08
         }
       },
+      "map:wren_skyward": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "5c54cbd6-ad02-426a-8ea8-965fc4968aa6",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.011614925437503391
+              },
+              {
+                "type": "usd",
+                "usd": 0.011557268063227336
+              },
+              {
+                "type": "usd",
+                "usd": 0.013081237898932563
+              },
+              {
+                "type": "usd",
+                "usd": 0.013490433163113064
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "b2e7556a-250b-4b89-82fa-8bba3a741e90",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.01670837285783556
+              },
+              {
+                "type": "usd",
+                "usd": 0.013164246930016412
+              },
+              {
+                "type": "usd",
+                "usd": 0.009559142139222886
+              },
+              {
+                "type": "usd",
+                "usd": 0.010523339112599691
+              }
+            ]
+          }
+        },
+        "character_id": "01d189ca-73ba-4c6e-938c-a25547818648",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "map:ysolde_wyvern_lord": {
         "animations": {
           "attack": {
@@ -12385,6 +13701,74 @@
           }
         },
         "character_id": "336c5cb5-7469-4568-8a2e-e5fbd8c677a7",
+        "status": "completed",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "map:ysra_dragonheart": {
+        "animations": {
+          "attack": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "6747bc36-f4cc-4a4d-9fd8-a08e7d7e31d1",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.012100326087739734
+              },
+              {
+                "type": "usd",
+                "usd": 0.011450410498513117
+              },
+              {
+                "type": "usd",
+                "usd": 0.013713605191972521
+              },
+              {
+                "type": "usd",
+                "usd": 0.013278465509414673
+              }
+            ]
+          },
+          "walk": {
+            "directions": [
+              "south",
+              "east",
+              "north",
+              "west"
+            ],
+            "group_id": "67551395-91d5-4326-b7e3-5033a50e5f53",
+            "jobs": {},
+            "status": "completed",
+            "usage": [
+              {
+                "type": "usd",
+                "usd": 0.009672813336054485
+              },
+              {
+                "type": "usd",
+                "usd": 0.010898904164632163
+              },
+              {
+                "type": "usd",
+                "usd": 0.011417159928215875
+              },
+              {
+                "type": "usd",
+                "usd": 0.010523896720674303
+              }
+            ]
+          }
+        },
+        "character_id": "edbb1ab2-5919-4ef5-a7bb-e320acb67a14",
         "status": "completed",
         "usage": {
           "type": "usd",
@@ -12922,6 +14306,14 @@
           "type": "generations"
         }
       },
+      "chest_front2": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "cottage": {
         "status": "completed",
         "takes": 16,
@@ -13002,6 +14394,110 @@
           "type": "generations"
         }
       },
+      "icon_armor": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_axe": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_booster": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_bow": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_claw": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_key": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_lance": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_potion": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_ring": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_sword": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_tome_red": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_tome_white": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "mast": {
+        "status": "completed",
+        "takes": 16,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "oak": {
         "status": "completed",
         "takes": 16,
@@ -13045,6 +14541,14 @@
       "rubble": {
         "status": "completed",
         "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "snow_pine": {
+        "status": "completed",
+        "takes": 16,
         "usage": {
           "type": "usd",
           "usd": 0.08
@@ -13208,6 +14712,15 @@
           "type": "generations"
         }
       },
+      "brann_ironheart": {
+        "job": "17b14bd0-adcf-4bb2-b651-f3d7800986d9",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "brann_warrior": {
         "job": "0e0cb9fb-fdf0-4677-997f-9c459e1f0ae0",
         "status": "completed",
@@ -13215,6 +14728,24 @@
         "usage": {
           "generations": 15.0,
           "type": "generations"
+        }
+      },
+      "dorran_bulwark": {
+        "job": "c19d1868-69ce-4c54-9e79-a43b36b0dd3d",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "dorran_bulwark_take1": {
+        "job": "193a6d8b-d373-4c54-a36c-c261fdc77eb5",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
         }
       },
       "dorran_general": {
@@ -13233,6 +14764,15 @@
         "usage": {
           "generations": 15.0,
           "type": "generations"
+        }
+      },
+      "elise_crestscribe": {
+        "job": "c7fc787c-fe6b-4502-b6ad-992849943f4d",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
         }
       },
       "elise_mage": {
@@ -13586,6 +15126,15 @@
           "type": "generations"
         }
       },
+      "enemy_paladin": {
+        "job": "96037510-783f-45c4-aae2-8f5530724a62",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "enemy_pegasus_knight": {
         "job": "c88ab1fa-4eb5-4bcd-8ef3-9f4370e330bc",
         "status": "completed",
@@ -13595,8 +15144,26 @@
           "type": "generations"
         }
       },
+      "enemy_sage": {
+        "job": "0c8c3f17-b733-4892-bf04-d7e11dd4ed8f",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "enemy_sellsword": {
         "job": "1ebbf58a-3bd9-41e8-a6bf-5b1ef0c70dc6",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "enemy_sniper": {
+        "job": "18d1612c-2faa-4b29-9a0d-478a6a2a751d",
         "status": "completed",
         "takes": 9,
         "usage": {
@@ -13613,8 +15180,26 @@
           "type": "generations"
         }
       },
+      "enemy_swordmaster": {
+        "job": "00056778-5e0a-4922-a7da-b2e131d5284a",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "enemy_thief": {
         "job": "94a478c6-d867-4c61-9683-6f251b4bf913",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "enemy_valkyrie": {
+        "job": "5ce17cab-2b37-4f07-9756-eac5338f1e10",
         "status": "completed",
         "takes": 9,
         "usage": {
@@ -13712,6 +15297,15 @@
           "usd": 0.115
         }
       },
+      "enemy_warrior": {
+        "job": "7ca9dd60-bc6e-4b95-8552-d85cdb2516eb",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "enemy_wyvern_rider": {
         "job": "7e1c863c-cc19-4e74-974e-5f5f51f2b20c",
         "status": "completed",
@@ -13723,6 +15317,24 @@
       },
       "halde_archer": {
         "job": "bd39bbad-8595-43a5-82aa-bab764a073a2",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "halde_corsair": {
+        "job": "127bf6d8-0d55-4deb-8ffd-48e9de05f923",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "halde_sniper": {
+        "job": "86bf7d73-1bdc-4cd2-98d0-59c319799481",
         "status": "completed",
         "takes": 9,
         "usage": {
@@ -13811,6 +15423,15 @@
           "type": "generations"
         }
       },
+      "kai_vanguard": {
+        "job": "acf048d9-26d2-4dab-a69e-e4f5fb0e4e48",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "mira_acolyte": {
         "job": "63297dd9-ef03-4a83-aef5-5a1153ebbb2e",
         "status": "completed",
@@ -13818,6 +15439,15 @@
         "usage": {
           "generations": 15.0,
           "type": "generations"
+        }
+      },
+      "mira_oracle": {
+        "job": "8d8c498d-64df-484f-8d82-38f6b379a7bf",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
         }
       },
       "mira_sage": {
@@ -13847,6 +15477,15 @@
           "usd": 0.115
         }
       },
+      "pip_shadowstep": {
+        "job": "e21d5131-b7f7-4b28-b3c6-48ba9800d6e9",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "pip_thief": {
         "job": "77b1bb22-55e5-4f52-8fc4-aceeac011a1b",
         "status": "completed",
@@ -13865,6 +15504,15 @@
           "type": "generations"
         }
       },
+      "rowan_high_lord": {
+        "job": "501ab3cb-01fb-4453-a982-61c175ededc5",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "rowan_lord": {
         "job": "37091dab-5122-4dee-b1f0-00b17e1e48d1",
         "status": "completed",
@@ -13872,6 +15520,15 @@
         "usage": {
           "generations": 15.0,
           "type": "generations"
+        }
+      },
+      "sable_blade_dancer": {
+        "job": "f60ae399-ecce-475b-b76c-5052672fc60b",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
         }
       },
       "sable_myrmidon": {
@@ -13885,6 +15542,15 @@
       },
       "sable_swordmaster": {
         "job": "5d20c9e3-eaef-473b-8e1d-a5f0b1648309",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "seraphine_lightbearer": {
+        "job": "f835a711-e40e-42a0-a128-957ade0b9d06",
         "status": "completed",
         "takes": 9,
         "usage": {
@@ -13928,6 +15594,15 @@
           "type": "generations"
         }
       },
+      "tamsin_wildstalker": {
+        "job": "6bfac9a6-1e7f-4ea7-b897-28a901c2d189",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "wren_falcon_knight": {
         "job": "d9105009-c1f4-40bd-bf2b-328c1a241ed2",
         "status": "completed",
@@ -13946,8 +15621,26 @@
           "usd": 0.115
         }
       },
+      "wren_skyward": {
+        "job": "43590de8-4811-43aa-b802-1390db2bba8e",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
       "ysolde_wyvern_lord": {
         "job": "54242771-ead2-4a94-a244-701ef7c77d58",
+        "status": "completed",
+        "takes": 9,
+        "usage": {
+          "type": "usd",
+          "usd": 0.115
+        }
+      },
+      "ysra_dragonheart": {
+        "job": "33c05835-52e0-4455-9909-e1948d159cd9",
         "status": "completed",
         "takes": 9,
         "usage": {
@@ -14599,6 +16292,58 @@
           }
         }
       },
+      "brann_ironheart": {
+        "attack": {
+          "frames": 9,
+          "job": "deb3c050-bfb1-4874-93d4-99c32e627d12",
+          "status": "completed",
+          "still": "tools/art/approved/refs/brann_ironheart_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.024943953143225776
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "2d7dfa53-8b2d-4772-beff-c65c5409511d",
+          "status": "completed",
+          "still": "tools/art/approved/refs/brann_ironheart_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02956448386112849
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "1b3e0993-c575-4f12-af0c-2718a9fa5f42",
+          "status": "completed",
+          "still": "tools/art/approved/refs/brann_ironheart_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.020581921888722314
+          }
+        },
+        "hit": {
+          "frames": 3,
+          "job": "c9195220-3b04-4e8b-8b07-b24a0151c4b5",
+          "status": "completed",
+          "still": "tools/art/approved/refs/brann_ironheart_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.028489840096897548
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "5f6d7169-372a-4b10-9788-dee650dbd787",
+          "status": "completed",
+          "still": "tools/art/approved/refs/brann_ironheart_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02406685631804996
+          }
+        }
+      },
       "brann_warrior": {
         "attack": {
           "frames": 9,
@@ -14648,6 +16393,58 @@
           "usage": {
             "generations": 1.0,
             "type": "generations"
+          }
+        }
+      },
+      "dorran_bulwark": {
+        "attack": {
+          "frames": 9,
+          "job": "6a536f85-ef77-40a7-b9cc-0f4f4ddbde72",
+          "status": "completed",
+          "still": "tools/art/approved/refs/dorran_bulwark_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.027573653684722053
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "7c2a68bd-9a89-44bf-a11f-e742b58bc9c1",
+          "status": "completed",
+          "still": "tools/art/approved/refs/dorran_bulwark_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.04285866269800398
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "d2b72c62-7424-44a5-89a6-23094ba9ec66",
+          "status": "completed",
+          "still": "tools/art/approved/refs/dorran_bulwark_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.024733955383300782
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "e40f9eb8-7963-4149-b3af-395863c901cb",
+          "status": "completed",
+          "still": "tools/art/approved/refs/dorran_bulwark_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.024162238359451294
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "9fcd9d67-84d1-48ed-a153-f544e66371a9",
+          "status": "completed",
+          "still": "tools/art/approved/refs/dorran_bulwark_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.021921347432666355
           }
         }
       },
@@ -14752,6 +16549,58 @@
           "usage": {
             "generations": 1.0,
             "type": "generations"
+          }
+        }
+      },
+      "elise_crestscribe": {
+        "attack": {
+          "frames": 9,
+          "job": "a770929f-6250-41ba-8cd6-3d269efb9eb4",
+          "status": "completed",
+          "still": "tools/art/approved/refs/elise_crestscribe_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.023446906891134052
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "8599dbf3-e99c-40e7-a84d-af145e905c46",
+          "status": "completed",
+          "still": "tools/art/approved/refs/elise_crestscribe_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03226439791255527
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "37a9756c-5f7d-419e-a013-08d87038bdb3",
+          "status": "completed",
+          "still": "tools/art/approved/refs/elise_crestscribe_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02057018689976798
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "f11e5171-6617-4a85-b6c2-c03a6fa2ed86",
+          "status": "completed",
+          "still": "tools/art/approved/refs/elise_crestscribe_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02434074748886956
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "7706bd26-61d7-4a3e-b7eb-2558f075e11b",
+          "status": "completed",
+          "still": "tools/art/approved/refs/elise_crestscribe_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.021061755783028074
           }
         }
       },
@@ -16783,6 +18632,58 @@
           }
         }
       },
+      "enemy_paladin": {
+        "attack": {
+          "frames": 9,
+          "job": "84cd7b93-ee89-4ea0-8c50-fc67df7046ac",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_paladin_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02477649144993888
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "d40f3953-fcc7-48ad-809b-483c762628b3",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_paladin_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.029529428958892823
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "b96da13d-bbec-4a2f-8b8e-a2a3c479f340",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_paladin_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.0313290167649587
+          }
+        },
+        "hit": {
+          "frames": 3,
+          "job": "00ba3dc1-b0b6-4886-9afd-ec86209f97c4",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_paladin_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.024621777461634742
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "4d6e7982-1252-4bf0-9334-5c0af959af40",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_paladin_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.025486588968171013
+          }
+        }
+      },
       "enemy_pegasus_knight": {
         "attack": {
           "frames": 9,
@@ -16832,6 +18733,58 @@
           "usage": {
             "generations": 1.0,
             "type": "generations"
+          }
+        }
+      },
+      "enemy_sage": {
+        "attack": {
+          "frames": 9,
+          "job": "b46f87d3-ff2d-4e8e-ac9e-71af4140637f",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sage_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.026885685205459593
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "42dd582d-256d-48cf-ad7c-e2e4a2420b69",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sage_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02571310398976008
+          }
+        },
+        "dodge": {
+          "frames": 5,
+          "job": "839783b3-c35f-4494-916c-6dff5a039f87",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sage_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03213009897205565
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "889dfce9-dd4b-41e9-b008-17d6ce96c6a9",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sage_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.025457825422286987
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "81ad248d-3421-4364-a194-aaf1ac4096bf",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sage_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02449079245991177
           }
         }
       },
@@ -16887,6 +18840,58 @@
           }
         }
       },
+      "enemy_sniper": {
+        "attack": {
+          "frames": 9,
+          "job": "b325c09f-bc06-4178-aa4d-15ff59b2e50a",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sniper_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03862142499287923
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "656987b8-c680-4108-8cb4-88f6c3ae6095",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sniper_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03138126118315591
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "787acb07-a5e0-4912-9739-0f40f79696be",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sniper_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.021934750146336026
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "cd6b0355-3441-465b-93d3-08ed4fc59436",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sniper_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.021138506167464786
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "373fc60c-4d86-4da8-9831-e776a3386e8d",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_sniper_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.021312333901723227
+          }
+        }
+      },
       "enemy_soldier": {
         "attack": {
           "frames": 9,
@@ -16939,6 +18944,58 @@
           }
         }
       },
+      "enemy_swordmaster": {
+        "attack": {
+          "frames": 9,
+          "job": "9824ec06-8f75-4e09-8d57-dc521fccc5be",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_swordmaster_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.0250703100628323
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "c3ae4142-f0c9-47d4-973e-a4292f38cf63",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_swordmaster_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02866174225674735
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "d02d4788-948b-49dd-b284-a40bb767956d",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_swordmaster_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02936757779121399
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "1da72919-abde-4116-9a6d-02a113a176fe",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_swordmaster_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02238526297940148
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "c84c2e6f-1d2c-4f26-89fb-ab31e4603a6d",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_swordmaster_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02031426176097658
+          }
+        }
+      },
       "enemy_thief": {
         "attack": {
           "frames": 9,
@@ -16988,6 +19045,58 @@
           "usage": {
             "type": "usd",
             "usd": 0.021400706900490653
+          }
+        }
+      },
+      "enemy_valkyrie": {
+        "attack": {
+          "frames": 9,
+          "job": "93bfc4bd-2c8d-4db5-b76e-29eb14df3832",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_valkyrie_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02584712917937173
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "f96e7614-a890-4cd7-ad72-9f28ca1fed0a",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_valkyrie_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03374114543199539
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "ea5dcef8-5966-4dcf-a6ff-0a8110f1a4a5",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_valkyrie_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.027518790576193067
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "07f47209-b629-450d-8c9f-8f6286b52a54",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_valkyrie_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.019223517504003314
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "6e76d7f4-4f8e-493b-b3df-94f156e18bbc",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_valkyrie_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.020330479820569354
           }
         }
       },
@@ -17511,6 +19620,58 @@
           }
         }
       },
+      "enemy_warrior": {
+        "attack": {
+          "frames": 9,
+          "job": "be263ba0-8b3d-46d0-b938-cb5183148e49",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_warrior_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.028319500936402217
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "9e923064-b2f8-4356-aaa6-7d6e5ee981e5",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_warrior_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.033339906785223215
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "a0f14b8a-da48-4f88-b8f4-2e85d3299816",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_warrior_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02378171326716741
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "69b44414-367a-47d8-8e44-d871c95f42ff",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_warrior_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.019503203339046902
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "2153a02e-99bc-4c53-a773-824d6abdbe82",
+          "status": "completed",
+          "still": "tools/art/approved/refs/enemy_warrior_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02788497561878628
+          }
+        }
+      },
       "enemy_wyvern_rider": {
         "attack": {
           "frames": 9,
@@ -17612,6 +19773,110 @@
           "usage": {
             "type": "usd",
             "usd": 0.02334936534696155
+          }
+        }
+      },
+      "halde_corsair": {
+        "attack": {
+          "frames": 9,
+          "job": "f565a1d7-c438-49cf-80bf-5a5d99084782",
+          "status": "completed",
+          "still": "tools/art/approved/refs/halde_corsair_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03382602100239859
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "62bb9d25-77d2-465a-8911-1d2a74b3aa24",
+          "status": "completed",
+          "still": "tools/art/approved/refs/halde_corsair_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.04460889319578806
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "0481d66d-8e8c-4d0d-a2aa-7a5e501c78e4",
+          "status": "completed",
+          "still": "tools/art/approved/refs/halde_corsair_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.030078156239456602
+          }
+        },
+        "hit": {
+          "frames": 3,
+          "job": "0c40e464-c0d7-4fab-a499-e46de8479a6b",
+          "status": "completed",
+          "still": "tools/art/approved/refs/halde_corsair_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02178489237361484
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "77c23217-f40d-4e68-953d-8497a0600297",
+          "status": "completed",
+          "still": "tools/art/approved/refs/halde_corsair_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.027605191734102037
+          }
+        }
+      },
+      "halde_sniper": {
+        "attack": {
+          "frames": 9,
+          "job": "462e0066-ac5e-4318-91b7-6f89d68d687e",
+          "status": "completed",
+          "still": "tools/art/approved/refs/halde_sniper_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.026892022642824386
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "adfb1bff-31f0-41eb-9653-5cf758643540",
+          "status": "completed",
+          "still": "tools/art/approved/refs/halde_sniper_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03206019583675596
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "277011cd-9475-4ab7-92c5-86fab2c7a152",
+          "status": "completed",
+          "still": "tools/art/approved/refs/halde_sniper_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03174419612354702
+          }
+        },
+        "hit": {
+          "frames": 5,
+          "job": "a6d59d6b-1a9e-40aa-bb2c-0f73b1dfd1a5",
+          "status": "completed",
+          "still": "tools/art/approved/refs/halde_sniper_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.023861763960785334
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "2b86803e-6b56-4993-ba89-3e2f8c622dc9",
+          "status": "completed",
+          "still": "tools/art/approved/refs/halde_sniper_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.019486427485942842
           }
         }
       },
@@ -17927,6 +20192,58 @@
           }
         }
       },
+      "kai_vanguard": {
+        "attack": {
+          "frames": 9,
+          "job": "0b0bf2a8-27ad-4bf1-b0be-1ef7de144249",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_vanguard_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.029398236268096498
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "042213e3-223b-4f52-b4c0-471159c2e52e",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_vanguard_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.028141575793425244
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "282dbe1c-8cfe-4ce2-83a0-4d9a674f10c1",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_vanguard_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02558512431383133
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "1f2c996a-e3ef-43c5-8ad9-adfd47bce854",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_vanguard_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.022814045045110913
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "e9b955f6-3533-4bea-afa6-31912186e0c2",
+          "status": "completed",
+          "still": "tools/art/approved/refs/kai_vanguard_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.018680140071445042
+          }
+        }
+      },
       "mira_acolyte": {
         "attack": {
           "frames": 9,
@@ -17976,6 +20293,58 @@
           "usage": {
             "generations": 1.0,
             "type": "generations"
+          }
+        }
+      },
+      "mira_oracle": {
+        "attack": {
+          "frames": 9,
+          "job": "48ee1361-2657-4b63-a891-2275441e0a69",
+          "status": "completed",
+          "still": "tools/art/approved/refs/mira_oracle_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.04220325560039944
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "f13dda99-e7bc-4ed0-a872-3b64aeb64d4b",
+          "status": "completed",
+          "still": "tools/art/approved/refs/mira_oracle_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.04070575447214974
+          }
+        },
+        "dodge": {
+          "frames": 6,
+          "job": "3ffe3b0e-cc4a-48fe-9df5-a684ac374a03",
+          "status": "completed",
+          "still": "tools/art/approved/refs/mira_oracle_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.023156576481130387
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "43a9e6b7-4cb4-4e1b-a8c0-4f0bf6b248c8",
+          "status": "completed",
+          "still": "tools/art/approved/refs/mira_oracle_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.020992559671401977
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "623a503b-c3c4-4841-8d75-546d78b415cb",
+          "status": "completed",
+          "still": "tools/art/approved/refs/mira_oracle_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.025482317666212718
           }
         }
       },
@@ -18135,6 +20504,58 @@
           }
         }
       },
+      "pip_shadowstep": {
+        "attack": {
+          "frames": 9,
+          "job": "9eaae357-0282-4d00-84db-41e76b3968ea",
+          "status": "completed",
+          "still": "tools/art/approved/refs/pip_shadowstep_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.031069760209984247
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "2e13be3b-2e85-4e56-82e9-1422fbb713ad",
+          "status": "completed",
+          "still": "tools/art/approved/refs/pip_shadowstep_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.025811587320433725
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "4af4b519-0abb-42b5-a1fa-83a12eacffd1",
+          "status": "completed",
+          "still": "tools/art/approved/refs/pip_shadowstep_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.028701782067616782
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "4f2d5377-e8ab-446a-a2e1-09752e5d32b1",
+          "status": "completed",
+          "still": "tools/art/approved/refs/pip_shadowstep_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02153519433736801
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "e59bbf38-677b-4e05-a6f1-ee2be798023b",
+          "status": "completed",
+          "still": "tools/art/approved/refs/pip_shadowstep_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.020437267237239414
+          }
+        }
+      },
       "pip_thief": {
         "attack": {
           "frames": 9,
@@ -18236,6 +20657,58 @@
           "usage": {
             "generations": 1.0,
             "type": "generations"
+          }
+        }
+      },
+      "rowan_high_lord": {
+        "attack": {
+          "frames": 9,
+          "job": "320811b1-3bcb-4758-89ca-d3995f9674a1",
+          "status": "completed",
+          "still": "tools/art/approved/refs/rowan_high_lord_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03998411866691377
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "6c085519-72ff-48d9-9250-a6d77247d889",
+          "status": "completed",
+          "still": "tools/art/approved/refs/rowan_high_lord_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.04784610045618481
+          }
+        },
+        "dodge": {
+          "frames": 6,
+          "job": "8dc225a3-3661-4e82-94d6-9ec72bd1418d",
+          "status": "completed",
+          "still": "tools/art/approved/refs/rowan_high_lord_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.024952817108896044
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "35ecede2-bfee-4256-a681-219408ae7928",
+          "status": "completed",
+          "still": "tools/art/approved/refs/rowan_high_lord_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.020995583911736806
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "9b2c0966-2eac-4fb3-82d2-f5e90217f1b8",
+          "status": "completed",
+          "still": "tools/art/approved/refs/rowan_high_lord_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.019159802807701957
           }
         }
       },
@@ -18343,6 +20816,58 @@
           }
         }
       },
+      "sable_blade_dancer": {
+        "attack": {
+          "frames": 9,
+          "job": "d536a935-390b-4990-928a-93969cfda518",
+          "status": "completed",
+          "still": "tools/art/approved/refs/sable_blade_dancer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.035558134754498795
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "c60416c5-9726-45b5-869f-a69bc9f75d70",
+          "status": "completed",
+          "still": "tools/art/approved/refs/sable_blade_dancer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02734377034505208
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "e04dc0f2-9360-4b91-8a89-2e689c7c6a18",
+          "status": "completed",
+          "still": "tools/art/approved/refs/sable_blade_dancer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.028347149868806203
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "15a97ce1-6b4e-4ca5-bd3d-bb08e191e4d4",
+          "status": "completed",
+          "still": "tools/art/approved/refs/sable_blade_dancer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.028407430834240383
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "1f959821-e2bc-4f8c-94cf-add7ca42d5b3",
+          "status": "completed",
+          "still": "tools/art/approved/refs/sable_blade_dancer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.018997928970389898
+          }
+        }
+      },
       "sable_myrmidon": {
         "attack": {
           "frames": 9,
@@ -18444,6 +20969,58 @@
           "usage": {
             "type": "usd",
             "usd": 0.024128957483503553
+          }
+        }
+      },
+      "seraphine_lightbearer": {
+        "attack": {
+          "frames": 9,
+          "job": "56a34e43-bd1d-40d4-b047-05db3dbee6fa",
+          "status": "completed",
+          "still": "tools/art/approved/refs/seraphine_lightbearer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03598710712459352
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "a13c3104-cf4f-498a-a334-218bc1cfb23b",
+          "status": "completed",
+          "still": "tools/art/approved/refs/seraphine_lightbearer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.040860033843252395
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "3e1d1e9e-3edc-48d5-be19-c95835572b56",
+          "status": "completed",
+          "still": "tools/art/approved/refs/seraphine_lightbearer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.035552212602562375
+          }
+        },
+        "hit": {
+          "frames": 3,
+          "job": "04ec6d11-41a6-4e6d-9572-57179dae2483",
+          "status": "completed",
+          "still": "tools/art/approved/refs/seraphine_lightbearer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.028077029552724626
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "4af713d0-2875-4d44-b124-e96e6cc036f5",
+          "status": "completed",
+          "still": "tools/art/approved/refs/seraphine_lightbearer_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.019538023895687526
           }
         }
       },
@@ -18655,6 +21232,58 @@
           }
         }
       },
+      "tamsin_wildstalker": {
+        "attack": {
+          "frames": 9,
+          "job": "38a14622-f898-4f04-8c01-773029c25d00",
+          "status": "completed",
+          "still": "tools/art/approved/refs/tamsin_wildstalker_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.034038696189721426
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "acd233d6-b056-4596-92bd-de6fda857aac",
+          "status": "completed",
+          "still": "tools/art/approved/refs/tamsin_wildstalker_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.028908464266194235
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "8a9f99f8-2222-4119-97f6-7983ab487f2f",
+          "status": "completed",
+          "still": "tools/art/approved/refs/tamsin_wildstalker_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.027373355699910056
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "bf6bb363-4595-40c7-b7c3-dfa6d785a0c9",
+          "status": "completed",
+          "still": "tools/art/approved/refs/tamsin_wildstalker_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.020853897915946114
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "0d97e935-cfb0-466c-8525-4c9b0994c1dc",
+          "status": "completed",
+          "still": "tools/art/approved/refs/tamsin_wildstalker_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.018829601612355973
+          }
+        }
+      },
       "wren_falcon_knight": {
         "attack": {
           "frames": 9,
@@ -18759,6 +21388,58 @@
           }
         }
       },
+      "wren_skyward": {
+        "attack": {
+          "frames": 9,
+          "job": "e6799203-29a7-4729-a1f6-7ea07fe26393",
+          "status": "completed",
+          "still": "tools/art/approved/refs/wren_skyward_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02538033769528071
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "4c9d5805-a437-4eee-aae4-110919e5996e",
+          "status": "completed",
+          "still": "tools/art/approved/refs/wren_skyward_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.03658603665563795
+          }
+        },
+        "dodge": {
+          "frames": 4,
+          "job": "3bcc8709-6043-4d1f-8d3d-b5928bbfed67",
+          "status": "completed",
+          "still": "tools/art/approved/refs/wren_skyward_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.024229017396767933
+          }
+        },
+        "hit": {
+          "frames": 2,
+          "job": "ffb1a28a-2c90-4837-8368-0fd932f0bbbb",
+          "status": "completed",
+          "still": "tools/art/approved/refs/wren_skyward_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.020589561184247332
+          }
+        },
+        "idle": {
+          "frames": 2,
+          "job": "1104b0f6-d23c-4be3-89c4-b6441d2030a2",
+          "status": "completed",
+          "still": "tools/art/approved/refs/wren_skyward_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02419743678967158
+          }
+        }
+      },
       "ysolde_wyvern_lord": {
         "attack": {
           "frames": 9,
@@ -18808,6 +21489,58 @@
           "usage": {
             "type": "usd",
             "usd": 0.028731916824976604
+          }
+        }
+      },
+      "ysra_dragonheart": {
+        "attack": {
+          "frames": 9,
+          "job": "e518544b-aa64-4193-ada7-d700ccb95877",
+          "status": "completed",
+          "still": "tools/art/approved/refs/ysra_dragonheart_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.027148634778128726
+          }
+        },
+        "critical": {
+          "frames": 13,
+          "job": "87db8ef0-2efb-446a-bef5-e2b53fc1e100",
+          "status": "completed",
+          "still": "tools/art/approved/refs/ysra_dragonheart_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.030720492230521305
+          }
+        },
+        "dodge": {
+          "frames": 7,
+          "job": "0311bf99-7b2f-4415-a447-f48a27d21269",
+          "status": "completed",
+          "still": "tools/art/approved/refs/ysra_dragonheart_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.02767536324262619
+          }
+        },
+        "hit": {
+          "frames": 4,
+          "job": "ec6bef5c-7de6-44d2-9bc9-659614e68b9f",
+          "status": "completed",
+          "still": "tools/art/approved/refs/ysra_dragonheart_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.020846853872140247
+          }
+        },
+        "idle": {
+          "frames": 5,
+          "job": "2c210c30-0ea1-437e-a431-ea53dee7ca9e",
+          "status": "completed",
+          "still": "tools/art/approved/refs/ysra_dragonheart_battle.png",
+          "usage": {
+            "type": "usd",
+            "usd": 0.022858086903889973
           }
         }
       },
@@ -18947,6 +21680,14 @@
         "usage": {
           "generations": 10.0,
           "type": "generations"
+        }
+      },
+      "snow": {
+        "status": "completed",
+        "tile_id": "ea5e293a-7e23-4428-8d45-df2cfc4f75fb",
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
         }
       },
       "village": {

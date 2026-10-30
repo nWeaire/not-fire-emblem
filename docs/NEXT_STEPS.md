@@ -25,8 +25,21 @@ _Last updated: 2026-10-30 (session 18)._
    stilt tiles; house props). **PixelLab: about $6.00 left.**
 - Build clean, 158 tests pass, content loads (189 scenes, 21 arts).
 
+## Where things stand (end of session 18)
+- **Everything is committed and pushed to `main`.** Build clean, **158 tests pass**, content loads (189 scenes,
+  21 arts). Untracked on purpose: `assets/ExampleFiles/` and `tools/art/takes/`.
+- **Acts I and II are finished and polished** (the user's bar before Act III). The campaign ends after Ch 15 with
+  "To be continued in Act III: The Hollow Path".
+- **Saves:** slot 3 is the test save (Act II hub before Ch 15); the user's own game is in slots 0 and 1. Back up
+  `slot0.json` before loading a test save (it autosaves over slot 0). Backup from this session:
+  `slot0.before-session18-hub.json`.
+- **PixelLab: about $6.00 left.**
+- **Not yet seen in a real game:** the new level-up panels (stat icons), the Brookhollow and Solmere hub screens
+  (only Calder was screenshotted), the hub music, and a tier 3 unit in a hand-played battle.
+
 ## Next (plan for session 19)
-1. Hand playtest: the Calder/Solmere hub (from slot 3), and a Crestbound unit's art in a real battle.
+1. Hand playtest: the Calder/Solmere hub (from slot 3), the hub music, a level-up, and a Crestbound unit (art and
+   signature art) in a real battle.
 2. **Act III** ("The Hollow Path", Ch 16-22, CHAPTERS.md). Its shops must sell `mythril_*` and Mythril Mail. New
    scenes should give stand-ins (`A|B:`) to lines by companions who can fall.
 

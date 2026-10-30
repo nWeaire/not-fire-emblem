@@ -14466,6 +14466,78 @@
           "usd": 0.08
         }
       },
+      "icon_stat_def": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_stat_dex": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_stat_hp": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_stat_lck": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_stat_mag": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_stat_mov": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_stat_res": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_stat_spd": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
+      "icon_stat_str": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "type": "usd",
+          "usd": 0.08
+        }
+      },
       "icon_sword": {
         "status": "completed",
         "takes": 64,

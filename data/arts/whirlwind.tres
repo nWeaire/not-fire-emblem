@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ArtDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ArtDefinition.cs" id="1_art"]
+
+[resource]
+script = ExtResource("1_art")
+Id = "whirlwind"
+Name = "Whirlwind"
+Type = 0
+MightMod = 0
+HitMod = 5
+CritMod = 10
+RangeBonus = 0
+Uses = 1
+NoCounter = false
+EffectiveAgainst = PackedStringArray()
+Brave = true
+Pierce = false

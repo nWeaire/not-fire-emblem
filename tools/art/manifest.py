@@ -697,6 +697,18 @@ ICONS = {
     "icon_armor": "a steel breastplate armour piece",
     "icon_ring": "a gold ring set with a red gemstone",
 }
+# Stat icons (session 18): beside each stat in the hub's party screen and the battle unit panel.
+ICONS.update({
+    "icon_stat_hp": "a red heart",
+    "icon_stat_str": "a clenched fist in a brown leather glove",
+    "icon_stat_mag": "a glowing purple magic orb with sparkles",
+    "icon_stat_dex": "a small round archery target with an arrow in the centre",
+    "icon_stat_spd": "a yellow lightning bolt",
+    "icon_stat_lck": "a green four-leaf clover",
+    "icon_stat_def": "a round steel shield with a rivetted rim",
+    "icon_stat_res": "a blue glowing magic rune circle",
+    "icon_stat_mov": "a brown leather boot",
+})
 PROPS.update(ICONS)
 PROP_STYLES.update({k: ICON_STYLE for k in ICONS})
 PROP_SIZE = {**{k: 32 for k in ICONS}, **PROP_SIZE_EXTRA, "chest_front": 32, "tuft": 32, "flowers": 32, "crop": 32, "bush": 32, "wheat": 32, "fence": 32, "hedge": 32,

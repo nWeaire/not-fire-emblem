@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ArtDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ArtDefinition.cs" id="1_art"]
+
+[resource]
+script = ExtResource("1_art")
+Id = "hunters_mark"
+Name = "Hunter's Mark"
+Type = 3
+MightMod = 3
+HitMod = 20
+CritMod = 25
+RangeBonus = 0
+Uses = 2
+NoCounter = false
+EffectiveAgainst = PackedStringArray("Beast")
+Brave = false
+Pierce = false

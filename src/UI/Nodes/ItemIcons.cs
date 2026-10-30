@@ -41,6 +41,29 @@ public static class ItemIcons
         return name is null ? null : Load(name);
     }
 
+    /// <summary>The stat's icon (session 18: assets/ui/icons/icon_stat_&lt;stat&gt;.png), or null.</summary>
+    public static Texture2D? For(Stat stat) => Load($"stat_{stat.ToString().ToLowerInvariant()}");
+
+    /// <summary>A stat's icon followed by its text ("Str 12 +1"), or just the text when there's no art.</summary>
+    public static HBoxContainer StatLine(Stat stat, string text, int size, Color? color = null)
+    {
+        var row = new HBoxContainer { MouseFilter = Control.MouseFilterEnum.Ignore };
+        row.AddThemeConstantOverride("separation", 6);
+        if (For(stat) is { } texture)
+            row.AddChild(new TextureRect
+            {
+                Texture = texture,
+                CustomMinimumSize = new Vector2(UiKit.Px(size + 2), UiKit.Px(size + 2)),
+                ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+                StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+                TextureFilter = CanvasItem.TextureFilterEnum.Nearest,
+                SizeFlagsVertical = Control.SizeFlags.ShrinkCenter,
+                MouseFilter = Control.MouseFilterEnum.Ignore,
+            });
+        row.AddChild(UiKit.Label(text, size, color));
+        return row;
+    }
+
     private static Texture2D? Load(string name)
     {
         if (!Cache.TryGetValue(name, out var texture))

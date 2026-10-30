@@ -50,6 +50,6 @@ IsPromoted = true
 MaxArmor = 2
 Tier = 3
 Traits = PackedStringArray()
-Arts = PackedStringArray()
+Arts = PackedStringArray("vanguard_charge")
 Spells = PackedStringArray()
 PromotesFrom = "paladin"

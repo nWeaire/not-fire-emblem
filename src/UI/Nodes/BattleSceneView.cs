@@ -44,6 +44,7 @@ public partial class BattleSceneView : CanvasLayer
     private SideHud _rightHud = null!;
     private PanelContainer _levelPanel = null!;
     private Label _levelText = null!;
+    private VBoxContainer _levelStats = null!;
     private Label _banner = null!;
     private ColorRect _fade = null!;
     private float _scale = 4.8f;
@@ -93,8 +94,14 @@ public partial class BattleSceneView : CanvasLayer
 
         _levelPanel = new PanelContainer { MouseFilter = Control.MouseFilterEnum.Ignore, Visible = false };
         _levelPanel.AddThemeStyleboxOverride("panel", UiKit.PanelStyle(margin: 16));
+        var levelBox = new VBoxContainer { MouseFilter = Control.MouseFilterEnum.Ignore };
+        levelBox.AddThemeConstantOverride("separation", 2);
+        _levelPanel.AddChild(levelBox);
         _levelText = UiKit.Label("", 22);
-        _levelPanel.AddChild(_levelText);
+        levelBox.AddChild(_levelText);
+        _levelStats = new VBoxContainer { MouseFilter = Control.MouseFilterEnum.Ignore };
+        _levelStats.AddThemeConstantOverride("separation", 2);
+        levelBox.AddChild(_levelStats);
         _ui.AddChild(_levelPanel);
 
         _fade = new ColorRect { Color = new Color(0, 0, 0, 1), MouseFilter = Control.MouseFilterEnum.Ignore };
@@ -522,10 +529,8 @@ public partial class BattleSceneView : CanvasLayer
         var stats = s.Stats(unit);
         for (int i = index + 1; i < gained.LevelUps.Count; i++)
             stats -= gained.LevelUps[i].Gains;
-        var rows = StatBlock.All.Where(st => st is not (Stat.Mov or Stat.Cha))
-            .Select(st => $"{st,-4}{stats[st],3}" + (level.Gains[st] > 0 ? $"  +{level.Gains[st]}" : ""));
-        _levelText.Text = $"LEVEL UP!\n{unit.Name}   {s.Db.Class(unit.State.ClassId).Name}  Lv {level.Level}\n\n"
-                          + string.Join("\n", rows);
+        _levelText.Text = $"LEVEL UP!\n{unit.Name}   {s.Db.Class(unit.State.ClassId).Name}  Lv {level.Level}\n";
+        LevelStats.Fill(_levelStats, stats, level, 22);
         AudioDirector.PlaySfx("level_up");
         // Centre it over the stage, above the HUD panels; sized from its text, so place it after setting that.
         _levelPanel.ResetSize();

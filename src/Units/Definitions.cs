@@ -60,7 +60,8 @@ public sealed record WeaponDef(
     int Tier = 1,
     string? PersonalTo = null, // unit id for unique weapons only that unit can wield
     bool Pierces = false,      // pierces armour like a lance (CombatCalculator.LancePiercePercent)
-    bool SingleStrike = false); // never strikes twice in one combat, however fast the wielder
+    bool SingleStrike = false, // never strikes twice in one combat, however fast the wielder
+    bool PiercesAll = false);  // a Pierce art: ignores half of any target's Def or Res
 
 public enum ArmorSlot { Body, Accessory }
 
@@ -128,7 +129,9 @@ public sealed record ArtDef(
     int RangeBonus,       // added to the weapon's max range
     int Uses,
     bool NoCounter = false,
-    IReadOnlyList<string>? EffectiveAgainst = null); // movement types or class traits
+    IReadOnlyList<string>? EffectiveAgainst = null, // movement types or class traits
+    bool Brave = false,   // strikes twice before the target can answer (Crestbound signature arts, session 18)
+    bool Pierce = false); // ignores half the target's Def (or Res, for magic), whatever it is
 
 /// <summary>A healing spell (staff-style). Offensive tomes are weapons. Uses refill after every map.</summary>
 public sealed record SpellDef(

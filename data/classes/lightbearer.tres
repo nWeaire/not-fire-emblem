@@ -47,6 +47,6 @@ IsPromoted = true
 MaxArmor = 0
 Tier = 3
 Traits = PackedStringArray()
-Arts = PackedStringArray()
+Arts = PackedStringArray("dawnlight")
 Spells = PackedStringArray("heal", "physic", "mend")
 PromotesFrom = "valkyrie"

@@ -55,6 +55,23 @@ public class ContentFilesTests
     }
 
     [Fact]
+    public void HubPlaces_FollowTheBriefings_AndHaveTheirArtAndMusic()
+    {
+        var scenes = Scenes();
+        Assert.Equal(HubPlace.Brookhollow, HubPlace.For(scenes["hub_briefing_ch08"]));
+        Assert.Equal(HubPlace.Calder, HubPlace.For(scenes["hub_briefing_ch09"]));
+        Assert.Equal(HubPlace.Solmere, HubPlace.For(scenes["hub_briefing_ch12"]));
+        Assert.Equal(HubPlace.Calder, HubPlace.For(scenes["hub_briefing_ch15"]));
+        Assert.Equal(HubPlace.Brookhollow, HubPlace.For(null));
+        string assets = Path.Combine(Directory.GetParent(DataDir())!.FullName, "assets");
+        foreach (var place in HubPlace.All)
+        {
+            Assert.True(File.Exists(Path.Combine(assets, "backgrounds", $"{place.Background}.png")), $"{place.Id}: no background");
+            Assert.True(File.Exists(Path.Combine(assets, "audio", "music", $"{place.Music}.ogg")), $"{place.Id}: no music");
+        }
+    }
+
+    [Fact]
     public void MissedRecruitVersions_ReplaceARealScene_AndLeaveTheRecruitOut()
     {
         var scenes = Scenes();

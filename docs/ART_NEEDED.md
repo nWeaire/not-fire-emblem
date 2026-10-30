@@ -124,7 +124,7 @@ may want `SpriteLibrary.MapScales` like the Gloam Shade.
 | Done (session 17, code) | Ship hulls | Raised bridge blocks (Ch 12's decks) get hull-plank sides and a low hull rail along edges over open water (`MapView.AddBulwarks`, texture `assets/textures/hull_side.png` from `tools/art/hull_texture.py`), plus a `mast` prop in the middle of each deck of 9+ cells (`AddMasts`) | — | Ch 12 |
 | P2 | `seraphine_valkyrie`, `ysra_wyvern_lord` | Tier-2 looks | — | after promotion |
 | P2 | `pip_rogue` (map + battle) | Pip promoted: dark leathers, a proper sword, a grin | — | after promotion |
-| P2 | `calder_lodgings` background | The party's rooms in the capital (Act II hub) | `village_hall` | Act II hub |
+| Done | `calder_lodgings` background | The party's rooms in the capital: the Act II hub's backdrop (session 18, `HubPlace`) | | Act II hub |
 
 ## 1. Map sprites (48 px, 4 directions, `walk` `attack`; idle falls back to the still rotation)
 Folder: `assets/sprites/units/<spriteId>/`. Units find art through `BattleUnit.SpriteCandidates()`:
@@ -151,15 +151,15 @@ session 11 at the user's request: don't generate new ones.
 ## 4. Story backgrounds (`assets/backgrounds/<id>.png`)
 | Priority | Ids |
 |---|---|
-| P2 | Hub backdrop (behind the hub menus); locations for Ch 7+ (title vista done in session 7) |
+| Done (session 18) | Hub backdrop: the place's background behind the hub menus (`HubPlace`: `village_hall`, `calder_lodgings`, `solmere_harbor`) |
 
 ## 5. Terrain
 Folder: `assets/textures/terrain/<terrainId>[_N].png` (32 px top-down; `_N` are random alternates).
 
 | Priority | Tile | Notes |
 |---|---|---|
-| P2 | House / chapel roofs | Generated (`tools/art/takes/tiles/village/` tiles 1/5/9/13 and 2/6/10/14) but need new terrain types; villages reuse `fort` (T) and `wall` (W) |
-| P3 | Marsh / reeds / shallow water | Needed by Ch 6 (Greyfen) |
+| Superseded | House / chapel roofs | Villages show house props (`cottage`, red roofs) instead; the roof tiles in `tools/art/takes/tiles/village/` are unused |
+| Done | Marsh / reeds / shallow water | Ch 6 (Greyfen): `shallows`, `reeds`, `stilt` terrain art |
 | Done (session 7) | **Wheat** crop prop (replaces the cabbage `crop`) | User request (session 7): field cells (`:`) should show **rows of wheat** instead of lettuce/cabbages, for a golden/straw colour against all the green. 32 px billboard takes like the other props (`generate.py props`, `assets/sprites/props/wheat_N.png`); plant them as lines across the cell, not a 2×2 grid (`MapView.AddProps`, case `field`). Pilot 1 take first. |
 | Done (session 7) | **Hedges** | Farm-map walls are solid 3D hedges in code (`MapView.AddHedge`, leaf texture from `tools/art/hedge_texture.py`). Fence art (`fence_*`, `fence_straight_*`) was generated but the user preferred hedges; it is unused. |
 | Done (session 10) | **Stone wall sides** | Raised wall, square, throne and fort blocks (outside farm maps) show masonry instead of earth: `assets/textures/wall_side.png` / `_1` (dressed and mossy stone), plus `assets/textures/wall_decor/` overlays on about one exposed wall face in four (arrow slits, a barred window, green and red banners). All drawn in code by `tools/art/wall_art.py` (`MapView.StoneSideMaterial`, `AddWallDecor`). |
@@ -168,7 +168,7 @@ Folder: `assets/textures/terrain/<terrainId>[_N].png` (32 px top-down; `_N` are 
 ## 6. UI
 | Priority | Item |
 |---|---|
-| Session 17 | Icons: `assets/ui/icons/icon_<kind>.png` (sword, lance, axe, bow, claw, tome_red, tome_white, potion, booster, key, armor, ring; prompts `manifest.ICONS`), shown by `UI/ItemIcons` in the hub's party, town and shop screens and the battle unit panel (text glyphs until the art exists). Stat icons not done |
+| Session 17 | Icons: `assets/ui/icons/icon_<kind>.png` (sword, lance, axe, bow, claw, tome_red, tome_white, potion, booster, key, armor, ring; prompts `manifest.ICONS`), shown by `UI/ItemIcons` in the hub's party, town and shop screens and the battle unit panel (text glyphs until the art exists). Session 18: stat icons `icon_stat_<stat>` (picks hp 0, str 8, mag 6, dex 0, spd 2, lck 0, def 0, res 2, mov 1) in the party stats and level-up panels |
 | Done | Crest emblems (`assets/crests/`), shown in the hub and unit panel; the Clean UI theme and fonts |
 | P3 | Title logo; grid cursor and selection arrow art |
 

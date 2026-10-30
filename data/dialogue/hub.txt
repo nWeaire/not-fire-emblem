@@ -64,6 +64,13 @@ BRANN [smile]: Bring me your blades, Rowan. I can turn iron into steel. Steady n
 ROWAN [neutral]: ...Old girl?
 BRANN [smile]: The hammer. She's sensitive.
 
+### hub_smithy_no_brann
+@bg village_hall
+OSMUND [neutral]: There's a cold forge in the back of the hall, my lord. Disused since the last smith retired.
+OSMUND [neutral]: A girl came up from Millbrook this morning with Master Holt's tools. His apprentice. She asked to light it.
+ROWAN [sad]: ...For him.
+OSMUND [neutral]: For him. She says she can turn iron into steel, if you bring her the blades. I believe her.
+
 ### hub_briefing_ch03
 @bg village_hall
 OSMUND [neutral]: The Thornwood, my lord. Hunters have stopped coming back.
@@ -98,7 +105,7 @@ ALDRIC [neutral]: Remember that one.
 @bg village_hall
 OSMUND [worried]: A rider from Ferrow's Keep, my lord. The eastern border. The Gloamkin are massing against its walls.
 OSMUND [neutral]: The garrison is a retired captain and whoever he could find. Captain Dorran Kell. A sensible man.
-ELISE [worried]: If the Binders are pushing that many at once, they want the keep down before winter.
+ELISE|ALDRIC [worried]: If the Binders are pushing that many at once, they want the keep down before winter.
 ROWAN [determined]: Then we hold it with him. Tell the rider we're coming.
 
 ### hub_merrow_horses
@@ -108,7 +115,7 @@ NARRATOR: Kai's family's ranch had come through the summer with its fences broke
 KAI [laugh]: Rowan! Look who my mum's been hiding! Thistle. Fastest mare in the Thornvale.
 ROWAN [smile]: You're going to ride into battle.
 KAI [smile]: I'm going to ride into battle *faster than you*. Bet I get more Gloamkin from up here.
-DORRAN [neutral]: Not yet, you're not. A lance from a saddle is a different animal. Earn it on foot first, lad.
+DORRAN|ALDRIC [neutral]: Not yet, you're not. A lance from a saddle is a different animal. Earn it on foot first, lad.
 KAI [sad]: ...Fine. But she's mine the day I'm ready.
 NARRATOR: At level 10, Kai can promote from Soldier to Cavalier.
 
@@ -116,7 +123,7 @@ NARRATOR: At level 10, Kai can promote from Soldier to Cavalier.
 @bg village_hall
 OSMUND [neutral]: The Greyfen marsh, my lord. A bandit called Rusk has made himself king of it.
 OSMUND [cold]: His men are said to move as one, and to obey before he's finished speaking. You'll recognise the description.
-ELISE [worried]: That's Dominion. He has a crest. A shrouded one. And no right to it whatsoever.
+ELISE|ALDRIC [worried]: That's Dominion. He has a crest. A shrouded one. And no right to it whatsoever.
 ROWAN [determined]: Then we find out where he got it. And we take it back.
 
 ### hub_briefing_ch07
@@ -124,7 +131,7 @@ ROWAN [determined]: Then we find out where he got it. And we take it back.
 OSMUND [neutral]: Dain Hall, my lord. Lord Halvric's seat, two days north. Every road we have walked ends at its gate.
 OSMUND [cold]: The soldiers, the toll gate, the scholar, the scouts over Greyfen. I've finished my list. It is one name long.
 SABLE [neutral]: Rusk's crest came from a dead reeve, and the man who sold the reeve's road wore Halvric's green.
-ELISE [worried]: If Halvric holds a crest, his whole garrison is under Dominion. Every one of them, all at once.
+ELISE|MIRA [worried]: If Halvric holds a crest, his whole garrison is under Dominion. Every one of them, all at once.
 ALDRIC [cold]: Then we don't fight the garrison. We go through it, to him.
 ROWAN [determined]: Right. We go now.
 
@@ -151,22 +158,22 @@ ALDRIC [cold]: I think he's been waiting twenty years for everyone to be in one 
 
 ### hub_briefing_ch14
 @bg solmere_harbor
-HALDE [neutral]: The Gull can make Dravenhold's coast in six days, if the weather holds. It won't. It's the north.
+HALDE|OSMUND [neutral]: The Gull can make Dravenhold's coast in six days, if the weather holds. It won't. It's the north.
 YSRA [cold]: The citadel is above the city. Vossk sits on the Empress's throne. She stands guard for him in the courtyard.
 SERAPHINE [determined]: Then we free her. Not kill her. Whatever happens, she has to live to end this war.
 ROWAN [determined]: Nobody kills the Empress. We go now.
 
 ### hub_briefing_ch14_no_ysra
 @bg solmere_harbor
-HALDE [neutral]: The Gull can make Dravenhold's coast in six days, if the weather holds. It won't. It's the north.
-HALDE [cold]: And the harbour talk says the grey man sits on the Empress's throne. She stands guard for him in the courtyard.
+HALDE|OSMUND [neutral]: The Gull can make Dravenhold's coast in six days, if the weather holds. It won't. It's the north.
+HALDE|OSMUND [cold]: And the harbour talk says the grey man sits on the Empress's throne. She stands guard for him in the courtyard.
 SERAPHINE [determined]: Then we free her. Not kill her. Whatever happens, she has to live to end this war.
 ROWAN [determined]: Nobody kills the Empress. We go now.
 
 ### hub_briefing_ch13
 @bg solmere_harbor
-HALDE [neutral]: Castellan's palazzo is on the cliffs past the lighthouse. His guards walk it in step, all night, every night.
-PIP [smile]: I've been looking at the plans. Everyone has plans, if you know which clerk to buy a drink for.
+HALDE|OSMUND [neutral]: Castellan's palazzo is on the cliffs past the lighthouse. His guards walk it in step, all night, every night.
+PIP|SABLE [smile]: I've been looking at the plans. Everyone has plans, if you know which clerk to buy a drink for.
 SERAPHINE [determined]: We want what he knows about Vossk. And we want him to stop selling people by the piece.
 ROWAN [determined]: Then we go and get both. We go now.
 
@@ -174,35 +181,35 @@ ROWAN [determined]: Then we go and get both. We go now.
 @bg solmere_harbor
 OSMUND [neutral]: Solmere, my lord. The Free Cities. They have no king, only merchant princes and very good lawyers.
 YSRA [cold]: The crest auction is on the quay at the Gilded Harbor. Tonight. Ash and I will watch from the cliffs.
-SABLE [smile]: I can get us in. I know a man who knows a man who forges invitations. Don't ask.
+SABLE|PIP [smile]: I can get us in. I know a man who knows a man who forges invitations. Don't ask.
 ROWAN [neutral]: We look. We listen. We don't start anything. We go now.
 
 ### hub_briefing_ch12_no_ysra
 @bg solmere_harbor
 OSMUND [neutral]: Solmere, my lord. The Free Cities. They have no king, only merchant princes and very good lawyers.
 SERAPHINE [determined]: The bill of sale names the place: the crest auction, on the quay at the Gilded Harbor. Tonight.
-SABLE [smile]: I can get us in. I know a man who knows a man who forges invitations. Don't ask.
+SABLE|PIP [smile]: I can get us in. I know a man who knows a man who forges invitations. Don't ask.
 ROWAN [neutral]: We look. We listen. We don't start anything. We go now.
 
 ### hub_briefing_ch11
 @bg calder_lodgings
 OSMUND [neutral]: The council has given the Princess its blessing, my lord. Mostly because she left before it could refuse.
 SERAPHINE [smile]: I left a very polite note.
-WREN [worried]: The only pass north this late in the year is Ravensgate. The imperial wyvern corps roosts on it.
+WREN|OSMUND [worried]: The only pass north this late in the year is Ravensgate. The imperial wyvern corps roosts on it.
 ROWAN [determined]: Then we climb past them. Openly. We go now.
 
 ### hub_briefing_ch10
 @bg calder_lodgings
 OSMUND [neutral]: The letter "in the King's hand" went north, my lord. To the Empress. A month ago, by the archive's ledger.
-ELISE [worried]: If she believed it, Dravenhold is already marching. The border villages will see them first.
-SABLE [neutral]: Kestrel Ford's the first village past the pass. If there's a war, it starts there.
+ELISE|MIRA [worried]: If she believed it, Dravenhold is already marching. The border villages will see them first.
+SABLE|PIP|KAI [neutral]: Kestrel Ford's the first village past the pass. If there's a war, it starts there.
 ROWAN [determined]: Then that's where we go. We go now.
 
 ### hub_briefing_ch09
 @bg calder_lodgings
 OSMUND [neutral]: The palace has given us rooms, my lord. Very fine rooms. With a view of the guard who watches our door.
-TAMSIN [cold]: The grey-cloaks who ran from the square went down a drain behind the guildhalls. I watched them go.
-ELISE [determined]: The undercity. If the Veiled have a nest in Calder, it's down there, under everyone's feet.
+TAMSIN|KAI [cold]: The grey-cloaks who ran from the square went down a drain behind the guildhalls. I watched them go.
+ELISE|MIRA [determined]: The undercity. If the Veiled have a nest in Calder, it's down there, under everyone's feet.
 ROWAN [determined]: Then we go down. Quietly. We go now.
 
 ### hub_briefing_ch08

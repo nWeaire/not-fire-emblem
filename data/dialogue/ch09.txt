@@ -5,10 +5,10 @@
 @bg calder_undercity
 @music tension_low
 NARRATOR: Under Calder lay an older Calder: cellars, cisterns and sewers, three hundred years of them, stacked like plates.
-NARRATOR: The Veiled who escaped the square had gone down a drain behind the guildhalls. Tamsin had watched them go.
-TAMSIN [cold]: Fresh mud on the rungs. Lantern smoke. A lot of boots. They live down here.
+NARRATOR: The Veiled who escaped the square had gone down a drain behind the guildhalls.
+TAMSIN|KAI [cold]: Fresh mud on the rungs. Lantern smoke. A lot of boots. They live down here.
 OSMUND [worried]: The old city archive was moved below the guildhalls after the flood of '82. Strictly speaking, it was closed.
-ELISE [determined]: An archive nobody visits. If I had secrets, that's exactly where I'd keep them.
+ELISE|MIRA [determined]: An archive nobody visits. If I had secrets, that's exactly where I'd keep them.
 DORRAN [neutral]: Tunnels. Dark. Doors we can't open, and men who know every turn. I'd sooner take a castle.
 ROWAN [determined]: Then we bring lanterns. Find their archive. We go now.
 
@@ -44,15 +44,15 @@ PIP [worried]: Oh, those are Mott's lot. They sell to the grey-cloaks. They'll p
 ### ch09_letters
 @bg calder_undercity
 @music tension_low
-NARRATOR: They carried out what they could. By lantern light in their lodgings, Elise broke the purple seals one by one.
-ELISE [worried]: Orders. Payments. Names of crest-bearers, where they live, who guards them. Some are crossed out.
-ELISE [sad]: The crossed-out ones are dead. Reeves, mostly. The village reeves in the Thornvale are all here.
+NARRATOR: They carried out what they could. By lantern light in their lodgings, they broke the purple seals one by one.
+ELISE|OSMUND [worried]: Orders. Payments. Names of crest-bearers, where they live, who guards them. Some are crossed out.
+ELISE|OSMUND [sad]: The crossed-out ones are dead. Reeves, mostly. The village reeves in the Thornvale are all here.
 OSMUND [cold]: Look at the paper, my lord. Not the words, the paper. Hold it to the lamp.
 NARRATOR: A watermark showed through the sheet: a tower and a key, very faint.
 OSMUND [cold]: Chancery paper. Made for one office in this kingdom. I signed letters on it for eleven years.
 SABLE [neutral]: So somebody in the palace is buying stationery for murderers. Narrows it down.
-ELISE [worried]: And this one. "The north must be moved. Send the Empress the letter in the King's hand."
-ELISE [worried]: The King's hand? The King didn't write this.
-PIP [neutral]: Forged, I'd bet. There's a man in the undercity who does hands. Very good. Very dead, last week.
+ELISE|OSMUND [worried]: And this one. "The north must be moved. Send the Empress the letter in the King's hand."
+ELISE|MIRA [worried]: The King's hand? The King didn't write this.
+PIP|SABLE [neutral]: Forged, I'd bet. There's a man in the undercity who does hands. Very good. Very dead, last week.
 ALDRIC [cold]: ...
 ROWAN [determined]: Then Dravenhold's being lied to, same as us. Someone has to get to the border before the war does.

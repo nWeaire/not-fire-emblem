@@ -21,6 +21,10 @@ public partial class ArtDefinition : Resource
     [Export] public bool NoCounter { get; set; }
     /// <summary>Movement types or class traits (e.g. "Beast") it deals effective damage against.</summary>
     [Export] public string[] EffectiveAgainst { get; set; } = Array.Empty<string>();
+    /// <summary>Strikes twice before the target can answer.</summary>
+    [Export] public bool Brave { get; set; }
+    /// <summary>Ignores half the target's Def (or Res, for magic), whatever the target.</summary>
+    [Export] public bool Pierce { get; set; }
 
-    public ArtDef ToDef() => new(Id, Name, Type, MightMod, HitMod, CritMod, RangeBonus, Uses, NoCounter, EffectiveAgainst.ToArray());
+    public ArtDef ToDef() => new(Id, Name, Type, MightMod, HitMod, CritMod, RangeBonus, Uses, NoCounter, EffectiveAgainst.ToArray(), Brave, Pierce);
 }

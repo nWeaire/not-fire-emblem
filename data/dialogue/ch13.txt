@@ -5,11 +5,11 @@
 @bg solmere_palazzo_night
 @music tension_high
 NARRATOR: Prince Castellan's palazzo stood on the cliffs above the harbour, lit like a lantern from every window.
-NARRATOR: Halde put them ashore on the strand below it at midnight, in two boats, with muffled oars.
-HALDE [neutral]: Sea gate's the only way in from this side. Gardens, then the great hall. He'll be on his chair. He always is.
+NARRATOR: The Gull put them ashore on the strand below it at midnight, in two boats, with muffled oars.
+HALDE|PIP|KAI [neutral]: Sea gate's the only way in from this side. Gardens, then the great hall. He'll be on his chair. He always is.
 PIP [smile]: And a vault in the west wing. Just saying. Since we're passing.
 SERAPHINE [determined]: We're here for one thing: how Vossk holds the Empress. Castellan sold him the means. He'll know.
-ELISE [worried]: Three crests on one man. I don't know what that does to a person. I don't think it's anything good.
+ELISE|MIRA [worried]: Three crests on one man. I don't know what that does to a person. I don't think it's anything good.
 ROWAN [determined]: Then we ask him before it does any more. Through the gate. We go now.
 
 ### ch13_start
@@ -35,10 +35,10 @@ CASTELLAN [hurt]: You think he wants them to rule with? He drinks them, boy. I o
 ### ch13_elise_pattern
 @bg solmere_palazzo_dawn
 @music tension_low
-NARRATOR: At dawn they laid the auction ledgers, the Veiled letters and Halde's charts side by side on Castellan's table.
-ELISE [worried]: Every crest the Veiled buy goes east. Every one. Calder, Solmere, Dravenhold, then over the border, east.
-ELISE [worried]: And the crest-bearers who were killed, the reeves. Their crests didn't stay where they died. They went east too.
-ELISE [sad]: Something in the Ashen Reach is drinking them. Castellan said it. "He drinks them." He meant it literally.
+NARRATOR: At dawn they laid the auction ledgers, the Veiled letters and the Gull's charts side by side on Castellan's table.
+ELISE|SERAPHINE [worried]: Every crest the Veiled buy goes east. Every one. Calder, Solmere, Dravenhold, then over the border, east.
+ELISE|SERAPHINE [worried]: And the crest-bearers who were killed, the reeves. Their crests didn't stay where they died. They went east too.
+ELISE|SERAPHINE [sad]: Something in the Ashen Reach is drinking them. Castellan said it. "He drinks them." He meant it literally.
 OSMUND [cold]: The Chancellor's paper. The Chancellor's gold. And now, the Chancellor's thirst.
 ALDRIC [cold]: ...
 SERAPHINE [determined]: Then Vossk holds the Empress for him. Break Vossk, and we take away one of his hands.
@@ -47,19 +47,19 @@ SERAPHINE [determined]: Then Vossk holds the Empress for him. Break Vossk, and w
 @bg solmere_palazzo_dawn
 @music aftermath
 NARRATOR: Rowan's crest had changed in the night. A third ring of light circled the other two, slow and steady.
-ELISE [worried]: The Lord's Crest. The old texts say a third ring means the crest can share itself. Lift others with it.
+ELISE|OSMUND [worried]: The Lord's Crest. The old texts say a third ring means the crest can share itself. Lift others with it.
 MIRA [smile]: It's warm. Like standing near a hearth. Can you feel it, all of you?
 KAI [smile]: I can feel it. I feel like I could fight a wyvern. Bare-handed. Sorry, Ysra.
 YSRA [neutral]: Ash forgives you. Mostly.
-ROWAN [determined]: North, then. To the Empress, and to Vossk. Halde?
+ROWAN [determined]: North, then. To the Empress, and to Vossk.
 HALDE [smile]: The Gull goes where the passengers point. Even into the snow.
 
 ### ch13_post_no_ysra
 @bg solmere_palazzo_dawn
 @music aftermath
 NARRATOR: Rowan's crest had changed in the night. A third ring of light circled the other two, slow and steady.
-ELISE [worried]: The Lord's Crest. The old texts say a third ring means the crest can share itself. Lift others with it.
+ELISE|OSMUND [worried]: The Lord's Crest. The old texts say a third ring means the crest can share itself. Lift others with it.
 MIRA [smile]: It's warm. Like standing near a hearth. Can you feel it, all of you?
 KAI [smile]: I can feel it. I feel like I could fight a wyvern. Bare-handed.
-ROWAN [determined]: North, then. To the Empress, and to Vossk. Halde?
+ROWAN [determined]: North, then. To the Empress, and to Vossk.
 HALDE [smile]: The Gull goes where the passengers point. Even into the snow.

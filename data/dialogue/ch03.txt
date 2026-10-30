@@ -64,3 +64,11 @@ ROWAN [neutral]: If Halvric's men want her, she knows something.
 TAMSIN [cold]: Then I'm coming. Not for you. The beasts came out of my wood, and I want whoever's holding the leash.
 ROWAN [smile]: Right. Welcome to Brookhollow.
 TAMSIN [cold]: Don't make it a thing.
+
+### ch03_post_no_tamsin
+@bg thornwood_dawn
+@music aftermath
+NARRATOR: They buried the hunter at the edge of the Thornwood, beside her dogs, facing out.
+MIRA [sad]: We barely knew her.
+ROWAN [neutral]: Tamsin. Her name was Tamsin. She wanted whoever's holding the leash.
+ROWAN [determined]: So do I. If Halvric's men want this scholar, she knows something. We go south.

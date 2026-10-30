@@ -2,9 +2,33 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-30 (session 17)._
+_Last updated: 2026-10-30 (session 18)._
 
 ---
+
+## Session 18 (the four items before Act III)
+1. **Act II hub.** `Campaign/HubPlace`: Brookhollow, Calder (palace lodgings) or Solmere, read from the hub briefing's
+   first `@bg`. The hub shows the place's picture behind the panels, its name above the places list, its music
+   (new synthesized `hub_calder`, a G minor minuet, and `hub_solmere`, a D major harbour tune) and Osmund's
+   shop/idle lines.
+2. **Crestbound signature arts:** one per tier 3 class (table in CHAPTERS.md, Ch 13). Two new art flags: **Brave**
+   (two strikes before the counter) and **Pierce** (half of any target's Def, or Res for magic;
+   `WeaponDef.PiercesAll`). The battle log now names the art. Autoplay at level 25 used Hunter's Mark, Pike Wall,
+   Whirlwind and Falling Star.
+3. **Iron Man fallen companions:** a companion who dies in Iron Man gets `fell:<id>` (not Aldric's scripted `leave`)
+   and leaves later scenes like a missed recruit. Script lines can name stand-ins, `ELISE|MIRA [worried]: ...`
+   (DIALOGUE.md section 1); 47 lines in Act I–II got one. Five `_no_<id>` scenes cover deaths in a recruiting chapter
+   (Brann Ch 2 and his smithy, Tamsin Ch 3, Sable Ch 6, Halde Ch 12). Osmund names the dead at the next hub, and
+   Holt's apprentice keeps the forge if Brann falls. Aldric, Kai, Mira and Seraphine retreat, so they never fall.
+4. **Art leftovers:** nine stat icons (`assets/ui/icons/icon_stat_*`, $0.72) in the hub's party stats and both
+   level-up panels (`UI/LevelStats`). Ch 6's marsh and the village roofs were already covered (shallows, reeds and
+   stilt tiles; house props). **PixelLab: about $6.00 left.**
+- Build clean, 158 tests pass, content loads (189 scenes, 21 arts).
+
+## Next (plan for session 19)
+1. Hand playtest: the Calder/Solmere hub (from slot 3), and a Crestbound unit's art in a real battle.
+2. **Act III** ("The Hollow Path", Ch 16-22, CHAPTERS.md). Its shops must sell `mythril_*` and Mythril Mail. New
+   scenes should give stand-ins (`A|B:`) to lines by companions who can fall.
 
 ## Session 17
 - **Autoplay stalls fixed.** `AiController.Picks` now skips spared recruits: the autoplay party chose to attack Ysra

@@ -17,7 +17,7 @@ ROWAN [determined]: Then nobody kills her. We beat her if we have to, and we get
 @music tension_high
 NARRATOR: The Gull put them ashore in a grey cove below Dravenhold's capital. Snow had been falling for three days.
 NARRATOR: The citadel stood above the city, black stone under white. Its gates were open. Nobody came or went.
-HALDE [cold]: The guard walks in step, like Castellan's did. The whole court does, the fishermen say. Not a real order in a year.
+HALDE|OSMUND [cold]: The guard walks in step, like Castellan's did. The whole court does, the fishermen say. Not a real order in a year.
 SERAPHINE [determined]: Then we give them one. Through the gate, to the throne. To Vossk.
 ALDRIC [cold]: The Empress will be in the courtyard. He'll put her between us and him. It's what I'd do.
 MIRA [worried]: She can't help it. If she fights us, it isn't her.

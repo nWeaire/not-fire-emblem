@@ -235,6 +235,12 @@ public sealed class CampaignRunner
     /// <summary>The story flag for a recruit the player left on the enemy side ("missed:ysra").</summary>
     public static string MissedFlag(string unitId) => $"missed:{unitId}";
 
+    /// <summary>
+    /// The story flag for a companion who fell for good in Iron Man ("fell:sable"); later scenes leave them out like a
+    /// missed recruit (GameSession.Scene). Not set by a script's <c>leave</c> (Aldric in Ch 15 still has his last words).
+    /// </summary>
+    public static string FellFlag(string unitId) => $"fell:{unitId}";
+
     public BattleReport ApplyVictory(BattleState s)
     {
         foreach (var missed in ObjectiveEvaluator.MissedRecruits(s).Where(u => Db.Units.ContainsKey(u.State.Def.Id)))
@@ -256,6 +262,8 @@ public sealed class CampaignRunner
             {
                 fallen.Add(state.Def.Name);
                 state.Status = Session.Mode == GameMode.IronMan ? UnitStatus.Dead : UnitStatus.Active;
+                if (state.Status == UnitStatus.Dead)
+                    Session.Flags.Add(FellFlag(id));
             }
             else
             {

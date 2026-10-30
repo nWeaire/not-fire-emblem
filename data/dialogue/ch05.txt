@@ -7,7 +7,7 @@
 NARRATOR: Ferrow's Keep had watched the eastern border for two hundred years. It had never been asked to watch this.
 NARRATOR: The Gloamkin came out of the east at dusk, more of them than anyone had counted, and they did not stop.
 KAI [worried]: That's not a raid. That's the whole forest walking.
-ELISE [worried]: There'll be a Binder behind them. There always is. Someone has to be holding the leash.
+ELISE|ALDRIC [worried]: There'll be a Binder behind them. There always is. Someone has to be holding the leash.
 ROWAN [determined]: Then we hold the walls until dawn, and we look for the one holding the leash.
 
 ### ch05_dorran

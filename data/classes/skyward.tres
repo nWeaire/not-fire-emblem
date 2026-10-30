@@ -48,6 +48,6 @@ IsPromoted = true
 MaxArmor = 0
 Tier = 3
 Traits = PackedStringArray()
-Arts = PackedStringArray("sky_lance")
+Arts = PackedStringArray("sky_lance", "falling_star")
 Spells = PackedStringArray()
 PromotesFrom = "falcon_knight"

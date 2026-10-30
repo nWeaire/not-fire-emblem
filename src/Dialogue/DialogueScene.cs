@@ -9,10 +9,23 @@ namespace NotFireEmblem.Dialogue;
 /// <summary>One step of a dialogue scene: a spoken line or a command (GDD §5, DIALOGUE.md §1).</summary>
 public abstract record DialogueLine;
 
-/// <summary>A spoken line. <see cref="Speaker"/> is a unit id in lower case, "narrator", or "???" (name hidden).</summary>
-public sealed record SpeakLine(string Speaker, string Expression, string Text) : DialogueLine
+/// <summary>
+/// A spoken line. <see cref="Speaker"/> is a unit id in lower case, "narrator", or "???" (name hidden).
+/// <see cref="StandIns"/> say it instead, first one present, when the speaker isn't there (script <c>DORRAN|ALDRIC:</c>,
+/// session 18: a companion who fell in Iron Man, or a missed recruit).
+/// </summary>
+public sealed record SpeakLine(string Speaker, string Expression, string Text, IReadOnlyList<string>? StandIns = null) : DialogueLine
 {
     public bool IsNarrator => Speaker == "narrator";
+
+    /// <summary>This line as the first of its speaker and stand-ins who is here, or null when none is.</summary>
+    public SpeakLine? SaidBy(Func<string, bool> here)
+    {
+        if (here(Speaker))
+            return this;
+        string? standIn = StandIns?.FirstOrDefault(here);
+        return standIn is null ? null : this with { Speaker = standIn, StandIns = null };
+    }
 }
 
 public sealed record WaitLine(double Seconds) : DialogueLine;
@@ -35,20 +48,26 @@ public sealed record DialogueScene(string Id, IReadOnlyList<DialogueLine> Lines)
     /// <summary>The story flags this scene sets.</summary>
     public IEnumerable<string> Flags => Lines.OfType<FlagLine>().Select(f => f.Flag);
 
-    /// <summary>The unit ids that speak in this scene (no narrator or hidden speakers).</summary>
+    /// <summary>The unit ids that speak in this scene, stand-ins included (no narrator or hidden speakers).</summary>
     public IEnumerable<string> Speakers =>
-        Lines.OfType<SpeakLine>().Select(l => l.Speaker).Where(s => s is not ("narrator" or "???")).Distinct();
+        Lines.OfType<SpeakLine>().SelectMany(l => l.StandIns is null ? new[] { l.Speaker } : l.StandIns.Prepend(l.Speaker))
+            .Where(s => s is not ("narrator" or "???")).Distinct();
 
     /// <summary>
-    /// The scene without the lines of speakers who aren't here (scenes written for whoever was deployed, like the crest
-    /// blessings); the narrator and hidden speakers always stay.
+    /// The scene without <paramref name="absent"/> speakers (recruits the player missed, companions who fell): their
+    /// lines go to a stand-in if one is named and here, else are dropped.
     /// </summary>
-    /// <summary>The scene without the lines of <paramref name="absent"/> speakers (recruits the player missed).</summary>
-    public DialogueScene Without(IReadOnlySet<string> absent) =>
-        this with { Lines = Lines.Where(l => l is not SpeakLine s || !absent.Contains(s.Speaker)).ToList() };
+    public DialogueScene Without(IReadOnlySet<string> absent) => Keep(id => !absent.Contains(id));
 
+    /// <summary>
+    /// The scene for whoever is <paramref name="present"/> (battle scenes, written for whoever was deployed, like the
+    /// crest blessings); the narrator and hidden speakers always stay.
+    /// </summary>
     public DialogueScene OnlySpeakers(IReadOnlySet<string> present) =>
-        this with { Lines = Lines.Where(l => l is not SpeakLine s || s.IsNarrator || s.Speaker == "???" || present.Contains(s.Speaker)).ToList() };
+        Keep(id => id is "narrator" or "???" || present.Contains(id));
+
+    private DialogueScene Keep(Func<string, bool> here) =>
+        this with { Lines = Lines.Select(l => l is SpeakLine s ? s.SaidBy(here) : l).OfType<DialogueLine>().ToList() };
 }
 
 /// <summary>
@@ -140,7 +159,11 @@ public static class DialogueParser
             expression = head[(bracket + 1)..close].Trim().ToLowerInvariant();
             head = head[..bracket].Trim();
         }
-        return new SpeakLine(head.ToLowerInvariant(), expression, text);
+        // "DORRAN|ALDRIC": Dorran's line, said by Aldric if Dorran isn't there.
+        var names = head.ToLowerInvariant().Split('|', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+        if (names.Length == 0)
+            throw new FormatException($"No speaker in '{line}'.");
+        return new SpeakLine(names[0], expression, text, names.Length > 1 ? names[1..] : null);
     }
 
     public static GridPos ParseCell(string text)

@@ -7,7 +7,7 @@
 NARRATOR: Greyfen was half marsh and half rumour: reed beds, black pools, and houses standing on stilts above the mud.
 NARRATOR: The rumour said a bandit king ruled it now, and that his men did whatever he wanted, the moment he wanted it.
 DORRAN [neutral]: Mind the shallows, my lord. Plate and marsh water don't get on.
-ELISE [worried]: If the rumour's true, he's holding them the way the Binders hold the Gloamkin. But he's no Binder.
+ELISE|ALDRIC [worried]: If the rumour's true, he's holding them the way the Binders hold the Gloamkin. But he's no Binder.
 ROWAN [determined]: Then where did he get a crest?
 
 ### ch06_start
@@ -64,3 +64,13 @@ ROWAN [cold]: Halvric again. The soldiers, the gate, the scouts. Every road lead
 DORRAN [neutral]: Then that's where we go, my lord.
 ROWAN [determined]: Right. We go now.
 
+### ch06_post_no_sable
+@bg greyfen_dawn
+@music aftermath
+NARRATOR: The bandits who woke up went home. Most of them didn't remember why they'd left.
+NARRATOR: One remembered enough. Rusk took his crest from a reeve in the next valley, killed on the road last spring.
+NARRATOR: And the man who told Rusk where the reeve would be wore Dain Hall green.
+KAI [sad]: Sable still owed me eleven silver. She said she'd pay me back after this one.
+ROWAN [cold]: Halvric again. The soldiers, the gate, the scouts. Every road leads back to Dain Hall.
+DORRAN [neutral]: Then that's where we go, my lord.
+ROWAN [determined]: Right. We go now.

@@ -120,6 +120,7 @@ public class CampaignTests
         var report = runner.ApplyVictory(s);
         Assert.Equal(new[] { "Partner" }, report.Fallen);
         Assert.Equal(UnitStatus.Dead, session.Unit("partner")!.Status);
+        Assert.Equal(new[] { "partner" }, session.Fallen);
         Assert.Equal(55, session.Unit("partner")!.Exp);
         Assert.Equal(800 + CampaignRunner.VictoryGold(session.Chapter), session.Gold);
         Assert.Equal(CampaignRunner.SurvivorExp, session.Unit("lord")!.Exp);
@@ -139,6 +140,7 @@ public class CampaignTests
         s.Defeat(s.Units.Single(u => u.State.Def.Id == "partner"));
         runner.ApplyVictory(s);
         Assert.Equal(UnitStatus.Active, session.Unit("partner")!.Status);
+        Assert.Empty(session.Fallen);
     }
 
     [Fact]
@@ -203,6 +205,34 @@ public class CampaignTests
         Assert.Equal("I read the letter.", Assert.IsType<SpeakLine>(Assert.Single(session.Scene(db, "post")!.Lines)).Text);
         Assert.Equal("lord", Assert.IsType<SpeakLine>(Assert.Single(session.Scene(db, "banter")!.Lines)).Speaker);
         Assert.Null(session.Scene(db, "nothing"));
+    }
+
+    [Fact]
+    public void FallenCompanions_LeaveScenes_AndStandInsTakeTheirLines()
+    {
+        var db = Db();
+        foreach (var scene in DialogueParser.Parse("""
+            ### briefing
+            SABLE|PIP|KAI [smile]: I can get us in.
+            DORRAN: Mind the shallows.
+            LORD: Go.
+            """))
+            db.Add(scene);
+        var session = new GameSession();
+        var full = session.Scene(db, "briefing")!.Lines.Cast<SpeakLine>().ToList();
+        Assert.Equal(new[] { "sable", "dorran", "lord" }, full.Select(l => l.Speaker));
+        Assert.Contains("kai", session.Scene(db, "briefing")!.Speakers);
+
+        session.Flags.Add(CampaignRunner.FellFlag("sable"));
+        session.Flags.Add(CampaignRunner.FellFlag("dorran"));
+        var told = session.Scene(db, "briefing")!.Lines.Cast<SpeakLine>().ToList();
+        Assert.Equal(new[] { "pip", "lord" }, told.Select(l => l.Speaker));
+        Assert.Equal("smile", told[0].Expression);
+        Assert.Equal("I can get us in.", told[0].Text);
+
+        // Battle scenes keep whoever is on the field, stand-ins included.
+        var field = db.Scenes["briefing"].OnlySpeakers(new HashSet<string> { "kai", "lord" }).Lines.Cast<SpeakLine>();
+        Assert.Equal(new[] { "kai", "lord" }, field.Select(l => l.Speaker));
     }
 
     [Fact]

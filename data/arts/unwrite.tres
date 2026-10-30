@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ArtDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ArtDefinition.cs" id="1_art"]
+
+[resource]
+script = ExtResource("1_art")
+Id = "unwrite"
+Name = "Unwrite"
+Type = 5
+MightMod = 2
+HitMod = 20
+CritMod = 0
+RangeBonus = 1
+Uses = 2
+NoCounter = false
+EffectiveAgainst = PackedStringArray("Hollowed")
+Brave = false
+Pierce = false

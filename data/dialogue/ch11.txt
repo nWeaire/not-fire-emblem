@@ -6,7 +6,7 @@
 @music march
 NARRATOR: The road to Dravenhold climbed into the mountains and kept climbing. The first snow lay in the shadows.
 NARRATOR: At the top of the pass stood the wyvern roosts of the imperial corps, where no army had crossed in a century.
-WREN [worried]: There'll be wyverns on every ledge. They nest up there. They'll see us before we're halfway.
+WREN|KAI [worried]: There'll be wyverns on every ledge. They nest up there. They'll see us before we're halfway.
 SERAPHINE [determined]: Then let them see us. A princess of Calder, asking for an audience. Openly.
 DORRAN [cold]: With respect, Highness, they'll ask with lances first and listen after.
 ROWAN [neutral]: Then we answer, and keep climbing. Up the road. We go now.
@@ -49,7 +49,7 @@ YSRA [neutral]: The capital. Three days. The Empress holds court there in the sn
 SERAPHINE [worried]: "The grey man." Who is he?
 YSRA [cold]: Vossk. The Veiled Hand, the court calls him. He came from Calder two winters ago, with a letter of friendship.
 OSMUND [cold]: From Calder. With a letter. Signed, no doubt, on very good paper.
-ELISE [worried]: Holding a crowned empress would take more than one crest. Far more. Where would he get them?
+ELISE|MIRA [worried]: Holding a crowned empress would take more than one crest. Far more. Where would he get them?
 YSRA [neutral]: Bought, the riders say. From a merchant prince in Solmere who keeps more crests than any king.
 SERAPHINE [determined]: Then we can't just knock on the citadel's door. We need to know what he bought, and break it.
 ALDRIC [cold]: ...

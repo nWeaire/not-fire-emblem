@@ -51,6 +51,7 @@ public partial class BattleHud : CanvasLayer
     private HBoxContainer _unitCrest = null!;
     private PanelContainer _levelPanel = null!;
     private Label _levelText = null!;
+    private VBoxContainer _levelStats = null!;
     private VBoxContainer _toasts = null!;
     private PanelContainer _captionPanel = null!;
     private Label _caption = null!;
@@ -208,9 +209,15 @@ public partial class BattleHud : CanvasLayer
 
         // Level-up panel (centre)
         _levelPanel = Panel(root, Control.LayoutPreset.Center, Vector2.Zero);
+        var levelBox = new VBoxContainer();
+        levelBox.AddThemeConstantOverride("separation", 2);
+        _levelPanel.AddChild(levelBox);
         _levelText = new Label();
         _levelText.AddThemeFontSizeOverride("font_size", UiKit.Px(18));
-        _levelPanel.AddChild(_levelText);
+        levelBox.AddChild(_levelText);
+        _levelStats = new VBoxContainer();
+        _levelStats.AddThemeConstantOverride("separation", 2);
+        levelBox.AddChild(_levelStats);
         _levelPanel.Visible = false;
 
         // Toasts (top-right): items, gold, joins
@@ -550,9 +557,8 @@ public partial class BattleHud : CanvasLayer
     /// <summary>Shows the stats gained on a level-up for a moment.</summary>
     public async Task ShowLevelUp(string name, string className, LevelUp level, StatBlock statsAfter)
     {
-        var rows = StatBlock.All.Where(st => st is not (Stat.Mov or Stat.Cha))
-            .Select(st => $"{st,-4}{statsAfter[st],3}" + (level.Gains[st] > 0 ? $"  +{level.Gains[st]}" : ""));
-        _levelText.Text = $"LEVEL UP!   {name} — {className} Lv {level.Level}\n\n" + string.Join("\n", rows);
+        _levelText.Text = $"LEVEL UP!   {name} — {className} Lv {level.Level}\n";
+        LevelStats.Fill(_levelStats, statsAfter, level, 18);
         _levelPanel.Visible = true;
         _levelPanel.Modulate = Colors.White with { A = 0f };
         // A little pop as it appears (session 17 polish), with the gold sparkles on the map.

@@ -56,6 +56,40 @@ def hub():
     return s, True
 
 
+def hub_calder():
+    """Act II hub, the palace lodgings in Calder: a courtly G minor minuet, fine rooms with a guard at the door."""
+    s = Song(96, 16, 3)
+    ch = ["Gm", "D", "Gm", "Cm", "Bb", "F", "Eb", "D", "Gm", "Cm", "F", "Bb", "Eb", "Cm", "D", "Gm"]
+    s.melody("D5:1 G5:1 Bb5:1 | A5:1.5 G5:.5 F#5:1 | G5:1 D5:1 Bb4:1 | C5:2 Eb5:1 |"
+             "D5:1 F5:1 Bb5:1 | A5:1.5 G5:.5 F5:1 | G5:1 Eb5:1 C5:1 | D5:2 r:1 |"
+             "Bb4:1 D5:1 G5:1 | G5:1.5 F5:.5 Eb5:1 | F5:1 C5:1 A4:1 | Bb4:2 D5:1 |"
+             "Eb5:1 G5:1 Bb5:1 | C6:1 G5:1 Eb5:1 | F#5:1.5 A5:.5 D5:1 | G5:3", "strings", 0.75)
+    s.arp(ch, "harp", 4, 0.5, (0, 1, 2), 0.36)
+    s.bassline(ch, ((0, 1), (1, 1), (2, 1)), "pizz", 2, 0.5, fifth_on=(1, 2))
+    s.pad(ch, "choir", 3, 0.25)
+    for bar in (0, 4, 8, 12):
+        s.drums("T...........", 1, start_bar=bar, vel=0.3, steps_per_bar=12)
+    return s, True
+
+
+def hub_solmere():
+    """Act II hub, the harbour at Solmere: a bright D major sea tune, flute and bells over pizzicato and hand drums."""
+    s = Song(112, 16)
+    ch = ["D", "G", "D", "A", "Bm", "G", "A", "D", "G", "D", "Em", "A", "D", "G", "A", "D"]
+    s.melody("A4:.5 D5:.5 F#5:1 E5:.5 D5:.5 F#5:1 | G5:1.5 B5:.5 A5:1 G5:1 | F#5:.5 E5:.5 D5:1 A4:1 D5:1 | E5:3 r:1 |"
+             "F#5:.5 G5:.5 A5:1 B5:1 A5:1 | G5:1 F#5:.5 E5:.5 D5:2 | C#5:1 E5:1 A5:1 G5:1 | F#5:3 r:1 |"
+             "B5:1.5 A5:.5 G5:1 B5:1 | A5:1.5 F#5:.5 D5:2 | E5:.5 F#5:.5 G5:1 B5:1 G5:1 | A5:2 E5:2 |"
+             "F#5:.5 A5:.5 D6:1 C#6:.5 B5:.5 A5:1 | B5:1 G5:1 E5:1 G5:1 | A5:1 G5:.5 F#5:.5 E5:1 C#5:1 | D5:3 r:1",
+             "flute", 0.72)
+    s.arp(ch, "harp", 4, 0.5, (0, 2, 1, 2), 0.32)
+    s.bassline(ch, ((0, 1), (1.5, .5), (2, 1), (3, 1)), "pizz", 2, 0.55, fifth_on=(2,))
+    s.pad(ch, "strings", 3, 0.2)
+    for bar in range(0, 16, 2):
+        s.note(bar * 4, 86, 1.5, "bell", 0.25)  # a ship's bell, off across the water
+    s.drums("t..t..t...t.t...", 16, vel=0.4)
+    return s, True
+
+
 def prep():
     """Battle preparations: a steady, determined Bb major march (shares the march's tune, lighter)."""
     s = Song(100, 8)
@@ -226,5 +260,5 @@ def level_up():
     return s, False
 
 
-SONGS = {f.__name__: f for f in (title, calm_farm, hub, prep, tension_low, tension_high, battle_urgent, aftermath, loss,
+SONGS = {f.__name__: f for f in (title, calm_farm, hub, hub_calder, hub_solmere, prep, tension_low, tension_high, battle_urgent, aftermath, loss,
                                  march, forest_tension, player_phase, enemy_phase, victory, defeat, level_up)}

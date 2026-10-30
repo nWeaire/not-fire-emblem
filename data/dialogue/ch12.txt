@@ -7,11 +7,11 @@
 NARRATOR: Solmere's Gilded Harbor smelled of tar, oranges and money. Every flag in Aldmere flew from its masts.
 NARRATOR: They came ashore as a wool merchant's household: Osmund the merchant, everyone else his very large staff.
 OSMUND [neutral]: Strictly speaking, my lord, I have never sold wool. I have, however, read a great deal about it.
-SABLE [smile]: The auction's in the big hall on the quay. Invitation only. I have an invitation. Don't ask.
+SABLE|PIP|KAI [smile]: The auction's in the big hall on the quay. Invitation only. I have an invitation. Don't ask.
 NARRATOR: Inside, under gilded lamps, the merchant princes of Solmere bid on the lots. The lots were crests.
 NARRATOR: Then a steward in Castellan's gold looked twice at Seraphine's face, and turned, and ran.
 SERAPHINE [worried]: He knows me. Rowan, he knows who I am.
-PIP [worried]: Right! Everyone out! Captain with the gull on her flag said she'd take passengers. Last ship out!
+PIP|SABLE|KAI [worried]: Right! Everyone out! Captain with the gull on her flag said she'd take passengers. Last ship out!
 ROWAN [determined]: Then that's our ship. Everyone aboard. I go last. Go now.
 
 ### ch12_start
@@ -44,9 +44,20 @@ HALDE [cold]: Boarders. Keep them off my ship's planks, if you'd be so kind.
 @bg solmere_harbor_evening
 @music aftermath
 NARRATOR: The Gull slipped out of the harbour on the evening tide, with Castellan's bells still ringing behind her.
-PIP [smile]: I may have picked up one or two things on the way out. Like the auctioneer's ledger. It was just lying there.
-ELISE [worried]: Every sale, every buyer. And here. Three crests sold to "the Hand", for Dravenhold. Paid in Calder gold.
+PIP|SABLE|KAI [smile]: I may have picked up one or two things on the way out. Like the auctioneer's ledger. It was just lying there.
+ELISE|OSMUND [worried]: Every sale, every buyer. And here. Three crests sold to "the Hand", for Dravenhold. Paid in Calder gold.
 HALDE [cold]: Castellan keeps the best ones for himself. Three crests, they say, on one man. The whole harbour fears him.
 SERAPHINE [determined]: Then he's the one who knows how Vossk holds the Empress. He sold him the means.
 ROWAN [determined]: Then we go and ask him. In his own house. Halde, can you take us back in?
 HALDE [smile]: Into the Prince's own palazzo? For you lot, I think I can find a quiet beach.
+
+### ch12_post_no_halde
+@bg solmere_harbor_evening
+@music aftermath
+NARRATOR: The Gull slipped out of the harbour on the evening tide, with Castellan's bells still ringing behind her.
+NARRATOR: Her captain lay below, sewn into her own flag. Her crew sailed on. They said it was what she'd paid them for.
+PIP|SABLE|KAI [neutral]: I picked up one thing on the way out. The auctioneer's ledger. It seemed a waste to leave it.
+ELISE|OSMUND [worried]: Every sale, every buyer. And here. Three crests sold to "the Hand", for Dravenhold. Paid in Calder gold.
+OSMUND [cold]: Castellan keeps the best of them for himself, the crew say. Three crests on one man.
+SERAPHINE [determined]: Then he's the one who knows how Vossk holds the Empress. He sold him the means.
+ROWAN [determined]: Then we go and ask him, in his own house. The Gull can take us back. For her captain.

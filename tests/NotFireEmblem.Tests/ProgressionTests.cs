@@ -141,6 +141,26 @@ public class ProgressionTests
         Assert.Equal(1, hero.UsesLeft["smash"]);
     }
 
+    [Fact]
+    public void BraveArt_StrikesTwiceFirst_AndPierceArt_IgnoresHalfOfAnyDef()
+    {
+        var b = new TestBattle(".....").Named("hero", Faction.Player, "merc", 0, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 1, 0, "sword");
+        b.Db.Add(b.Db.Unit("hero") with { Arts = new[] { "twin_cut", "pierce_cut" } });
+        var (s, _) = Start(b);
+        var hero = s.Unit("u0");
+        var foe = s.Unit("u1");
+
+        var plain = CombatCalculator.Forecast(s, hero, hero.Pos, foe, new WeaponAttack("sword"));
+        var twin = CombatCalculator.Forecast(s, hero, hero.Pos, foe, new ArtAttack("twin_cut", "sword"));
+        Assert.True(twin.Strikes[0].ByAttacker && twin.Strikes[1].ByAttacker);
+        Assert.Equal(plain.Strikes.Count(x => x.ByAttacker) + 1, twin.Strikes.Count(x => x.ByAttacker));
+
+        var pierce = CombatCalculator.Forecast(s, hero, hero.Pos, foe, new ArtAttack("pierce_cut", "sword"));
+        int def = s.Stats(foe).Def;
+        Assert.Equal(plain.Attacker.Damage + def / 2, pierce.Attacker.Damage);
+    }
+
     // ------------------------------------------------------------------ healing, items, trade
 
     [Fact]

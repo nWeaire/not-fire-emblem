@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ArtDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ArtDefinition.cs" id="1_art"]
+
+[resource]
+script = ExtResource("1_art")
+Id = "sunfire"
+Name = "Sunfire"
+Type = 5
+MightMod = 4
+HitMod = 10
+CritMod = 0
+RangeBonus = 0
+Uses = 2
+NoCounter = false
+EffectiveAgainst = PackedStringArray()
+Brave = false
+Pierce = true

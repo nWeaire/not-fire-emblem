@@ -6,7 +6,7 @@
 @music march
 NARRATOR: The south road climbed out of the Thornwood and over the Calder hills, toward the old toll gate.
 NARRATOR: Halvric's men held the gate. They had been holding it for a week, and nobody had been allowed through.
-TAMSIN [cold]: Soldiers in Dain Hall green. On the road. In a line.
+TAMSIN|MIRA [cold]: Soldiers in Dain Hall green. On the road. In a line.
 KAI [worried]: Hang on. Are they chasing someone?
 ALDRIC [neutral]: A woman. Grey hood, satchel, running like she means it.
 ROWAN [determined]: That's our scholar. Get between her and them.

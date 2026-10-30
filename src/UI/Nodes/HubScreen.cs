@@ -11,7 +11,7 @@ using NotFireEmblem.Units;
 namespace NotFireEmblem.UI;
 
 /// <summary>
-/// The Brookhollow hub (STORY §3 Osmund, IMPLEMENTATION §5.7 hub screens): Party (stats, inventory, convoy and
+/// The hub (STORY §3 Osmund, IMPLEMENTATION §5.7 hub screens): Party (stats, inventory, convoy and
 /// equipment), Shop, Smithy, Promotion, Supports, Save, and March On. Every change goes through HubService.
 /// </summary>
 public partial class HubScreen : Control
@@ -20,6 +20,8 @@ public partial class HubScreen : Control
 
     private ContentDatabase Db => GameSessionNode.Instance.Content;
     private GameSession S => GameSessionNode.Instance.Session!;
+    /// <summary>Where the party is: Brookhollow, or in Act II Calder or Solmere (picture, music, Osmund's lines).</summary>
+    private HubPlace Place { get; set; } = HubPlace.Brookhollow;
     private List<SideStep> SideMaps => GameSessionNode.Instance.Runner?.AvailableSideMaps().ToList() ?? new List<SideStep>();
 
     private static readonly Color GoldColor = new(0.95f, 0.79f, 0.3f);
@@ -44,13 +46,24 @@ public partial class HubScreen : Control
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        AudioDirector.PlayMusic("hub");
-        AddChild(UiKit.Backdrop(new Color(0.18f, 0.14f, 0.1f), new Color(0.07f, 0.06f, 0.05f)));
         if (GameSessionNode.Instance.Session is null)
         {
+            AddChild(UiKit.Backdrop(new Color(0.18f, 0.14f, 0.1f), new Color(0.07f, 0.06f, 0.05f)));
             CampaignFlow.Advance();
             return;
         }
+        Place = HubPlace.For(GameSessionNode.Instance.Runner?.Current is HubStep { BriefingSceneId: { } briefing }
+            ? Db.Scenes.GetValueOrDefault(briefing)
+            : null);
+        AudioDirector.PlayMusic(Place.Music);
+        // The place's picture, darkened so the panels stay readable over it.
+        if (UiKit.Picture(Place.Background) is { } picture)
+        {
+            AddChild(picture);
+            AddChild(UiKit.Backdrop(new Color(0.07f, 0.05f, 0.04f, 0.25f), new Color(0.04f, 0.03f, 0.02f, 0.6f)));
+        }
+        else
+            AddChild(UiKit.Backdrop(new Color(0.18f, 0.14f, 0.1f), new Color(0.07f, 0.06f, 0.05f)));
 
         var margin = new MarginContainer();
         AddChild(UiKit.Fill(margin));
@@ -91,6 +104,11 @@ public partial class HubScreen : Control
         var left = new VBoxContainer { CustomMinimumSize = new Vector2(250, 0) };
         left.AddThemeConstantOverride("separation", 8);
         body.AddChild(left);
+        var placeLabel = UiKit.Label(Place.Name, 18, UiKit.Accent);
+        placeLabel.AutowrapMode = TextServer.AutowrapMode.WordSmart;
+        placeLabel.AddThemeColorOverride("font_outline_color", Colors.Black);
+        placeLabel.AddThemeConstantOverride("outline_size", 6);
+        left.AddChild(placeLabel);
         _tabs = new VBoxContainer();
         _tabs.AddThemeConstantOverride("separation", 6);
         left.AddChild(_tabs);
@@ -251,17 +269,34 @@ public partial class HubScreen : Control
 
     private string OsmundLine() => _tab switch
     {
-        Tab.Shop => "The trader's prices are robbery, my lord, but polite robbery.",
-        Tab.Smithy => "Master Holt assures me the forge is 'happy'. I have chosen not to ask.",
+        Tab.Shop => Place.ShopLine,
+        Tab.Smithy => S.Fallen.Contains("brann")
+            ? "Holt's apprentice keeps the forge now, my lord. She talks to the hammer too. I think it helps."
+            : "Master Holt assures me the forge is 'happy'. I have chosen not to ask.",
         Tab.Promotion => "The crest decides what you are, my lord. The armourer decides whether you survive being it.",
         Tab.Supports => "Your companions have been talking. Occasionally to each other.",
         Tab.Save => "I keep a ledger of everything. You may as well, too.",
         Tab.SideMaps => "Not every road we owe is the one ahead of us, my lord.",
+        _ when JustFallen() is { } names => $"We buried {names} this morning, my lord. Nobody has said much since.",
         _ when SideMaps.Count > 0 => "Before we march, my lord: there is somewhere off the road worth a look. See Side Maps.",
         _ => S.AvailableSupports(Db).Any()
             ? "Some of your companions wish a word with each other, my lord."
-            : "What shall we attend to, my lord?",
+            : Place.IdleLine,
     };
+
+    /// <summary>Companions who fell for good in the battle just won (Iron Man), as "Sable" or "Sable and Pip".</summary>
+    private string? JustFallen()
+    {
+        var report = GameSessionNode.Instance.LastReport;
+        var names = S.Roster.Where(u => S.Fallen.Contains(u.Def.Id) && report?.Fallen.Contains(u.Def.Name) == true)
+            .Select(u => u.Def.Name).ToList();
+        return names.Count switch
+        {
+            0 => null,
+            1 => names[0],
+            _ => string.Join(", ", names.Take(names.Count - 1)) + " and " + names[^1],
+        };
+    }
 
     private static string CrestTooltip(int tier)
     {
@@ -319,7 +354,11 @@ public partial class HubScreen : Control
         var stats = StatCalculator.Effective(Db, u);
         var cls = Db.Class(u.ClassId);
         Row($"{u.Def.Name} — {cls.Name} (tier {cls.Tier})   Lv {u.Level}   " + (u.Level >= ExpCalculator.LevelCap ? "EXP max: promote to grow" : $"EXP {u.Exp}/100"), 20, UiKit.Accent);
-        Row($"HP {stats.HP}   Str {stats.Str}   Mag {stats.Mag}   Dex {stats.Dex}   Spd {stats.Spd}   Lck {stats.Lck}   Def {stats.Def}   Res {stats.Res}   Mov {stats.Mov}");
+        var statRow = new HFlowContainer();
+        statRow.AddThemeConstantOverride("h_separation", 12);
+        foreach (var stat in StatBlock.All.Where(st => st != Stat.Cha))
+            statRow.AddChild(ItemIcons.StatLine(stat, $"{stat} {stats[stat]}", 15));
+        _content.AddChild(statRow);
         var arts = Abilities.Arts(Db, u).Select(a => a.Name).Concat(Abilities.Spells(Db, u).Select(sp => sp.Name)).ToList();
         if (arts.Count > 0)
             Row("Arts & spells: " + string.Join(", ", arts), 14, UiKit.Muted);

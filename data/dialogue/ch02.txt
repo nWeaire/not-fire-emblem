@@ -47,3 +47,12 @@ ROWAN [neutral]: Someone has to.
 BRANN [smile]: Then someone will need their blades sharpened. And someone's dad keeps parrying with a notched sword.
 ALDRIC [cold]: It's notched where I want it notched.
 BRANN [laugh]: Of course it is. I'll pack the anvil.
+
+### ch02_post_no_brann
+@bg mill_dusk
+@music aftermath
+NARRATOR: The mill wheel was turning again by sundown. Somebody had found Gorran's strongbox. Nobody admitted to it.
+NARRATOR: They buried Brann Holt beside his forge, with his hammer. Millbrook came out and stood with them, quietly.
+KAI [sad]: He only wanted to keep his forge lit.
+ROWAN [cold]: Whoever's sending the beasts. I'm going after them.
+ALDRIC [neutral]: I know. Sleep first. Then we go.

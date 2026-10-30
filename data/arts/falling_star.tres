@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ArtDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ArtDefinition.cs" id="1_art"]
+
+[resource]
+script = ExtResource("1_art")
+Id = "falling_star"
+Name = "Falling Star"
+Type = 1
+MightMod = 5
+HitMod = 10
+CritMod = 15
+RangeBonus = 0
+Uses = 1
+NoCounter = true
+EffectiveAgainst = PackedStringArray()
+Brave = false
+Pierce = false

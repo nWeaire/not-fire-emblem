@@ -46,6 +46,6 @@ IsPromoted = true
 MaxArmor = 0
 Tier = 3
 Traits = PackedStringArray()
-Arts = PackedStringArray("longshot")
+Arts = PackedStringArray("longshot", "broadside")
 Spells = PackedStringArray()
 PromotesFrom = "sniper"

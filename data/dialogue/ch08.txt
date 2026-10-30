@@ -8,8 +8,8 @@ NARRATOR: Calder was the oldest city in Aldmere. Its walls had stood for six hun
 NARRATOR: On the morning Rowan arrived, the gates stood open and unguarded, and smoke was rising from the grand square.
 OSMUND [worried]: That is the guild street. And that... that is the fountain square. I used to buy my ink there.
 KAI [worried]: Why's everyone shouting? Is it a festival? Tell me it's a festival.
-DORRAN [cold]: It's a riot, lad. Bread, taxes, the war talk from the north. Pick one. They've picked all three.
-ELISE [worried]: Riots don't usually have leaders who stand back and point. Look. There, by the market.
+DORRAN|ALDRIC [cold]: It's a riot, lad. Bread, taxes, the war talk from the north. Pick one. They've picked all three.
+ELISE|MIRA [worried]: Riots don't usually have leaders who stand back and point. Look. There, by the market.
 ALDRIC [neutral]: These are townsfolk with axe handles, not soldiers. Don't cut them down if you can help it.
 ROWAN [determined]: Then we find whoever's pointing. Get the people clear. We go now.
 

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ArtDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ArtDefinition.cs" id="1_art"]
+
+[resource]
+script = ExtResource("1_art")
+Id = "hammerfall"
+Name = "Hammerfall"
+Type = 2
+MightMod = 3
+HitMod = -10
+CritMod = 0
+RangeBonus = 0
+Uses = 1
+NoCounter = false
+EffectiveAgainst = PackedStringArray()
+Brave = true
+Pierce = false

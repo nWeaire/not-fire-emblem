@@ -68,6 +68,8 @@ public static class TestContent
         db.Add(new ArtDef("smash", "Smash", WeaponType.Sword, 3, -10, 0, 0, 2));
         db.Add(new ArtDef("quiet_cut", "Quiet Cut", WeaponType.Sword, 0, 0, 0, 0, 1, NoCounter: true));
         db.Add(new ArtDef("long_reach", "Long Reach", WeaponType.Sword, 0, 0, 0, 1, 1));
+        db.Add(new ArtDef("twin_cut", "Twin Cut", WeaponType.Sword, 0, 0, 0, 0, 1, Brave: true));
+        db.Add(new ArtDef("pierce_cut", "Pierce Cut", WeaponType.Sword, 0, 0, 0, 0, 1, Pierce: true));
         db.Add(new ArtDef("beastbane", "Beastbane", WeaponType.Sword, 0, 0, 0, 0, 1, EffectiveAgainst: new[] { "Beast" }));
         db.Add(new SpellDef("heal", "Heal", 10, 1, 1, 3));
         db.Add(Class("monk", MovementType.Infantry, basic, WeaponType.WhiteMagic) with { Spells = new[] { "prayer" } });

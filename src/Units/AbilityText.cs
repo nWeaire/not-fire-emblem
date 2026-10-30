@@ -21,7 +21,11 @@ public static class AbilityText
         if (art.RangeBonus > 0)
             lines.Add($"Reaches {art.RangeBonus} tile{(art.RangeBonus == 1 ? "" : "s")} further than the weapon.");
         if (art.EffectiveAgainst is { Count: > 0 } targets)
-            lines.Add($"Effective against {string.Join(" and ", targets)} units: triple might.");
+            lines.Add($"Effective against {string.Join(" and ", targets)} units: {(art.Type == WeaponType.BlackMagic ? "double" : "triple")} might.");
+        if (art.Brave)
+            lines.Add("Strikes twice before the target can answer.");
+        if (art.Pierce)
+            lines.Add($"Ignores half the target's {(art.Type == WeaponType.BlackMagic ? "Res" : "Def")}.");
         if (art.NoCounter)
             lines.Add("The target can't strike back.");
         lines.Add(Uses(art.Uses));

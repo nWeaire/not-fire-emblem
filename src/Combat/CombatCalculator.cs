@@ -78,6 +78,7 @@ public static class CombatCalculator
             Crit = weapon.Crit + art.CritMod,
             MaxRange = weapon.MaxRange + art.RangeBonus,
             EffectiveAgainst = weapon.EffectiveAgainst.Concat(art.EffectiveAgainst ?? Array.Empty<string>()).ToArray(),
+            PiercesAll = weapon.PiercesAll || art.Pierce,
         };
     }
 
@@ -104,7 +105,8 @@ public static class CombatCalculator
     public static CombatForecast Forecast(BattleState s, BattleUnit attacker, GridPos attackerPos, BattleUnit defender, ActionChoice choice)
     {
         var attackWeapon = EffectiveWeapon(s.Db, choice);
-        bool noCounter = choice is ArtAttack art && s.Db.Art(art.ArtId).NoCounter;
+        var artDef = choice is ArtAttack art ? s.Db.Art(art.ArtId) : null;
+        bool noCounter = artDef?.NoCounter == true;
         int distance = attackerPos.DistanceTo(defender.Pos);
         var counterWeapon = CounterWeapon(s.Db, defender.State, distance);
         bool canCounter = !noCounter && counterWeapon is not null && InRange(counterWeapon, distance);
@@ -120,6 +122,8 @@ public static class CombatCalculator
             : null;
 
         var strikes = new List<PlannedStrike> { aSide };
+        if (artDef?.Brave == true)
+            strikes.Add(aSide);
         if (dSide is not null)
             strikes.Add(dSide);
         if (aAs - dAs >= FollowUpThreshold && !attackWeapon.SingleStrike)
@@ -184,9 +188,12 @@ public static class CombatCalculator
     private static bool Warded(BattleState s, BattleUnit target) =>
         new[] { target.State.ArmorId, target.State.AccessoryId }.Any(id => id is not null && s.Db.TryArmor(id) is { Ward: true });
 
-    /// <summary>A lance or piercing weapon (not a tome) against an armoured target; see <see cref="LancePiercePercent"/>.</summary>
+    /// <summary>
+    /// A lance or piercing weapon (not a tome) against an armoured target, or a Pierce art against anyone; see
+    /// <see cref="LancePiercePercent"/>.
+    /// </summary>
     private static bool Pierces(BattleState s, WeaponDef weapon, BattleUnit target) =>
-        (weapon.Type == WeaponType.Lance || weapon.Pierces) && !weapon.Magic
+        weapon.PiercesAll || (weapon.Type == WeaponType.Lance || weapon.Pierces) && !weapon.Magic
         && (StatCalculator.MovementTypeOf(s.Db, target.State) == MovementType.Armored || s.Db.Class(target.State.ClassId).HasTrait("Armored"));
 
     private static CombatantForecast Summary(

@@ -937,7 +937,7 @@ public partial class BattleController : Node3D
     private string Describe(BattleEvent e) => e switch
     {
         UnitMoved m => $"{NameOf(m.UnitId)} moves {m.Path[0]} -> {m.Path[^1]}",
-        CombatResolved c => $"{NameOf(c.AttackerId)} attacks {NameOf(c.DefenderId)}: " + string.Join(" ", c.Result.Strikes.Select(x =>
+        CombatResolved c => $"{NameOf(c.AttackerId)} attacks {NameOf(c.DefenderId)} ({c.Forecast.Attacker.WeaponName}): " + string.Join(" ", c.Result.Strikes.Select(x =>
             $"{(x.ByAttacker ? "A" : "D")}:{(x.Hit ? (x.Crit ? "CRIT" : "hit") : "miss")}({x.Damage})")) + $" -> HP {c.Result.AttackerHpAfter}/{c.Result.DefenderHpAfter}",
         UnitDefeated d => $"{NameOf(d.UnitId)} is defeated",
         ExpGained x => $"{NameOf(x.UnitId)} +{x.Amount} EXP" + string.Concat(x.LevelUps.Select(l => $" -> Lv {l.Level}")),

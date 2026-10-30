@@ -29,6 +29,16 @@ ALDRIC [neutral]: Another line.
   `<scene>_no_<id>` version that gives it to someone the story guarantees (Rowan, Kai, Mira, Aldric, Osmund, Seraphine,
   Halde, Ysolde): it plays instead (e.g. `ch11_post_no_ysra`, where Kai finds Orvald's satchel). Not every scene needs
   one: banter that still reads well without them can just lose the line.
+- **Fallen companions** (session 18): in Iron Man a companion who dies in battle is flagged `fell:<id>` and leaves
+  every later scene the same way (Aldric, Kai, Mira and Seraphine retreat instead, so they're always there; Aldric's
+  scripted `leave` in Ch 15 isn't a fall). Two tools, for missed recruits too:
+  - **Stand-ins:** `ELISE|MIRA [worried]: ...` is Elise's line, said by Mira if Elise is gone (the first one there of
+    the list). Use it where the line carries the plot or someone answers it. Pick a stand-in who could plausibly say
+    it: Aldric only in Act I (he goes quiet after Ch 8), and nobody who joins later than the scene.
+  - **`<scene>_no_<id>`** for scenes built around them, mostly their recruiting chapter's ending (`ch02_post_no_brann`,
+    `hub_smithy_no_brann`, `ch03_post_no_tamsin`, `ch06_post_no_sable`, `ch12_post_no_halde`): the death is mourned and
+    the plot lines move to someone else.
+  - The first hub after a death, Osmund says who was buried; if Brann falls, his apprentice keeps the smithy.
 
 ---
 

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ArtDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/Units/Resources/ArtDefinition.cs" id="1_art"]
+
+[resource]
+script = ExtResource("1_art")
+Id = "shadow_strike"
+Name = "Shadow Strike"
+Type = 0
+MightMod = 0
+HitMod = 10
+CritMod = 40
+RangeBonus = 0
+Uses = 2
+NoCounter = true
+EffectiveAgainst = PackedStringArray()
+Brave = false
+Pierce = false

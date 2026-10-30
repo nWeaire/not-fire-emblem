@@ -72,16 +72,20 @@ public sealed class GameSession
     public IReadOnlySet<string> MissedRecruits =>
         Flags.Where(f => f.StartsWith("missed:", System.StringComparison.Ordinal)).Select(f => f["missed:".Length..]).ToHashSet();
 
+    /// <summary>Companions who fell for good in Iron Man (their "fell:" flags, CampaignRunner.FellFlag).</summary>
+    public IReadOnlySet<string> Fallen =>
+        Flags.Where(f => f.StartsWith("fell:", System.StringComparison.Ordinal)).Select(f => f["fell:".Length..]).ToHashSet();
+
     /// <summary>
-    /// A scene as this playthrough tells it: when a recruit the player missed speaks in it, its "&lt;id&gt;_no_&lt;unit&gt;"
-    /// version plays instead if there is one (lines that carry the plot, given to someone else), and any lines of
-    /// missed recruits left are dropped. Null for an unknown id.
+    /// A scene as this playthrough tells it: when a recruit the player missed, or a companion who fell in Iron Man,
+    /// speaks in it, its "&lt;id&gt;_no_&lt;unit&gt;" version plays instead if there is one (lines that carry the plot, given to
+    /// someone else), and any lines of absent units left are dropped. Null for an unknown id.
     /// </summary>
     public DialogueScene? Scene(ContentDatabase db, string id)
     {
         if (!db.Scenes.TryGetValue(id, out var scene))
             return null;
-        var missed = MissedRecruits;
+        var missed = MissedRecruits.Concat(Fallen).ToHashSet();
         if (missed.Count == 0)
             return scene;
         foreach (var unit in missed.OrderBy(u => u, System.StringComparer.Ordinal))

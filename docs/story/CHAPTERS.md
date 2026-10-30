@@ -224,6 +224,24 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
   per-spawn `DominionRadius`) holds his whole house guard (`DominatedBy castellan`); his fall severs them all.
 - **Unlock:** campaign `crest 3` after the battle: **Lord's Crest (Tier 3)**: the **Crestbound** classes (each
   companion's own tier 3, `UnitDef.Crestbound`) and the crest skill **Mend**.
+- **Crestbound signature arts** (session 18; each class's `Arts`, `data/arts/`). Brave = two strikes before the foe
+  answers; Pierce = ignores half the target's Def (Res for magic), any target.
+
+  | Class (who) | Art | Weapon | Effect | Uses |
+  |---|---|---|---|---|
+  | High Lord (Rowan) | Radiant Edge | Sword | Mt +4, Hit +10, Crit +10, Pierce, effective vs Hollowed | 2 |
+  | Vanguard (Kai) | Vanguard Charge | Lance | Mt +6, no counter | 1 |
+  | Oracle (Mira) | Sunfire | Magic | Mt +4, Hit +10, Pierce | 2 |
+  | Crestscribe (Elise) | Unwrite | Magic | Mt +2, Hit +20, +1 range, effective vs Hollowed | 2 |
+  | Ironheart (Brann) | Hammerfall | Axe | Mt +3, Hit −10, Brave | 1 |
+  | Wildstalker (Tamsin) | Hunter's Mark | Bow | Mt +3, Hit +20, Crit +25, effective vs Beast | 2 |
+  | Corsair (Halde) | Broadside | Bow | Mt +5, +1 range, no counter | 1 |
+  | Bulwark (Dorran) | Pike Wall | Lance | Mt +3, Hit +15, effective vs Cavalry | 2 |
+  | Blade Dancer (Sable) | Whirlwind | Sword | Hit +5, Crit +10, Brave | 1 |
+  | Skyward (Wren) | Falling Star | Lance | Mt +5, Hit +10, Crit +15, no counter | 1 |
+  | Shadowstep (Pip) | Shadow Strike | Sword | Hit +10, Crit +40, no counter | 2 |
+  | Lightbearer (Seraphine) | Dawnlight | Magic | Mt +4, Hit +15, effective vs Hollowed and Beast | 2 |
+  | Dragonheart (Ysra) | Wyrm Dive | Lance | Mt +5, Crit +10, Pierce | 1 |
 - **Events:** T1 `ch13_start`; entering the great hall `ch13_hall`; `ch13_castellan` (boss quote) and
   `ch13_castellan_falls` ("He drinks them, boy. I only sold him the cups."); T3 riders east, T6 the west wing.
 - **Scenes:** `ch13_pre`, `ch13_start`, `ch13_hall`, `ch13_castellan`, `ch13_castellan_falls`, `ch13_elise_pattern` (every

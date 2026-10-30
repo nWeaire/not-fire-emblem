@@ -7,8 +7,8 @@
 NARRATOR: Dain Hall stood on its hill above the Thornvale, grey stone under a grey sky. A storm was coming in off the moors.
 NARRATOR: The town below was shuttered. The drawbridge was down, and nobody stood on it.
 DORRAN [cold]: Gate open, bridge down, no challenge. That's not a welcome, my lord. That's a door left open for a mouse.
-ELISE [worried]: If Halvric holds his whole garrison the way Rusk held his bandits, every soldier in there is his hand.
-SABLE [neutral]: Then we cut off the hand at the wrist.
+ELISE|MIRA [worried]: If Halvric holds his whole garrison the way Rusk held his bandits, every soldier in there is his hand.
+SABLE|KAI [neutral]: Then we cut off the hand at the wrist.
 ALDRIC [neutral]: Halvric sits in the throne room at the top of the keep. Take the throne and the rest falls with it.
 ROWAN [determined]: Right. Through the gate, across the yard, up to the keep. We go now.
 
@@ -71,15 +71,15 @@ ALDRIC [neutral]: ...Nothing. Take the throne, Rowan. Then let's get these peopl
 @music aftermath
 NARRATOR: By morning the storm had passed. The soldiers of Dain Hall woke up in their barracks, hungry and frightened.
 NARRATOR: Most of them remembered nothing since the spring. Some remembered everything, and those were worse.
-DORRAN [neutral]: The garrison's asking for orders, my lord. The town is too. They want to know who holds the Thornvale now.
+DORRAN|ALDRIC [neutral]: The garrison's asking for orders. The town is too. They want to know who holds the Thornvale now.
 ROWAN [worried]: Not me.
 OSMUND [neutral]: The town council has, strictly speaking, offered you the hall, the seal and the title, my lord.
 ROWAN [neutral]: Tell them no. Tell them to pick someone who lives here. I've got a farm.
 OSMUND [smile]: "I've got a farm." I'll find a more formal way to put it.
-ELISE [determined]: Rowan. Your crest. It's changed. Look at it. There's a second ring.
+ELISE|MIRA [determined]: Rowan. Your crest. It's changed. Look at it. There's a second ring.
 NARRATOR: The white mark on Rowan's hand had grown. A second ring of light circled the first: the Knight's Crest.
 ALDRIC [neutral]: Old Wardens said the second ring was when a crest stopped being a spark and started being a fire.
-WREN [worried]: Lord Halvric said "the Chancellor." The King's own Chancellor. Is that... is that treason, to say?
+WREN|KAI [worried]: Lord Halvric said "the Chancellor." The King's own Chancellor. Is that... is that treason, to say?
 ALDRIC [cold]: Saying it isn't. Doing it might be. Pack for the capital.
 
 ### ch07_smith

@@ -55,6 +55,21 @@ public class ContentFilesTests
     }
 
     [Fact]
+    public void MissedRecruitVersions_ReplaceARealScene_AndLeaveTheRecruitOut()
+    {
+        var scenes = Scenes();
+        foreach (var (id, scene) in scenes)
+        {
+            var m = Regex.Match(id, @"^(.+)_no_([a-z]+)$");
+            if (!m.Success)
+                continue;
+            Assert.True(scenes.TryGetValue(m.Groups[1].Value, out var original), $"'{id}' has no original scene.");
+            Assert.Contains(m.Groups[2].Value, original!.Speakers);
+            Assert.DoesNotContain(m.Groups[2].Value, scene.Speakers);
+        }
+    }
+
+    [Fact]
     public void MapTriggers_OnlyPlayScenesThatExist()
     {
         var scenes = Scenes();

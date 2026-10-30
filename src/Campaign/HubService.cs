@@ -16,7 +16,15 @@ public sealed record ForgeOption(string FromId, string ToId, int Cost);
 public static class HubService
 {
     public const int SellPercent = 50;
-    public const int MaxForgeTier = 3;
+
+    /// <summary>The first chapters of Act II and Act III.</summary>
+    public const int ActTwo = 8, ActThree = 16;
+
+    /// <summary>
+    /// The best tier the smithy works to at this point in the story (session 17, user's call): Silver in Act I, Black
+    /// Steel in Act II, Mythril from Act III.
+    /// </summary>
+    public static int MaxForgeTier(int chapter) => chapter >= ActThree ? 5 : chapter >= ActTwo ? 4 : 3;
 
     // ------------------------------------------------------------------ shop
 
@@ -31,7 +39,7 @@ public static class HubService
         if (s.Gold < price)
             return "Not enough gold.";
         if (s.Convoy.Count >= GameSession.ConvoyCapacity)
-            return "The convoy is full.";
+            return "Town storage is full.";
         s.Gold -= price;
         s.Convoy.Add(itemId);
         return null;
@@ -65,7 +73,7 @@ public static class HubService
         if (IsPersonal(db, itemId))
             return "That can't be sold.";
         if (!s.Convoy.Remove(itemId))
-            return "Not in the convoy.";
+            return "Not stored in town.";
         s.Gold += SellPrice(db, itemId);
         return null;
     }
@@ -83,7 +91,7 @@ public static class HubService
         if (unit.Inventory.Count >= UnitState.MaxInventory)
             return $"{unit.Def.Name}'s inventory is full.";
         if (!s.Convoy.Remove(itemId))
-            return "Not in the convoy.";
+            return "Not stored in town.";
         unit.Inventory.Add(itemId);
         if (unit.EquippedItemId is null && db.TryWeapon(itemId) is { } w && CombatCalculator.CanWield(db, unit, w))
             unit.Equip(itemId);
@@ -96,7 +104,7 @@ public static class HubService
         if (slot < 0 || slot >= unit.Inventory.Count)
             return "Empty slot.";
         if (s.Convoy.Count >= GameSession.ConvoyCapacity)
-            return "The convoy is full.";
+            return "Town storage is full.";
         string itemId = unit.Inventory[slot];
         string? equipped = unit.EquippedItemId;
         unit.Inventory.RemoveAt(slot);
@@ -113,7 +121,7 @@ public static class HubService
     public static string? WearFromConvoy(ContentDatabase db, GameSession s, UnitState unit, string armorId)
     {
         if (!s.Convoy.Contains(armorId))
-            return "Not in the convoy.";
+            return "Not stored in town.";
         var (ok, replaced, error) = EquipmentService.EquipArmor(db, unit, armorId);
         if (!ok)
             return error;
@@ -142,7 +150,7 @@ public static class HubService
         if (db.TryItem(itemId) is not { Kind: ItemKind.StatBoost } item)
             return "That isn't a stat booster.";
         if (!s.Convoy.Remove(itemId))
-            return "Not in the convoy.";
+            return "Not stored in town.";
         unit.Gains += default(StatBlock).With(item.Stat, item.Amount);
         return null;
     }
@@ -152,12 +160,12 @@ public static class HubService
     /// <summary>
     /// What the smithy can reforge (not tomes): each weapon becomes the next tier of the same type (the strongest common,
     /// non-personal weapon of that tier with the same effectiveness), for the price difference. Brann can work one tier beyond what the open
-    /// shops sell, up to Silver.
+    /// shops sell, up to <see cref="MaxForgeTier"/>.
     /// </summary>
     public static IEnumerable<ForgeOption> ForgeOptions(ContentDatabase db, GameSession s, IEnumerable<string> weaponIds)
     {
         int shopTier = ShopStock(db, s).Select(db.TryWeapon).OfType<WeaponDef>().Select(w => w.Tier).DefaultIfEmpty(1).Max();
-        int maxTier = System.Math.Min(MaxForgeTier, shopTier + 1);
+        int maxTier = System.Math.Min(MaxForgeTier(s.Chapter), shopTier + 1);
         foreach (var id in weaponIds.Distinct())
         {
             // Tomes aren't reforged: they grow with their caster (CombatCalculator.TomeLevelBonus).

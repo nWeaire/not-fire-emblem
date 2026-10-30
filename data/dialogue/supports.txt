@@ -89,7 +89,7 @@ ALDRIC [neutral]: Your mother had the same habit. Rubbing her hand when she was 
 ROWAN [worried]: You never talk about her.
 ALDRIC [sad]: She'd have liked you. You're stubborn, and quiet when it matters. She was...
 @wait 0.8
-ALDRIC [neutral]: ...Another time. Fetch your bow. The light's going.
+ALDRIC [neutral]: ...Another time. Fetch your sword. The light's going.
 ROWAN [neutral]: ...Right.
 
 ### support_brann_tamsin_C

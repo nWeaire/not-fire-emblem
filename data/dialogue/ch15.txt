@@ -10,9 +10,9 @@ NARRATOR: King Osric, frail and grey, at its head. The Empress of Dravenhold. Ca
 SERAPHINE [smile]: Father signed the treaty this morning. With his own hand. It shook, but it was his.
 YSOLDE [neutral]: Dravenhold has signed. The captains are arguing about the wine. That means they will sign too.
 OSMUND [worried]: My lord. The Chancellor has not taken his seat. He is standing behind the King's chair.
-ALDRIC [cold]: Stay near me. All of you. Don't let go of your weapons.
-ROWAN [worried]: Father?
-ALDRIC [cold]: Just do it, son.
+ALDRIC [cold]: Stay close. Hands on your weapons.
+ROWAN [worried]: Father? It's a peace table.
+ALDRIC [cold]: Hens go quiet before the fox gets in. Listen to this room.
 
 ### ch15_reveal
 @focus 12,2
@@ -21,17 +21,19 @@ MORVANE [sad]: Peace. You have all worked so hard for it. I am sorry, truly, tha
 NARRATOR: The King's crest, a small, tired gold thing, rose out of his hand and into the Chancellor's. Osric slumped.
 SERAPHINE [hurt]: FATHER!
 NARRATOR: Every door in the hall burst open. Grey soldiers came through them, silent, eyes empty, swords drawn.
-OSMUND [angry]: YOU! Twenty years I have waited to say it to your face! MURDERER! You murdered the Wardens!
+OSMUND [angry]: Twenty years I have kept my voice down for you. No more. MURDERER! You burned the Wardens!
 MORVANE [neutral]: Osmund Thorne. You always did ask too many questions, my dear Steward. Sit down.
 ELISE [worried]: Rowan, those aren't soldiers anymore. The crest is gone out of them. They're hollow.
-ALDRIC [determined]: West door's barred. Hold the hall. I'll get it open. Hold until I do.
-ALDRIC [cold]: And nobody goes near the Chancellor. Nothing we carry can touch him. Not yet.
+ALDRIC [determined]: West door. I'll get it open. Hold them off till I do.
+ALDRIC [cold]: And leave the Chancellor be. Steel won't bite him.
+ROWAN [angry]: He just—
+ALDRIC [cold]: I saw. Leave him.
 YSOLDE [neutral]: Then we hold, and when that door gives, we run. There is no shame in it. Only in staying.
 
 ### ch15_morvane
-MORVANE [sad]: Child, you cannot hurt me. Not with that little light. Put your sword down; I take no joy in this.
+MORVANE [sad]: Child, you cannot hurt me. Not with that little light. Put your sword down.
 ROWAN [cold]: Then you won't mind if I keep trying.
-MORVANE [neutral]: I take no joy in it. That is rather the point.
+MORVANE [neutral]: I take no joy in this. That is rather the point.
 
 ### ch15_aldric_stays
 @focus 1,10

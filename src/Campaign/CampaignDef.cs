@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NotFireEmblem.Core;
+using NotFireEmblem.Units;
 
 namespace NotFireEmblem.Campaign;
 
@@ -33,6 +34,12 @@ public sealed record SideStep(string MapId, int Deploy, IReadOnlyList<string> Fo
 {
     public BattleStep Battle => new(MapId, Deploy, Forced);
 }
+/// <summary>
+/// Makes sure a support pair has reached <see cref="Rank"/> (1 C, 2 B, 3 A) by this point in the story: any of its
+/// conversations up to that rank the player hasn't watched in the hub play here, in order. (Session 17: Rowan and
+/// Aldric must reach A before Ch 15.)
+/// </summary>
+public sealed record SupportStep(string A, string B, int Rank) : CampaignStep;
 /// <summary>Opens the hub. The briefing scene plays when the player chooses to march on.</summary>
 public sealed record HubStep(string? BriefingSceneId) : CampaignStep;
 /// <summary>The end of the content built so far.</summary>
@@ -67,6 +74,13 @@ public sealed record CampaignDef(IReadOnlyList<CampaignStep> Steps)
                     foreach (var f in b.Forced) Unit(f, i);
                     break;
                 case JoinStep j: Unit(j.UnitId, i); break;
+                case SupportStep sp:
+                    Unit(sp.A, i);
+                    Unit(sp.B, i);
+                    for (int rank = 1; rank <= sp.Rank; rank++)
+                        if (!db.Scenes.ContainsKey(Supports.SceneId(sp.A, sp.B, rank)))
+                            errors.Add($"Campaign step {i}: missing support scene '{Supports.SceneId(sp.A, sp.B, rank)}'.");
+                    break;
                 case LeaveStep l: Unit(l.UnitId, i); break;
                 case ClassStep c:
                     Unit(c.UnitId, i);
@@ -89,6 +103,7 @@ public sealed record CampaignDef(IReadOnlyList<CampaignStep> Steps)
 /// battle ch1 [deploy 5] [force rowan,aldric]
 /// join kai · leave aldric · class rowan lord · crest 1 · gold 500 · item vulnerary · flag name
 /// unlock smithy · hub [briefing_scene] · end To be continued...
+/// support aldric rowan A
 /// side vault [deploy 8] [force rowan,aldric] [until 15] : what the hub says about it
 /// </code>
 /// </summary>
@@ -123,6 +138,8 @@ public static class CampaignParser
                 "item" => new ItemStep(Arg(1)),
                 "flag" => new FlagStep(Arg(1)),
                 "unlock" => new UnlockStep(Arg(1)),
+                "support" => new SupportStep(Arg(1), Arg(2), System.Array.IndexOf(Supports.RankNames, Arg(3)) is var r and > 0
+                    ? r : throw new FormatException($"campaign:{lineNo}: support rank must be C, B or A in '{line}'.")),
                 "hub" => new HubStep(t.Length > 1 ? t[1] : null),
                 "end" => new EndStep(t.Length > 1 ? Rest(1) : "To be continued."),
                 _ => throw new FormatException($"campaign:{lineNo}: unknown step '{t[0]}'."),

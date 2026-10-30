@@ -68,6 +68,18 @@ public static class CampaignFlow
             case BattleStep battle:
                 GoToBattle(battle);
                 break;
+            case SupportStep support:
+                if (runner.PendingSupportScene(support) is { } next)
+                {
+                    Node.PendingSupport = (next.A, next.B, next.Rank);
+                    PlayScene(next.SceneId, StoryReturn.Support);
+                }
+                else
+                {
+                    runner.Complete();
+                    Advance();
+                }
+                break;
             case HubStep hub:
                 SaveService.Save(0, runner.Session);
                 if (DevTools.SaveAtHub is { } at && hub.BriefingSceneId == $"hub_briefing_ch{at.Chapter:D2}")
@@ -172,6 +184,13 @@ public static class CampaignFlow
                     GoToBattle(side.Battle);
                 else
                     Advance();
+                break;
+            case StoryReturn.Support:
+                // A story-required support: mark it, then the same step plays the next rank or moves on.
+                if (Node.PendingSupport is { } required && runner is not null)
+                    runner.Session.MarkSupportSeen(required.A, required.B, required.Rank);
+                Node.PendingSupport = null;
+                Advance();
                 break;
             case StoryReturn.Briefing:
                 // The hub's "march on": the briefing finishes the hub step.

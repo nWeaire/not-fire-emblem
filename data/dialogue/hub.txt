@@ -156,6 +156,13 @@ YSRA [cold]: The citadel is above the city. Vossk sits on the Empress's throne. 
 SERAPHINE [determined]: Then we free her. Not kill her. Whatever happens, she has to live to end this war.
 ROWAN [determined]: Nobody kills the Empress. We go now.
 
+### hub_briefing_ch14_no_ysra
+@bg solmere_harbor
+HALDE [neutral]: The Gull can make Dravenhold's coast in six days, if the weather holds. It won't. It's the north.
+HALDE [cold]: And the harbour talk says the grey man sits on the Empress's throne. She stands guard for him in the courtyard.
+SERAPHINE [determined]: Then we free her. Not kill her. Whatever happens, she has to live to end this war.
+ROWAN [determined]: Nobody kills the Empress. We go now.
+
 ### hub_briefing_ch13
 @bg solmere_harbor
 HALDE [neutral]: Castellan's palazzo is on the cliffs past the lighthouse. His guards walk it in step, all night, every night.
@@ -167,6 +174,13 @@ ROWAN [determined]: Then we go and get both. We go now.
 @bg solmere_harbor
 OSMUND [neutral]: Solmere, my lord. The Free Cities. They have no king, only merchant princes and very good lawyers.
 YSRA [cold]: The crest auction is on the quay at the Gilded Harbor. Tonight. Ash and I will watch from the cliffs.
+SABLE [smile]: I can get us in. I know a man who knows a man who forges invitations. Don't ask.
+ROWAN [neutral]: We look. We listen. We don't start anything. We go now.
+
+### hub_briefing_ch12_no_ysra
+@bg solmere_harbor
+OSMUND [neutral]: Solmere, my lord. The Free Cities. They have no king, only merchant princes and very good lawyers.
+SERAPHINE [determined]: The bill of sale names the place: the crest auction, on the quay at the Gilded Harbor. Tonight.
 SABLE [smile]: I can get us in. I know a man who knows a man who forges invitations. Don't ask.
 ROWAN [neutral]: We look. We listen. We don't start anything. We go now.
 

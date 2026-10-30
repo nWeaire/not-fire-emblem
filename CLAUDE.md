@@ -58,7 +58,8 @@ When editing C# code, ALWAYS verify compilation with `dotnet build` before compl
 - Input actions are registered in code by the `InputSetup` autoload, not in `project.godot`.
 - Content lives in `data/`: `.tres` resources per type (`classes/ units/ weapons/ armor/ items/ arts/ spells/ shops/ terrain/ maps/`), plus two plain-text formats parsed by pure code:
   - `data/dialogue/*.txt`: scenes in the `docs/story/DIALOGUE.md` script format (`DialogueParser`).
-  - `data/campaign/main.txt`: the story as ordered steps: scene, battle, join, crest, hub, end (`CampaignParser`), and
+  - `data/campaign/main.txt`: the story as ordered steps: scene, battle, join, crest, hub, end (`CampaignParser`),
+    `support A B RANK` (plays a pair's conversations not yet watched, up to RANK), and
     `side` steps: optional battles the hub's Side Maps tab offers (scenes `<map>_pre` / `<map>_post`).
 - Map objectives and events are text lines in each `MapDefinition`: `Victory`, `Defeat` and `Triggers`, e.g. `turn 2 => scene pro_aldric_reveal; join aldric`, plus `Highlights` (`19,10-19,11 => caption` or `KEY => caption`) for points of interest the objective tour shows before turn 1. The grammar is documented on `MapScript` in `src/Battle/MapRules.cs`. Unit keys are a spawn's `Tag`, else its `UnitId`.
 - Art still needed (placeholders today) is listed in `docs/ART_NEEDED.md`.

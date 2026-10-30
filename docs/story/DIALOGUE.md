@@ -24,6 +24,11 @@ ALDRIC [neutral]: Another line.
 - **Expressions:** `neutral`, `smile`, `laugh`, `worried`, `sad`, `angry`, `determined`, `hurt`, `cold` (villains). The tags are kept in the scripts as acting notes, but the game shows only each speaker's neutral portrait (the user's call in session 11; no expression portraits are drawn).
 - **Line length:** at most about 110 characters per line (two text-box rows). Split longer speeches.
 - **In-battle scenes** (`chNN_*` triggered mid-map) stay short: 2–6 lines. The long talking happens in pre- and post-map scenes.
+- **Missed recruits** (session 17): a recruit the player never talked round is flagged `missed:<id>` when the battle is
+  won, and from then on their lines are dropped from every scene. Where a line of theirs carries the plot, write a
+  `<scene>_no_<id>` version that gives it to someone the story guarantees (Rowan, Kai, Mira, Aldric, Osmund, Seraphine,
+  Halde, Ysolde): it plays instead (e.g. `ch11_post_no_ysra`, where Kai finds Orvald's satchel). Not every scene needs
+  one: banter that still reads well without them can just lose the line.
 
 ---
 
@@ -382,7 +387,7 @@ battles together, B around the middle, A no earlier than halfway through Act II 
 |---|---|
 | Rowan × Kai | Rivalry → Kai admits he's scared of being left behind → *(post-Ch 20)* "You came back." |
 | Rowan × Mira | Her secret magic → his secret crest fear → what they'll do "after" |
-| Rowan × Aldric | Farm lessons → Warden lessons → *(must reach A before Ch 15)* Aldric almost says Lyra's name |
+| Rowan × Aldric | Farm lessons → Warden lessons → *(must reach A before Ch 15: the campaign's `support aldric rowan A` step plays any rank not yet watched before the Ch 15 hub)* Aldric almost says Lyra's name |
 | Kai × Mira | Bickering → Kai realises she's stronger than him → a quiet promise |
 | Kai × Sable | Eight silver → childhood on the ranch → why she became a sellsword |
 | Mira × Elise | Magic theory nerd-out → Mira's self-taught gaps → teacher and student |

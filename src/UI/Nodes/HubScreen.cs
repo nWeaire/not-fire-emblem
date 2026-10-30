@@ -186,7 +186,7 @@ public partial class HubScreen : Control
         crestLabel.TooltipText = CrestTooltip(S.CrestTier);
         _gold.Text = $"{S.Gold} G";
         _chapter.Text = $"{S.ChapterTitle}  ·  {S.Mode.Name()}, {S.Difficulty}";
-        _convoy.Text = $"Convoy {S.Convoy.Count}/{GameSession.ConvoyCapacity}";
+        _convoy.Text = $"Town {S.Convoy.Count}/{GameSession.ConvoyCapacity}";
         _osmund.Text = OsmundLine();
         _tourTargets.Clear();
         // Rebuilding frees the focused button: remember where the keyboard was and put it back after.
@@ -352,7 +352,7 @@ public partial class HubScreen : Control
                 row.AddChild(Small("Take off", () => Do(() => HubService.TakeOff(S, u, slot), "Taken off.")));
         }
 
-        Row($"Convoy ({S.Convoy.Count})", 17, UiKit.Accent);
+        Row($"Town ({S.Convoy.Count})", 17, UiKit.Accent);
         foreach (var itemId in S.Convoy.Distinct().OrderBy(Db.ItemName))
         {
             int count = S.Convoy.Count(x => x == itemId);
@@ -456,7 +456,7 @@ public partial class HubScreen : Control
             ? S.Convoy.Distinct().OrderBy(Db.ItemName).ToList()
             : HubService.ShopStock(Db, S).OrderBy(Db.ItemPrice).ThenBy(Db.ItemName).ToList();
         if (items.Count == 0)
-            list.AddChild(UiKit.Label(_selling ? "The convoy is empty." : "Nothing for sale yet.", 15, UiKit.Muted));
+            list.AddChild(UiKit.Label(_selling ? "Nothing stored in town." : "Nothing for sale yet.", 15, UiKit.Muted));
         if (_shopItem is null || !items.Contains(_shopItem))
             _shopItem = items.FirstOrDefault();
 
@@ -497,7 +497,7 @@ public partial class HubScreen : Control
         int before = buyer?.Inventory.Count ?? 0;
         string? error = buyer is null ? HubService.Buy(Db, S, itemId) : HubService.BuyFor(Db, S, buyer, itemId);
         bool toPack = buyer is not null && buyer.Inventory.Count > before;
-        Do(() => error, toPack ? $"Bought {Db.ItemName(itemId)} for {buyer!.Def.Name}." : $"Bought {Db.ItemName(itemId)} (sent to the convoy).");
+        Do(() => error, toPack ? $"Bought {Db.ItemName(itemId)} for {buyer!.Def.Name}." : $"Bought {Db.ItemName(itemId)} (sent to town).");
     }
 
     /// <summary>The detail card: the item's own numbers, then only what changes against the buyer's current gear.</summary>
@@ -653,7 +653,7 @@ public partial class HubScreen : Control
         }
         foreach (var option in HubService.ForgeOptions(Db, S, S.Convoy))
         {
-            var row = Row($"   Convoy: {Db.ItemName(option.FromId)} → {Db.ItemName(option.ToId)}");
+            var row = Row($"   Town: {Db.ItemName(option.FromId)} → {Db.ItemName(option.ToId)}");
             row.AddChild(UiKit.Label($"{option.Cost}g", 15, UiKit.Accent));
             row.AddChild(Small("Forge", () => Do(() => HubService.Forge(Db, S, null, option), $"Brann forged a {Db.ItemName(option.ToId)}."), S.Gold >= option.Cost));
         }
@@ -771,7 +771,7 @@ public partial class HubScreen : Control
             new TourStep("The Iron Sword, for yourself. Bought for you, it goes straight into your pack.",
                          () => LordHas("iron_sword"), new[] { "buy:iron_sword", "tab:Shop" }, LordSelected: true),
             new TourStep("Now the Party screen, to take it in hand.", () => _tab == Tab.Party, new[] { "tab:Party" }),
-            new TourStep("Equip the Iron Sword. The old one may stay in your pack, or go to the convoy. Sentiment weighs " +
+            new TourStep("Equip the Iron Sword. The old one may stay in your pack, or go to town. Sentiment weighs " +
                          "nothing there.", () => LordState?.EquippedItemId == "iron_sword",
                          new[] { $"equip:{Lord}:iron_sword", "tab:Party" }, LordSelected: true),
             new TourStep("Splendid. Promotion and Supports will matter in time, Save keeps a record, and Settings is there " +

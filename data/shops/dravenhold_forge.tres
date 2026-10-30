@@ -8,4 +8,4 @@ Id = "dravenhold_forge"
 Name = "Dravenhold Imperial Forge"
 Region = "dravenhold"
 OpensAtChapter = 14
-Items = PackedStringArray("silver_lance", "silver_axe", "iron_plate", "silver_plate")
+Items = PackedStringArray("silver_lance", "silver_axe", "black_steel_sword", "black_steel_lance", "black_steel_axe", "black_steel_bow", "iron_plate", "silver_plate")

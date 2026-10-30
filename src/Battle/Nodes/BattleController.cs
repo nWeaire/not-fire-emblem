@@ -146,9 +146,16 @@ public partial class BattleController : Node3D
             var map = db.Map(mapId);
             // Maps that rely on deployment get a default party, fresh from the unit definitions.
             var spawned = map.Spawns.Select(sp => sp.UnitId).OfType<string>().ToHashSet();
-            var forced = db.Campaign?.Steps.OfType<BattleStep>().FirstOrDefault(b => b.MapId == mapId)?.Forced ?? Array.Empty<string>();
+            var step = db.Campaign?.Steps.OfType<BattleStep>().FirstOrDefault(b => b.MapId == mapId)
+                       ?? db.Campaign?.Steps.OfType<SideStep>().FirstOrDefault(b => b.MapId == mapId)?.Battle;
+            var forced = step?.Forced ?? Array.Empty<string>();
+            // As many as the campaign lets this map deploy (never over CampaignRunner.MaxDeploy), the map's own player
+            // spawns included.
+            int fixedCount = map.Spawns.Count(sp => sp.Faction == Faction.Player && sp.Group is null && sp.UnitId is not null);
+            int deploy = Math.Min(step is { Deploy: > 0 } ? step.Deploy : CampaignRunner.MaxDeploy, CampaignRunner.MaxDeploy);
             var party = forced.Concat(SkirmishParty).Distinct()
-                .Where(id => db.Units.ContainsKey(id) && !spawned.Contains(id)).Take(map.Slots.Count).ToList();
+                .Where(id => db.Units.ContainsKey(id) && !spawned.Contains(id))
+                .Take(Math.Min(map.Slots.Count, Math.Max(0, deploy - fixedCount))).ToList();
             var roster = party.ToDictionary(id => id, id => UnitState.FromDef(db.Unit(id)));
             State = BattleSetup.Create(db, map, seed, roster, options, party);
             ApplyStoryClasses(db, mapId);
@@ -626,8 +633,11 @@ public partial class BattleController : Node3D
                 await ToSignal(GetTree().CreateTimer(0.3, processAlways: false), SceneTreeTimer.SignalName.Timeout);
             }
             IBattleCommand command = decision?.Command ?? new EndPhaseCommand();
-            if (!await Execute(command))
-                await Execute(new EndPhaseCommand()); // never stall the loop on a bad AI command
+            // Never stall the loop on a bad AI command: that unit waits (ending the phase outright left the rest of an
+            // autoplay army idle every turn, session 17), and only if even that fails does the phase end.
+            if (!await Execute(command)
+                && (decision is null || !await Execute(new ActCommand(decision.Unit.Id, decision.Unit.Pos, new WaitAction()))))
+                await Execute(new EndPhaseCommand());
         }
     }
 
@@ -677,7 +687,8 @@ public partial class BattleController : Node3D
         {
             var reach = State.Reach(unit);
             var care = CarefulAi.Heal(State, unit, reach, safeOnly: IsVital(unit) || MustSurvive(unit))
-                       ?? CarefulAi.Recover(State, unit, reach, IsVital(unit) || MustSurvive(unit) ? 0.5 : 0.35, needsItem: !IsVital(unit));
+                       ?? CarefulAi.Recover(State, unit, reach, IsVital(unit) || MustSurvive(unit) ? 0.5 : 0.35,
+                           needsItem: !IsVital(unit) || LastFighter(unit) && !State.LivingOf(Faction.Player).Any(f => ActionRules.ReadySpells(State, f).Any()));
             if (care is not null && care.Validate(State).Ok)
                 return new AiDecision(unit, care, null);
         }
@@ -769,6 +780,15 @@ public partial class BattleController : Node3D
     private bool IsVital(BattleUnit unit) =>
         unit.IsLord || State.Map.Goals.EscapeKeys.Any(key => State.ByKey(key) == unit);
 
+    /// <summary>
+    /// On a Rout/Boss/Seize map, a vital unit with nobody else left to fight: it has to press on. (Pulling back to wait
+    /// for help that won't come stalls the map: session 17, a hurt Rowan with no vulnerary stepped toward Ch 2's throne
+    /// and back for 40 turns.)
+    /// </summary>
+    private bool LastFighter(BattleUnit unit) =>
+        IsVital(unit) && State.Map.Goals.Victory is VictoryKind.Rout or VictoryKind.DefeatBoss or VictoryKind.Seize
+        && !State.LivingOf(Faction.Player).Any(u => u != unit && !IsVital(u) && State.Db.TryWeapon(u.State.EquippedItemId) is not null);
+
     /// <summary>Units whose death loses the map ("die KEY").</summary>
     private bool MustSurvive(BattleUnit unit) => State.Map.Goals.MustSurvive.Any(key => State.ByKey(key) == unit);
 
@@ -812,8 +832,7 @@ public partial class BattleController : Node3D
         // Rout/Boss/Seize maps: once nobody else can fight, the lord must press on, or a boss who holds his post and a
         // lord who waits for a safe attack stare at each other until turn 60 (session 12: Ch 7's lord, alone, waited
         // for the throne room to empty while Halvric sat on the seize tile).
-        if (goals.Victory is VictoryKind.Rout or VictoryKind.DefeatBoss or VictoryKind.Seize
-            && !State.LivingOf(Faction.Player).Any(u => u != lord && !IsVital(u) && State.Db.TryWeapon(u.State.EquippedItemId) is not null))
+        if (LastFighter(lord))
         {
             GridPos? dest;
             bool onto = false; // walk onto the cell itself (an empty seize tile), not just up to it

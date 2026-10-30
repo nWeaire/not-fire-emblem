@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using NotFireEmblem.Audio;
+using NotFireEmblem.Core;
 using NotFireEmblem.Grid;
 using NotFireEmblem.UI;
 using NotFireEmblem.Units;
@@ -44,7 +45,7 @@ public partial class BattleEventPlayer : Node
         DialogueRequested d => PlayDialogue(d),
         UnitSpawned s => PlaySpawn(s),
         FactionChanged f => PlayFaction(f),
-        ItemReceived i => Info(i.UnitId, Battle.State.Db.ItemName(i.ItemId) + (i.ToConvoy ? " (to convoy)" : ""), $"Got {Battle.State.Db.ItemName(i.ItemId)}"),
+        ItemReceived i => Info(i.UnitId, Battle.State.Db.ItemName(i.ItemId) + (i.ToConvoy ? " (to town)" : ""), $"Got {Battle.State.Db.ItemName(i.ItemId)}"),
         GoldReceived g => Toast($"+{g.Amount} gold", UiKit.Accent),
         TerrainChanged => PlayTerrain(),
         UnitDamaged d => PlayDamaged(d),
@@ -442,7 +443,9 @@ public partial class BattleEventPlayer : Node
 
     private async Task PlayDialogue(DialogueRequested d)
     {
-        if (!Battle.State.Db.Scenes.TryGetValue(d.SceneId, out var scene))
+        // Campaign battles tell the scene as this playthrough has it (missed recruits); single battles as written.
+        var session = Battle.IsCampaign ? GameSessionNode.Instance.Session : null;
+        if ((session?.Scene(Battle.State.Db, d.SceneId) ?? Battle.State.Db.Scenes.GetValueOrDefault(d.SceneId)) is not { } scene)
             return;
         Battle.Hud.HideForecast();
         Battle.Hud.Dialogue.OnFocus = async cell =>

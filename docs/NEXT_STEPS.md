@@ -2,9 +2,40 @@
 
 Where development stopped and how to pick it up. Update this file at the end of each session.
 
-_Last updated: 2026-10-27 (end of session 16)._
+_Last updated: 2026-10-30 (session 17)._
 
 ---
+
+## Session 17
+- **Autoplay stalls fixed.** `AiController.Picks` now skips spared recruits: the autoplay party chose to attack Ysra
+  (Ch 11) or Wren (Ch 7), the rules refused, and the refusal ended the whole Player Phase every turn. A rejected autoplay
+  command now only makes that unit wait. A lone lord with no vulnerary and no healer no longer pulls back forever
+  (`LastFighter`; Ch 2 stepped to and from the throne for 40 turns). From slot 2, autoplay won Ch 10–14 and made
+  **slot 3** (hub before Ch 15); a new game reached Ch 8 with no stalls.
+- **User's decisions (the session-14 list):**
+  - Ch 8: calmed rioters don't count toward civilian losses (already so).
+  - **Ch 11 / missed recruits:** a rout is won once only spared recruits are left (`ObjectiveEvaluator.RoutFoes`);
+    unrecruited recruits get a `missed:<id>` flag on victory and their lines are dropped from later scenes, or a
+    `<scene>_no_<id>` version plays (`GameSession.Scene`; DIALOGUE.md §1). Ysra has `_no_ysra` versions of
+    `ch11_post`, `ch13_post`, `ch14_pre`, `ch14_ysolde_wakes`, `hub_briefing_ch12/14`.
+  - **Rowan×Aldric A before Ch 15:** new campaign step `support aldric rowan A` (before the Ch 15 hub) plays any of
+    their conversations not yet watched (`SupportStep`, `StoryReturn.Support`).
+  - **"Town" everywhere** on screen (code names stay `Convoy`).
+  - **Black Steel in Act II, Mythril from Act III:** `HubService.MaxForgeTier(chapter)` is 3 / 4 / 5 by act; the
+    Dravenhold Imperial Forge (Ch 14) sells the four Black Steel weapons; Mythril Mail left Solmere. **Act III's shops
+    must sell `mythril_*` and Mythril Mail.**
+  - **Deploy at most 10** (`CampaignRunner.MaxDeploy`): Ch 15 12 → 10; `--map` battles take the campaign's deploy count.
+- **Ch 15:** the user hand-played it with 12 units (`--map`) and won on T7, but found the dialogue poor. Aldric's
+  lines in `ch15_pre` / `ch15_reveal` rewritten in his voice, Osmund's shout, Morvane's repeated line; the canon
+  `ch15_aldric_stays` / `_dies` untouched. Rowan×Aldric A said "Fetch your bow": now "sword". Autoplay with 10 units
+  at level 16 (seeds 1–4): **1/4** (win T10; losses T4 ×2, Aldric falling before his scene, and T8).
+
+## Next (plan for session 18)
+1. **Hand playtest Ch 15 from slot 3** (`--load=3`: real prep screen, 10 units). If too hard at 10: the two door
+   blockers Guard instead of Stationary, or one fewer top-right Hollowed. The Rowan×Aldric conversations play first if
+   slot 3 hasn't seen them.
+2. **Hand playtest the Old Warden Vault and the Side Maps tab** from slot 3.
+3. Art with the ≈ $17 (item 5 of session 17's plan below), then the Act II hub, Crestbound arts, Act III.
 
 ## Where things stand (end of session 16)
 - **Everything is committed and pushed to `main`.** Build clean, **148 tests pass**. Untracked on purpose:

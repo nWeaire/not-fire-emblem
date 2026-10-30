@@ -140,6 +140,18 @@ public sealed class CampaignRunner
         }
     }
 
+    /// <summary>
+    /// The next conversation a support step still has to play (the lowest rank above the pair's current one, up to
+    /// the step's rank), or null once the pair is there. A pair missing a unit (dead, or never recruited) is skipped.
+    /// </summary>
+    public (string A, string B, int Rank, string SceneId)? PendingSupportScene(SupportStep step)
+    {
+        if (Session.Unit(step.A) is not { Status: not UnitStatus.Dead } || Session.Unit(step.B) is not { Status: not UnitStatus.Dead })
+            return null;
+        int next = Session.SupportRank(step.A, step.B) + 1;
+        return next <= step.Rank ? (step.A, step.B, next, Supports.SceneId(step.A, step.B, next)) : null;
+    }
+
     // ------------------------------------------------------------------ side maps
 
     /// <summary>The flag a won side map sets, so the hub stops offering it.</summary>
@@ -168,12 +180,15 @@ public sealed class CampaignRunner
             .Distinct()
             .ToList();
 
-    /// <summary>How many units the player may deploy in total (fixed ones included).</summary>
+    /// <summary>The most units any battle takes from the army (session 17, user's call).</summary>
+    public const int MaxDeploy = 10;
+
+    /// <summary>How many units the player may deploy in total (fixed ones included), never more than <see cref="MaxDeploy"/>.</summary>
     public int DeployLimit(BattleStep step)
     {
         var fixedUnits = FixedUnits(step);
         int slots = Db.Map(step.MapId).Slots.Count;
-        return step.Deploy <= 0 ? fixedUnits.Count : System.Math.Min(step.Deploy, fixedUnits.Count + slots);
+        return step.Deploy <= 0 ? fixedUnits.Count : System.Math.Min(System.Math.Min(step.Deploy, MaxDeploy), fixedUnits.Count + slots);
     }
 
     /// <summary>Whether the player gets a prep screen to choose who to bring.</summary>
@@ -217,8 +232,13 @@ public sealed class CampaignRunner
     /// <summary>EXP every deployed roster unit still standing at the end of a won battle receives.</summary>
     public const int SurvivorExp = 20;
 
+    /// <summary>The story flag for a recruit the player left on the enemy side ("missed:ysra").</summary>
+    public static string MissedFlag(string unitId) => $"missed:{unitId}";
+
     public BattleReport ApplyVictory(BattleState s)
     {
+        foreach (var missed in ObjectiveEvaluator.MissedRecruits(s).Where(u => Db.Units.ContainsKey(u.State.Def.Id)))
+            Session.Flags.Add(MissedFlag(missed.State.Def.Id));
         var supportsBefore = Session.AvailableSupports(Db).Select(x => x.SceneId).ToHashSet();
         var units = new List<(string, int, int)>();
         var recruited = new List<string>();

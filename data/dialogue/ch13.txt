@@ -53,3 +53,13 @@ KAI [smile]: I can feel it. I feel like I could fight a wyvern. Bare-handed. Sor
 YSRA [neutral]: Ash forgives you. Mostly.
 ROWAN [determined]: North, then. To the Empress, and to Vossk. Halde?
 HALDE [smile]: The Gull goes where the passengers point. Even into the snow.
+
+### ch13_post_no_ysra
+@bg solmere_palazzo_dawn
+@music aftermath
+NARRATOR: Rowan's crest had changed in the night. A third ring of light circled the other two, slow and steady.
+ELISE [worried]: The Lord's Crest. The old texts say a third ring means the crest can share itself. Lift others with it.
+MIRA [smile]: It's warm. Like standing near a hearth. Can you feel it, all of you?
+KAI [smile]: I can feel it. I feel like I could fight a wyvern. Bare-handed.
+ROWAN [determined]: North, then. To the Empress, and to Vossk. Halde?
+HALDE [smile]: The Gull goes where the passengers point. Even into the snow.

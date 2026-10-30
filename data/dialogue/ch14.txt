@@ -12,6 +12,17 @@ ALDRIC [cold]: The Empress will be in the courtyard. He'll put her between us an
 MIRA [worried]: She can't help it. If she fights us, it isn't her.
 ROWAN [determined]: Then nobody kills her. We beat her if we have to, and we get to him. We go now.
 
+### ch14_pre_no_ysra
+@bg dravenhold_citadel_snow
+@music tension_high
+NARRATOR: The Gull put them ashore in a grey cove below Dravenhold's capital. Snow had been falling for three days.
+NARRATOR: The citadel stood above the city, black stone under white. Its gates were open. Nobody came or went.
+HALDE [cold]: The guard walks in step, like Castellan's did. The whole court does, the fishermen say. Not a real order in a year.
+SERAPHINE [determined]: Then we give them one. Through the gate, to the throne. To Vossk.
+ALDRIC [cold]: The Empress will be in the courtyard. He'll put her between us and him. It's what I'd do.
+MIRA [worried]: She can't help it. If she fights us, it isn't her.
+ROWAN [determined]: Then nobody kills her. We beat her if we have to, and we get to him. We go now.
+
 ### ch14_start
 @focus 16,14
 NARRATOR: In the middle of the courtyard, in the falling snow, stood a tall woman in black iron, holding a silver lance.
@@ -50,6 +61,12 @@ NARRATOR: Vossk fell, and the light went out of the crests on his hands one by o
 NARRATOR: Out in the courtyard, the Empress drew a long, ragged breath, the first in a year that was her own.
 YSOLDE [angry]: What... what have I done? Where is the grey man? Where is he?
 YSRA [sad]: He's dead, Majesty. These are friends. Calder came to tell you the truth.
+
+### ch14_ysolde_wakes_no_ysra
+NARRATOR: Vossk fell, and the light went out of the crests on his hands one by one, like a row of candles snuffed.
+NARRATOR: Out in the courtyard, the Empress drew a long, ragged breath, the first in a year that was her own.
+YSOLDE [angry]: What... what have I done? Where is the grey man? Where is he?
+SERAPHINE [sad]: He's dead, Majesty. We're friends. Calder came to tell you the truth.
 
 ### ch14_post
 @bg dravenhold_citadel_snow

@@ -121,11 +121,13 @@ scene ch14_post
 gold 1500
 # Optional (hub "Side Maps", this hub only): Lyra's Blade for Rowan. Scenes vault_pre / vault_post.
 side vault deploy 8 force rowan,aldric until 15 : Aldric wants to take you somewhere before the summit: a ruined house in the hills, where his old order kept something for you.
+# Rowan and Aldric reach A before the summit: conversations not yet watched in the hub play here.
+support aldric rowan A
 hub hub_briefing_ch15
 
 chapter 15 Chapter 15: The Grey Chancellor
 scene ch15_pre
-battle ch15 deploy 12 force rowan,aldric
+battle ch15 deploy 10 force rowan,aldric
 leave aldric
 scene ch15_aldric_dies
 scene ch15_crest_flickers

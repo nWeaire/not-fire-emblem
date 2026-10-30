@@ -98,4 +98,4 @@ public partial class GameSessionNode : Node
 }
 
 /// <summary>Where the Story screen goes when its scene ends.</summary>
-public enum StoryReturn { CampaignStep, Hub, Briefing, Title, SideBattle }
+public enum StoryReturn { CampaignStep, Hub, Briefing, Title, SideBattle, Support }

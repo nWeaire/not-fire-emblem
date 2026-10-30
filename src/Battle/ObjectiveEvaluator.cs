@@ -34,7 +34,7 @@ public static class ObjectiveEvaluator
             return BattleOutcome.Victory;
         bool won = goals.Victory switch
         {
-            VictoryKind.Rout => !s.LivingOf(Faction.Enemy).Any(),
+            VictoryKind.Rout => !RoutFoes(s).Any(),
             VictoryKind.DefeatBoss => BossDown(s, goals.BossKey!),
             VictoryKind.Seize => s.Seized,
             VictoryKind.Survive => s.SurviveComplete,
@@ -43,6 +43,18 @@ public static class ObjectiveEvaluator
         };
         return won ? BattleOutcome.Victory : BattleOutcome.InProgress;
     }
+
+    /// <summary>
+    /// The enemies a rout still needs beaten. A recruit nobody may attack (<see cref="ActionRules.SparedRecruit"/>)
+    /// doesn't count: once only such units are left the field is won, and they go unrecruited (session 17: Ch 11 couldn't
+    /// end until the player talked to Ysra).
+    /// </summary>
+    public static IEnumerable<BattleUnit> RoutFoes(BattleState s) =>
+        s.LivingOf(Faction.Enemy).Where(e => EventDirector.Recruiter(s, e) is null);
+
+    /// <summary>Recruitable units still on the enemy side, as the battle ends: the ones the player missed.</summary>
+    public static IEnumerable<BattleUnit> MissedRecruits(BattleState s) =>
+        s.LivingOf(Faction.Enemy).Where(e => EventDirector.Recruiter(s, e) is not null);
 
     private static bool BossDown(BattleState s, string key) => s.AllByKey(key).Any() && s.AllByKey(key).All(u => !u.IsOnMap);
 
@@ -74,7 +86,7 @@ public static class ObjectiveEvaluator
         var goals = s.Map.Goals;
         string goal = goals.Victory switch
         {
-            VictoryKind.Rout => $"Rout the enemy ({s.LivingOf(Faction.Enemy).Count()} left)",
+            VictoryKind.Rout => $"Rout the enemy ({RoutFoes(s).Count()} left)",
             VictoryKind.DefeatBoss => DescribeBoss(s, goals.BossKey!),
             VictoryKind.Seize => "Seize the marked tile with your lord",
             VictoryKind.Survive => $"Survive {System.Math.Max(0, goals.Turns - s.Turn + 1)} more turn(s)",

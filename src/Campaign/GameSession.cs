@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NotFireEmblem.Core;
+using NotFireEmblem.Dialogue;
 using NotFireEmblem.Units;
 
 namespace NotFireEmblem.Campaign;
@@ -65,6 +66,28 @@ public sealed class GameSession
     {
         if (Convoy.Count < ConvoyCapacity)
             Convoy.Add(itemId);
+    }
+
+    /// <summary>Units the player left unrecruited (their "missed:" flags, CampaignRunner.MissedFlag).</summary>
+    public IReadOnlySet<string> MissedRecruits =>
+        Flags.Where(f => f.StartsWith("missed:", System.StringComparison.Ordinal)).Select(f => f["missed:".Length..]).ToHashSet();
+
+    /// <summary>
+    /// A scene as this playthrough tells it: when a recruit the player missed speaks in it, its "&lt;id&gt;_no_&lt;unit&gt;"
+    /// version plays instead if there is one (lines that carry the plot, given to someone else), and any lines of
+    /// missed recruits left are dropped. Null for an unknown id.
+    /// </summary>
+    public DialogueScene? Scene(ContentDatabase db, string id)
+    {
+        if (!db.Scenes.TryGetValue(id, out var scene))
+            return null;
+        var missed = MissedRecruits;
+        if (missed.Count == 0)
+            return scene;
+        foreach (var unit in missed.OrderBy(u => u, System.StringComparer.Ordinal))
+            if (scene.Speakers.Contains(unit) && db.Scenes.TryGetValue($"{id}_no_{unit}", out var variant))
+                scene = variant;
+        return scene.Without(missed);
     }
 
     /// <summary>Support conversations ready to watch in the hub: (unit a, unit b, rank, scene id).</summary>

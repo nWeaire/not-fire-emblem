@@ -47,7 +47,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **What happens:**
   - Osmund Thorne is introduced and becomes the hub advisor.
   - Rowan changes class from **Youth → Lord** (his new outfit).
-  - Hub tutorial: Osmund walks through the Party, Convoy, Smithy (locked until Brann joins), Supports and Save screens, then briefs Ch 2.
+  - Hub tutorial: Osmund walks through the Party, Town, Smithy (locked until Brann joins), Supports and Save screens, then briefs Ch 2.
 - **Recruit / unlock:** Osmund (hub NPC; he never fights); Rowan's lord outfit; the hub's **Briefing** screen.
 - **First visit tour (session 7):** Osmund shows the places, then has Rowan buy and equip an Iron Sword in place of the old farm sword (`HubScreen` tour; flag `tour_hub`).
 - **Scenes:** `hub_intro`, `hub_outfit`, `hub_osmund_aldric`, `hub_briefing_ch02`.
@@ -197,6 +197,10 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 - **Scenes:** `ch11_pre`, `ch11_start`, `ch11_ysra` ("The Empress doesn't blink anymore."), `ch11_gorge`, `ch11_north`, `ch11_orvald`,
   `ch11_post` (Vossk bought his crests from a merchant prince in Solmere: the party sails south).
 - **Autoplay at level 12 (seeds 1–4):** wins 4/4 on T11–15, losing 3–8 units; autoplay kills Ysra before talking.
+- **Session 17 (user's call):** Ysra can't be attacked while Rowan or Seraphine is on the field, so the rout used to need
+  her recruited. Now a rout is won once only spared recruits are left (`ObjectiveEvaluator.RoutFoes`); she flies off
+  unrecruited (`missed:ysra`) and the `_no_ysra` scenes tell her news another way (Orvald's satchel in
+  `ch11_post_no_ysra`, plus `hub_briefing_ch12/14`, `ch13_post`, `ch14_pre`, `ch14_ysolde_wakes`).
 
 ## Chapter 12 — "The Gilded Harbor"
 - **Map (built, session 12):** 35×22 Solmere harbour: stone quays west and south (warehouses, the auction hall),
@@ -251,7 +255,7 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 
 ## Chapter 15 — "The Grey Chancellor"
 - **Built (session 12):** 26×22 great hall (`tools/maps/act2_early.py`): pillars, the dais (north), the main doors
-  (south) and a wide west door, barred (gate) until T5. Deploy 12, Rowan and Aldric forced. Empress Ysolde and three
+  (south) and a wide west door, barred (gate) until T5. Deploy 10 (was 12; session 17, every battle now takes at most 10), Rowan and Aldric forced. Empress Ysolde and three
   summit guards fight beside the party as allies. The Hollowed (new class) come through the main doors and the dais
   alcoves every turn (groups `wave1`..`wave8`). **Morvane** (Binder L22, Boss, leash 1) is **Invulnerable** (new
   per-spawn flag: no damage, no crits, the forecast shows "—"; the AI never targets him).

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 using NotFireEmblem.Core;
@@ -39,7 +40,8 @@ public partial class StoryScreen : Control
     private async Task Run(GameSessionNode node)
     {
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        if (node.PendingSceneId is { } id && node.Content.Scenes.TryGetValue(id, out var scene))
+        if (node.PendingSceneId is { } id
+            && (node.Session?.Scene(node.Content, id) ?? node.Content.Scenes.GetValueOrDefault(id)) is { } scene)
         {
             SetBackground(id);
             await _dialogue.Play(scene, node.Content);

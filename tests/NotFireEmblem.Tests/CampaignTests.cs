@@ -3,6 +3,7 @@ using NotFireEmblem.Battle;
 using NotFireEmblem.Campaign;
 using NotFireEmblem.Combat;
 using NotFireEmblem.Core;
+using NotFireEmblem.Dialogue;
 using NotFireEmblem.Grid;
 using NotFireEmblem.Units;
 
@@ -161,6 +162,50 @@ public class CampaignTests
     }
 
     [Fact]
+    public void SupportStep_PlaysTheRanksNotYetWatched_UpToItsRank()
+    {
+        var db = Db();
+        var step = Assert.IsType<SupportStep>(CampaignParser.Parse("support lord partner A").Steps[0]);
+        Assert.Equal(new SupportStep("lord", "partner", 3), step);
+        Assert.Throws<FormatException>(() => CampaignParser.Parse("support lord partner S"));
+
+        var session = new GameSession();
+        var runner = new CampaignRunner(db, session);
+        session.Join(db, "lord");
+        Assert.Null(runner.PendingSupportScene(step)); // partner not recruited
+        session.Join(db, "partner");
+        session.MarkSupportSeen("lord", "partner", 1); // C watched in the hub
+        Assert.Equal(("lord", "partner", 2, "support_lord_partner_B"), runner.PendingSupportScene(step));
+        session.MarkSupportSeen("lord", "partner", 2);
+        Assert.Equal(3, runner.PendingSupportScene(step)!.Value.Rank);
+        session.MarkSupportSeen("lord", "partner", 3);
+        Assert.Null(runner.PendingSupportScene(step));
+    }
+
+    [Fact]
+    public void MissedRecruits_GetTheirScenesRetold()
+    {
+        var db = Db();
+        foreach (var scene in DialogueParser.Parse("""
+            ### post
+            YSRA: News.
+            LORD: Thanks.
+            ### post_no_ysra
+            LORD: I read the letter.
+            ### banter
+            YSRA: Hm.
+            LORD: Ha.
+            """))
+            db.Add(scene);
+        var session = new GameSession();
+        Assert.Equal(2, session.Scene(db, "post")!.Lines.Count);
+        session.Flags.Add(CampaignRunner.MissedFlag("ysra"));
+        Assert.Equal("I read the letter.", Assert.IsType<SpeakLine>(Assert.Single(session.Scene(db, "post")!.Lines)).Text);
+        Assert.Equal("lord", Assert.IsType<SpeakLine>(Assert.Single(session.Scene(db, "banter")!.Lines)).Speaker);
+        Assert.Null(session.Scene(db, "nothing"));
+    }
+
+    [Fact]
     public void SaveData_RoundTrips()
     {
         var db = Db();
@@ -316,6 +361,15 @@ public class CampaignTests
         Assert.Null(HubService.Forge(db, s, lord, option));
         Assert.Contains("steel_sword", lord.Inventory);
         Assert.Equal(400, s.Gold);
+    }
+
+    [Fact]
+    public void Smithy_WorksToSilverInActOne_BlackSteelInActTwo_MythrilInActThree()
+    {
+        Assert.Equal(3, HubService.MaxForgeTier(7));
+        Assert.Equal(4, HubService.MaxForgeTier(8));
+        Assert.Equal(4, HubService.MaxForgeTier(15));
+        Assert.Equal(5, HubService.MaxForgeTier(16));
     }
 
     [Fact]

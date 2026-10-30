@@ -54,3 +54,19 @@ YSRA [neutral]: Bought, the riders say. From a merchant prince in Solmere who ke
 SERAPHINE [determined]: Then we can't just knock on the citadel's door. We need to know what he bought, and break it.
 ALDRIC [cold]: ...
 ROWAN [determined]: Solmere, then. Down the coast by sea. We go now.
+
+### ch11_post_no_ysra
+# Plays instead of ch11_post when Ysra was never talked round (CampaignRunner.MissedFlag): her news comes from Orvald's satchel.
+@bg dravenhold_pass_evening
+@music aftermath
+NARRATOR: At the top of the pass, the road ran down into Dravenhold: grey towns, black forests, and far off, a citadel.
+NARRATOR: The rider who had watched from the shelf was gone. Nobody had seen her leave.
+KAI [neutral]: The captain had a satchel on him. Imperial seal. That's... probably important, right?
+SERAPHINE [worried]: Orders from the capital. Signed by the Empress, and every one countersigned. "Vossk. The Veiled Hand."
+MIRA [worried]: Who is he?
+OSMUND [cold]: Someone trusted with an empress's own seal. That is never a small man.
+SERAPHINE [worried]: And this. A bill of sale. Crests, bought by the dozen, from a merchant prince in Solmere.
+OSMUND [cold]: From Solmere. With a receipt. Signed, no doubt, on very good paper.
+SERAPHINE [determined]: Then we can't just knock on the citadel's door. We need to know what he bought, and break it.
+ALDRIC [cold]: ...
+ROWAN [determined]: Solmere, then. Down the coast by sea. We go now.

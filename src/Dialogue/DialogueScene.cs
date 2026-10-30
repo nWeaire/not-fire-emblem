@@ -43,6 +43,10 @@ public sealed record DialogueScene(string Id, IReadOnlyList<DialogueLine> Lines)
     /// The scene without the lines of speakers who aren't here (scenes written for whoever was deployed, like the crest
     /// blessings); the narrator and hidden speakers always stay.
     /// </summary>
+    /// <summary>The scene without the lines of <paramref name="absent"/> speakers (recruits the player missed).</summary>
+    public DialogueScene Without(IReadOnlySet<string> absent) =>
+        this with { Lines = Lines.Where(l => l is not SpeakLine s || !absent.Contains(s.Speaker)).ToList() };
+
     public DialogueScene OnlySpeakers(IReadOnlySet<string> present) =>
         this with { Lines = Lines.Where(l => l is not SpeakLine s || s.IsNarrator || s.Speaker == "???" || present.Contains(s.Speaker)).ToList() };
 }

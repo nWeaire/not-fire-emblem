@@ -269,6 +269,36 @@ public class MapRulesTests
     }
 
     [Fact]
+    public void Rout_IsWon_WhenOnlyASparedRecruitIsLeft()
+    {
+        // Session 17: Ch 11 couldn't end until the player talked to Ysra; now she's simply missed.
+        var (s, _) = Start(new TestBattle("....", "....").Lord(0, 0, "sword")
+            .Named("ysra", Faction.Enemy, "merc", 3, 1, "sword").WithAi(AiProfile.Stationary)
+            .Unit(Faction.Enemy, "merc", 3, 0, "sword").WithAi(AiProfile.Stationary)
+            .Triggers("talk lord ysra => join ysra"));
+        Assert.Equal(BattleOutcome.InProgress, ObjectiveEvaluator.Evaluate(s));
+        s.Defeat(s.Unit("u2"));
+        Assert.Equal(BattleOutcome.Victory, ObjectiveEvaluator.Evaluate(s));
+        Assert.Equal(s.Unit("u1"), Assert.Single(ObjectiveEvaluator.MissedRecruits(s)));
+    }
+
+    [Fact]
+    public void PlayerSideAi_PassesASparedRecruit_ForTheFoeBeyond()
+    {
+        // Session 17: autoplay chose to attack Ch 11's Ysra, the rules refused, and the whole Player Phase ended.
+        var (s, _) = Start(new TestBattle("..........").Lord(0, 0, "sword")
+            .Unit(Faction.Player, "merc", 2, 0, "sword")
+            .Named("ysra", Faction.Enemy, "merc", 3, 0, "sword").WithAi(AiProfile.Stationary)
+            .Unit(Faction.Enemy, "merc", 9, 0, "sword").WithAi(AiProfile.Boss)
+            .Triggers("talk lord ysra => join ysra"));
+        var merc = s.Unit("u1");
+        Assert.False(AiController.Picks(s, merc, s.Unit("u2")));
+        var decision = AiController.Decide(s, merc);
+        Assert.True(decision.Command.Validate(s).Ok);
+        Assert.IsNotType<AttackAction>(Assert.IsType<ActCommand>(decision.Command).Action);
+    }
+
+    [Fact]
     public void Survive_WinsWhenThePlayerPhaseAfterTheLastTurnBegins()
     {
         var (s, tm) = Start(new TestBattle("........").Lord(0, 0, "sword").Unit(Faction.Enemy, "merc", 7, 0).Victory("survive 2"));
@@ -492,7 +522,7 @@ public class MapRulesTests
             .Unit(Faction.Ally, "merc", 1, 0).With(sp => sp with { Tag = "civilian" })
             .Unit(Faction.Enemy, "merc", 2, 0, "sword").With(sp => sp with { Ignores = "civilian" }));
         var thug = s.Unit("u2");
-        Assert.False(AiController.Picks(thug, s.Unit("u1")));
+        Assert.False(AiController.Picks(s, thug,s.Unit("u1")));
         // It walks past the townsperson beside it to go for the lord.
         var act = Assert.IsType<ActCommand>(AiController.Decide(s, thug).Command);
         Assert.Equal("u0", Assert.IsType<AttackAction>(act.Action).TargetId);

@@ -33,7 +33,7 @@ public partial class ResultsScreen : Control
                 if (report.Gold > 0)
                     column.AddChild(UiKit.Label($"   {report.Gold} gold", 16));
                 foreach (var item in report.Items)
-                    column.AddChild(UiKit.Label($"   {node.Content.ItemName(item)} (to the convoy)", 16));
+                    column.AddChild(UiKit.Label($"   {node.Content.ItemName(item)} (to town)", 16));
             }
             if (report.Recruited.Count > 0)
                 column.AddChild(UiKit.Label("Joined: " + string.Join(", ", report.Recruited), 16, UiKit.Good));

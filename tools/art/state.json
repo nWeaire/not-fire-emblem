@@ -12914,6 +12914,14 @@
           "usd": 0.08
         }
       },
+      "chest_front": {
+        "status": "completed",
+        "takes": 64,
+        "usage": {
+          "generations": 10.0,
+          "type": "generations"
+        }
+      },
       "cottage": {
         "status": "completed",
         "takes": 16,

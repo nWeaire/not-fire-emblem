@@ -768,7 +768,11 @@ public partial class PlayerInputController : Node
         var move = reach.StopCells.ToHashSet();
         var attack = BattleQueries.AttackCells(S, unit, reach);
         attack.ExceptWith(move);
-        var cells = move.Select(p => (p, CellOverlay.MoveColor)).Concat(attack.Select(p => (p, CellOverlay.AttackColor))).ToList();
+        // Cells only this unit can set off (Aldric's seal plinths) show in yellow, in reach or not.
+        var goals = unit.Faction == Faction.Player ? EventDirector.EnterGoals(S, unit).ToHashSet() : new HashSet<GridPos>();
+        var cells = move.Where(p => !goals.Contains(p)).Select(p => (p, CellOverlay.MoveColor))
+            .Concat(attack.Where(p => !goals.Contains(p)).Select(p => (p, CellOverlay.AttackColor)))
+            .Concat(goals.Select(p => (p, CellOverlay.ObjectiveColor))).ToList();
         _b.RangeOverlay.ShowCells(cells);
         _b.PathOverlay.Clear();
     }

@@ -56,6 +56,16 @@ public static class EventDirector
                                        && (c.Actor == "any" ? actor.Faction == Faction.Player : c.Actor.Split('|').Contains(actor.Key))
                                        && c.Target == target.Key);
 
+    /// <summary>
+    /// Cells that set off an event when <paramref name="unit"/> itself steps on them: pending "enter KEY cells" triggers
+    /// naming it (not "player" or "any"), e.g. the vault's seal plinths for Aldric and its altar for Rowan. Shown in
+    /// yellow when the unit is selected (session 17 playtest: it wasn't obvious Aldric had to stand by the seal).
+    /// </summary>
+    public static IEnumerable<GridPos> EnterGoals(BattleState s, BattleUnit unit) =>
+        Pending(s).Select(t => t.Condition).OfType<EnterCondition>()
+            .Where(c => c.Who.Split('|').Any(k => k == unit.Key))
+            .SelectMany(c => c.Cells).Distinct();
+
     /// <summary>Units <paramref name="actor"/> could talk to from <paramref name="from"/> (adjacent, with a talk trigger).</summary>
     public static IEnumerable<BattleUnit> TalkTargets(BattleState s, BattleUnit actor, GridPos from) =>
         s.Living.Where(t => t != actor && t.Pos.DistanceTo(from) == 1 && TalkTrigger(s, actor, t) is not null);

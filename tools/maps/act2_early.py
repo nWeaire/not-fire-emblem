@@ -1014,7 +1014,10 @@ def ch15():
     g.raise_(0, 9, 0, 11, 0)
     assert_connected(g, (12, 15))
 
-    def hollowed(weapon, pos, lvl=14, group="", **kv):
+    # Session 17 playtest ("too easy with Black Steel gear: they barely hurt me and die in one hit"): the Hollowed are
+    # four levels up (18, was 14), the door holders and the top-right group carry silver, and from turn 4 the waves
+    # bring silver too.
+    def hollowed(weapon, pos, lvl=18, group="", **kv):
         return dict(ClassId="hollowed", Name="Hollowed", SpriteId="enemy_hollowed", Level=lvl, Inventory=[weapon],
                     Pos=pos, Group=group, **kv)
 
@@ -1034,22 +1037,24 @@ def ch15():
         hollowed("steel_sword", (12, 19)), hollowed("steel_lance", (13, 19)),
         hollowed("steel_axe", (3, 2)), hollowed("steel_sword", (22, 2)),
         # Session 16 (playtest: "only 6 enemies"): Hollowed hold the west door, so the way out must be cut open...
-        hollowed("steel_lance", (1, 9), Ai=STATIONARY), hollowed("steel_axe", (1, 11), Ai=STATIONARY),
-        hollowed("steel_sword", (2, 10), Ai=GUARD), hollowed("steel_lance", (3, 8), Ai=GUARD),
+        hollowed("silver_lance", (1, 9), 19, Ai=STATIONARY), hollowed("silver_axe", (1, 11), 19, Ai=STATIONARY),
+        hollowed("silver_sword", (2, 10), Ai=GUARD), hollowed("steel_lance", (3, 8), Ai=GUARD),
         hollowed("steel_axe", (3, 12), Ai=GUARD),
         # ...and more come down from the top right of the hall.
-        hollowed("steel_sword", (21, 3)), hollowed("steel_lance", (23, 5)), hollowed("steel_axe", (22, 7)),
+        hollowed("silver_sword", (21, 3)), hollowed("silver_lance", (23, 5)), hollowed("steel_axe", (22, 7)),
         hollowed("steel_lance", (19, 6)),
     ]
     # Every turn more come: through the main doors (south) and out of the alcoves by the dais (north corners).
     doors = [(12, 20), (13, 20), (2, 1), (23, 1), (1, 3), (24, 3)]
     weapons = ["steel_sword", "steel_lance", "steel_axe"]
+    silver = ["silver_sword", "silver_lance", "silver_axe"]
     for turn in range(1, 9):
         count = 2 if turn < 3 else 3 if turn < 6 else 4
         for i in range(count):
-            spawns.append(hollowed(weapons[(turn + i) % 3], doors[(turn * 2 + i) % len(doors)], 13 + turn // 3, f"wave{turn}"))
+            kind = (silver if turn >= 4 and i % 2 == 0 else weapons)[(turn + i) % 3]
+            spawns.append(hollowed(kind, doors[(turn * 2 + i) % len(doors)], 17 + turn // 3, f"wave{turn}"))
         if turn >= 4:
-            spawns.append(dict(hollowed(weapons[turn % 3], doors[(turn + 3) % len(doors)], 15, f"wave{turn}"), HardOnly=True))
+            spawns.append(dict(hollowed(silver[turn % 3], doors[(turn + 3) % len(doors)], 19, f"wave{turn}"), HardOnly=True))
     for s in spawns:
         s.setdefault("Faction", ENEMY)
         s.setdefault("Ai", AGGRESSIVE)

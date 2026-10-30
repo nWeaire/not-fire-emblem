@@ -110,6 +110,7 @@ public partial class PrepScreen : Control
             VictoryKind.DefeatBoss => "Defeat the boss",
             VictoryKind.Seize => "Seize the objective with your lord",
             VictoryKind.Survive => $"Survive {g.Turns} turns",
+            VictoryKind.Escape when g.EscapeAll => "Escape!",
             VictoryKind.Escape => "Escape through the exit",
             _ => "",
         };

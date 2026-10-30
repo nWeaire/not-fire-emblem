@@ -573,7 +573,17 @@ PROPS.update({
 PROPS.update({
     "chest": "one closed wooden treasure chest with a rounded lid, iron bands and a heavy iron lock, sitting on the ground",
 })
-PROP_SIZE = {"tuft": 32, "flowers": 32, "crop": 32, "bush": 32, "wheat": 32, "fence": 32, "hedge": 32,
+# Session 17 (user: chests should face the camera straight on): a front elevation, with its own style (PROP_STYLES).
+PROPS.update({
+    "chest_front": "one closed wooden treasure chest seen exactly from the front, flat front elevation with no "
+                   "perspective and no visible side or top, the curved lid as an arch across the top, two iron bands "
+                   "running down the front, a heavy iron lock plate in the middle, symmetrical",
+})
+PROP_STYLES = {
+    "chest_front": ("single object, Game Boy Advance Fire Emblem map sprite style, 16-bit pixel art, straight-on front "
+                    "view, bold dark outline, flat bright colours, transparent background, centered, fills the frame"),
+}
+PROP_SIZE = {"chest_front": 32, "tuft": 32, "flowers": 32, "crop": 32, "bush": 32, "wheat": 32, "fence": 32, "hedge": 32,
              "fence_straight": 32, "wagon": 32, "stall": 32, "crates": 32, "barrels": 32, "cart": 32, "rubble": 32, "chest": 32,
              "tuft_s": 16, "flowers_s": 16, "crop_s": 16, "bush_s": 24, "cottage_s": 32, "peak_s": 32, "reed_s": 16, "stilt_house_s": 32}  # others are 64
 

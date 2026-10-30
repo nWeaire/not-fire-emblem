@@ -327,7 +327,7 @@ def run_props(r: Runner, ids: list[str]) -> None:
         if done_map.get(pid, {}).get("status") == "completed":
             continue
         response = r.submit(f"prop {pid}", "/generate-image-v2", {
-            "description": f"{M.PROPS[pid]}. {M.PROP_STYLE}",
+            "description": f"{M.PROPS[pid]}. {M.PROP_STYLES.get(pid, M.PROP_STYLE)}",
             "image_size": {"width": M.PROP_SIZE.get(pid, 64), "height": M.PROP_SIZE.get(pid, 64)},
             "no_background": True, "target_palette": {"max_colors": 16},
             "style_image": {"image": {"type": "base64", "base64": b64(style)}, "size": image_size(style)},

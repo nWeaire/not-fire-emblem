@@ -90,7 +90,8 @@ public static class ObjectiveEvaluator
             VictoryKind.DefeatBoss => DescribeBoss(s, goals.BossKey!),
             VictoryKind.Seize => "Seize the marked tile with your lord",
             VictoryKind.Survive => $"Survive {System.Math.Max(0, goals.Turns - s.Turn + 1)} more turn(s)",
-            VictoryKind.Escape when goals.EscapeAll => "Escape: everyone to the exit, your lord last",
+            // Session 17 (user): just "Escape!" (the exit is marked on the map, and Rowan's Escape waits for the rest).
+            VictoryKind.Escape when goals.EscapeAll => "Escape!",
             VictoryKind.Escape => "Escape: " + string.Join(", ", EscapeNames(s)) + " to the exit",
             _ => "",
         };

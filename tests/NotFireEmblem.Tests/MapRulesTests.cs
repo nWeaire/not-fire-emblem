@@ -269,6 +269,20 @@ public class MapRulesTests
     }
 
     [Fact]
+    public void EnterGoals_AreTheCellsOnlyThatUnitSetsOff_UntilTheyFire()
+    {
+        var (s, tm) = Start(new TestBattle("......").Lord(0, 0, "sword")
+            .Named("aldric", Faction.Player, "merc", 1, 0, "sword")
+            .Unit(Faction.Enemy, "merc", 5, 0, "sword").WithAi(AiProfile.Stationary)
+            .Triggers("enter aldric 3,0 => flag seal", "enter player 4,0 => flag anyone"));
+        var aldric = s.Unit("u1");
+        Assert.Equal(new[] { new GridPos(3, 0) }, EventDirector.EnterGoals(s, aldric));
+        Assert.Empty(EventDirector.EnterGoals(s, s.Unit("u0")));
+        Assert.True(tm.Submit(new ActCommand("u1", new GridPos(3, 0), new WaitAction())).Ok);
+        Assert.Empty(EventDirector.EnterGoals(s, aldric));
+    }
+
+    [Fact]
     public void Rout_IsWon_WhenOnlyASparedRecruitIsLeft()
     {
         // Session 17: Ch 11 couldn't end until the player talked to Ysra; now she's simply missed.

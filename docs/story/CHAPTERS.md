@@ -255,7 +255,10 @@ Default loss condition on every map: **Rowan dies**. Extra loss conditions are l
 
 ## Chapter 15 — "The Grey Chancellor"
 - **Built (session 12):** 26×22 great hall (`tools/maps/act2_early.py`): pillars, the dais (north), the main doors
-  (south) and a wide west door, barred (gate) until T5. Deploy 10 (was 12; session 17, every battle now takes at most 10), Rowan and Aldric forced. Empress Ysolde and three
+  (south) and a wide west door, barred (gate) until T5. Deploy 10 (was 12; session 17, every battle now takes at most 10), Rowan and Aldric forced.
+  Session 17 hand playtest (from slot 3, Black Steel gear): too easy, so the Hollowed are level 18–19 (were 13–15),
+  the door holders and top-right group carry silver, and so does every other unit in the waves from T4. The objective
+  reads just "Escape!" (every escape-all map, Ch 12 too). Empress Ysolde and three
   summit guards fight beside the party as allies. The Hollowed (new class) come through the main doors and the dais
   alcoves every turn (groups `wave1`..`wave8`). **Morvane** (Binder L22, Boss, leash 1) is **Invulnerable** (new
   per-spawn flag: no damage, no crits, the forecast shows "—"; the AI never targets him).
@@ -389,6 +392,10 @@ Enemies follow the same tiers: Act I bandits carry iron and leather, Halvric's g
   Hollowed behind the party); Ser Caddoc, a Warden Morvane hollowed twenty years ago, guards the hall (Aldric knew him).
   Turn 5: a Gloam pack from the woods. Chests: a Talisman, 2000 gold. Victory: Rowan seizes the altar (and takes the
   blade); defeat if Aldric falls. Aldric still won't say her name or the story: "After the summit, son."
+  **Session 17 playtest** ("way too easy, I'm instantly killing most things"): every enemy about five levels up
+  (Hollowed and Gloamkin 19–20, knights 20, the Keeper and Caddoc 20), most Hollowed on silver, the Hard-only units
+  always there, five risen (was three) and a bigger turn-5 pack. Selecting Aldric (or Rowan) shows the cells only he
+  can set off in yellow: the seal plinths (and the altar) (`EventDirector.EnterGoals`).
 
 ## Mapping to current content
 - **Built so far:** `data/maps/prologue.tres` and `ch1.tres`–`ch6.tres`, with the objectives, triggers, recruitments, visits and Dominion described above, chained by `data/campaign/main.txt`. Their scenes are in `data/dialogue/`. Chapters 4–6 come from `tools/maps/act1_ch4_6.py` (its .tres output is canonical afterwards).

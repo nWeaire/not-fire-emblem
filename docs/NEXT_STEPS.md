@@ -30,6 +30,12 @@ _Last updated: 2026-10-30 (session 17)._
   `ch15_aldric_stays` / `_dies` untouched. Rowan×Aldric A said "Fetch your bow": now "sword". Autoplay with 10 units
   at level 16 (seeds 1–4): **1/4** (win T10; losses T4 ×2, Aldric falling before his scene, and T8).
 
+- **Later in session 17 (user's hand playtest from slot 3):** the vault was far too easy (enemies ~5 levels up, more
+  silver, more risen); selecting a unit marks the cells only it can set off in yellow (Aldric's seal plinths); chests
+  redrawn straight on to the camera (prop `chest_front`, takes 0/3/8/11, paid by subscription generations, the
+  ≈ $17.04 untouched; `manifest.PROP_STYLES` gives a prop its own style). Ch 15 too easy with Black Steel: Hollowed
+  level 18–19 with silver; the goal on escape-all maps is just "Escape!". Neither rebalance is hand-tested yet.
+
 ## Next (plan for session 18)
 1. **Hand playtest Ch 15 from slot 3** (`--load=3`: real prep screen, 10 units). If too hard at 10: the two door
    blockers Guard instead of Stationary, or one fewer top-right Hollowed. The Rowan×Aldric conversations play first if

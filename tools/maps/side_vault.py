@@ -74,11 +74,14 @@ def vault():
 
     assert_connected_except_seals(g)
 
-    def hollowed(weapon, pos, lvl=14, group="", **kv):
+    # Session 17 playtest ("way too easy, I'm instantly killing most things"): the vault is optional and comes at the end
+    # of Act II, with a promoted party: everything is about five levels up from Ch 15, most of the dead carry silver,
+    # the Hard-only units are always here, and more of the dead rise.
+    def hollowed(weapon, pos, lvl=19, group="", **kv):
         return dict(ClassId="hollowed", Name="Hollowed", SpriteId="enemy_hollowed", Level=lvl, Inventory=[weapon],
                     Pos=pos, Group=group, **kv)
 
-    def gloam(cls, weapon, pos, lvl=14, group="", **kv):
+    def gloam(cls, weapon, pos, lvl=19, group="", **kv):
         names = {"gloam_hound": "Gloam Hound", "gloam_stalker": "Gloam Stalker", "gloam_shade": "Gloam Shade",
                  "gloam_harrier": "Gloam Harrier"}
         return dict(ClassId=cls, Name=names[cls], Level=lvl, Inventory=[weapon], Pos=pos, Group=group, **kv)
@@ -89,28 +92,30 @@ def vault():
         gloam("gloam_hound", "gloam_fangs", (23, 14), DominatedBy="keeper"),
         gloam("gloam_harrier", "gloam_talons", (21, 12), DominatedBy="keeper"),
         # The courtyard: the keeper, his shades, and the Hollowed on watch.
-        dict(ClassId="binder", Name="Veiled Keeper", Tag="keeper", SpriteId="enemy_binder", Level=15,
+        dict(ClassId="binder", Name="Veiled Keeper", Tag="keeper", SpriteId="enemy_binder", Level=20,
              Inventory=["shadow"], Pos=(17, 11), Ai=GUARD, CrestBearer=True, Leash=3),
         gloam("gloam_shade", "gloam_bolt", (5, 12), DominatedBy="keeper", Ai=GUARD),
-        hollowed("steel_sword", (11, 13)), hollowed("steel_lance", (14, 13)),
-        hollowed("steel_axe", (8, 15), Ai=GUARD), hollowed("steel_lance", (20, 14), Ai=GUARD),
-        dict(hollowed("silver_sword", (12, 12), 15), HardOnly=True),
+        hollowed("silver_sword", (11, 13)), hollowed("silver_lance", (14, 13)),
+        hollowed("silver_axe", (8, 15), Ai=GUARD), hollowed("steel_lance", (20, 14), Ai=GUARD),
+        hollowed("silver_sword", (12, 12), 20),
         # The hall: Ser Caddoc, a Warden who didn't escape, and the hall guard.
         dict(ClassId="warden_lord", Name="Ser Caddoc, the Hollow Warden", Tag="caddoc", SpriteId="boss_caddoc",
-             Level=16, Inventory=["silver_lance", "javelin"], Pos=(12, 7), Ai=BOSS, IsBoss=True, Leash=2,
+             Level=20, Inventory=["silver_lance", "javelin"], Pos=(12, 7), Ai=BOSS, IsBoss=True, Leash=2,
              Armor="iron_plate"),
-        dict(ClassId="knight", Name="Hollowed Knight", SpriteId="enemy_hollowed", Level=15, Inventory=["steel_lance"],
+        dict(ClassId="knight", Name="Hollowed Knight", SpriteId="enemy_hollowed", Level=20, Inventory=["silver_lance"],
              Pos=(6, 8), Ai=GUARD, Armor="iron_plate"),
-        dict(ClassId="knight", Name="Hollowed Knight", SpriteId="enemy_hollowed", Level=15, Inventory=["steel_lance"],
+        dict(ClassId="knight", Name="Hollowed Knight", SpriteId="enemy_hollowed", Level=20, Inventory=["silver_lance"],
              Pos=(19, 8), Ai=GUARD, Armor="iron_plate"),
-        hollowed("steel_axe", (9, 6), 15, Ai=GUARD),
+        hollowed("silver_axe", (9, 6), 20, Ai=GUARD),
         # When the outer seal opens, the dead in the courtyard stand up behind the party.
-        hollowed("steel_sword", (6, 14), 14, "risen"), hollowed("steel_axe", (19, 13), 14, "risen"),
-        hollowed("steel_lance", (12, 15), 14, "risen"),
+        hollowed("silver_sword", (6, 14), 19, "risen"), hollowed("silver_axe", (19, 13), 19, "risen"),
+        hollowed("steel_lance", (12, 15), 19, "risen"), hollowed("steel_sword", (4, 17), 19, "risen"),
+        hollowed("steel_axe", (21, 17), 19, "risen"),
         # Enemy turn 5: a Gloam pack comes up through the woods from the south.
-        gloam("gloam_stalker", "gloam_claws", (0, 22), 15, "pack"), gloam("gloam_hound", "gloam_fangs", (1, 23), 14, "pack"),
-        gloam("gloam_stalker", "gloam_claws", (25, 22), 15, "pack"), gloam("gloam_hound", "gloam_fangs", (24, 23), 14, "pack"),
-        dict(gloam("gloam_harrier", "gloam_talons", (12, 23), 15, "pack"), HardOnly=True),
+        gloam("gloam_stalker", "gloam_claws", (0, 22), 20, "pack"), gloam("gloam_hound", "gloam_fangs", (1, 23), 19, "pack"),
+        gloam("gloam_stalker", "gloam_claws", (25, 22), 20, "pack"), gloam("gloam_hound", "gloam_fangs", (24, 23), 19, "pack"),
+        gloam("gloam_harrier", "gloam_talons", (12, 23), 20, "pack"),
+        gloam("gloam_stalker", "gloam_claws", (0, 20), 20, "pack"),
     ]
     for s in spawns:
         s.setdefault("Faction", ENEMY)
